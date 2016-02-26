@@ -1,12 +1,10 @@
-
+# sinopia-memory
 ## Installation
 
 ```sh
 $ npm install sinopia
-$ npm install sinopia-htpasswd
+$ npm install sinopia-memory
 ```
-
-PS: Actually, this module is bundled with sinopia, so you don't have to install it like this. But with other auth plugins you have to.
 
 ## Config
 
@@ -14,12 +12,7 @@ Add to your `config.yaml`:
 
 ```yaml
 auth:
-  htpasswd:
-    file: ./htpasswd
-
-    # Maximum amount of users allowed to register, defaults to "+inf".
-    # You can set this to -1 to disable registration.
-    #max_users: 1000
+  memory: true
 ```
 
 ## For plugin writers
@@ -27,7 +20,7 @@ auth:
 It's called as:
 
 ```js
-require('sinopia-htpasswd')(config, stuff)
+require('sinopia-memory')(config, stuff)
 ```
 
 Where:
@@ -57,4 +50,4 @@ This should export two functions:
    
    Groups is an array of all users/usergroups this user has access to. You should probably include username itself here.
    
-# sinopia-memory
+
