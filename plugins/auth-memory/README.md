@@ -1,4 +1,14 @@
 # sinopia-memory
+
+This sinopia auth plugin keeps the users in a memory plain object. 
+This means all sessions and users will disappear when you restart the sinopia server.
+
+This plugin is used with external authentication (in my case GitHub Oauth).
+This means that it doesn't matter if users are deleted at rebooting because once the 
+oauth callback is complete the user/token is recreated.
+
+If you want to use this piece of software, do it at your own risk.
+
 ## Installation
 
 ```sh
