@@ -1,5 +1,5 @@
 {
-  "name": "@starbreeze/sinopiamemory",
+  "name": "sinopia-memory",
   "version": "0.0.1",
   "description": "auth plugin for sinopia that keeps users in memory",
   "author": "David Gaya <david.gaya@gmail.com>",
