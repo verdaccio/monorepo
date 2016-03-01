@@ -16,11 +16,11 @@ Memory.prototype.authenticate = function (user, password, done) {
     var self = this
 
     if (!self._users[user]) {
-        return done(null, false);
+        return done(true, false);
     }
 
     if (password !== self._users[user].password) {
-        return done(null, false);
+        return done(true, false);
     }
 
     // authentication succeeded!

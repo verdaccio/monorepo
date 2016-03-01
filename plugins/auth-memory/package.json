@@ -1,6 +1,6 @@
 {
   "name": "sinopia-memory",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "auth plugin for sinopia that keeps users in memory",
   "author": "David Gaya <david.gaya@gmail.com>",
   "repository": {
@@ -8,7 +8,7 @@
     "url": "git://github.com/dgaya/sinopia-memory.git"
   },
   "devDependencies": {
-    "mocha": ">=1.17.0 <2.0.0-0"
+    "mocha": "2.4.5"
   },
   "scripts": {
     "test": "mocha ./tests"
