@@ -1,9 +1,9 @@
 'use strict';
 
-module.exports = HTPasswd;
+module.exports = Memory;
 
-function HTPasswd(config, stuff) {
-    var self = Object.create(HTPasswd.prototype);
+function Memory(config, stuff) {
+    var self = Object.create(Memory.prototype);
     self._users = {};
     self._config = config;
     self._logger = stuff.logger;
@@ -12,7 +12,7 @@ function HTPasswd(config, stuff) {
     return self
 }
 
-HTPasswd.prototype.authenticate = function (user, password, done) {
+Memory.prototype.authenticate = function (user, password, done) {
     var self = this
 
     if (!self._users[user]) {
@@ -29,7 +29,7 @@ HTPasswd.prototype.authenticate = function (user, password, done) {
 
 };
 
-HTPasswd.prototype.adduser = function (user, password, done) {
+Memory.prototype.adduser = function (user, password, done) {
     var self = this;
     self._users[user] = {name: user, password: password};
 

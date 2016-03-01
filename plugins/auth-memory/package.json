@@ -1,18 +1,11 @@
 {
-  "name": "sinopia-memory",
+  "name": "@starbreeze/sinopiamemory",
   "version": "0.0.1",
   "description": "auth plugin for sinopia that keeps users in memory",
-  "author": {
-    "name": "David Gaya",
-    "email": "david.gaya@gmail.com"
-  },
+  "author": "David Gaya <david.gaya@gmail.com>",
   "repository": {
     "type": "git",
     "url": "git://github.com/dgaya/sinopia-memory.git"
-  },
-  "optionalDependencies": {
-    "crypt3": ">=0.1.5 <1.0.0-0",
-    "fs-ext": "*"
   },
   "devDependencies": {
     "mocha": ">=1.17.0 <2.0.0-0"
@@ -29,18 +22,11 @@
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
-  "license": {
-    "type": "WTFPL",
-    "url": "http://www.wtfpl.net/txt/copying/"
-  },
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/dgaya/sinopia-memory/issues"
   },
   "homepage": "https://github.com/dgaya/sinopia-memory",
-  "dependencies": {
-    "crypt3": ">=0.1.5 <1.0.0-0"
-  },
-  "_id": "sinopia-memory@0.0.1",
   "_npmVersion": "2.0.0",
   "_nodeVersion": "4.3.0",
   "_npmUser": {
@@ -48,10 +34,8 @@
     "email": "david.gaya@gmail.com"
   },
   "maintainers": [
-    {
-      "name": "davidgaya",
-      "email": "david.gaya@gmail.com"
-    }
+    "davidgaya <david.gaya@gmail.com>"
   ],
-  "directories": {}
+  "directories": {},
+  "main": "index.js"
 }
