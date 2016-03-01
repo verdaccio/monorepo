@@ -1,6 +1,6 @@
 {
   "name": "sinopia-memory",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "auth plugin for sinopia that keeps users in memory",
   "author": "David Gaya <david.gaya@gmail.com>",
   "repository": {
