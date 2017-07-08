@@ -1,3 +1,4 @@
+import 'babel-polyfill';
 import * as _ from 'lodash';
 import locker from 'lockfile';
 import * as fs from 'fs';
