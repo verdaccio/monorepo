@@ -13,11 +13,10 @@
     "babel-plugin-istanbul": "4.1.4",
     "babel-polyfill": "6.23.0",
     "babel-preset-es2015": "6.24.1",
-    "babel-preset-es2017": "6.24.1",
     "babel-require": "1.0.1",
     "cross-env": "5.0.1",
     "eslint": "4.1.1",
-    "eslint-config-google": "^0.9.1",
+    "eslint-config-google": "0.9.1",
     "mocha": "3.4.2",
     "nyc": "11.0.3"
   },

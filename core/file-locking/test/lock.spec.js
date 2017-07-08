@@ -18,7 +18,7 @@ describe('testing locking', function() {
   it('file should fail to be found to be locked', (done) => {
     lockFile(path.join(__dirname, 'assets/package.fail.json'), (err) => {
       if (err) {
-        assert.ok(true);
+        assert.ok(_.isError(err));
         done();
       }
     });
@@ -66,7 +66,7 @@ describe('testing locking', function() {
     };
     readFile(path.join(__dirname, 'assets/package.fail.json'), options, (err) => {
       if (err) {
-        assert.ok(true);
+        assert.ok(_.isError(err));
         done();
       }
       assert.ok(false);
@@ -79,7 +79,7 @@ describe('testing locking', function() {
     };
     readFile(path.join(__dirname, 'assets/wrong.package.json'), options, (err) => {
       if (err) {
-        assert.ok(true);
+        assert.ok(_.isError(err));
         done();
       }
       assert.ok(false);
@@ -108,7 +108,7 @@ describe('testing locking', function() {
     };
     readFile(path.join(__dirname, 'assets/wrong.package.json'), options, (err) => {
       if (err) {
-        assert.ok(true);
+        assert.ok(_.isError(err));
         done();
       }
       assert.ok(false);

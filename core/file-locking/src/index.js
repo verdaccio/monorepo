@@ -59,17 +59,17 @@ const lockFile = function(name, callback) {
     });
   };
 
-  (async () =>{
-    try {
-      await statDir(name);
-      await statfile(name);
-      await lockfile(name);
-    } catch (e) {
-      callback(new Error(e));
-    }
+  Promise.resolve().then(() => {
+    return statDir(name);
+  }).then(() => {
+    return statfile(name);
+  }).then(() => {
+    return lockfile(name);
+  }).then(() => {
     callback(null);
-  })();
-
+  }).catch((err) => {
+    callback(err);
+  });
 };
 
 // unlocks file by removing existing lock file

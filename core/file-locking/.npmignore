@@ -11,3 +11,4 @@ test/
 .eslintignore
 .eslintrc.yml
 .npmignore
+.travis.yml
