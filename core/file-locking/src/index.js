@@ -59,7 +59,7 @@ const lockFile = function(name, callback) {
     });
   };
 
-  (async() =>{
+  (async () =>{
     try {
       await statDir(name);
       await statfile(name);
