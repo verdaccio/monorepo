@@ -5,8 +5,8 @@ lib/
 node_modules/
 
 # Istanbul
-coverage/
 .nyc*
+tests-report
 
 # IDE
 .vscode/*
