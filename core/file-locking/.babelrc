@@ -1,0 +1,10 @@
+{
+   "presets": ["es2015", "es2017"],
+   "env": {
+      "test": {
+         "plugins": [
+              "istanbul"
+         ]
+      }
+   }
+}

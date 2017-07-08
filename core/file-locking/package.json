@@ -1,0 +1,53 @@
+{
+  "name": "@verdaccio/file-locking",
+  "version": "0.0.1",
+  "description": "library that handle file locking",
+  "main": "lib/index.js",
+  "keywords": ["lock", "fs"],
+  "devDependencies": {
+    "babel-cli": "6.24.1",
+    "babel-core": "6.22.1",
+    "babel-plugin-istanbul": "^4.1.4",
+    "babel-polyfill": "6.23.0",
+    "babel-preset-es2015": "6.22.0",
+    "babel-preset-es2017": "6.24.1",
+    "cross-env": "^5.0.1",
+    "eslint": "4.1.1",
+    "eslint-config-google": "0.8.0",
+    "mocha": "3.4.2",
+    "nyc": "^11.0.3"
+  },
+  "author": "Juan Picado <juanpicado19@gmail.com>",
+  "private": false,
+  "license": "MIT",
+  "dependencies": {
+    "babel-polyfill": "^6.3.14",
+    "babel-require": "^1.0.1",
+    "lockfile": "1.0.1",
+    "lodash": "4.17.4"
+  },
+  "nyc": {
+    "include": [
+      "src/**/*.js"
+    ],
+    "all": true,
+    "cache": true,
+    "sourceMap": false,
+    "instrument": false,
+    "report-dir": "./tests-report",
+    "reporter": [
+      "text",
+      "html"
+    ]
+  },
+  "scripts": {
+    "test": "npm run lint && mocha --require babel-polyfill  --compilers js:babel-core/register ./test/**/*.spec.js",
+    "lint": "eslint .",
+    "build": "babel src/ --out-dir lib/ --copy-files",
+    "cover": "cross-env NODE_ENV=test nyc npm t"
+  },
+  "engines": {
+    "node": ">=4.6.1",
+    "npm": ">=2.15.9"
+  }
+}
