@@ -1,4 +1,4 @@
-import { PassThrough } from 'stream';
+import {PassThrough} from 'stream';
 
 /**
  * This stream is used to read tarballs from repository.
