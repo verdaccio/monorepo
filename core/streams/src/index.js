@@ -1,13 +1,11 @@
-'use strict';
-
-const Stream = require('stream');
+import { PassThrough } from 'stream';
 
 /**
  * This stream is used to read tarballs from repository.
  * @param {*} options
  * @return {Stream}
  */
-class ReadTarball extends Stream.PassThrough {
+class ReadTarball extends PassThrough {
 
   /**
    *
@@ -25,7 +23,7 @@ class ReadTarball extends Stream.PassThrough {
  * @param {*} options
  * @return {Stream}
  */
-class UploadTarball extends Stream.PassThrough {
+class UploadTarball extends PassThrough {
 
   /**
    *
