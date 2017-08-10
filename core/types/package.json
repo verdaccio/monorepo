@@ -1,0 +1,16 @@
+{
+  "name": "@verdaccio/types",
+  "version": "0.0.1",
+  "description": "verdaccio types definitions",
+  "main": "lib/index.js",
+  "scripts": {
+    "prepublish": "mkdir -p lib && for f in $(find src/ -iname *.js | cut -c5-) ; do cp src/$f lib/$f.flow; done",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "flow-bin": "^0.52.0"
+  }
+}
