@@ -1,0 +1,1 @@
+# flow-types for verdaccio
