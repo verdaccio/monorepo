@@ -1,5 +1,10 @@
 {
-   "presets": ["es2015", "flow"],
+   "presets": ["es2015-node4", "flow"],
+    "plugins": [
+        ["array-includes"],
+        ["transform-inline-imports-commonjs"],
+        ["transform-runtime", { "polyfill": true, "regenerator": false }]
+    ],
    "env": {
       "test": {
          "plugins": [
