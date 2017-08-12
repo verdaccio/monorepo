@@ -1,3 +1,5 @@
+/* @flow */
+
 declare module "@verdaccio/types" {
 
 	declare export type Stdout = stream$Writable | tty$WriteStream;

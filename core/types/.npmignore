@@ -12,3 +12,4 @@ test/
 .eslintrc.yml
 .npmignore
 .travis.yml
+src/

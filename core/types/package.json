@@ -1,7 +1,7 @@
 {
   "name": "@verdaccio/types",
   "version": "0.0.1",
-  "description": "verdaccio types definitions",
+  "description": "verdaccio flow types definitions",
   "main": "lib/index.js",
   "scripts": {
     "prepublish": "mkdir -p lib && for f in $(find src/ -iname *.js | cut -c5-) ; do cp src/$f lib/$f.flow; done",

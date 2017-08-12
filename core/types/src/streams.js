@@ -1,3 +1,5 @@
+/* @flow */
+
 declare module "@verdaccio/streams" {
 
 	declare export class UploadTarball extends PassThrough {

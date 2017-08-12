@@ -1,3 +1,5 @@
+/* @flow */
+
 declare module "@verdaccio/file-locking" {
 	
 	declare export function readFile(name: string, data: any, callback: Function): void;
