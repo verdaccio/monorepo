@@ -16,7 +16,7 @@ declare module "@verdaccio/types" {
 		removeTarball(name: string, filename: string, revision: string, callback: Callback): void;
 		addTarball(name: string, filename: string): void;
 		getTarball(name: string, filename: string): void;
-		getPackageMetadata(name: string, options: any, callback: Callback): void;
+		getPackageMetadata(name: string, callback: Callback): void;
 		search(startKey: string, options: any): Stream;
 	}
 
