@@ -3,12 +3,13 @@
 import fs from 'fs';
 import path from 'path';
 
+import _ from 'lodash';
 import mkdirp from 'mkdirp';
 import createError from 'http-errors';
 import type {HttpError} from 'http-errors';
 import {UploadTarball, ReadTarball} from '@verdaccio/streams';
 import {unlockFile, readFile} from '@verdaccio/file-locking';
-import type {ILocalFS, Callback} from '@verdaccio/types';
+import type {ILocalFS, Callback, Logger} from '@verdaccio/types';
 
 const fileExist: string = 'EEXISTS';
 const noSuchFile: string = 'ENOENT';
@@ -53,38 +54,36 @@ const renameTmp = function(src, dst, _cb) {
 class LocalFS implements ILocalFS {
 
   path: string;
+  logger: Logger;
 
-   constructor(path: string) {
+   constructor(path: string, logger: Logger) {
      this.path = path;
+     this.logger = logger;
    }
 
    unlink(fileName: string, callback: Callback) {
-     return fs.unlink(fileName, callback);
+     return fs.unlink(this._getStorage(fileName), callback);
    }
 
    rmdir(dirPath: string, callback: Callback): void {
-     fs.rmdir(dirPath, callback);
-   }
-
-   _getStorage(name: string) {
-     return path.join(this.path, name || '');
+     fs.rmdir(this._getStorage(dirPath), callback);
    }
 
    createJSON(name: string, value: any, cb: Function) {
-      this.createFile(this._getStorage(name), JSON.stringify(value, null, '\t'), cb);
+      this._createFile(this._getStorage(name), JSON.stringify(value, null, '\t'), cb);
    }
 
     updateJSON(name: string, value: any, cb: Function) {
-      this.updateFile(this._getStorage(name), JSON.stringify(value, null, '\t'), cb);
+      this._updateFile(this._getStorage(name), JSON.stringify(value, null, '\t'), cb);
     }
 
     writeJSON(name: string, value: any, cb: Function) {
-      this.writeFile(this._getStorage(name), JSON.stringify(value, null, '\t'), cb);
+      this._writeFile(this._getStorage(name), JSON.stringify(value, null, '\t'), cb);
     }
 
     readStorageFile(name: string): Promise<any> {
       return new Promise((resolve, reject) => {
-        fs.readFile(this._getStorage(name), (err, data) => {
+        fs.readFile(name, (err, data) => {
           if (err) {
             reject(err);
           } else {
@@ -95,7 +94,7 @@ class LocalFS implements ILocalFS {
     }
 
     lock_and_read(name: string, cb: Function) {
-      readFile(name, {lock: true}, function(err, res) {
+      readFile(this._getStorage(name), {lock: true}, function(err, res) {
         if (err) {
           return cb(err);
         }
@@ -104,7 +103,7 @@ class LocalFS implements ILocalFS {
     }
 
     lockAndReadJSON(name: string, cb: Function) {
-      readFile(name, {
+      readFile(this._getStorage(name), {
         lock: true,
         parse: true,
       }, function(err, res) {
@@ -116,36 +115,37 @@ class LocalFS implements ILocalFS {
     }
 
     unlock_file(name: string, cb: Function) {
-      unlockFile(name, cb);
+      unlockFile(this._getStorage(name), cb);
     }
 
-    createFile(name: string, contents: any, callback: Function) {
+    _createFile(name: string, contents: any, callback: Function) {
       fs.exists(name, (exists) => {
         if (exists) {
           return callback( fSError(fileExist) );
         }
-        this.writeFile(name, contents, callback);
+        this._writeFile(name, contents, callback);
       });
     }
 
-    updateFile(name: string, contents: any, callback: Function) {
+    _updateFile(name: string, contents: any, callback: Function) {
+      this.logger.debug('_updateFile:pathName', name);
       fs.exists(name, (exists) => {
         if (!exists) {
           return callback( fSError(noSuchFile) );
         }
-        this.writeFile(name, contents, callback);
+        this._writeFile(name, contents, callback);
       });
     }
 
     readJSON(name: string, cb: Function) {
-      this.readStorageFile(name).then(function(res) {
-        let args = [];
+      this.readStorageFile(this._getStorage(name)).then(function(res) {
         try {
-          args = [null, JSON.parse(res.toString('utf8'))];
+          const data: any = JSON.parse(res.toString('utf8'));
+
+          cb(null, data);
         } catch (err) {
-          args = [err];
+          cb(err);
         }
-        cb(...args);
       }, function(err) {
         return cb(err);
       });
@@ -153,12 +153,15 @@ class LocalFS implements ILocalFS {
 
     createWriteStream(name: string): UploadTarball {
       const uploadStream = new UploadTarball();
+
       let _ended = 0;
       uploadStream.on('end', function() {
         _ended = 1;
       });
 
-      fs.exists(name, function(exists) {
+      const pathName: string = this._getStorage(name);
+
+      fs.exists(pathName, function(exists) {
         if (exists) {
           return uploadStream.emit('error', fSError(fileExist));
         }
@@ -171,7 +174,7 @@ class LocalFS implements ILocalFS {
         uploadStream.done = function() {
           const onend = function() {
             file.on('close', function() {
-              renameTmp(temporalName, name, function(err) {
+              renameTmp(temporalName, pathName, function(err) {
                 if (err) {
                   uploadStream.emit('error', err);
                 } else {
@@ -209,13 +212,17 @@ class LocalFS implements ILocalFS {
     }
 
     createReadStream(name: string, readTarballStream: any, callback: Function = () => {}) {
-      let readStream = fs.createReadStream(name);
+      const pathName: string = this._getStorage(name);
+
+      let readStream = fs.createReadStream(pathName);
       readStream.on('error', function(err) {
         readTarballStream.emit('error', err);
       });
       readStream.on('open', function(fd) {
         fs.fstat(fd, function(err, stats) {
-          if (err) return readTarballStream.emit('error', err);
+          if (_.isNil(err) === false) {
+            return readTarballStream.emit('error', err);
+          }
           readTarballStream.emit('content-length', stats.size);
           readTarballStream.emit('open');
           readStream.pipe(readTarballStream);
@@ -229,10 +236,16 @@ class LocalFS implements ILocalFS {
       return readTarballStream;
     }
 
+    _getStorage(name: string = '') {
+      const storagePath: string = path.join(this.path, name);
 
-    writeFile(dest: string, data: any, cb: Function) {
-      const createTempFile = function(cb) {
+      return storagePath;
+   }
+
+    _writeFile(dest: string, data: any, cb: Function) {
+      const createTempFile = (cb) => {
         const tempFilePath = tempFile(dest);
+
         fs.writeFile(tempFilePath, data, function(err) {
           if (err) {
             return cb(err);
@@ -241,7 +254,7 @@ class LocalFS implements ILocalFS {
         });
       };
 
-      createTempFile(function(err) {
+      createTempFile((err) => {
         if (err && err.code === noSuchFile) {
           mkdirp(path.dirname(dest), function(err) {
             if (err) {

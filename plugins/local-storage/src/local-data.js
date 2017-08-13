@@ -3,7 +3,7 @@
 import fs from 'fs';
 import Path from 'path';
 import mkdirp from 'mkdirp';
-import type {ILocalData, LocalStorage} from '@verdaccio/types'; 
+import type {ILocalData, LocalStorage, Logger} from '@verdaccio/types';
 
 /**
  * Handle local database.
@@ -12,14 +12,16 @@ import type {ILocalData, LocalStorage} from '@verdaccio/types';
  class LocalData implements ILocalData {
 
   path: string;
+  logger: Logger;
   data: LocalStorage;
 
   /**
    * Load an parse the local json database.
    * @param {*} path the database path
    */
-   constructor(path: string) {
+   constructor(path: string, logger: Logger) {
     this.path = path;
+    this.logger = logger;
     try {
       this.data = JSON.parse(fs.readFileSync(this.path, 'utf8'));
     } catch (_) {

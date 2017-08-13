@@ -59,7 +59,7 @@ class Storage implements IStorage {
   constructor(config: Config, logger: Logger, utils: Utils) {
     this.config = config;
     this.utils = utils;
-    this.localList = new LocalData(this._buildStoragePath(this.config));
+    this.localList = new LocalData(this._buildStoragePath(this.config), logger);
     this.logger = logger.child({sub: 'fs'});
   }
 
@@ -91,7 +91,7 @@ class Storage implements IStorage {
     if (!storage) {
       return callback( this.utils.ErrorCode.get404('this package cannot be added'));
     }
- 
+
     storage.createJSON(pkgFileName, generatePackageTemplate(name), (err) => {
       if (err && err.code === fileExist) {
         return callback( this.utils.ErrorCode.get409());
@@ -473,7 +473,7 @@ class Storage implements IStorage {
         uploadStream.emit('error', this.utils.ErrorCode.get409());
       } else if (err.code === noSuchFile) {
         // check if package exists to throw an appropriate message
-        this.getPackageMetadata(name, {}, function(_err, res) {
+        this.getPackageMetadata(name, function(_err, res) {
           if (_err) {
             uploadStream.emit('error', _err);
           } else {
@@ -601,7 +601,7 @@ class Storage implements IStorage {
    * @param {*} callback
    * @return {Function}
    */
-  getPackageMetadata(name: string, options: any = {}, callback: Callback): void {
+  getPackageMetadata(name: string, callback?: Callback = () => {}): void {
 
     const storage = this._getLocalStorage(name);
     if (_.isNil(storage)) {
@@ -646,7 +646,7 @@ class Storage implements IStorage {
           }
 
           if (stats.mtimeMs > parseInt(startKey, 10)) {
-            this.getPackageMetadata(item.name, options, (err: Error, data: Package) => {
+            this.getPackageMetadata(item.name, (err: Error, data: Package) => {
               if (err) {
                 return cb(err);
               }
@@ -708,7 +708,7 @@ class Storage implements IStorage {
           Path.resolve(Path.dirname(this.config.self_path || ''), path),
           packageInfo);
 
-      return new LocalFS(storagePath);
+      return new LocalFS(storagePath, this.logger);
     }
 
   /**
