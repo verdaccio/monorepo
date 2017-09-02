@@ -12,5 +12,8 @@
   "license": "ISC",
   "devDependencies": {
     "flow-bin": "^0.52.0"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
   }
 }
