@@ -656,7 +656,7 @@ class Storage implements IStorage {
             return cb(err);
           }
 
-          if (stats.mtimeMs > parseInt(startKey, 10)) {
+          if (stats.mtime.getTime() > parseInt(startKey, 10)) {
             this.getPackageMetadata(item.name, (err: Error, data: Package) => {
               if (err) {
                 return cb(err);
