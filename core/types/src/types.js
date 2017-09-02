@@ -3,8 +3,8 @@
 declare module "@verdaccio/types" {
 
 	declare export type Stdout = stream$Writable | tty$WriteStream;
-	declare export type Stdin = stream$Rxxeadable | tty$ReadStream;
-
+	declare export type Stdin = stream$Readable | tty$ReadStream;
+	declare export type SyncReturn = Error | void;
 
 	declare export interface IStorage {
 		addPackage(name: string, info: Package, callback: Callback): void;
@@ -33,10 +33,10 @@ declare module "@verdaccio/types" {
 		}
 
 	declare export interface ILocalData {
-		add(name: string): void;
-		remove(name: string): void;
+		add(name: string): SyncReturn;
+		remove(name: string): SyncReturn;
 		get(): StorageList;
-		sync(): void;
+		sync(): ?SyncReturn;
 	}
 
 	declare export interface ILocalStorage {
@@ -113,14 +113,14 @@ declare module "@verdaccio/types" {
 		homemage: string;
 		license: string;
 		readme: string;
-    readmeFileName: string;
-    description: string;
-    bin: string;
+		readmeFileName: string;
+		description: string;
+		bin: string;
 		bugs: any;
-    repository: string;
-    homepage: string;
+		repository: string;
+		homepage: string;
 		dist: Dist;
-    contributors: Array<string>;
+		contributors: Array<string>;
 		keywords: string | Array<string>;
 		_npmUser: Author;
 		_hasShrinkwrap: boolean;
@@ -128,11 +128,11 @@ declare module "@verdaccio/types" {
 
 	declare export type Logger = {
 		child: (conf: any) => any;
-		debug: (conf: any, template?: string) => void;
-		error: (conf: any, template?: string) => void;
-		http: (conf: any, template?: string) => void;
-		trace: (conf: any, template?: string) => void;
-    info: (conf: any, template?: string) => void;
+		debug: (conf: any, template?: mixed) => void;
+		error: (conf: any, template?: mixed) => void;
+		http: (conf: any, template?: mixed) => void;
+		trace: (conf: any, template?: mixed) => void;
+		info: (conf: any, template?: mixed) => void;
 	}
 
 	declare export type Versions = {
