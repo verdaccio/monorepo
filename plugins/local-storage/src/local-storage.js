@@ -9,6 +9,7 @@ import Path from 'path';
 import Stream from 'stream';
 import UrlNode from 'url';
 import _ from 'lodash';
+// $FlowFixMe
 import async from 'async';
 
 import LocalFS from './local-fs';
@@ -130,6 +131,12 @@ class Storage implements IStorage {
       }
       this._normalizePackage(data);
 
+      let removeFailed = this.localList.remove(name);
+      if (removeFailed) {
+         // This will happen when database is locked
+         return callback(this.utils.ErrorCode.get422(removeFailed.message));
+      }
+
       storage.unlink(pkgFileName, function(err) {
         if (err) {
           return callback(err);
@@ -156,7 +163,6 @@ class Storage implements IStorage {
         });
       });
     });
-    this.localList.remove(name);
   }
 
   /**
@@ -193,7 +199,7 @@ class Storage implements IStorage {
                 url: version.dist.tarball,
                 sha: version.dist.shasum,
               };
-
+              // $FlowFixMe
               const upLink: string = version[Symbol.for('__verdaccio_uplink')];
 
               if (_.isNil(upLink) === false) {
@@ -313,7 +319,12 @@ class Storage implements IStorage {
 
       data.versions[version] = metadata;
       this.utils.tag_version(data, version, tag);
-      this.localList.add(name);
+
+      let addFailed = this.localList.add(name);
+      if (addFailed) {
+        return cb(this.utils.ErrorCode.get422(addFailed.message));
+      }
+
       cb();
     }, callback);
   }
