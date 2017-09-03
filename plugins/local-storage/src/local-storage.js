@@ -58,26 +58,11 @@ class Storage implements IStorage {
 
 
   constructor(config: Config, logger: Logger, utils: Utils) {
+    this.localList = new LocalData(config, logger);
+    this.logger = logger.child({sub: 'fs'});
     this.config = config;
     this.utils = utils;
-    this.localList = new LocalData(this._buildStoragePath(this.config), logger);
-    this.logger = logger.child({sub: 'fs'});
   }
-
-  /**
-   * Build the local database path.
-   * @param {Object} config
-   * @return {string|String|*}
-   * @private
-   */
-  _buildStoragePath(config: Config) {
-    // FUTURE: the database might be parameterizable from config.yaml
-    return Path.join(Path.resolve(Path.dirname(config.self_path || ''),
-      config.storage,
-      '.sinopia-db.json'
-    ));
-  }
-
 
   /**
    * Add a package.
@@ -619,7 +604,88 @@ class Storage implements IStorage {
       return callback( this.utils.ErrorCode.get404() );
     }
 
-    this.readJSON(storage, callback);
+    this._readJSON(storage, callback);
+  }
+
+  /**
+   * Search a local package.
+   * @param {*} startKey
+   * @param {*} options
+   * @return {Function}
+   */
+  search(startKey: string, options: any) {
+    const stream = new Stream.PassThrough({objectMode: true});
+
+    this._eachPackage((item, cb) => {
+      fs.stat(item.path, (err, stats) => {
+        if (err) {
+          return cb(err);
+        }
+
+        if (stats.mtime.getTime() > parseInt(startKey, 10)) {
+          this.getPackageMetadata(item.name, (err: Error, data: Package) => {
+            if (err) {
+              return cb(err);
+            }
+            const listVersions: Array<string> = Object.keys(data.versions);
+            const versions: Array<string> = this.utils.semver_sort(listVersions);
+            const latest: string = data['dist-tags'] && data['dist-tags'].latest ? data['dist-tags'].latest : versions.pop();
+
+            if (data.versions[latest]) {
+              const version: Version = data.versions[latest];
+              const pkg: any = {
+                'name': version.name,
+                'description': version.description,
+                'dist-tags': {latest: latest},
+                'maintainers': version.maintainers || [version.author].filter(Boolean),
+                'author': version.author,
+                'repository': version.repository,
+                'readmeFilename': version.readmeFilename || '',
+                'homepage': version.homepage,
+                'keywords': version.keywords,
+                'bugs': version.bugs,
+                'license': version.license,
+                'time': {
+                  modified: item.time ? new Date(item.time).toISOString() : undefined,
+                },
+                'versions': {},
+                };
+
+              stream.push(pkg);
+            }
+
+            cb();
+          });
+        } else {
+          cb();
+        }
+      });
+    }, function on_end(err) {
+      if (err) return stream.emit('error', err);
+      stream.end();
+    });
+
+    return stream;
+  }
+
+  /**
+   * Retrieve a wrapper that provide access to the package location.
+   * @param {Object} packageInfo package name.
+   * @return {Object}
+   */
+    _getLocalStorage(packageInfo: string): any {
+    const path = this.__getLocalStoragePath(this.config.getMatchedPackagesSpec(packageInfo).storage);
+
+    if (_.isNil(path) || path === false) {
+      this.logger.debug( {name: packageInfo}, 'this package has no storage defined: @{name}' );
+      return null;
+    }
+
+    const storagePath: string = Path.join(
+        Path.resolve(Path.dirname(this.config.self_path || ''), path),
+        packageInfo);
+
+    return new LocalFS(storagePath, this.logger);
   }
 
   /**
@@ -627,7 +693,7 @@ class Storage implements IStorage {
    * @param {Object} storage
    * @param {Function} callback
    */
-  readJSON(storage: ILocalFS, callback: Callback) {
+  _readJSON(storage: ILocalFS, callback: Callback) {
     storage.readJSON(pkgFileName, (err, result) => {
       if (err) {
         if (err.code === noSuchFile) {
@@ -639,88 +705,7 @@ class Storage implements IStorage {
       this._normalizePackage(result);
       callback(err, result);
     });
-  }
-
-    /**
-     * Search a local package.
-     * @param {*} startKey
-     * @param {*} options
-     * @return {Function}
-     */
-    search(startKey: string, options: any) {
-      const stream = new Stream.PassThrough({objectMode: true});
-
-      this._eachPackage((item, cb) => {
-        fs.stat(item.path, (err, stats) => {
-          if (err) {
-            return cb(err);
-          }
-
-          if (stats.mtime.getTime() > parseInt(startKey, 10)) {
-            this.getPackageMetadata(item.name, (err: Error, data: Package) => {
-              if (err) {
-                return cb(err);
-              }
-              const listVersions: Array<string> = Object.keys(data.versions);
-              const versions: Array<string> = this.utils.semver_sort(listVersions);
-              const latest: string = data['dist-tags'] && data['dist-tags'].latest ? data['dist-tags'].latest : versions.pop();
-
-              if (data.versions[latest]) {
-                const version: Version = data.versions[latest];
-                const sss: any = {
-                  'name': version.name,
-                  'description': version.description,
-                  'dist-tags': {latest: latest},
-                  'maintainers': version.maintainers || [version.author].filter(Boolean),
-                  'author': version.author,
-                  'repository': version.repository,
-                  'readmeFilename': version.readmeFilename || '',
-                  'homepage': version.homepage,
-                  'keywords': version.keywords,
-                  'bugs': version.bugs,
-                  'license': version.license,
-                  'time': {
-                    modified: item.time ? new Date(item.time).toISOString() : undefined,
-                  },
-                  'versions': {},
-                 };
-
-                stream.push(sss);
-              }
-
-              cb();
-            });
-          } else {
-            cb();
-          }
-        });
-      }, function on_end(err) {
-        if (err) return stream.emit('error', err);
-        stream.end();
-      });
-
-      return stream;
-    }
-
-    /**
-     * Retrieve a wrapper that provide access to the package location.
-     * @param {Object} packageInfo package name.
-     * @return {Object}
-     */
-     _getLocalStorage(packageInfo: string): any {
-      const path = this.__getLocalStoragePath(this.config.getMatchedPackagesSpec(packageInfo).storage);
-
-      if (_.isNil(path) || path === false) {
-        this.logger.debug( {name: packageInfo}, 'this package has no storage defined: @{name}' );
-        return null;
-      }
-
-      const storagePath: string = Path.join(
-          Path.resolve(Path.dirname(this.config.self_path || ''), path),
-          packageInfo);
-
-      return new LocalFS(storagePath, this.logger);
-    }
+  }  
 
   /**
    * Verify the right local storage location.

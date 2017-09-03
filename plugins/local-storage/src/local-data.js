@@ -3,7 +3,7 @@
 import fs from 'fs';
 import Path from 'path';
 import mkdirp from 'mkdirp';
-import type {ILocalData, LocalStorage, Logger} from '@verdaccio/types';
+import type {ILocalData, LocalStorage, Logger, Config} from '@verdaccio/types';
 
 /**
  * Handle local database.
@@ -14,20 +14,36 @@ import type {ILocalData, LocalStorage, Logger} from '@verdaccio/types';
   path: string;
   logger: Logger;
   data: LocalStorage;
+  config: Config;
   locked: boolean;
 
   /**
    * Load an parse the local json database.
    * @param {*} path the database path
    */
-   constructor(path: string, logger: Logger) {
-    this.path = path;
+   constructor(config: Config, logger: Logger) {
+    this.config = config;
+    this.path = this._buildStoragePath(config);
     this.logger = logger;
     this.locked = false;
     this.data = this._fetchLocalPackages();
   }
 
-   /**
+  /**
+   * Build the local database path.
+   * @param {Object} config
+   * @return {string|String|*}
+   * @private
+   */
+  _buildStoragePath(config: Config) {
+    // FUTURE: the database might be parameterizable from config.yaml
+    return Path.join(Path.resolve(Path.dirname(config.self_path || ''),
+      config.storage,
+      '.sinopia-db.json'
+    ));
+  }
+
+  /**
    * Fetch local packages.
    * @private
    * @return {Object}
