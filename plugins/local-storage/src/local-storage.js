@@ -99,8 +99,6 @@ class Storage implements IStorage {
    * @return {Function}
    */
   removePackage(name: string, callback: Callback) {
-    this.logger.info( {name: name}, 'unpublishing @{name} (all)');
-
     let storage: ILocalFS = this._getLocalStorage(name);
     if (!storage) {
       return callback( this.utils.ErrorCode.get404());
@@ -117,32 +115,33 @@ class Storage implements IStorage {
       this._normalizePackage(data);
 
       let removeFailed = this.localList.remove(name);
+
       if (removeFailed) {
          // This will happen when database is locked
          return callback(this.utils.ErrorCode.get422(removeFailed.message));
       }
 
-      storage.unlink(pkgFileName, function(err) {
+      storage.deleteJSON(pkgFileName, function(err) {
         if (err) {
           return callback(err);
         }
-
-        const files = Object.keys(data._attachments);
+        const attachments = Object.keys(data._attachments);
 
         const unlinkNext = function(cb) {
-          if (files.length === 0) {
+          if (attachments.length === 0) {
             return cb();
           }
 
-          let file = files.shift();
-          storage.unlink(file, function() {
+          const attachment = attachments.shift();
+          storage.deleteJSON(attachment, function() {
             unlinkNext(cb);
           });
+
         };
 
         unlinkNext(function() {
           // try to unlink the directory, but ignore errors because it can fail
-          storage.rmdir('.', function(err) {
+          storage.removePackage('.', function(err) {
             callback(err);
           });
         });
@@ -419,7 +418,7 @@ class Storage implements IStorage {
       const storage = this._getLocalStorage(name);
 
       if (storage) {
-        storage.unlink(filename, callback);
+        storage.deleteJSON(filename, callback);
       }
     });
   }
@@ -810,6 +809,7 @@ class Storage implements IStorage {
         this._normalizePackage(data);
         return callback(null, data);
       }
+
       storage.readJSON(pkgFileName, (err, data) => {
         // TODO: race condition
         if (err) {

@@ -61,11 +61,11 @@ class LocalFS implements ILocalFS {
      this.logger = logger;
    }
 
-   unlink(fileName: string, callback: Callback) {
+   deleteJSON(fileName: string, callback: Callback) {
      return fs.unlink(this._getStorage(fileName), callback);
    }
 
-   rmdir(dirPath: string, callback: Callback): void {
+   removePackage(dirPath: string, callback: Callback): void {
      fs.rmdir(this._getStorage(dirPath), callback);
    }
 
