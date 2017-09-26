@@ -8,8 +8,9 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Juan Picado <juanpicado19@gmail.com>",
+  "private": false,
+  "license": "MIT",
   "devDependencies": {
     "flow-bin": "^0.52.0"
   },
