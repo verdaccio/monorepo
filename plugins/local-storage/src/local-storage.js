@@ -635,7 +635,7 @@ class Storage implements IStorage {
               const pkg: any = {
                 'name': version.name,
                 'description': version.description,
-                'dist-tags': {latest: latest},
+                'dist-tags': {latest},
                 'maintainers': version.maintainers || [version.author].filter(Boolean),
                 'author': version.author,
                 'repository': version.repository,
@@ -645,9 +645,9 @@ class Storage implements IStorage {
                 'bugs': version.bugs,
                 'license': version.license,
                 'time': {
-                  modified: item.time ? new Date(item.time).toISOString() : undefined,
+                  modified: item.time ? new Date(item.time).toISOString() : stats.mtime,
                 },
-                'versions': {},
+                'versions': {[latest]: 'latest'},
                 };
 
               stream.push(pkg);
@@ -660,7 +660,9 @@ class Storage implements IStorage {
         }
       });
     }, function on_end(err) {
-      if (err) return stream.emit('error', err);
+      if (err) {
+        return stream.emit('error', err);
+      }
       stream.end();
     });
 
