@@ -1,11 +1,11 @@
-import 'babel-polyfill';
 import * as _ from 'lodash';
 import locker from 'lockfile';
 import * as fs from 'fs';
 import path from 'path';
+import type {Callback} from '@verdaccio/types';
 
 // locks a file by creating a lock file
-const lockFile = function(name, callback) {
+const lockFile = function(name: string, callback: Callback) {
 
   const statDir = (name) => {
     return new Promise((resolve, reject) => {
@@ -73,7 +73,7 @@ const lockFile = function(name, callback) {
 };
 
 // unlocks file by removing existing lock file
-const unlockFile= function(name, next) {
+const unlockFile= function(name: string, next: Callback) {
   const lockFileName = `${name}.lock`;
   locker.unlock(lockFileName, function() {
     return next(null);
@@ -89,7 +89,7 @@ const unlockFile= function(name, next) {
  * @param {*} options
  * @param {*} callback
  */
-function readFile(name, options, callback) {
+function readFile(name: string, options, callback: Callback) {
   if (_.isFunction(options) && _.isNil(callback)) {
     callback = options;
     options = {};

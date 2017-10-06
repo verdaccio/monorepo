@@ -9,7 +9,15 @@
 # Created to work with eslint@0.18.0
 #
 
-extends: ["eslint:recommended", "google"]
+extends: ["eslint:recommended", "google", "plugin:flowtype/recommended"]
+
+plugins: ["flowtype"]
+
+settings:
+    flowtype:
+      onlyFilesWithFlowAnnotation: false
+
+parser: "babel-eslint"
 
 env:
   node: true
