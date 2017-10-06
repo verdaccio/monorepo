@@ -1,5 +1,11 @@
 {
-   "presets": ["es2015-node4", "flow"],
+  "presets": [
+    ["env", {
+        "targets": {
+          "node": "4.6"
+        }
+      }], "flow"
+    ],
     "plugins": [
         ["array-includes"],
         ["transform-inline-imports-commonjs"],
