@@ -20,17 +20,33 @@ declare module "@verdaccio/types" {
 		search(startKey: string, options: any): Stream;
 	}
 
-		declare export interface ILocalFS {
-			createWriteStream(name: string): Stream;
-			createReadStream(readTarballStream: any, callback?: Function): Stream;
-			readJSON(fileName: string, callback: Callback): void;
-			createJSON(name: string, value: any, cb: Function): void;
-			unlink(fileName: string, callback: Callback): void;
-			unlock_file(fileName: string, callback: Callback): void;
-			rmdir(path: string, callback: Callback): void;
-			lockAndReadJSON(fileName: string, callback: Callback): void;
-			writeJSON(fileName: string, json: Package, callback: Callback): void;
-		}
+	declare export interface IPlugableStorage {
+		addPackage(name: string): SyncReturn;
+		removePackage(name: string): SyncReturn;
+		getPackage(): StorageList;
+		syncPackages(): ?SyncReturn;
+		createWriteStream(name: string): Stream;
+		createReadStream(readTarballStream: any, callback?: Function): Stream;
+		readJSON(fileName: string, callback: Callback): void;
+		createJSON(name: string, value: any, cb: Function): void;
+		unlink(fileName: string, callback: Callback): void;
+		unlockFile(fileName: string, callback: Callback): void;
+		rmdir(path: string, callback: Callback): void;
+		lockAndReadJSON(fileName: string, callback: Callback): void;
+		writeJSON(fileName: string, json: Package, callback: Callback): void;
+	}
+
+	declare export interface ILocalFS {
+		createWriteStream(name: string): Stream;
+		createReadStream(readTarballStream: any, callback?: Function): Stream;
+		readJSON(fileName: string, callback: Callback): void;
+		createJSON(name: string, value: any, cb: Function): void;
+		deleteJSON(fileName: string, callback: Callback): void;
+		unlock_file(fileName: string, callback: Callback): void;
+    removePackage(path: string, callback: Callback): void;
+		lockAndReadJSON(fileName: string, callback: Callback): void;
+		writeJSON(fileName: string, json: Package, callback: Callback): void;
+	}
 
 	declare export interface ILocalData {
 		add(name: string): SyncReturn;
