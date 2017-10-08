@@ -12,7 +12,7 @@ lib/.*
 [include]
 
 [libs]
-/Users/jpicado/projects/@verdaccio/types/src/
+node_modules/@verdaccio/types/lib/
 
 [lints]
 

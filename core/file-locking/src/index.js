@@ -1,8 +1,11 @@
+/* @flow */
+
 import * as _ from 'lodash';
-import locker from 'lockfile';
+import * as locker from 'lockfile';
 import * as fs from 'fs';
 import path from 'path';
 import type {Callback} from '@verdaccio/types';
+import type {LockOptions} from '@verdaccio/file-locking';
 
 // locks a file by creating a lock file
 const lockFile = function(name: string, callback: Callback) {
@@ -89,7 +92,7 @@ const unlockFile= function(name: string, next: Callback) {
  * @param {*} options
  * @param {*} callback
  */
-function readFile(name: string, options, callback: Callback) {
+function readFile(name: string, options: LockOptions, callback: any) {
   if (_.isFunction(options) && _.isNil(callback)) {
     callback = options;
     options = {};

@@ -32,11 +32,13 @@ parserOptions:
     modules: true
 
 rules:
+  strict: 0
   # useful to have in node.js,
   # if you're sure you don't need to handle error, rename it to "_err"
   handle-callback-err: 2
 
   padded-blocks: 0
+  switch-colon-spacing: 0
 
   # just to make sure we don't forget to remove them when releasing
   no-debugger: 2
