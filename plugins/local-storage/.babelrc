@@ -1,21 +1,14 @@
 {
-  "presets": [
-    ["env", {
-        "targets": {
-          "node": "4.6"
-        }
-      }], "flow"
-    ],
-    "plugins": [
-        ["array-includes"],
-        ["transform-inline-imports-commonjs"],
-        ["transform-runtime", { "polyfill": true, "regenerator": false }]
-    ],
-   "env": {
-      "test": {
-         "plugins": [
-              "istanbul"
-         ]
-      }
-   }
+  "presets": [["env", {
+    "targets": {
+      "node": "4.6"
+    }
+  }], "flow"],
+  "env": {
+    "test": {
+      "plugins": [
+        "istanbul"
+      ]
+    }
+  }
 }
