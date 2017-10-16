@@ -53,12 +53,12 @@ class Storage implements IStorage {
 
   config: Config;
   utils: Utils;
-  localList: ILocalData;
+  localData: ILocalData;
   logger: Logger;
 
 
   constructor(config: Config, logger: Logger, utils: Utils) {
-    this.localList = new LocalData(config, logger);
+    this.localData = new LocalData(config, logger);
     this.logger = logger.child({sub: 'fs'});
     this.config = config;
     this.utils = utils;
@@ -114,7 +114,7 @@ class Storage implements IStorage {
       }
       this._normalizePackage(data);
 
-      let removeFailed = this.localList.remove(name);
+      let removeFailed = this.localData.remove(name);
 
       if (removeFailed) {
          // This will happen when database is locked
@@ -304,7 +304,7 @@ class Storage implements IStorage {
       data.versions[version] = metadata;
       this.utils.tag_version(data, version, tag);
 
-      let addFailed = this.localList.add(name);
+      let addFailed = this.localData.add(name);
       if (addFailed) {
         return cb(this.utils.ErrorCode.get422(addFailed.message));
       }
