@@ -30,6 +30,63 @@ import type {ILocalData, LocalStorage, Logger, Config} from '@verdaccio/types';
   }
 
   /**
+   * Add a new element.
+   * @param {*} name
+   * @return {Error|*} 
+   */
+  add(name: string) {
+    if (this.data.list.indexOf(name) === -1) {
+      this.data.list.push(name);
+      return this.sync();
+    }
+  }
+
+  /**
+   * Remove an element from the database.
+   * @param {*} name
+   * @return {Error|*}
+   */
+  remove(name: string) {
+    const i = this.data.list.indexOf(name);
+    if (i !== -1) {
+      this.data.list.splice(i, 1);
+    }
+    return this.sync();
+  }
+
+  /**
+   * Return all database elements.
+   * @return {Array}
+   */
+  get() {
+    return this.data.list;
+  }
+
+  /**
+   * Syncronize {create} database whether does not exist.
+   * @return {Error|*} 
+   */
+  sync() {
+    if (this.locked) {
+      this.logger.error('Database is locked, please check error message printed during startup to prevent data loss.');
+      return new Error('Verdaccio database is locked, please contact your administrator to checkout logs during verdaccio startup.');
+    }
+    // Uses sync to prevent ugly race condition
+    try {
+      mkdirp.sync(Path.dirname(this.path));
+    } catch (err) {
+      // perhaps a logger instance?
+      /* eslint no-empty:off */
+    }
+
+    try {
+      fs.writeFileSync(this.path, JSON.stringify(this.data));
+    } catch (err) {
+      return err;
+    }
+  }
+
+  /**
    * Build the local database path.
    * @param {Object} config
    * @return {string|String|*}
@@ -91,63 +148,6 @@ import type {ILocalData, LocalStorage, Logger, Config} from '@verdaccio/types';
     } catch (err) {
       this.logger.error(`Package database file corrupted (invalid JSON), please check the error printed below.\nFile Path: ${this.path}`, err);
       this.locked = true;
-    }
-  }
-
-  /**
-   * Add a new element.
-   * @param {*} name
-   * @return {Error|*} 
-   */
-  add(name: string) {
-    if (this.data.list.indexOf(name) === -1) {
-      this.data.list.push(name);
-      return this.sync();
-    }
-  }
-
-  /**
-   * Remove an element from the database.
-   * @param {*} name
-   * @return {Error|*}
-   */
-  remove(name: string) {
-    const i = this.data.list.indexOf(name);
-    if (i !== -1) {
-      this.data.list.splice(i, 1);
-    }
-    return this.sync();
-  }
-
-  /**
-   * Return all database elements.
-   * @return {Array}
-   */
-  get() {
-    return this.data.list;
-  }
-
-  /**
-   * Syncronize {create} database whether does not exist.
-   * @return {Error|*} 
-   */
-  sync() {
-    if (this.locked) {
-      this.logger.error('Database is locked, please check error message printed during startup to prevent data loss.');
-      return new Error('Verdaccio database is locked, please contact your administrator to checkout logs during verdaccio startup.');
-    }
-    // Uses sync to prevent ugly race condition
-    try {
-      mkdirp.sync(Path.dirname(this.path));
-    } catch (err) {
-      // perhaps a logger instance?
-      /* eslint no-empty:off */
-    }
-
-    try {
-      fs.writeFileSync(this.path, JSON.stringify(this.data));
-    } catch (err) {
-      return err;
     }
   }
 

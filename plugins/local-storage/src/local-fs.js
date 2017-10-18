@@ -24,7 +24,7 @@ const tempFile = function(str) {
 };
 
 const renameTmp = function(src, dst, _cb) {
-   const cb = function(err) {
+   const cb = (err) => {
     if (err) {
       fs.unlink(src, function() {});
     }
@@ -46,11 +46,6 @@ const renameTmp = function(src, dst, _cb) {
   });
 };
 
-// fs
-// module.exports.unlink = fs.unlink;
-// module.exports.rmdir = fs.rmdir;
-
-
 class LocalFS implements ILocalFS {
 
   path: string;
@@ -70,27 +65,11 @@ class LocalFS implements ILocalFS {
    }
 
    createJSON(name: string, value: any, cb: Function) {
-      this._createFile(this._getStorage(name), JSON.stringify(value, null, '\t'), cb);
+      this._createFile(this._getStorage(name), this._convertToString(value), cb);
    }
 
-    updateJSON(name: string, value: any, cb: Function) {
-      this._updateFile(this._getStorage(name), JSON.stringify(value, null, '\t'), cb);
-    }
-
     writeJSON(name: string, value: any, cb: Function) {
-      this._writeFile(this._getStorage(name), JSON.stringify(value, null, '\t'), cb);
-    }
-
-    readStorageFile(name: string): Promise<any> {
-      return new Promise((resolve, reject) => {
-        fs.readFile(name, (err, data) => {
-          if (err) {
-            reject(err);
-          } else {
-            resolve(data);
-          }
-        });
-      });
+      this._writeFile(this._getStorage(name), this._convertToString(value), cb);
     }
 
     lock_and_read(name: string, cb: Function) {
@@ -118,27 +97,8 @@ class LocalFS implements ILocalFS {
       unlockFile(this._getStorage(name), cb);
     }
 
-    _createFile(name: string, contents: any, callback: Function) {
-      fs.exists(name, (exists) => {
-        if (exists) {
-          return callback( fSError(fileExist) );
-        }
-        this._writeFile(name, contents, callback);
-      });
-    }
-
-    _updateFile(name: string, contents: any, callback: Function) {
-      this.logger.debug('_updateFile:pathName', name);
-      fs.exists(name, (exists) => {
-        if (!exists) {
-          return callback( fSError(noSuchFile) );
-        }
-        this._writeFile(name, contents, callback);
-      });
-    }
-
     readJSON(name: string, cb: Function) {
-      this.readStorageFile(this._getStorage(name)).then(function(res) {
+      this._readStorageFile(this._getStorage(name)).then(function(res) {
         try {
           const data: any = JSON.parse(res.toString('utf8'));
 
@@ -214,10 +174,12 @@ class LocalFS implements ILocalFS {
     createReadStream(name: string, readTarballStream: any, callback: Function = () => {}) {
       const pathName: string = this._getStorage(name);
 
-      let readStream = fs.createReadStream(pathName);
+      const readStream = fs.createReadStream(pathName);
+
       readStream.on('error', function(err) {
         readTarballStream.emit('error', err);
       });
+
       readStream.on('open', function(fd) {
         fs.fstat(fd, function(err, stats) {
           if (_.isNil(err) === false) {
@@ -230,23 +192,50 @@ class LocalFS implements ILocalFS {
       });
 
       readTarballStream = new ReadTarball();
+
       readTarballStream.abort = function() {
         readStream.close();
       };
+
       return readTarballStream;
     }
 
+    _createFile(name: string, contents: any, callback: Function) {
+      fs.exists(name, (exists) => {
+        if (exists) {
+          return callback( fSError(fileExist) );
+        }
+        this._writeFile(name, contents, callback);
+      });
+    }
+
+  _readStorageFile(name: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      fs.readFile(name, (err, data) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(data);
+        }
+      });
+    });
+  }
+
+    _convertToString(value: string): string {
+      return JSON.stringify(value, null, '\t');
+    }
+
     _getStorage(name: string = '') {
-      const storagePath: string = path.join(this.path, name);
+        const storagePath: string = path.join(this.path, name);
 
-      return storagePath;
-   }
+        return storagePath;
+     }
 
-    _writeFile(dest: string, data: any, cb: Function) {
+    _writeFile(dest: string, data: string, cb: Function) {
       const createTempFile = (cb) => {
         const tempFilePath = tempFile(dest);
 
-        fs.writeFile(tempFilePath, data, function(err) {
+        fs.writeFile(tempFilePath, data, (err) => {
           if (err) {
             return cb(err);
           }
