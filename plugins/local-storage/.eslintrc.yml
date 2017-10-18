@@ -9,9 +9,9 @@
 # Created to work with eslint@0.18.0
 #
 
-extends: ["eslint:recommended", "google", "plugin:flowtype/recommended"]
+extends: ["eslint:recommended", "google", "plugin:flowtype/recommended", "plugin:jest/recommended"]
 
-plugins: ["flowtype"]
+plugins: ["flowtype", "jest"]
 
 settings:
     flowtype:
@@ -24,6 +24,7 @@ env:
   browser: true
   es6: true
   mocha: true
+  jest/globals: true
 
 parserOptions:
   sourceType: "module"
