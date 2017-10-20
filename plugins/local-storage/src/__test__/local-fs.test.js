@@ -1,17 +1,14 @@
 // @flow
 
-import LocalFS from '../local-fs';
 import path from 'path';
-// import fs from 'fs';
 import mkdirp from 'mkdirp';
 import rm from 'rmdir-sync';
 import type {ILocalFS, Logger} from '@verdaccio/types';
+import LocalFS from '../local-fs';
 
 let localFs: ILocalFS;
 let localTempStorage: string;
-// const readFile = function(filePath) {
-//   return fs.readFileSync(path.join(__dirname, `/${filePath}`));
-// };
+const pkgFileName: string = 'package.json';
 
 const logger: Logger = {
   error: (e)=> console.warn(e),
@@ -47,6 +44,13 @@ describe('Local FS test', ()=> {
 
   test('createJSON()', (done) => {
     localFs.createJSON(path.join(localTempStorage, 'package5'), '{data:6}', (err)=> {
+      expect(err).toBeNull();
+      done();
+    });
+  });
+
+  test('deleteJSON()', (done) => {
+    localFs.deleteJSON(path.join(localTempStorage, 'package5'), (err)=> {
       expect(err).toBeNull();
       done();
     });
@@ -96,6 +100,39 @@ describe('Local FS test', ()=> {
         expect(data).toBeDefined();
       });
 
+    });
+
+    test('createReadStream() fails', (done) => {
+      const localFs: ILocalFS = new LocalFS(path.join(__dirname, 'fixtures/readme-test'), logger);
+      const readTarballStream = localFs.createReadStream('file-does-not-exist-0.0.0.tgz');
+
+      readTarballStream.on('error', function(err) {
+        expect(err).toBeDefined();
+        done();
+      });
+
+    });
+
+  });
+
+  describe('lockAndReadJSON() group1', ()=> {
+
+    test('lockAndReadJSON() success', (done) => {
+      const localFs: ILocalFS = new LocalFS(path.join(__dirname, 'fixtures/readme-test'), logger);
+
+      localFs.lockAndReadJSON(pkgFileName, (err, res) => {
+        expect(err).toBeNull();
+        done();
+      });
+    });
+
+    test('lockAndReadJSON() fails', (done) => {
+      const localFs: ILocalFS = new LocalFS(path.join(__dirname, 'fixtures/readme-testt'), logger);
+
+      localFs.lockAndReadJSON(pkgFileName, (err, res) => {
+        expect(err).toBeDefined();
+        done();
+      });
     });
 
   });

@@ -706,7 +706,7 @@ class Storage implements IStorage {
       this._normalizePackage(result);
       callback(err, result);
     });
-  }  
+  }
 
   /**
    * Verify the right local storage location.
