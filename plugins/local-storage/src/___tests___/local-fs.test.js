@@ -29,15 +29,40 @@ beforeAll(() => {
 describe('Local FS test', ()=> {
 
   describe('writeJSON() group', ()=> {
-    beforeEach(() => {
-
-    });
-
     test('writeJSON()', (done) => {
       const data: any = '{data:5}';
 
       localFs.writeJSON(path.join(localTempStorage, 'package4'), data, (err)=> {
         expect(err).toBeNull();
+        done();
+      });
+    });
+  });
+
+  describe('readJSON() group', ()=> {
+    test('readJSON() success', (done) => {
+      const localFs: ILocalFS = new LocalFS(path.join(__dirname, 'fixtures/readme-test'), logger);
+
+      localFs.readJSON(pkgFileName, (err, data)=> {
+        expect(err).toBeNull();
+        done();
+      });
+    });
+
+    test('readJSON() fails', (done) => {
+      const localFs: ILocalFS = new LocalFS(path.join(__dirname, 'fixtures/readme-testt'), logger);
+
+      localFs.readJSON(pkgFileName, (err)=> {
+        expect(err).toBeTruthy();
+        done();
+      });
+    });
+
+    test('readJSON() fails corrupt', (done) => {
+      const localFs: ILocalFS = new LocalFS(path.join(__dirname, 'fixtures/readme-test-corrupt'), logger);
+
+      localFs.readJSON('corrupt.js', (err)=> {
+        expect(err).toBeTruthy();
         done();
       });
     });
@@ -52,6 +77,13 @@ describe('Local FS test', ()=> {
 
   test('deleteJSON()', (done) => {
     localFs.deleteJSON(path.join(localTempStorage, 'package5'), (err)=> {
+      expect(err).toBeNull();
+      done();
+    });
+  });
+
+  test('unlock_file()', (done) => {
+    localFs.unlock_file(path.join('package4'), (err)=> {
       expect(err).toBeNull();
       done();
     });
@@ -72,7 +104,7 @@ describe('Local FS test', ()=> {
 
     test('removePackage() fails', (done) => {
       localFs.removePackage(path.join(localTempStorage, '_toDelete_fake'), (err) => {
-        expect(err).toBeDefined();
+        expect(err).toBeTruthy();
         expect(err.code).toBe('ENOENT');
         done();
       });
@@ -108,7 +140,7 @@ describe('Local FS test', ()=> {
       const readTarballStream = localFs.createReadStream('file-does-not-exist-0.0.0.tgz');
 
       readTarballStream.on('error', function(err) {
-        expect(err).toBeDefined();
+        expect(err).toBeTruthy();
         done();
       });
 
@@ -119,9 +151,11 @@ describe('Local FS test', ()=> {
   describe('createWriteStream() group', ()=> {
 
     beforeEach(() => {
-      mkdirp(path.join(localTempStorage, '_createWriteStream'));
+      const createWriteStreamFolder: string = path.join(localTempStorage, '_createWriteStream');
+      rm(createWriteStreamFolder);
+      mkdirp(createWriteStreamFolder);
     });
-    
+
     test('createWriteStream() success', (done) => {
       const newFileLocationFolder: string = path.join(localTempStorage, '_createWriteStream');
       const newFileName: string = 'new-readme-0.0.0.tgz';
@@ -162,6 +196,28 @@ describe('Local FS test', ()=> {
 
     });
 
+    test('createWriteStream() abort', (done) => {
+      const newFileLocationFolder: string = path.join(localTempStorage, '_createWriteStream');
+      const newFileName: string = 'new-readme-abort-0.0.0.tgz';
+      const readmeStorage: ILocalFS = new LocalFS(path.join(__dirname, 'fixtures/readme-test'), logger);
+      const writeStorage: ILocalFS = new LocalFS(newFileLocationFolder, logger);
+      const readTarballStream = readmeStorage.createReadStream('test-readme-0.0.0.tgz');
+      const writeTarballStream = writeStorage.createWriteStream(newFileName);
+
+      writeTarballStream.on('error', function(err) {
+        expect(err).toBeTruthy();
+        done();
+      });
+
+      writeTarballStream.on('data', function(data) {
+        expect(data).toBeDefined();
+        writeTarballStream.abort();
+      });
+
+      readTarballStream.pipe(writeTarballStream);
+
+    });
+
   });
 
   describe('lockAndReadJSON() group', ()=> {
@@ -179,7 +235,7 @@ describe('Local FS test', ()=> {
       const localFs: ILocalFS = new LocalFS(path.join(__dirname, 'fixtures/readme-testt'), logger);
 
       localFs.lockAndReadJSON(pkgFileName, (err, res) => {
-        expect(err).toBeDefined();
+        expect(err).toBeTruthy();
         done();
       });
     });

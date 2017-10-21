@@ -16,4 +16,4 @@ tests-report
 *.log
 *.tar
 *.gz
-
+*.tmp-*

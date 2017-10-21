@@ -55,23 +55,12 @@
       "html"
     ]
   },
-  "jest": {
-    "collectCoverage": true,
-    "coverageFormats": [
-      "json",
-      "html"
-    ],
-    "coveragePathIgnorePatterns": [
-      "node_modules",
-      "_storage",
-      "fixtures"
-    ]
-  },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
   "keywords": [
-    "verdaccio", "local-storage"
+    "verdaccio",
+    "local-storage"
   ],
   "author": "Juan Picado <juanpicado19@gmail.com>",
   "private": false,
