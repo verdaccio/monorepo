@@ -2,6 +2,7 @@
 
 import path from 'path';
 import mkdirp from 'mkdirp';
+import fs from 'fs';
 import rm from 'rmdir-sync';
 import type {ILocalFS, Logger} from '@verdaccio/types';
 import LocalFS from '../local-fs';
@@ -115,7 +116,55 @@ describe('Local FS test', ()=> {
 
   });
 
-  describe('lockAndReadJSON() group1', ()=> {
+  describe('createWriteStream() group', ()=> {
+
+    beforeEach(() => {
+      mkdirp(path.join(localTempStorage, '_createWriteStream'));
+    });
+    
+    test('createWriteStream() success', (done) => {
+      const newFileLocationFolder: string = path.join(localTempStorage, '_createWriteStream');
+      const newFileName: string = 'new-readme-0.0.0.tgz';
+      const readmeStorage: ILocalFS = new LocalFS(path.join(__dirname, 'fixtures/readme-test'), logger);
+      const writeStorage: ILocalFS = new LocalFS(newFileLocationFolder, logger);
+      const readTarballStream = readmeStorage.createReadStream('test-readme-0.0.0.tgz');
+      const writeTarballStream = writeStorage.createWriteStream(newFileName);
+
+      writeTarballStream.on('error', function(err) {
+        expect(err).toBeNull();
+        done();
+      });
+
+      writeTarballStream.on('success', function() {
+        const fileLocation: string = path.join(newFileLocationFolder, newFileName);
+        expect(fs.existsSync(fileLocation)).toBe(true);
+        done();
+      });
+
+      readTarballStream.on('end', function() {
+        writeTarballStream.done();
+      });
+
+      writeTarballStream.on('end', function() {
+        done();
+      });
+
+      writeTarballStream.on('data', function(data) {
+        expect(data).toBeDefined();
+      });
+
+      readTarballStream.on('error', function(err) {
+        expect(err).toBeNull();
+        done();
+      });
+
+      readTarballStream.pipe(writeTarballStream);
+
+    });
+
+  });
+
+  describe('lockAndReadJSON() group', ()=> {
 
     test('lockAndReadJSON() success', (done) => {
       const localFs: ILocalFS = new LocalFS(path.join(__dirname, 'fixtures/readme-test'), logger);

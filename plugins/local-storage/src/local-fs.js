@@ -75,9 +75,7 @@ class LocalFS implements ILocalFS {
     lockAndReadJSON(name: string, cb: Function) {
      const fileName: string = this._getStorage(name);
 
-     console.log('fileNamde', fileName);
-
-      readFile(fileName, {
+     readFile(fileName, {
         lock: true,
         parse: true,
       }, function(err, res) {
