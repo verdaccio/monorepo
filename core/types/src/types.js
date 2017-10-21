@@ -52,6 +52,7 @@ declare module "@verdaccio/types" {
 		add(name: string): SyncReturn;
 		remove(name: string): SyncReturn;
 		get(): StorageList;
+		getPackageStorage(packageInfo: string, packagePath: string): ILocalFS;
 		sync(): ?SyncReturn;
 	}
 
@@ -87,6 +88,7 @@ declare module "@verdaccio/types" {
 		packages: PackageList;
 		uplinks: UpLinksConfList;
 		self_path: string;
+		checkSecretKey: (token: string) => string;
 		getMatchedPackagesSpec: (storage: string) => PackageAccess;
 	}
 
@@ -96,6 +98,7 @@ declare module "@verdaccio/types" {
 
 	declare export type LocalStorage = {
 		list: StorageList;
+		secret: string;
 	}
 
 	declare export type Utils = {
