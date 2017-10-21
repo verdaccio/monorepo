@@ -7,7 +7,7 @@
     "test": "npm run flow && npm run lint && jest",
     "lint": "eslint .",
     "flow": "flow",
-    "build": "babel src/ --out-dir lib/ --copy-files",
+    "build": "babel src/ --out-dir lib/ --copy-files --ignore ___tests___",
     "cover": "cross-env NODE_ENV=test nyc npm t"
   },
   "dependencies": {
@@ -19,7 +19,7 @@
     "mkdirp": "0.5.1"
   },
   "devDependencies": {
-    "@verdaccio/types": "^0.0.5",
+    "@verdaccio/types": "^0.0.6",
     "babel-cli": "6.24.1",
     "babel-core": "6.25.0",
     "babel-eslint": "^7.2.3",

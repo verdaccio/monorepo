@@ -12,8 +12,7 @@ import _ from 'lodash';
 // $FlowFixMe
 import async from 'async';
 
-import LocalFS from './local-fs';
-import LocalData from './local-data';
+import LocalDatabase from './local-data';
 import {UploadTarball, ReadTarball} from '@verdaccio/streams';
 import type {
   IStorage,
@@ -33,7 +32,7 @@ const fileExist = 'EEXISTS';
 const noSuchFile = 'ENOENT';
 const resourceNotAvailable = 'EAGAIN';
 
-const generatePackageTemplate = function(name): Package {
+const generatePackageTemplate = function(name: string): Package {
   return {
     // standard things
     'name': name,
@@ -46,6 +45,8 @@ const generatePackageTemplate = function(name): Package {
   };
 };
 
+const DEFAULT_REVISION: string = `0-0000000000000000`;
+
 /**
  * Implements Storage interface (same for storage.js, local-storage.js, up-storage.js).
  */
@@ -56,25 +57,17 @@ class Storage implements IStorage {
   localData: ILocalData;
   logger: Logger;
 
-
   constructor(config: Config, logger: Logger, utils: Utils) {
-    this.localData = new LocalData(config, logger);
+    this.localData = new LocalDatabase(config, logger);
     this.logger = logger.child({sub: 'fs'});
     this.config = config;
     this.utils = utils;
   }
 
-  /**
-   * Add a package.
-   * @param {*} name
-   * @param {*} info
-   * @param {*} callback
-   * @return {Function}
-   */
   addPackage(name: string, info: Package, callback: Callback) {
     const storage: ILocalFS = this._getLocalStorage(name);
 
-    if (!storage) {
+    if (_.isNil(storage)) {
       return callback( this.utils.ErrorCode.get404('this package cannot be added'));
     }
 
@@ -100,12 +93,12 @@ class Storage implements IStorage {
    */
   removePackage(name: string, callback: Callback) {
     let storage: ILocalFS = this._getLocalStorage(name);
-    if (!storage) {
+    if (_.isNil(storage)) {
       return callback( this.utils.ErrorCode.get404());
     }
 
     storage.readJSON(pkgFileName, (err, data) => {
-      if (err) {
+      if (_.isNil(err) === false) {
         if (err.code === noSuchFile) {
           return callback( this.utils.ErrorCode.get404());
         } else {
@@ -128,7 +121,7 @@ class Storage implements IStorage {
         const attachments = Object.keys(data._attachments);
 
         const unlinkNext = function(cb) {
-          if (attachments.length === 0) {
+          if (_.isEmpty(attachments)) {
             return cb();
           }
 
@@ -322,11 +315,11 @@ class Storage implements IStorage {
   mergeTags(name: string, tags: MergeTags, callback: Callback) {
     this._updatePackage(name, (data, cb) => {
       for (let t: string in tags) {
-        if (tags[t] === null) {
+        if (_.isNull(tags[t])) {
           delete data['dist-tags'][t];
           continue;
         }
-        // be careful here with == (cast)
+
         if (_.isNil(data.versions[tags[t]])) {
           return cb( this._getVersionNotFound() );
         }
@@ -617,7 +610,7 @@ class Storage implements IStorage {
 
     this._eachPackage((item, cb) => {
       fs.stat(item.path, (err, stats) => {
-        if (err) {
+        if (_.isNil(err) === false) {
           return cb(err);
         }
 
@@ -659,7 +652,7 @@ class Storage implements IStorage {
           cb();
         }
       });
-    }, function on_end(err) {
+    }, function onEnd(err) {
       if (err) {
         return stream.emit('error', err);
       }
@@ -682,11 +675,7 @@ class Storage implements IStorage {
       return null;
     }
 
-    const storagePath: string = Path.join(
-        Path.resolve(Path.dirname(this.config.self_path || ''), path),
-        packageInfo);
-
-    return new LocalFS(storagePath, this.logger);
+    return this.localData.getPackageStorage(packageInfo, path);
   }
 
   /**
@@ -792,10 +781,12 @@ class Storage implements IStorage {
       });
 
       if (_.isString(pkg._rev) === false) {
-        pkg._rev = '0-0000000000000000';
+        pkg._rev = DEFAULT_REVISION;
       }
       // normalize dist-tags
       this.utils.normalize_dist_tags(pkg);
+
+
     }
 
     /**
@@ -909,16 +900,22 @@ class Storage implements IStorage {
     _writePackage(name: string, json: Package, callback: Callback) {
       // calculate revision a la couchdb
       if (typeof(json._rev) !== 'string') {
-        json._rev = '0-0000000000000000';
+        json._rev = DEFAULT_REVISION;
       }
-      const rev = json._rev.split('-');
-      json._rev = ((+rev[0] || 0) + 1) + '-' + Crypto.pseudoRandomBytes(8).toString('hex');
+
+      json._rev = this._generateRevision(json._rev);
 
       let storage: ILocalFS = this._getLocalStorage(name);
-      if (!storage) {
+      if (_.isNil(storage)) {
         return callback();
       }
       storage.writeJSON(pkgFileName, json, callback);
+    }
+
+    _generateRevision(rev: string): string {
+      const _rev = rev.split('-');
+
+      return ((+_rev[0] || 0) + 1) + '-' + Crypto.pseudoRandomBytes(8).toString('hex');
     }
 }
 

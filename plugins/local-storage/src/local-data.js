@@ -1,15 +1,17 @@
 // @flow
 
 import fs from 'fs';
+import _ from 'lodash';
 import Path from 'path';
+import LocalFS from './local-fs';
 import mkdirp from 'mkdirp';
-import type {ILocalData, LocalStorage, Logger, Config} from '@verdaccio/types';
+import type {ILocalData, ILocalFS, StorageList, LocalStorage, Logger, Config} from '@verdaccio/types';
 
 /**
  * Handle local database.
  * FUTURE: must be a plugin.
  */
- class LocalData implements ILocalData {
+ class LocalDatabase implements ILocalData {
 
   path: string;
   logger: Logger;
@@ -27,12 +29,14 @@ import type {ILocalData, LocalStorage, Logger, Config} from '@verdaccio/types';
     this.logger = logger;
     this.locked = false;
     this.data = this._fetchLocalPackages();
+    this.data.secret = this.config.checkSecretKey(this.data.secret);
+    this.sync();
   }
 
   /**
    * Add a new element.
    * @param {*} name
-   * @return {Error|*} 
+   * @return {Error|*}
    */
   add(name: string) {
     if (this.data.list.indexOf(name) === -1) {
@@ -64,7 +68,7 @@ import type {ILocalData, LocalStorage, Logger, Config} from '@verdaccio/types';
 
   /**
    * Syncronize {create} database whether does not exist.
-   * @return {Error|*} 
+   * @return {Error|*}
    */
   sync() {
     if (this.locked) {
@@ -86,6 +90,14 @@ import type {ILocalData, LocalStorage, Logger, Config} from '@verdaccio/types';
     }
   }
 
+  getPackageStorage(packageInfo: string, packagePath: string): ILocalFS {
+    const packageStoragePath: string = Path.join(
+      Path.resolve(Path.dirname(this.config.self_path || ''), packagePath),
+      packageInfo);
+
+    return new LocalFS(packageStoragePath, this.logger);
+  }
+
   /**
    * Build the local database path.
    * @param {Object} config
@@ -105,13 +117,14 @@ import type {ILocalData, LocalStorage, Logger, Config} from '@verdaccio/types';
    * @private
    * @return {Object}
    */
-  _fetchLocalPackages() {
-    const emptyDatabase = {list: []};
+  _fetchLocalPackages(): LocalStorage {
+    const database: StorageList = [];
+    const emptyDatabase = {list: database, secret: ''};
 
     try {
       const dbFile = fs.readFileSync(this.path, 'utf8');
 
-      if (!dbFile) { // readFileSync is platform specific, FreeBSD might return null
+      if (_.isNil(dbFile)) { // readFileSync is platform specific, FreeBSD might return null
         return emptyDatabase;
       }
 
@@ -153,4 +166,4 @@ import type {ILocalData, LocalStorage, Logger, Config} from '@verdaccio/types';
 
 }
 
-export default LocalData;
+export default LocalDatabase;
