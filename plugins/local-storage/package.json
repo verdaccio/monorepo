@@ -11,7 +11,7 @@
     "cover": "cross-env NODE_ENV=test nyc npm t"
   },
   "dependencies": {
-    "@verdaccio/file-locking": "^0.0.3",
+    "@verdaccio/file-locking": "^0.0.5",
     "@verdaccio/streams": "^0.0.2",
     "async": "2.5.0",
     "http-errors": "1.4.0",
@@ -27,7 +27,6 @@
     "babel-plugin-flow-runtime": "0.11.1",
     "babel-plugin-istanbul": "4.1.4",
     "babel-plugin-transform-async-to-generator": "^6.24.1",
-    "babel-polyfill": "^6.26.0",
     "babel-preset-env": "1.6.0",
     "babel-preset-flow": "6.23.0",
     "cross-env": "5.0.5",
