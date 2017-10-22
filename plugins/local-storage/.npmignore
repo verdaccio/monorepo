@@ -15,3 +15,7 @@ test/
 .eslintrc.yml
 .npmignore
 .travis.yml
+*.tmp-*
+_storage/
+circle.yml
+travis.yml
