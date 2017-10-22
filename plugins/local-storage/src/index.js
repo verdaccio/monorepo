@@ -1,7 +1,7 @@
 // @flow
 
-import LocalStorage from './local-storage';
+import LocalDatabase from './local-data';
 
-export {LocalStorage};
+export {LocalDatabase};
 
-export default LocalStorage;
+export default LocalDatabase;

@@ -60,8 +60,8 @@ class LocalFS implements ILocalFS {
      return fs.unlink(this._getStorage(fileName), callback);
    }
 
-   removePackage(dirPath: string, callback: Callback): void {
-     fs.rmdir(this._getStorage(dirPath), callback);
+   removePackage(callback: Callback): void {
+     fs.rmdir(this._getStorage('.'), callback);
    }
 
    createJSON(name: string, value: any, cb: Function) {
@@ -86,7 +86,7 @@ class LocalFS implements ILocalFS {
       });
     }
 
-    unlock_file(name: string, cb: Function) {
+    unlockJSON(name: string, cb: Function) {
       unlockFile(this._getStorage(name), cb);
     }
 
