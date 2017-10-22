@@ -82,8 +82,8 @@ describe('Local FS test', ()=> {
     });
   });
 
-  test('unlock_file()', (done) => {
-    localFs.unlock_file(path.join('package4'), (err)=> {
+  test('unlockJSON()', (done) => {
+    localFs.unlockJSON(path.join('package4'), (err)=> {
       expect(err).toBeNull();
       done();
     });
@@ -96,16 +96,18 @@ describe('Local FS test', ()=> {
     });
 
     test('removePackage() success', (done) => {
-      localFs.removePackage(path.join(localTempStorage, '_toDelete'), (err)=> {
-        expect(err).toBeNull();
+      const localFs: ILocalFS = new LocalFS(path.join(localTempStorage, '_toDelete'), logger);
+      localFs.removePackage((error)=> {
+        expect(error).toBeNull();
         done();
       });
     });
 
     test('removePackage() fails', (done) => {
-      localFs.removePackage(path.join(localTempStorage, '_toDelete_fake'), (err) => {
-        expect(err).toBeTruthy();
-        expect(err.code).toBe('ENOENT');
+      const localFs: ILocalFS = new LocalFS(path.join(localTempStorage, '_toDelete_fake'), logger);
+      localFs.removePackage((error) => {
+        expect(error).toBeTruthy();
+        expect(error.code).toBe('ENOENT');
         done();
       });
     });

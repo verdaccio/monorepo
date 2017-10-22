@@ -19,7 +19,7 @@
     "mkdirp": "0.5.1"
   },
   "devDependencies": {
-    "@verdaccio/types": "^0.0.6",
+    "@verdaccio/types": "^0.0.7",
     "babel-cli": "6.24.1",
     "babel-core": "6.25.0",
     "babel-eslint": "^7.2.3",
