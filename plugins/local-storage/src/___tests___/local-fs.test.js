@@ -5,7 +5,7 @@ import mkdirp from 'mkdirp';
 import fs from 'fs';
 import rm from 'rmdir-sync';
 import type {ILocalFS, Logger} from '@verdaccio/types';
-import LocalFS from '../local-fs';
+import LocalFS, {fileExist} from '../local-fs';
 
 let localFs: ILocalFS;
 let localTempStorage: string;
@@ -71,6 +71,14 @@ describe('Local FS test', ()=> {
   test('createJSON()', (done) => {
     localFs.createJSON(path.join(localTempStorage, 'package5'), '{data:6}', (err)=> {
       expect(err).toBeNull();
+      done();
+    });
+  });
+
+  test('createJSON() fails by fileExist', (done) => {
+    localFs.createJSON(path.join(localTempStorage, 'package5'), '{data:6}', (err)=> {
+      expect(err).not.toBeNull();
+      expect(err.code).toBe(fileExist);
       done();
     });
   });

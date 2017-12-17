@@ -11,11 +11,13 @@ import {UploadTarball, ReadTarball} from '@verdaccio/streams';
 import {unlockFile, readFile} from '@verdaccio/file-locking';
 import type {ILocalFS, Callback, Logger} from '@verdaccio/types';
 
-const fileExist: string = 'EEXISTS';
-const noSuchFile: string = 'ENOENT';
+export const fileExist: string = 'EEXISTS';
+export const noSuchFile: string = 'ENOENT';
 
 const fSError = function(message: string): HttpError {
   const err: HttpError = createError(409, message);
+  err.code = message;
+
   return err;
 };
 

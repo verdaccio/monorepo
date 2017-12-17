@@ -19,3 +19,7 @@ test/
 _storage/
 circle.yml
 travis.yml
+*.md
+coverage/
+jest.config.js
+jestEnvironment.js

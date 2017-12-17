@@ -51,10 +51,11 @@ import type {ILocalData, ILocalFS, StorageList, LocalStorage, Logger, Config} fr
    * @return {Error|*}
    */
   remove(name: string) {
-    const i = this.data.list.indexOf(name);
-    if (i !== -1) {
-      this.data.list.splice(i, 1);
+    const pkgName = this.get().indexOf(name);
+    if (pkgName !== -1) {
+      this.data.list.splice(pkgName, 1);
     }
+
     return this.sync();
   }
 

@@ -14,7 +14,7 @@
     "@verdaccio/file-locking": "^0.0.5",
     "@verdaccio/streams": "^0.0.2",
     "async": "2.5.0",
-    "http-errors": "1.4.0",
+    "http-errors": "1.6.2",
     "lodash": "4.17.4",
     "mkdirp": "0.5.1"
   },
