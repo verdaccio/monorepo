@@ -16,6 +16,7 @@ export const noSuchFile: string = 'ENOENT';
 
 const fSError = function(message: string): HttpError {
   const err: HttpError = createError(409, message);
+  // $FlowFixMe
   err.code = message;
 
   return err;
