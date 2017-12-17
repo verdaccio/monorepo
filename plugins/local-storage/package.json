@@ -8,6 +8,7 @@
     "lint": "eslint .",
     "flow": "flow",
     "build": "babel src/ --out-dir lib/ --copy-files --ignore ___tests___",
+    "prepublish": "npm run build",
     "cover": "cross-env NODE_ENV=test nyc npm t"
   },
   "dependencies": {
