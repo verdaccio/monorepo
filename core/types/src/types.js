@@ -191,8 +191,8 @@ declare module "@verdaccio/types" {
 		mergeTags(name: string, tags: Tags, callback: Callback): void;
 		changePackage(name: string, metadata: Package, revision: string, callback: Callback): void;
 		removeTarball(name: string, filename: string, revision: string, callback: Callback): void;
-		addTarball(name: string, filename: string): void;
-		getTarball(name: string, filename: string): void;
+		addTarball(name: string, filename: string): Stream;
+		getTarball(name: string, filename: string): Stream;
 		getPackageMetadata(name: string, callback: Callback): void;
 		search(startKey: string, options: any): Stream;
 	}
