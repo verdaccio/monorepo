@@ -1,0 +1,63 @@
+{
+  "name": "@verdaccio/local-storage",
+  "version": "0.1.0",
+  "description": "htpasswd auth plugin",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "npm run flow && npm run lint && jest",
+    "lint": "eslint .",
+    "flow": "flow",
+    "build": "babel src/ --out-dir lib/ --copy-files --ignore ___tests___",
+    "prepublish": "npm run build",
+    "cover": "cross-env NODE_ENV=test nyc npm t"
+  },
+  "dependencies": {
+    "@verdaccio/file-locking": "^0.0.5"
+  },
+  "devDependencies": {
+    "@verdaccio/types": "^0.1.0",
+    "babel-cli": "6.24.1",
+    "babel-core": "6.25.0",
+    "babel-eslint": "^7.2.3",
+    "babel-jest": "^21.2.0",
+    "babel-plugin-flow-runtime": "0.11.1",
+    "babel-plugin-istanbul": "4.1.4",
+    "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "babel-preset-env": "1.6.0",
+    "babel-preset-flow": "6.23.0",
+    "cross-env": "5.0.5",
+    "eslint": "^4.4.1",
+    "eslint-config-google": "0.9.1",
+    "eslint-plugin-flowtype": "2.35.0",
+    "eslint-plugin-jest": "^21.2.0",
+    "flow-bin": "0.52.0",
+    "flow-runtime": "0.13.0",
+    "jest": "^21.2.1",
+    "nyc": "11.1.0",
+    "rmdir-sync": "^1.0.1"
+  },
+  "nyc": {
+    "include": [
+      "src/**/*.js"
+    ],
+    "all": true,
+    "cache": true,
+    "sourceMap": false,
+    "instrument": false,
+    "report-dir": "./tests-report",
+    "reporter": [
+      "text",
+      "html"
+    ]
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "keywords": [
+    "verdaccio",
+    "local-storage"
+  ],
+  "author": "Verdaccio <verdaccio.npm@gmail.com>",
+  "private": false,
+  "license": "MIT"
+}
