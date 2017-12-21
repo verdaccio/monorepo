@@ -136,25 +136,29 @@ declare type Config = {
 }
 
 declare type SyncReturn = Error | void;
+declare type IPackageStorage = Error | void;
 
 declare module "@verdaccio/local-storage" {
-	declare export interface ILocalFS {
-		createWriteStream(name: string): Stream;
-		createReadStream(readTarballStream: any, callback?: Function): Stream;
-		readJSON(fileName: string, callback: Callback): void;
-		createJSON(name: string, value: any, cb: Function): void;
-		deleteJSON(fileName: string, callback: Callback): void;
-		unlockJSON(fileName: string, callback: Callback): void;
+	declare export interface ILocalPackageManager {
+		writeTarball(name: string): Stream;
+		readTarball(readTarballStream: any, callback?: Callback): Stream;
+		readPackage(fileName: string, callback: Callback): void;
+		createPackage(name: string, value: any, cb: Callback): void;
+		deletePackage(fileName: string, callback: Callback): void;
 		removePackage(callback: Callback): void;
-		lockAndReadJSON(fileName: string, callback: Callback): void;
-		writeJSON(fileName: string, json: Package, callback: Callback): void;
+		updatePackage(pkgFileName: string,
+			updateHandler: Callback,
+			onWrite: Callback,
+			transformPackage: Function,
+			onEnd: Callback): void;
+		savePackage(fileName: string, json: Package, callback: Callback): void;
 	}
 
 	declare export interface ILocalData {
 		add(name: string): SyncReturn;
 		remove(name: string): SyncReturn;
 		get(): StorageList;
-		getPackageStorage(packageInfo: string, packagePath: string): ILocalFS;
+		getPackageStorage(packageInfo: string, packagePath: string): IPackageStorage;
 		sync(): ?SyncReturn;
 	}
 
@@ -163,6 +167,7 @@ declare module "@verdaccio/local-storage" {
 	}
 
 	declare module.exports: typeof LocalDatabase;
+	declare export type IPackageStorage = IPackageStorage;
 }
 
 
@@ -182,8 +187,13 @@ declare module "@verdaccio/types" {
 	declare export type ILocalStorage = ILocalStorage;
 	declare export type UpLinkConf = UpLinkConf;
 	declare export type PackageAccess = PackageAccess;
+	declare export type StorageList = StorageList;
+	declare export type LocalStorage = LocalStorage;
 
 	declare export interface IStorage {
+		config: Config;
+		localData: ILocalData;
+		logger: Logger;
 		addPackage(name: string, info: Package, callback: Callback): void;
 		removePackage(name: string, callback: Callback): void;
 		updateVersions(name: string, packageInfo: Package, callback: Callback): void;
