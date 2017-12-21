@@ -4,10 +4,11 @@ import path from 'path';
 import mkdirp from 'mkdirp';
 import fs from 'fs';
 import rm from 'rmdir-sync';
-import type {ILocalFS, Logger} from '@verdaccio/types';
+import type {Logger} from '@verdaccio/types';
+import type {ILocalPackageManager} from '@verdaccio/local-storage';
 import LocalFS, {fileExist} from '../local-fs';
 
-let localFs: ILocalFS;
+let localFs: ILocalPackageManager;
 let localTempStorage: string;
 const pkgFileName: string = 'package.json';
 
@@ -28,70 +29,63 @@ beforeAll(() => {
 
 describe('Local FS test', ()=> {
 
-  describe('writeJSON() group', ()=> {
-    test('writeJSON()', (done) => {
+  describe('savePackage() group', ()=> {
+    test('savePackage()', (done) => {
       const data: any = '{data:5}';
 
-      localFs.writeJSON(path.join(localTempStorage, 'package4'), data, (err)=> {
+      localFs.savePackage(path.join(localTempStorage, 'package4'), data, (err)=> {
         expect(err).toBeNull();
         done();
       });
     });
   });
 
-  describe('readJSON() group', ()=> {
-    test('readJSON() success', (done) => {
-      const localFs: ILocalFS = new LocalFS(path.join(__dirname, 'fixtures/readme-test'), logger);
+  describe('readPackage() group', ()=> {
+    test('readPackage() success', (done) => {
+      const localFs: ILocalPackageManager = new LocalFS(path.join(__dirname, 'fixtures/readme-test'), logger);
 
-      localFs.readJSON(pkgFileName, (err, data)=> {
+      localFs.readPackage(pkgFileName, (err, data)=> {
         expect(err).toBeNull();
         done();
       });
     });
 
-    test('readJSON() fails', (done) => {
-      const localFs: ILocalFS = new LocalFS(path.join(__dirname, 'fixtures/readme-testt'), logger);
+    test('readPackage() fails', (done) => {
+      const localFs: ILocalPackageManager = new LocalFS(path.join(__dirname, 'fixtures/readme-testt'), logger);
 
-      localFs.readJSON(pkgFileName, (err)=> {
+      localFs.readPackage(pkgFileName, (err)=> {
         expect(err).toBeTruthy();
         done();
       });
     });
 
-    test('readJSON() fails corrupt', (done) => {
-      const localFs: ILocalFS = new LocalFS(path.join(__dirname, 'fixtures/readme-test-corrupt'), logger);
+    test('readPackage() fails corrupt', (done) => {
+      const localFs: ILocalPackageManager = new LocalFS(path.join(__dirname, 'fixtures/readme-test-corrupt'), logger);
 
-      localFs.readJSON('corrupt.js', (err)=> {
+      localFs.readPackage('corrupt.js', (err)=> {
         expect(err).toBeTruthy();
         done();
       });
     });
   });
 
-  test('createJSON()', (done) => {
-    localFs.createJSON(path.join(localTempStorage, 'package5'), '{data:6}', (err)=> {
+  test('createPackage()', (done) => {
+    localFs.createPackage(path.join(localTempStorage, 'package5'), '{data:6}', (err)=> {
       expect(err).toBeNull();
       done();
     });
   });
 
-  test('createJSON() fails by fileExist', (done) => {
-    localFs.createJSON(path.join(localTempStorage, 'package5'), '{data:6}', (err)=> {
+  test('createPackage() fails by fileExist', (done) => {
+    localFs.createPackage(path.join(localTempStorage, 'package5'), '{data:6}', (err)=> {
       expect(err).not.toBeNull();
       expect(err.code).toBe(fileExist);
       done();
     });
   });
 
-  test('deleteJSON()', (done) => {
-    localFs.deleteJSON(path.join(localTempStorage, 'package5'), (err)=> {
-      expect(err).toBeNull();
-      done();
-    });
-  });
-
-  test('unlockJSON()', (done) => {
-    localFs.unlockJSON(path.join('package4'), (err)=> {
+  test('deletePackage()', (done) => {
+    localFs.deletePackage(path.join(localTempStorage, 'package5'), (err)=> {
       expect(err).toBeNull();
       done();
     });
@@ -104,7 +98,7 @@ describe('Local FS test', ()=> {
     });
 
     test('removePackage() success', (done) => {
-      const localFs: ILocalFS = new LocalFS(path.join(localTempStorage, '_toDelete'), logger);
+      const localFs: ILocalPackageManager = new LocalFS(path.join(localTempStorage, '_toDelete'), logger);
       localFs.removePackage((error)=> {
         expect(error).toBeNull();
         done();
@@ -112,7 +106,7 @@ describe('Local FS test', ()=> {
     });
 
     test('removePackage() fails', (done) => {
-      const localFs: ILocalFS = new LocalFS(path.join(localTempStorage, '_toDelete_fake'), logger);
+      const localFs: ILocalPackageManager = new LocalFS(path.join(localTempStorage, '_toDelete_fake'), logger);
       localFs.removePackage((error) => {
         expect(error).toBeTruthy();
         expect(error.code).toBe('ENOENT');
@@ -121,11 +115,11 @@ describe('Local FS test', ()=> {
     });
   });
 
-  describe('createReadStream() group', ()=> {
+  describe('readTarball() group', ()=> {
 
-    test('createReadStream() success', (done) => {
-      const localFs: ILocalFS = new LocalFS(path.join(__dirname, 'fixtures/readme-test'), logger);
-      const readTarballStream = localFs.createReadStream('test-readme-0.0.0.tgz');
+    test('readTarball() success', (done) => {
+      const localFs: ILocalPackageManager = new LocalFS(path.join(__dirname, 'fixtures/readme-test'), logger);
+      const readTarballStream = localFs.readTarball('test-readme-0.0.0.tgz');
 
       readTarballStream.on('error', function(err) {
         expect(err).toBeNull();
@@ -145,9 +139,9 @@ describe('Local FS test', ()=> {
 
     });
 
-    test('createReadStream() fails', (done) => {
-      const localFs: ILocalFS = new LocalFS(path.join(__dirname, 'fixtures/readme-test'), logger);
-      const readTarballStream = localFs.createReadStream('file-does-not-exist-0.0.0.tgz');
+    test('readTarball() fails', (done) => {
+      const localFs: ILocalPackageManager = new LocalFS(path.join(__dirname, 'fixtures/readme-test'), logger);
+      const readTarballStream = localFs.readTarball('file-does-not-exist-0.0.0.tgz');
 
       readTarballStream.on('error', function(err) {
         expect(err).toBeTruthy();
@@ -158,21 +152,21 @@ describe('Local FS test', ()=> {
 
   });
 
-  describe('createWriteStream() group', ()=> {
+  describe('writeTarball() group', ()=> {
 
     beforeEach(() => {
-      const createWriteStreamFolder: string = path.join(localTempStorage, '_createWriteStream');
-      rm(createWriteStreamFolder);
-      mkdirp(createWriteStreamFolder);
+      const writeTarballFolder: string = path.join(localTempStorage, '_writeTarball');
+      rm(writeTarballFolder);
+      mkdirp(writeTarballFolder);
     });
 
-    test('createWriteStream() success', (done) => {
-      const newFileLocationFolder: string = path.join(localTempStorage, '_createWriteStream');
+    test('writeTarball() success', (done) => {
+      const newFileLocationFolder: string = path.join(localTempStorage, '_writeTarball');
       const newFileName: string = 'new-readme-0.0.0.tgz';
-      const readmeStorage: ILocalFS = new LocalFS(path.join(__dirname, 'fixtures/readme-test'), logger);
-      const writeStorage: ILocalFS = new LocalFS(newFileLocationFolder, logger);
-      const readTarballStream = readmeStorage.createReadStream('test-readme-0.0.0.tgz');
-      const writeTarballStream = writeStorage.createWriteStream(newFileName);
+      const readmeStorage: ILocalPackageManager = new LocalFS(path.join(__dirname, 'fixtures/readme-test'), logger);
+      const writeStorage: ILocalPackageManager = new LocalFS(newFileLocationFolder, logger);
+      const readTarballStream = readmeStorage.readTarball('test-readme-0.0.0.tgz');
+      const writeTarballStream = writeStorage.writeTarball(newFileName);
 
       writeTarballStream.on('error', function(err) {
         expect(err).toBeNull();
@@ -206,13 +200,13 @@ describe('Local FS test', ()=> {
 
     });
 
-    test('createWriteStream() abort', (done) => {
-      const newFileLocationFolder: string = path.join(localTempStorage, '_createWriteStream');
+    test('writeTarball() abort', (done) => {
+      const newFileLocationFolder: string = path.join(localTempStorage, '_writeTarball');
       const newFileName: string = 'new-readme-abort-0.0.0.tgz';
-      const readmeStorage: ILocalFS = new LocalFS(path.join(__dirname, 'fixtures/readme-test'), logger);
-      const writeStorage: ILocalFS = new LocalFS(newFileLocationFolder, logger);
-      const readTarballStream = readmeStorage.createReadStream('test-readme-0.0.0.tgz');
-      const writeTarballStream = writeStorage.createWriteStream(newFileName);
+      const readmeStorage: ILocalPackageManager = new LocalFS(path.join(__dirname, 'fixtures/readme-test'), logger);
+      const writeStorage: ILocalPackageManager = new LocalFS(newFileLocationFolder, logger);
+      const readTarballStream = readmeStorage.readTarball('test-readme-0.0.0.tgz');
+      const writeTarballStream = writeStorage.writeTarball(newFileName);
 
       writeTarballStream.on('error', function(err) {
         expect(err).toBeTruthy();
@@ -230,26 +224,26 @@ describe('Local FS test', ()=> {
 
   });
 
-  describe('lockAndReadJSON() group', ()=> {
+  // describe('lockAndReadJSON() group', ()=> {
 
-    test('lockAndReadJSON() success', (done) => {
-      const localFs: ILocalFS = new LocalFS(path.join(__dirname, 'fixtures/readme-test'), logger);
+  //   test('lockAndReadJSON() success', (done) => {
+  //     const localFs: ILocalPackageManager = new LocalFS(path.join(__dirname, 'fixtures/readme-test'), logger);
 
-      localFs.lockAndReadJSON(pkgFileName, (err, res) => {
-        expect(err).toBeNull();
-        done();
-      });
-    });
+  //     localFs.lockAndReadJSON(pkgFileName, (err, res) => {
+  //       expect(err).toBeNull();
+  //       done();
+  //     });
+  //   });
 
-    test('lockAndReadJSON() fails', (done) => {
-      const localFs: ILocalFS = new LocalFS(path.join(__dirname, 'fixtures/readme-testt'), logger);
+  //   test('lockAndReadJSON() fails', (done) => {
+  //     const localFs: ILocalPackageManager = new LocalFS(path.join(__dirname, 'fixtures/readme-testt'), logger);
 
-      localFs.lockAndReadJSON(pkgFileName, (err, res) => {
-        expect(err).toBeTruthy();
-        done();
-      });
-    });
+  //     localFs.lockAndReadJSON(pkgFileName, (err, res) => {
+  //       expect(err).toBeTruthy();
+  //       done();
+  //     });
+  //   });
 
-  });
+  // });
 
 });

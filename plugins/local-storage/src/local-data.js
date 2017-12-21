@@ -5,7 +5,8 @@ import _ from 'lodash';
 import Path from 'path';
 import LocalFS from './local-fs';
 import mkdirp from 'mkdirp';
-import type {ILocalData, ILocalFS, StorageList, LocalStorage, Logger, Config} from '@verdaccio/types';
+import type {StorageList, LocalStorage, Logger, Config} from '@verdaccio/types';
+import type {ILocalPackageManager, ILocalData} from '@verdaccio/local-storage';
 
 /**
  * Handle local database.
@@ -91,7 +92,7 @@ import type {ILocalData, ILocalFS, StorageList, LocalStorage, Logger, Config} fr
     }
   }
 
-  getPackageStorage(packageInfo: string, packagePath: string): ILocalFS {
+  getPackageStorage(packageInfo: string, packagePath: string): ILocalPackageManager {
     const packageStoragePath: string = Path.join(
       Path.resolve(Path.dirname(this.config.self_path || ''), packagePath),
       packageInfo);

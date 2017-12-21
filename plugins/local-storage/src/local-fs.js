@@ -9,17 +9,29 @@ import createError from 'http-errors';
 import type {HttpError} from 'http-errors';
 import {UploadTarball, ReadTarball} from '@verdaccio/streams';
 import {unlockFile, readFile} from '@verdaccio/file-locking';
-import type {ILocalFS, Callback, Logger} from '@verdaccio/types';
+import type {Callback, Logger} from '@verdaccio/types';
+import type {ILocalPackageManager} from '@verdaccio/local-storage';
 
 export const fileExist: string = 'EEXISTS';
 export const noSuchFile: string = 'ENOENT';
 
-const fSError = function(message: string): HttpError {
-  const err: HttpError = createError(409, message);
+const resourceNotAvailable: string = 'EAGAIN';
+const pkgFileName = 'package.json';
+const fSError = function(message: string, code: number = 409): HttpError {
+  const err: HttpError = createError(code, message);
   // $FlowFixMe
   err.code = message;
 
   return err;
+};
+
+const ErrorCode = {
+  get503: () => {
+    return fSError('resource temporarily unavailable', 500);
+  },
+  get404: (customMessage) => {
+    return fSError('no such package available', 404);
+  },
 };
 
 const tempFile = function(str) {
@@ -49,7 +61,7 @@ const renameTmp = function(src, dst, _cb) {
   });
 };
 
-class LocalFS implements ILocalFS {
+class LocalFS implements ILocalPackageManager {
 
   path: string;
   logger: Logger;
@@ -59,7 +71,68 @@ class LocalFS implements ILocalFS {
      this.logger = logger;
    }
 
-   deleteJSON(fileName: string, callback: Callback) {
+   /**
+    *  This function allows to update the package thread-safely
+      Algorithm:
+      1. lock package.json for writing
+      2. read package.json
+      3. updateFn(pkg, cb), and wait for cb
+      4. write package.json.tmp
+      5. move package.json.tmp package.json
+      6. callback(err?)
+    * @param {*} name
+    * @param {*} updateHandler
+    * @param {*} onWrite
+    * @param {*} transformPackage
+    * @param {*} onEnd
+    */
+   updatePackage(
+     name: string,
+     updateHandler: Callback,
+     onWrite: Callback,
+     transformPackage: Function,
+     onEnd: Callback) {
+    this._lockAndReadJSON(pkgFileName, (err, json) => {
+      let locked = false;
+      const self = this;
+      // callback that cleans up lock first
+      const unLockCallback = function(lockError: Error) {
+        let _args = arguments;
+        if (locked) {
+          self._unlockJSON(pkgFileName, function() {
+            // ignore any error from the unlock
+            onEnd.apply(lockError, _args);
+          });
+        } else {
+          onEnd(..._args);
+        }
+      };
+
+      if (!err) {
+        locked = true;
+      }
+
+      if (_.isNil(err) === false) {
+        if (err.code === resourceNotAvailable) {
+          return unLockCallback( ErrorCode.get503() );
+        } else if (err.code === noSuchFile) {
+          return unLockCallback( ErrorCode.get404() );
+        } else {
+          return unLockCallback(err);
+        }
+      }
+
+      updateHandler(json, (err) => {
+        if (err) {
+          return unLockCallback(err);
+        }
+        onWrite(name, transformPackage(json), unLockCallback);
+      });
+
+    });
+   }
+
+   deletePackage(fileName: string, callback: Callback) {
      return fs.unlink(this._getStorage(fileName), callback);
    }
 
@@ -67,33 +140,15 @@ class LocalFS implements ILocalFS {
      fs.rmdir(this._getStorage('.'), callback);
    }
 
-   createJSON(name: string, value: any, cb: Function) {
+   createPackage(name: string, value: any, cb: Function) {
       this._createFile(this._getStorage(name), this._convertToString(value), cb);
    }
 
-    writeJSON(name: string, value: any, cb: Function) {
+   savePackage(name: string, value: any, cb: Function) {
       this._writeFile(this._getStorage(name), this._convertToString(value), cb);
     }
 
-    lockAndReadJSON(name: string, cb: Function) {
-     const fileName: string = this._getStorage(name);
-
-     readFile(fileName, {
-        lock: true,
-        parse: true,
-      }, function(err, res) {
-        if (err) {
-          return cb(err);
-        }
-        return cb(null, res);
-      });
-    }
-
-    unlockJSON(name: string, cb: Function) {
-      unlockFile(this._getStorage(name), cb);
-    }
-
-    readJSON(name: string, cb: Function) {
+    readPackage(name: string, cb: Function) {
       this._readStorageFile(this._getStorage(name)).then(function(res) {
         try {
           const data: any = JSON.parse(res.toString('utf8'));
@@ -107,7 +162,7 @@ class LocalFS implements ILocalFS {
       });
     }
 
-    createWriteStream(name: string): UploadTarball {
+    writeTarball(name: string): UploadTarball {
       const uploadStream = new UploadTarball();
 
       let _ended = 0;
@@ -167,7 +222,7 @@ class LocalFS implements ILocalFS {
       return uploadStream;
     }
 
-    createReadStream(name: string, readTarballStream: any, callback: Function = () => {}) {
+    readTarball(name: string, readTarballStream: any, callback: Function = () => {}) {
       const pathName: string = this._getStorage(name);
 
       const readStream = fs.createReadStream(pathName);
@@ -252,6 +307,24 @@ class LocalFS implements ILocalFS {
         }
       });
     }
+
+    _lockAndReadJSON(name: string, cb: Function) {
+      const fileName: string = this._getStorage(name);
+
+      readFile(fileName, {
+         lock: true,
+         parse: true,
+       }, function(err, res) {
+         if (err) {
+           return cb(err);
+         }
+         return cb(null, res);
+       });
+     }
+
+     _unlockJSON(name: string, cb: Function) {
+       unlockFile(this._getStorage(name), cb);
+     }
 
 }
 
