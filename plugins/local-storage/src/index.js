@@ -1,6 +1,6 @@
 // @flow
 
-import LocalDatabase from './local-data';
+import LocalDatabase from './local-database';
 
 export {LocalDatabase};
 

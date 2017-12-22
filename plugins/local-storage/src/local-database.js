@@ -10,7 +10,6 @@ import type {ILocalPackageManager, ILocalData} from '@verdaccio/local-storage';
 
 /**
  * Handle local database.
- * FUTURE: must be a plugin.
  */
  class LocalDatabase implements ILocalData {
 
