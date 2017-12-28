@@ -13,9 +13,9 @@
   version "0.0.2"
   resolved "https://registry.npmjs.org/@verdaccio/streams/-/streams-0.0.2.tgz#72cd65449e657b462a1ca094f663cad9ea872427"
 
-"@verdaccio/types@0.1.0":
-  version "0.1.0"
-  resolved "https://registry.npmjs.org/@verdaccio/types/-/types-0.1.0.tgz#2a0a6066bbbb7841d29298463e761147fb1f7f00"
+"@verdaccio/types@^0.1.1":
+  version "0.1.1"
+  resolved "https://registry.npmjs.org/@verdaccio/types/-/types-0.1.1.tgz#0801494fbd0284f6e92d94c85b90d97ba9dfa1c8"
 
 abab@^1.0.3:
   version "1.0.4"

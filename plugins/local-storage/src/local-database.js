@@ -6,7 +6,7 @@ import Path from 'path';
 import LocalFS from './local-fs';
 import mkdirp from 'mkdirp';
 import type {StorageList, LocalStorage, Logger, Config} from '@verdaccio/types';
-import type {ILocalPackageManager, ILocalData} from '@verdaccio/local-storage';
+import type {IPackageStorage, ILocalData} from '@verdaccio/local-storage';
 
 /**
  * Handle local database.
@@ -91,12 +91,33 @@ import type {ILocalPackageManager, ILocalData} from '@verdaccio/local-storage';
     }
   }
 
-  getPackageStorage(packageInfo: string, packagePath: string): ILocalPackageManager {
+  getPackageStorage(packageInfo: string): IPackageStorage {
+    const packagePath: string = this._getLocalStoragePath(this.config.getMatchedPackagesSpec(packageInfo).storage);
+
+    if (_.isString(packagePath) === false) {
+      this.logger.debug( {name: packageInfo}, 'this package has no storage defined: @{name}' );
+      return;
+    }
+
     const packageStoragePath: string = Path.join(
       Path.resolve(Path.dirname(this.config.self_path || ''), packagePath),
       packageInfo);
 
     return new LocalFS(packageStoragePath, this.logger);
+  }
+
+  /**
+   * Verify the right local storage location.
+   * @param {String} path
+   * @return {String}
+   * @private
+   */
+  _getLocalStoragePath(path: string): string {
+    if (_.isNil(path) === false) {
+      return path;
+    }
+
+    return this.config.storage;
   }
 
   /**
