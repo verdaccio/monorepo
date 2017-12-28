@@ -141,15 +141,15 @@ class LocalFS implements ILocalPackageManager {
    }
 
    createPackage(name: string, value: any, cb: Function) {
-      this._createFile(this._getStorage(name), this._convertToString(value), cb);
+      this._createFile(this._getStorage(pkgFileName), this._convertToString(value), cb);
    }
 
    savePackage(name: string, value: any, cb: Function) {
-      this._writeFile(this._getStorage(name), this._convertToString(value), cb);
+      this._writeFile(this._getStorage(pkgFileName), this._convertToString(value), cb);
     }
 
     readPackage(name: string, cb: Function) {
-      this._readStorageFile(this._getStorage(name)).then(function(res) {
+      this._readStorageFile(this._getStorage(pkgFileName)).then(function(res) {
         try {
           const data: any = JSON.parse(res.toString('utf8'));
 
