@@ -136,9 +136,9 @@ declare type Config = {
 }
 
 declare type SyncReturn = Error | void;
-declare type IPackageStorage = Error | void;
 
 declare module "@verdaccio/local-storage" {
+	declare type IPackageStorage = ILocalPackageManager | void;
 	declare export interface ILocalPackageManager {
 		writeTarball(name: string): Stream;
 		readTarball(readTarballStream: any, callback?: Callback): Stream;
@@ -158,7 +158,7 @@ declare module "@verdaccio/local-storage" {
 		add(name: string): SyncReturn;
 		remove(name: string): SyncReturn;
 		get(): StorageList;
-		getPackageStorage(packageInfo: string, packagePath: string): IPackageStorage;
+		getPackageStorage(packageInfo: string): IPackageStorage;
 		sync(): ?SyncReturn;
 	}
 
@@ -167,7 +167,7 @@ declare module "@verdaccio/local-storage" {
 	}
 
 	declare module.exports: typeof LocalDatabase;
-	declare export type IPackageStorage = IPackageStorage;
+	//declare export type IPackageStorage = IPackageStorage;
 }
 
 
