@@ -1,5 +1,5 @@
 {
-  "name": "@verdaccio/local-storage",
+  "name": "verdaccio-htpasswd",
   "version": "0.1.0",
   "description": "htpasswd auth plugin",
   "main": "lib/index.js",
@@ -12,7 +12,10 @@
     "cover": "cross-env NODE_ENV=test nyc npm t"
   },
   "dependencies": {
-    "@verdaccio/file-locking": "^0.0.5"
+    "@verdaccio/file-locking": "^0.0.5",
+    "apache-md5": "^1.1.2",
+    "crypto": "^1.0.1",
+    "unix-crypt-td-js": "^1.0.0"
   },
   "devDependencies": {
     "@verdaccio/types": "^0.1.0",
