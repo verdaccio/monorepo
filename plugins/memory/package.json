@@ -1,14 +1,14 @@
 {
   "name": "verdaccio-memory",
   "version": "0.0.1",
-  "description": "memory storage implementation",
+  "description": "storage implementation in memory",
   "main": "lib/index.js",
   "scripts": {
     "test": "npm run flow && npm run lint && jest",
     "lint": "eslint .",
     "flow": "flow",
-    "build": "babel src/ --out-dir lib/ --copy-files --ignore ___tests___",
-    "cover": "cross-env NODE_ENV=test nyc npm t"
+    "prepublish": "npm run build",
+    "build": "babel src/ --out-dir lib/ --copy-files --ignore ___tests___"
   },
   "dependencies": {
     "@verdaccio/streams": "^0.0.2",
@@ -38,7 +38,8 @@
   },
   "keywords": [
     "verdaccio",
-    "plugin"
+    "plugin",
+    "storage"
   ],
   "author": "Juan Picado <juanpicado19@gmail.com>",
   "private": false,

@@ -29,7 +29,3 @@ test:
     - yarn run test
     - nvm alias default 9
     - yarn run test
-general:
-  branches:
-    ignore:
-      - gh-pages

@@ -1,9 +1,8 @@
 // @flow
 
 import MemoryHandler from './memory-handler';
-import type {StorageList, LocalStorage, Logger, Config} from '@verdaccio/types';
+import type {LocalStorage, Logger, Config} from '@verdaccio/types';
 import type {IPackageStorage, ILocalData} from '@verdaccio/local-storage';
-
 
  class LocalMemory implements ILocalData {
 
@@ -13,10 +12,6 @@ import type {IPackageStorage, ILocalData} from '@verdaccio/local-storage';
   config: Config;
   locked: boolean;
 
-  /**
-   * Load an parse the local json database.
-   * @param {*} path the database path
-   */
    constructor(config: Config, logger: Logger) {
     this.config = config;
     this.logger = logger;
@@ -49,11 +44,6 @@ import type {IPackageStorage, ILocalData} from '@verdaccio/local-storage';
     return new MemoryHandler(packageInfo, this.data.files, this.logger);
   }
 
-  /**
-   * Fetch local packages.
-   * @private
-   * @return {Object}
-   */
   _createEmtpyDatabase(): LocalStorage {
     const list: any = [];
     const files: any = {};
