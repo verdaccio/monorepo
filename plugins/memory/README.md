@@ -6,6 +6,14 @@ A memory based **storage plugin**.
  npm install --global verdaccio-memory
 ```
 
+### Requirements
+
+This plugin won't work with versiones minimum as `3.0.0-alpha.7`
+
+```
+npm install -g verdaccio@3.0.0-alpha.7
+```
+
 Complete configuration example:
 
 ```yaml
