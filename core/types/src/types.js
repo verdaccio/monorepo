@@ -140,8 +140,8 @@ declare type SyncReturn = Error | void;
 declare module "@verdaccio/local-storage" {
 	declare type IPackageStorage = ILocalPackageManager | void;
 	declare export interface ILocalPackageManager {
-		writeTarball(name: string): Stream;
-		readTarball(readTarballStream: any, callback?: Callback): Stream;
+		writeTarball(name: string): stream$PassThrough;
+		readTarball(readTarballStream: any, callback?: Callback): stream$PassThrough;
 		readPackage(fileName: string, callback: Callback): void;
 		createPackage(name: string, value: any, cb: Callback): void;
 		deletePackage(fileName: string, callback: Callback): void;
