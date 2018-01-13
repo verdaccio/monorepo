@@ -22,14 +22,8 @@ const fSError = function(message: string, code: number = 404): HttpError {
   return err;
 };
 
-const ErrorCode = {
-  get404: (customMessage) => {
-    return fSError('no such package available', 404);
-  },
-};
-
-const noPackageFoundError = function() {
-  const err = new Error('no such package');
+const noPackageFoundError = function(message = 'no such package') {
+  const err = new Error(message);
   // $FlowFixMe
   err.code = noSuchFile;
   return err;
@@ -93,61 +87,62 @@ class MemoryHandler implements ILocalPackageManager {
       const uploadStream = new UploadTarball();
       const temporalName = `/${name}`;
 
-      fs.exists(temporalName, function(exists) {
-        if (exists) {
-          return uploadStream.emit('error', fSError(fileExist));
-        }
+      setTimeout(function() {
+        fs.exists(temporalName, function(exists) {
+          if (exists) {
+            return uploadStream.emit('error', fSError(fileExist));
+          }
 
-        try {
-          const file = fs.createWriteStream(temporalName);
+          try {
+            const file = fs.createWriteStream(temporalName);
 
-          uploadStream.pipe(file);
+            uploadStream.pipe(file);
 
-          uploadStream.done = function() {
-            const onEnd = function() {
-              uploadStream.emit('success');
+            uploadStream.done = function() {
+              const onEnd = function() {
+                uploadStream.emit('success');
+              };
+
+              uploadStream.on('end', onEnd);
             };
 
-            uploadStream.on('end', onEnd);
-          };
+            uploadStream.abort = function() {
+              file.end();
+            };
 
-          uploadStream.abort = function() {
-            file.end();
-          };
+            uploadStream.emit('open');
 
-        } catch(err) {
-          uploadStream.emit('error', err);
-        }
-      });
+          } catch (err) {
+            uploadStream.emit('error', err);
+          }
+        });
+      }, 10);
 
       return uploadStream;
     }
 
-    readTarball(name: string, readTarballStream: any, callback: Function = () => {}): stream$PassThrough  {
-      const pathName: string = this._getStorage(name);
+    readTarball(name: string): stream$PassThrough {
+        const pathName = `/${name}`;
 
-        const readStream = fs.createReadStream(pathName);
+        const readTarballStream = new ReadTarball();
 
-        readStream.on('error', function(err) {
-          readTarballStream.emit('error', err);
-        });
+        setTimeout(function() {
+          fs.exists(pathName, function(exists) {
+            if (!exists) {
+              readTarballStream.emit('error', noPackageFoundError());
+            } else {
+              const readStream = fs.createReadStream(pathName);
 
-        readStream.on('open', function(fd) {
-          fs.fstat(fd, function(err, stats) {
-            if (err) {
-              return readTarballStream.emit('error', err);
+              readTarballStream.emit('content-length', fs.data[name].length);
+              readTarballStream.emit('open');
+              readStream.pipe(readTarballStream);
+
+              readTarballStream.abort = function() {
+                readStream.close();
+              };
             }
-            readTarballStream.emit('content-length', stats.size);
-            readTarballStream.emit('open');
-            readStream.pipe(readTarballStream);
           });
-        });
-
-        readTarballStream = new ReadTarball();
-
-        readTarballStream.abort = function() {
-          readStream.close();
-        };
+        }, 10);
 
         return readTarballStream;
     }
