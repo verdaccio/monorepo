@@ -2,7 +2,7 @@
 
 import MemoryHandler from './memory-handler';
 import type {StorageList, LocalStorage, Logger, Config} from '@verdaccio/types';
-import type {ILocalPackageManager, ILocalData} from '@verdaccio/local-storage';
+import type {IPackageStorage, ILocalData} from '@verdaccio/local-storage';
 
 
  class LocalMemory implements ILocalData {
@@ -20,7 +20,8 @@ import type {ILocalPackageManager, ILocalData} from '@verdaccio/local-storage';
    constructor(config: Config, logger: Logger) {
     this.config = config;
     this.logger = logger;
-    this.data = this._fetchLocalPackages();
+    this.data = this._createEmtpyDatabase();
+    this.data.secret = config.checkSecretKey(this.data.secret);
   }
 
   add(name: string) {
@@ -44,8 +45,8 @@ import type {ILocalPackageManager, ILocalData} from '@verdaccio/local-storage';
     // nothing to do
   }
 
-  getPackageStorage(packageInfo: string, packagePath: string): ILocalPackageManager {
-    return new MemoryHandler(this.data.list, this.logger);
+  getPackageStorage(packageInfo: string): IPackageStorage {
+    return new MemoryHandler(packageInfo, this.data.files, this.logger);
   }
 
   /**
@@ -53,9 +54,14 @@ import type {ILocalPackageManager, ILocalData} from '@verdaccio/local-storage';
    * @private
    * @return {Object}
    */
-  _fetchLocalPackages(): LocalStorage {
-    const database: StorageList = [];
-    const emptyDatabase = {list: database, secret: ''};
+  _createEmtpyDatabase(): LocalStorage {
+    const list: any = [];
+    const files: any = {};
+    const emptyDatabase = {
+      list,
+      files,
+      secret: '',
+    };
 
     return emptyDatabase;
   }
