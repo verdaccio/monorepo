@@ -1,10 +1,14 @@
 {
-   "presets": ["es2015"],
-   "env": {
-      "test": {
-         "plugins": [
-              "istanbul"
-         ]
-      }
-   }
+  "presets": [["env", {
+    "targets": {
+      "node": "6"
+    }
+  }], "flow"],
+  "env": {
+    "test": {
+      "plugins": [
+        "transform-async-to-generator"
+      ]
+    }
+  }
 }

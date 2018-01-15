@@ -1,19 +1,36 @@
-'use strict';
+// @flow
 
-let ReadTarball = require('../src/index').ReadTarball;
+import {ReadTarball, UploadTarball} from '../src/index';
 
-describe('mystreams', function() {
-  it('should delay events', function(cb) {
-    let test = new ReadTarball();
-    test.abort();
+import type {IUploadTarball, IReadTarball} from '@verdaccio/streams';
+
+describe('mystreams', () => {
+
+  test('should delay events on ReadTarball abort', (cb) => {
+    const readTballStream: IReadTarball = new ReadTarball({});
+    readTballStream.abort();
     setTimeout(function() {
-      test.abort = function() {
+      readTballStream.abort = function() {
         cb();
       };
-      test.abort = function() {
+      readTballStream.abort = function() {
         throw Error('fail');
       };
     }, 10);
   });
+
+  test('should delay events on UploadTarball abort', (cb) => {
+    const uploadTballStream: IUploadTarball = new UploadTarball({});
+    uploadTballStream.abort();
+    setTimeout(function() {
+      uploadTballStream.abort = function() {
+        cb();
+      };
+      uploadTballStream.abort = function() {
+        throw Error('fail');
+      };
+    }, 10);
+  });
+
 });
 

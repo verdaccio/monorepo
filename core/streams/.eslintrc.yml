@@ -8,14 +8,23 @@
 #
 # Created to work with eslint@0.18.0
 #
+plugins: [
+  "flowtype",
+   "jest"
+]
 
-extends: ["eslint:recommended", "google"]
-
+extends: [
+  "eslint:recommended",
+  "google",
+  "plugin:flowtype/recommended",
+  "plugin:jest/recommended"
+  ]
+parser: "babel-eslint"
 env:
   node: true
   browser: true
   es6: true
-  mocha: true
+  jest: true
 
 parserOptions:
   sourceType: "module"
