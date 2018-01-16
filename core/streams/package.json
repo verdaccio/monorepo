@@ -24,13 +24,13 @@
     "cross-env": "5.0.1",
     "eslint": "4.1.1",
     "eslint-config-google": "0.9.1",
-    "eslint-plugin-flowtype": "^2.41.0",
+    "eslint-plugin-flowtype": "2.41.0",
     "eslint-plugin-jest": "21.2.0",
     "flow-bin": "0.52.0",
     "flow-runtime": "0.13.0",
     "husky": "0.14.3",
     "jest": "21.2.1",
-    "lint-staged": "^6.0.0",
+    "lint-staged": "6.0.0",
     "prettier": "1.10.2"
   },
   "engines": {
