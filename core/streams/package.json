@@ -7,6 +7,7 @@
     "precommit": "lint-staged",
     "test": "npm run lint && jest",
     "lint": "eslint .",
+    "prepublish": "npm run build",
     "build": "babel src/ --out-dir lib/ --copy-files",
     "cover": "cross-env NODE_ENV=test nyc npm t"
   },
