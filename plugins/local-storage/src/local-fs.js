@@ -172,12 +172,12 @@ class LocalFS implements ILocalPackageManager {
 
       const pathName: string = this._getStorage(name);
 
-      fs.exists(pathName, function(exists) {
+      fs.exists(pathName, (exists) => {
         if (exists) {
           return uploadStream.emit('error', fSError(fileExist));
         }
 
-        const temporalName = `${name}.tmp-${String(Math.random()).replace(/^0\./, '')}`;
+        const temporalName = path.join(this.path, `${name}.tmp-${String(Math.random()).replace(/^0\./, '')}`);
         const file = fs.createWriteStream(temporalName);
         let opened = false;
         uploadStream.pipe(file);
