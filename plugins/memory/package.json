@@ -19,7 +19,7 @@
     "@verdaccio/types": "0.1.1",
     "babel-cli": "6.24.1",
     "babel-core": "6.25.0",
-    "babel-eslint": "7.2.3",
+    "babel-eslint": "8.2.1",
     "babel-jest": "21.2.0",
     "babel-plugin-flow-runtime": "0.11.1",
     "babel-plugin-istanbul": "4.1.4",
