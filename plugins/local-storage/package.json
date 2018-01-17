@@ -4,6 +4,7 @@
   "description": "local storage implementation",
   "main": "lib/index.js",
   "scripts": {
+    "release": "standard-version -a -s",
     "test": "npm run flow && npm run lint && jest",
     "lint": "eslint .",
     "flow": "flow",
@@ -38,22 +39,8 @@
     "flow-bin": "0.52.0",
     "flow-runtime": "0.13.0",
     "jest": "21.2.1",
-    "nyc": "11.1.0",
+    "standard-version": "4.3.0",
     "rmdir-sync": "1.0.1"
-  },
-  "nyc": {
-    "include": [
-      "src/**/*.js"
-    ],
-    "all": true,
-    "cache": true,
-    "sourceMap": false,
-    "instrument": false,
-    "report-dir": "./tests-report",
-    "reporter": [
-      "text",
-      "html"
-    ]
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
