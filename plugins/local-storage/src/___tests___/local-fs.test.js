@@ -8,7 +8,6 @@ import type {Logger} from '@verdaccio/types';
 import type {ILocalPackageManager} from '@verdaccio/local-storage';
 import LocalFS, {fileExist} from '../local-fs';
 
-let localFs: ILocalPackageManager;
 let localTempStorage: string;
 const pkgFileName: string = 'package.json';
 
@@ -22,7 +21,6 @@ const logger: Logger = {
 };
 
 beforeAll(() => {
-  localFs = new LocalFS('.', logger);
   localTempStorage = path.join('./_storage');
   rm(localTempStorage);
 });
@@ -32,8 +30,9 @@ describe('Local FS test', ()=> {
   describe('savePackage() group', ()=> {
     test('savePackage()', (done) => {
       const data: any = '{data:5}';
+      const localFs = new LocalFS(path.join(localTempStorage, 'first-package'), logger);
 
-      localFs.savePackage(path.join(localTempStorage, 'package4'), data, (err)=> {
+      localFs.savePackage('pkg.1.0.0.tar.gz', data, (err)=> {
         expect(err).toBeNull();
         done();
       });
@@ -69,25 +68,36 @@ describe('Local FS test', ()=> {
     });
   });
 
-  test('createPackage()', (done) => {
-    localFs.createPackage(path.join(localTempStorage, 'package5'), '{data:6}', (err)=> {
-      expect(err).toBeNull();
-      done();
-    });
-  });
+  describe('createPackage() group', ()=> {
+    test('createPackage()', (done) => {
+      const localFs = new LocalFS(path.join(localTempStorage, 'createPackage'), logger);
 
-  test('createPackage() fails by fileExist', (done) => {
-    localFs.createPackage(path.join(localTempStorage, 'package5'), '{data:6}', (err)=> {
-      expect(err).not.toBeNull();
-      expect(err.code).toBe(fileExist);
-      done();
+      localFs.createPackage(path.join(localTempStorage, 'package5'), '{data:6}', (err)=> {
+        expect(err).toBeNull();
+        done();
+      });
     });
-  });
 
-  test('deletePackage()', (done) => {
-    localFs.deletePackage(path.join(localTempStorage, 'package5'), (err)=> {
-      expect(err).toBeNull();
-      done();
+    test('createPackage() fails by fileExist', (done) => {
+      const localFs = new LocalFS(path.join(localTempStorage, 'createPackage'), logger);
+
+      localFs.createPackage(path.join(localTempStorage, 'package5'), '{data:6}', (err)=> {
+        expect(err).not.toBeNull();
+        expect(err.code).toBe(fileExist);
+        done();
+      });
+    });
+
+    describe('deletePackage() group', ()=> {
+      test('deletePackage()', (done) => {
+        const localFs = new LocalFS(path.join(localTempStorage, 'createPackage'), logger);
+
+        // verdaccio removes the package.json instead the package name
+        localFs.deletePackage('package.json', (err)=> {
+          expect(err).toBeNull();
+          done();
+        });
+      });
     });
   });
 
