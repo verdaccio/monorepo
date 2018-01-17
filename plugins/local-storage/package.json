@@ -35,7 +35,7 @@
     "eslint": "4.15.0",
     "eslint-config-google": "0.9.1",
     "eslint-plugin-flowtype": "2.41.0",
-    "eslint-plugin-jest": "21.6.2",
+    "eslint-plugin-jest": "21.7.0",
     "jest": "22.1.1",
     "rmdir-sync": "1.0.1",
     "standard-version": "4.3.0"
