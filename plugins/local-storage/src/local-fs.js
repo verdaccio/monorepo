@@ -179,6 +179,7 @@ class LocalFS implements ILocalPackageManager {
 
         const temporalName = path.join(this.path, `${name}.tmp-${String(Math.random()).replace(/^0\./, '')}`);
         const file = fs.createWriteStream(temporalName);
+        const removeTempFile = () => fs.unlink(temporalName, function() {});
         let opened = false;
         uploadStream.pipe(file);
 
@@ -201,15 +202,20 @@ class LocalFS implements ILocalPackageManager {
             uploadStream.on('end', onend);
           }
         };
+
         uploadStream.abort = function() {
           if (opened) {
             opened = false;
             file.on('close', function() {
-              fs.unlink(temporalName, function() {});
+              removeTempFile();
             });
+          } else {
+            // if the file does not recieve any byte never is opened and has to be removed anyway.
+            removeTempFile();
           }
           file.end();
         };
+
         file.on('open', function() {
           opened = true;
           // re-emitting open because it's handled in storage.js
