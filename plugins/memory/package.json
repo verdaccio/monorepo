@@ -11,7 +11,7 @@
     "build": "babel src/ --out-dir lib/ --copy-files --ignore ___tests___"
   },
   "dependencies": {
-    "@verdaccio/streams": "^0.0.2",
+    "@verdaccio/streams": "^1.0.0",
     "http-errors": "1.6.2",
     "memory-fs": "^0.4.1"
   },
