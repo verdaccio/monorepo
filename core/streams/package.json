@@ -31,7 +31,7 @@
     "flow-runtime": "0.16.0",
     "husky": "0.14.3",
     "jest": "22.1.4",
-    "lint-staged": "6.0.0",
+    "lint-staged": "6.0.1",
     "prettier": "1.10.2"
   },
   "engines": {
