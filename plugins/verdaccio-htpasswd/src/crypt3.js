@@ -1,4 +1,4 @@
-'use strict';
+// @flow
 
 /** Node.js Crypt(3) Library
   Inspired by (and intended to be compatible with) sendanor/crypt3
@@ -17,9 +17,7 @@ import crypto from 'crypto';
  * distros), sha256 or sha512. Default is sha512.
  * @returns {string} Generated salt string
  */
-export function createSalt(type) {
-  type = type || 'sha512';
-
+export function createSalt(type: string = 'sha512'): string {
   switch (type) {
     case 'md5':
       return '$1$' + crypto.randomBytes(10).toString('base64');
@@ -34,7 +32,7 @@ export function createSalt(type) {
       return '$6$' + crypto.randomBytes(10).toString('base64');
 
     default:
-      throw new TypeError('Unknown salt type at crypt3.createSalt: ' + type);
+      throw new TypeError(`Unknown salt type at crypt3.createSalt: ${type}`);
   }
 }
 
@@ -46,7 +44,9 @@ export function createSalt(type) {
  * @see https://en.wikipedia.org/wiki/Crypt_(C)
  */
 
-export default function crypt3(key, salt) {
-  salt = salt || createSalt();
+export default function crypt3(
+  key: string,
+  salt: string = createSalt()
+): string {
   return crypt(key, salt);
 }

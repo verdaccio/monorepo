@@ -3,13 +3,18 @@
   "version": "0.1.0",
   "description": "htpasswd auth plugin",
   "main": "lib/index.js",
+  "keywords": ["verdaccio", "local-storage"],
+  "author": "Verdaccio <verdaccio.npm@gmail.com>",
+  "private": false,
+  "license": "MIT",
   "scripts": {
+    "coverage": "codecov",
     "test": "npm run flow && npm run lint && jest",
     "lint": "eslint .",
     "flow": "flow",
     "build": "babel src/ --out-dir lib/ --copy-files --ignore ___tests___",
-    "prepublish": "npm run build",
-    "cover": "cross-env NODE_ENV=test nyc npm t"
+    "precommit": "lint-staged",
+    "prepublish": "npm run build"
   },
   "dependencies": {
     "@verdaccio/file-locking": "^0.0.5",
@@ -28,39 +33,23 @@
     "babel-plugin-transform-async-to-generator": "^6.24.1",
     "babel-preset-env": "1.6.0",
     "babel-preset-flow": "6.23.0",
+    "codecov": "^3.0.0",
     "cross-env": "5.0.5",
     "eslint": "^4.4.1",
-    "eslint-config-google": "0.9.1",
-    "eslint-plugin-flowtype": "2.35.0",
-    "eslint-plugin-jest": "^21.2.0",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-prettier": "^2.5.0",
     "flow-bin": "0.52.0",
     "flow-runtime": "0.13.0",
+    "husky": "^0.14.3",
     "jest": "^21.2.1",
-    "nyc": "11.1.0",
+    "lint-staged": "^6.0.0",
+    "prettier": "^1.10.2",
     "rmdir-sync": "^1.0.1"
-  },
-  "nyc": {
-    "include": [
-      "src/**/*.js"
-    ],
-    "all": true,
-    "cache": true,
-    "sourceMap": false,
-    "instrument": false,
-    "report-dir": "./tests-report",
-    "reporter": [
-      "text",
-      "html"
-    ]
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
-  "keywords": [
-    "verdaccio",
-    "local-storage"
-  ],
-  "author": "Verdaccio <verdaccio.npm@gmail.com>",
-  "private": false,
-  "license": "MIT"
+  "lint-staged": {
+    "*.{js, json}": ["eslint .", "prettier --write",  "git add"]
+  }
 }

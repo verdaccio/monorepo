@@ -1,14 +1,14 @@
-'use strict';
+// @flow
 
 import crypto from 'crypto';
 import crypt3 from './crypt3';
 import md5 from 'apache-md5';
-import locker from '@verdaccio/file-locking';
+import * as locker from '@verdaccio/file-locking';
 
 // this function neither unlocks file nor closes it
 // it'll have to be done manually later
-export function lockAndRead(name, cb) {
-  locker.readFile(name, {lock: true}, function(err, res) {
+export function lockAndRead(name: string, cb: Function): void {
+  locker.readFile(name, { lock: true }, (err, res) => {
     if (err) {
       return cb(err);
     }
@@ -17,21 +17,30 @@ export function lockAndRead(name, cb) {
 }
 
 // close and unlock file
-export function unlockFile(name, cb) {
+export function unlockFile(name: string, cb: Function): void {
   locker.unlockFile(name, cb);
 }
 
-export function parseHTPasswd(input) {
-  let result = {};
-  input.split('\n').forEach(function(line) {
-    let args = line.split(':', 3);
+/**
+ * parseHTPasswd - convert htpasswd lines to object.
+ * @param {string} input
+ * @returns {object}
+ */
+export function parseHTPasswd(input: string): Object {
+  return input.split('\n').reduce((result, line) => {
+    const args = line.split(':', 3);
     if (args.length > 1) result[args[0]] = args[1];
-  });
-  return result;
+    return result;
+  }, {});
 }
 
-export function verifyPassword(user, passwd, hash) {
-  console.log(hash);
+/**
+ * verifyPassword - matches password and it's hash.
+ * @param {string} passwd
+ * @param {string} hash
+ * @returns {boolean}
+ */
+export function verifyPassword(passwd: string, hash: string): boolean {
   if (hash.indexOf('{PLAIN}') === 0) {
     return passwd === hash.substr(7);
   } else if (hash.indexOf('{SHA}') === 0) {
@@ -41,19 +50,26 @@ export function verifyPassword(user, passwd, hash) {
         .update(passwd, 'binary')
         .digest('base64') === hash.substr(5)
     );
-  } else {
-    console.log(md5(passwd, hash) === hash || crypt3(passwd, hash) === hash);
-    return (
-      // for backwards compatibility, first check md5 then check crypt3
-      md5(passwd, hash) === hash || crypt3(passwd, hash) === hash
-    );
   }
+  // for backwards compatibility, first check md5 then check crypt3
+  return md5(passwd, hash) === hash || crypt3(passwd, hash) === hash;
 }
 
-export function addUserToHTPasswd(body, user, passwd) {
+/**
+ * addUserToHTPasswd - Generate a htpasswd format for .htpasswd
+ * @param {string} body
+ * @param {string} user
+ * @param {string} passwd
+ * @returns {string}
+ */
+export function addUserToHTPasswd(
+  body: string,
+  user: string,
+  passwd: string
+): string {
   if (user !== encodeURIComponent(user)) {
     let err = Error('username should not contain non-uri-safe characters');
-    err.status = 409;
+    // err.status = 409;
     throw err;
   }
 
@@ -69,7 +85,29 @@ export function addUserToHTPasswd(body, user, passwd) {
   }
   let comment = 'autocreated ' + new Date().toJSON();
 
-  let newline = user + ':' + passwd + ':' + comment + '\n';
-  if (body.length && body[body.length - 1] !== '\n') newline = '\n' + newline;
+  let newline = `${user}:${passwd}:${comment}\n`;
+  if (body.length && body[body.length - 1] !== '\n') {
+    newline = '\n' + newline;
+  }
   return body + newline;
+}
+
+/**
+ * Sanity check for a user
+ * @param {string} user
+ * @param {object} users
+ * @param {number} maxUsers
+ * @returns {object}
+ */
+export function sanityCheck(user: string, users: {}, maxUsers: number) {
+  let err = null;
+  if (users[user]) {
+    err = Error('this user already exists');
+  } else if (Object.keys(users).length >= maxUsers) {
+    err = Error('maximum amount of users reached');
+  }
+  if (err) {
+    // err.status = 403;
+  }
+  return err;
 }
