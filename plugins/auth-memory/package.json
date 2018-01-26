@@ -1,8 +1,8 @@
 {
-  "name": "sinopia-memory",
-  "version": "0.0.3",
-  "description": "auth plugin for sinopia that keeps users in memory",
-  "author": "David Gaya <david.gaya@gmail.com>",
+  "name": "verdaccio-auth-memory",
+  "version": "0.0.1",
+  "description": "auth plugin for verdaccio that keeps users in memory",
+  "author": "Verdaccio community <verdaccio.npm@gmail.com>",
   "repository": {
     "type": "git",
     "url": "git://github.com/dgaya/sinopia-memory.git"
@@ -14,7 +14,7 @@
     "test": "mocha ./tests"
   },
   "keywords": [
-    "sinopia",
+    "verdaccio",
     "auth",
     "plugin",
     "memory"
@@ -24,18 +24,9 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/dgaya/sinopia-memory/issues"
+    "url": "https://github.com/verdaccio/verdaccio-auth-memory/issues"
   },
-  "homepage": "https://github.com/dgaya/sinopia-memory",
-  "_npmVersion": "2.0.0",
-  "_nodeVersion": "4.3.0",
-  "_npmUser": {
-    "name": "davidgaya",
-    "email": "david.gaya@gmail.com"
-  },
-  "maintainers": [
-    "davidgaya <david.gaya@gmail.com>"
-  ],
+  "homepage": "https://github.com/verdaccio/verdaccio-auth-memory",
   "directories": {},
   "main": "index.js"
 }

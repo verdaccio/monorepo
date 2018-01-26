@@ -1,7 +1,5 @@
 'use strict';
 
-module.exports = Memory;
-
 function Memory(config, stuff) {
     var self = Object.create(Memory.prototype);
     self._users = {};
@@ -35,3 +33,5 @@ Memory.prototype.adduser = function (user, password, done) {
 
     done(null, user);
 };
+
+module.exports = Memory;
