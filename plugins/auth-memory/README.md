@@ -18,7 +18,7 @@ Add to your `config.yaml`:
 
 ```yaml
 auth:
-  memory: true
+  auth-memory: true
 ```
 
 ## For plugin writers
