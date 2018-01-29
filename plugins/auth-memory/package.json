@@ -1,6 +1,6 @@
 {
   "name": "verdaccio-auth-memory",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "auth plugin for verdaccio that keeps users in memory",
   "author": "Verdaccio community <verdaccio.npm@gmail.com>",
   "repository": {
