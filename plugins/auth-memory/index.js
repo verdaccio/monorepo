@@ -1,12 +1,12 @@
 'use strict';
 
-function Memory(config, stuff) {
+function Memory(config, appOptions) {
     const self = Object.create(Memory.prototype);
 
     self._users = config.users || {};
     self._config = config;
-    self._logger = stuff.logger;
-    self._app_config = stuff.config;
+    self._logger = appOptions.logger;
+    self._app_config = appOptions.config;
 
     return self
 }

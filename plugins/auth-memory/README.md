@@ -8,8 +8,8 @@ If you want to use this piece of software, do it at your own risk. **This plugin
 ## Installation
 
 ```sh
-$ npm install verdaccio
-$ npm install verdaccio-auth-memory-memory
+$ npm install -g verdaccio
+$ npm install -g verdaccio-auth-memory-memory
 ```
 
 ## Config
@@ -18,7 +18,14 @@ Add to your `config.yaml`:
 
 ```yaml
 auth:
-  auth-memory: true
+  auth-memory:
+    users:
+      foo:
+        name: foo
+        password: s3cret
+      bar:
+        name: bar
+        password: s3cret
 ```
 
 ## For plugin writers
@@ -26,19 +33,21 @@ auth:
 It's called as:
 
 ```js
-require('verdaccio-auth-memory')(config, stuff)
+const plugin = require('verdaccio-auth-memory');
+
+plugin(config, appConfig);
 ```
 
 Where:
 
  - config - module's own config
- - stuff - collection of different internal verdaccio objects
-   - stuff.config - main config
-   - stuff.logger - logger
+ - appOptions - collection of different internal verdaccio objects
+   - appOptions.config - main config
+   - appOptions.logger - logger
 
-This should export two functions:
+This should export four functions:
 
- - `adduser(user, password, cb)`
+ - `adduser(user, password, cb)` Add new users
 
    It should respond with:
     - `cb(err)` in case of an error (error will be returned to user)
@@ -47,7 +56,7 @@ This should export two functions:
 
    It's useful to set `err.status` property to set http status code (e.g. `err.status = 403`).
 
- - `authenticate(user, password, cb)`
+ - `authenticate(user, password, cb)` Authenticate the user
 
    It should respond with:
     - `cb(err)` in case of a fatal error (error will be returned to user, keep those rare)
@@ -56,4 +65,17 @@ This should export two functions:
 
    Groups is an array of all users/usergroups this user has access to. You should probably include username itself here.
 
+ - `allow_access(user, pkg, cb)` Check whether the user has permissions to access a resource (package)
+
+   It should respond with:
+    - `cb(err)` in case of a fatal error (error will be returned to user, keep those rare)
+    - `cb(null, false)` in case user not allowed to access (next auth plugin will be executed)
+    - `cb(null, true)` in case user is allowed to access
+
+ - `allow_publish(user, pkg, cb)` Check whether the user has permissions to publish a resource (package)
+
+   It should respond with:
+    - `cb(err)` in case of a fatal error (error will be returned to user, keep those rare)
+    - `cb(null, false)` in case user not allowed to publish (next auth plugin will be executed)
+    - `cb(null, true)` in case user is allowed to publish
 
