@@ -5,6 +5,7 @@ module.exports = {
   'jest': {
     'verbose': true
   },
+  'testRegex': '(/test/.*\\.spec)\\.js',
   'collectCoverage': true,
   'coveragePathIgnorePatterns': [
     'node_modules',

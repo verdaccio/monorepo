@@ -4,10 +4,12 @@
   "description": "storage implementation in memory",
   "main": "lib/index.js",
   "scripts": {
-    "test": "npm run flow && npm run lint && jest",
-    "lint": "eslint .",
+    "pretest": "npm run lint",
+    "test": "jest",
+    "lint": "npm run flow && eslint .",
     "flow": "flow",
     "prepublish": "npm run build",
+    "commitmsg": "commitlint -e $GIT_PARAMS",
     "build": "babel src/ --out-dir lib/ --copy-files --ignore ___tests___"
   },
   "dependencies": {
@@ -17,6 +19,8 @@
   },
   "devDependencies": {
     "@verdaccio/types": "0.2.0",
+    "@commitlint/cli": "^6.0.2",
+    "@commitlint/config-conventional": "^6.0.2",
     "babel-cli": "6.26.0",
     "babel-core": "6.26.0",
     "babel-eslint": "8.2.1",
@@ -41,6 +45,11 @@
     "plugin",
     "storage"
   ],
+  "commitlint": {
+    "extends": [
+       "@commitlint/config-conventional"
+   ]
+  },
   "author": "Juan Picado <juanpicado19@gmail.com>",
   "private": false,
   "license": "MIT"
