@@ -21,6 +21,7 @@ const config: Config = {
 describe('memory unit test', () => {
   test('should be create an instance', () => {
     const localMemory: ILocalData = new LocalMemory(config, logger);
+
     expect(localMemory).toBeDefined();
   });
 });
