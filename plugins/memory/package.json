@@ -18,8 +18,8 @@
     "memory-fs": "^0.4.1"
   },
   "devDependencies": {
-    "@commitlint/cli": "^6.0.2",
-    "@commitlint/config-conventional": "^6.0.2",
+    "@commitlint/cli": "6.0.2",
+    "@commitlint/config-conventional": "6.0.2",
     "@commitlint/travis-cli": "6.0.2",
     "@verdaccio/types": "0.2.0",
     "babel-cli": "6.26.0",
@@ -38,7 +38,7 @@
     "eslint-plugin-jest": "21.7.0",
     "flow-bin": "0.52.0",
     "flow-runtime": "0.16.0",
-    "husky": "^0.14.3",
+    "husky": "0.14.3",
     "jest": "21.2.1",
     "rmdir-sync": "1.0.1"
   },
