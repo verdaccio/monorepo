@@ -6,7 +6,9 @@
   "scripts": {
     "pretest": "npm run lint",
     "test": "jest",
-    "lint": "npm run flow && eslint .",
+    "precommit": "lint-staged",
+    "format": "prettier --single-quote --trailing-comma none --write \"{src,test}/**/*.js\"",
+    "lint": "npm run format && npm run flow && eslint .",
     "flow": "flow",
     "prepublish": "npm run build",
     "commitmsg": "commitlint -e $GIT_PARAMS",
@@ -35,11 +37,15 @@
     "eslint": "4.16.0",
     "eslint-config-google": "0.9.1",
     "eslint-plugin-flowtype": "2.42.0",
+    "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-jest": "21.7.0",
+    "eslint-plugin-prettier": "^2.5.0",
     "flow-bin": "0.52.0",
     "flow-runtime": "0.16.0",
     "husky": "0.14.3",
     "jest": "22.1.4",
+    "lint-staged": "^6.1.0",
+    "prettier": "1.10.2",
     "rmdir-sync": "1.0.1"
   },
   "keywords": [
@@ -51,6 +57,9 @@
     "extends": [
       "@commitlint/config-conventional"
     ]
+  },
+  "lint-staged": {
+    "*.js": ["npm run format", "git add"]
   },
   "author": "Juan Picado <juanpicado19@gmail.com>",
   "private": false,

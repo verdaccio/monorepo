@@ -1,18 +1,17 @@
 // @flow
 
 import MemoryHandler from './memory-handler';
-import type {LocalStorage, Logger, Config} from '@verdaccio/types';
-import type {IPackageStorage, ILocalData} from '@verdaccio/local-storage';
+import type { LocalStorage, Logger, Config } from '@verdaccio/types';
+import type { IPackageStorage, ILocalData } from '@verdaccio/local-storage';
 
- class LocalMemory implements ILocalData {
-
+class LocalMemory implements ILocalData {
   path: string;
   logger: Logger;
   data: LocalStorage;
   config: Config;
   locked: boolean;
 
-   constructor(config: Config, logger: Logger) {
+  constructor(config: Config, logger: Logger) {
     this.config = config;
     this.logger = logger;
     this.data = this._createEmtpyDatabase();
@@ -50,12 +49,11 @@ import type {IPackageStorage, ILocalData} from '@verdaccio/local-storage';
     const emptyDatabase = {
       list,
       files,
-      secret: '',
+      secret: ''
     };
 
     return emptyDatabase;
   }
-
 }
 
 export default LocalMemory;

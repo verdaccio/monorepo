@@ -1,13 +1,15 @@
 {
   "plugins": [
     "flowtype",
-    "jest"
+    "jest",
+    "prettier"
   ],
   "extends": [
     "eslint:recommended",
     "google",
     "plugin:flowtype/recommended",
-    "plugin:jest/recommended"
+    "plugin:jest/recommended",
+    "plugin:prettier/recommended"
   ],
   "parser": "babel-eslint",
   "parserOptions": {
@@ -24,6 +26,7 @@
     "jest": true
   },
   "rules": {
+    "prettier/prettier": ["error", { "singleQuote": true }],
     "no-tabs": 0,
     "keyword-spacing": 0,
     "padded-blocks": 0,
