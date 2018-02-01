@@ -8,7 +8,7 @@
     "test": "jest",
     "precommit": "lint-staged",
     "format": "prettier --single-quote --trailing-comma none --write \"{src,test}/**/*.js\"",
-    "lint": "npm run format && npm run flow && eslint .",
+    "lint": "npm run flow && eslint .",
     "flow": "flow",
     "prepublish": "npm run build",
     "commitmsg": "commitlint -e $GIT_PARAMS",
@@ -59,7 +59,7 @@
     ]
   },
   "lint-staged": {
-    "*.js": ["npm run format", "git add"]
+    "*.js": ["npm run format", "npm run lint", "git add"]
   },
   "author": "Juan Picado <juanpicado19@gmail.com>",
   "private": false,
