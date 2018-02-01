@@ -17,7 +17,7 @@ const config: Config = {
   checkSecretKey: () => {}
 };
 
-describe('memory unit test', () => {
+describe('memory unit test .', () => {
   test('should create an instance', () => {
     const localMemory: ILocalData = new LocalMemory(config, logger);
 
