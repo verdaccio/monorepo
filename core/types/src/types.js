@@ -7,7 +7,6 @@ declare interface IUploadTarball extends stream$PassThrough {
 
 declare interface IReadTarball extends stream$PassThrough {
   abort(): void;
-  done(): void;
 }
 
 declare type Callback = Function;
@@ -118,6 +117,7 @@ declare interface ILocalStorage {
 
 declare type UpLinkConf = {
   storage: string;
+  cache: boolean;
   url: string;
 }
 
@@ -159,7 +159,7 @@ declare interface ILocalPackageManager {
   writeTarball(name: string): IUploadTarball;
   readTarball(name: string): IReadTarball;
   readPackage(fileName: string, callback: Callback): void;
-  createPackage(name: string, value: any, cb: Callback): void;
+  createPackage(name: string, value: Package, cb: Callback): void;
   deletePackage(fileName: string, callback: Callback): void;
   removePackage(callback: Callback): void;
   updatePackage(pkgFileName: string,
@@ -231,6 +231,34 @@ declare module "@verdaccio/types" {
   declare export type PackageAccess = PackageAccess;
   declare export type StorageList = StorageList;
   declare export type LocalStorage = LocalStorage;
+  declare export type ProxyList = {
+    [key: string]: IProxy | null;
+  }
+
+  declare export interface IProxy {
+    config: Config;
+    failed_requests: number;
+    userAgent: string;
+    ca: string;
+    logger: Logger;
+    server_id: string;
+    url: any;
+    maxage: string;
+    timeout: string;
+    max_fails: string;
+    fail_timeout: string;
+    upname: string;
+    fetchTarball(url: string): IReadTarball;
+    isUplinkValid(url: string): boolean;
+  }
+
+  declare export interface IStorageHandler {
+    config: Config;
+    localStorage: IStorage;
+    logger: Logger;
+    uplinks: ProxyList;
+  }
+
 
   declare export interface IStorage {
     config: Config;
