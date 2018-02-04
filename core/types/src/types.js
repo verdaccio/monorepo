@@ -116,9 +116,10 @@ declare interface ILocalStorage {
 }
 
 declare type UpLinkConf = {
-  storage: string;
-  cache: boolean;
+  storage?: string;
+  cache?: boolean;
   url: string;
+  ca?: string;
 }
 
 declare type PackageAccess = {
@@ -239,14 +240,14 @@ declare module "@verdaccio/types" {
     config: Config;
     failed_requests: number;
     userAgent: string;
-    ca: string;
+    ca?: string | void;
     logger: Logger;
     server_id: string;
     url: any;
     maxage: string;
     timeout: string;
-    max_fails: string;
-    fail_timeout: string;
+    max_fails: number;
+    fail_timeout: number;
     upname: string;
     fetchTarball(url: string): IReadTarball;
     isUplinkValid(url: string): boolean;
