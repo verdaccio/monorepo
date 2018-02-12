@@ -9,12 +9,13 @@
   "license": "MIT",
   "scripts": {
     "coverage": "codecov",
-    "test": "npm run flow && npm run lint && jest",
-    "lint": "eslint .",
+    "test": "jest",
+    "lint": "npm run flow && npm run js-lint",
+    "js-lint": "eslint .",
     "flow": "flow",
     "build": "babel src/ --out-dir lib/ --copy-files --ignore ___tests___",
     "precommit": "lint-staged",
-    "prepublish": "in-publish && npm run build || not-in-publish"
+    "prepublish": "in-publish && npm run lint && npm run build || not-in-publish"
   },
   "dependencies": {
     "@verdaccio/file-locking": "^0.0.5",

@@ -21,6 +21,7 @@ dependencies:
     - yarn install --no-progress
 test:
   override:
+    - yarn run lint
     - yarn run build
     - yarn run test
     - nvm alias default 4
