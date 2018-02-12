@@ -1,9 +1,13 @@
 {
   "name": "verdaccio-htpasswd",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "verdaccio htpasswd auth plugin",
   "main": "lib/index.js",
-  "keywords": ["verdaccio", "local-storage", "plugin"],
+  "keywords": [
+    "verdaccio",
+    "local-storage",
+    "plugin"
+  ],
   "author": "Ayush Sharma <ayush.aceit@gmail.com>",
   "private": false,
   "license": "MIT",
