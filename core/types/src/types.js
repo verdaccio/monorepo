@@ -95,6 +95,10 @@ declare type Tags = {
   [key: string]: Version;
 }
 
+declare type Headers = {
+  [key: string]: string;
+}
+
 declare type Package = {
   _id?: string;
   name: string;
@@ -116,10 +120,14 @@ declare interface ILocalStorage {
 }
 
 declare type UpLinkConf = {
-  storage?: string;
-  cache?: boolean;
   url: string;
   ca?: string;
+  cache?: boolean;
+  timeout?: string;
+  maxage?: string;
+  max_fails?: number;
+  fail_timeout?: string;
+  headers?: Headers;
 }
 
 declare type PackageAccess = {
@@ -135,6 +143,76 @@ declare type PackageList = {
 
 declare type UpLinksConfList = {
   [key: string]: UpLinkConf;
+}
+
+declare interface AuthHtpasswd {
+  file: string;
+  max_users: string;
+}
+
+declare type LoggerType = 'stdout' | 'stderr' | 'file';
+declare type LoggerFormat = 'pretty' | 'pretty-timestamped' | 'file';
+declare type LoggerLevel = 'http' | 'fatal' | 'warn' | 'info' | 'debug' | 'trace';
+
+declare type LoggerConfItem = {
+  type: LoggerType;
+  format: LoggerFormat;
+  level: LoggerLevel;
+}
+
+declare type PublishOptions = {
+  allow_offline: boolean;
+}
+
+declare interface LoggerConf {
+  [key: string]: LoggerConfItem;
+}
+
+declare interface ListenAddress {
+  [key: string]: string;
+}
+
+declare interface WebConf {
+  enable: boolean;
+  title: string;
+  logo: string;
+}
+
+declare interface HttpsConf {
+  key: string;
+  cert: string;
+  ca: string;
+}
+
+declare type AuthConf = any | AuthHtpasswd;
+
+declare type Notifications = {
+  method: string;
+  packagePattern: RegExp;
+  packagePatternFlags: string;
+  headers: Headers;
+  endpoint: string;
+  content: string;
+  [key: string]: string;
+}
+
+declare type ConfigFile = {
+  storage: string;
+  self_path?: string;
+  packages: PackageList;
+  uplinks: UpLinksConfList;
+  logs: LoggerConf;
+  web: WebConf;
+  auth: AuthConf;
+  publish?: PublishOptions;
+  url_prefix?: string;
+  listen?: ListenAddress;
+  https?: HttpsConf;
+  http_proxy?: string;
+  https_proxy?: string;
+  no_proxy?: string;
+  max_body_size?: string;
+  notifications: Notifications;
 }
 
 declare type Config = {
@@ -182,7 +260,6 @@ declare module "@verdaccio/local-storage" {
   }
 
   declare module.exports: typeof LocalDatabase;
-  //declare export type IPackageStorage = IPackageStorage;
 }
 
 declare module "@verdaccio/streams" {
@@ -225,6 +302,19 @@ declare module "@verdaccio/types" {
   declare export type Logger = Logger;
   declare export type DistFile = DistFile;
   declare export type Config = Config;
+  declare export type ConfigFile = ConfigFile;
+  declare export type LoggerConf = LoggerConf;
+  declare export type WebConf = WebConf;
+  declare export type AuthConf = AuthConf;
+  declare export type PublishOptions = PublishOptions;
+  declare export type ListenAddress = ListenAddress;
+  declare export type HttpsConf = HttpsConf;
+  declare export type Notifications = Notifications;
+  declare export type Headers = Headers;
+  declare export type LoggerConfItem = LoggerConfItem;
+  declare export type LoggerLevel = LoggerLevel;
+  declare export type LoggerFormat = LoggerFormat;
+  declare export type LoggerType = LoggerType;
   declare export type PackageList = PackageList;
   declare export type UpLinksConfList = UpLinksConfList;
   declare export type ILocalStorage = ILocalStorage;
