@@ -12,6 +12,7 @@ export function lockAndRead(name: string, cb: Function): void {
     if (err) {
       return cb(err);
     }
+
     return cb(null, res);
   });
 }
@@ -68,8 +69,10 @@ export function addUserToHTPasswd(
   passwd: string
 ): string {
   if (user !== encodeURIComponent(user)) {
-    let err = Error('username should not contain non-uri-safe characters');
-    // err.status = 409;
+    const err = Error('username should not contain non-uri-safe characters');
+
+    // $FlowFixMe
+    err.status = 409;
     throw err;
   }
 
@@ -84,8 +87,8 @@ export function addUserToHTPasswd(
         .digest('base64');
   }
   let comment = 'autocreated ' + new Date().toJSON();
-
   let newline = `${user}:${passwd}:${comment}\n`;
+
   if (body.length && body[body.length - 1] !== '\n') {
     newline = '\n' + newline;
   }
@@ -106,8 +109,10 @@ export function sanityCheck(user: string, users: {}, maxUsers: number) {
   } else if (Object.keys(users).length >= maxUsers) {
     err = Error('maximum amount of users reached');
   }
+
   if (err) {
-    // err.status = 403;
+    // $FlowFixMe
+    err.status = 403;
   }
   return err;
 }
