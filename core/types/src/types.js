@@ -395,12 +395,12 @@ declare module "@verdaccio/types" {
     change_package(name: string, metadata: Package, revision: string, callback: Callback): void;
     remove_package(name: string, callback: Callback): void;
     remove_tarball(name: string, filename: string, revision: string, callback: Callback): void;
-    add_tarball(name: string, filename: string): void;
+    add_tarball(name: string, filename: string): verdaccio$IUploadTarball;
     get_tarball(name: string, filename: string): verdaccio$IReadTarball;
     getPackage(options: any): void;
     search(startkey: string, options: any): void;
     getLocalDatabase(callback: Callback): void;
-    _syncUplinksMetadata(name: string, packageInfo: Package | null, options: any, callback: Callback): void;
+    _syncUplinksMetadata(name: string, packageInfo: Package, options: any, callback: Callback): void;
     _updateVersionsHiddenUpLink(versions: Versions, upLink: IProxy): void;
     _setupUpLinks(config: Config): void;
   }
