@@ -239,6 +239,7 @@ declare type verdaccio$Config = {
   user_agent: string;
   server_id: any;
   storage: string;
+  secret: string;
   self_path: string;
   packages: verdaccio$PackageList;
   uplinks: verdaccio$UpLinksConfList;
@@ -381,6 +382,23 @@ declare module "@verdaccio/types" {
     upname: string;
     fetchTarball(url: string): verdaccio$IReadTarball;
     isUplinkValid(url: string): boolean;
+  }
+
+  declare export interface IAuth {
+    config: verdaccio$Config;
+    logger: verdaccio$Logger;
+    secret: string;
+    plugins: Array<any>;
+  }
+
+  declare export interface IWebSearch {
+    index: any;
+    storage: IStorageHandler;
+    query(query: string): any;
+    add(pkg: Version): void;
+    remove(name: string): void;
+    reindex(): void;
+    configureStorage(storage: IStorageHandler): void;
   }
 
   declare export interface IStorageHandler {
