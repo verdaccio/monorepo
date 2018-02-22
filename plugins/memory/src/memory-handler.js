@@ -41,14 +41,14 @@ class MemoryHandler implements ILocalPackageManager {
     this.logger = logger;
   }
 
-  updatePackage(name: string, updateHandler: Callback, onWrite: Callback, transformPackage: Function, onEnd: Callback) {
-    const json = this._getStorage(name);
+  updatePackage(pkgFileName: string, updateHandler: Callback, onWrite: Callback, transformPackage: Function, onEnd: Callback): void {
+    const json = this._getStorage(pkgFileName);
 
     updateHandler(json, err => {
       if (err) {
         return onEnd(err);
       }
-      onWrite(name, transformPackage(json), onEnd);
+      onWrite(pkgFileName, transformPackage(json), onEnd);
     });
   }
 
@@ -61,19 +61,30 @@ class MemoryHandler implements ILocalPackageManager {
     callback(null);
   }
 
-  createPackage(name: string, value: any, cb: Function): void {
+  createPackage(name: string, value: Object, cb: Function): void {
     this.savePackage(name, value, cb);
   }
 
-  savePackage(name: string, value: any, cb: Function): void {
-    this.data[name] = JSON.parse(JSON.stringify(value));
+  savePackage(name: string, value: Object, cb: Function): void {
+    try {
+      const json: string = JSON.stringify(value, null, '\t');
+
+      this.data[name] = json;
+    } catch (err) {
+      cb(fSError(err.message, 500));
+    }
+
     cb(null);
   }
 
   readPackage(name: string, cb: Function): void {
     const json = this._getStorage(name);
 
-    cb(typeof json === 'undefined' ? noPackageFoundError() : null, json);
+    try {
+      cb(typeof json === 'undefined' ? noPackageFoundError() : null, JSON.parse(json));
+    } catch (err) {
+      cb(fSError(err.message, 500));
+    }
   }
 
   writeTarball(name: string): stream$PassThrough {
