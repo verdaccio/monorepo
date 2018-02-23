@@ -20,6 +20,7 @@ declare type verdaccio$StorageList = Array<string>;
 declare type verdaccio$LocalStorage = {
   list: verdaccio$StorageList;
   secret: string;
+  [key: string]: any;
 }
 
 declare type verdaccio$Dist = {
@@ -243,7 +244,7 @@ declare type verdaccio$Config = {
   self_path: string;
   packages: verdaccio$PackageList;
   uplinks: verdaccio$UpLinksConfList;
-  logs: verdaccio$LoggerConf;
+  logs?: Array<verdaccio$LoggerConf>;
   web: verdaccio$WebConf;
   auth: verdaccio$AuthConf;
   publish?: verdaccio$PublishOptions;
@@ -258,7 +259,7 @@ declare type verdaccio$Config = {
   notifications: verdaccio$Notifications;
   checkSecretKey: (token: string) => string;
   hasProxyTo(pkg: string, upLink: string): boolean;
-  getMatchedPackagesSpec: (storage: string) => verdaccio$PackageAccess;
+  getMatchedPackagesSpec?: (storage: string) => verdaccio$PackageAccess;
 }
 
 declare type verdaccio$SyncReturn = Error | void;
