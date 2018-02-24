@@ -20,7 +20,6 @@ declare type verdaccio$StorageList = Array<string>;
 declare type verdaccio$LocalStorage = {
   list: verdaccio$StorageList;
   secret: string;
-  [key: string]: any;
 }
 
 declare type verdaccio$Dist = {
@@ -222,7 +221,7 @@ declare type verdaccio$ConfigFile = {
   self_path: string;
   packages: verdaccio$PackageList;
   uplinks: verdaccio$UpLinksConfList;
-  logs: verdaccio$LoggerConf;
+  logs: Array<verdaccio$LoggerConf>;
   web: verdaccio$WebConf;
   auth: verdaccio$AuthConf;
   publish?: verdaccio$PublishOptions;
@@ -244,7 +243,7 @@ declare type verdaccio$Config = {
   self_path: string;
   packages: verdaccio$PackageList;
   uplinks: verdaccio$UpLinksConfList;
-  logs?: Array<verdaccio$LoggerConf>;
+  logs: Array<verdaccio$LoggerConf>;
   web: verdaccio$WebConf;
   auth: verdaccio$AuthConf;
   publish?: verdaccio$PublishOptions;
@@ -376,8 +375,8 @@ declare module "@verdaccio/types" {
     logger: Logger;
     server_id: string;
     url: any;
-    maxage: string;
-    timeout: string;
+    maxage: number;
+    timeout: number;
     max_fails: number;
     fail_timeout: number;
     upname: string;
