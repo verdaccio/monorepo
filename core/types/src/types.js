@@ -287,29 +287,24 @@ declare interface verdaccio$ILocalPackageManager {
 }
 
 declare module "@verdaccio/local-storage" {
-
   declare export type ILocalData =  verdaccio$ILocalData;
   declare export type IPackageStorage =  verdaccio$IPackageStorage;
   declare export type ILocalPackageManager =  verdaccio$ILocalPackageManager;
-
   declare class LocalDatabase<ILocalData>{
     constructor(config: verdaccio$Config, logger: verdaccio$Logger): ILocalData;
   }
-
   declare module.exports: typeof LocalDatabase;
 }
 
 declare module "@verdaccio/streams" {
   declare type IUploadTarball = verdaccio$IUploadTarball;
   declare type IReadTarball = verdaccio$IReadTarball;
-
   declare class UploadTarball<ILocalData>{
     abort: Function;
     done: Function;
     constructor(options: duplexStreamOptions): verdaccio$IUploadTarball;
     constructor(): verdaccio$IUploadTarball;
   }
-
   declare class ReadTarball<ILocalData>{
     abort: Function;
     constructor(options: duplexStreamOptions): verdaccio$IReadTarball;
@@ -318,21 +313,16 @@ declare module "@verdaccio/streams" {
 }
 
 declare module "@verdaccio/file-locking" {
-
   declare export type LockOptions = {
     lock?: boolean,
     parse?: boolean
   };
-
   declare export function readFile(name: string, data: any, callback: Function): void;
   declare export function unlockFile(name: string, callback: Function): void;
   declare export function lockFile(name: string, callback: Function): void;
-
 }
 
-
 declare module "@verdaccio/types" {
-
   declare export type Stdout = stream$Writable | tty$WriteStream;
   declare export type Stdin = stream$Readable | tty$ReadStream;
   declare export type Package = verdaccio$Package;
@@ -363,108 +353,4 @@ declare module "@verdaccio/types" {
   declare export type PackageAccess = verdaccio$PackageAccess;
   declare export type StorageList = verdaccio$StorageList;
   declare export type LocalStorage = verdaccio$LocalStorage;
-  declare export type ProxyList = {
-    [key: string]: IProxy | null;
-  }
-
-  declare export interface IProxy {
-    config: UpLinkConf;
-    failed_requests: number;
-    userAgent: string;
-    ca?: string | void;
-    logger: Logger;
-    server_id: string;
-    url: any;
-    maxage: number;
-    timeout: number;
-    max_fails: number;
-    fail_timeout: number;
-    upname: string;
-    fetchTarball(url: string): verdaccio$IReadTarball;
-    isUplinkValid(url: string): boolean;
-  }
-
-  declare export interface IAuth {
-    config: verdaccio$Config;
-    logger: verdaccio$Logger;
-    secret: string;
-    plugins: Array<any>;
-  }
-
-  declare export interface IWebSearch {
-    index: any;
-    storage: IStorageHandler;
-    query(query: string): any;
-    add(pkg: Version): void;
-    remove(name: string): void;
-    reindex(): void;
-    configureStorage(storage: IStorageHandler): void;
-  }
-
-  declare export interface IStorageHandler {
-    config: Config;
-    localStorage: IStorage;
-    logger: Logger;
-    uplinks: ProxyList;
-    addPackage(name: string, metadata: any, callback: Function): void;
-    addVersion(name: string, version: string, metadata: Version, tag: string, callback: Callback): void;
-    mergeTags(name: string, tagHash: MergeTags, callback: Callback): void;
-    replace_tags(name: string, tagHash: MergeTags, callback: Callback): void;
-    change_package(name: string, metadata: Package, revision: string, callback: Callback): void;
-    remove_package(name: string, callback: Callback): void;
-    remove_tarball(name: string, filename: string, revision: string, callback: Callback): void;
-    add_tarball(name: string, filename: string): verdaccio$IUploadTarball;
-    get_tarball(name: string, filename: string): verdaccio$IReadTarball;
-    getPackage(options: any): void;
-    search(startkey: string, options: any): void;
-    getLocalDatabase(callback: Callback): void;
-    _syncUplinksMetadata(name: string, packageInfo: Package, options: any, callback: Callback): void;
-    _updateVersionsHiddenUpLink(versions: Versions, upLink: IProxy): void;
-    _setupUpLinks(config: Config): void;
-  }
-
-
-  declare export interface IStorage {
-    config: Config;
-    localData: verdaccio$ILocalData;
-    logger: Logger;
-    addPackage(name: string, info: Package, callback: Callback): void;
-    removePackage(name: string, callback: Callback): void;
-    updateVersions(name: string, packageInfo: Package, callback: Callback): void;
-    addVersion(name: string, version: string, metadata: Version, tag: string, callback: Callback): void;
-    mergeTags(name: string, tags: verdaccio$MergeTags, callback: Callback): void;
-    changePackage(name: string, metadata: Package, revision: string, callback: Callback): void;
-    removeTarball(name: string, filename: string, revision: string, callback: Callback): void;
-    addTarball(name: string, filename: string): verdaccio$IUploadTarball;
-    getTarball(name: string, filename: string): verdaccio$IReadTarball;
-    getPackageMetadata(name: string, callback: Callback): void;
-    search(startKey: string, options: any): verdaccio$IUploadTarball;
-  }
-
-  declare export interface IPlugableStorage {
-    addPackage(name: string): verdaccio$SyncReturn;
-    removePackage(name: string): verdaccio$SyncReturn;
-    getPackage(): StorageList;
-    syncPackages(): ?verdaccio$SyncReturn;
-    createWriteStream(name: string): verdaccio$IUploadTarball;
-    createReadStream(readTarballStream: any, callback?: Function): verdaccio$IReadTarball;
-    readJSON(fileName: string, callback: Callback): void;
-    createJSON(name: string, value: any, cb: Function): void;
-    unlink(fileName: string, callback: Callback): void;
-    unlockFile(fileName: string, callback: Callback): void;
-    rmdir(path: string, callback: Callback): void;
-    lockAndReadJSON(fileName: string, callback: Callback): void;
-    writeJSON(fileName: string, json: Package, callback: Callback): void;
-  }
-
-  declare type Utils = {
-    ErrorCode: any;
-    getLatestVersion: Callback;
-    isObject: (value: any) => boolean;
-    validate_name: (value: any) => boolean;
-    tag_version: (value: any, version: string, tag: string) => void;
-    normalize_dist_tags: (pkg: Package) => void;
-    semverSort: (keys: Array<string>) => Array<string>;
-  }
-
 }
