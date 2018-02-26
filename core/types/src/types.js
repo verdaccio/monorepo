@@ -460,11 +460,11 @@ declare module "@verdaccio/types" {
   declare type Utils = {
     ErrorCode: any;
     getLatestVersion: Callback;
-    is_object: (value: any) => boolean;
+    isObject: (value: any) => boolean;
     validate_name: (value: any) => boolean;
     tag_version: (value: any, version: string, tag: string) => void;
     normalize_dist_tags: (pkg: Package) => void;
-    semver_sort: (keys: Array<string>) => Array<string>;
+    semverSort: (keys: Array<string>) => Array<string>;
   }
 
 }
