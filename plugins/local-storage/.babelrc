@@ -1,15 +1,12 @@
 {
   "presets": [["env", {
     "targets": {
-      "node": "4.6"
+      "node": "6"
     }
   }], "flow"],
   "env": {
     "test": {
-      "plugins": [
-        "istanbul",
-        "transform-async-to-generator"
-      ]
+
     }
   }
 }
