@@ -9,6 +9,7 @@ import createError from 'http-errors';
 import type {HttpError} from 'http-errors';
 import {UploadTarball, ReadTarball} from '@verdaccio/streams';
 import {unlockFile, readFile} from '@verdaccio/file-locking';
+import type {IUploadTarball} from '@verdaccio/streams';
 import type {Callback, Logger, Package} from '@verdaccio/types';
 import type {ILocalPackageManager} from '@verdaccio/local-storage';
 
@@ -162,7 +163,7 @@ class LocalFS implements ILocalPackageManager {
       });
     }
 
-    writeTarball(name: string): UploadTarball {
+    writeTarball(name: string): IUploadTarball {
       const uploadStream = new UploadTarball();
 
       let _ended = 0;
@@ -174,7 +175,7 @@ class LocalFS implements ILocalPackageManager {
 
       fs.exists(pathName, (exists) => {
         if (exists) {
-          return uploadStream.emit('error', fSError(fileExist));
+          uploadStream.emit('error', fSError(fileExist));
         }
 
         const temporalName = path.join(this.path, `${name}.tmp-${String(Math.random()).replace(/^0\./, '')}`);
@@ -280,7 +281,7 @@ class LocalFS implements ILocalPackageManager {
     });
   }
 
-    _convertToString(value: string): string {
+    _convertToString(value: Package): string {
       return JSON.stringify(value, null, '\t');
     }
 

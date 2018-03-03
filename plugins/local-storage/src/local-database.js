@@ -92,6 +92,7 @@ import type {IPackageStorage, ILocalData} from '@verdaccio/local-storage';
   }
 
   getPackageStorage(packageInfo: string): IPackageStorage {
+    // $FlowFixMe
     const packagePath: string = this._getLocalStoragePath(this.config.getMatchedPackagesSpec(packageInfo).storage);
 
     if (_.isString(packagePath) === false) {
