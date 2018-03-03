@@ -1,6 +1,7 @@
 [ignore]
 .*/node_modules/.*
 lib/.*
+.*/_storage/.*
 
 [libs]
 node_modules/@verdaccio/types/lib/
