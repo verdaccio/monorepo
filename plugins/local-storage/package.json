@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/local-storage",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "local storage implementation",
   "main": "lib/index.js",
   "scripts": {
