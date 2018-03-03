@@ -163,7 +163,6 @@ describe('Local FS test', ()=> {
   });
 
   describe('writeTarball() group', ()=> {
-
     beforeEach(() => {
       const writeTarballFolder: string = path.join(localTempStorage, '_writeTarball');
       rm(writeTarballFolder);
@@ -171,10 +170,9 @@ describe('Local FS test', ()=> {
     });
 
     test('writeTarball() success', (done) => {
-      const newFileLocationFolder: string = path.join(localTempStorage, '_writeTarball');
       const newFileName: string = 'new-readme-0.0.0.tgz';
       const readmeStorage: ILocalPackageManager = new LocalFS(path.join(__dirname, 'fixtures/readme-test'), logger);
-      const writeStorage: ILocalPackageManager = new LocalFS(newFileLocationFolder, logger);
+      const writeStorage: ILocalPackageManager = new LocalFS(path.join(__dirname, '../../_storage'), logger);
       const readTarballStream = readmeStorage.readTarball('test-readme-0.0.0.tgz');
       const writeTarballStream = writeStorage.writeTarball(newFileName);
 
@@ -184,7 +182,8 @@ describe('Local FS test', ()=> {
       });
 
       writeTarballStream.on('success', function() {
-        const fileLocation: string = path.join(newFileLocationFolder, newFileName);
+        const fileLocation: string = path.join(__dirname, '../../_storage', newFileName);
+
         expect(fs.existsSync(fileLocation)).toBe(true);
         done();
       });

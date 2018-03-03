@@ -2,9 +2,7 @@
 
 module.exports = {
   'name': 'local-storage-jest',
-  'jest': {
-    'verbose': true
-  },
+  'verbose': true,
   'collectCoverage': true,
   'coveragePathIgnorePatterns': [
     'node_modules',

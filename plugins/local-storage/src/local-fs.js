@@ -9,7 +9,7 @@ import createError from 'http-errors';
 import type {HttpError} from 'http-errors';
 import {UploadTarball, ReadTarball} from '@verdaccio/streams';
 import {unlockFile, readFile} from '@verdaccio/file-locking';
-import type {Callback, Logger} from '@verdaccio/types';
+import type {Callback, Logger, Package} from '@verdaccio/types';
 import type {ILocalPackageManager} from '@verdaccio/local-storage';
 
 export const fileExist: string = 'EEXISTS';
@@ -140,11 +140,11 @@ class LocalFS implements ILocalPackageManager {
      fs.rmdir(this._getStorage('.'), callback);
    }
 
-   createPackage(name: string, value: any, cb: Function) {
+   createPackage(name: string, value: Package, cb: Function) {
       this._createFile(this._getStorage(pkgFileName), this._convertToString(value), cb);
    }
 
-   savePackage(name: string, value: any, cb: Function) {
+   savePackage(name: string, value: Package, cb: Function) {
       this._writeFile(this._getStorage(pkgFileName), this._convertToString(value), cb);
     }
 
@@ -221,10 +221,12 @@ class LocalFS implements ILocalPackageManager {
           // re-emitting open because it's handled in storage.js
           uploadStream.emit('open');
         });
+
         file.on('error', function(err) {
           uploadStream.emit('error', err);
         });
       });
+
       return uploadStream;
     }
 
