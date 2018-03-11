@@ -199,9 +199,11 @@ declare interface verdaccio$WebConf {
 }
 
 declare interface verdaccio$HttpsConf {
-  key: string;
-  cert: string;
-  ca: string;
+  key?: string;
+  cert?: string;
+  ca?: string;
+  pfx?: string;
+  passphrase?: string;
 }
 
 declare type verdaccio$AuthConf = any | verdaccio$AuthHtpasswd;
@@ -256,6 +258,7 @@ declare type verdaccio$Config = {
   no_proxy?: string;
   max_body_size?: string;
   notifications: verdaccio$Notifications;
+  middlewares?: any;
   checkSecretKey: (token: string) => string;
   hasProxyTo(pkg: string, upLink: string): boolean;
   getMatchedPackagesSpec?: (storage: string) => verdaccio$PackageAccess;
