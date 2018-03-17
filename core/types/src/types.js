@@ -148,6 +148,7 @@ declare type verdaccio$UpLinkConf = {
   fail_timeout?: string | void;
   headers?: verdaccio$Headers;
   auth?: verdaccio$UpLinkTokenConf;
+  strict_ssl?: boolean | void;
 }
 
 declare type verdaccio$PackageAccess = {
