@@ -9,7 +9,7 @@ If you want to use this piece of software, do it at your own risk. **This plugin
 
 ```sh
 $ npm install -g verdaccio
-$ npm install -g verdaccio-auth-memory-memory
+$ npm install -g verdaccio-auth-memory
 ```
 
 ## Config
