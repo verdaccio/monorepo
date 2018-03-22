@@ -81,13 +81,14 @@ class MemoryHandler implements ILocalPackageManager {
     const json = this._getStorage(name);
 
     try {
+      // $FlowFixMe
       cb(typeof json === 'undefined' ? noPackageFoundError() : null, JSON.parse(json));
     } catch (err) {
-      cb(fSError(err.message, 500));
+      cb(fSError('package not found', 404));
     }
   }
 
-  writeTarball(name: string): stream$PassThrough {
+  writeTarball(name: string) {
     const uploadStream = new UploadTarball();
     const temporalName = `/${name}`;
 
@@ -124,7 +125,7 @@ class MemoryHandler implements ILocalPackageManager {
     return uploadStream;
   }
 
-  readTarball(name: string): stream$PassThrough {
+  readTarball(name: string) {
     const pathName = `/${name}`;
 
     const readTarballStream = new ReadTarball();

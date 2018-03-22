@@ -2,7 +2,7 @@
 
 import MemoryHandler from './memory-handler';
 import type { LocalStorage, Logger, Config } from '@verdaccio/types';
-import type { IPackageStorage, ILocalData } from '@verdaccio/local-storage';
+import type { ILocalData } from '@verdaccio/local-storage';
 
 class LocalMemory implements ILocalData {
   path: string;
@@ -39,7 +39,8 @@ class LocalMemory implements ILocalData {
     // nothing to do
   }
 
-  getPackageStorage(packageInfo: string): IPackageStorage {
+  getPackageStorage(packageInfo: string) {
+    // $FlowFixMe
     return new MemoryHandler(packageInfo, this.data.files, this.logger);
   }
 
