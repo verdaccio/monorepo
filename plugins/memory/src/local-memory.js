@@ -24,9 +24,11 @@ class LocalMemory implements ILocalData {
   }
 
   add(name: string) {
-    if (this.data.list.length < this.limit) {
-      if (this.data.list.indexOf(name) === -1) {
-        this.data.list.push(name);
+    const { list } = this.data;
+
+    if (list.length < this.limit) {
+      if (list.indexOf(name) === -1) {
+        list.push(name);
       }
     } else {
       this.logger.info({ limit: this.limit }, 'Storage memory has reached limit of @{limit} packages');
@@ -35,9 +37,10 @@ class LocalMemory implements ILocalData {
   }
 
   remove(name: string) {
-    const i = this.data.list.indexOf(name);
+    const { list } = this.data;
+    const i = list.indexOf(name);
     if (i !== -1) {
-      this.data.list.splice(i, 1);
+      list.splice(i, 1);
     }
   }
 
