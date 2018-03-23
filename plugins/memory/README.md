@@ -19,8 +19,8 @@ Complete configuration example:
 ```yaml
 store:
   memory:
-    cache: true
-```    
+    limit: 1000
+```
 
 in `config.yaml`
 
@@ -33,7 +33,7 @@ auth:
     file: ./htpasswd
 store:
   memory:
-    cache: true   
+    limit: 1000
 ```
 
 ## Disclaimer

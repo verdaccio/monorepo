@@ -1,8 +1,8 @@
 // @flow
 
-import type { Config } from '@verdaccio/types';
+import type { ConfigMemory } from '../../src/local-memory';
 
-const config: Config = {
+const config: ConfigMemory = {
   user_agent: 'string',
   server_id: 1234,
   storage: './home',

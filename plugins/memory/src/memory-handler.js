@@ -42,13 +42,23 @@ class MemoryHandler implements ILocalPackageManager {
   }
 
   updatePackage(pkgFileName: string, updateHandler: Callback, onWrite: Callback, transformPackage: Function, onEnd: Callback): void {
-    const json = this._getStorage(pkgFileName);
+    let json = this._getStorage(pkgFileName);
+
+    try {
+      json = JSON.parse(json);
+    } catch (err) {
+      return onEnd(err);
+    }
 
     updateHandler(json, err => {
       if (err) {
         return onEnd(err);
       }
-      onWrite(pkgFileName, transformPackage(json), onEnd);
+      try {
+        onWrite(pkgFileName, transformPackage(json), onEnd);
+      } catch (err) {
+        return onEnd(fSError('error on parse', 500));
+      }
     });
   }
 
@@ -81,7 +91,6 @@ class MemoryHandler implements ILocalPackageManager {
     const json = this._getStorage(name);
 
     try {
-      // $FlowFixMe
       cb(typeof json === 'undefined' ? noPackageFoundError() : null, JSON.parse(json));
     } catch (err) {
       cb(fSError('package not found', 404));
