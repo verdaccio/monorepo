@@ -10,7 +10,6 @@ import type { HttpError } from 'http-errors';
 import type { StorageList, Package, Callback, Logger } from '@verdaccio/types';
 import type { ILocalPackageManager } from '@verdaccio/local-storage';
 
-const fs = new MemoryFileSystem();
 const noSuchFile: string = 'ENOENT';
 export const fileExist: string = 'EEXISTS';
 
@@ -28,6 +27,8 @@ const noPackageFoundError = function(message = 'no such package') {
   err.code = noSuchFile;
   return err;
 };
+
+const fs = new MemoryFileSystem();
 
 class MemoryHandler implements ILocalPackageManager {
   data: any;
@@ -101,7 +102,7 @@ class MemoryHandler implements ILocalPackageManager {
     const uploadStream = new UploadTarball();
     const temporalName = `/${name}`;
 
-    setTimeout(function() {
+    process.nextTick(function() {
       fs.exists(temporalName, function(exists) {
         if (exists) {
           return uploadStream.emit('error', fSError(fileExist));
@@ -121,6 +122,7 @@ class MemoryHandler implements ILocalPackageManager {
           };
 
           uploadStream.abort = function() {
+            uploadStream.emit('error', fSError('transmision aborted', 400));
             file.end();
           };
 
@@ -129,7 +131,7 @@ class MemoryHandler implements ILocalPackageManager {
           uploadStream.emit('error', err);
         }
       });
-    }, 10);
+    });
 
     return uploadStream;
   }

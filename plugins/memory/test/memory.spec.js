@@ -42,9 +42,10 @@ describe('memory unit test .', () => {
     });
 
     test('should remove a package', () => {
+      const pkgName: string = 'test';
       const localMemory: ILocalData = new LocalMemory(config, logger);
-      localMemory.add('test');
-      localMemory.remove('test');
+      localMemory.add(pkgName);
+      localMemory.remove(pkgName);
 
       expect(localMemory.get()).toHaveLength(0);
     });
@@ -59,14 +60,15 @@ describe('memory unit test .', () => {
 
     test('should save a package', done => {
       const localMemory: ILocalData = new LocalMemory(config, logger);
+      const pkgName: string = 'test';
 
-      const handler = localMemory.getPackageStorage('test');
+      const handler = localMemory.getPackageStorage(pkgName);
       expect(handler).toBeDefined();
 
       if (handler) {
-        handler.savePackage('test', pkgExample, err => {
+        handler.savePackage(pkgName, pkgExample, err => {
           expect(err).toBeNull();
-          handler.readPackage('test', (err, data) => {
+          handler.readPackage(pkgName, (err, data) => {
             expect(err).toBeNull();
             expect(data).toEqual(pkgExample);
             done();
@@ -77,17 +79,18 @@ describe('memory unit test .', () => {
 
     test('should update a package', done => {
       const localMemory: ILocalData = new LocalMemory(config, logger);
+      const pkgName: string = 'test';
 
-      const handler = localMemory.getPackageStorage('test');
+      const handler = localMemory.getPackageStorage(pkgName);
       expect(handler).toBeDefined();
       const onEnd = jest.fn();
 
       if (handler) {
-        handler.savePackage('test', pkgExample, err => {
+        handler.savePackage(pkgName, pkgExample, err => {
           expect(err).toBeNull();
 
           handler.updatePackage(
-            'test',
+            pkgName,
             (json, callback) => {
               expect(json).toBeDefined();
               expect(json.name).toBe(pkgExample.name);
@@ -95,7 +98,7 @@ describe('memory unit test .', () => {
               callback();
             },
             (name, data, onEnd) => {
-              expect(name).toBe('test');
+              expect(name).toBe(pkgName);
               expect(data.name).toBe(pkgExample.name);
               onEnd();
               expect(onEnd).toBeCalled();
@@ -111,17 +114,64 @@ describe('memory unit test .', () => {
       }
     });
 
+    test('should write a tarball', done => {
+      const localMemory: ILocalData = new LocalMemory(config, logger);
+      const pkgName: string = 'test';
+      const dataTarball: string = '12345';
+
+      const handler = localMemory.getPackageStorage(pkgName);
+
+      if (handler) {
+        const stream = handler.writeTarball(pkgName);
+        stream.on('data', data => {
+          expect(data.toString()).toBe(dataTarball);
+        });
+        stream.on('open', () => {
+          stream.done();
+          stream.end();
+        });
+        stream.on('success', () => {
+          done();
+        });
+
+        stream.write(dataTarball);
+      }
+    });
+
+    test('should abort while write a tarball', done => {
+      const localMemory: ILocalData = new LocalMemory(config, logger);
+      const pkgName: string = 'test-abort';
+      const dataTarball: string = '12345';
+
+      const handler = localMemory.getPackageStorage(pkgName);
+
+      if (handler) {
+        const stream = handler.writeTarball(pkgExample);
+        stream.on('error', err => {
+          expect(err).not.toBeNull();
+          expect(err.message).toMatch(/transmision aborted/);
+          done();
+        });
+        stream.on('open', () => {
+          stream.abort();
+        });
+
+        stream.write(dataTarball);
+      }
+    });
+
     test('should delete a package', done => {
       const localMemory: ILocalData = new LocalMemory(config, logger);
+      const pkgName: string = 'test2';
 
-      const handler: IPackageStorage = localMemory.getPackageStorage('test2');
+      const handler: IPackageStorage = localMemory.getPackageStorage(pkgName);
       expect(handler).toBeDefined();
       if (handler) {
-        handler.createPackage('test2', pkgExample, err => {
+        handler.createPackage(pkgName, pkgExample, err => {
           expect(err).toBeNull();
-          handler.deletePackage('test2', (err, data) => {
+          handler.deletePackage(pkgName, (err, data) => {
             expect(err).toBeNull();
-            handler.readPackage('test', (err, data) => {
+            handler.readPackage(pkgName, (err, data) => {
               expect(err).not.toBeNull();
               expect(err.message).toMatch(/package not found/);
               done();
