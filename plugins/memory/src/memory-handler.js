@@ -10,7 +10,7 @@ import type { HttpError } from 'http-errors';
 import type { StorageList, Package, Callback, Logger } from '@verdaccio/types';
 import type { ILocalPackageManager } from '@verdaccio/local-storage';
 
-const noSuchFile: string = 'ENOENT';
+export const noSuchFile: string = 'ENOENT';
 export const fileExist: string = 'EEXISTS';
 
 const fSError = function(message: string, code: number = 404): HttpError {
@@ -22,7 +22,7 @@ const fSError = function(message: string, code: number = 404): HttpError {
 };
 
 const noPackageFoundError = function(message = 'no such package') {
-  const err = new Error(message);
+  const err: HttpError = createError(404, message);
   // $FlowFixMe
   err.code = noSuchFile;
   return err;
@@ -90,11 +90,12 @@ class MemoryHandler implements ILocalPackageManager {
 
   readPackage(name: string, cb: Function): void {
     const json = this._getStorage(name);
+    const isJson = typeof json === 'undefined';
 
     try {
-      cb(typeof json === 'undefined' ? noPackageFoundError() : null, JSON.parse(json));
+      cb(isJson ? noPackageFoundError() : null, JSON.parse(json));
     } catch (err) {
-      cb(fSError('package not found', 404));
+      cb(noPackageFoundError());
     }
   }
 
