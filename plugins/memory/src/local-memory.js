@@ -15,10 +15,10 @@ class LocalMemory implements ILocalData {
   config: Config;
   locked: boolean;
 
-  constructor(config: ConfigMemory, logger: Logger) {
+  constructor(config: ConfigMemory, options: any) {
     this.config = config;
     this.limit = config.limit || DEFAULT_LIMIT;
-    this.logger = logger;
+    this.logger = options.logger;
     this.data = this._createEmtpyDatabase();
     this.data.secret = config.checkSecretKey(this.data.secret);
   }
@@ -53,7 +53,7 @@ class LocalMemory implements ILocalData {
   }
 
   getPackageStorage(packageInfo: string) {
-    return new MemoryHandler(packageInfo, this.logger);
+    return new MemoryHandler(packageInfo, this.data.files, this.logger);
   }
 
   _createEmtpyDatabase(): LocalStorage {
