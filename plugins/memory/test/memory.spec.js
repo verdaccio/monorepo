@@ -138,9 +138,76 @@ describe('memory unit test .', () => {
       }
     });
 
+    test('should read a tarball', done => {
+      const localMemory: ILocalData = new LocalMemory(config, logger);
+      const pkgName: string = 'test.tar.gz';
+      const dataTarball: string = '12345';
+
+      const handler = localMemory.getPackageStorage(pkgName);
+
+      if (handler) {
+        const stream = handler.writeTarball(pkgName);
+        stream.on('open', () => {
+          stream.done();
+          stream.end();
+        });
+        stream.on('success', () => {
+          const readStream = handler.readTarball(pkgName);
+          readStream.on('data', data => {
+            expect(data.toString()).toBe(dataTarball);
+            done();
+          });
+        });
+        stream.write(dataTarball);
+      }
+    });
+
+    test('should abort read a tarball', done => {
+      const localMemory: ILocalData = new LocalMemory(config, logger);
+      const pkgName: string = 'test2.tar.gz';
+      const dataTarball: string = '12345';
+
+      const handler = localMemory.getPackageStorage(pkgName);
+
+      if (handler) {
+        const stream = handler.writeTarball(pkgName);
+        stream.on('open', () => {
+          stream.done();
+          stream.end();
+        });
+        stream.on('success', () => {
+          const readStream = handler.readTarball(pkgName);
+          readStream.on('data', data => {
+            readStream.abort();
+          });
+          readStream.on('error', err => {
+            expect(err).not.toBeNull();
+            expect(err.message).toMatch(/read has been aborted/);
+            done();
+          });
+        });
+        stream.write(dataTarball);
+      }
+    });
+
+    test('should fails read a tarball not found', done => {
+      const localMemory: ILocalData = new LocalMemory(config, logger);
+      const pkgName: string = 'test2.tar.gz';
+      const handler = localMemory.getPackageStorage(pkgName);
+
+      if (handler) {
+        const readStream = handler.readTarball('not-found');
+        readStream.on('error', err => {
+          expect(err).not.toBeNull();
+          expect(err.message).toMatch(/no such package/);
+          done();
+        });
+      }
+    });
+
     test('should abort while write a tarball', done => {
       const localMemory: ILocalData = new LocalMemory(config, logger);
-      const pkgName: string = 'test-abort';
+      const pkgName: string = 'test-abort.tar.gz';
       const dataTarball: string = '12345';
 
       const handler = localMemory.getPackageStorage(pkgName);

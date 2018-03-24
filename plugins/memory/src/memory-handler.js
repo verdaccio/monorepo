@@ -141,7 +141,7 @@ class MemoryHandler implements ILocalPackageManager {
 
     const readTarballStream = new ReadTarball();
 
-    setTimeout(function() {
+    process.nextTick(function() {
       fs.exists(pathName, function(exists) {
         if (!exists) {
           readTarballStream.emit('error', noPackageFoundError());
@@ -151,13 +151,16 @@ class MemoryHandler implements ILocalPackageManager {
           readTarballStream.emit('content-length', fs.data[name].length);
           readTarballStream.emit('open');
           readStream.pipe(readTarballStream);
+          readStream.on('error', error => {
+            readTarballStream.emit('error', error);
+          });
 
           readTarballStream.abort = function() {
-            readStream.close();
+            readStream.destroy(fSError('read has been aborted', 400));
           };
         }
       });
-    }, 10);
+    });
 
     return readTarballStream;
   }
