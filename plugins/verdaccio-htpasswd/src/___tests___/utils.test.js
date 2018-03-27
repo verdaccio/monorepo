@@ -131,19 +131,50 @@ describe('unlockFile', () => {
 });
 
 describe('sanityCheck', () => {
-  it('should thorw error for user already exists', () => {
-    const users = { test: '$6FrCaT/v0dwE' };
-    const input = sanityCheck('test', users, Infinity);
-    expect(input.message).toEqual('this user already exists');
+  let users;
+  beforeEach(() => {
+    users = { test: '$6FrCaT/v0dwE' };
   });
-  it('should thorw error max number of users', () => {
-    const users = { test: '$6FrCaT/v0dwE' };
-    const input = sanityCheck('username', users, 1);
+  it('should throw error for user already exists', () => {
+    const verifyFn = jest.fn();
+    const input = sanityCheck('test', users.test, verifyFn, users, Infinity);
+    expect(input.status).toEqual(401);
+    expect(input.message).toEqual('unauthorized access');
+    expect(verifyFn).toHaveBeenCalled();
+  });
+  it('should throw error max number of users', () => {
+    const verifyFn = () => {};
+    const input = sanityCheck('username', users.test, verifyFn, users, -1);
+    expect(input.status).toEqual(403);
     expect(input.message).toEqual('maximum amount of users reached');
   });
   it('should not throw anything and sanity check', () => {
-    const users = { test: '$6FrCaT/v0dwE' };
-    const input = sanityCheck('username', users, 2);
+    const verifyFn = () => {};
+    const input = sanityCheck('username', users.test, verifyFn, users, 2);
     expect(input).toBeNull();
+  });
+  it('should throw error for required username field', () => {
+    const verifyFn = () => {};
+    const input = sanityCheck(undefined, users.test, verifyFn, users, 2);
+    expect(input.message).toEqual('username and password is required');
+    expect(input.status).toEqual(400);
+  });
+  it('should throw error for required password field', () => {
+    const verifyFn = () => {};
+    const input = sanityCheck('username', undefined, verifyFn, users, 2);
+    expect(input.message).toEqual('username and password is required');
+    expect(input.status).toEqual(400);
+  });
+  it('should throw error for required username & password fields', () => {
+    const verifyFn = () => {};
+    const input = sanityCheck(undefined, undefined, verifyFn, users, 2);
+    expect(input.message).toEqual('username and password is required');
+    expect(input.status).toEqual(400);
+  });
+  it('should successfully authenicate the user', () => {
+    const verifyFn = jest.fn(() => true);
+    const input = sanityCheck('test', users.test, verifyFn, users, 2);
+    expect(input).toBeTruthy();
+    expect(verifyFn).toHaveBeenCalled();
   });
 });

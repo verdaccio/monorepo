@@ -113,7 +113,13 @@ export default class HTPasswd {
    * @returns {function}
    */
   adduser(user: string, password: string, realCb: Function) {
-    let sanity = sanityCheck(user, this.users, this.maxUsers);
+    let sanity = sanityCheck(
+      user,
+      password,
+      verifyPassword,
+      this.users,
+      this.maxUsers
+    );
 
     // preliminary checks, just to ensure that file won't be reloaded if it's
     // not needed
@@ -148,7 +154,13 @@ export default class HTPasswd {
 
       // real checks, to prevent race conditions
       // parsing users after reading file.
-      sanity = sanityCheck(user, this.users, this.maxUsers);
+      sanity = sanityCheck(
+        user,
+        password,
+        verifyPassword,
+        this.users,
+        this.maxUsers
+      );
 
       if (sanity) {
         return cb(sanity);

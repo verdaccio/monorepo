@@ -55,7 +55,7 @@ describe('HTPasswd', () => {
 
   it('addUser - it should not pass sanity check', done => {
     const callback = (a, b) => {
-      expect(a.message).toEqual('this user already exists');
+      expect(a.message).toEqual('unauthorized access');
       done();
     };
     wrapper.adduser('test', 'somerandompassword', callback);
