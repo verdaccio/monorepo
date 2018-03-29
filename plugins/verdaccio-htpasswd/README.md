@@ -4,6 +4,8 @@
 
 `verdaccio-htpasswd` is a default authentication plugin for the [Verdaccio](https://github.com/verdaccio/verdaccio).
 
+> This plugin is being used as dependency after `v3.0.0-beta.x`. The `v2.x` still contains this plugin built-in.
+
 ## Install
 
 As simple as running:
