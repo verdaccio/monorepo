@@ -171,10 +171,11 @@ describe('sanityCheck', () => {
     expect(input.message).toEqual('username and password is required');
     expect(input.status).toEqual(400);
   });
-  it('should successfully authenicate the user', () => {
+  it('should throw error for existing username and password', () => {
     const verifyFn = jest.fn(() => true);
     const input = sanityCheck('test', users.test, verifyFn, users, 2);
-    expect(input).toBeTruthy();
-    expect(verifyFn).toHaveBeenCalled();
+    expect(input.status).toEqual(409);
+    expect(input.message).toEqual('username is already registered');
+    expect(verifyFn).toHaveBeenCalledTimes(1);
   });
 });

@@ -132,7 +132,10 @@ export function sanityCheck(
   if (hash) {
     const auth = verifyFn(password, users[user]);
     if (auth) {
-      return true;
+      err = Error('username is already registered');
+      // $FlowFixMe
+      err.status = 409;
+      return err;
     }
     err = Error('unauthorized access');
     // $FlowFixMe
