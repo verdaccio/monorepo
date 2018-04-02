@@ -3,6 +3,7 @@
 import crypto from 'crypto';
 import crypt3 from './crypt3';
 import md5 from 'apache-md5';
+import bcrypt from 'bcryptjs';
 import * as locker from '@verdaccio/file-locking';
 
 // this function neither unlocks file nor closes it
@@ -42,7 +43,9 @@ export function parseHTPasswd(input: string): Object {
  * @returns {boolean}
  */
 export function verifyPassword(passwd: string, hash: string): boolean {
-  if (hash.indexOf('{PLAIN}') === 0) {
+  if (hash.match(/^\$2(a|b|y)\$/)) {
+    return bcrypt.compareSync(passwd, hash);
+  } else if (hash.indexOf('{PLAIN}') === 0) {
     return passwd === hash.substr(7);
   } else if (hash.indexOf('{SHA}') === 0) {
     return (

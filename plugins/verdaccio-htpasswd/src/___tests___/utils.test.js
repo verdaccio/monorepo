@@ -66,6 +66,20 @@ describe('verifyPassword', () => {
     const input = ['testpasswordchanged', '{SHA}i7YRj4/Wk1rQh2o740pxfTJwj/0='];
     expect(verifyPassword(...input)).toBeFalsy();
   });
+  it('should verify the bcrypt password with true', () => {
+    const input = [
+      'testpassword',
+      '$2y$04$Wqed4yN0OktGbiUdxSTwtOva1xfESfkNIZfcS9/vmHLsn3.lkFxJO'
+    ];
+    expect(verifyPassword(...input)).toBeTruthy();
+  });
+  it('should verify the bcrypt password with false', () => {
+    const input = [
+      'testpasswordchanged',
+      '$2y$04$Wqed4yN0OktGbiUdxSTwtOva1xfESfkNIZfcS9/vmHLsn3.lkFxJO'
+    ];
+    expect(verifyPassword(...input)).toBeFalsy();
+  });
 });
 
 describe('addUserToHTPasswd - crypt3', () => {

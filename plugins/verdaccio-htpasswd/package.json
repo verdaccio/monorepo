@@ -24,6 +24,7 @@
   "dependencies": {
     "@verdaccio/file-locking": "^0.0.5",
     "apache-md5": "^1.1.2",
+    "bcryptjs": "2.4.3",
     "unix-crypt-td-js": "^1.0.0"
   },
   "devDependencies": {
