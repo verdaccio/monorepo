@@ -62,9 +62,17 @@ describe('HTPasswd', () => {
   });
 
   it('addUser - it should add the user', done => {
-    fs.writeFile = jest.fn(() => done());
+    let dataToWrite;
+    fs.writeFile = jest.fn((name, data, callback) => {
+      dataToWrite = data;
+      callback();
+    });
     const callback = (a, b) => {
+      expect(a).toBeNull();
+      expect(b).toBeTruthy();
       expect(fs.writeFile).toHaveBeenCalled();
+      expect(dataToWrite.indexOf('usernotpresent')).not.toEqual(-1);
+      done();
     };
     wrapper.adduser('usernotpresent', 'somerandompassword', callback);
   });
