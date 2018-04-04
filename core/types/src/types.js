@@ -55,6 +55,8 @@ declare type verdaccio$Version = {
   scripts: any,
   homepage: string,
   dist: verdaccio$Dist,
+  readmeFilename: string;
+  etag: string;
   contributors: Array<verdaccio$Author>,
   dependencies: any,
   keywords: string | Array<string>,
@@ -241,6 +243,7 @@ declare type verdaccio$ConfigFile = {
 declare type verdaccio$Config = {
   user_agent: string;
   server_id: any;
+  _debug?: boolean;
   storage: string;
   secret: string;
   self_path: string;
