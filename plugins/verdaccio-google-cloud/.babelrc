@@ -1,0 +1,13 @@
+{
+  "presets": [
+    ["env", {
+      "targets": {
+        "node": "current"
+      }
+    }],
+    "flow"
+  ],
+  "plugins": [
+    "transform-async-to-generator"
+  ]
+}
