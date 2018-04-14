@@ -9,9 +9,14 @@
 # Created to work with eslint@0.18.0
 #
 
-extends: ["eslint:recommended", "google", "plugin:flowtype/recommended", "plugin:jest/recommended"]
+extends: [
+  "eslint:recommended",
+  "google",
+  "plugin:flowtype/recommended",
+  "plugin:jest/recommended",
+  "plugin:prettier/recommended"]
 
-plugins: ["flowtype", "jest"]
+plugins: ["flowtype", "jest", "prettier"]
 
 settings:
     flowtype:
@@ -33,6 +38,7 @@ parserOptions:
     modules: true
 
 rules:
+  prettier/prettier: ["error", { "singleQuote": true }]
   strict: 0
   # useful to have in node.js,
   # if you're sure you don't need to handle error, rename it to "_err"

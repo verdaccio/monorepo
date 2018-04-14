@@ -2,6 +2,6 @@
 
 import LocalDatabase from './local-database';
 
-export {LocalDatabase};
+export { LocalDatabase };
 
 export default LocalDatabase;

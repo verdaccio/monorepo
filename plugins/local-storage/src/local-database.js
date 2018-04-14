@@ -5,14 +5,13 @@ import _ from 'lodash';
 import Path from 'path';
 import LocalFS from './local-fs';
 import mkdirp from 'mkdirp';
-import type {StorageList, LocalStorage, Logger, Config} from '@verdaccio/types';
-import type {IPackageStorage, ILocalData} from '@verdaccio/local-storage';
+import type { StorageList, LocalStorage, Logger, Config } from '@verdaccio/types';
+import type { IPackageStorage, ILocalData } from '@verdaccio/local-storage';
 
 /**
  * Handle local database.
  */
- class LocalDatabase implements ILocalData {
-
+class LocalDatabase implements ILocalData {
   path: string;
   logger: Logger;
   data: LocalStorage;
@@ -23,14 +22,21 @@ import type {IPackageStorage, ILocalData} from '@verdaccio/local-storage';
    * Load an parse the local json database.
    * @param {*} path the database path
    */
-   constructor(config: Config, logger: Logger) {
+  constructor(config: Config, logger: Logger) {
     this.config = config;
     this.path = this._buildStoragePath(config);
     this.logger = logger;
     this.locked = false;
     this.data = this._fetchLocalPackages();
-    this.data.secret = this.config.checkSecretKey(this.data.secret);
-    this.sync();
+    this._sync();
+  }
+
+  getSecret() {
+    return this.data.secret;
+  }
+
+  setSecret(secret: string) {
+    this.data.secret = secret;
   }
 
   /**
@@ -41,7 +47,7 @@ import type {IPackageStorage, ILocalData} from '@verdaccio/local-storage';
   add(name: string) {
     if (this.data.list.indexOf(name) === -1) {
       this.data.list.push(name);
-      return this.sync();
+      return this._sync();
     }
   }
 
@@ -56,7 +62,7 @@ import type {IPackageStorage, ILocalData} from '@verdaccio/local-storage';
       this.data.list.splice(pkgName, 1);
     }
 
-    return this.sync();
+    return this._sync();
   }
 
   /**
@@ -71,7 +77,7 @@ import type {IPackageStorage, ILocalData} from '@verdaccio/local-storage';
    * Syncronize {create} database whether does not exist.
    * @return {Error|*}
    */
-  sync() {
+  _sync() {
     if (this.locked) {
       this.logger.error('Database is locked, please check error message printed during startup to prevent data loss.');
       return new Error('Verdaccio database is locked, please contact your administrator to checkout logs during verdaccio startup.');
@@ -96,13 +102,11 @@ import type {IPackageStorage, ILocalData} from '@verdaccio/local-storage';
     const packagePath: string = this._getLocalStoragePath(this.config.getMatchedPackagesSpec(packageInfo).storage);
 
     if (_.isString(packagePath) === false) {
-      this.logger.debug( {name: packageInfo}, 'this package has no storage defined: @{name}' );
+      this.logger.debug({ name: packageInfo }, 'this package has no storage defined: @{name}');
       return;
     }
 
-    const packageStoragePath: string = Path.join(
-      Path.resolve(Path.dirname(this.config.self_path || ''), packagePath),
-      packageInfo);
+    const packageStoragePath: string = Path.join(Path.resolve(Path.dirname(this.config.self_path || ''), packagePath), packageInfo);
 
     return new LocalFS(packageStoragePath, this.logger);
   }
@@ -128,11 +132,11 @@ import type {IPackageStorage, ILocalData} from '@verdaccio/local-storage';
    * @private
    */
   _buildStoragePath(config: Config) {
-    // FUTURE: the database might be parameterizable from config.yaml
-    return Path.join(Path.resolve(Path.dirname(config.self_path || ''),
-      config.storage,
-      '.sinopia-db.json'
-    ));
+    const selfPath: string = Path.resolve(Path.dirname(config.self_path || ''));
+    // $FlowFixMe
+    const storagePath = Path.join(selfPath, config.storage, config.databaseName || '.sinopia-db.json');
+
+    return storagePath;
   }
 
   /**
@@ -142,12 +146,13 @@ import type {IPackageStorage, ILocalData} from '@verdaccio/local-storage';
    */
   _fetchLocalPackages(): LocalStorage {
     const database: StorageList = [];
-    const emptyDatabase = {list: database, secret: ''};
+    const emptyDatabase = { list: database, secret: '' };
 
     try {
       const dbFile = fs.readFileSync(this.path, 'utf8');
 
-      if (_.isNil(dbFile)) { // readFileSync is platform specific, FreeBSD might return null
+      if (_.isNil(dbFile)) {
+        // readFileSync is platform specific, FreeBSD might return null
         return emptyDatabase;
       }
 
@@ -163,10 +168,7 @@ import type {IPackageStorage, ILocalData} from '@verdaccio/local-storage';
       // Only recreate if file not found to prevent data loss
       if (err.code !== 'ENOENT') {
         this.locked = true;
-        this.logger.error(
-          'Failed to read package database file, please check the error printed below:\n',
-          `File Path: ${this.path}\n\n ${err.message}`
-        );
+        this.logger.error('Failed to read package database file, please check the error printed below:\n', `File Path: ${this.path}\n\n ${err.message}`);
       }
       return emptyDatabase;
     }
@@ -186,7 +188,6 @@ import type {IPackageStorage, ILocalData} from '@verdaccio/local-storage';
       this.locked = true;
     }
   }
-
 }
 
 export default LocalDatabase;
