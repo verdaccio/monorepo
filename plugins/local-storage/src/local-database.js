@@ -37,6 +37,7 @@ class LocalDatabase implements ILocalData {
 
   setSecret(secret: string) {
     this.data.secret = secret;
+    this._sync();
   }
 
   /**
