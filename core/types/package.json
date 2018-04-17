@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/types",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "verdaccio flow types definitions",
   "main": "lib/index.js",
   "scripts": {
