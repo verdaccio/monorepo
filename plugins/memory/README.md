@@ -27,7 +27,7 @@ in `config.yaml`
 If `store:` is present `storage:` fallback is being ignored.
 
 ```yaml
-storage: /Users/jpicado/.local/share/verdaccio/storage
+storage: /Users/user/.local/share/verdaccio/storage
 auth:
   htpasswd:
     file: ./htpasswd
