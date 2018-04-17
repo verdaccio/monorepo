@@ -133,11 +133,7 @@ class LocalDatabase implements ILocalData {
    * @private
    */
   _buildStoragePath(config: Config) {
-    const selfPath: string = Path.resolve(Path.dirname(config.self_path || ''));
-    // $FlowFixMe
-    const storagePath = Path.join(selfPath, config.storage, config.databaseName || '.sinopia-db.json');
-
-    return storagePath;
+    return Path.join(Path.resolve(Path.dirname(config.self_path || ''), config.storage, '.sinopia-db.json'));
   }
 
   /**
