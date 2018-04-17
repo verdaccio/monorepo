@@ -53,7 +53,7 @@ describe('memory unit test .', () => {
 
   describe('MemoryHandler', () => {
     test('should create an MemoryHandler instance', () => {
-      const memoryHandler: ILocalPackageManager = new MemoryHandler('test', pkgExample, { logger });
+      const memoryHandler = new MemoryHandler('test', pkgExample, logger);
 
       expect(memoryHandler).toBeDefined();
     });

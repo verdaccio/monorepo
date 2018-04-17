@@ -7,7 +7,7 @@ import MemoryFileSystem from 'memory-fs';
 import { UploadTarball, ReadTarball } from '@verdaccio/streams';
 
 import type { HttpError } from 'http-errors';
-import type { StorageList, Package, Callback, Logger } from '@verdaccio/types';
+import type { StorageList, Callback, Logger } from '@verdaccio/types';
 import type { ILocalPackageManager } from '@verdaccio/local-storage';
 
 export const noSuchFile: string = 'ENOENT';
@@ -36,7 +36,8 @@ class MemoryHandler implements ILocalPackageManager {
   path: StorageList;
   logger: Logger;
 
-  constructor(packageName: string, data: StorageList, logger: Logger) {
+  constructor(packageName: string, data: any, logger: Logger) {
+    // this is not need it
     this.data = data;
     this.name = packageName;
     this.logger = logger;
@@ -166,7 +167,7 @@ class MemoryHandler implements ILocalPackageManager {
     return readTarballStream;
   }
 
-  _getStorage(name: string = ''): Package {
+  _getStorage(name: string = ''): string {
     return this.data[name];
   }
 }

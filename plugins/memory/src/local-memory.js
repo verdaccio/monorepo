@@ -1,18 +1,19 @@
 // @flow
 
 import MemoryHandler from './memory-handler';
-import type { LocalStorage, Logger, Config } from '@verdaccio/types';
+import type { Logger } from '@verdaccio/types';
 import type { ILocalData } from '@verdaccio/local-storage';
 
-export type ConfigMemory = Config & { limit?: number };
+export type ConfigMemory = { limit?: number };
+export type MemoryLocalStorage = { files: any, secret: string, list: any };
 
 const DEFAULT_LIMIT: number = 1000;
 class LocalMemory implements ILocalData {
   path: string;
   limit: number;
   logger: Logger;
-  data: LocalStorage;
-  config: Config;
+  data: MemoryLocalStorage;
+  config: ConfigMemory;
   locked: boolean;
 
   constructor(config: ConfigMemory, options: any) {
@@ -20,7 +21,14 @@ class LocalMemory implements ILocalData {
     this.limit = config.limit || DEFAULT_LIMIT;
     this.logger = options.logger;
     this.data = this._createEmtpyDatabase();
-    this.data.secret = config.checkSecretKey(this.data.secret);
+  }
+
+  getSecret(): string {
+    return this.data.secret;
+  }
+
+  setSecret(secret: string) {
+    this.data.secret = secret;
   }
 
   add(name: string) {
@@ -56,7 +64,7 @@ class LocalMemory implements ILocalData {
     return new MemoryHandler(packageInfo, this.data.files, this.logger);
   }
 
-  _createEmtpyDatabase(): LocalStorage {
+  _createEmtpyDatabase(): MemoryLocalStorage {
     const list: any = [];
     const files: any = {};
     const emptyDatabase = {
