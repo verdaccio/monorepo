@@ -274,6 +274,8 @@ declare interface verdaccio$ILocalData {
   add(name: string): verdaccio$SyncReturn;
   remove(name: string): verdaccio$SyncReturn;
   get(): verdaccio$StorageList;
+  getSecret():string;
+  setSecret(secret: string): verdaccio$SyncReturn;
   getPackageStorage(packageInfo: string): verdaccio$IPackageStorage;
 }
 
