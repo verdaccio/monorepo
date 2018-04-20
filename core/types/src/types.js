@@ -271,9 +271,9 @@ declare type verdaccio$Config = {
 declare type verdaccio$SyncReturn = Error | void;
 declare type verdaccio$IPackageStorage = verdaccio$ILocalPackageManager | void;
 declare interface verdaccio$ILocalData {
-  add(name: string): verdaccio$SyncReturn;
-  remove(name: string): verdaccio$SyncReturn;
-  get(): verdaccio$StorageList;
+  add(name: string, callback: verdaccio$Callback): verdaccio$SyncReturn;
+  remove(name: string, callback: verdaccio$Callback): verdaccio$SyncReturn;
+  get(callback: verdaccio$Callback): verdaccio$StorageList;
   getSecret():string;
   setSecret(secret: string): verdaccio$SyncReturn;
   getPackageStorage(packageInfo: string): verdaccio$IPackageStorage;
