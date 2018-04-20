@@ -1,6 +1,6 @@
 {
   "name": "verdaccio-memory",
-  "version": "0.0.7",
+  "version": "1.0.0",
   "description": "storage implementation in memory",
   "main": "lib/index.js",
   "scripts": {
