@@ -49,6 +49,8 @@ class LocalDatabase implements ILocalData {
     if (this.data.list.indexOf(name) === -1) {
       this.data.list.push(name);
       cb(this._sync());
+    } else {
+      cb(null);
     }
   }
 
