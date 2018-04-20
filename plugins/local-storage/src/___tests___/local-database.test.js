@@ -36,21 +36,40 @@ describe('Local Database', () => {
   });
 
   describe('Database CRUD', () => {
-    test('should add an item to database', () => {
+    test('should add an item to database', done => {
       const pgkName = 'jquery';
-      expect(locaDatabase.get()).toHaveLength(0);
+      locaDatabase.get((err, data) => {
+        expect(err).toBeNull();
+        expect(data).toHaveLength(0);
 
-      locaDatabase.add(pgkName);
-      expect(locaDatabase.get()).toHaveLength(1);
+        locaDatabase.add(pgkName, err => {
+          expect(err).toBeNull();
+          locaDatabase.get((err, data) => {
+            expect(err).toBeNull();
+            expect(data).toHaveLength(1);
+            done();
+          });
+        });
+      });
     });
 
-    test('should remove an item to database', () => {
+    test('should remove an item to database', done => {
       const pgkName = 'jquery';
-      expect(locaDatabase.get()).toHaveLength(0);
-      locaDatabase.add(pgkName);
-      locaDatabase.remove(pgkName);
-
-      expect(locaDatabase.get()).toHaveLength(0);
+      locaDatabase.get((err, data) => {
+        expect(err).toBeNull();
+        expect(data).toHaveLength(0);
+        locaDatabase.add(pgkName, err => {
+          expect(err).toBeNull();
+          locaDatabase.remove(pgkName, err => {
+            expect(err).toBeNull();
+            locaDatabase.get((err, data) => {
+              expect(err).toBeNull();
+              expect(data).toHaveLength(0);
+              done();
+            });
+          });
+        });
+      });
     });
   });
 });

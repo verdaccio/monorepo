@@ -5,7 +5,7 @@ import _ from 'lodash';
 import Path from 'path';
 import LocalFS from './local-fs';
 import mkdirp from 'mkdirp';
-import type { StorageList, LocalStorage, Logger, Config } from '@verdaccio/types';
+import type { StorageList, LocalStorage, Logger, Config, Callback } from '@verdaccio/types';
 import type { IPackageStorage, ILocalData } from '@verdaccio/local-storage';
 
 /**
@@ -45,10 +45,10 @@ class LocalDatabase implements ILocalData {
    * @param {*} name
    * @return {Error|*}
    */
-  add(name: string) {
+  add(name: string, cb: Callback) {
     if (this.data.list.indexOf(name) === -1) {
       this.data.list.push(name);
-      return this._sync();
+      cb(this._sync());
     }
   }
 
@@ -57,21 +57,27 @@ class LocalDatabase implements ILocalData {
    * @param {*} name
    * @return {Error|*}
    */
-  remove(name: string) {
-    const pkgName = this.get().indexOf(name);
-    if (pkgName !== -1) {
-      this.data.list.splice(pkgName, 1);
-    }
+  remove(name: string, cb: Callback) {
+    this.get((err, data) => {
+      if (err) {
+        cb(new Error('error on get'));
+      }
 
-    return this._sync();
+      const pkgName = data.indexOf(name);
+      if (pkgName !== -1) {
+        this.data.list.splice(pkgName, 1);
+      }
+
+      cb(this._sync());
+    });
   }
 
   /**
    * Return all database elements.
    * @return {Array}
    */
-  get() {
-    return this.data.list;
+  get(cb: Callback) {
+    cb(null, this.data.list);
   }
 
   /**
@@ -88,11 +94,12 @@ class LocalDatabase implements ILocalData {
       mkdirp.sync(Path.dirname(this.path));
     } catch (err) {
       // perhaps a logger instance?
-      /* eslint no-empty:off */
+      return null;
     }
 
     try {
       fs.writeFileSync(this.path, JSON.stringify(this.data));
+      return null;
     } catch (err) {
       return err;
     }
