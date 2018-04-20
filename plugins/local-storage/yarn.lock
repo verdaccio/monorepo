@@ -71,9 +71,9 @@
     lodash "^4.2.0"
     to-fast-properties "^2.0.0"
 
-"@commitlint/cli@^6.0.2":
+"@commitlint/cli@6.1.3":
   version "6.1.3"
-  resolved "https://registry.npmjs.org/@commitlint/cli/-/cli-6.1.3.tgz#4606e138b05b43034dc84af15da18e2139058537"
+  resolved "https://registry.yarnpkg.com/@commitlint/cli/-/cli-6.1.3.tgz#4606e138b05b43034dc84af15da18e2139058537"
   dependencies:
     "@commitlint/format" "^6.1.3"
     "@commitlint/lint" "^6.1.3"
@@ -86,9 +86,9 @@
     lodash.pick "4.4.0"
     meow "3.7.0"
 
-"@commitlint/config-conventional@^6.0.2":
+"@commitlint/config-conventional@6.1.3":
   version "6.1.3"
-  resolved "https://registry.npmjs.org/@commitlint/config-conventional/-/config-conventional-6.1.3.tgz#6c06eeae04c5ac789c3618df4d52aeda89ffb810"
+  resolved "https://registry.yarnpkg.com/@commitlint/config-conventional/-/config-conventional-6.1.3.tgz#6c06eeae04c5ac789c3618df4d52aeda89ffb810"
 
 "@commitlint/ensure@^6.1.3":
   version "6.1.3"
@@ -2266,9 +2266,9 @@ http-signature@~1.2.0:
     jsprim "^1.2.2"
     sshpk "^1.7.0"
 
-husky@^0.14.3:
+husky@0.14.3:
   version "0.14.3"
-  resolved "https://registry.npmjs.org/husky/-/husky-0.14.3.tgz#c69ed74e2d2779769a17ba8399b54ce0b63c12c3"
+  resolved "https://registry.yarnpkg.com/husky/-/husky-0.14.3.tgz#c69ed74e2d2779769a17ba8399b54ce0b63c12c3"
   dependencies:
     is-ci "^1.0.10"
     normalize-path "^1.0.0"
