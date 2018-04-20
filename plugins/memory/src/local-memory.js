@@ -1,7 +1,7 @@
 // @flow
 
 import MemoryHandler from './memory-handler';
-import type { Logger } from '@verdaccio/types';
+import type { Logger, Callback } from '@verdaccio/types';
 import type { ILocalData } from '@verdaccio/local-storage';
 
 export type ConfigMemory = { limit?: number };
@@ -31,29 +31,33 @@ class LocalMemory implements ILocalData {
     this.data.secret = secret;
   }
 
-  add(name: string) {
+  add(name: string, cb: Callback) {
     const { list } = this.data;
 
     if (list.length < this.limit) {
       if (list.indexOf(name) === -1) {
         list.push(name);
       }
+      cb(null);
     } else {
       this.logger.info({ limit: this.limit }, 'Storage memory has reached limit of @{limit} packages');
-      return new Error('Storage memory has reached limit of limit packages');
+      cb(new Error('Storage memory has reached limit of limit packages'));
     }
   }
 
-  remove(name: string) {
+  remove(name: string, cb: Callback) {
     const { list } = this.data;
-    const i = list.indexOf(name);
-    if (i !== -1) {
-      list.splice(i, 1);
+    const item = list.indexOf(name);
+
+    if (item !== -1) {
+      list.splice(item, 1);
     }
+
+    cb(null);
   }
 
-  get() {
-    return this.data.list;
+  get(cb: Callback) {
+    cb(null, this.data.list);
   }
 
   sync() {

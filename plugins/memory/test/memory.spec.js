@@ -26,28 +26,49 @@ describe('memory unit test .', () => {
       expect(localMemory).toBeDefined();
     });
 
-    test('should create add a package', () => {
+    test('should create add a package', done => {
       const localMemory: ILocalData = new LocalMemory(config, { logger });
-      localMemory.add('test');
-
-      expect(localMemory.get()).toHaveLength(1);
+      localMemory.add('test', err => {
+        expect(err).toBeNull();
+        localMemory.get((err, data) => {
+          expect(err).toBeNull();
+          expect(data).toHaveLength(1);
+          done();
+        });
+      });
     });
 
-    test('should reach max limit', () => {
+    test('should reach max limit', done => {
       config.limit = 2;
       const localMemory: ILocalData = new LocalMemory(config, { logger });
-      expect(localMemory.add('test1')).toBeUndefined();
-      expect(localMemory.add('test2')).toBeUndefined();
-      expect(localMemory.add('test3')).not.toBeNull();
+
+      localMemory.add('test1', err => {
+        expect(err).toBeNull();
+        localMemory.add('test2', err => {
+          expect(err).toBeNull();
+          localMemory.add('test3', err => {
+            expect(err).not.toBeNull();
+            expect(err.message).toMatch(/Storage memory has reached limit of limit packages/);
+            done();
+          });
+        });
+      });
     });
 
-    test('should remove a package', () => {
+    test('should remove a package', done => {
       const pkgName: string = 'test';
       const localMemory: ILocalData = new LocalMemory(config, { logger });
-      localMemory.add(pkgName);
-      localMemory.remove(pkgName);
-
-      expect(localMemory.get()).toHaveLength(0);
+      localMemory.add(pkgName, err => {
+        expect(err).toBeNull();
+        localMemory.remove(pkgName, err => {
+          expect(err).toBeNull();
+          localMemory.get((err, data) => {
+            expect(err).toBeNull();
+            expect(data).toHaveLength(0);
+            done();
+          });
+        });
+      });
     });
   });
 
