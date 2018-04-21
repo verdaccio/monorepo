@@ -1,5 +1,6 @@
 // @flow
 import fs from 'fs';
+import { clone } from 'lodash';
 import type { ILocalData } from '@verdaccio/local-storage';
 import LocalDatabase from '../local-database';
 import Config from './__mocks__/Config';
@@ -27,12 +28,23 @@ describe('Local Database', () => {
     expect(locaDatabase).toBeDefined();
   });
 
-  test('should create set secret', async () => {
-    const secret = '12345';
-    // $FlowFixMe
-    await locaDatabase.setSecret(secret);
-    // $FlowFixMe
-    expect(await locaDatabase.getSecret()).toBe(secret);
+  describe('should create set secret', async () => {
+    test('should create get secret', async () => {
+      const locaDatabase = new LocalDatabase(clone(stuff.config), stuff.logger);
+      const secretKey = await locaDatabase.getSecret();
+      expect(secretKey).toBeDefined();
+      expect(typeof secretKey === 'string').toBeTruthy();
+    });
+
+    test('should create set secret', async () => {
+      const locaDatabase = new LocalDatabase(clone(stuff.config), stuff.logger);
+
+      await locaDatabase.setSecret(stuff.config.checkSecretKey());
+      expect(stuff.config.secret).toBeDefined();
+      expect(typeof stuff.config.secret === 'string').toBeTruthy();
+      const fetchedSecretKey = await locaDatabase.getSecret();
+      expect(stuff.config.secret).toBe(fetchedSecretKey);
+    });
   });
 
   describe('Database CRUD', () => {

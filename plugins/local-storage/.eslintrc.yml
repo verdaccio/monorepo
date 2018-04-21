@@ -109,3 +109,5 @@ rules:
 
   # console not allowed unless for testing
   no-console: [2, {"allow": ["log", "warn"]}]
+
+  jest/no-focused-tests: 1

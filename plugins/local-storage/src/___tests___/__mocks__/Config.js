@@ -44,7 +44,15 @@ export default class Config {
     };
     this.user_agent = 'verdaccio/3.0.0-alpha.7';
     this.users = {};
-    this.server_id = '5cf430af30a1';
-    this.secret = 'ebde3e3a2a789a0623bf3de58cd127f0b309f573686cc91dc6d0f8fc6214b542';
+    this.server_id = 'severMockId';
+    this.checkSecretKey = secret => {
+      if (!secret) {
+        const newSecret = 'superNewSecret';
+        this.secret = newSecret;
+
+        return newSecret;
+      }
+      return secret;
+    };
   }
 }
