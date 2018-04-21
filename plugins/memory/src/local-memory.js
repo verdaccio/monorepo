@@ -23,12 +23,15 @@ class LocalMemory implements ILocalData {
     this.data = this._createEmtpyDatabase();
   }
 
-  getSecret(): string {
-    return this.data.secret;
+  getSecret(): Promise<any> {
+    return Promise.resolve(this.data.secret);
   }
 
-  setSecret(secret: string) {
-    this.data.secret = secret;
+  setSecret(secret: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.data.secret = secret;
+      resolve(null);
+    });
   }
 
   add(name: string, cb: Callback) {
