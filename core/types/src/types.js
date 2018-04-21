@@ -277,6 +277,9 @@ declare interface verdaccio$ILocalData {
   getSecret(): Promise<string>;
   setSecret(secret: string): Promise<any>;
   getPackageStorage(packageInfo: string): verdaccio$IPackageStorage;
+  on(event: string, callback: Function): verdaccio$ILocalData;
+  once(event: string, callback: Function): verdaccio$ILocalData;
+  removeListener(event: string, callback: Function): verdaccio$ILocalData;
 }
 
 declare interface verdaccio$ILocalPackageManager {
