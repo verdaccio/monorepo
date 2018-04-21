@@ -274,8 +274,8 @@ declare interface verdaccio$ILocalData {
   add(name: string, callback: verdaccio$Callback): void;
   remove(name: string, callback: verdaccio$Callback): void;
   get(callback: verdaccio$Callback): void;
-  getSecret():string;
-  setSecret(secret: string): verdaccio$SyncReturn;
+  getSecret(): Promise<string>;
+  setSecret(secret: string): Promise<any>;
   getPackageStorage(packageInfo: string): verdaccio$IPackageStorage;
 }
 
