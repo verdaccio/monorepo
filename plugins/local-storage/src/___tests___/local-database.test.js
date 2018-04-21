@@ -27,12 +27,12 @@ describe('Local Database', () => {
     expect(locaDatabase).toBeDefined();
   });
 
-  test('should create set secret', () => {
+  test('should create set secret', async () => {
     const secret = '12345';
     // $FlowFixMe
-    locaDatabase.setSecret(secret);
+    await locaDatabase.setSecret(secret);
     // $FlowFixMe
-    expect(locaDatabase.getSecret()).toBe(secret);
+    expect(await locaDatabase.getSecret()).toBe(secret);
   });
 
   describe('Database CRUD', () => {
