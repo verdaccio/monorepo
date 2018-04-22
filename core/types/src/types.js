@@ -102,8 +102,13 @@ declare type verdaccio$GenericBody = {
   [key: string]: string;
 }
 
+declare type verdaccio$UpLinkMetadata = {
+  etag: string;
+  fetched: number;
+}
+
 declare type verdaccio$UpLinks = {
-  [key: string]: verdaccio$Version;
+  [key: string]: verdaccio$UpLinkMetadata;
 }
 
 declare type verdaccio$Tags = {
@@ -277,9 +282,6 @@ declare interface verdaccio$ILocalData {
   getSecret(): Promise<string>;
   setSecret(secret: string): Promise<any>;
   getPackageStorage(packageInfo: string): verdaccio$IPackageStorage;
-  on(event: string, callback: Function): verdaccio$ILocalData;
-  once(event: string, callback: Function): verdaccio$ILocalData;
-  removeListener(event: string, callback: Function): verdaccio$ILocalData;
 }
 
 declare interface verdaccio$ILocalPackageManager {
@@ -359,6 +361,7 @@ declare module "@verdaccio/types" {
   declare export type LoggerType = verdaccio$LoggerType;
   declare export type PackageList = verdaccio$PackageList;
   declare export type UpLinksConfList = verdaccio$UpLinksConfList;
+  declare export type UpLinkMetadata = verdaccio$UpLinkMetadata;
   declare export type ILocalStorage = verdaccio$ILocalStorage;
   declare export type UpLinkConf = verdaccio$UpLinkConf;
   declare export type PackageAccess = verdaccio$PackageAccess;
