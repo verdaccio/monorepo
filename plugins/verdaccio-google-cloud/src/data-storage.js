@@ -5,22 +5,27 @@ import Datastore from '@google-cloud/datastore';
 
 import GoogleCloudStorageHandler from './storage';
 import StorageHelper from './storage-helper';
-import type { LocalStorage, Logger, Config } from '@verdaccio/types';
+import type { ConfigMemory } from './storage-helper';
+import type { Logger, Callback } from '@verdaccio/types';
 import type { ILocalData } from '@verdaccio/local-storage';
 
-export type ConfigMemory = Config & { limit?: number };
-
-// FIXME: temporary
 const GOOGLE_OPTIONS: any = {
   projectId: process.env.GC_PROJECT_ID,
   keyFilename: process.env.GC_KEY_FILE
 };
 
+declare type GoogleDataStorage = {
+  secret: string,
+  storage: any,
+  datastore: any
+};
+
 class GoogleCloudDatabase implements ILocalData {
   path: string;
   logger: Logger;
-  data: LocalStorage;
-  config: Config;
+  data: GoogleDataStorage;
+  bucketName: string;
+  config: ConfigMemory;
   locked: boolean;
   datastore: any;
   key: string;
@@ -33,24 +38,34 @@ class GoogleCloudDatabase implements ILocalData {
     this.bucketName = config.bucketName || 'verdaccio-plugin';
     this.data = this._createEmtpyDatabase();
     this.helper = new StorageHelper(this.data.datastore, this.data.storage);
-    // this.data.secret = config.checkSecretKey(this.data.secret);
   }
 
-  async add(name: string) {
+  getSecret(): Promise<any> {
+    return Promise.resolve(this.data.secret);
+  }
+
+  setSecret(secret: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.data.secret = secret;
+      resolve(null);
+    });
+  }
+
+  add(name: string, cb: Callback): void {
     const datastore = this.data.datastore;
     const key = datastore.key(this.key);
     const data = {
       name: name
     };
-    try {
-      await datastore.save({
+    datastore
+      .save({
         key: key,
         data: data
+      })
+      .then(() => cb(null))
+      .catch(err => {
+        cb(new Error(err));
       });
-      return null;
-    } catch (err) {
-      return new Error(err);
-    }
   }
 
   async deleteItem(name: string, item: any) {
@@ -64,46 +79,51 @@ class GoogleCloudDatabase implements ILocalData {
     }
   }
 
-  async remove(name: string) {
+  remove(name: string, cb: Callback): void {
     const deletedItems = [];
-    const entities = await this.helper.getEntities(this.key);
-    for (const item of entities) {
-      if (item.name === name) {
-        const deletedItem = await this.deleteItem(name, item);
-        deletedItems.push(deletedItem);
-      }
-    }
-
-    function sanityCheck(deletedItems: any) {
+    const sanityCheck = function(deletedItems: any) {
       if (typeof deletedItems === 'undefined' || deletedItems.length === 0 || deletedItems[0][0].indexUpdates === 0) {
         return new Error('not found');
       } else if (deletedItems[0][0].indexUpdates > 0) {
         return null;
       }
-    }
-
-    return sanityCheck(deletedItems);
+    };
+    this.helper
+      .getEntities(this.key)
+      .then(async entities => {
+        for (const item of entities) {
+          if (item.name === name) {
+            const deletedItem = await this.deleteItem(name, item);
+            deletedItems.push(deletedItem);
+          }
+        }
+        cb(sanityCheck(deletedItems));
+      })
+      .catch(err => {
+        cb(new Error(err));
+      });
   }
 
-  async get() {
+  get(cb: Callback) {
     const query = this.helper.datastore.createQuery(this.key);
-    const data = await this.helper.runQuery(query);
-    const names = data[0].reduce((accumulator, task) => {
-      accumulator.push(task.name);
-      return accumulator;
-    }, []);
-    return names;
+    this.helper.runQuery(query).then(data => {
+      const names = data[0].reduce((accumulator, task) => {
+        accumulator.push(task.name);
+        return accumulator;
+      }, []);
+      cb(null, names);
+    });
   }
 
   sync() {
     // nothing to do
   }
 
-  getPackageStorage(packageInfo: string) {
+  getPackageStorage(packageInfo: string): any {
     return new GoogleCloudStorageHandler(packageInfo, this.data.storage, this.data.datastore, this.helper, this.config, this.logger);
   }
 
-  _createEmtpyDatabase(): LocalStorage {
+  _createEmtpyDatabase(): GoogleDataStorage {
     const datastore = new Datastore(GOOGLE_OPTIONS);
     const storage = new Storage(GOOGLE_OPTIONS);
 

@@ -5,11 +5,15 @@ import createError from 'http-errors';
 import { UploadTarball, ReadTarball } from '@verdaccio/streams';
 
 import type { HttpError } from 'http-errors';
+import type { IUploadTarball, IReadTarball } from '@verdaccio/streams';
 import type { StorageList, Package, Callback, Logger } from '@verdaccio/types';
 import type { ILocalPackageManager } from '@verdaccio/local-storage';
+import type { ConfigMemory } from './storage-helper';
 
 export const noSuchFile: string = 'ENOENT';
 export const fileExist: string = 'EEXISTS';
+
+declare type StorageType = Package | void;
 
 const fSError = function(message: string, code: number = 404): HttpError {
   const err: HttpError = createError(code, message);
@@ -33,8 +37,10 @@ class GoogleCloudStorageHandler implements ILocalPackageManager {
   logger: Logger;
   key: string;
   helper: any;
+  name: string;
+  config: ConfigMemory;
 
-  constructor(name: string, storage: any, datastore: any, helper: any, config, any, logger: Logger) {
+  constructor(name: string, storage: any, datastore: any, helper: any, config: any, logger: Logger) {
     this.name = name;
     this.datastore = datastore;
     this.storage = storage;
@@ -44,55 +50,56 @@ class GoogleCloudStorageHandler implements ILocalPackageManager {
     this.key = 'VerdaccioMetadataStore';
   }
 
-  async updatePackage(pkgFileName: string, updateHandler: Callback, onWrite: Callback, transformPackage: Function, onEnd: Callback): void {
-    try {
-      const storePkg = await this._getStorage(pkgFileName);
-
-      if (typeof storePkg === 'undefined') {
-        return onEnd(noPackageFoundError());
-      }
-
-      updateHandler(storePkg, err => {
-        if (err) {
-          return onEnd(err);
+  updatePackage(pkgFileName: string, updateHandler: Callback, onWrite: Callback, transformPackage: Function, onEnd: Callback): void {
+    this._getStorage(pkgFileName)
+      .then(storePkg => {
+        if (typeof storePkg === 'undefined') {
+          return onEnd(noPackageFoundError());
         }
-        try {
-          onWrite(pkgFileName, transformPackage(storePkg), onEnd);
-        } catch (err) {
-          return onEnd(fSError(err.message, 500));
-        }
+
+        updateHandler(storePkg, err => {
+          if (err) {
+            return onEnd(err);
+          }
+          try {
+            onWrite(pkgFileName, transformPackage(storePkg), onEnd);
+          } catch (err) {
+            return onEnd(fSError(err.message, 500));
+          }
+        });
+      })
+      .catch(err => {
+        return onEnd(fSError(err.message, 500));
       });
-    } catch (err) {
-      return onEnd(fSError(err.message, 500));
-    }
   }
 
-  async deletePackage(name: string, cb: Callback) {
-    const storePkg = await this._getStorage(name);
-
-    if (storePkg) {
-      try {
+  deletePackage(name: string, cb: Callback): void {
+    this._getStorage(name).then(storePkg => {
+      if (storePkg) {
         const storePkgData = storePkg[this.datastore.KEY];
-        const deleted = await this.helper.deleteEntity(this.key, storePkgData.id);
-
-        if (deleted[0].mutationResults && deleted[0].mutationResults.length > 0) {
-          cb(null);
-        } else {
-          cb(fSError('something went wrong', 500));
-        }
-      } catch (err) {
-        cb(fSError(err.message, 500));
+        this.helper
+          .deleteEntity(this.key, storePkgData.id)
+          .then(deleted => {
+            if (deleted[0].mutationResults && deleted[0].mutationResults.length > 0) {
+              cb(null);
+            } else {
+              cb(fSError('something went wrong', 500));
+            }
+          })
+          .catch(err => {
+            cb(fSError(err.message, 500));
+          });
+      } else {
+        cb(noPackageFoundError());
       }
-    } else {
-      cb(noPackageFoundError());
-    }
+    });
   }
 
-  async removePackage(callback: Callback): void {
+  removePackage(callback: Callback): void {
     // callback(null);
     // TODO: here we need to remove the json from data store and
     // remove all files from storage
-    console.log('name', this.name);
+    // console.log('name', this.name);
     callback(null);
   }
 
@@ -100,62 +107,85 @@ class GoogleCloudStorageHandler implements ILocalPackageManager {
     this.savePackage(name, value, cb);
   }
 
-  async savePackage(name: string, value: Object, cb: Function): void {
-    const datastore = this.datastore;
-    const storePkg = await this._getStorage(name);
-    const isExist = typeof storePkg !== 'undefined';
-    const save = async (key, data, cb) => {
-      const excludeFromIndexes = Object.keys(data);
-      excludeFromIndexes.splice(0, 1);
-
-      try {
-        await datastore.save({
-          key,
-          excludeFromIndexes,
-          data
-        });
+  savePackage(name: string, value: Object, cb: Function): void {
+    this._savePackage(name, value)
+      .then(() => {
         cb(null);
-      } catch (err) {
-        cb(fSError(err.message, 500));
-      }
-    };
-
-    const update = async (key, data, cb) => {
-      const excludeFromIndexes = Object.keys(data);
-      excludeFromIndexes.splice(0, 1);
-
-      try {
-        await this.helper.updateEntity(key, excludeFromIndexes, data);
-        cb(null);
-      } catch (err) {
-        cb(fSError(err.message, 500));
-      }
-    };
-
-    if (!isExist) {
-      const keyFromDataStore = datastore.key(this.key);
-      await save(keyFromDataStore, value, cb);
-    } else {
-      const storePkgData = storePkg[this.datastore.KEY];
-      const keyFromDataStore = datastore.key([this.key, datastore.int(storePkgData.id)]);
-      await update(keyFromDataStore, value, cb);
-    }
+      })
+      .catch(err => cb(err));
   }
 
-  async readPackage(name: string, cb: Function): void {
-    const json = await this._getStorage(name);
-    const isMissing = typeof json === 'undefined';
+  _savePackage(name: string, value: Object) {
+    return new Promise(async (resolve, reject) => {
+      const datastore = this.datastore;
+      const storePkg: StorageType = await this._getStorage(name);
 
-    try {
-      cb(isMissing ? noPackageFoundError() : null, json);
-    } catch (err) {
-      cb(noPackageFoundError());
-    }
+      const save = async (key, data, resolve, reject) => {
+        const excludeFromIndexes = Object.keys(data);
+        excludeFromIndexes.splice(0, 1);
+
+        try {
+          await datastore.save({
+            key,
+            excludeFromIndexes,
+            data
+          });
+          resolve(null);
+        } catch (err) {
+          reject(fSError(err.message, 500));
+        }
+      };
+
+      const update = async (key, data, resolve, reject) => {
+        const excludeFromIndexes = Object.keys(data);
+        excludeFromIndexes.splice(0, 1);
+
+        try {
+          await this.helper.updateEntity(key, excludeFromIndexes, data);
+          resolve(null);
+        } catch (err) {
+          reject(fSError(err.message, 500));
+        }
+      };
+
+      if (typeof storePkg === 'undefined') {
+        const keyFromDataStore = datastore.key(this.key);
+        await save(keyFromDataStore, value, resolve, reject);
+        resolve();
+      } else {
+        const storePkgData = storePkg[this.datastore.KEY];
+        const keyFromDataStore = datastore.key([this.key, datastore.int(storePkgData.id)]);
+        await update(keyFromDataStore, value, resolve, reject);
+        resolve();
+      }
+    });
   }
 
-  async writeTarball(name: string) {
+  readPackage(name: string, cb: Function): void {
+    this._readPackage(name)
+      .then(json => {
+        cb(null, json);
+      })
+      .catch(err => {
+        cb(err);
+      });
+  }
 
-    // const uploadStream = new UploadTarball();
+  async _readPackage(name: string): Promise<any> {
+    return new Promise(async (resolve, reject) => {
+      const json = await this._getStorage(name);
+      const isMissing = typeof json === 'undefined';
+
+      try {
+        isMissing ? reject(noPackageFoundError()) : resolve(json);
+      } catch (err) {
+        reject(noPackageFoundError());
+      }
+    });
+  }
+
+  writeTarball(name: string): IUploadTarball {
+    const uploadStream: IUploadTarball = new UploadTarball();
     // const temporalName = `/${name}`;
     // process.nextTick(function() {
     //   fs.exists(temporalName, function(exists) {
@@ -181,12 +211,12 @@ class GoogleCloudStorageHandler implements ILocalPackageManager {
     //     }
     //   });
     // });
-    // return uploadStream;
+    return uploadStream;
   }
 
-  readTarball(name: string) {
+  readTarball(name: string): IReadTarball {
     // const pathName = `/${name}`;
-    // const readTarballStream = new ReadTarball();
+    const readTarballStream: IReadTarball = new ReadTarball();
     // process.nextTick(function() {
     //   fs.exists(pathName, function(exists) {
     //     if (!exists) {
@@ -205,10 +235,10 @@ class GoogleCloudStorageHandler implements ILocalPackageManager {
     //     }
     //   });
     // });
-    // return readTarballStream;
+    return readTarballStream;
   }
 
-  async _getStorage(name: string = ''): Package {
+  async _getStorage(name: string = ''): Promise<StorageType> {
     const results = await this.helper.runQuery(this.helper.createQuery(this.key, name));
 
     if (results[0] && results[0].length > 0) {
