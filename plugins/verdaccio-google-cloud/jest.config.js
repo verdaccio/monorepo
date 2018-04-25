@@ -4,8 +4,5 @@ module.exports = {
   name: 'verdaccio-google-cloud-jest',
   verbose: true,
   collectCoverage: true,
-  coveragePathIgnorePatterns: [
-    'node_modules',
-    'fixtures'
-  ]
+  coveragePathIgnorePatterns: ['node_modules', 'fixtures']
 };
