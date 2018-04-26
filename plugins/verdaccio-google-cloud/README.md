@@ -19,7 +19,7 @@ Complete configuration example:
 store:
  google-cloud:
    projectId: project-01 | env
-	key: /path/project-01.json | env
+   key: /path/project-01.json | env
 ```
 Define `env` whether you want load the value from environment variables.
 
