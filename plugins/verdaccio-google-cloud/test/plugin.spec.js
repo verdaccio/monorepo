@@ -39,7 +39,7 @@ describe('Google Cloud Storage', () => {
       });
     });
 
-    test('should delete an entity', async () => {
+    test('should delete an entity', () => {
       const cloudDatabase: ILocalData = new GoogleCloudDatabase(config, { logger });
 
       cloudDatabase.remove(pkgExample.name, (err, result) => {
@@ -48,12 +48,12 @@ describe('Google Cloud Storage', () => {
       });
     });
 
-    test('should fails on detele remove an entity', async () => {
+    test('should fails on detele remove an entity', () => {
       const cloudDatabase: ILocalData = new GoogleCloudDatabase(config, { logger });
 
-      cloudDatabase.remove('fakeName', (err, result) => {
-        expect(err).toBeNull();
-        expect(result).not.toBeNull();
+      cloudDatabase.remove('fakeName', err => {
+        expect(err).not.toBeNull();
+        expect(err.message).toMatch(/not found/);
       });
     });
   });
@@ -68,7 +68,7 @@ describe('Google Cloud Storage', () => {
       });
     });
 
-    describe.skip('GoogleCloudStorageHandler:writeFile', async done => {
+    describe.skip('GoogleCloudStorageHandler:writeFile', () => {
       const cloudDatabase: ILocalData = new GoogleCloudDatabase(config, { logger });
       const store = cloudDatabase.getPackageStorage(pkgExample.name);
       expect(store).not.toBeNull();
@@ -153,7 +153,7 @@ describe('Google Cloud Storage', () => {
         const pkg = generatePackage('updatePkg');
         expect(store).not.toBeNull();
         if (store) {
-          store.savePackage(pkg.name, pkg, async err => {
+          store.savePackage(pkg.name, pkg, err => {
             expect(err).toBeNull();
 
             store.deletePackage(pkg.name, err => {
