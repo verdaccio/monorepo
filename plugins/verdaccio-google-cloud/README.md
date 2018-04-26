@@ -17,9 +17,9 @@ Complete configuration example:
 
 ```yaml
 store:
-	google-cloud:
-		projectId: project-01 | env
-		key: /path/project-01.json | env
+ google-cloud:
+   projectId: project-01 | env
+	key: /path/project-01.json | env
 ```
 Define `env` whether you want load the value from environment variables.
 
@@ -34,14 +34,14 @@ auth:
   htpasswd:
     file: ./htpasswd
 store:
-	google-cloud:
-		projectId: project-01
-		key: /path/project-01.json
+  google-cloud:
+   projectId: project-01
+   key: /path/project-01.json
 ```
 
 ## Disclaimer
 
-This plugin is experimental and it will
+This plugin is experimental and unstable.
 
 ## License
 
