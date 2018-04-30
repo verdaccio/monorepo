@@ -192,4 +192,11 @@ describe('sanityCheck', () => {
     expect(input.message).toEqual('username is already registered');
     expect(verifyFn).toHaveBeenCalledTimes(1);
   });
+  it('should throw error for existing username and password with max number of users reached', () => {
+    const verifyFn = jest.fn(() => true);
+    const input = sanityCheck('test', users.test, verifyFn, users, 1);
+    expect(input.status).toEqual(409);
+    expect(input.message).toEqual('username is already registered');
+    expect(verifyFn).toHaveBeenCalledTimes(1);
+  });
 });

@@ -125,13 +125,6 @@ export function sanityCheck(
 
   hash = users[user];
 
-  if (Object.keys(users).length >= maxUsers) {
-    err = Error('maximum amount of users reached');
-    // $FlowFixMe
-    err.status = 403;
-    return err;
-  }
-
   if (hash) {
     const auth = verifyFn(password, users[user]);
     if (auth) {
@@ -143,6 +136,11 @@ export function sanityCheck(
     err = Error('unauthorized access');
     // $FlowFixMe
     err.status = 401;
+    return err;
+  } else if (Object.keys(users).length >= maxUsers) {
+    err = Error('maximum amount of users reached');
+    // $FlowFixMe
+    err.status = 403;
     return err;
   }
 
