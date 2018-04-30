@@ -61,9 +61,13 @@ export default class HTPasswd {
 
     let { file } = config;
 
-    if (!file) file = this.verdaccioConfig.users_file;
+    if (!file) {
+      file = this.verdaccioConfig.users_file;
+    }
 
-    if (!file) throw new Error('should specify "file" in config');
+    if (!file) {
+      throw new Error('should specify "file" in config');
+    }
 
     this.path = Path.resolve(
       Path.dirname(this.verdaccioConfig.self_path),

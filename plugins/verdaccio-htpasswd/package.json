@@ -23,7 +23,7 @@
     "prepublish": "in-publish && npm run lint && npm run build || not-in-publish"
   },
   "dependencies": {
-    "@verdaccio/file-locking": "^0.0.5",
+    "@verdaccio/file-locking": "^0.0.7",
     "apache-md5": "^1.1.2",
     "bcryptjs": "2.4.3",
     "unix-crypt-td-js": "^1.0.0"
