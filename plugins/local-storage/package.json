@@ -15,11 +15,11 @@
     "cover": "cross-env NODE_ENV=test nyc npm t"
   },
   "dependencies": {
-    "@verdaccio/file-locking": "0.0.5",
+    "@verdaccio/file-locking": "0.0.7",
     "@verdaccio/streams": "1.0.0",
     "async": "2.6.0",
     "http-errors": "1.6.2",
-    "lodash": "4.17.5",
+    "lodash": "4.17.10",
     "mkdirp": "0.5.1"
   },
   "devDependencies": {
