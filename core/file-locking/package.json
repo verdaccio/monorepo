@@ -55,6 +55,7 @@
     "flow": "flow",
     "test": "npm run flow && npm run lint && mocha --require babel-polyfill  --compilers js:babel-core/register ./test/**/*.spec.js",
     "lint": "eslint .",
+    "prepublish": "npm run build",
     "build": "babel src/ --out-dir lib/ --copy-files",
     "cover": "cross-env NODE_ENV=test nyc npm t"
   },
