@@ -29,6 +29,9 @@ store:
 ```
 Define `env` whether you want load the value from environment variables.
 
+> If you are willing to use some of `env` just **do not define** properties on
+`config.yaml` or let them emtpy. Properties have preceden over `env` variables.
+
 ## Disclaimer
 
 This plugin is experimental and unstable.
