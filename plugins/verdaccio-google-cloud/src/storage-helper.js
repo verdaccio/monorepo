@@ -1,10 +1,5 @@
 // @flow
 
-export type ConfigMemory = {
-  metadataDatabaseKey: string,
-  bucketName: string
-};
-
 export default class StorageHelper {
   datastore: any;
   storage: any;

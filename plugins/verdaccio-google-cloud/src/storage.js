@@ -8,7 +8,7 @@ import type { HttpError } from 'http-errors';
 import type { IUploadTarball, IReadTarball } from '@verdaccio/streams';
 import type { StorageList, Package, Callback, Logger } from '@verdaccio/types';
 import type { ILocalPackageManager } from '@verdaccio/local-storage';
-import type { ConfigMemory } from './storage-helper';
+import type { ConfigGoogleStorage } from '../types';
 
 export const noSuchFile: string = 'ENOENT';
 export const fileExist: string = 'EEXISTS';
@@ -38,9 +38,9 @@ class GoogleCloudStorageHandler implements ILocalPackageManager {
   key: string;
   helper: any;
   name: string;
-  config: ConfigMemory;
+  config: ConfigGoogleStorage;
 
-  constructor(name: string, storage: any, datastore: any, helper: any, config: any, logger: Logger) {
+  constructor(name: string, storage: any, datastore: any, helper: any, config: ConfigGoogleStorage, logger: Logger) {
     this.name = name;
     this.datastore = datastore;
     this.storage = storage;
@@ -74,6 +74,7 @@ class GoogleCloudStorageHandler implements ILocalPackageManager {
   }
 
   deletePackage(name: string, cb: Callback): void {
+    // FIXME: this should remove a tarball
     this._getStorage(name).then(storePkg => {
       if (storePkg) {
         const storePkgData = storePkg[this.datastore.KEY];
@@ -93,11 +94,12 @@ class GoogleCloudStorageHandler implements ILocalPackageManager {
         cb(noPackageFoundError());
       }
     });
+    cb(null);
   }
 
   removePackage(callback: Callback): void {
     // callback(null);
-    // TODO: here we need to remove the json from data store and
+    // TODO: here we need to remove tarballs from data store and
     // remove all files from storage
     // console.log('name', this.name);
     callback(null);
@@ -186,55 +188,82 @@ class GoogleCloudStorageHandler implements ILocalPackageManager {
 
   writeTarball(name: string): IUploadTarball {
     const uploadStream: IUploadTarball = new UploadTarball();
-    // const temporalName = `/${name}`;
-    // process.nextTick(function() {
-    //   fs.exists(temporalName, function(exists) {
-    //     if (exists) {
-    //       return uploadStream.emit('error', fSError(fileExist));
-    //     }
-    //     try {
-    //       const file = fs.createWriteStream(temporalName);
-    //       uploadStream.pipe(file);
-    //       uploadStream.done = function() {
-    //         const onEnd = function() {
-    //           uploadStream.emit('success');
-    //         };
-    //         uploadStream.on('end', onEnd);
-    //       };
-    //       uploadStream.abort = function() {
-    //         uploadStream.emit('error', fSError('transmision aborted', 400));
-    //         file.end();
-    //       };
-    //       uploadStream.emit('open');
-    //     } catch (err) {
-    //       uploadStream.emit('error', err);
-    //     }
-    //   });
-    // });
+    try {
+      const file = this._getBucket().file(`${this.name}/${name}`);
+      const fileStream = file.createWriteStream();
+      uploadStream.done = function() {
+        uploadStream.on('end', function() {
+          fileStream.on('response', () => {
+            uploadStream.emit('success');
+          });
+        });
+      };
+
+      fileStream._destroy = function(err) {
+        // this is an error when user is not authenticated
+        // [BadRequestError: Could not authenticate request
+        //  getaddrinfo ENOTFOUND www.googleapis.com www.googleapis.com:443]
+        if (err) {
+          uploadStream.emit('error', fSError(err.message, 400));
+          fileStream.emit('close');
+        }
+      };
+
+      fileStream.on('open', () => {
+        uploadStream.emit('open');
+      });
+
+      fileStream.on('error', err => {
+        fileStream.end();
+        uploadStream.emit('error', fSError(err, 400));
+      });
+
+      uploadStream.abort = function() {
+        fileStream.destroy(fSError('transmision aborted', 400));
+      };
+
+      uploadStream.pipe(fileStream);
+    } catch (err) {
+      uploadStream.emit('error', err);
+    }
     return uploadStream;
   }
 
   readTarball(name: string): IReadTarball {
-    // const pathName = `/${name}`;
     const readTarballStream: IReadTarball = new ReadTarball();
-    // process.nextTick(function() {
-    //   fs.exists(pathName, function(exists) {
-    //     if (!exists) {
-    //       readTarballStream.emit('error', noPackageFoundError());
-    //     } else {
-    //       const readStream = fs.createReadStream(pathName);
-    //       readTarballStream.emit('content-length', fs.data[name].length);
-    //       readTarballStream.emit('open');
-    //       readStream.pipe(readTarballStream);
-    //       readStream.on('error', error => {
-    //         readTarballStream.emit('error', error);
-    //       });
-    //       readTarballStream.abort = function() {
-    //         readStream.destroy(fSError('read has been aborted', 400));
-    //       };
-    //     }
-    //   });
-    // });
+    const file = this._getBucket().file(`${this.name}/${name}`);
+    const fileStream = file.createReadStream();
+
+    readTarballStream.abort = function() {
+      fileStream.destroy(fSError('transmision aborted', 400));
+    };
+
+    fileStream
+      .on('error', function(err) {
+        if (err.code === 404) {
+          readTarballStream.emit('error', noPackageFoundError());
+        } else {
+          readTarballStream.emit('error', fSError(err.message, 400));
+        }
+      })
+      .on('response', function(response) {
+        const size = response.headers['content-length'];
+        const { statusCode } = response;
+
+        if (size) {
+          readTarballStream.emit('open');
+        }
+
+        if (parseInt(size, 10) === 0) {
+          readTarballStream.emit('error', fSError('file content empty', 500));
+        } else if (parseInt(size, 10) > 0 && statusCode === 200) {
+          readTarballStream.emit('content-length', response.headers['content-length']);
+        }
+      })
+      .on('end', function() {
+        readTarballStream.emit('end');
+      })
+      .pipe(readTarballStream);
     return readTarballStream;
   }
 
@@ -242,11 +271,14 @@ class GoogleCloudStorageHandler implements ILocalPackageManager {
     const results = await this.helper.runQuery(this.helper.createQuery(this.key, name));
 
     if (results[0] && results[0].length > 0) {
-      // console.log('aaa->', results[0].length);
       return results[0][0];
     }
 
     return;
+  }
+
+  _getBucket(): mixed {
+    return this.storage.bucket(this.config.bucket);
   }
 }
 

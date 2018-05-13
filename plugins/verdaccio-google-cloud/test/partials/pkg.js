@@ -11,8 +11,8 @@ const pkg = {
       },
       author: {
         name: 'Juan Picado',
-        email: 'me@jotadeveloper.com',
-        url: 'http://jotadeveloper.com/'
+        email: 'me@domain.com',
+        url: 'http://domain.com/'
       },
       license: 'ISC',
       dependencies: {
