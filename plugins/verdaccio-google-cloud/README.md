@@ -17,27 +17,17 @@ Complete configuration example:
 
 ```yaml
 store:
- google-cloud:
-   projectId: project-01 | env
-   key: /path/project-01.json | env
+  google-cloud:
+   projectId: project-01 || env (GOOGLE_CLOUD_VERDACCIO_PROJECT_ID)
+   ## namespace for metadata database
+   kind: someRandonMetadataDatabaseKey
+   ## this pluging do not create the bucket, it has to exist
+   bucket: my-bucket-name
+   ## google cloud recomend this file only for development
+   ## this field is not mandatory
+   keyFilename: /path/project-01.json || env (GOOGLE_CLOUD_VERDACCIO_KEY)
 ```
 Define `env` whether you want load the value from environment variables.
-
-in `config.yaml`
-
-If `store:` is present `storage:` fallback is being ignored.
-
-```yaml
-# storage is required as fallback but not used if you enable this plugin
-storage: /Users/user/.local/share/verdaccio/storage
-auth:
-  htpasswd:
-    file: ./htpasswd
-store:
-  google-cloud:
-   projectId: project-01
-   key: /path/project-01.json
-```
 
 ## Disclaimer
 
