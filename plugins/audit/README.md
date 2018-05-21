@@ -1,5 +1,5 @@
 # verdaccio-audit
-☁️📦 npmjs audit support for verdaccio
+🛡🔬 npmjs audit support for verdaccio
 
 ```
  npm install --global verdaccio-audit
