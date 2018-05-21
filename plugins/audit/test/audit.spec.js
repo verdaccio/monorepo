@@ -15,6 +15,10 @@ const logger: Logger = {
 
 describe('Audit plugin', () => {
   test('should test audit', () => {
-    expect(1).toBeDefined();
+    const audit = new ProxyAudit({
+      enabled: false,
+      options: { logger: logger }
+    });
+    expect(audit).toBeDefined();
   });
 });
