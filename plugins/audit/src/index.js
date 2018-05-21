@@ -19,7 +19,7 @@ export default class ProxyAudit {
     const fetchAudit = (req: $RequestExtend, res: $ResponseExtend) => {
       const requestCallback = function(err, _res, body) {
         if (err) {
-          res.status(_res.statusCode).end();
+          res.status(500).end();
         }
         res.send(body);
       };
