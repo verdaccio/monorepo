@@ -12,6 +12,7 @@ import type { ConfigGoogleStorage } from '../types';
 
 export const noSuchFile: string = 'ENOENT';
 export const fileExist: string = 'EEXISTS';
+export const pkgFileName = 'package.json';
 
 declare type StorageType = Package | void;
 
@@ -87,40 +88,66 @@ class GoogleCloudStorageHandler implements ILocalPackageManager {
       });
   }
 
-  deletePackage(name: string, cb: Callback): void {
-    // FIXME: this should remove a tarball
-    this._getStorage(name).then(storePkg => {
-      if (storePkg) {
-        const storePkgData = storePkg[this.datastore.KEY];
-        this.helper
-          .deleteEntity(this.key, storePkgData.id)
-          .then(
-            deleted => {
-              if (deleted[0].mutationResults && deleted[0].mutationResults.length > 0) {
-                return cb(null);
-              } else {
-                return cb(fSError('something went wrong', 500));
-              }
-            },
-            err => {
-              return cb(fSError(err.message, 500));
-            }
-          )
-          .catch(err => {
-            return cb(fSError(err.message, 500));
-          });
-      } else {
-        return cb(noPackageFoundError());
-      }
-    });
+  deletePackage(fileName: string, cb: Callback): void {
+    // this method should be able to remove package.json and a tarball
+    // if name === package.json we want to remove
+    if (fileName === pkgFileName) {
+      this._getStorage(this.name).then(
+        storePkg => {
+          if (storePkg) {
+            const storePkgData = storePkg[this.datastore.KEY];
+            this.helper
+              .deleteEntity(this.key, storePkgData.id)
+              .then(deleted => {
+                if (deleted[0].mutationResults && deleted[0].mutationResults.length > 0) {
+                  return cb(null);
+                } else {
+                  return cb(fSError('something went wrong', 500));
+                }
+              })
+              .catch(err => {
+                return cb(fSError(err.message, 500));
+              });
+          } else {
+            return cb(noPackageFoundError());
+          }
+        },
+        err => {
+          return cb(noPackageFoundError(err.message));
+        }
+      );
+    } else {
+      this._removeBucketFile(fileName).then(
+        () => {
+          cb(null);
+        },
+        err => {
+          return cb(noPackageFoundError(err.message));
+        }
+      );
+    }
+  }
+
+  async _removeBucketFile(name: string) {
+    const file = this._getBucket().file(`${this.name}/${name}`);
+    const apiResponse = await file.delete();
+    const finalResponse = apiResponse[0];
+
+    return finalResponse;
   }
 
   removePackage(callback: Callback): void {
-    // callback(null);
-    // TODO: here we need to remove tarballs from data store and
     // remove all files from storage
-    // console.log('name', this.name);
-    callback(null);
+    const file = this._getBucket().file(`${this.name}`);
+    file.delete().then(
+      () => {
+        callback(null);
+      },
+      err => {
+        console.log('removePackage:error', err);
+        callback(fSError(err.message, 500));
+      }
+    );
   }
 
   createPackage(name: string, value: Object, cb: Function): void {

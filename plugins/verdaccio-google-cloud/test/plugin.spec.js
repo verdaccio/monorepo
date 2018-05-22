@@ -2,6 +2,7 @@
 import fs from 'fs';
 import path from 'path';
 import GoogleCloudDatabase from '../src/index';
+import { pkgFileName } from '../src/storage';
 import storageConfig from './partials/config';
 import pkgExample from './partials/pkg';
 import { generatePackage } from './partials/utils.helpers';
@@ -130,7 +131,8 @@ describe('Google Cloud Storage', () => {
       const store = cloudDatabase.getPackageStorage(name);
       expect(store).not.toBeNull();
       if (store) {
-        store.deletePackage(name, () => {
+        // here we set package.json, name should be taken from class level
+        store.deletePackage(pkgFileName, () => {
           done();
         });
       }
@@ -222,7 +224,7 @@ describe('Google Cloud Storage', () => {
         const store = cloudDatabase.getPackageStorage(pkgName);
         expect(store).not.toBeNull();
         if (store) {
-          store.deletePackage(pkgName, err => {
+          store.deletePackage(pkgFileName, err => {
             expect(err).toBeNull();
             done();
           });
@@ -231,10 +233,10 @@ describe('Google Cloud Storage', () => {
 
       test('should fail on delete an instance', done => {
         const cloudDatabase: ILocalData = new GoogleCloudDatabase(storageConfig, { logger });
-        const store = cloudDatabase.getPackageStorage(pkgName);
+        const store = cloudDatabase.getPackageStorage('404Fake');
         expect(store).not.toBeNull();
         if (store) {
-          store.deletePackage('404Name', err => {
+          store.deletePackage(pkgFileName, err => {
             expect(err).not.toBeNull();
             expect(err.message).toMatch(/no such package/);
             expect(err.code).toMatch(/ENOENT/);
@@ -244,6 +246,7 @@ describe('Google Cloud Storage', () => {
       });
 
       test.skip('should remove an entire package', done => {
+        //FIXME: relocate this test
         const cloudDatabase = new GoogleCloudDatabase(storageConfig, { logger });
         const store = cloudDatabase.getPackageStorage(pkgExample.name);
         expect(store).not.toBeNull();
@@ -510,6 +513,19 @@ describe('Google Cloud Storage', () => {
             expect(err.statusCode).toBe(400);
             expect(err.message).toMatch(/transmision aborted/);
             expect(isOpen).toBe(true);
+            done();
+          });
+        }
+      });
+    });
+
+    describe('GoogleCloudStorageHandler:: deleteTarball', () => {
+      test('should abort successfully get a tarball', done => {
+        const cloudDatabase: ILocalData = new GoogleCloudDatabase(storageConfig, { logger });
+        const store = cloudDatabase.getPackageStorage(pkgExample.name);
+        if (store) {
+          store.deletePackage('test-pkg-1.0.0.tgz', err => {
+            expect(err).toBeNull();
             done();
           });
         }
