@@ -20,6 +20,7 @@ const logger: Logger = {
 };
 
 describe('Google Cloud Storage', () => {
+  // jest.setTimeout(1000000);
   describe('Google Cloud DataStore', () => {
     // **** DataStore
 
@@ -32,31 +33,49 @@ describe('Google Cloud Storage', () => {
 
       test('should create an instance fails bucket name invalid', () => {
         expect(function() {
-          // storageConfig.bucket = undefined;
           new GoogleCloudDatabase(Object.assign({}, storageConfig, { bucket: undefined }), { logger });
         }).toThrow(new Error('Google Cloud Storage requires a bucket name, please define one.'));
       });
 
       test('should create an instance fails projectId invalid', () => {
         expect(function() {
-          // storageConfig.projectId = undefined;
           new GoogleCloudDatabase(Object.assign({}, storageConfig, { projectId: undefined }), { logger });
         }).toThrow(new Error('Google Cloud Storage requires a ProjectId.'));
       });
     });
 
     describe('DataStore basic calls', () => {
-      test('should create an Entity', () => {
+      const pkgName: string = 'dataBasicItem1';
+      const deleteItem = (name, done) => {
+        const cloudDatabase: ILocalData = new GoogleCloudDatabase(storageConfig, { logger });
+        /* eslint-disable */
+        cloudDatabase.remove(name, (err, result) => {
+          /* eslint-disable */
+          expect(result).not.toBeNull();
+          done();
+        });
+      };
+
+      beforeAll(done => {
+        return deleteItem(pkgName, done);
+      });
+
+      afterAll(done => {
+        return deleteItem(pkgName, done);
+      });
+
+      test('should create an Entity', done => {
         // ** add, remove, get, getPackageStorage
 
         const cloudDatabase: ILocalData = new GoogleCloudDatabase(storageConfig, { logger });
-        cloudDatabase.add(pkgExample.name, err => {
+        cloudDatabase.add(pkgName, err => {
           expect(err).toBeNull();
           cloudDatabase.get((err, results) => {
             expect(results).not.toBeNull();
             expect(err).toBeNull();
             expect(results).toHaveLength(1);
-            expect(results[0]).toBe(pkgExample.name);
+            expect(results[0]).toBe(pkgName);
+            done();
           });
         });
       });
@@ -90,43 +109,148 @@ describe('Google Cloud Storage', () => {
     // FIXME: missing, getSecret, setSecret
   });
 
-  /// **** Storage
+  // storage test
 
   describe('Google Cloud Storage', () => {
-    describe('GoogleCloudStorageHandler:delete', () => {
-      test('should delete an instance', done => {
+    const createPackage = (name, done) => {
+      const cloudDatabase: ILocalData = new GoogleCloudDatabase(storageConfig, { logger });
+      const pkg = generatePackage(name);
+      const store = cloudDatabase.getPackageStorage(pkg.name);
+      expect(store).not.toBeNull();
+      if (store) {
+        store.createPackage(pkg.name, pkg, err => {
+          expect(err).toBeNull();
+          expect(pkg.name).toBe(pkg.name);
+          done();
+        });
+      }
+    };
+    const deletePackage = (name, done) => {
+      const cloudDatabase: ILocalData = new GoogleCloudDatabase(storageConfig, { logger });
+      const store = cloudDatabase.getPackageStorage(name);
+      expect(store).not.toBeNull();
+      if (store) {
+        store.deletePackage(name, () => {
+          done();
+        });
+      }
+    };
+
+    describe('GoogleCloudStorageHandler:create', () => {
+      const pkgName: string = 'createPkg1';
+
+      beforeAll(done => {
+        return deletePackage(pkgName, done);
+      });
+
+      afterAll(done => {
+        return deletePackage(pkgName, done);
+      });
+
+      test('should create a package', done => {
+        const pkg = generatePackage(pkgName);
         const cloudDatabase: ILocalData = new GoogleCloudDatabase(storageConfig, { logger });
-        const store = cloudDatabase.getPackageStorage(pkgExample.name);
+        const store = cloudDatabase.getPackageStorage(pkgName);
         expect(store).not.toBeNull();
         if (store) {
-          store.deletePackage(pkgExample.name, err => {
+          store.createPackage(pkgName, pkg, err => {
+            expect(err).toBeNull();
+            expect(pkg.name).toBe(pkgName);
+            done();
+          });
+        }
+      });
+
+      test('should fails on package already exist', done => {
+        const pkg = generatePackage(pkgName);
+
+        const cloudDatabase: ILocalData = new GoogleCloudDatabase(storageConfig, { logger });
+        const store = cloudDatabase.getPackageStorage(pkgName);
+        expect(store).not.toBeNull();
+        if (store) {
+          store.createPackage(pkgName, pkg, err => {
+            expect(err).not.toBeNull();
+            expect(err.code).toMatch(/EEXISTS/);
+            expect(err.message).toMatch(/package already exist/);
+            done();
+          });
+        }
+      });
+
+      describe('GoogleCloudStorageHandler:save', () => {
+        const pkgName: string = 'savePkg1';
+
+        beforeAll(done => {
+          createPackage(pkgName, done);
+        });
+
+        afterAll(done => {
+          deletePackage(pkgName, done);
+        });
+
+        test('should save a package', done => {
+          const pkg = generatePackage(pkgName);
+
+          const cloudDatabase: ILocalData = new GoogleCloudDatabase(storageConfig, { logger });
+          const store = cloudDatabase.getPackageStorage(pkgName);
+          expect(store).not.toBeNull();
+          if (store) {
+            store.createPackage(pkgName, pkg, err => {
+              expect(err).not.toBeNull();
+              expect(err.code).toMatch(/EEXISTS/);
+              expect(err.message).toMatch(/package already exist/);
+              done();
+            });
+          }
+        });
+      });
+    });
+
+    describe('GoogleCloudStorageHandler:delete', () => {
+      const pkgName: string = 'deletePkg1';
+
+      beforeAll(done => {
+        createPackage(pkgName, done);
+      });
+
+      afterAll(done => {
+        deletePackage(pkgName, done);
+      });
+
+      test('should delete an instance', done => {
+        const cloudDatabase: ILocalData = new GoogleCloudDatabase(storageConfig, { logger });
+        const store = cloudDatabase.getPackageStorage(pkgName);
+        expect(store).not.toBeNull();
+        if (store) {
+          store.deletePackage(pkgName, err => {
             expect(err).toBeNull();
             done();
           });
         }
       });
 
-      //FIX LATER
-      test.skip('should fail on delete an instance', done => {
+      test('should fail on delete an instance', done => {
         const cloudDatabase: ILocalData = new GoogleCloudDatabase(storageConfig, { logger });
-        const store = cloudDatabase.getPackageStorage(pkgExample.name);
+        const store = cloudDatabase.getPackageStorage(pkgName);
         expect(store).not.toBeNull();
         if (store) {
           store.deletePackage('404Name', err => {
             expect(err).not.toBeNull();
+            expect(err.message).toMatch(/no such package/);
+            expect(err.code).toMatch(/ENOENT/);
             done();
           });
         }
       });
 
-      test('should remove an entire package', done => {
+      test.skip('should remove an entire package', done => {
         const cloudDatabase = new GoogleCloudDatabase(storageConfig, { logger });
         const store = cloudDatabase.getPackageStorage(pkgExample.name);
         expect(store).not.toBeNull();
         if (store) {
           store.removePackage(err => {
             // FIXME: we need to implement removePackage
-            // expect(err).toBeNull();
+            expect(err).toBeNull();
             done();
           });
         }
@@ -135,33 +259,24 @@ describe('Google Cloud Storage', () => {
 
     describe('GoogleCloudStorageHandler:read', () => {
       const packageName: string = 'readPkgTest';
-      beforeEach(done => {
-        const cloudDatabase: ILocalData = new GoogleCloudDatabase(storageConfig, { logger });
-        const store = cloudDatabase.getPackageStorage('');
-        const pkg = generatePackage(packageName);
-        expect(store).not.toBeNull();
-        if (store) {
-          store.savePackage(pkg.name, pkg, err => {
-            expect(err).toBeNull();
-            done();
-          });
-        }
+      const pkg = generatePackage(packageName);
+      beforeAll(done => {
+        createPackage(packageName, done);
+      });
+
+      afterAll(done => {
+        return deletePackage(packageName, done);
       });
 
       test('should read a package', done => {
         const cloudDatabase: ILocalData = new GoogleCloudDatabase(storageConfig, { logger });
         const store = cloudDatabase.getPackageStorage(packageName);
-        const pkg = generatePackage(packageName);
         expect(store).not.toBeNull();
         if (store) {
-          store.savePackage(pkg.name, pkg, err => {
+          store.readPackage(pkg.name, function onResponse(err, pkgJson) {
             expect(err).toBeNull();
-
-            store.readPackage(pkg.name, function onResponse(err, pkgJson) {
-              expect(err).toBeNull();
-              expect(pkgJson.name).toBe(pkg.name);
-              done();
-            });
+            expect(pkgJson.name).toBe(pkg.name);
+            done();
           });
         }
       });
@@ -171,7 +286,7 @@ describe('Google Cloud Storage', () => {
         const store = cloudDatabase.getPackageStorage('');
         expect(store).not.toBeNull();
         if (store) {
-          store.readPackage('missing404Pkg', function onResponse(err, pkgJson) {
+          store.readPackage('missing404Pkg', function onResponse(err) {
             expect(err).not.toBeNull();
             expect(err.code).toBe('ENOENT');
             expect(err.message).toBe('no such package');
@@ -182,52 +297,54 @@ describe('Google Cloud Storage', () => {
     });
 
     describe('GoogleCloudStorageHandler:update', () => {
-      test('should update an instance', done => {
-        const cloudDatabase: ILocalData = new GoogleCloudDatabase(storageConfig, { logger });
-        const store = cloudDatabase.getPackageStorage('');
-        const pkg = generatePackage('updatePkg');
-        expect(store).not.toBeNull();
-        if (store) {
-          store.savePackage(pkg.name, pkg, err => {
-            expect(err).toBeNull();
-
-            store.deletePackage(pkg.name, err => {
-              expect(err).toBeNull();
-              done();
-            });
-          });
-        }
+      const packageName: string = 'updateTransPkg';
+      beforeAll(done => {
+        createPackage(packageName, done);
       });
 
+      afterAll(done => {
+        return deletePackage(packageName, done);
+      });
+
+      // test('should update an instance', done => {
+      //   const cloudDatabase: ILocalData = new GoogleCloudDatabase(storageConfig, { logger });
+      //   const store = cloudDatabase.getPackageStorage(packageName);
+      //   const pkg = generatePackage(packageName);
+      //   expect(store).not.toBeNull();
+      //   if (store) {
+      //     store.deletePackage(pkg.name, err => {
+      //       expect(err).toBeNull();
+      //       done();
+      //     });
+      //   }
+      // });
+
       test('should update and transform an instance', done => {
+        const pkg = generatePackage(packageName);
+
         const cloudDatabase: ILocalData = new GoogleCloudDatabase(storageConfig, { logger });
-        const store = cloudDatabase.getPackageStorage('');
-        const pkg = generatePackage('updateTransPkg');
+        const store = cloudDatabase.getPackageStorage(packageName);
 
         expect(store).not.toBeNull();
         if (store) {
-          store.createPackage(pkg.name, pkg, err => {
-            expect(err).toBeNull();
-
-            store.updatePackage(
-              pkg.name,
-              function handleUpdate(data, cb) {
-                cb();
-              },
-              function writePackage(name, json, cb) {
-                expect(json.test).toBe('test');
-                cb(null);
-              },
-              function transformation(json) {
-                json.test = 'test';
-                return json;
-              },
-              function onEnd(err) {
-                expect(err).toBeNull();
-                done();
-              }
-            );
-          });
+          store.updatePackage(
+            pkg.name,
+            function handleUpdate(data, cb) {
+              cb();
+            },
+            function writePackage(name, json, cb) {
+              expect(json.test).toBe('test');
+              cb(null);
+            },
+            function transformation(json) {
+              json.test = 'test';
+              return json;
+            },
+            function onEnd(err) {
+              expect(err).toBeNull();
+              done();
+            }
+          );
         }
       });
 
@@ -268,18 +385,20 @@ describe('Google Cloud Storage', () => {
         const cloudDatabase: ILocalData = new GoogleCloudDatabase(storageConfig, { logger });
         const store = cloudDatabase.getPackageStorage(pkgExample.name);
         expect(store).not.toBeNull();
-        const writeTarballStream = store.writeTarball('test-pkg-1.0.0.tgz');
+        if (store) {
+          const writeTarballStream = store.writeTarball('test-pkg-1.0.0.tgz');
 
-        writeTarballStream.on('error', function(err) {
-          done.fail(err);
-        });
+          writeTarballStream.on('error', function(err) {
+            done.fail(err);
+          });
 
-        writeTarballStream.on('success', function() {
-          done();
-        });
+          writeTarballStream.on('success', function() {
+            done();
+          });
 
-        writeTarballStream.end(bufferFile);
-        writeTarballStream.done();
+          writeTarballStream.end(bufferFile);
+          writeTarballStream.done();
+        }
       });
 
       test('should write a abort successfully push data', done => {
@@ -287,56 +406,60 @@ describe('Google Cloud Storage', () => {
         const cloudDatabase: ILocalData = new GoogleCloudDatabase(storageConfig, { logger });
         const store = cloudDatabase.getPackageStorage(pkgExample.name);
         expect(store).not.toBeNull();
-        const writeTarballStream = store.writeTarball('test-pkg-1.0.0.tgz');
+        if (store) {
+          const writeTarballStream = store.writeTarball('test-pkg-1.0.0.tgz');
 
-        writeTarballStream.on('error', function(err) {
-          expect(err).not.toBeNull();
-          expect(err.message).toMatch(/transmision aborted/);
-          done();
-        });
+          writeTarballStream.on('error', function(err) {
+            expect(err).not.toBeNull();
+            expect(err.message).toMatch(/transmision aborted/);
+            done();
+          });
 
-        writeTarballStream.on('data', data => {
-          expect(data).toBeDefined();
-          writeTarballStream.abort();
-        });
+          writeTarballStream.on('data', data => {
+            expect(data).toBeDefined();
+            writeTarballStream.abort();
+          });
 
-        writeTarballStream.on('success', function() {
-          done.fail(new Error('success should not be called'));
-        });
+          writeTarballStream.on('success', function() {
+            done.fail(new Error('success should not be called'));
+          });
 
-        writeTarballStream.end(bufferFile);
-        writeTarballStream.done();
+          writeTarballStream.end(bufferFile);
+          writeTarballStream.done();
+        }
       });
     });
 
-    describe.only('GoogleCloudStorageHandler:: readFile', () => {
+    describe('GoogleCloudStorageHandler:: readFile', () => {
       test('should read a tarball successfully', done => {
         const cloudDatabase: ILocalData = new GoogleCloudDatabase(storageConfig, { logger });
         const store = cloudDatabase.getPackageStorage(pkgExample.name);
         expect(store).not.toBeNull();
-        const readTarballStream = store.readTarball('test-pkg-1.0.0.tgz');
-        let isOpen = false;
+        if (store) {
+          const readTarballStream = store.readTarball('test-pkg-1.0.0.tgz');
+          let isOpen = false;
 
-        readTarballStream.on('data', data => {
-          expect(data).toBeDefined();
-        });
+          readTarballStream.on('data', data => {
+            expect(data).toBeDefined();
+          });
 
-        readTarballStream.on('open', function() {
-          isOpen = true;
-        });
+          readTarballStream.on('open', function() {
+            isOpen = true;
+          });
 
-        readTarballStream.on('content-length', contentLength => {
-          expect(contentLength).toBeDefined();
-        });
+          readTarballStream.on('content-length', contentLength => {
+            expect(contentLength).toBeDefined();
+          });
 
-        readTarballStream.on('error', () => {
-          done.fail(new Error('should not fail'));
-        });
+          readTarballStream.on('error', () => {
+            done.fail(new Error('should not fail'));
+          });
 
-        readTarballStream.on('end', () => {
-          expect(isOpen).toBe(true);
-          done();
-        });
+          readTarballStream.on('end', () => {
+            expect(isOpen).toBe(true);
+            done();
+          });
+        }
       });
 
       test('should fails with 404 on get a tarball', done => {
@@ -344,24 +467,26 @@ describe('Google Cloud Storage', () => {
         const store = cloudDatabase.getPackageStorage(pkgExample.name);
         let isOpen = false;
         expect(store).not.toBeNull();
-        const readTarballStream = store.readTarball('fake-tarball.tgz');
+        if (store) {
+          const readTarballStream = store.readTarball('fake-tarball.tgz');
 
-        readTarballStream.on('data', function(data) {
-          expect(data).toBeUndefined();
-        });
+          readTarballStream.on('data', function(data) {
+            expect(data).toBeUndefined();
+          });
 
-        readTarballStream.on('open', function() {
-          isOpen = true;
-        });
+          readTarballStream.on('open', function() {
+            isOpen = true;
+          });
 
-        readTarballStream.on('error', function(err) {
-          expect(err).not.toBeNull();
-          // this is really important, verdaccio handle such errors instead 404
-          expect(err.code).toBe('ENOENT');
-          expect(err.message).toMatch(/no such package/);
-          expect(isOpen).toBe(true);
-          done();
-        });
+          readTarballStream.on('error', function(err) {
+            expect(err).not.toBeNull();
+            // this is really important, verdaccio handle such errors instead 404
+            expect(err.code).toBe('ENOENT');
+            expect(err.message).toMatch(/no such package/);
+            expect(isOpen).toBe(true);
+            done();
+          });
+        }
       });
 
       test('should abort successfully get a tarball', done => {
@@ -369,23 +494,25 @@ describe('Google Cloud Storage', () => {
         const cloudDatabase: ILocalData = new GoogleCloudDatabase(storageConfig, { logger });
         const store = cloudDatabase.getPackageStorage(pkgExample.name);
         expect(store).not.toBeNull();
-        const readTarballStream = store.readTarball('test-pkg-1.0.0.tgz');
+        if (store) {
+          const readTarballStream = store.readTarball('test-pkg-1.0.0.tgz');
 
-        readTarballStream.on('data', function() {
-          readTarballStream.abort();
-        });
+          readTarballStream.on('data', function() {
+            readTarballStream.abort();
+          });
 
-        readTarballStream.on('open', function() {
-          isOpen = true;
-        });
+          readTarballStream.on('open', function() {
+            isOpen = true;
+          });
 
-        readTarballStream.on('error', function(err) {
-          expect(err).not.toBeNull();
-          expect(err.statusCode).toBe(400);
-          expect(err.message).toMatch(/transmision aborted/);
-          expect(isOpen).toBe(true);
-          done();
-        });
+          readTarballStream.on('error', function(err) {
+            expect(err).not.toBeNull();
+            expect(err.statusCode).toBe(400);
+            expect(err.message).toMatch(/transmision aborted/);
+            expect(isOpen).toBe(true);
+            done();
+          });
+        }
       });
     });
   });

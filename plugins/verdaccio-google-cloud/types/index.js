@@ -1,8 +1,6 @@
 // @flow
 
-import type { Config } from '@verdaccio/types';
-
-export type ConfigGoogleStorage = Config & {
+export type ConfigGoogleStorage = {
   // https://cloud.google.com/nodejs/docs/reference/storage/1.6.x/Bucket
   bucket: string,
   // TODO: add description
@@ -14,8 +12,8 @@ export type ConfigGoogleStorage = Config & {
 };
 
 export type GoogleCloudOptions = {
-  projectId: string,
-  keyFilename: string
+  projectId?: string,
+  keyFilename?: string
 };
 
 export type GoogleDataStorage = {

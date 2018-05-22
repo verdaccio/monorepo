@@ -51,7 +51,7 @@ export function generatePackage(name) {
     },
     _distfiles: {},
     _attachments: {
-      'test_npm-1.0.1.tgz': {
+      [`${name}-1.0.1.tgz`]: {
         shasum: '1df0c3dfd289b2ac6ef00b0129cab9737eeaa62d',
         version: '1.0.1'
       }

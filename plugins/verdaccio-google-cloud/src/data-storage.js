@@ -9,12 +9,6 @@ import type { Logger, Callback } from '@verdaccio/types';
 import type { ILocalData } from '@verdaccio/local-storage';
 import type { ConfigGoogleStorage, GoogleCloudOptions, GoogleDataStorage } from '../types';
 
-declare type GoogleDataStorage = {
-  secret: string,
-  storage: any,
-  datastore: any
-};
-
 class GoogleCloudDatabase implements ILocalData {
   helper: any;
   path: string;
@@ -55,14 +49,12 @@ class GoogleCloudDatabase implements ILocalData {
     GOOGLE_OPTIONS.projectId = config.projectId || process.env.GOOGLE_CLOUD_VERDACCIO_PROJECT_ID;
 
     const keyFileName = config.keyFilename || process.env.GOOGLE_CLOUD_VERDACCIO_KEY;
+
     if (keyFileName) {
       GOOGLE_OPTIONS.keyFilename = keyFileName;
       this.logger.warn('Using credentials in a file might be un-secure and is recommended for local development');
     }
-    // const GOOGLE_OPTIONS: GoogleCloudOptions = {
-    //   projectId: 'verdaccio-01',
-    //   keyFilename: './verdaccio-01-56f693e3aab0.json'
-    // };
+
     this.logger.warn({ content: JSON.stringify(GOOGLE_OPTIONS) }, 'Google storage settings: @{content}');
     return GOOGLE_OPTIONS;
   }
@@ -80,7 +72,7 @@ class GoogleCloudDatabase implements ILocalData {
 
   add(name: string, cb: Callback): void {
     const datastore = this.data.datastore;
-    const key = datastore.key(this.key);
+    const key = datastore.key(this.kind);
     const data = {
       name: name
     };

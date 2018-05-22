@@ -27,6 +27,15 @@ const noPackageFoundError = function(message = 'no such package') {
   const err: HttpError = createError(404, message);
   // $FlowFixMe
   err.code = noSuchFile;
+
+  return err;
+};
+
+const packageAlreadyExist = function(name, message = `${name} package already exist`) {
+  const err: HttpError = createError(409, message);
+  // $FlowFixMe
+  err.code = fileExist;
+
   return err;
 };
 
@@ -52,22 +61,27 @@ class GoogleCloudStorageHandler implements ILocalPackageManager {
 
   updatePackage(pkgFileName: string, updateHandler: Callback, onWrite: Callback, transformPackage: Function, onEnd: Callback): void {
     this._getStorage(pkgFileName)
-      .then(storePkg => {
-        if (typeof storePkg === 'undefined') {
-          return onEnd(noPackageFoundError());
-        }
+      .then(
+        storePkg => {
+          if (typeof storePkg === 'undefined') {
+            return onEnd(noPackageFoundError());
+          }
 
-        updateHandler(storePkg, err => {
-          if (err) {
-            return onEnd(err);
-          }
-          try {
-            onWrite(pkgFileName, transformPackage(storePkg), onEnd);
-          } catch (err) {
-            return onEnd(fSError(err.message, 500));
-          }
-        });
-      })
+          updateHandler(storePkg, err => {
+            if (err) {
+              return onEnd(err);
+            }
+            try {
+              onWrite(pkgFileName, transformPackage(storePkg), onEnd);
+            } catch (err) {
+              return onEnd(fSError(err.message, 500));
+            }
+          });
+        },
+        err => {
+          onEnd(fSError(err.message, 500));
+        }
+      )
       .catch(err => {
         return onEnd(fSError(err.message, 500));
       });
@@ -80,21 +94,25 @@ class GoogleCloudStorageHandler implements ILocalPackageManager {
         const storePkgData = storePkg[this.datastore.KEY];
         this.helper
           .deleteEntity(this.key, storePkgData.id)
-          .then(deleted => {
-            if (deleted[0].mutationResults && deleted[0].mutationResults.length > 0) {
-              cb(null);
-            } else {
-              cb(fSError('something went wrong', 500));
+          .then(
+            deleted => {
+              if (deleted[0].mutationResults && deleted[0].mutationResults.length > 0) {
+                return cb(null);
+              } else {
+                return cb(fSError('something went wrong', 500));
+              }
+            },
+            err => {
+              return cb(fSError(err.message, 500));
             }
-          })
+          )
           .catch(err => {
-            cb(fSError(err.message, 500));
+            return cb(fSError(err.message, 500));
           });
       } else {
-        cb(noPackageFoundError());
+        return cb(noPackageFoundError());
       }
     });
-    cb(null);
   }
 
   removePackage(callback: Callback): void {
@@ -106,7 +124,17 @@ class GoogleCloudStorageHandler implements ILocalPackageManager {
   }
 
   createPackage(name: string, value: Object, cb: Function): void {
-    this.savePackage(name, value, cb);
+    this._readPackage(name).then(
+      () => {
+        cb(packageAlreadyExist(name));
+      },
+      err => {
+        if (err.code === noSuchFile) {
+          // we care only whether package do not exist and create it.
+          this.savePackage(name, value, cb);
+        }
+      }
+    );
   }
 
   savePackage(name: string, value: Object, cb: Function): void {
@@ -114,7 +142,9 @@ class GoogleCloudStorageHandler implements ILocalPackageManager {
       .then(() => {
         cb(null);
       })
-      .catch(err => cb(err));
+      .catch(err => {
+        return cb(err);
+      });
   }
 
   _savePackage(name: string, value: Object) {
@@ -179,7 +209,11 @@ class GoogleCloudStorageHandler implements ILocalPackageManager {
       const isMissing = typeof json === 'undefined';
 
       try {
-        isMissing ? reject(noPackageFoundError()) : resolve(json);
+        if (isMissing) {
+          reject(noPackageFoundError());
+        } else {
+          resolve(json);
+        }
       } catch (err) {
         reject(noPackageFoundError());
       }
@@ -277,7 +311,7 @@ class GoogleCloudStorageHandler implements ILocalPackageManager {
     return;
   }
 
-  _getBucket(): mixed {
+  _getBucket(): any {
     return this.storage.bucket(this.config.bucket);
   }
 }
