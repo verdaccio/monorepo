@@ -40,18 +40,23 @@ export default class ProxyAudit {
 
       return fetchAu;
     };
-    /* eslint new-cap:off */
-    const router = express.Router();
-    /* eslint new-cap:off */
-    router.use(compression());
-    router.use(bodyParser.json({ strict: false, limit: '50mb' }));
-    router.post('/audits', (req: $RequestExtend, res: $ResponseExtend) => {
+
+    const handleAudit = (req: $RequestExtend, res: $ResponseExtend) => {
       if (this.enabled) {
         fetchAudit(req, res);
       } else {
         res.status(500).end();
       }
-    });
+    };
+
+    /* eslint new-cap:off */
+    const router = express.Router();
+    /* eslint new-cap:off */
+    router.use(compression());
+    router.use(bodyParser.json({ strict: false, limit: '50mb' }));
+    router.post('/audits', handleAudit);
+
+    router.post('/audits/quick', handleAudit);
 
     app.use('/-/npm/v1/security', router);
   }
