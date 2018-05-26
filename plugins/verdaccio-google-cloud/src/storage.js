@@ -41,7 +41,6 @@ const packageAlreadyExist = function(name, message = `${name} package already ex
 };
 
 class GoogleCloudStorageHandler implements ILocalPackageManager {
-  datastore: any;
   storage: any;
   path: StorageList;
   logger: Logger;
@@ -52,7 +51,6 @@ class GoogleCloudStorageHandler implements ILocalPackageManager {
 
   constructor(name: string, storage: any, datastore: any, helper: any, config: ConfigGoogleStorage, logger: Logger) {
     this.name = name;
-    this.datastore = datastore;
     this.storage = storage;
     this.logger = logger;
     this.helper = helper;
@@ -60,187 +58,154 @@ class GoogleCloudStorageHandler implements ILocalPackageManager {
     this.key = 'VerdaccioMetadataStore';
   }
 
-  updatePackage(pkgFileName: string, updateHandler: Callback, onWrite: Callback, transformPackage: Function, onEnd: Callback): void {
-    this._getStorage(pkgFileName)
+  updatePackage(name: string, updateHandler: Callback, onWrite: Callback, transformPackage: Function, onEnd: Callback): void {
+    this._readPackage(name)
       .then(
-        storePkg => {
-          if (typeof storePkg === 'undefined') {
-            return onEnd(noPackageFoundError());
-          }
-
-          updateHandler(storePkg, err => {
+        metadata => {
+          updateHandler(metadata, err => {
             if (err) {
+              this.logger.error({ name: name, err: err.message }, 'gcloud: on write update @{name} package has failed err: @{err}');
               return onEnd(err);
             }
             try {
-              onWrite(pkgFileName, transformPackage(storePkg), onEnd);
+              onWrite(name, transformPackage(metadata), onEnd);
             } catch (err) {
+              this.logger.error({ name: name, err: err.message }, 'gcloud: on write update @{name} package has failed err: @{err}');
               return onEnd(fSError(err.message, 500));
             }
           });
         },
         err => {
+          this.logger.error({ name: name, err: err.message }, 'gcloud: update @{name} package has failed err: @{err}');
           onEnd(fSError(err.message, 500));
         }
       )
-      .catch(err => {
-        return onEnd(fSError(err.message, 500));
+      .catch(() => {
+        this.logger.error({ name: name }, 'gcloud: trying to update @{name} and was not found on storage');
+        return onEnd(noPackageFoundError());
       });
   }
 
   deletePackage(fileName: string, cb: Callback): void {
-    // this method should be able to remove package.json and a tarball
-    // if name === package.json we want to remove
-    if (fileName === pkgFileName) {
-      this._getStorage(this.name).then(
-        storePkg => {
-          if (storePkg) {
-            const storePkgData = storePkg[this.datastore.KEY];
-            this.helper
-              .deleteEntity(this.key, storePkgData.id)
-              .then(deleted => {
-                if (deleted[0].mutationResults && deleted[0].mutationResults.length > 0) {
-                  return cb(null);
-                } else {
-                  return cb(fSError('something went wrong', 500));
-                }
-              })
-              .catch(err => {
-                return cb(fSError(err.message, 500));
-              });
-          } else {
-            return cb(noPackageFoundError());
-          }
-        },
-        err => {
-          return cb(noPackageFoundError(err.message));
-        }
-      );
-    } else {
-      this._removeBucketFile(fileName).then(
-        () => {
-          cb(null);
-        },
-        err => {
-          return cb(noPackageFoundError(err.message));
-        }
-      );
+    const file = this._buildFilePath(this.name, fileName);
+    this.logger.debug({ name: file.name }, 'gcloud: deleting @{name} from storage');
+    try {
+      file
+        .delete()
+        .then(data => {
+          const apiResponse = data[0];
+          this.logger.debug({ name: file.name }, 'gcloud: @{name} was deleted successfully from storage');
+          cb(null, apiResponse);
+        })
+        .catch(err => {
+          this.logger.error({ name: file.name, err: err.message }, 'gcloud: delete @{name} file has failed err: @{err}');
+          cb(fSError(err.message, 500));
+        });
+    } catch (err) {
+      this.logger.error({ name: file.name, err: err.message }, 'gcloud: delete @{name} file has failed err: @{err}');
+      cb(fSError('something went wrong', 500));
     }
-  }
-
-  async _removeBucketFile(name: string) {
-    const file = this._getBucket().file(`${this.name}/${name}`);
-    const apiResponse = await file.delete();
-    const finalResponse = apiResponse[0];
-
-    return finalResponse;
   }
 
   removePackage(callback: Callback): void {
     // remove all files from storage
     const file = this._getBucket().file(`${this.name}`);
+    this.logger.debug({ name: file.name }, 'gcloud: removing the package @{name} from storage');
     file.delete().then(
       () => {
+        this.logger.debug({ name: file.name }, 'gcloud: package @{name} was deleted successfully from storage');
         callback(null);
       },
       err => {
-        console.log('removePackage:error', err);
+        this.logger.error({ name: file.name, err: err.message }, 'gcloud: delete @{name} package has failed err: @{err}');
         callback(fSError(err.message, 500));
       }
     );
   }
 
-  createPackage(name: string, value: Object, cb: Function): void {
-    this._readPackage(name).then(
-      () => {
-        cb(packageAlreadyExist(name));
+  createPackage(name: string, metadata: Object, cb: Function): void {
+    this.logger.debug({ name }, 'gcloud: creating new package for @{name}');
+    this._fileExist(name, pkgFileName).then(
+      exist => {
+        if (exist) {
+          this.logger.debug({ name }, 'gcloud: creating @{name} has failed, it already exist');
+          cb(packageAlreadyExist(name));
+        } else {
+          this.logger.debug({ name }, 'gcloud: creating @{name} on storage');
+          this.savePackage(name, metadata, cb);
+        }
       },
       err => {
-        if (err.code === noSuchFile) {
-          // we care only whether package do not exist and create it.
-          this.savePackage(name, value, cb);
-        }
+        this.logger.error({ name: name, err: err.message }, 'gcloud: create package @{name} has failed err: @{err}');
+        cb(fSError(err.message, 500));
       }
     );
   }
 
   savePackage(name: string, value: Object, cb: Function): void {
+    this.logger.debug({ name }, 'gcloud: saving package for @{name}');
     this._savePackage(name, value)
       .then(() => {
+        this.logger.debug({ name }, 'gcloud: @{name} has been saved successfully on storage');
         cb(null);
       })
       .catch(err => {
+        this.logger.error({ name: name, err: err.message }, 'gcloud: save package @{name} has failed err: @{err}');
         return cb(err);
       });
   }
 
-  _savePackage(name: string, value: Object) {
+  _savePackage(name: string, metadata: Object) {
     return new Promise(async (resolve, reject) => {
-      const datastore = this.datastore;
-      const storePkg: StorageType = await this._getStorage(name);
-
-      const save = async (key, data, resolve, reject) => {
-        const excludeFromIndexes = Object.keys(data);
-        excludeFromIndexes.splice(0, 1);
-
-        try {
-          await datastore.save({
-            key,
-            excludeFromIndexes,
-            data
-          });
-          resolve(null);
-        } catch (err) {
-          reject(fSError(err.message, 500));
-        }
-      };
-
-      const update = async (key, data, resolve, reject) => {
-        const excludeFromIndexes = Object.keys(data);
-        excludeFromIndexes.splice(0, 1);
-
-        try {
-          await this.helper.updateEntity(key, excludeFromIndexes, data);
-          resolve(null);
-        } catch (err) {
-          reject(fSError(err.message, 500));
-        }
-      };
-
-      if (typeof storePkg === 'undefined') {
-        const keyFromDataStore = datastore.key(this.key);
-        await save(keyFromDataStore, value, resolve, reject);
-        resolve();
-      } else {
-        const storePkgData = storePkg[this.datastore.KEY];
-        const keyFromDataStore = datastore.key([this.key, datastore.int(storePkgData.id)]);
-        await update(keyFromDataStore, value, resolve, reject);
-        resolve();
+      const file = this._buildFilePath(name, pkgFileName);
+      try {
+        await file.save(this._convertToString(metadata));
+        resolve(null);
+      } catch (err) {
+        reject(fSError(err.message, 500));
       }
     });
   }
 
+  _convertToString(value: Package): string {
+    return JSON.stringify(value, null, '\t');
+  }
+
   readPackage(name: string, cb: Function): void {
+    this.logger.debug({ name }, 'gcloud: reading package for @{name}');
     this._readPackage(name)
       .then(json => {
+        this.logger.debug({ name }, 'gcloud: package @{name} was fetched from storage');
         cb(null, json);
       })
       .catch(err => {
+        this.logger.error({ name: name, err: err.message }, 'gcloud: read package @{name} has failed err: @{err}');
         cb(err);
       });
   }
 
+  _buildFilePath(name: string, fileName: string) {
+    return this._getBucket().file(`${name}/${fileName}`);
+  }
+
+  _fileExist(name: string, fileName: string) {
+    return new Promise(async (resolve, reject) => {
+      const file = this._buildFilePath(name, fileName);
+      try {
+        const data = await file.exists();
+        resolve(data[0]);
+      } catch (err) {
+        reject(fSError(err.message, 500));
+      }
+    });
+  }
+
   async _readPackage(name: string): Promise<any> {
     return new Promise(async (resolve, reject) => {
-      const json = await this._getStorage(name);
-      const isMissing = typeof json === 'undefined';
-
+      const storage = this._buildFilePath(name, pkgFileName);
       try {
-        if (isMissing) {
-          reject(noPackageFoundError());
-        } else {
-          resolve(json);
-        }
+        const file = await storage.download();
+        resolve(JSON.parse(file[0].toString('utf8')));
       } catch (err) {
         reject(noPackageFoundError());
       }
@@ -249,41 +214,60 @@ class GoogleCloudStorageHandler implements ILocalPackageManager {
 
   writeTarball(name: string): IUploadTarball {
     const uploadStream: IUploadTarball = new UploadTarball();
+
     try {
-      const file = this._getBucket().file(`${this.name}/${name}`);
-      const fileStream = file.createWriteStream();
-      uploadStream.done = function() {
-        uploadStream.on('end', function() {
-          fileStream.on('response', () => {
-            uploadStream.emit('success');
-          });
-        });
-      };
+      this._fileExist(this.name, name).then(
+        exist => {
+          if (exist) {
+            this.logger.debug({ url: this.name }, 'gcloud:  @{url} package already exist on storage');
+            uploadStream.emit('error', packageAlreadyExist(name));
+          } else {
+            const file = this._getBucket().file(`${this.name}/${name}`);
+            this.logger.info({ url: file.name }, 'gcloud: the @{url} is being uploaded to the storage');
+            const fileStream = file.createWriteStream();
+            uploadStream.done = () => {
+              uploadStream.on('end', () => {
+                fileStream.on('response', () => {
+                  this.logger.debug({ url: file.name }, 'gcloud: @{url} has been successfully uploaded to the storage');
+                  uploadStream.emit('success');
+                });
+              });
+            };
 
-      fileStream._destroy = function(err) {
-        // this is an error when user is not authenticated
-        // [BadRequestError: Could not authenticate request
-        //  getaddrinfo ENOTFOUND www.googleapis.com www.googleapis.com:443]
-        if (err) {
-          uploadStream.emit('error', fSError(err.message, 400));
-          fileStream.emit('close');
+            fileStream._destroy = function(err) {
+              // this is an error when user is not authenticated
+              // [BadRequestError: Could not authenticate request
+              //  getaddrinfo ENOTFOUND www.googleapis.com www.googleapis.com:443]
+              if (err) {
+                uploadStream.emit('error', fSError(err.message, 400));
+                fileStream.emit('close');
+              }
+            };
+
+            fileStream.on('open', () => {
+              this.logger.debug({ url: file.name }, 'gcloud: upload streem has been opened for @{url}');
+              uploadStream.emit('open');
+            });
+
+            fileStream.on('error', err => {
+              this.logger.error({ url: file.name }, 'gcloud: upload stream has failed for @{url}');
+              fileStream.end();
+              uploadStream.emit('error', fSError(err, 400));
+            });
+
+            uploadStream.abort = () => {
+              this.logger.warn({ url: file.name }, 'gcloud: upload stream has been aborted for @{url}');
+              fileStream.destroy(null);
+            };
+
+            uploadStream.pipe(fileStream);
+            uploadStream.emit('open');
+          }
+        },
+        err => {
+          uploadStream.emit('error', fSError(err.message, 500));
         }
-      };
-
-      fileStream.on('open', () => {
-        uploadStream.emit('open');
-      });
-
-      fileStream.on('error', err => {
-        fileStream.end();
-        uploadStream.emit('error', fSError(err, 400));
-      });
-
-      uploadStream.abort = function() {
-        fileStream.destroy(fSError('transmision aborted', 400));
-      };
-
-      uploadStream.pipe(fileStream);
+      );
     } catch (err) {
       uploadStream.emit('error', err);
     }
@@ -294,48 +278,43 @@ class GoogleCloudStorageHandler implements ILocalPackageManager {
     const readTarballStream: IReadTarball = new ReadTarball();
     const file = this._getBucket().file(`${this.name}/${name}`);
     const fileStream = file.createReadStream();
+    this.logger.debug({ url: file.name }, 'gcloud: reading tarball from @{url}');
 
     readTarballStream.abort = function() {
-      fileStream.destroy(fSError('transmision aborted', 400));
+      fileStream.destroy(null);
     };
 
     fileStream
-      .on('error', function(err) {
+      .on('error', err => {
         if (err.code === 404) {
+          this.logger.debug({ url: file.name }, 'gcloud: tarball @{url} do not found on storage');
           readTarballStream.emit('error', noPackageFoundError());
         } else {
+          this.logger.error({ url: file.name }, 'gcloud: tarball @{url} has failed to be retrieved from storage');
           readTarballStream.emit('error', fSError(err.message, 400));
         }
       })
-      .on('response', function(response) {
+      .on('response', response => {
         const size = response.headers['content-length'];
         const { statusCode } = response;
+        if (statusCode !== 404) {
+          if (size) {
+            readTarballStream.emit('open');
+          }
 
-        if (size) {
-          readTarballStream.emit('open');
+          if (parseInt(size, 10) === 0) {
+            this.logger.error({ url: file.name }, 'gcloud: tarball @{url} was fetched from storage and it is empty');
+            readTarballStream.emit('error', fSError('file content empty', 500));
+          } else if (parseInt(size, 10) > 0 && statusCode === 200) {
+            readTarballStream.emit('content-length', response.headers['content-length']);
+          }
+        } else {
+          this.logger.debug({ url: file.name }, 'gcloud: tarball @{url} do not found on storage');
+          readTarballStream.emit('error', noPackageFoundError());
         }
-
-        if (parseInt(size, 10) === 0) {
-          readTarballStream.emit('error', fSError('file content empty', 500));
-        } else if (parseInt(size, 10) > 0 && statusCode === 200) {
-          readTarballStream.emit('content-length', response.headers['content-length']);
-        }
-      })
-      .on('end', function() {
-        readTarballStream.emit('end');
       })
       .pipe(readTarballStream);
     return readTarballStream;
-  }
-
-  async _getStorage(name: string = ''): Promise<StorageType> {
-    const results = await this.helper.runQuery(this.helper.createQuery(this.key, name));
-
-    if (results[0] && results[0].length > 0) {
-      return results[0][0];
-    }
-
-    return;
   }
 
   _getBucket(): any {
