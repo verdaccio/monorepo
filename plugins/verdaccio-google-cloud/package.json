@@ -19,6 +19,10 @@
     "plugin",
     "google-cloud"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/verdaccio/verdaccio-google-cloud"
+  },
   "author": "Juan Picado <juanpicado19@gmail.com>",
   "license": "MIT",
   "dependencies": {
