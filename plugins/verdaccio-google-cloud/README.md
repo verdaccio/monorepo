@@ -2,30 +2,42 @@
 ☁️📦 Google Cloud storage plugin for verdaccio
 
 ```
- npm install --global verdaccio-google-cloud
+npm i -g verdaccio@verdaccio-google-cloud
+yarn global add verdaccio@verdaccio-google-cloud
+pnpm i -g verdaccio@verdaccio-google-cloud
 ```
 
 ### Requirements
 
+* Google Cloud Account
+* Verdaccio server (see below)
+
 ```
 npm install -g verdaccio@beta
-// or
-npm install -g verdaccio@3.0.0
+yarn global add verdaccio@beta
+pnpm -g verdaccio@beta
 ```
+
+### Configuration
 
 Complete configuration example:
 
 ```yaml
 store:
   google-cloud:
+	## google project id
    projectId: project-01 || env (GOOGLE_CLOUD_VERDACCIO_PROJECT_ID)
+
    ## namespace for metadata database
    kind: someRandonMetadataDatabaseKey
+
    ## this pluging do not create the bucket, it has to exist
    bucket: my-bucket-name
+
    ## google cloud recomend this file only for development
    ## this field is not mandatory
    keyFilename: /path/project-01.json || env (GOOGLE_CLOUD_VERDACCIO_KEY)
+
    ## default validation is, it can be overrided by 
    ## https://cloud.google.com/nodejs/docs/reference/storage/1.6.x/File.html#createWriteStream
    # validation: crc32c
@@ -37,8 +49,8 @@ Define `env` whether you want load the value from environment variables.
 
 ## Disclaimer
 
-This plugin is experimental and unstable.
+This plugin is experimental and unstable. It requires further testing.
 
 ## License
 
-MIT (http://www.opensource.org/licenses/mit-license.php)
+[MIT Licensed](http://www.opensource.org/licenses/mit-license.php)
