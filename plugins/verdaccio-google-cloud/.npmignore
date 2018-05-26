@@ -20,6 +20,10 @@ _storage/
 circle.yml
 travis.yml
 *.md
+*.json
+__mocks__
+types/
+.prettierrc
 coverage/
 jest.config.js
 jestEnvironment.js
