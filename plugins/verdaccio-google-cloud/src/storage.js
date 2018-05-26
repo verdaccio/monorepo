@@ -13,6 +13,7 @@ import type { ConfigGoogleStorage } from '../types';
 export const noSuchFile: string = 'ENOENT';
 export const fileExist: string = 'EEXISTS';
 export const pkgFileName = 'package.json';
+export const defaultValidation = 'crc32c';
 
 declare type StorageType = Package | void;
 
@@ -91,7 +92,9 @@ class GoogleCloudStorageHandler implements ILocalPackageManager {
     this.logger.debug({ name: file.name }, 'gcloud: deleting @{name} from storage');
     try {
       file
-        .delete()
+        .delete({
+          validation: this.config.validation || defaultValidation
+        })
         .then(data => {
           const apiResponse = data[0];
           this.logger.debug({ name: file.name }, 'gcloud: @{name} was deleted successfully from storage');
@@ -111,16 +114,20 @@ class GoogleCloudStorageHandler implements ILocalPackageManager {
     // remove all files from storage
     const file = this._getBucket().file(`${this.name}`);
     this.logger.debug({ name: file.name }, 'gcloud: removing the package @{name} from storage');
-    file.delete().then(
-      () => {
-        this.logger.debug({ name: file.name }, 'gcloud: package @{name} was deleted successfully from storage');
-        callback(null);
-      },
-      err => {
-        this.logger.error({ name: file.name, err: err.message }, 'gcloud: delete @{name} package has failed err: @{err}');
-        callback(fSError(err.message, 500));
-      }
-    );
+    file
+      .delete({
+        validation: this.config.validation || defaultValidation
+      })
+      .then(
+        () => {
+          this.logger.debug({ name: file.name }, 'gcloud: package @{name} was deleted successfully from storage');
+          callback(null);
+        },
+        err => {
+          this.logger.error({ name: file.name, err: err.message }, 'gcloud: delete @{name} package has failed err: @{err}');
+          callback(fSError(err.message, 500));
+        }
+      );
   }
 
   createPackage(name: string, metadata: Object, cb: Function): void {
@@ -159,7 +166,9 @@ class GoogleCloudStorageHandler implements ILocalPackageManager {
     return new Promise(async (resolve, reject) => {
       const file = this._buildFilePath(name, pkgFileName);
       try {
-        await file.save(this._convertToString(metadata));
+        await file.save(this._convertToString(metadata), {
+          validation: this.config.validation || defaultValidation
+        });
         resolve(null);
       } catch (err) {
         reject(fSError(err.message, 500));
@@ -224,7 +233,9 @@ class GoogleCloudStorageHandler implements ILocalPackageManager {
           } else {
             const file = this._getBucket().file(`${this.name}/${name}`);
             this.logger.info({ url: file.name }, 'gcloud: the @{url} is being uploaded to the storage');
-            const fileStream = file.createWriteStream();
+            const fileStream = file.createWriteStream({
+              validation: this.config.validation || defaultValidation
+            });
             uploadStream.done = () => {
               uploadStream.on('end', () => {
                 fileStream.on('response', () => {

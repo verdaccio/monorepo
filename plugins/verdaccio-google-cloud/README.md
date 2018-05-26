@@ -26,6 +26,9 @@ store:
    ## google cloud recomend this file only for development
    ## this field is not mandatory
    keyFilename: /path/project-01.json || env (GOOGLE_CLOUD_VERDACCIO_KEY)
+   ## default validation is, it can be overrided by 
+   ## https://cloud.google.com/nodejs/docs/reference/storage/1.6.x/File.html#createWriteStream
+   # validation: crc32c
 ```
 Define `env` whether you want load the value from environment variables.
 

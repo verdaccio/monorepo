@@ -8,7 +8,9 @@ export type ConfigGoogleStorage = {
   // https://cloud.google.com/datastore/docs/reference/data/rest/v1/Key
   kind: string,
   // for local development
-  keyFilename?: string
+  keyFilename?: string,
+  // disable bucket validation
+  validation?: boolean | string
 };
 
 export type GoogleCloudOptions = {
