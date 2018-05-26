@@ -1,12 +1,10 @@
 const results = [];
 const _symbol = Symbol('KEY');
-const defaultResuponse = [
-  results,
-  {
-    endCursor: 'CjgSMmoOZX52ZXJkYW=',
-    moreResults: 'NO_MORE_RESULTS'
-  }
-];
+const defaultQueryBody = {
+  endCursor: 'CjgSMmoOZX52ZXJkYW=',
+  moreResults: 'NO_MORE_RESULTS'
+};
+const defaultResuponse = [results, defaultQueryBody];
 const keyContent = () => {
   const id = Math.random();
 
@@ -65,12 +63,16 @@ export default class Storage {
     return Promise.resolve([response]);
   }
 
-  createQuery() {
+  createQuery(key) {
     return {
-      filter: () => 'query'
+      filter: (key, valueQuery) => valueQuery
     };
   }
   runQuery(query) {
-    return Promise.resolve(defaultResuponse);
+    if (query === 'createPkg1') {
+      return Promise.resolve([[], defaultQueryBody]);
+    } else {
+      return Promise.resolve(defaultResuponse);
+    }
   }
 }

@@ -149,7 +149,7 @@ describe('Google Cloud Storage', () => {
         return deletePackage(pkgName, done);
       });
 
-      test('should create a package', done => {
+      test.only('should create a package', done => {
         const pkg = generatePackage(pkgName);
         const cloudDatabase: ILocalData = new GoogleCloudDatabase(storageConfig, { logger });
         const store = cloudDatabase.getPackageStorage(pkgName);
