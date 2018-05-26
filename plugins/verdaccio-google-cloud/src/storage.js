@@ -179,7 +179,7 @@ class GoogleCloudStorageHandler implements ILocalPackageManager {
         cb(null, json);
       })
       .catch(err => {
-        this.logger.error({ name: name, err: err.message }, 'gcloud: read package @{name} has failed err: @{err}');
+        this.logger.debug({ name: name, err: err.message }, 'gcloud: read package @{name} has failed err: @{err}');
         cb(err);
       });
   }
