@@ -202,8 +202,12 @@ class GoogleCloudStorageHandler implements ILocalPackageManager {
       const file = this._buildFilePath(name, fileName);
       try {
         const data = await file.exists();
-        resolve(data[0]);
+        const exist = data[0];
+
+        resolve(exist);
+        this.logger.debug({ name: name, exist }, 'gcloud: check whether @{name} exist successfully: @{exist}');
       } catch (err) {
+        this.logger.error({ name: file.name, err: err.message }, 'gcloud: check exist package @{name} has failed, cause: @{err}');
         reject(fSError(err.message, 500));
       }
     });
@@ -213,9 +217,13 @@ class GoogleCloudStorageHandler implements ILocalPackageManager {
     return new Promise(async (resolve, reject) => {
       const storage = this._buildFilePath(name, pkgFileName);
       try {
-        const file = await storage.download();
+        const file = await storage.download({
+          validation: this.config.validation || defaultValidation
+        });
+        this.logger.debug({ name: this.name }, 'gcloud: @{name} was found on storage');
         resolve(JSON.parse(file[0].toString('utf8')));
       } catch (err) {
+        this.logger.debug({ name: this.name }, 'gcloud: @{name} package not found on storage');
         reject(noPackageFoundError());
       }
     });
