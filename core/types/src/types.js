@@ -282,6 +282,7 @@ declare interface verdaccio$ILocalData {
   getSecret(): Promise<string>;
   setSecret(secret: string): Promise<any>;
   getPackageStorage(packageInfo: string): verdaccio$IPackageStorage;
+  search(onPackage: verdaccio$Callback, onEnd: verdaccio$Callback): void;
 }
 
 declare interface verdaccio$ILocalPackageManager {
@@ -301,6 +302,7 @@ declare interface verdaccio$ILocalPackageManager {
 
 declare module "@verdaccio/local-storage" {
   declare export type ILocalData =  verdaccio$ILocalData;
+  declare export type IPluginStorage =  verdaccio$ILocalData;
   declare export type IPackageStorage =  verdaccio$IPackageStorage;
   declare export type ILocalPackageManager =  verdaccio$ILocalPackageManager;
   declare class LocalDatabase<ILocalData>{
