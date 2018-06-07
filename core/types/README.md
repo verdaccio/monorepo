@@ -13,10 +13,6 @@ node_modules/@verdaccio/types/lib/
 
 [options]
 suppress_comment= \\(.\\|\n\\)*\\$FlowFixMe
-unsafe.enable_getters_and_setters=true
-
-[version]
-^0.52.0
 ```
 
 ### Imports
