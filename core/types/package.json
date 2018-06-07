@@ -13,9 +13,6 @@
   "private": false,
   "license": "MIT",
   "devDependencies": {
-    "flow-bin": "0.70.0"
-  },
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
+    "flow-bin": "0.73.0"
   }
 }
