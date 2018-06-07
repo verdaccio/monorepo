@@ -4,4 +4,4 @@
 
 flow-bin@0.73.0:
   version "0.73.0"
-  resolved "http://localhost:4873/flow-bin/-/flow-bin-0.73.0.tgz#da1b90a02b0ef9c439f068c2fc14968db83be425"
+  resolved "https://registry.npmjs.org/flow-bin/-/flow-bin-0.73.0.tgz#da1b90a02b0ef9c439f068c2fc14968db83be425"
