@@ -83,12 +83,19 @@ class LocalDatabase implements IPluginStorage {
                     files,
                     (file2, cb) => {
                       if (validateName(file2)) {
-                        const item = {
-                          name: `${file}/${file2}`,
-                          path: Path.resolve(base, storage, file, file2)
-                        };
+                        const packagePath = Path.resolve(base, storage, file, file2);
 
-                        onPackage(item, cb);
+                        fs.stat(packagePath, (err, stats) => {
+                          if (_.isNil(err) === false) {
+                            return cb(err);
+                          }
+                          const item = {
+                            name: `${file}/${file2}`,
+                            path: packagePath,
+                            time: stats.mtime.getTime()
+                          };
+                          onPackage(item, cb);
+                        });
                       } else {
                         cb();
                       }
@@ -97,13 +104,20 @@ class LocalDatabase implements IPluginStorage {
                   );
                 });
               } else if (validateName(file)) {
-                onPackage(
-                  {
-                    name: file,
-                    path: Path.resolve(base, storage, file)
-                  },
-                  cb
-                );
+                const packagePath = Path.resolve(base, storage, file);
+                fs.stat(packagePath, (err, stats) => {
+                  if (_.isNil(err) === false) {
+                    return cb(err);
+                  }
+                  onPackage(
+                    {
+                      name: file,
+                      path: packagePath,
+                      time: stats.mtime.getTime()
+                    },
+                    cb
+                  );
+                });
               } else {
                 cb();
               }
