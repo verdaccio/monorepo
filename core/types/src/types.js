@@ -282,7 +282,7 @@ declare interface verdaccio$ILocalData {
   getSecret(): Promise<string>;
   setSecret(secret: string): Promise<any>;
   getPackageStorage(packageInfo: string): verdaccio$IPackageStorage;
-  search(onPackage: verdaccio$Callback, onEnd: verdaccio$Callback): void;
+  search(onPackage: verdaccio$Callback, onEnd: verdaccio$Callback, validateName: Function): void;
 }
 
 declare interface verdaccio$ILocalPackageManager {
