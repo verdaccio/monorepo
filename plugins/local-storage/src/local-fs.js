@@ -281,8 +281,8 @@ class LocalFS implements ILocalPackageManager {
     return JSON.stringify(value, null, '\t');
   }
 
-  _getStorage(name: string = '') {
-    const storagePath: string = path.join(this.path, name);
+  _getStorage(fileName: string = '') {
+    const storagePath: string = path.join(this.path, fileName);
 
     return storagePath;
   }

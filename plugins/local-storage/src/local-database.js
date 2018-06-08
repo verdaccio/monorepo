@@ -4,14 +4,16 @@ import fs from 'fs';
 import _ from 'lodash';
 import Path from 'path';
 import LocalFS from './local-fs';
+// $FlowFixMe
+import async from 'async';
 import mkdirp from 'mkdirp';
 import type { StorageList, LocalStorage, Logger, Config, Callback } from '@verdaccio/types';
-import type { IPackageStorage, ILocalData } from '@verdaccio/local-storage';
+import type { IPackageStorage, IPluginStorage } from '@verdaccio/local-storage';
 
 /**
  * Handle local database.
  */
-class LocalDatabase implements ILocalData {
+class LocalDatabase implements IPluginStorage {
   path: string;
   logger: Logger;
   data: LocalStorage;
@@ -54,6 +56,87 @@ class LocalDatabase implements ILocalData {
     } else {
       cb(null);
     }
+  }
+
+  search(onPackage: Callback, onEnd: Callback, validateName: any): void {
+    const storages = this._getCustomPackageLocalStorages();
+    const base = Path.dirname(this.config.self_path);
+    async.eachSeries(
+      Object.keys(storages),
+      function(storage, cb) {
+        fs.readdir(Path.resolve(base, storage), function(err, files) {
+          if (err) {
+            return cb(err);
+          }
+
+          async.eachSeries(
+            files,
+            function(file, cb) {
+              if (file.match(/^@/)) {
+                // scoped
+                fs.readdir(Path.resolve(base, storage, file), function(err, files) {
+                  if (err) {
+                    return cb(err);
+                  }
+
+                  async.eachSeries(
+                    files,
+                    (file2, cb) => {
+                      if (validateName(file2)) {
+                        const item = {
+                          name: `${file}/${file2}`,
+                          path: Path.resolve(base, storage, file, file2)
+                        };
+
+                        onPackage(item, cb);
+                      } else {
+                        cb();
+                      }
+                    },
+                    cb
+                  );
+                });
+              } else if (validateName(file)) {
+                onPackage(
+                  {
+                    name: file,
+                    path: Path.resolve(base, storage, file)
+                  },
+                  cb
+                );
+              } else {
+                cb();
+              }
+            },
+            cb
+          );
+        });
+      },
+      onEnd
+    );
+  }
+
+  _getCustomPackageLocalStorages() {
+    const storages = {};
+
+    // add custom storage if exist
+    if (this.config.storage) {
+      storages[this.config.storage] = true;
+    }
+
+    const { packages } = this.config;
+
+    if (packages) {
+      const listPackagesConf = Object.keys(packages || {});
+
+      listPackagesConf.map(pkg => {
+        if (packages[pkg].storage) {
+          storages[packages[pkg].storage] = true;
+        }
+      });
+    }
+
+    return storages;
   }
 
   /**
