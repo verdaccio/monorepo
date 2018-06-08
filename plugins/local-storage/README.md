@@ -9,6 +9,7 @@
 [![dependencies Status](https://david-dm.org/verdaccio/local-storage/status.svg)](https://david-dm.org/verdaccio/local-storage)
 [![Known Vulnerabilities](https://snyk.io/test/github/verdaccio/local-storage/badge.svg?targetFile=package.json)](https://snyk.io/test/github/verdaccio/local-storage?targetFile=package.json)
 [![codecov](https://codecov.io/gh/verdaccio/local-storage/branch/master/graph/badge.svg)](https://codecov.io/gh/verdaccio/local-storage)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fverdaccio%2Flocal-storage.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fverdaccio%2Flocal-storage?ref=badge_shield)
 
 > This package is already built-in in verdaccio
 
@@ -43,3 +44,6 @@ new LocalFS(packageStoragePath, logger);
 
 ## License
 Verdaccio is [MIT licensed](https://github.com/verdaccio/local-storage/blob/master/LICENSE).
+
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fverdaccio%2Flocal-storage.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fverdaccio%2Flocal-storage?ref=badge_large)
