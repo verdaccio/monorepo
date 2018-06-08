@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.1.0"></a>
+# [1.1.0](https://github.com/verdaccio/local-storage/compare/v1.0.3...v1.1.0) (2018-06-08)
+
+
+### Bug Fixes
+
+* **deps:** update dependency async to v2.6.1 ([487b095](https://github.com/verdaccio/local-storage/commit/487b095))
+
+
+### Features
+
+* implement search ([f884a24](https://github.com/verdaccio/local-storage/commit/f884a24))
+
+
+
 <a name="0.2.0"></a>
 # [0.2.0](https://github.com/verdaccio/local-storage/compare/v0.1.4...v0.2.0) (2018-01-17)
 
