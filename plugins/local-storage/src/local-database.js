@@ -61,6 +61,7 @@ class LocalDatabase implements IPluginStorage {
   search(onPackage: Callback, onEnd: Callback, validateName: any): void {
     const storages = this._getCustomPackageLocalStorages();
     const base = Path.dirname(this.config.self_path);
+    const self = this;
     async.eachSeries(
       Object.keys(storages),
       function(storage, cb) {
@@ -113,7 +114,7 @@ class LocalDatabase implements IPluginStorage {
                     {
                       name: file,
                       path: packagePath,
-                      time: stats.mtime.getTime()
+                      time: self._getTime(stats.mtime.getTime(), stats.mtime)
                     },
                     cb
                   );
@@ -128,6 +129,10 @@ class LocalDatabase implements IPluginStorage {
       },
       onEnd
     );
+  }
+
+  _getTime(time: number, mtime: number) {
+    return time ? time : mtime;
   }
 
   _getCustomPackageLocalStorages() {
