@@ -30,6 +30,7 @@ export default class ProxyAudit {
         {
           url: 'https://registry.npmjs.org/-/npm/v1/security/audits',
           method: 'POST',
+          proxy: auth.config.https_proxy,
           req,
           body: JSON.stringify(req.body),
           gzip: true,
