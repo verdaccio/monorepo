@@ -159,10 +159,13 @@ declare type verdaccio$UpLinkConf = {
 }
 
 declare type verdaccio$PackageAccess = {
-  storage: string;
-  publish: string;
-  proxy: string;
-  access: string;
+  storage?: string;
+  publish?: Array<string>;
+  proxy?: Array<string>;
+  access?: Array<string>;
+  allow_access?: Array<string>;
+  allow_publish?: Array<string>;
+  proxy_access?: Array<string>;
 }
 
 declare type verdaccio$PackageList = {
@@ -245,18 +248,18 @@ declare type verdaccio$ConfigFile = {
   notifications: verdaccio$Notifications;
 }
 
-declare type verdaccio$Config = {
+declare interface verdaccio$Config {
   user_agent: string;
   server_id: any;
   _debug?: boolean;
-  storage: string;
+  storage?: string | void;
   secret: string;
   self_path: string;
   packages: verdaccio$PackageList;
   uplinks: verdaccio$UpLinksConfList;
-  logs: Array<verdaccio$LoggerConf>;
-  web: verdaccio$WebConf;
-  auth: verdaccio$AuthConf;
+  logs?: Array<verdaccio$LoggerConf>;
+  web?: verdaccio$WebConf;
+  auth?: verdaccio$AuthConf;
   publish?: verdaccio$PublishOptions;
   url_prefix?: string;
   store?: any;
@@ -266,11 +269,11 @@ declare type verdaccio$Config = {
   https_proxy?: string;
   no_proxy?: string;
   max_body_size?: string;
-  notifications: verdaccio$Notifications;
+  notifications?: verdaccio$Notifications;
   middlewares?: any;
-  checkSecretKey: (token: string) => string;
-  hasProxyTo(pkg: string, upLink: string): boolean;
-  getMatchedPackagesSpec?: (storage: string) => verdaccio$PackageAccess;
+  checkSecretKey(token: string): string;
+  getMatchedPackagesSpec(storage: string): verdaccio$PackageAccess | void;
+  [key: string]: any;
 }
 
 declare type verdaccio$SyncReturn = Error | void;
