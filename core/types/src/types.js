@@ -303,6 +303,22 @@ declare interface verdaccio$ILocalPackageManager {
   savePackage(fileName: string, json: verdaccio$Package, callback: verdaccio$Callback): void;
 }
 
+
+declare interface verdaccio$IPlugin {
+  version?: string;
+}
+
+declare type verdaccio$PluginOptions = {
+  config: verdaccio$Config;
+  logger: verdaccio$Logger
+}
+
+declare interface verdaccio$IAuthPlugin extends verdaccio$IPlugin {
+  authenticate(user: string, password: string, cb: verdaccio$Callback): void;
+  allow_access(packageName: string, user: string, cb: verdaccio$Callback): void;
+  allow_publish(packageName: string, user: string, cb: verdaccio$Callback): void;
+}
+
 declare module "@verdaccio/local-storage" {
   declare export type ILocalData =  verdaccio$ILocalData;
   declare export type IPluginStorage =  verdaccio$ILocalData;
@@ -341,6 +357,8 @@ declare module "@verdaccio/file-locking" {
 }
 
 declare module "@verdaccio/types" {
+  declare export type IAuthPlugin = verdaccio$IAuthPlugin;
+  declare export type PluginOptions = verdaccio$PluginOptions;
   declare export type Stdout = stream$Writable | tty$WriteStream;
   declare export type Stdin = stream$Readable | tty$ReadStream;
   declare export type Package = verdaccio$Package;
@@ -372,4 +390,7 @@ declare module "@verdaccio/types" {
   declare export type PackageAccess = verdaccio$PackageAccess;
   declare export type StorageList = verdaccio$StorageList;
   declare export type LocalStorage = verdaccio$LocalStorage;
+  declare class AuthPlugin {
+    constructor(config: verdaccio$Config, logger: verdaccio$PluginOptions): verdaccio$IAuthPlugin;
+  }
 }
