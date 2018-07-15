@@ -2,7 +2,9 @@
 
 declare type verdaccio$StringValue = string | void | null;
 
-declare interface verdaccio$IUploadTarball extends stream$PassThrough {
+stream$PassThrough
+
+declare class verdaccio$IUploadTarball extends stream$PassThrough {
   abort: Function;
   done: Function;
   _transform: Function;
@@ -10,7 +12,7 @@ declare interface verdaccio$IUploadTarball extends stream$PassThrough {
   done(): void;
 }
 
-declare interface verdaccio$IReadTarball extends stream$PassThrough {
+declare class verdaccio$IReadTarball extends stream$PassThrough {
   abort: Function;
   abort(): void;
 }
@@ -309,18 +311,34 @@ declare interface verdaccio$ILocalPackageManager {
   savePackage(fileName: string, json: verdaccio$Package, callback: verdaccio$Callback): void;
 }
 
-declare interface verdaccio$IBasicStorage {
-  addPackage(name: string, info: verdaccio$Package, callback: verdaccio$Callback): void;
-  removePackage(name: string, callback: verdaccio$Callback): void;
-  updateVersions(name: string, packageInfo: verdaccio$Package, callback: verdaccio$Callback): void;
-  addVersion(name: string, version: string, metadata: verdaccio$Version, tag: verdaccio$StringValue, callback: verdaccio$Callback): void;
-  mergeTags(name: string, tags: verdaccio$MergeTags, callback: verdaccio$Callback): void;
-  changePackage(name: string, metadata: verdaccio$Package, revision: string, callback: verdaccio$Callback): void;
-  removeTarball(name: string, filename: string, revision: string, callback: verdaccio$Callback): void;
+declare interface verdaccio$TarballActions {
   addTarball(name: string, filename: string): verdaccio$IUploadTarball;
   getTarball(name: string, filename: string): verdaccio$IReadTarball;
+  removeTarball(name: string, filename: string, revision: string, callback: verdaccio$Callback): void;
+}
+
+declare interface verdaccio$StoragePackageActions extends verdaccio$TarballActions {
+  addVersion(name: string, version: string, metadata: verdaccio$Version, tag: verdaccio$StringValue, callback: verdaccio$Callback): void;
+  mergeTags(name: string, tags: verdaccio$MergeTags, callback: verdaccio$Callback): void;
+  removePackage(name: string, callback: verdaccio$Callback): void;
+  changePackage(name: string, metadata: verdaccio$Package, revision: string, callback: verdaccio$Callback): void;
+}
+
+declare interface verdaccio$IStorageManager extends verdaccio$StoragePackageActions {
+  config: verdaccio$Config;
+  logger: verdaccio$Logger;
+  init(config: verdaccio$Config): Promise<any>;
+  addPackage(name: string, metadata: any, callback: verdaccio$Callback): Promise<any>;
+  getPackage(options: any): void;
+  search(startkey: string, options: any): verdaccio$IReadTarball;
+  getLocalDatabase(callback: verdaccio$Callback): void;
+}
+
+declare interface verdaccio$IBasicStorage extends verdaccio$StoragePackageActions {
+  addPackage(name: string, info: verdaccio$Package, callback: verdaccio$Callback): void;
+  updateVersions(name: string, packageInfo: verdaccio$Package, callback: verdaccio$Callback): void;
   getPackageMetadata(name: string, callback: verdaccio$Callback): void;
-  search(startKey: string, options: any): verdaccio$IUploadTarball;
+  search(startKey: string, options: any): verdaccio$IReadTarball;
   getSecret(config: verdaccio$Config): Promise<any>;
 }
 
@@ -347,7 +365,7 @@ declare interface verdaccio$IPluginAuth extends verdaccio$IPlugin {
 }
 
 declare interface verdaccio$IPluginMiddleware extends verdaccio$IPlugin {
-  register_middlewares(app: any, auth: verdaccio$IBasicAuth, storage: verdaccio$IBasicStorage): void;
+  register_middlewares(app: any, auth: verdaccio$IBasicAuth, storage: verdaccio$IStorageManager): void;
 }
 
 declare module "@verdaccio/local-storage" {
@@ -389,6 +407,7 @@ declare module "@verdaccio/file-locking" {
 }
 
 declare module "@verdaccio/types" {
+  declare export type IStorageManager = verdaccio$IStorageManager;
   declare export type IBasicStorage = verdaccio$IBasicStorage;
   declare export type IBasicAuth = verdaccio$IBasicAuth;
   declare export type IPluginAuth = verdaccio$IPluginAuth;
