@@ -1,11 +1,6 @@
-// @flow
-
-import type { ConfigMemory } from '../../src/local-memory';
-
-const config: ConfigMemory = {
+const config = {
   user_agent: 'string',
   server_id: 1234,
-  storage: './home',
   secret: '12345',
   self_path: './nowhere',
   uplinks: {
@@ -36,8 +31,8 @@ const config: ConfigMemory = {
     endpoint: '',
     content: ''
   },
-  checkSecretKey: (token: string) => '1234',
-  hasProxyTo: (pkg: string, upLink: string) => false
+  checkSecretKey: token => '1234',
+  hasProxyTo: (pkg, upLink) => false
 };
 
 export default config;

@@ -7,7 +7,7 @@ import MemoryFileSystem from 'memory-fs';
 import { UploadTarball, ReadTarball } from '@verdaccio/streams';
 
 import type { HttpError } from 'http-errors';
-import type { StorageList, Callback, Logger } from '@verdaccio/types';
+import type { Callback, Logger } from '@verdaccio/types';
 import type { ILocalPackageManager } from '@verdaccio/local-storage';
 
 export const noSuchFile: string = 'ENOENT';
@@ -33,7 +33,7 @@ const fs = new MemoryFileSystem();
 class MemoryHandler implements ILocalPackageManager {
   data: any;
   name: string;
-  path: StorageList;
+  path: string;
   logger: Logger;
 
   constructor(packageName: string, data: any, logger: Logger) {
