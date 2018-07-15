@@ -4,10 +4,10 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import compression from 'compression';
 import request from 'request';
-import type { Logger } from '@verdaccio/types';
+import type { Logger, IPluginMiddleware, IBasicAuth, IStorageManager } from '@verdaccio/types';
 import type { ConfigAudit, $RequestExtend, $ResponseExtend } from '../types';
 
-export default class ProxyAudit {
+export default class ProxyAudit implements IPluginMiddleware {
   enabled: boolean;
   logger: Logger;
 
@@ -15,7 +15,7 @@ export default class ProxyAudit {
     this.enabled = config.enabled || false;
   }
 
-  register_middlewares(app: any, auth: any, storage: any) {
+  register_middlewares(app: any, auth: IBasicAuth, storage: IStorageManager) {
     const fetchAudit = (req: $RequestExtend, res: $ResponseExtend) => {
       const requestCallback = function(err, _res, body) {
         if (err) {
