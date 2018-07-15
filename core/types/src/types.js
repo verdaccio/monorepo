@@ -343,6 +343,7 @@ declare interface verdaccio$IBasicStorage extends verdaccio$StoragePackageAction
 }
 
 declare interface verdaccio$IBasicAuth {
+  config: verdaccio$Config;
   aesEncrypt(buf: Buffer): Buffer;
   authenticate(user: string, password: string, cb: verdaccio$Callback): void;
   allow_access(packageName: string, user: string, callback: verdaccio$Callback): void;
