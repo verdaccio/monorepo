@@ -227,8 +227,9 @@ class LocalFS implements ILocalPackageManager {
     return uploadStream;
   }
 
-  readTarball(name: string, readTarballStream: any, callback: Function = () => {}) {
+  readTarball(name: string) {
     const pathName: string = this._getStorage(name);
+    const readTarballStream = new ReadTarball();
 
     const readStream = fs.createReadStream(pathName);
 
@@ -246,8 +247,6 @@ class LocalFS implements ILocalPackageManager {
         readStream.pipe(readTarballStream);
       });
     });
-
-    readTarballStream = new ReadTarball();
 
     readTarballStream.abort = function() {
       readStream.close();
