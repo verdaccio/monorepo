@@ -1,5 +1,7 @@
 /* @flow */
 
+declare type verdaccio$StringValue = string | void | null;
+
 declare interface verdaccio$IUploadTarball extends stream$PassThrough {
   abort: Function;
   done: Function;
@@ -278,7 +280,9 @@ declare interface verdaccio$Config {
 
 declare type verdaccio$SyncReturn = Error | void;
 declare type verdaccio$IPackageStorage = verdaccio$ILocalPackageManager | void;
-declare interface verdaccio$ILocalData {
+declare interface verdaccio$ILocalData extends verdaccio$IPlugin {
+  logger: verdaccio$Logger;
+	config: verdaccio$Config;
   add(name: string, callback: verdaccio$Callback): void;
   remove(name: string, callback: verdaccio$Callback): void;
   get(callback: verdaccio$Callback): void;
@@ -289,6 +293,8 @@ declare interface verdaccio$ILocalData {
 }
 
 declare interface verdaccio$ILocalPackageManager {
+  path: string;
+  logger: verdaccio$Logger;
   writeTarball(name: string): verdaccio$IUploadTarball;
   readTarball(name: string): verdaccio$IReadTarball;
   readPackage(fileName: string, callback: verdaccio$Callback): void;
@@ -303,6 +309,27 @@ declare interface verdaccio$ILocalPackageManager {
   savePackage(fileName: string, json: verdaccio$Package, callback: verdaccio$Callback): void;
 }
 
+declare interface verdaccio$IBasicStorage {
+  addPackage(name: string, info: verdaccio$Package, callback: verdaccio$Callback): void;
+  removePackage(name: string, callback: verdaccio$Callback): void;
+  updateVersions(name: string, packageInfo: verdaccio$Package, callback: verdaccio$Callback): void;
+  addVersion(name: string, version: string, metadata: verdaccio$Version, tag: verdaccio$StringValue, callback: verdaccio$Callback): void;
+  mergeTags(name: string, tags: verdaccio$MergeTags, callback: verdaccio$Callback): void;
+  changePackage(name: string, metadata: verdaccio$Package, revision: string, callback: verdaccio$Callback): void;
+  removeTarball(name: string, filename: string, revision: string, callback: verdaccio$Callback): void;
+  addTarball(name: string, filename: string): verdaccio$IUploadTarball;
+  getTarball(name: string, filename: string): verdaccio$IReadTarball;
+  getPackageMetadata(name: string, callback: verdaccio$Callback): void;
+  search(startKey: string, options: any): verdaccio$IUploadTarball;
+  getSecret(config: verdaccio$Config): Promise<any>;
+}
+
+declare interface verdaccio$IBasicAuth {
+  aesEncrypt(buf: Buffer): Buffer;
+  authenticate(user: string, password: string, cb: verdaccio$Callback): void;
+  allow_access(packageName: string, user: string, callback: verdaccio$Callback): void;
+  add_user(user: string, password: string, cb: verdaccio$Callback): any;
+}
 
 declare interface verdaccio$IPlugin {
   version?: string;
@@ -313,10 +340,14 @@ declare type verdaccio$PluginOptions = {
   logger: verdaccio$Logger
 }
 
-declare interface verdaccio$IAuthPlugin extends verdaccio$IPlugin {
+declare interface verdaccio$IPluginAuth extends verdaccio$IPlugin {
   authenticate(user: string, password: string, cb: verdaccio$Callback): void;
   allow_access(packageName: string, user: string, cb: verdaccio$Callback): void;
   allow_publish(packageName: string, user: string, cb: verdaccio$Callback): void;
+}
+
+declare interface verdaccio$IPluginMiddleware extends verdaccio$IPlugin {
+  register_middlewares(app: any, auth: verdaccio$IBasicAuth, storage: verdaccio$IBasicStorage): void;
 }
 
 declare module "@verdaccio/local-storage" {
@@ -324,6 +355,7 @@ declare module "@verdaccio/local-storage" {
   declare export type IPluginStorage =  verdaccio$ILocalData;
   declare export type IPackageStorage =  verdaccio$IPackageStorage;
   declare export type ILocalPackageManager =  verdaccio$ILocalPackageManager;
+  declare export type IPackageStorageManager =  verdaccio$ILocalPackageManager;
   declare class LocalDatabase<ILocalData>{
     constructor(config: verdaccio$Config, logger: verdaccio$Logger): ILocalData;
   }
@@ -357,7 +389,10 @@ declare module "@verdaccio/file-locking" {
 }
 
 declare module "@verdaccio/types" {
-  declare export type IAuthPlugin = verdaccio$IAuthPlugin;
+  declare export type IBasicStorage = verdaccio$IBasicStorage;
+  declare export type IBasicAuth = verdaccio$IBasicAuth;
+  declare export type IPluginAuth = verdaccio$IPluginAuth;
+  declare export type IPluginMiddleware = verdaccio$IPluginMiddleware;
   declare export type PluginOptions = verdaccio$PluginOptions;
   declare export type Stdout = stream$Writable | tty$WriteStream;
   declare export type Stdin = stream$Readable | tty$ReadStream;
@@ -390,7 +425,5 @@ declare module "@verdaccio/types" {
   declare export type PackageAccess = verdaccio$PackageAccess;
   declare export type StorageList = verdaccio$StorageList;
   declare export type LocalStorage = verdaccio$LocalStorage;
-  declare class AuthPlugin {
-    constructor(config: verdaccio$Config, logger: verdaccio$PluginOptions): verdaccio$IAuthPlugin;
-  }
+  declare export type StringValue = verdaccio$StringValue;
 }
