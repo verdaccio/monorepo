@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.1.3"></a>
+## [1.1.3](https://github.com/verdaccio/local-storage/compare/v1.1.2...v1.1.3) (2018-07-15)
+
+
+### Bug Fixes
+
+* remove unused parameters ([3ce374a](https://github.com/verdaccio/local-storage/commit/3ce374a))
+
+
+
 <a name="1.1.2"></a>
 ## [1.1.2](https://github.com/verdaccio/local-storage/compare/v1.1.1...v1.1.2) (2018-06-09)
 
