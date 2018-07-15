@@ -236,7 +236,7 @@ class LocalDatabase implements IPluginStorage {
       return path;
     }
 
-    return this.config.storage;
+    return (this.config: any).storage;
   }
 
   /**
@@ -246,7 +246,7 @@ class LocalDatabase implements IPluginStorage {
    * @private
    */
   _buildStoragePath(config: Config) {
-    return Path.join(Path.resolve(Path.dirname(config.self_path || ''), config.storage, '.sinopia-db.json'));
+    return Path.join(Path.resolve(Path.dirname(config.self_path || ''), (config: any).storage, '.sinopia-db.json'));
   }
 
   /**
