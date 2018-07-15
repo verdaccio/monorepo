@@ -2,13 +2,13 @@
 
 import MemoryHandler from './memory-handler';
 import type { Logger, Callback, Config } from '@verdaccio/types';
-import type { ILocalData } from '@verdaccio/local-storage';
+import type { IPluginStorage } from '@verdaccio/local-storage';
 
 export type ConfigMemory = Config & { limit?: number };
 export type MemoryLocalStorage = { files: any, secret: string, list: any };
 
 const DEFAULT_LIMIT: number = 1000;
-class LocalMemory implements ILocalData {
+class LocalMemory implements IPluginStorage {
   path: string;
   limit: number;
   logger: Logger;

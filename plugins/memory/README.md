@@ -8,10 +8,10 @@ A memory based **storage plugin**.
 
 ### Requirements
 
-This plugin won't work with versiones minimum as `3.0.0-alpha.7`
+This plugin won't work with versions minimum as `3.0.0`
 
 ```
-npm install -g verdaccio@3.0.0-alpha.7
+npm install -g verdaccio@latest
 ```
 
 Complete configuration example:

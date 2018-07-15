@@ -8,7 +8,7 @@ import { UploadTarball, ReadTarball } from '@verdaccio/streams';
 
 import type { HttpError } from 'http-errors';
 import type { Callback, Logger } from '@verdaccio/types';
-import type { ILocalPackageManager } from '@verdaccio/local-storage';
+import type { IPackageStorageManager } from '@verdaccio/local-storage';
 
 export const noSuchFile: string = 'ENOENT';
 export const fileExist: string = 'EEXISTS';
@@ -30,7 +30,7 @@ const noPackageFoundError = function(message = 'no such package') {
 
 const fs = new MemoryFileSystem();
 
-class MemoryHandler implements ILocalPackageManager {
+class MemoryHandler implements IPackageStorageManager {
   data: any;
   name: string;
   path: string;
