@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="3.3.0"></a>
+# [3.3.0](https://github.com/verdaccio/flow-types/compare/v3.2.0...v3.3.0) (2018-07-15)
+
+
+### Features
+
+* add IStorageManager for middleware plugin ([d473b4c](https://github.com/verdaccio/flow-types/commit/d473b4c))
+
+
+
 <a name="3.2.0"></a>
 # [3.2.0](https://github.com/verdaccio/flow-types/compare/v3.1.0...v3.2.0) (2018-07-15)
 
