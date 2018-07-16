@@ -370,8 +370,8 @@ declare type verdaccio$PluginOptions = {
 declare interface verdaccio$IPluginAuth extends verdaccio$IPlugin {
   authenticate(user: string, password: string, cb: verdaccio$Callback): void;
   adduser(user: string, password: string, cb: verdaccio$Callback): void;
-  allow_access(user: verdaccio$RemoteUser, pkg: verdaccio$PackageAccess, cb: verdaccio$Callback): void;
-  allow_publish(user: verdaccio$RemoteUser, pkg: verdaccio$PackageAccess, cb: verdaccio$Callback): void;
+  allow_access(user: verdaccio$RemoteUser, pkg: $Subtype<verdaccio$PackageAccess>, cb: verdaccio$Callback): void;
+  allow_publish(user: verdaccio$RemoteUser, pkg: $Subtype<verdaccio$PackageAccess>, cb: verdaccio$Callback): void;
 }
 
 declare interface verdaccio$IPluginMiddleware extends verdaccio$IPlugin {
