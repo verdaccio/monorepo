@@ -4,19 +4,6 @@ declare type verdaccio$StringValue = string | void | null;
 
 stream$PassThrough
 
-declare class verdaccio$IUploadTarball extends stream$PassThrough {
-  abort: Function;
-  done: Function;
-  _transform: Function;
-  abort(): void;
-  done(): void;
-}
-
-declare class verdaccio$IReadTarball extends stream$PassThrough {
-  abort: Function;
-  abort(): void;
-}
-
 declare type verdaccio$Callback = Function;
 
 declare type verdaccio$StorageList = Array<string>;
@@ -35,6 +22,13 @@ declare type verdaccio$Dist = {
 declare type verdaccio$Author = {
   name: string;
   email: string;
+}
+
+declare type verdaccio$RemoteUser = {
+  real_groups: Array<string>;
+  groups: Array<string>;
+  name: string | void;
+  error?: string;
 }
 
 declare type verdaccio$Version = {
@@ -136,11 +130,17 @@ declare type verdaccio$Package = {
   _rev: string;
 }
 
-declare interface verdaccio$ILocalStorage {
-  add(name: string): void;
-  remove(name: string): void;
-  get(): verdaccio$StorageList;
-  sync(): void;
+declare class verdaccio$IUploadTarball extends stream$PassThrough {
+  abort: Function;
+  done: Function;
+  _transform: Function;
+  abort(): void;
+  done(): void;
+}
+
+declare class verdaccio$IReadTarball extends stream$PassThrough {
+  abort: Function;
+  abort(): void;
 }
 
 declare type verdaccio$UpLinkTokenConf = {
@@ -180,11 +180,6 @@ declare type verdaccio$UpLinksConfList = {
   [key: string]: verdaccio$UpLinkConf;
 }
 
-declare interface verdaccio$AuthHtpasswd {
-  file: string;
-  max_users: string;
-}
-
 declare type verdaccio$LoggerType = 'stdout' | 'stderr' | 'file';
 declare type verdaccio$LoggerFormat = 'pretty' | 'pretty-timestamped' | 'file';
 declare type verdaccio$LoggerLevel = 'http' | 'fatal' | 'warn' | 'info' | 'debug' | 'trace';
@@ -197,28 +192,6 @@ declare type verdaccio$LoggerConfItem = {
 
 declare type verdaccio$PublishOptions = {
   allow_offline: boolean;
-}
-
-declare interface verdaccio$LoggerConf {
-  [key: string]: verdaccio$LoggerConfItem;
-}
-
-declare interface verdaccio$ListenAddress {
-  [key: string]: string;
-}
-
-declare interface verdaccio$WebConf {
-  enable: boolean;
-  title: string;
-  logo: string;
-}
-
-declare interface verdaccio$HttpsConf {
-  key?: string;
-  cert?: string;
-  ca?: string;
-  pfx?: string;
-  passphrase?: string;
 }
 
 declare type verdaccio$AuthConf = any | verdaccio$AuthHtpasswd;
@@ -252,6 +225,43 @@ declare type verdaccio$ConfigFile = {
   notifications: verdaccio$Notifications;
 }
 
+declare type verdaccio$SyncReturn = Error | void;
+declare type verdaccio$IPackageStorage = verdaccio$ILocalPackageManager | void;
+
+declare interface verdaccio$AuthHtpasswd {
+  file: string;
+  max_users: string;
+}
+
+declare interface verdaccio$ILocalStorage {
+  add(name: string): void;
+  remove(name: string): void;
+  get(): verdaccio$StorageList;
+  sync(): void;
+}
+
+declare interface verdaccio$LoggerConf {
+  [key: string]: verdaccio$LoggerConfItem;
+}
+
+declare interface verdaccio$ListenAddress {
+  [key: string]: string;
+}
+
+declare interface verdaccio$WebConf {
+  enable: boolean;
+  title: string;
+  logo: string;
+}
+
+declare interface verdaccio$HttpsConf {
+  key?: string;
+  cert?: string;
+  ca?: string;
+  pfx?: string;
+  passphrase?: string;
+}
+
 declare interface verdaccio$Config {
   user_agent: string;
   server_id: any;
@@ -280,8 +290,6 @@ declare interface verdaccio$Config {
   [key: string]: any;
 }
 
-declare type verdaccio$SyncReturn = Error | void;
-declare type verdaccio$IPackageStorage = verdaccio$ILocalPackageManager | void;
 declare interface verdaccio$ILocalData extends verdaccio$IPlugin {
   logger: verdaccio$Logger;
 	config: verdaccio$Config;
@@ -346,7 +354,7 @@ declare interface verdaccio$IBasicAuth {
   config: verdaccio$Config;
   aesEncrypt(buf: Buffer): Buffer;
   authenticate(user: string, password: string, cb: verdaccio$Callback): void;
-  allow_access(packageName: string, user: string, callback: verdaccio$Callback): void;
+  allow_access(packageName: string, user: verdaccio$RemoteUser, callback: verdaccio$Callback): void;
   add_user(user: string, password: string, cb: verdaccio$Callback): any;
 }
 
@@ -362,8 +370,8 @@ declare type verdaccio$PluginOptions = {
 declare interface verdaccio$IPluginAuth extends verdaccio$IPlugin {
   authenticate(user: string, password: string, cb: verdaccio$Callback): void;
   adduser(user: string, password: string, cb: verdaccio$Callback): void;
-  allow_access(user: string, pkg: verdaccio$PackageAccess, cb: verdaccio$Callback): void;
-  allow_publish(user: string, pkg: verdaccio$PackageAccess, cb: verdaccio$Callback): void;
+  allow_access(user: verdaccio$RemoteUser, pkg: verdaccio$PackageAccess, cb: verdaccio$Callback): void;
+  allow_publish(user: verdaccio$RemoteUser, pkg: verdaccio$PackageAccess, cb: verdaccio$Callback): void;
 }
 
 declare interface verdaccio$IPluginMiddleware extends verdaccio$IPlugin {
@@ -417,6 +425,7 @@ declare module "@verdaccio/types" {
   declare export type PluginOptions = verdaccio$PluginOptions;
   declare export type Stdout = stream$Writable | tty$WriteStream;
   declare export type Stdin = stream$Readable | tty$ReadStream;
+  declare export type RemoteUser = verdaccio$RemoteUser;
   declare export type Package = verdaccio$Package;
   declare export type MergeTags = verdaccio$MergeTags;
   declare export type Version = verdaccio$Version;
