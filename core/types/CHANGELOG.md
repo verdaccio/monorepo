@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="3.4.0"></a>
+# [3.4.0](https://github.com/verdaccio/flow-types/compare/v3.3.3...v3.4.0) (2018-07-16)
+
+
+### Features
+
+* add RemoteUser type ([aa83839](https://github.com/verdaccio/flow-types/commit/aa83839))
+
+
+
 <a name="3.3.3"></a>
 ## [3.3.3](https://github.com/verdaccio/flow-types/compare/v3.3.2...v3.3.3) (2018-07-16)
 
