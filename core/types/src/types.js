@@ -361,6 +361,7 @@ declare type verdaccio$PluginOptions = {
 
 declare interface verdaccio$IPluginAuth extends verdaccio$IPlugin {
   authenticate(user: string, password: string, cb: verdaccio$Callback): void;
+  adduser(user: string, password: string, cb: verdaccio$Callback): void;
   allow_access(packageName: string, user: string, cb: verdaccio$Callback): void;
   allow_publish(packageName: string, user: string, cb: verdaccio$Callback): void;
 }
