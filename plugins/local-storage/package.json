@@ -11,12 +11,14 @@
     "flow": "flow",
     "build": "babel src/ --out-dir lib/ --copy-files --ignore ___tests___",
     "prepublish": "npm run build",
-    "format": "prettier --single-quote --trailing-comma none --write \"{src,test}/**/*.js\""
+    "format": "prettier --single-quote --trailing-comma none --write \"{src,test}/**/*.js\"",
+    "coverage:publish": "codecov"
   },
   "dependencies": {
     "@verdaccio/file-locking": "0.0.7",
     "@verdaccio/streams": "1.0.0",
     "async": "2.6.1",
+    "codecov": "^3.0.4",
     "http-errors": "1.6.2",
     "lodash": "4.17.10",
     "mkdirp": "0.5.1"
