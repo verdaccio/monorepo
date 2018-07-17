@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="3.4.2"></a>
+## [3.4.2](https://github.com/verdaccio/flow-types/compare/v3.4.1...v3.4.2) (2018-07-17)
+
+
+
 <a name="3.4.1"></a>
 ## [3.4.1](https://github.com/verdaccio/flow-types/compare/v3.4.0...v3.4.1) (2018-07-16)
 
