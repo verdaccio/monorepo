@@ -8,30 +8,30 @@
     "fs"
   ],
   "devDependencies": {
-    "@verdaccio/types": "0.0.5",
-    "babel-cli": "6.24.1",
-    "babel-core": "6.25.0",
-    "babel-eslint": "^7.2.3",
-    "babel-plugin-flow-runtime": "0.11.1",
-    "babel-plugin-istanbul": "4.1.4",
-    "babel-polyfill": "^6.26.0",
-    "babel-preset-env": "1.6.0",
+    "@verdaccio/types": "3.4.2",
+    "babel-cli": "6.26.0",
+    "babel-core": "6.26.3",
+    "babel-eslint": "8.2.6",
+    "babel-plugin-flow-runtime": "0.17.0",
+    "babel-plugin-istanbul": "4.1.6",
+    "babel-polyfill": "6.26.0",
+    "babel-preset-env": "1.7.0",
     "babel-preset-flow": "6.23.0",
     "babel-require": "1.0.1",
-    "cross-env": "5.0.1",
-    "eslint": "4.4.1",
+    "cross-env": "5.2.0",
+    "eslint": "5.1.0",
     "eslint-config-google": "0.9.1",
-    "eslint-plugin-flowtype": "2.35.0",
-    "flow-bin": "0.52.0",
-    "flow-runtime": "0.13.0",
-    "mocha": "3.4.2",
-    "nyc": "11.0.3"
+    "eslint-plugin-flowtype": "2.50.0",
+    "flow-bin": "0.76.0",
+    "flow-runtime": "0.17.0",
+    "mocha": "5.2.0",
+    "nyc": "12.0.2"
   },
   "author": "Juan Picado <juanpicado19@gmail.com>",
   "private": false,
   "license": "MIT",
   "dependencies": {
-    "lockfile": "1.0.3",
+    "lockfile": "1.0.4",
     "lodash": "4.17.10"
   },
   "nyc": {
@@ -53,8 +53,8 @@
   },
   "scripts": {
     "flow": "flow",
-    "test": "npm run flow && npm run lint && mocha --require babel-polyfill  --compilers js:babel-core/register ./test/**/*.spec.js",
-    "lint": "eslint .",
+    "test": "npm run lint && mocha --require babel-polyfill  --compilers js:babel-core/register ./test/**/*.spec.js",
+    "lint": "npm run flow && eslint .",
     "prepublish": "npm run build",
     "build": "babel src/ --out-dir lib/ --copy-files",
     "cover": "cross-env NODE_ENV=test nyc npm t"
