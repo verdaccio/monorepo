@@ -294,7 +294,7 @@ declare interface verdaccio$Config {
 
 declare interface verdaccio$ILocalData extends verdaccio$IPlugin {
   logger: verdaccio$Logger;
-	config: verdaccio$Config;
+	config: $Subtype<verdaccio$Config>;
   add(name: string, callback: verdaccio$Callback): void;
   remove(name: string, callback: verdaccio$Callback): void;
   get(callback: verdaccio$Callback): void;
@@ -335,9 +335,9 @@ declare interface verdaccio$StoragePackageActions extends verdaccio$TarballActio
 }
 
 declare interface verdaccio$IStorageManager extends verdaccio$StoragePackageActions {
-  config: verdaccio$Config;
+  config: $Subtype<verdaccio$Config>;
   logger: verdaccio$Logger;
-  init(config: verdaccio$Config): Promise<any>;
+  init(config: $Subtype<verdaccio$Config>): Promise<any>;
   addPackage(name: string, metadata: any, callback: verdaccio$Callback): Promise<any>;
   getPackage(options: any): void;
   search(startkey: string, options: any): verdaccio$IReadTarball;
@@ -349,11 +349,11 @@ declare interface verdaccio$IBasicStorage extends verdaccio$StoragePackageAction
   updateVersions(name: string, packageInfo: verdaccio$Package, callback: verdaccio$Callback): void;
   getPackageMetadata(name: string, callback: verdaccio$Callback): void;
   search(startKey: string, options: any): verdaccio$IReadTarball;
-  getSecret(config: verdaccio$Config): Promise<any>;
+  getSecret(config: $Subtype<verdaccio$Config>): Promise<any>;
 }
 
 declare interface verdaccio$IBasicAuth {
-  config: verdaccio$Config;
+  config: $Subtype<verdaccio$Config>;
   aesEncrypt(buf: Buffer): Buffer;
   authenticate(user: string, password: string, cb: verdaccio$Callback): void;
   allow_access(packageName: string, user: verdaccio$RemoteUser, callback: verdaccio$Callback): void;
@@ -365,7 +365,7 @@ declare interface verdaccio$IPlugin {
 }
 
 declare type verdaccio$PluginOptions = {
-  config: verdaccio$Config;
+  config: $Subtype<verdaccio$Config>;
   logger: verdaccio$Logger
 }
 
@@ -387,7 +387,7 @@ declare module "@verdaccio/local-storage" {
   declare export type ILocalPackageManager =  verdaccio$ILocalPackageManager;
   declare export type IPackageStorageManager =  verdaccio$ILocalPackageManager;
   declare class LocalDatabase<ILocalData>{
-    constructor(config: verdaccio$Config, logger: verdaccio$Logger): ILocalData;
+    constructor(config: $Subtype<verdaccio$Config>, logger: verdaccio$Logger): ILocalData;
   }
   declare module.exports: typeof LocalDatabase;
 }
