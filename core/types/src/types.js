@@ -370,7 +370,7 @@ declare type verdaccio$PluginOptions = {
 }
 
 declare interface verdaccio$IPluginAuth extends verdaccio$IPlugin {
-  login_url: ?string;
+  login_url?: string;
   authenticate(user: string, password: string, cb: verdaccio$Callback): void;
   adduser(user: string, password: string, cb: verdaccio$Callback): void;
   allow_access(user: verdaccio$RemoteUser, pkg: $Subtype<verdaccio$PackageAccess>, cb: verdaccio$Callback): void;
