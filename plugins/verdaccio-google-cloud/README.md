@@ -1,10 +1,12 @@
 # verdaccio-google-cloud
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fverdaccio%2Fverdaccio-google-cloud.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fverdaccio%2Fverdaccio-google-cloud?ref=badge_shield)
+
 ☁️📦 Google Cloud storage plugin for verdaccio
 
 ```
-npm i -g verdaccio@verdaccio-google-cloud
-yarn global add verdaccio@verdaccio-google-cloud
-pnpm i -g verdaccio@verdaccio-google-cloud
+npm i -g verdaccio-google-cloud
+yarn global add verdaccio-google-cloud
+pnpm i -g verdaccio-google-cloud
 ```
 
 ### Requirements
@@ -25,7 +27,7 @@ Complete configuration example:
 ```yaml
 store:
   google-cloud:
-	## google project id
+   ## google project id
    projectId: project-01 || env (GOOGLE_CLOUD_VERDACCIO_PROJECT_ID)
 
    ## namespace for metadata database
@@ -54,3 +56,6 @@ This plugin is experimental and unstable. It requires further testing.
 ## License
 
 [MIT Licensed](http://www.opensource.org/licenses/mit-license.php)
+
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fverdaccio%2Fverdaccio-google-cloud.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fverdaccio%2Fverdaccio-google-cloud?ref=badge_large)
