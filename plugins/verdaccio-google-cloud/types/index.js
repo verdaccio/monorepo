@@ -1,17 +1,20 @@
 // @flow
+import type { Config } from '@verdaccio/types';
 
-export type ConfigGoogleStorage = {
+export interface VerdaccioConfigGoogleStorage extends Config {
   // https://cloud.google.com/nodejs/docs/reference/storage/1.6.x/Bucket
-  bucket: string,
+  bucket?: string;
   // TODO: add description
-  projectId: string,
+  projectId?: string;
   // https://cloud.google.com/datastore/docs/reference/data/rest/v1/Key
-  kind: string,
+  kind?: string;
   // for local development
-  keyFilename?: string,
+  keyFilename?: string;
   // disable bucket validation
-  validation?: boolean | string
-};
+  validation?: GoogleValidation;
+}
+
+export type GoogleValidation = boolean | string;
 
 export type GoogleCloudOptions = {
   projectId?: string,

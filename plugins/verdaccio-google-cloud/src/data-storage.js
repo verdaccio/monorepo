@@ -6,22 +6,22 @@ import Datastore from '@google-cloud/datastore';
 import GoogleCloudStorageHandler from './storage';
 import StorageHelper from './storage-helper';
 import type { Logger, Callback } from '@verdaccio/types';
-import type { ILocalData } from '@verdaccio/local-storage';
-import type { ConfigGoogleStorage, GoogleCloudOptions, GoogleDataStorage } from '../types';
+import type { IPluginStorage } from '@verdaccio/local-storage';
+import type { VerdaccioConfigGoogleStorage, GoogleCloudOptions, GoogleDataStorage } from '../types';
 
-class GoogleCloudDatabase implements ILocalData {
+class GoogleCloudDatabase implements IPluginStorage {
   helper: any;
   path: string;
   logger: Logger;
   data: GoogleDataStorage;
   locked: boolean;
-  config: ConfigGoogleStorage;
+  config: VerdaccioConfigGoogleStorage;
   kind: string;
   bucketName: string;
   keyFilename: string;
   GOOGLE_OPTIONS: GoogleCloudOptions;
 
-  constructor(config: ConfigGoogleStorage, options: any) {
+  constructor(config: VerdaccioConfigGoogleStorage, options: any) {
     if (!config) {
       throw new Error('google cloud storage missing config. Add `store.google-cloud` to your config file');
     }
@@ -31,15 +31,15 @@ class GoogleCloudDatabase implements ILocalData {
     // if (!this.keyFilename) {
     //   throw new Error('Google Storage requires a a key file');
     // }
-    this.bucketName = config.bucket;
-    if (!this.bucketName) {
+    if (!config.bucket) {
       throw new Error('Google Cloud Storage requires a bucket name, please define one.');
     }
+    this.bucketName = config.bucket;
     this.data = this._createEmtpyDatabase();
     this.helper = new StorageHelper(this.data.datastore, this.data.storage);
   }
 
-  _getGoogleOptions(config: ConfigGoogleStorage): GoogleCloudOptions {
+  _getGoogleOptions(config: VerdaccioConfigGoogleStorage): GoogleCloudOptions {
     const GOOGLE_OPTIONS: GoogleCloudOptions = {};
 
     if (!config.projectId || typeof config.projectId !== 'string') {
@@ -57,6 +57,10 @@ class GoogleCloudDatabase implements ILocalData {
 
     this.logger.warn({ content: JSON.stringify(GOOGLE_OPTIONS) }, 'Google storage settings: @{content}');
     return GOOGLE_OPTIONS;
+  }
+
+  search(onPackage: Callback, onEnd: Callback, validateName: any): void {
+    onEnd();
   }
 
   getSecret(): Promise<any> {
@@ -87,7 +91,7 @@ class GoogleCloudDatabase implements ILocalData {
       });
   }
 
-  async deleteItem(name: string, item: any) {
+  async _deleteItem(name: string, item: any) {
     try {
       const datastore = this.data.datastore;
       const key = datastore.key([this.kind, datastore.int(item.id)]);
@@ -114,7 +118,7 @@ class GoogleCloudDatabase implements ILocalData {
       .then(async entities => {
         for (const item of entities) {
           if (item.name === name) {
-            const deletedItem = await this.deleteItem(name, item);
+            const deletedItem = await this._deleteItem(name, item);
             deletedItems.push(deletedItem);
           }
         }
@@ -153,8 +157,8 @@ class GoogleCloudDatabase implements ILocalData {
     const emptyDatabase = {
       datastore,
       storage,
-      list,
-      files,
+      list, // not used
+      files, // not used
       secret: ''
     };
 

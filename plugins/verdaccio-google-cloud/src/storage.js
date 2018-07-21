@@ -6,9 +6,9 @@ import { UploadTarball, ReadTarball } from '@verdaccio/streams';
 
 import type { HttpError } from 'http-errors';
 import type { IUploadTarball, IReadTarball } from '@verdaccio/streams';
-import type { StorageList, Package, Callback, Logger } from '@verdaccio/types';
-import type { ILocalPackageManager } from '@verdaccio/local-storage';
-import type { ConfigGoogleStorage } from '../types';
+import type { Package, Callback, Logger } from '@verdaccio/types';
+import type { IPackageStorageManager } from '@verdaccio/local-storage';
+import type { VerdaccioConfigGoogleStorage } from '../types';
 
 export const noSuchFile: string = 'ENOENT';
 export const fileExist: string = 'EEXISTS';
@@ -17,7 +17,7 @@ export const defaultValidation = 'crc32c';
 
 declare type StorageType = Package | void;
 
-const fSError = function(message: string, code: number = 404): HttpError {
+export const fSError = function(message: string, code: number = 404): HttpError {
   const err: HttpError = createError(code, message);
   // $FlowFixMe
   err.code = message;
@@ -41,16 +41,16 @@ const packageAlreadyExist = function(name, message = `${name} package already ex
   return err;
 };
 
-class GoogleCloudStorageHandler implements ILocalPackageManager {
+class GoogleCloudStorageHandler implements IPackageStorageManager {
   storage: any;
-  path: StorageList;
+  path: string;
   logger: Logger;
   key: string;
   helper: any;
   name: string;
-  config: ConfigGoogleStorage;
+  config: VerdaccioConfigGoogleStorage;
 
-  constructor(name: string, storage: any, datastore: any, helper: any, config: ConfigGoogleStorage, logger: Logger) {
+  constructor(name: string, storage: any, datastore: any, helper: any, config: VerdaccioConfigGoogleStorage, logger: Logger) {
     this.name = name;
     this.storage = storage;
     this.logger = logger;
@@ -215,13 +215,13 @@ class GoogleCloudStorageHandler implements ILocalPackageManager {
 
   async _readPackage(name: string): Promise<any> {
     return new Promise(async (resolve, reject) => {
-      const storage = this._buildFilePath(name, pkgFileName);
+      const file = this._buildFilePath(name, pkgFileName);
       try {
-        const file = await storage.download({
+        const content = await file.download({
           validation: this.config.validation || defaultValidation
         });
         this.logger.debug({ name: this.name }, 'gcloud: @{name} was found on storage');
-        resolve(JSON.parse(file[0].toString('utf8')));
+        resolve(JSON.parse(content[0].toString('utf8')));
       } catch (err) {
         this.logger.debug({ name: this.name }, 'gcloud: @{name} package not found on storage');
         reject(noPackageFoundError());

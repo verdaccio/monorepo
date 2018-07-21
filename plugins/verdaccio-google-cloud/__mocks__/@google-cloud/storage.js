@@ -1,43 +1,102 @@
-import fs from 'fs';
-import path from 'path';
+import MemoryFileSystem from 'memory-fs';
+
+const fs = new MemoryFileSystem();
 
 class File {
-  constructor(path) {
+  constructor(path, onRemove, onSave) {
+    this.onRemove = onRemove;
+    this.onSave = onSave;
+    this.data = {};
     this.path = path;
+    this.exist = false;
+    this.name = path.split('/')[0];
   }
 
   createWriteStream() {
-    /* eslint-disable */
-    const ws = require('stream').Writable();
-    /* eslint-disable */
-    ws._write = function(chunk, enc, next) {
-      next();
-    };
-
-    return ws;
-  }
-  createReadStream() {
-    const stream = fs.createReadStream(path.join(__dirname, './file.tgz'));
+    // return uploadStream;
+    const stream = fs.createWriteStream(`/test`);
+    process.nextTick(function() {
+      stream.on('end', () => {
+        stream.emit('response');
+      });
+      stream.on('close', () => {
+        stream.emit('response');
+      });
+    });
 
     return stream;
   }
+
+  save(data) {
+    this.data = data;
+    this.exist = true;
+    this.onSave(this.path, this);
+    return Promise.resolve(data);
+  }
+
+  download() {
+    return Promise.resolve([this.data]);
+  }
+
+  exists() {
+    return [this.exist];
+  }
+
+  createReadStream() {
+    const readStream = fs.createReadStream('/test');
+
+    return readStream;
+  }
   delete() {
-    return Promise.resolve();
+    if (this.exist === false) {
+      const e = new Error('no such package ENOENT');
+
+      return Promise.reject(e);
+    }
+    this.onRemove(this.path);
+
+    return Promise.resolve([{}]);
   }
 }
 
 class Bucket {
   constructor(options) {
+    this.buckets = {};
     this.options = options;
   }
 
+  onRemove(path) {
+    delete this.buckets[path];
+  }
+
+  onSave(path, file) {
+    this.buckets[path] = file;
+  }
+
   file(path) {
-    return new File(path);
+    if (this.buckets[path]) {
+      return this.buckets[path];
+    } else {
+      const file = new File(path, this.onRemove.bind(this), this.onSave.bind(this));
+
+      return file;
+    }
   }
 }
 
 export default class Storage {
-  bucket(config) {
-    return new Bucket();
+  constructor() {
+    this.buckets = {};
+  }
+
+  bucket(name) {
+    if (!this.buckets[name]) {
+      const b = new Bucket();
+      this.buckets[name] = b;
+
+      return b;
+    } else {
+      return this.buckets[name];
+    }
   }
 }
