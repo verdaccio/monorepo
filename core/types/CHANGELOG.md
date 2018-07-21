@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="3.5.1"></a>
+## [3.5.1](https://github.com/verdaccio/flow-types/compare/v3.5.0...v3.5.1) (2018-07-21)
+
+
+### Bug Fixes
+
+* login_url should be an optional property ([0fcfb9c](https://github.com/verdaccio/flow-types/commit/0fcfb9c))
+
+
+
 <a name="3.5.0"></a>
 # [3.5.0](https://github.com/verdaccio/flow-types/compare/v3.4.3...v3.5.0) (2018-07-21)
 
