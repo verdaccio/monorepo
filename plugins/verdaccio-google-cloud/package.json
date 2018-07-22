@@ -13,7 +13,8 @@
     "prepublish": "npm run build",
     "commitmsg": "commitlint -e $GIT_PARAMS",
     "build": "babel src/ --out-dir lib/ --copy-files --ignore ___tests___",
-    "coverage:publish": "codecov"
+    "coverage:publish": "codecov",
+    "release": "standard-version -a -s"
   },
   "keywords": [
     "verdaccio",
@@ -59,6 +60,7 @@
     "husky": "0.14.3",
     "jest": "23.4.1",
     "lint-staged": "7.2.0",
+    "standard-version": "4.3.0",
     "memory-fs": "^0.4.1",
     "prettier": "1.13.7",
     "rmdir-sync": "1.0.1"
