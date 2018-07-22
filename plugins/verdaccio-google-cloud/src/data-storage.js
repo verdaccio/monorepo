@@ -63,22 +63,20 @@ class GoogleCloudDatabase implements IPluginStorage {
     onEnd();
   }
 
-   getSecret(): Promise<any>  {
+  getSecret(): Promise<any> {
     const key = this.data.datastore.key(['Secret', 'secret']);
-    return this.data.datastore
-      .get(key)
-      .then((results) => results[0] && results[0].secret);
+    return this.data.datastore.get(key).then(results => results[0] && results[0].secret);
   }
 
- setSecret(secret: string): Promise<any>  {
+  setSecret(secret: string): Promise<any> {
     const key = this.data.datastore.key(['Secret', 'secret']);
     const entity = {
       key,
-      data: {secret},
+      data: { secret }
     };
     return this.data.datastore.upsert(entity);
   }
-  
+
   add(name: string, cb: Callback): void {
     const datastore = this.data.datastore;
     const key = datastore.key(this.kind);
