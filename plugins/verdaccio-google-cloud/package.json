@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "scripts": {
     "pretest": "",
-    "test": "jest",
+    "test": "jest .",
     "precommit": "lint-staged",
     "format": "prettier --single-quote --trailing-comma none --write \"{src,types,test}/**/*.js\"",
     "lint": "npm run flow && eslint .",
