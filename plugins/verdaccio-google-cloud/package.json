@@ -69,9 +69,9 @@
     ]
   },
   "lint-staged": {
-    "*.js": [
-      "npm run format",
-      "npm run lint",
+    "*.{js, json}": [
+      "eslint .",
+      "prettier --write",
       "git add"
     ]
   }
