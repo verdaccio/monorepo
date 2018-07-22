@@ -233,9 +233,9 @@
   version "1.0.0"
   resolved "https://registry.npmjs.org/@verdaccio/streams/-/streams-1.0.0.tgz#d5d24c6747208728b9fd16b908e3932c3fb1f864"
 
-"@verdaccio/types@3.3.0":
-  version "3.3.0"
-  resolved "https://registry.npmjs.org/@verdaccio/types/-/types-3.3.0.tgz#339b61ef29b645fcbda129aa8cba3c773bf93a82"
+"@verdaccio/types@3.5.1":
+  version "3.5.1"
+  resolved "https://registry.yarnpkg.com/@verdaccio/types/-/types-3.5.1.tgz#1ddfb6e4d12680e6689e1fb189e25377f9e606a6"
 
 JSONStream@^1.0.4:
   version "1.3.2"
