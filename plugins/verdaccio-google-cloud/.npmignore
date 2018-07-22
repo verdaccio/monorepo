@@ -28,3 +28,4 @@ coverage/
 jest.config.js
 jestEnvironment.js
 renovate.json
+.circleci/

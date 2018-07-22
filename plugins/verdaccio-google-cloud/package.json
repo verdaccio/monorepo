@@ -12,7 +12,8 @@
     "flow": "flow",
     "prepublish": "npm run build",
     "commitmsg": "commitlint -e $GIT_PARAMS",
-    "build": "babel src/ --out-dir lib/ --copy-files --ignore ___tests___"
+    "build": "babel src/ --out-dir lib/ --copy-files --ignore ___tests___",
+    "coverage:publish": "codecov"
   },
   "keywords": [
     "verdaccio",
@@ -45,6 +46,7 @@
     "babel-plugin-transform-async-to-generator": "6.24.1",
     "babel-preset-env": "1.7.0",
     "babel-preset-flow": "6.23.0",
+    "codecov": "^3.0.4",
     "cross-env": "5.2.0",
     "eslint": "5.1.0",
     "eslint-config-google": "0.9.1",
