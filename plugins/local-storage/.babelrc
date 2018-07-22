@@ -3,10 +3,5 @@
     "targets": {
       "node": "6"
     }
-  }], "flow"],
-  "env": {
-    "test": {
-
-    }
-  }
+  }], "flow"]
 }
