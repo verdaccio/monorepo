@@ -1,5 +1,7 @@
 # verdaccio-auth-memory
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fverdaccio%2Fverdaccio-auth-memory.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fverdaccio%2Fverdaccio-auth-memory?ref=badge_shield)
+[![CircleCI](https://circleci.com/gh/verdaccio/verdaccio-auth-memory.svg?style=svg)](https://circleci.com/gh/ayusharma/verdaccio-auth-memory)
+[![codecov](https://codecov.io/gh/verdaccio/verdaccio-auth-memory/branch/master/graph/badge.svg)](https://codecov.io/gh/verdaccio/verdaccio-auth-memory)
 
 
 This verdaccio auth plugin keeps the users in a memory plain object.
