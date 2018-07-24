@@ -1,4 +1,6 @@
 # verdaccio-auth-memory
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fverdaccio%2Fverdaccio-auth-memory.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fverdaccio%2Fverdaccio-auth-memory?ref=badge_shield)
+
 
 This verdaccio auth plugin keeps the users in a memory plain object.
 This means all sessions and users will disappear when you restart the verdaccio server.
@@ -79,3 +81,7 @@ This should export four functions:
     - `cb(null, false)` in case user not allowed to publish (next auth plugin will be executed)
     - `cb(null, true)` in case user is allowed to publish
 
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fverdaccio%2Fverdaccio-auth-memory.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fverdaccio%2Fverdaccio-auth-memory?ref=badge_large)
