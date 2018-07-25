@@ -148,7 +148,7 @@ jobs:
           key: *base_config_key
       - run:
           name: Publish
-          command: yarn publish
+          command: npm publish
 
 workflows:
   version: 2
