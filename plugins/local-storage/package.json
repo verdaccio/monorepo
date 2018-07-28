@@ -29,7 +29,7 @@
     "babel-cli": "6.26.0",
     "babel-core": "6.26.3",
     "babel-eslint": "8.2.6",
-    "babel-jest": "23.4.0",
+    "babel-jest": "23.4.2",
     "babel-plugin-flow-runtime": "0.17.0",
     "babel-preset-env": "1.7.0",
     "babel-preset-flow": "6.23.0",
@@ -44,7 +44,7 @@
     "flow-bin": "0.76.0",
     "flow-runtime": "0.17.0",
     "husky": "0.14.3",
-    "jest": "23.4.1",
+    "jest": "23.4.2",
     "prettier": "1.13.7",
     "rmdir-sync": "1.0.1",
     "standard-version": "4.4.0"
