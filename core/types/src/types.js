@@ -231,7 +231,7 @@ declare type verdaccio$IPackageStorage = verdaccio$ILocalPackageManager | void;
 
 declare interface verdaccio$AuthHtpasswd {
   file: string;
-  max_users: string;
+  max_users: number;
 }
 
 declare interface verdaccio$ILocalStorage {
