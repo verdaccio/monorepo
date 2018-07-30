@@ -235,9 +235,9 @@
     lockfile "1.0.3"
     lodash "4.17.10"
 
-"@verdaccio/types@^3.4.1":
-  version "3.4.3"
-  resolved "https://registry.npmjs.org/@verdaccio/types/-/types-3.4.3.tgz#2965c7383b764e7fd40afd37a3f963e07a6acdd9"
+"@verdaccio/types@3.6.0":
+  version "3.6.0"
+  resolved "https://registry.npmjs.org/@verdaccio/types/-/types-3.6.0.tgz#034273be399d654ead7728312a98ff25d19498ac"
 
 JSONStream@^1.0.4:
   version "1.3.2"

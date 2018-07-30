@@ -11,6 +11,9 @@ import {
   sanityCheck
 } from './utils';
 
+import type { Callback, AuthConf } from '@verdaccio/types';
+import type { VerdaccioConfigApp } from '../types';
+
 /**
  * HTPasswd - Verdaccio auth class
  */
@@ -30,18 +33,7 @@ export default class HTPasswd {
   logger: {};
   lastTime: any;
   // constructor
-  constructor(
-    config: {
-      file: string,
-      max_users: number
-    },
-    stuff: {
-      [config: string]: {
-        users_file: string,
-        self_path: string
-      }
-    }
-  ) {
+  constructor(config: AuthConf, stuff: VerdaccioConfigApp) {
     this.users = {};
 
     // config for this module
@@ -82,7 +74,7 @@ export default class HTPasswd {
    * @param {function} cd
    * @returns {function}
    */
-  authenticate(user: string, password: string, cb: Function) {
+  authenticate(user: string, password: string, cb: Callback) {
     this.reload(err => {
       if (err) {
         return cb(err.code === 'ENOENT' ? null : err);
@@ -116,7 +108,7 @@ export default class HTPasswd {
    * @param {function} realCb
    * @returns {function}
    */
-  adduser(user: string, password: string, realCb: Function) {
+  adduser(user: string, password: string, realCb: Callback) {
     let sanity = sanityCheck(
       user,
       password,
@@ -191,7 +183,7 @@ export default class HTPasswd {
    * Reload users
    * @param {function} callback
    */
-  reload(callback: Function) {
+  reload(callback: Callback) {
     fs.stat(this.path, (err, stats) => {
       if (err) {
         return callback(err);

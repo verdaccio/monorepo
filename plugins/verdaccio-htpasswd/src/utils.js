@@ -6,9 +6,11 @@ import md5 from 'apache-md5';
 import bcrypt from 'bcryptjs';
 import * as locker from '@verdaccio/file-locking';
 
+import type { Callback } from '@verdaccio/types';
+
 // this function neither unlocks file nor closes it
 // it'll have to be done manually later
-export function lockAndRead(name: string, cb: Function): void {
+export function lockAndRead(name: string, cb: Callback): void {
   locker.readFile(name, { lock: true }, (err, res) => {
     if (err) {
       return cb(err);
@@ -19,7 +21,7 @@ export function lockAndRead(name: string, cb: Function): void {
 }
 
 // close and unlock file
-export function unlockFile(name: string, cb: Function): void {
+export function unlockFile(name: string, cb: Callback): void {
   locker.unlockFile(name, cb);
 }
 
@@ -108,7 +110,7 @@ export function addUserToHTPasswd(
 export function sanityCheck(
   user: string,
   password: string,
-  verifyFn: Function,
+  verifyFn: Callback,
   users: {},
   maxUsers: number
 ) {
