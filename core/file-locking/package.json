@@ -8,24 +8,25 @@
     "fs"
   ],
   "devDependencies": {
-    "@verdaccio/types": "3.4.2",
+    "@commitlint/cli": "7.0.0",
+    "@commitlint/config-conventional": "7.0.1",
+    "@verdaccio/types": "3.4.1",
     "babel-cli": "6.26.0",
     "babel-core": "6.26.3",
     "babel-eslint": "8.2.6",
+    "babel-jest": "23.4.0",
     "babel-plugin-flow-runtime": "0.17.0",
-    "babel-plugin-istanbul": "4.1.6",
-    "babel-polyfill": "6.26.0",
     "babel-preset-env": "1.7.0",
     "babel-preset-flow": "6.23.0",
-    "babel-require": "1.0.1",
-    "cross-env": "5.2.0",
-    "eslint": "5.1.0",
+    "codecov": "3.0.4",
+    "eslint": "5.2.0",
     "eslint-config-google": "0.9.1",
     "eslint-plugin-flowtype": "2.50.0",
-    "flow-bin": "0.76.0",
-    "flow-runtime": "0.17.0",
-    "mocha": "5.2.0",
-    "nyc": "12.0.2"
+    "flow-bin": "0.77.0",
+    "husky": "0.14.3",
+    "in-publish": "2.0.0",
+    "jest": "23.4.1",
+    "lint-staged": "7.2.0"
   },
   "author": "Juan Picado <juanpicado19@gmail.com>",
   "private": false,
@@ -34,30 +35,26 @@
     "lockfile": "1.0.4",
     "lodash": "4.17.10"
   },
-  "nyc": {
-    "include": [
-      "src/**/*.js"
-    ],
-    "all": true,
-    "cache": true,
-    "sourceMap": false,
-    "instrument": false,
-    "report-dir": "./tests-report",
-    "reporter": [
-      "text",
-      "html"
-    ]
-  },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
+  "lint-staged": {
+    "*.{js, json}": [
+      "npm run lint",
+      "git add"
+    ]
+  },
+  "homepage": "https://github.com/verdaccio/file-locking",
   "scripts": {
+    "commitmsg": "commitlint -e $GIT_PARAMS",
+    "coverage": "codecov",
+    "test": "jest",
+    "lint": "npm run flow && npm run js-lint",
+    "js-lint": "eslint .",
     "flow": "flow",
-    "test": "npm run lint && mocha --require babel-polyfill  --compilers js:babel-core/register ./test/**/*.spec.js",
-    "lint": "npm run flow && eslint .",
-    "prepublish": "npm run build",
-    "build": "babel src/ --out-dir lib/ --copy-files",
-    "cover": "cross-env NODE_ENV=test nyc npm t"
+    "build": "babel src/ --out-dir lib/ --copy-files --ignore __tests__",
+    "precommit": "lint-staged",
+    "prepublish": "in-publish && npm run lint && npm run build || not-in-publish"
   },
   "engines": {
     "node": ">=4.6.1",

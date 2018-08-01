@@ -1,8 +1,10 @@
 npm-debug.log
 .DS_Store
-
+package-lock.json
+_storage/
 lib/
 node_modules/
+coverage/
 
 # Istanbul
 .nyc*
@@ -14,4 +16,5 @@ tests-report
 *.log
 *.tar
 *.gz
-
+*.tmp-*
+coverage/
