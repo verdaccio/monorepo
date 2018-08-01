@@ -56,6 +56,11 @@
     "precommit": "lint-staged",
     "prepublish": "in-publish && npm run lint && npm run build || not-in-publish"
   },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
   "engines": {
     "node": ">=4.6.1",
     "npm": ">=2.15.9"
