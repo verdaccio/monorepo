@@ -27,7 +27,7 @@ declare type verdaccio$Author = {
 declare type verdaccio$RemoteUser = {
   real_groups: Array<string>;
   groups: Array<string>;
-  name: string | void;
+  name: string;
   error?: string;
 }
 
@@ -263,6 +263,39 @@ declare interface verdaccio$HttpsConf {
   passphrase?: string;
 }
 
+declare type verdaccio$JWTOptions = {
+  sign: verdaccio$JWTSignOptions;
+  verify: verdaccio$JWTVerifyOptions;
+}
+
+declare type verdaccio$JWTVerifyOptions = {
+  algorithm?: string;
+  expiresIn?: string;
+  notBefore?: string | number;
+  ignoreExpiration?: boolean;
+  maxAge?: string | number;
+  clockTimestamp?: number;
+}
+
+declare type verdaccio$JWTSignOptions = {
+  algorithm?: string;
+  expiresIn?: string;
+  notBefore?: string;
+  ignoreExpiration?: boolean;
+  maxAge?: string | number;
+  clockTimestamp?: number;
+}
+
+declare type verdaccio$APITokenOptions = {
+  legacy: boolean;
+  jwt?: verdaccio$JWTOptions;
+}
+
+declare type verdaccio$Security = {
+  web: verdaccio$JWTOptions;
+  api: verdaccio$APITokenOptions;
+}
+
 declare interface verdaccio$Config {
   user_agent: string;
   server_id: any;
@@ -276,6 +309,7 @@ declare interface verdaccio$Config {
   logs?: Array<verdaccio$LoggerConf>;
   web?: verdaccio$WebConf;
   auth?: verdaccio$AuthConf;
+  security: verdaccio$Security;
   publish?: verdaccio$PublishOptions;
   url_prefix?: string;
   store?: any;
@@ -294,7 +328,7 @@ declare interface verdaccio$Config {
 
 declare interface verdaccio$ILocalData extends verdaccio$IPlugin {
   logger: verdaccio$Logger;
-	config: $Subtype<verdaccio$Config>;
+  config: $Subtype<verdaccio$Config>;
   add(name: string, callback: verdaccio$Callback): void;
   remove(name: string, callback: verdaccio$Callback): void;
   get(callback: verdaccio$Callback): void;
@@ -459,4 +493,9 @@ declare module "@verdaccio/types" {
   declare export type StorageList = verdaccio$StorageList;
   declare export type LocalStorage = verdaccio$LocalStorage;
   declare export type StringValue = verdaccio$StringValue;
+  declare export type Security = verdaccio$Security;
+  declare export type APITokenOptions = verdaccio$APITokenOptions;
+  declare export type JWTOptions = verdaccio$JWTOptions;
+  declare export type JWTSignOptions = verdaccio$JWTSignOptions;
+  declare export type JWTVerifyOptions = verdaccio$JWTVerifyOptions;
 }
