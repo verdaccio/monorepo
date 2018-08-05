@@ -1,0 +1,46 @@
+### Code ###
+.settings/
+.vscode/
+tsconfig.json
+jsconfig.json
+
+### Intellij ###
+.idea/**
+cmake-build-*/
+*.iws
+out/
+.idea_modules/
+atlassian-ide-plugin.xml
+com_crashlytics_export_strings.xml
+crashlytics.properties
+crashlytics-build.properties
+fabric.properties
+
+### Node ###
+logs
+*.log*
+pids
+*.pid*
+*.seed
+lib-cov
+coverage
+.nyc_output
+.grunt
+bower_components
+.lock-wscript
+build/
+dist/
+node_modules/
+jspm_packages/
+typings/
+.npm
+.eslintcache
+.node_repl_history
+*.tgz
+.yarn-integrity
+.env
+.cache
+.next
+.nuxt
+.vuepress/dist
+.serverless

@@ -1,0 +1,22 @@
+{
+  "private": true,
+  "workspaces": ["packages/*"],
+  "author": "Sergio Herrera <sergio@sergiohgz.eu>",
+  "license": "MIT",
+  "scripts": {
+    "bootstrap": "lerna bootstrap",
+    "commitmsg": "commitlint -e $GIT_PARAMS",
+    "publish": "lerna publish --amend",
+    "version": "lerna publish --conventional-commits --skip-npm"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "7.0.0",
+    "@commitlint/config-conventional": "7.0.1",
+    "lerna": "^3.0.0-rc.0"
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  }
+}
