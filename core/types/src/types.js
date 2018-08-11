@@ -27,7 +27,7 @@ declare type verdaccio$Author = {
 declare type verdaccio$RemoteUser = {
   real_groups: Array<string>;
   groups: Array<string>;
-  name: string;
+  name: string | void;
   error?: string;
 }
 
