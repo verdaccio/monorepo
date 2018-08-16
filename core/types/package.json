@@ -2,7 +2,7 @@
   "name": "@verdaccio/types",
   "version": "3.7.1",
   "description": "verdaccio flow types definitions",
-  "main": "lib/index.js",
+  "main": "lib/types.js.flow",
   "scripts": {
     "precommit": "lint-staged",
     "lint": "eslint .",
