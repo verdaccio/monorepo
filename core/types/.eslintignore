@@ -1,0 +1,4 @@
+lib/
+.idea/
+**/node_modules/**
+**/__*-fixtures__/**

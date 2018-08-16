@@ -4,17 +4,38 @@
   "description": "verdaccio flow types definitions",
   "main": "lib/index.js",
   "scripts": {
+    "precommit": "lint-staged",
+    "lint": "eslint .",
     "prepublish": "npm run build",
+    "format": "prettier --write",
     "release": "standard-version -a -s",
     "build": "mkdir -p lib && for f in $(find src/ -iname *.js | cut -c5-) ; do cp src/$f lib/$f.flow; done",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npm run lint && flow check"
   },
-  "keywords": [],
+  "keywords": ["flow-type", "verdaccio"],
   "author": "Juan Picado <juanpicado19@gmail.com>",
   "private": false,
   "license": "MIT",
   "devDependencies": {
     "standard-version": "4.3.0",
-    "flow-bin": "0.77.0"
+    "flow-bin": "0.77.0",
+    "babel-eslint": "^8.2.1",
+    "eslint": "^4.17.0",
+    "husky": "^0.14.3",
+    "lint-staged": "^4.0.3",
+    "prettier": "^1.9.2",
+    "eslint-config-prettier": "2.9.0",
+    "eslint-plugin-flow-typed": "^1.0.0",
+    "eslint-plugin-flowtype": "^2.42.0",
+    "eslint-plugin-prettier": "^2.6.0"
+  },
+  "lint-staged": {
+    "linters": {
+      "package.json": [
+        "prettier --write",
+        "git add"
+      ],
+      "*.js": ["eslint --fix", "git add"]
+    }
   }
 }

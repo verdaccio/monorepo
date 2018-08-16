@@ -154,7 +154,7 @@ declare type verdaccio$UpLinkConf = {
   ca?: string;
   cache?: boolean;
   timeout?: string | void;
-  maxage?: string| void;
+  maxage?: string | void;
   max_fails?: number | void;
   fail_timeout?: string | void;
   headers?: verdaccio$Headers;
