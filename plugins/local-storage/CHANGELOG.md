@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.2.0"></a>
+# [1.2.0](https://github.com/verdaccio/local-storage/compare/v1.1.3...v1.2.0) (2018-08-25)
+
+
+### Features
+
+* change new db name to verdaccio ([#83](https://github.com/verdaccio/local-storage/issues/83)) ([143977d](https://github.com/verdaccio/local-storage/commit/143977d))
+
+
+
 <a name="1.1.3"></a>
 ## [1.1.3](https://github.com/verdaccio/local-storage/compare/v1.1.2...v1.1.3) (2018-07-15)
 
