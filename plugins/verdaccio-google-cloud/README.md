@@ -17,6 +17,7 @@ pnpm i -g verdaccio-google-cloud
 ### Requirements
 
 * Google Cloud Account
+* Service account with 'Cloud Datastore Owner' role and read/write access to the bucket
 * Verdaccio server (see below)
 
 ```
