@@ -5,6 +5,8 @@
 
 ☁️📦 Google Cloud storage plugin for verdaccio
 
+⚠️⚠️ This plugin is experimental and might be unstable. It requires further testing. ⚠️⚠️
+
 ```
 npm i -g verdaccio-google-cloud
 yarn global add verdaccio-google-cloud
@@ -53,7 +55,7 @@ Define `env` whether you want load the value from environment variables.
 
 ## Disclaimer
 
-This plugin is experimental and unstable. It requires further testing.
+⚠️⚠️ This plugin is experimental and might be unstable. It requires further testing. ⚠️⚠️
 
 ## License
 
