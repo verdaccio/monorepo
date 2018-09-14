@@ -19,7 +19,7 @@
     "@verdaccio/streams": "1.0.0",
     "async": "2.6.1",
     "http-errors": "1.7.0",
-    "lodash": "4.17.10",
+    "lodash": "4.17.11",
     "mkdirp": "0.5.1"
   },
   "devDependencies": {
