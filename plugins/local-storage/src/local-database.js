@@ -232,11 +232,13 @@ class LocalDatabase implements IPluginStorage {
    * @private
    */
   _getLocalStoragePath(path: string): string {
+    const configStorage: string = (this.config: any).storage;
+
     if (_.isNil(path) === false) {
-      return path;
+      return Path.join(configStorage, path);
     }
 
-    return (this.config: any).storage;
+    return configStorage;
   }
 
   /**

@@ -1,5 +1,6 @@
 // @flow
 import fs from 'fs';
+import path from 'path';
 import { clone } from 'lodash';
 import type { ILocalData } from '@verdaccio/local-storage';
 import LocalDatabase from '../local-database';
@@ -28,7 +29,7 @@ describe('Local Database', () => {
     expect(locaDatabase).toBeDefined();
   });
 
-  describe('should create set secret', async () => {
+  describe('should create set secret', () => {
     test('should create get secret', async () => {
       const locaDatabase = new LocalDatabase(clone(stuff.config), stuff.logger);
       const secretKey = await locaDatabase.getSecret();
@@ -44,6 +45,30 @@ describe('Local Database', () => {
       expect(typeof stuff.config.secret === 'string').toBeTruthy();
       const fetchedSecretKey = await locaDatabase.getSecret();
       expect(stuff.config.secret).toBe(fetchedSecretKey);
+    });
+  });
+
+  describe('getPackageStorage', () => {
+    test('should get default storage', () => {
+      const pkgName: string = 'someRandomePackage';
+      const locaDatabase = new LocalDatabase(clone(stuff.config), stuff.logger);
+      const storage = locaDatabase.getPackageStorage(pkgName);
+      expect(storage).toBeDefined();
+
+      if (storage) {
+        expect(storage.path).toBe(path.join(__dirname, '__fixtures__', stuff.config.storage, pkgName));
+      }
+    });
+
+    test('should use custom storage', () => {
+      const pkgName: string = 'local-private-custom-storage';
+      const locaDatabase = new LocalDatabase(clone(stuff.config), stuff.logger);
+      const storage = locaDatabase.getPackageStorage(pkgName);
+      expect(storage).toBeDefined();
+
+      if (storage) {
+        expect(storage.path).toBe(path.join(__dirname, '__fixtures__', stuff.config.storage, 'private_folder', pkgName));
+      }
     });
   });
 
