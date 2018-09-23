@@ -16,8 +16,9 @@ let locaDatabase: ILocalData;
 
 describe('Local Database', () => {
   beforeEach(() => {
+    // FIXME: we have to mock properly here
+    // $FlowFixMe
     fs.writeFileSync = jest.fn();
-    // fs.readFileSync = jest.fn();
     locaDatabase = new LocalDatabase(stuff.config, stuff.logger);
     // clean database
     locaDatabase._sync();
