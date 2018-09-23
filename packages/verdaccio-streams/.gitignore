@@ -1,0 +1,18 @@
+npm-debug.log
+.DS_Store
+
+lib/
+node_modules/
+
+# Istanbul
+.nyc*
+tests-report
+coverage/
+
+# IDE
+.vscode/*
+.idea/
+*.log
+*.tar
+*.gz
+

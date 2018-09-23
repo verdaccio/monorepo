@@ -1,5 +1,5 @@
 {
-  "version": "0.0.0",
+  "version": "4.0.0",
   "packages": [
     "packages/*"
   ],
@@ -7,7 +7,14 @@
   "useWorkspaces": true,
   "command": {
     "publish": {
+      "bump": "patch",
+      "conventionalCommits": true,
+      "ignoreChanges": [
+        "CHANGELOG.md"
+      ],
       "message": "chore(release): publish %s"
     }
-  }
+  },
+  "registry": "http://localhost:4873",
+  "loglevel": "success"
 }
