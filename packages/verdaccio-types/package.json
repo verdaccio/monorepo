@@ -1,0 +1,34 @@
+{
+  "name": "@verdaccio/types",
+  "version": "4.0.0",
+  "description": "verdaccio flow types definitions",
+  "main": "lib/types.js.flow",
+  "scripts": {
+    "precommit": "lint-staged",
+    "lint": "eslint .",
+    "prepare": "npm run build",
+    "format": "prettier --write",
+    "release": "standard-version -a -s",
+    "build": "mkdir -p lib && for f in $(find src/ -iname *.js | cut -c5-) ; do cp src/$f lib/$f.flow; done",
+    "test": "npm run lint && flow check"
+  },
+  "keywords": [
+    "flow-type",
+    "verdaccio"
+  ],
+  "author": "Juan Picado <juanpicado19@gmail.com>",
+  "private": false,
+  "license": "MIT",
+  "lint-staged": {
+    "linters": {
+      "package.json": [
+        "prettier --write",
+        "git add"
+      ],
+      "*.js": [
+        "eslint --fix",
+        "git add"
+      ]
+    }
+  }
+}

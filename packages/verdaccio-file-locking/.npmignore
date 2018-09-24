@@ -1,0 +1,14 @@
+src/
+tests-report/
+.nyc_output
+.editorconfig
+.gitignore
+yarn-error.log
+yarn.lock
+.eslintrc
+.babelrc
+test/
+.eslintignore
+.eslintrc.yml
+.npmignore
+.travis.yml

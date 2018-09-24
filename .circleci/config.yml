@@ -86,14 +86,14 @@ jobs:
   #         paths:
   #           - coverage
 
-  # test_node10:
-  #   <<: *defaults
-  #   <<: *node10_executor
-  #   steps:
-  #     - *restore_repo
-  #     - run:
-  #         name: Test with Node 10
-  #         command: yarn run test
+   test_node10:
+     <<: *defaults
+     <<: *node10_executor
+     steps:
+       - *restore_repo
+       - run:
+           name: Test with Node 10
+           command: yarn run test
 
   publish_package:
     <<: *defaults
@@ -120,10 +120,10 @@ workflows:
       #     requires:
       #       - prepare
       #     <<: *ignore_non_dev_branches
-      # - test_node10:
-      #     requires:
-      #       - prepare
-      #     <<: *ignore_non_dev_branches
+       - test_node10:
+           requires:
+             - prepare
+           <<: *ignore_non_dev_branches
       - publish_package:
           requires:
             - prepare

@@ -1,0 +1,5 @@
+node_modules
+coverage/
+flow-typed/
+lib/
+packages/verdaccio-types/test
