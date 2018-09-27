@@ -498,4 +498,5 @@ declare module "@verdaccio/types" {
   declare export type JWTOptions = verdaccio$JWTOptions;
   declare export type JWTSignOptions = verdaccio$JWTSignOptions;
   declare export type JWTVerifyOptions = verdaccio$JWTVerifyOptions;
+  declare export type Author = verdaccio$Author;
 }
