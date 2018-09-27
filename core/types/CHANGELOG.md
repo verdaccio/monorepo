@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="3.7.2"></a>
+## [3.7.2](https://github.com/verdaccio/flow-types/compare/v3.7.1...v3.7.2) (2018-09-27)
+
+
+### Bug Fixes
+
+* entry point [#14](https://github.com/verdaccio/flow-types/issues/14) ([f7b8982](https://github.com/verdaccio/flow-types/commit/f7b8982))
+* export Author type ([7869dde](https://github.com/verdaccio/flow-types/commit/7869dde))
+
+
+
 <a name="3.7.1"></a>
 ## [3.7.1](https://github.com/verdaccio/flow-types/compare/v3.7.0...v3.7.1) (2018-08-11)
 
