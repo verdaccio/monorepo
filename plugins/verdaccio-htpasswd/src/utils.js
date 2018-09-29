@@ -127,6 +127,13 @@ export function sanityCheck(
 
   hash = users[user];
 
+  if (maxUsers < 0) {
+    err = Error('user registration disabled');
+    // $FlowFixMe
+    err.status = 409;
+    return err;
+  }
+
   if (hash) {
     const auth = verifyFn(password, users[user]);
     if (auth) {

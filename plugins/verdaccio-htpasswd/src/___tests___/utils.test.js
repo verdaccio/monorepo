@@ -156,9 +156,15 @@ describe('sanityCheck', () => {
     expect(input.message).toEqual('unauthorized access');
     expect(verifyFn).toHaveBeenCalled();
   });
-  it('should throw error max number of users', () => {
+  it('should throw error for registration disabled of users', () => {
     const verifyFn = () => {};
     const input = sanityCheck('username', users.test, verifyFn, users, -1);
+    expect(input.status).toEqual(409);
+    expect(input.message).toEqual('user registration disabled');
+  });
+  it('should throw error max number of users', () => {
+    const verifyFn = () => {};
+    const input = sanityCheck('username', users.test, verifyFn, users, 1);
     expect(input.status).toEqual(403);
     expect(input.message).toEqual('maximum amount of users reached');
   });
