@@ -91,7 +91,7 @@ export function addUserToHTPasswd(
         .update(passwd, 'binary')
         .digest('base64');
   }
-  let comment = 'autocreated ' + new Date().toJSON();
+  const comment = 'autocreated ' + new Date().toJSON();
   let newline = `${user}:${passwd}:${comment}\n`;
 
   if (body.length && body[body.length - 1] !== '\n') {
@@ -154,4 +154,53 @@ export function sanityCheck(
   }
 
   return null;
+}
+
+export function getCryptoPassword(password: string) {
+  return `{SHA}'${crypto
+    .createHash('sha1')
+    .update(password, 'binary')
+    .digest('base64')}`;
+}
+
+/**
+ * changePasswordToHTPasswd - change password for existing user
+ * @param {string} body
+ * @param {string} user
+ * @param {string} passwd
+ * @param {string} newPasswd
+ * @returns {string}
+ */
+export function changePasswordToHTPasswd(
+  body: string,
+  user: string,
+  passwd: string,
+  newPasswd: string
+): string {
+  let _passwd;
+  let _newPasswd;
+  if (crypt3) {
+    _passwd = crypt3(passwd);
+    _newPasswd = crypt3(newPasswd);
+  } else {
+    _passwd = getCryptoPassword(passwd);
+    _newPasswd = getCryptoPassword(newPasswd);
+  }
+
+  let lines = body.split('\n');
+  lines = lines.map(line => {
+    const [username, password] = line.split(':', 3);
+
+    if (username === user) {
+      if (password == _passwd) {
+        // replace old password hash with new password hash
+        line = line.replace(_passwd, _newPasswd);
+      } else {
+        throw new Error('Invalid old Password');
+      }
+    }
+    return line;
+  });
+
+  return lines.join('\n');
 }

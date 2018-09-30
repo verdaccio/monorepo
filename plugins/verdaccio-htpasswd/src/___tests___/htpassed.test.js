@@ -235,4 +235,50 @@ describe('HTPasswd', () => {
       });
     });
   });
+
+  it('changePassword - it should throw an error for user not found', done => {
+    const callback = (error, isSuccess) => {
+      expect(error).not.toBeNull();
+      expect(error.message).toBe('User not found');
+      expect(isSuccess).toBeFalsy();
+      done();
+    };
+    wrapper.changePassword(
+      'usernotpresent',
+      'oldPassword',
+      'newPassword',
+      callback
+    );
+  });
+
+  it('changePassword - it should throw an error for wrong password', done => {
+    const callback = (error, isSuccess) => {
+      expect(error).not.toBeNull();
+      expect(error.message).toBe('Invalid old Password');
+      expect(isSuccess).toBeFalsy();
+      done();
+    };
+    wrapper.changePassword(
+      'username',
+      'wrongPassword',
+      'newPassword',
+      callback
+    );
+  });
+
+  it('changePassword - it should change password', done => {
+    let dataToWrite;
+    fs.writeFile = jest.fn((name, data, callback) => {
+      dataToWrite = data;
+      callback();
+    });
+    const callback = (error, isSuccess) => {
+      expect(error).toBeNull();
+      expect(isSuccess).toBeTruthy();
+      expect(fs.writeFile).toHaveBeenCalled();
+      expect(dataToWrite.indexOf('username')).not.toEqual(-1);
+      done();
+    };
+    wrapper.changePassword('username', 'password', 'newPassword', callback);
+  });
 });

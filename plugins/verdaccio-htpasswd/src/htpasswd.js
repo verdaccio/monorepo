@@ -8,6 +8,7 @@ import {
   unlockFile,
   parseHTPasswd,
   addUserToHTPasswd,
+  changePasswordToHTPasswd,
   sanityCheck
 } from './utils';
 
@@ -109,6 +110,7 @@ export default class HTPasswd {
    * @returns {function}
    */
   adduser(user: string, password: string, realCb: Callback) {
+    const pathPass = this.path;
     let sanity = sanityCheck(
       user,
       password,
@@ -123,13 +125,13 @@ export default class HTPasswd {
       return realCb(sanity, false);
     }
 
-    lockAndRead(this.path, (err, res) => {
+    lockAndRead(pathPass, (err, res) => {
       let locked = false;
 
       // callback that cleans up lock first
       const cb = err => {
         if (locked) {
-          unlockFile(this.path, () => {
+          unlockFile(pathPass, () => {
             // ignore any error from the unlock
             realCb(err, !err);
           });
@@ -164,19 +166,10 @@ export default class HTPasswd {
       }
 
       try {
-        body = addUserToHTPasswd(body, user, password);
+        this._writeFile(addUserToHTPasswd(body, user, password), cb);
       } catch (err) {
         return cb(err);
       }
-
-      fs.writeFile(this.path, body, err => {
-        if (err) {
-          return cb(err);
-        }
-        this.reload(() => {
-          cb(null);
-        });
-      });
     });
   }
 
@@ -203,6 +196,78 @@ export default class HTPasswd {
         Object.assign(this.users, parseHTPasswd(buffer));
         callback();
       });
+    });
+  }
+
+  _stringToUt8(authentication: string): string {
+    // $FlowFixMe
+    return (authentication || '').toString('utf8');
+  }
+
+  _writeFile(body: string, cb: Callback) {
+    fs.writeFile(this.path, body, err => {
+      if (err) {
+        cb(err);
+      } else {
+        this.reload(() => {
+          cb(null);
+        });
+      }
+    });
+  }
+
+  /**
+   * changePassword - change password for existing user.
+   * @param {string} user
+   * @param {string} password
+   * @param {function} cd
+   * @returns {function}
+   */
+  changePassword(
+    user: string,
+    password: string,
+    newPassword: string,
+    realCb: Callback
+  ) {
+    lockAndRead(this.path, (err, res) => {
+      let locked = false;
+      const pathPassFile = this.path;
+
+      // callback that cleans up lock first
+      const cb = err => {
+        if (locked) {
+          unlockFile(pathPassFile, () => {
+            // ignore any error from the unlock
+            realCb(err, !err);
+          });
+        } else {
+          realCb(err, !err);
+        }
+      };
+
+      if (!err) {
+        locked = true;
+      }
+
+      if (err && err.code !== 'ENOENT') {
+        return cb(err);
+      }
+
+      const body = this._stringToUt8(res);
+      this.users = parseHTPasswd(body);
+
+      if (!this.users[user]) {
+        return cb(new Error('User not found'));
+      }
+
+      try {
+        this._writeFile(
+          changePasswordToHTPasswd(body, user, password, newPassword),
+          cb
+        );
+      } catch (err) {
+        return cb(err);
+      }
     });
   }
 }

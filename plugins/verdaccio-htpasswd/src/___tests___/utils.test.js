@@ -6,7 +6,9 @@ import {
   unlockFile,
   parseHTPasswd,
   addUserToHTPasswd,
-  sanityCheck
+  sanityCheck,
+  changePasswordToHTPasswd,
+  getCryptoPassword
 } from '../utils';
 
 describe('parseHTPasswd', () => {
@@ -146,63 +148,106 @@ describe('unlockFile', () => {
 
 describe('sanityCheck', () => {
   let users;
+
   beforeEach(() => {
     users = { test: '$6FrCaT/v0dwE' };
   });
-  it('should throw error for user already exists', () => {
+
+  test('should throw error for user already exists', () => {
     const verifyFn = jest.fn();
     const input = sanityCheck('test', users.test, verifyFn, users, Infinity);
     expect(input.status).toEqual(401);
     expect(input.message).toEqual('unauthorized access');
     expect(verifyFn).toHaveBeenCalled();
   });
-  it('should throw error for registration disabled of users', () => {
+
+  test('should throw error for registration disabled of users', () => {
     const verifyFn = () => {};
     const input = sanityCheck('username', users.test, verifyFn, users, -1);
     expect(input.status).toEqual(409);
     expect(input.message).toEqual('user registration disabled');
   });
-  it('should throw error max number of users', () => {
+
+  test('should throw error max number of users', () => {
     const verifyFn = () => {};
     const input = sanityCheck('username', users.test, verifyFn, users, 1);
     expect(input.status).toEqual(403);
     expect(input.message).toEqual('maximum amount of users reached');
   });
-  it('should not throw anything and sanity check', () => {
+
+  test('should not throw anything and sanity check', () => {
     const verifyFn = () => {};
     const input = sanityCheck('username', users.test, verifyFn, users, 2);
     expect(input).toBeNull();
   });
-  it('should throw error for required username field', () => {
+
+  test('should throw error for required username field', () => {
     const verifyFn = () => {};
     const input = sanityCheck(undefined, users.test, verifyFn, users, 2);
     expect(input.message).toEqual('username and password is required');
     expect(input.status).toEqual(400);
   });
-  it('should throw error for required password field', () => {
+
+  test('should throw error for required password field', () => {
     const verifyFn = () => {};
     const input = sanityCheck('username', undefined, verifyFn, users, 2);
     expect(input.message).toEqual('username and password is required');
     expect(input.status).toEqual(400);
   });
-  it('should throw error for required username & password fields', () => {
+
+  test('should throw error for required username & password fields', () => {
     const verifyFn = () => {};
     const input = sanityCheck(undefined, undefined, verifyFn, users, 2);
     expect(input.message).toEqual('username and password is required');
     expect(input.status).toEqual(400);
   });
-  it('should throw error for existing username and password', () => {
+
+  test('should throw error for existing username and password', () => {
     const verifyFn = jest.fn(() => true);
     const input = sanityCheck('test', users.test, verifyFn, users, 2);
     expect(input.status).toEqual(409);
     expect(input.message).toEqual('username is already registered');
     expect(verifyFn).toHaveBeenCalledTimes(1);
   });
-  it('should throw error for existing username and password with max number of users reached', () => {
+
+  test('should throw error for existing username and password with max number of users reached', () => {
     const verifyFn = jest.fn(() => true);
     const input = sanityCheck('test', users.test, verifyFn, users, 1);
     expect(input.status).toEqual(409);
     expect(input.message).toEqual('username is already registered');
     expect(verifyFn).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('changePasswordToHTPasswd', () => {
+  test('should throw error for wrong password', () => {
+    const body = 'test:$6b9MlB3WUELU:autocreated 2017-11-06T18:17:21.957Z';
+
+    try {
+      changePasswordToHTPasswd(
+        body,
+        'test',
+        'somerandompassword',
+        'newPassword'
+      );
+    } catch (error) {
+      expect(error.message).toEqual('Invalid old Password');
+    }
+  });
+
+  test('should change the password', () => {
+    const body = 'root:$6qLTHoPfGLy2:autocreated 2018-08-20T13:38:12.164Z';
+
+    expect(
+      changePasswordToHTPasswd(body, 'root', 'demo123', 'newPassword')
+    ).toMatchSnapshot();
+  });
+});
+
+describe('getCryptoPassword', () => {
+  test('should return the password hash', () => {
+    const passwordHash = `{SHA}'y9vkk2zovmMYTZ8uE/wkkjQ3G5o=`;
+
+    expect(getCryptoPassword('demo123')).toBe(passwordHash);
   });
 });
