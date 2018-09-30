@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="4.0.0"></a>
+# [4.0.0](https://github.com/verdaccio/flow-types/compare/v3.7.2...v4.0.0) (2018-09-30)
+
+
+### Features
+
+* **auth:** add method to update password ([21fc43f](https://github.com/verdaccio/flow-types/commit/21fc43f))
+
+
+### BREAKING CHANGES
+
+* **auth:** it will affect all auth plugins
+
+
+
 <a name="3.7.2"></a>
 ## [3.7.2](https://github.com/verdaccio/flow-types/compare/v3.7.1...v3.7.2) (2018-09-27)
 
