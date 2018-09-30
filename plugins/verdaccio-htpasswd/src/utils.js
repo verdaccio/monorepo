@@ -157,7 +157,7 @@ export function sanityCheck(
 }
 
 export function getCryptoPassword(password: string) {
-  return `{SHA}'${crypto
+  return `{SHA}${crypto
     .createHash('sha1')
     .update(password, 'binary')
     .digest('base64')}`;

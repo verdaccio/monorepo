@@ -112,15 +112,17 @@ describe('addUserToHTPasswd - crypt3', () => {
 });
 
 // ToDo: mock crypt3 with false
-// describe('addUserToHTPasswd - crypto', () => {
-//   it('should create password with crypto', () => {
-//   jest.resetModules();
-//   jest.mock('../crypt3', () => false);
-//   const input = ['', 'username', 'password'];
-//   addUserToHTPasswd(...input);
-//    // expect(addUserToHTPasswd(...input)).toEqual('sdssddsd');
-//   });
-// });
+describe('addUserToHTPasswd - crypto', () => {
+  it('should create password with crypto', () => {
+    jest.resetModules();
+    jest.doMock('../crypt3', () => false);
+    const input = ['', 'username', 'password'];
+    const utils = require('../utils');
+    expect(utils.addUserToHTPasswd(...input)).toEqual(
+      'username:{SHA}W6ph5Mm5Pz8GgiULbPgzG37mj9g=:autocreated 2018-01-14T11:17:40.712Z\n'
+    );
+  });
+});
 
 describe('lockAndRead', () => {
   beforeAll(() => {
@@ -242,11 +244,29 @@ describe('changePasswordToHTPasswd', () => {
       changePasswordToHTPasswd(body, 'root', 'demo123', 'newPassword')
     ).toMatchSnapshot();
   });
+
+  test('should change the password when crypt3 is not available', () => {
+    jest.resetModules();
+    jest.doMock('../crypt3', () => false);
+    const utils = require('../utils');
+    const body =
+      'username:{SHA}W6ph5Mm5Pz8GgiULbPgzG37mj9g=:autocreated 2018-01-14T11:17:40.712Z';
+    expect(
+      utils.changePasswordToHTPasswd(
+        body,
+        'username',
+        'password',
+        'newPassword'
+      )
+    ).toEqual(
+      'username:{SHA}KD1HqTOO0RALX+Klr/LR98eZv9A=:autocreated 2018-01-14T11:17:40.712Z'
+    );
+  });
 });
 
 describe('getCryptoPassword', () => {
   test('should return the password hash', () => {
-    const passwordHash = `{SHA}'y9vkk2zovmMYTZ8uE/wkkjQ3G5o=`;
+    const passwordHash = `{SHA}y9vkk2zovmMYTZ8uE/wkkjQ3G5o=`;
 
     expect(getCryptoPassword('demo123')).toBe(passwordHash);
   });
