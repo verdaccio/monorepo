@@ -113,7 +113,7 @@ export function sanityCheck(
   verifyFn: Callback,
   users: {},
   maxUsers: number
-) {
+): Error | null {
   let err;
   let hash;
 
