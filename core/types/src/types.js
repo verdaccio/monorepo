@@ -390,6 +390,7 @@ declare interface verdaccio$IBasicAuth {
   config: $Subtype<verdaccio$Config>;
   aesEncrypt(buf: Buffer): Buffer;
   authenticate(user: string, password: string, cb: verdaccio$Callback): void;
+  changePassword(user: string, password: string, newPassword: string, cb: verdaccio$Callback): void;
   allow_access(packageName: string, user: verdaccio$RemoteUser, callback: verdaccio$Callback): void;
   add_user(user: string, password: string, cb: verdaccio$Callback): any;
 }
@@ -407,6 +408,7 @@ declare interface verdaccio$IPluginAuth extends verdaccio$IPlugin {
   login_url?: string;
   authenticate(user: string, password: string, cb: verdaccio$Callback): void;
   adduser(user: string, password: string, cb: verdaccio$Callback): void;
+  changePassword(user: string, password: string, newPassword: string, cb: verdaccio$Callback): void;
   allow_access(user: verdaccio$RemoteUser, pkg: $Subtype<verdaccio$PackageAccess>, cb: verdaccio$Callback): void;
   allow_publish(user: verdaccio$RemoteUser, pkg: $Subtype<verdaccio$PackageAccess>, cb: verdaccio$Callback): void;
 }
