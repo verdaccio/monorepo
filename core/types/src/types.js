@@ -164,12 +164,12 @@ declare type verdaccio$UpLinkConf = {
 
 declare type verdaccio$PackageAccess = {
   storage?: string;
-  publish?: Array<string>;
-  proxy?: Array<string>;
-  access?: Array<string>;
-  allow_access?: Array<string>;
-  allow_publish?: Array<string>;
-  proxy_access?: Array<string>;
+  publish: Array<string>;
+  proxy: Array<string>;
+  access: Array<string>;
+  allow_access: Array<string>;
+  allow_publish: Array<string>;
+  proxy_access: Array<string>;
 }
 
 declare type verdaccio$PackageList = {
