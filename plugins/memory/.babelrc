@@ -3,12 +3,5 @@
     "targets": {
       "node": "6"
     }
-  }], "flow"],
-  "env": {
-    "test": {
-      "plugins": [
-        "transform-async-to-generator"
-      ]
-    }
-  }
+  }], "flow"]
 }
