@@ -1,5 +1,8 @@
 # verdaccio-memory
 
+[![CircleCI](https://circleci.com/gh/verdaccio/verdaccio-memory.svg?style=svg)](https://circleci.com/gh/ayusharma/verdaccio-memory)
+[![codecov](https://codecov.io/gh/verdaccio/verdaccio-memory/branch/master/graph/badge.svg)](https://codecov.io/gh/verdaccio/verdaccio-memory)
+
 A memory based **storage plugin**.
 
 ```
@@ -8,7 +11,7 @@ A memory based **storage plugin**.
 
 ### Requirements
 
-This plugin won't work with versions minimum as `3.0.0`
+Higher than `verdaccio@3.0.0`
 
 ```
 npm install -g verdaccio@latest
