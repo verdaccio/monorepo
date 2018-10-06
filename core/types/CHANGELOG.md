@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="4.1.1"></a>
+## [4.1.1](https://github.com/verdaccio/flow-types/compare/v4.1.0...v4.1.1) (2018-10-06)
+
+
+### Bug Fixes
+
+* deprecated methods are optional ([4c96e89](https://github.com/verdaccio/flow-types/commit/4c96e89))
+
+
+
 <a name="4.1.0"></a>
 # [4.1.0](https://github.com/verdaccio/flow-types/compare/v4.0.0...v4.1.0) (2018-10-06)
 
