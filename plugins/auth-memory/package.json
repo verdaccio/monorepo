@@ -6,30 +6,36 @@
   "author": "Verdaccio community <verdaccio.npm@gmail.com>",
   "repository": {
     "type": "git",
-    "url": "git://github.com/dgaya/sinopia-memory.git"
+    "url": "git://github.com/verdaccio/verdaccio-auth-memory.git"
   },
   "devDependencies": {
-    "@commitlint/cli": "7.0.0",
-    "@commitlint/config-conventional": "7.0.1",
-    "@verdaccio/types": "3.4.1",
+    "@commitlint/cli": "7.2.0",
+    "@commitlint/config-conventional": "7.1.2",
+    "@commitlint/travis-cli": "7.2.0",
+    "@verdaccio/types": "4.1.1",
     "babel-cli": "6.26.0",
     "babel-core": "6.26.3",
     "babel-eslint": "8.2.6",
-    "babel-jest": "23.4.0",
+    "babel-jest": "23.6.0",
     "babel-plugin-flow-runtime": "0.17.0",
+    "babel-plugin-transform-async-to-generator": "6.24.1",
     "babel-preset-env": "1.7.0",
     "babel-preset-flow": "6.23.0",
     "codecov": "3.0.4",
     "cross-env": "5.2.0",
-    "eslint": "5.2.0",
-    "eslint-config-prettier": "2.9.0",
-    "eslint-plugin-prettier": "2.6.2",
-    "flow-bin": "0.77.0",
+    "eslint": "5.6.1",
+    "eslint-config-google": "0.10.0",
+    "eslint-config-prettier": "3.1.0",
+    "eslint-plugin-flowtype": "2.50.3",
+    "eslint-plugin-jest": "21.24.1",
+    "eslint-plugin-prettier": "3.0.0",
+    "flow-bin": "0.82.0",
+    "flow-runtime": "0.17.0",
     "husky": "0.14.3",
-    "in-publish": "2.0.0",
-    "jest": "23.4.1",
+    "jest": "23.6.0",
     "lint-staged": "7.2.0",
-    "prettier": "1.13.7"
+    "prettier": "1.14.3",
+    "standard-version": "4.4.0"
   },
   "keywords": [
     "verdaccio",
@@ -37,9 +43,6 @@
     "plugin",
     "memory"
   ],
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/verdaccio/verdaccio-auth-memory/issues"
@@ -52,14 +55,19 @@
   },
   "homepage": "https://github.com/verdaccio/verdaccio-auth-memory",
   "scripts": {
-    "commitmsg": "commitlint -e $GIT_PARAMS",
-    "coverage": "codecov",
+    "release": "standard-version -a -s",
+    "pretest": "npm run lint",
     "test": "jest",
-    "lint": "npm run flow && npm run js-lint",
-    "js-lint": "eslint .",
-    "flow": "flow",
-    "build": "babel src/ --out-dir lib/ --copy-files --ignore ___tests___",
     "precommit": "lint-staged",
-    "prepublish": "in-publish && npm run lint && npm run build || not-in-publish"
+    "format": "prettier --single-quote --trailing-comma none --write \"{src,test}/**/*.js\"",
+    "lint": "npm run flow && eslint .",
+    "flow": "flow",
+    "prepublish": "npm run build",
+    "coverage": "codecov",
+    "commitmsg": "commitlint -e $GIT_PARAMS",
+    "build": "babel src/ --out-dir lib/ --copy-files"
+  },
+  "dependencies": {
+    "http-errors": "1.7.1"
   }
 }

@@ -1,14 +1,17 @@
+// @flow
+
 import type { Config } from '@verdaccio/types';
 
-export interface VerdaccioConfigAuthMemory extends Config {
-  [users: string]: {
-    [name: string]: {
-      name: string,
-      password: string
-    }
-  };
-}
+export type UserMemory = {
+  name: string,
+  password: string
+};
 
-export interface VerdaccioConfigApp extends Config {
-  max_users: number;
+export type Users = {
+  [key: string]: UserMemory
+};
+
+export interface VerdaccioMemoryConfig extends Config {
+  max_users?: number;
+  users: Users;
 }
