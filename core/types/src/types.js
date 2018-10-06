@@ -167,9 +167,9 @@ declare type verdaccio$PackageAccess = {
   publish: Array<string>;
   proxy: Array<string>;
   access: Array<string>;
-  allow_access: Array<string>;
-  allow_publish: Array<string>;
-  proxy_access: Array<string>;
+  allow_access?: Array<string>;
+  allow_publish?: Array<string>;
+  proxy_access?: Array<string>;
 }
 
 declare type verdaccio$PackageList = {
