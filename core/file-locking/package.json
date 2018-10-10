@@ -9,31 +9,31 @@
   ],
   "devDependencies": {
     "@commitlint/cli": "7.0.0",
-    "@commitlint/config-conventional": "7.0.1",
+    "@commitlint/config-conventional": "7.1.2",
     "@verdaccio/types": "3.7.1",
     "babel-cli": "6.26.0",
     "babel-core": "6.26.3",
     "babel-eslint": "8.2.6",
-    "babel-jest": "23.4.2",
+    "babel-jest": "23.6.0",
     "babel-plugin-flow-runtime": "0.17.0",
     "babel-preset-env": "1.7.0",
     "babel-preset-flow": "6.23.0",
-    "codecov": "3.0.4",
-    "eslint": "5.4.0",
-    "eslint-config-google": "0.9.1",
-    "eslint-plugin-flowtype": "2.50.0",
-    "flow-bin": "0.79.1",
+    "codecov": "3.1.0",
+    "eslint": "5.6.1",
+    "eslint-config-google": "0.10.0",
+    "eslint-plugin-flowtype": "2.50.3",
+    "flow-bin": "0.82.0",
     "husky": "0.14.3",
     "in-publish": "2.0.0",
-    "jest": "23.5.0",
-    "lint-staged": "7.2.2"
+    "jest": "23.6.0",
+    "lint-staged": "7.3.0"
   },
   "author": "Juan Picado <juanpicado19@gmail.com>",
   "private": false,
   "license": "MIT",
   "dependencies": {
     "lockfile": "1.0.4",
-    "lodash": "4.17.10"
+    "lodash": "4.17.11"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
