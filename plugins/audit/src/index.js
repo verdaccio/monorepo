@@ -50,11 +50,16 @@ export default class ProxyAudit implements IPluginMiddleware {
       }
     };
 
+    const hasJsonContentType = (req: $RequestExtend) => {
+      const contentMediaType = req.headers['content-type'];
+      return contentMediaType && typeof contentMediaType === 'string' && contentMediaType.includes('application/json');
+    };
+
     /* eslint new-cap:off */
     const router = express.Router();
     /* eslint new-cap:off */
     router.use(compression());
-    router.use(bodyParser.json({ strict: false, limit: '50mb' }));
+    router.use(bodyParser.json({ strict: false, limit: '50mb', type: hasJsonContentType }));
     router.post('/audits', handleAudit);
 
     router.post('/audits/quick', handleAudit);
