@@ -3,6 +3,10 @@
   "version": "0.2.0",
   "description": "verdaccio middleware plugin to bypass npmjs audit",
   "main": "lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/verdaccio/verdaccio-audit"
+  },
   "scripts": {
     "test": "jest",
     "precommit": "lint-staged",
