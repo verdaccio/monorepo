@@ -21,9 +21,9 @@ pnpm i -g verdaccio-google-cloud
 * Verdaccio server (see below)
 
 ```
-npm install -g verdaccio@beta
-yarn global add verdaccio@beta
-pnpm -g verdaccio@beta
+npm install -g verdaccio@latest
+yarn global add verdaccio@latest
+pnpm -g verdaccio@latest
 ```
 
 ### Configuration
