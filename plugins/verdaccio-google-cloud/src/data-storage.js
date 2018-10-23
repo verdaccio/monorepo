@@ -79,7 +79,7 @@ class GoogleCloudDatabase implements IPluginStorage {
 
   add(name: string, cb: Callback): void {
     const datastore = this.data.datastore;
-    const key = datastore.key(this.kind);
+    const key = datastore.key([this.kind, name]);
     const data = {
       name: name
     };
