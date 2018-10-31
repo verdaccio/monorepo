@@ -1,6 +1,10 @@
 # verdaccio-audit
 🛡🔬 npmjs audit support for verdaccio
 
+## Requirements
+
+* verdaccio@3.x or higher
+
 ```
  npm install --global verdaccio-audit
 ```
