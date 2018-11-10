@@ -12,8 +12,7 @@
     "test": "npm run lint & lerna run test",
     "bootstrap": "lerna bootstrap",
     "commitmsg": "commitlint -e $GIT_PARAMS",
-    "publish": "lerna publish --amend",
-    "version": "lerna publish --conventional-commits --skip-npm"
+    "publish:lerna": "lerna publish --conventional-commits --no-git-tag-version"
   },
   "devDependencies": {
     "@commitlint/cli": "7.0.0",
