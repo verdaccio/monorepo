@@ -5,6 +5,9 @@ This monorepo contains the core packages of the Verdaccio architechture.
 ## List of packages
 
 - eslint-config
+- verdaccio-file-locking
+- verdaccio-streams
+- verdaccio-types
 
 ## Contributing
 
