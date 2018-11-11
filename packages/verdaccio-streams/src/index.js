@@ -2,7 +2,7 @@
 
 import {PassThrough} from 'stream';
 
-import type {IUploadTarball, IReadTarball} from '@verdaccio/streams';
+// import type {IUploadTarball, IReadTarball} from '@verdaccio/streams';
 
 /**
  * This stream is used to read tarballs from repository..
@@ -15,7 +15,7 @@ class ReadTarball extends PassThrough {
    *
    * @param {Object} options
    */
-  constructor(options: duplexStreamOptions): IReadTarball {
+  constructor(options: duplexStreamOptions) {
     super(options);
     // called when data is not needed anymore
     addAbstractMethods(this, 'abort');
@@ -33,7 +33,7 @@ class UploadTarball extends PassThrough {
    *
    * @param {Object} options
    */
-  constructor(options: duplexStreamOptions): IUploadTarball {
+  constructor(options: duplexStreamOptions) {
     super(options);
     // called when user closes connection before upload finishes
     addAbstractMethods(this, 'abort');

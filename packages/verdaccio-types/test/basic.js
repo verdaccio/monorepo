@@ -19,3 +19,5 @@ const logger: Logger = {
 	warn: (conf) => {},
 	info: (conf) => {},
 };
+
+console.log(logger, callback(() => {}));

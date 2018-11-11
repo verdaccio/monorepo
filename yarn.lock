@@ -814,9 +814,9 @@
   dependencies:
     any-observable "^0.3.0"
 
-"@verdaccio/types@3.7.1":
-  version "3.7.1"
-  resolved "http://localhost:4873/@verdaccio%2ftypes/-/types-3.7.1.tgz#e084ce466e8308c502013a810f29f52615aba124"
+"@verdaccio/types@4.2.0":
+  version "4.2.0"
+  resolved "http://localhost:4873/@verdaccio%2ftypes/-/types-4.2.0.tgz#88dbb7388794e8e448dd34843433f7ef4b90671d"
 
 JSONStream@^1.0.4:
   version "1.3.3"
@@ -1022,6 +1022,13 @@ array-find-index@^1.0.1:
 array-ify@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/array-ify/-/array-ify-1.0.0.tgz#9e528762b4a9066ad163a6962a364418e9626ece"
+
+array-includes@^3.0.3:
+  version "3.0.3"
+  resolved "http://localhost:4873/array-includes/-/array-includes-3.0.3.tgz#184b48f62d92d7452bb31b323165c7f8bd02266d"
+  dependencies:
+    define-properties "^1.1.2"
+    es-abstract "^1.7.0"
 
 array-union@^1.0.1:
   version "1.0.2"
@@ -2862,7 +2869,7 @@ error-ex@^1.2.0, error-ex@^1.3.1:
   dependencies:
     is-arrayish "^0.2.1"
 
-es-abstract@^1.10.0, es-abstract@^1.5.1, es-abstract@^1.6.1:
+es-abstract@^1.10.0, es-abstract@^1.5.1, es-abstract@^1.7.0:
   version "1.12.0"
   resolved "http://localhost:4873/es-abstract/-/es-abstract-1.12.0.tgz#9dbbdd27c6856f0001421ca18782d786bf8a6165"
   dependencies:
@@ -2905,17 +2912,9 @@ escodegen@^1.9.1:
   optionalDependencies:
     source-map "~0.6.1"
 
-eslint-config-airbnb-base@13.1.0:
-  version "13.1.0"
-  resolved "http://localhost:4873/eslint-config-airbnb-base/-/eslint-config-airbnb-base-13.1.0.tgz#b5a1b480b80dfad16433d6c4ad84e6605052c05c"
-  dependencies:
-    eslint-restricted-globals "^0.1.1"
-    object.assign "^4.1.0"
-    object.entries "^1.0.4"
-
-eslint-config-google@0.11.0:
-  version "0.11.0"
-  resolved "http://localhost:4873/eslint-config-google/-/eslint-config-google-0.11.0.tgz#fd0fc70be2e9114df097cac93a9b5b0d4e1c6830"
+eslint-config-google@0.10.0:
+  version "0.10.0"
+  resolved "http://localhost:4873/eslint-config-google/-/eslint-config-google-0.10.0.tgz#09adb5b1514aa99618ad0515e0cce59b8ca82d90"
 
 eslint-config-prettier@3.0.1:
   version "3.0.1"
@@ -2929,12 +2928,6 @@ eslint-config-prettier@3.1.0:
   dependencies:
     get-stdin "^6.0.0"
 
-eslint-config-prettier@3.2.0:
-  version "3.2.0"
-  resolved "http://localhost:4873/eslint-config-prettier/-/eslint-config-prettier-3.2.0.tgz#5540c46af6be4701353d86a31b3fb77d03e0168e"
-  dependencies:
-    get-stdin "^6.0.0"
-
 eslint-import-resolver-node@^0.3.1:
   version "0.3.2"
   resolved "https://registry.npmjs.org/eslint-import-resolver-node/-/eslint-import-resolver-node-0.3.2.tgz#58f15fb839b8d0576ca980413476aab2472db66a"
@@ -2942,12 +2935,28 @@ eslint-import-resolver-node@^0.3.1:
     debug "^2.6.9"
     resolve "^1.5.0"
 
+eslint-loader@2.1.1:
+  version "2.1.1"
+  resolved "http://localhost:4873/eslint-loader/-/eslint-loader-2.1.1.tgz#2a9251523652430bfdd643efdb0afc1a2a89546a"
+  dependencies:
+    loader-fs-cache "^1.0.0"
+    loader-utils "^1.0.2"
+    object-assign "^4.0.1"
+    object-hash "^1.1.4"
+    rimraf "^2.6.1"
+
 eslint-module-utils@^2.2.0:
   version "2.2.0"
   resolved "https://registry.npmjs.org/eslint-module-utils/-/eslint-module-utils-2.2.0.tgz#b270362cd88b1a48ad308976ce7fa54e98411746"
   dependencies:
     debug "^2.6.8"
     pkg-dir "^1.0.0"
+
+eslint-plugin-babel@5.2.1:
+  version "5.2.1"
+  resolved "http://localhost:4873/eslint-plugin-babel/-/eslint-plugin-babel-5.2.1.tgz#95cccad9a70908ab1d21276e7e33cc9701a18293"
+  dependencies:
+    eslint-rule-composer "^0.3.0"
 
 eslint-plugin-flow-typed@1.0.1:
   version "1.0.1"
@@ -2959,15 +2968,9 @@ eslint-plugin-flowtype@2.50.0:
   dependencies:
     lodash "^4.17.10"
 
-eslint-plugin-flowtype@2.50.3:
-  version "2.50.3"
-  resolved "http://localhost:4873/eslint-plugin-flowtype/-/eslint-plugin-flowtype-2.50.3.tgz#61379d6dce1d010370acd6681740fd913d68175f"
-  dependencies:
-    lodash "^4.17.10"
-
-eslint-plugin-flowtype@3.2.0:
-  version "3.2.0"
-  resolved "http://localhost:4873/eslint-plugin-flowtype/-/eslint-plugin-flowtype-3.2.0.tgz#824364ed5940a404b91326fdb5a313a2a74760df"
+eslint-plugin-flowtype@2.50.1:
+  version "2.50.1"
+  resolved "http://localhost:4873/eslint-plugin-flowtype/-/eslint-plugin-flowtype-2.50.1.tgz#36d4c961ac8b9e9e1dc091d3fba0537dad34ae8a"
   dependencies:
     lodash "^4.17.10"
 
@@ -2986,9 +2989,9 @@ eslint-plugin-import@2.14.0:
     read-pkg-up "^2.0.0"
     resolve "^1.6.0"
 
-eslint-plugin-jest@22.0.0:
-  version "22.0.0"
-  resolved "http://localhost:4873/eslint-plugin-jest/-/eslint-plugin-jest-22.0.0.tgz#87dc52bbdd47f37f23bf2b10bb8469458bb3ed68"
+eslint-plugin-jest@21.22.1:
+  version "21.22.1"
+  resolved "http://localhost:4873/eslint-plugin-jest/-/eslint-plugin-jest-21.22.1.tgz#bc805e9b1c75c3bc92e47c44dd41370c1af7ebcc"
 
 eslint-plugin-prettier@2.6.2:
   version "2.6.2"
@@ -2997,15 +3000,19 @@ eslint-plugin-prettier@2.6.2:
     fast-diff "^1.1.1"
     jest-docblock "^21.0.0"
 
-eslint-plugin-prettier@3.0.0, eslint-plugin-prettier@^3.0.0:
-  version "3.0.0"
-  resolved "http://localhost:4873/eslint-plugin-prettier/-/eslint-plugin-prettier-3.0.0.tgz#f6b823e065f8c36529918cdb766d7a0e975ec30c"
+eslint-plugin-react@7.11.1:
+  version "7.11.1"
+  resolved "http://localhost:4873/eslint-plugin-react/-/eslint-plugin-react-7.11.1.tgz#c01a7af6f17519457d6116aa94fc6d2ccad5443c"
   dependencies:
-    prettier-linter-helpers "^1.0.0"
+    array-includes "^3.0.3"
+    doctrine "^2.1.0"
+    has "^1.0.3"
+    jsx-ast-utils "^2.0.1"
+    prop-types "^15.6.2"
 
-eslint-restricted-globals@^0.1.1:
-  version "0.1.1"
-  resolved "http://localhost:4873/eslint-restricted-globals/-/eslint-restricted-globals-0.1.1.tgz#35f0d5cbc64c2e3ed62e93b4b1a7af05ba7ed4d7"
+eslint-rule-composer@^0.3.0:
+  version "0.3.0"
+  resolved "http://localhost:4873/eslint-rule-composer/-/eslint-rule-composer-0.3.0.tgz#79320c927b0c5c0d3d3d2b76c8b4a488f25bbaf9"
 
 eslint-scope@3.7.1:
   version "3.7.1"
@@ -3073,15 +3080,15 @@ eslint@5.3.0:
     table "^4.0.3"
     text-table "^0.2.0"
 
-eslint@5.6.1:
-  version "5.6.1"
-  resolved "http://localhost:4873/eslint/-/eslint-5.6.1.tgz#348134e32ccc09abb2df1bf282b3f6eed8c7b480"
+eslint@5.6.0:
+  version "5.6.0"
+  resolved "http://localhost:4873/eslint/-/eslint-5.6.0.tgz#b6f7806041af01f71b3f1895cbb20971ea4b6223"
   dependencies:
     "@babel/code-frame" "^7.0.0"
     ajv "^6.5.3"
     chalk "^2.1.0"
     cross-spawn "^6.0.5"
-    debug "^4.0.1"
+    debug "^3.1.0"
     doctrine "^2.1.0"
     eslint-scope "^4.0.0"
     eslint-utils "^1.3.1"
@@ -3114,49 +3121,6 @@ eslint@5.6.1:
     strip-ansi "^4.0.0"
     strip-json-comments "^2.0.1"
     table "^4.0.3"
-    text-table "^0.2.0"
-
-eslint@5.9.0:
-  version "5.9.0"
-  resolved "http://localhost:4873/eslint/-/eslint-5.9.0.tgz#b234b6d15ef84b5849c6de2af43195a2d59d408e"
-  dependencies:
-    "@babel/code-frame" "^7.0.0"
-    ajv "^6.5.3"
-    chalk "^2.1.0"
-    cross-spawn "^6.0.5"
-    debug "^4.0.1"
-    doctrine "^2.1.0"
-    eslint-scope "^4.0.0"
-    eslint-utils "^1.3.1"
-    eslint-visitor-keys "^1.0.0"
-    espree "^4.0.0"
-    esquery "^1.0.1"
-    esutils "^2.0.2"
-    file-entry-cache "^2.0.0"
-    functional-red-black-tree "^1.0.1"
-    glob "^7.1.2"
-    globals "^11.7.0"
-    ignore "^4.0.6"
-    imurmurhash "^0.1.4"
-    inquirer "^6.1.0"
-    is-resolvable "^1.1.0"
-    js-yaml "^3.12.0"
-    json-stable-stringify-without-jsonify "^1.0.1"
-    levn "^0.3.0"
-    lodash "^4.17.5"
-    minimatch "^3.0.4"
-    mkdirp "^0.5.1"
-    natural-compare "^1.4.0"
-    optionator "^0.8.2"
-    path-is-inside "^1.0.2"
-    pluralize "^7.0.0"
-    progress "^2.0.0"
-    regexpp "^2.0.1"
-    require-uncached "^1.0.3"
-    semver "^5.5.1"
-    strip-ansi "^4.0.0"
-    strip-json-comments "^2.0.1"
-    table "^5.0.2"
     text-table "^0.2.0"
 
 espree@^4.0.0:
@@ -3347,7 +3311,7 @@ fast-deep-equal@^2.0.1:
   version "2.0.1"
   resolved "http://localhost:4873/fast-deep-equal/-/fast-deep-equal-2.0.1.tgz#7b05218ddf9667bf7f370bf7fdb2cb15fdd0aa49"
 
-fast-diff@^1.1.1, fast-diff@^1.1.2:
+fast-diff@^1.1.1:
   version "1.2.0"
   resolved "http://localhost:4873/fast-diff/-/fast-diff-1.2.0.tgz#73ee11982d86caaf7959828d519cfe927fac5f03"
 
@@ -3430,6 +3394,14 @@ fill-range@^4.0.0:
     repeat-string "^1.6.1"
     to-regex-range "^2.1.0"
 
+find-cache-dir@^0.1.1:
+  version "0.1.1"
+  resolved "http://localhost:4873/find-cache-dir/-/find-cache-dir-0.1.1.tgz#c8defae57c8a52a8a784f9e31c57c742e993a0b9"
+  dependencies:
+    commondir "^1.0.1"
+    mkdirp "^0.5.1"
+    pkg-dir "^1.0.0"
+
 find-cache-dir@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/find-cache-dir/-/find-cache-dir-1.0.0.tgz#9288e3e9e3cc3748717d39eade17cf71fc30ee6f"
@@ -3474,9 +3446,9 @@ flow-bin@0.78.0:
   version "0.78.0"
   resolved "http://localhost:4873/flow-bin/-/flow-bin-0.78.0.tgz#df9fe7f9c9a2dfaff39083949fe2d831b41627b7"
 
-flow-bin@0.86.0:
-  version "0.86.0"
-  resolved "http://localhost:4873/flow-bin/-/flow-bin-0.86.0.tgz#153a28722b4dc13b7200c74b644dd4d9f4969a11"
+flow-bin@0.81.0:
+  version "0.81.0"
+  resolved "http://localhost:4873/flow-bin/-/flow-bin-0.81.0.tgz#7f0a733dce1dad3cb1447c692639292dc3d60bf5"
 
 flush-write-stream@^1.0.0:
   version "1.0.3"
@@ -3581,7 +3553,7 @@ fstream@^1.0.0, fstream@^1.0.2:
     mkdirp ">=0.5 0"
     rimraf "2"
 
-function-bind@^1.1.0, function-bind@^1.1.1:
+function-bind@^1.1.1:
   version "1.1.1"
   resolved "http://localhost:4873/function-bind/-/function-bind-1.1.1.tgz#a56899d3ea3c9bab874bb9773b7c5ede92f4895d"
 
@@ -3896,7 +3868,7 @@ has-values@^1.0.0:
     is-number "^3.0.0"
     kind-of "^4.0.0"
 
-has@^1.0.1:
+has@^1.0.1, has@^1.0.3:
   version "1.0.3"
   resolved "http://localhost:4873/has/-/has-1.0.3.tgz#722d7cbfc1f6aa8241f16dd814e011e1f41e8796"
   dependencies:
@@ -4893,6 +4865,12 @@ jsprim@^1.2.2:
     json-schema "0.2.3"
     verror "1.10.0"
 
+jsx-ast-utils@^2.0.1:
+  version "2.0.1"
+  resolved "http://localhost:4873/jsx-ast-utils/-/jsx-ast-utils-2.0.1.tgz#e801b1b39985e20fffc87b40e3748080e2dcac7f"
+  dependencies:
+    array-includes "^3.0.3"
+
 kind-of@^3.0.2, kind-of@^3.0.3, kind-of@^3.2.0:
   version "3.2.2"
   resolved "https://registry.yarnpkg.com/kind-of/-/kind-of-3.2.2.tgz#31ea21a734bab9bbb0f32466d893aea51e4a3c64"
@@ -5098,6 +5076,13 @@ load-json-file@^4.0.0:
     pify "^3.0.0"
     strip-bom "^3.0.0"
 
+loader-fs-cache@^1.0.0:
+  version "1.0.1"
+  resolved "http://localhost:4873/loader-fs-cache/-/loader-fs-cache-1.0.1.tgz#56e0bf08bd9708b26a765b68509840c8dec9fdbc"
+  dependencies:
+    find-cache-dir "^0.1.1"
+    mkdirp "0.5.1"
+
 loader-utils@^1.0.2:
   version "1.1.0"
   resolved "https://registry.npmjs.org/loader-utils/-/loader-utils-1.1.0.tgz#c98aef488bcceda2ffb5e2de646d6a754429f5cd"
@@ -5219,7 +5204,7 @@ longest@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/longest/-/longest-1.0.1.tgz#30a0b2da38f73770e8294a0d22e6625ed77d0097"
 
-loose-envify@^1.0.0:
+loose-envify@^1.0.0, loose-envify@^1.3.1:
   version "1.4.0"
   resolved "http://localhost:4873/loose-envify/-/loose-envify-1.4.0.tgz#71ee51fa7be4caec1a63839f7e682d8132d30caf"
   dependencies:
@@ -5478,7 +5463,7 @@ mixin-deep@^1.2.0:
     for-in "^1.0.2"
     is-extendable "^1.0.1"
 
-"mkdirp@>=0.5 0", mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.0:
+mkdirp@0.5.1, "mkdirp@>=0.5 0", mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.0:
   version "0.5.1"
   resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-0.5.1.tgz#30057438eac6cf7f8c4767f38648d6697d75c903"
   dependencies:
@@ -5741,7 +5726,7 @@ oauth-sign@~0.9.0:
   version "0.9.0"
   resolved "http://localhost:4873/oauth-sign/-/oauth-sign-0.9.0.tgz#47a7b016baa68b5fa0ecf3dee08a85c679ac6455"
 
-object-assign@^4.0.1, object-assign@^4.1.0:
+object-assign@^4.0.1, object-assign@^4.1.0, object-assign@^4.1.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/object-assign/-/object-assign-4.1.1.tgz#2109adc7965887cfc05cbbd442cac8bfbb360863"
 
@@ -5752,6 +5737,10 @@ object-copy@^0.1.0:
     copy-descriptor "^0.1.0"
     define-property "^0.2.5"
     kind-of "^3.0.3"
+
+object-hash@^1.1.4:
+  version "1.3.0"
+  resolved "http://localhost:4873/object-hash/-/object-hash-1.3.0.tgz#76d9ba6ff113cf8efc0d996102851fe6723963e2"
 
 object-keys@^1.0.11, object-keys@^1.0.12:
   version "1.0.12"
@@ -5771,15 +5760,6 @@ object.assign@^4.1.0:
     function-bind "^1.1.1"
     has-symbols "^1.0.0"
     object-keys "^1.0.11"
-
-object.entries@^1.0.4:
-  version "1.0.4"
-  resolved "http://localhost:4873/object.entries/-/object.entries-1.0.4.tgz#1bf9a4dd2288f5b33f3a993d257661f05d161a5f"
-  dependencies:
-    define-properties "^1.1.2"
-    es-abstract "^1.6.1"
-    function-bind "^1.1.0"
-    has "^1.0.1"
 
 object.getownpropertydescriptors@^2.0.3:
   version "2.0.3"
@@ -6120,12 +6100,6 @@ preserve@^0.2.0:
   version "0.2.0"
   resolved "http://localhost:4873/preserve/-/preserve-0.2.0.tgz#815ed1f6ebc65926f865b310c0713bcb3315ce4b"
 
-prettier-linter-helpers@^1.0.0:
-  version "1.0.0"
-  resolved "http://localhost:4873/prettier-linter-helpers/-/prettier-linter-helpers-1.0.0.tgz#d23d41fe1375646de2d0104d3454a3008802cf7b"
-  dependencies:
-    fast-diff "^1.1.2"
-
 prettier@1.14.2:
   version "1.14.2"
   resolved "http://localhost:4873/prettier/-/prettier-1.14.2.tgz#0ac1c6e1a90baa22a62925f41963c841983282f9"
@@ -6133,10 +6107,6 @@ prettier@1.14.2:
 prettier@1.14.3:
   version "1.14.3"
   resolved "http://localhost:4873/prettier/-/prettier-1.14.3.tgz#90238dd4c0684b7edce5f83b0fb7328e48bd0895"
-
-prettier@1.15.2:
-  version "1.15.2"
-  resolved "http://localhost:4873/prettier/-/prettier-1.15.2.tgz#d31abe22afa4351efa14c7f8b94b58bb7452205e"
 
 pretty-format@^23.6.0:
   version "23.6.0"
@@ -6180,6 +6150,13 @@ promzard@^0.3.0:
   resolved "https://registry.yarnpkg.com/promzard/-/promzard-0.3.0.tgz#26a5d6ee8c7dee4cb12208305acfb93ba382a9ee"
   dependencies:
     read "1"
+
+prop-types@^15.6.2:
+  version "15.6.2"
+  resolved "http://localhost:4873/prop-types/-/prop-types-15.6.2.tgz#05d5ca77b4453e985d60fc7ff8c859094a497102"
+  dependencies:
+    loose-envify "^1.3.1"
+    object-assign "^4.1.1"
 
 proto-list@~1.2.1:
   version "1.2.4"
@@ -6436,7 +6413,7 @@ regexp.prototype.flags@^1.2.0:
   dependencies:
     define-properties "^1.1.2"
 
-regexpp@^2.0.0, regexpp@^2.0.1:
+regexpp@^2.0.0:
   version "2.0.1"
   resolved "http://localhost:4873/regexpp/-/regexpp-2.0.1.tgz#8d19d31cf632482b589049f8281f93dbcba4d07f"
 
@@ -7139,15 +7116,6 @@ table@^4.0.3:
     ajv-keywords "^3.0.0"
     chalk "^2.1.0"
     lodash "^4.17.4"
-    slice-ansi "1.0.0"
-    string-width "^2.1.1"
-
-table@^5.0.2:
-  version "5.1.0"
-  resolved "http://localhost:4873/table/-/table-5.1.0.tgz#69a54644f6f01ad1628f8178715b408dc6bf11f7"
-  dependencies:
-    ajv "^6.5.3"
-    lodash "^4.17.10"
     slice-ansi "1.0.0"
     string-width "^2.1.1"
 

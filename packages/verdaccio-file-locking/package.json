@@ -12,7 +12,7 @@
     "lodash": "4.17.10"
   },
   "devDependencies": {
-    "@verdaccio/types": "3.7.1"
+    "@verdaccio/types": "4.2.0"
   },
   "author": "Juan Picado <juanpicado19@gmail.com>",
   "private": false,

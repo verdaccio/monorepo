@@ -1,13 +1,8 @@
 {
-  "parser": "babel-eslint",
-  "plugins": [
-    "flowtype"
-	],
-	"extends": [
-    "plugin:flowtype/recommended",
-    "plugin:prettier/recommended"
-  ],
+  "extends": ["@verdaccio"],
   "rules": {
-    "flowtype/no-weak-types": 0
+    "no-console": [
+      2, { "allow": ["log"] }
+    ]
   }
 }
