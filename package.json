@@ -45,13 +45,18 @@
     "eslint-plugin-jest": "22.0.0",
     "eslint-plugin-prettier": "^3.0.0",
     "flow-bin": "0.86.0",
-    "husky": "0.14.3",
+    "husky": "1.1.0",
     "in-publish": "2.0.0",
     "jest": "23.6.0",
     "lerna": "^3.4.3",
     "lint-staged": "8.0.4",
     "prettier": "1.15.2",
     "standard-version": "4.4.0"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
   },
   "commitlint": {
     "extends": [
