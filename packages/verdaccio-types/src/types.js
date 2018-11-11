@@ -2,8 +2,6 @@
 
 declare type verdaccio$StringValue = string | void | null;
 
-stream$PassThrough
-
 declare type verdaccio$Callback = Function;
 
 declare type verdaccio$StorageList = Array<string>;
@@ -164,9 +162,9 @@ declare type verdaccio$UpLinkConf = {
 
 declare type verdaccio$PackageAccess = {
   storage?: string;
-  publish?: Array<string>;
-  proxy?: Array<string>;
-  access?: Array<string>;
+  publish: Array<string>;
+  proxy: Array<string>;
+  access: Array<string>;
   allow_access?: Array<string>;
   allow_publish?: Array<string>;
   proxy_access?: Array<string>;
@@ -390,6 +388,7 @@ declare interface verdaccio$IBasicAuth {
   config: $Subtype<verdaccio$Config>;
   aesEncrypt(buf: Buffer): Buffer;
   authenticate(user: string, password: string, cb: verdaccio$Callback): void;
+  changePassword(user: string, password: string, newPassword: string, cb: verdaccio$Callback): void;
   allow_access(packageName: string, user: verdaccio$RemoteUser, callback: verdaccio$Callback): void;
   add_user(user: string, password: string, cb: verdaccio$Callback): any;
 }
@@ -407,6 +406,7 @@ declare interface verdaccio$IPluginAuth extends verdaccio$IPlugin {
   login_url?: string;
   authenticate(user: string, password: string, cb: verdaccio$Callback): void;
   adduser(user: string, password: string, cb: verdaccio$Callback): void;
+  changePassword(user: string, password: string, newPassword: string, cb: verdaccio$Callback): void;
   allow_access(user: verdaccio$RemoteUser, pkg: $Subtype<verdaccio$PackageAccess>, cb: verdaccio$Callback): void;
   allow_publish(user: verdaccio$RemoteUser, pkg: $Subtype<verdaccio$PackageAccess>, cb: verdaccio$Callback): void;
 }
@@ -498,4 +498,5 @@ declare module "@verdaccio/types" {
   declare export type JWTOptions = verdaccio$JWTOptions;
   declare export type JWTSignOptions = verdaccio$JWTSignOptions;
   declare export type JWTVerifyOptions = verdaccio$JWTVerifyOptions;
+  declare export type Author = verdaccio$Author;
 }
