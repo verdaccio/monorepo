@@ -2,8 +2,6 @@
 
 declare type verdaccio$StringValue = string | void | null;
 
-stream$PassThrough
-
 declare type verdaccio$Callback = Function;
 
 declare type verdaccio$StorageList = Array<string>;
