@@ -1,0 +1,34 @@
+{
+  "name": "@verdaccio/streams",
+  "version": "4.0.0",
+  "description": "helper to delay streams",
+  "main": "lib/index.js",
+  "scripts": {
+    "precommit": "lint-staged",
+    "test": "npm run lint && jest",
+    "lint": "eslint .",
+    "prepare": "npm run build",
+    "build": "babel src/ --out-dir lib/ --copy-files",
+    "cover": "cross-env NODE_ENV=test nyc npm t"
+  },
+  "devDependencies": {
+    "@verdaccio/types": "4.2.0"
+  },
+  "engines": {
+    "node": ">=6.12.0",
+    "npm": ">=3"
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
+  "keywords": [
+    "streams",
+    "verdaccio"
+  ],
+  "author": "Juan Picado <juanpicado19@gmail.com>",
+  "private": false,
+  "license": "MIT"
+}

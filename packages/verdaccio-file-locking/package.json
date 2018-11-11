@@ -1,0 +1,46 @@
+{
+  "name": "@verdaccio/file-locking",
+  "version": "4.0.0",
+  "description": "library that handle file locking",
+  "main": "lib/index.js",
+  "keywords": [
+    "lock",
+    "fs"
+  ],
+  "dependencies": {
+    "lockfile": "1.0.4",
+    "lodash": "4.17.10"
+  },
+  "devDependencies": {
+    "@verdaccio/types": "4.2.0"
+  },
+  "author": "Juan Picado <juanpicado19@gmail.com>",
+  "private": false,
+  "license": "MIT",
+  "lint-staged": {
+    "*.{js, json}": [
+      "npm run lint",
+      "git add"
+    ]
+  },
+  "homepage": "https://github.com/verdaccio/file-locking",
+  "scripts": {
+    "commitmsg": "commitlint -e $GIT_PARAMS",
+    "coverage": "codecov",
+    "test": "npm run lint && jest .",
+    "lint": "npm run flow && eslint .",
+    "flow": "flow",
+    "build": "babel src/ --out-dir lib/ --copy-files --ignore __tests__",
+    "precommit": "lint-staged",
+    "prepare": "npm run build"
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "engines": {
+    "node": ">=4.6.1",
+    "npm": ">=2.15.9"
+  }
+}

@@ -1,0 +1,27 @@
+[ignore]
+.*/build/.*
+.*/packages/.*/lib
+.*/packages/.*/test
+.*/packages/.*/test/**/*.json
+.*/node_modules/.*
+.*/test/**/*.json
+.*/static/.*
+.*/test/unit/partials/.*
+.*/test/functional/store/.*
+.*/.nyc_output/.*
+.*/coverage/.*
+.*/.vscode/.*
+
+[include]
+packages/*/src
+
+[libs]
+packages/verdaccio-types/lib/types.js.flow
+
+[options]
+include_warnings=true
+suppress_comment= \\(.\\|\n\\)*\\$FlowFixMe
+suppress_comment= \\(.\\|\n\\)*\\$FlowIssue
+suppress_comment= \\(.\\|\n\\)*\\$FlowIgnore
+suppress_type=$FlowFixMe
+suppress_type=$FlowSubtype
