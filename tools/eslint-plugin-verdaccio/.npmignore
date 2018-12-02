@@ -1,0 +1,5 @@
+.eslint
+node_modules
+docs
+tests/
+*.lock
