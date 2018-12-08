@@ -2,7 +2,7 @@ import minimatch from 'minimatch';
 
 // FUTURE: we should use the same is on verdaccio
 export function getMatchedPackagesSpec(pkgName, packages) {
-  for (let i in packages) {
+  for (const i in packages) {
     if (minimatch.makeRe(i).exec(pkgName)) {
       return packages[i];
     }

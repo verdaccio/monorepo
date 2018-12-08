@@ -15,10 +15,10 @@ import type { ILocalPackageManager } from '@verdaccio/local-storage';
 
 export const fileExist: string = 'EEXISTS';
 export const noSuchFile: string = 'ENOENT';
+export const resourceNotAvailable: string = 'EAGAIN';
+export const pkgFileName = 'package.json';
 
-const resourceNotAvailable: string = 'EAGAIN';
-const pkgFileName = 'package.json';
-const fSError = function(message: string, code: number = 409): HttpError {
+export const fSError = function(message: string, code: number = 409): HttpError {
   const err: HttpError = createError(code, message);
   // $FlowFixMe
   err.code = message;
@@ -26,11 +26,11 @@ const fSError = function(message: string, code: number = 409): HttpError {
   return err;
 };
 
-const ErrorCode = {
+export const ErrorCode = {
   get503: () => {
     return fSError('resource temporarily unavailable', 500);
   },
-  get404: customMessage => {
+  get404: () => {
     return fSError('no such package available', 404);
   }
 };
@@ -92,7 +92,8 @@ class LocalFS implements ILocalPackageManager {
       const self = this;
       // callback that cleans up lock first
       const unLockCallback = function(lockError: Error) {
-        let _args = arguments;
+        const _args = arguments;
+
         if (locked) {
           self._unlockJSON(pkgFileName, function() {
             // ignore any error from the unlock

@@ -22,18 +22,38 @@ describe('Local Database', () => {
     locaDatabase = new LocalDatabase(stuff.config, stuff.logger);
     // clean database
     locaDatabase._sync();
+    jest.clearAllMocks();
+    jest.resetModules();
   });
 
   test('should create an instance', () => {
     const locaDatabase = new LocalDatabase(stuff.config, stuff.logger);
 
+    expect(stuff.logger.error).not.toHaveBeenCalled();
     expect(locaDatabase).toBeDefined();
+  });
+
+  test('should display log error if fails on load database', () => {
+    jest.doMock('../utils.js', () => {
+      return {
+        loadPrivatePackages: () => {
+          throw Error();
+        }
+      };
+    });
+
+    const LocalDatabase = require('../local-database').default;
+    new LocalDatabase(stuff.config, stuff.logger);
+
+    expect(stuff.logger.error).toHaveBeenCalled();
+    expect(stuff.logger.error).toHaveBeenCalledTimes(2);
   });
 
   describe('should create set secret', () => {
     test('should create get secret', async () => {
       const locaDatabase = new LocalDatabase(clone(stuff.config), stuff.logger);
       const secretKey = await locaDatabase.getSecret();
+
       expect(secretKey).toBeDefined();
       expect(typeof secretKey === 'string').toBeTruthy();
     });
@@ -42,8 +62,10 @@ describe('Local Database', () => {
       const locaDatabase = new LocalDatabase(clone(stuff.config), stuff.logger);
 
       await locaDatabase.setSecret(stuff.config.checkSecretKey());
+
       expect(stuff.config.secret).toBeDefined();
       expect(typeof stuff.config.secret === 'string').toBeTruthy();
+
       const fetchedSecretKey = await locaDatabase.getSecret();
       expect(stuff.config.secret).toBe(fetchedSecretKey);
     });
@@ -65,6 +87,7 @@ describe('Local Database', () => {
       const pkgName: string = 'local-private-custom-storage';
       const locaDatabase = new LocalDatabase(clone(stuff.config), stuff.logger);
       const storage = locaDatabase.getPackageStorage(pkgName);
+
       expect(storage).toBeDefined();
 
       if (storage) {
@@ -108,6 +131,101 @@ describe('Local Database', () => {
           });
         });
       });
+    });
+  });
+
+  describe('search', () => {
+    let find;
+    beforeEach(() => {
+      jest.clearAllMocks();
+      jest.resetModules();
+      find = 0;
+      jest.doMock('../utils.js', () => {
+        return {
+          loadPrivatePackages: () => {
+            return {
+              list: [],
+              secret: ''
+            };
+          }
+        };
+      });
+    });
+
+    test('should find scoped packages', done => {
+      const nonScopedPackages = ['@pkg1/test'];
+
+      jest.doMock('fs', () => {
+        return {
+          existsSync: () => true,
+          stat: (storePath, cb) =>
+            cb(null, {
+              mtime: new Date()
+            }),
+          readdir: function(storePath, cb) {
+            // here we want to limit to one store
+            return cb(null, storePath.match('test-storage') ? nonScopedPackages : []);
+          }
+        };
+      });
+
+      const LocalDatabase = require('../local-database').default;
+      const db = new LocalDatabase(stuff.config, stuff.logger);
+
+      db.search(
+        function onPackage(results, cb) {
+          expect(results.name).toBeDefined();
+          expect(results.path).toBeDefined();
+          expect(results.time).toBeDefined();
+          find++;
+          cb();
+        },
+        function onEnd() {
+          expect(find).toBe(1);
+          done();
+        },
+        function validator() {
+          return true;
+        }
+      );
+    });
+
+    test('should find non scoped packages', done => {
+      const nonScopedPackages = ['pkg1', 'pkg2'];
+
+      jest.doMock('fs', () => {
+        return {
+          existsSync: () => true,
+          stat: (storePath, cb) =>
+            cb(null, {
+              mtime: new Date()
+            }),
+          readdir: function(storePath, cb) {
+            // here we want to limit to one store
+            return cb(null, storePath.match('test-storage') ? nonScopedPackages : []);
+          }
+        };
+      });
+
+      const LocalDatabase = require('../local-database').default;
+      const db = new LocalDatabase(stuff.config, stuff.logger);
+
+      db.search(
+        function onPackage(results, cb) {
+          expect(results.name).toBeDefined();
+          expect(results.path).toBeDefined();
+          expect(results.time).toBeDefined();
+          find++;
+          cb();
+        },
+        function onEnd() {
+          expect(find).toBe(2);
+          done();
+        },
+        function validator() {
+          return true;
+        }
+      );
     });
   });
 });

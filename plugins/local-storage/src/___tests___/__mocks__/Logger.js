@@ -3,13 +3,14 @@
 import type { Logger } from '@verdaccio/types';
 
 const logger: Logger = {
-  error: e => console.warn(e),
-  info: e => console.warn(e),
-  debug: e => console.warn(e),
-  warn: e => console.warn(e),
-  child: e => console.warn(e),
-  http: e => console.warn(e),
-  trace: e => console.warn(e)
+  warn: jest.fn(),
+  error: jest.fn(),
+  fatal: jest.fn(),
+  info: jest.fn(),
+  debug: jest.fn(),
+  child: jest.fn(),
+  http: jest.fn(),
+  trace: jest.fn()
 };
 
 export default logger;

@@ -6,7 +6,7 @@ import fs from 'fs';
 import rm from 'rmdir-sync';
 import type { Logger } from '@verdaccio/types';
 import type { ILocalPackageManager } from '@verdaccio/local-storage';
-import LocalFS, { fileExist } from '../local-fs';
+import LocalFS, { fileExist, fSError, noSuchFile, resourceNotAvailable } from '../local-fs';
 import pkg from './__fixtures__/pkg';
 
 let localTempStorage: string;
@@ -226,25 +226,119 @@ describe('Local FS test', () => {
     });
   });
 
-  // describe('lockAndReadJSON() group', ()=> {
+  describe('updatePackage() group', () => {
+    const updateHandler = jest.fn((name, cb) => {
+      cb();
+    });
+    const onWrite = jest.fn((name, data, cb) => {
+      cb();
+    });
+    const transform = jest.fn();
 
-  //   test('lockAndReadJSON() success', (done) => {
-  //     const localFs: ILocalPackageManager = new LocalFS(path.join(__dirname, '__fixtures__/readme-test'), logger);
+    beforeEach(() => {
+      jest.clearAllMocks();
+      jest.resetModules();
+    });
 
-  //     localFs.lockAndReadJSON(pkgFileName, (err, res) => {
-  //       expect(err).toBeNull();
-  //       done();
-  //     });
-  //   });
+    test('updatePackage() success', done => {
+      jest.doMock('@verdaccio/file-locking', () => {
+        return {
+          readFile: (name, options, cb) => cb(null, { name }),
+          unlockFile: (something, cb) => cb(null)
+        };
+      });
 
-  //   test('lockAndReadJSON() fails', (done) => {
-  //     const localFs: ILocalPackageManager = new LocalFS(path.join(__dirname, '__fixtures__/readme-testt'), logger);
+      const LocalFS = require('../local-fs').default;
+      const localFs: ILocalPackageManager = new LocalFS(path.join(__dirname, '__fixtures__/update-package'), logger);
 
-  //     localFs.lockAndReadJSON(pkgFileName, (err, res) => {
-  //       expect(err).toBeTruthy();
-  //       done();
-  //     });
-  //   });
+      localFs.updatePackage('updatePackage', updateHandler, onWrite, transform, () => {
+        expect(transform).toHaveBeenCalledTimes(1);
+        expect(updateHandler).toHaveBeenCalledTimes(1);
+        expect(onWrite).toHaveBeenCalledTimes(1);
+        done();
+      });
+    });
 
-  // });
+    describe('updatePackage() failures handler', () => {
+      test('updatePackage() whether locking fails', done => {
+        jest.doMock('@verdaccio/file-locking', () => {
+          return {
+            readFile: (name, options, cb) => cb(Error('whateverError'), { name }),
+            unlockFile: (something, cb) => cb(null)
+          };
+        });
+        const LocalFS = require('../local-fs').default;
+        const localFs: ILocalPackageManager = new LocalFS(path.join(__dirname, '__fixtures__/update-package'), logger);
+
+        localFs.updatePackage('updatePackage', updateHandler, onWrite, transform, err => {
+          expect(err).not.toBeNull();
+          expect(transform).toHaveBeenCalledTimes(0);
+          expect(updateHandler).toHaveBeenCalledTimes(0);
+          expect(onWrite).toHaveBeenCalledTimes(0);
+          done();
+        });
+      });
+
+      test('updatePackage() unlock a missing package', done => {
+        jest.doMock('@verdaccio/file-locking', () => {
+          return {
+            readFile: (name, options, cb) => cb(fSError(noSuchFile, 404), { name }),
+            unlockFile: (something, cb) => cb(null)
+          };
+        });
+        const LocalFS = require('../local-fs').default;
+        const localFs: ILocalPackageManager = new LocalFS(path.join(__dirname, '__fixtures__/update-package'), logger);
+
+        localFs.updatePackage('updatePackage', updateHandler, onWrite, transform, err => {
+          expect(err).not.toBeNull();
+          expect(transform).toHaveBeenCalledTimes(0);
+          expect(updateHandler).toHaveBeenCalledTimes(0);
+          expect(onWrite).toHaveBeenCalledTimes(0);
+          done();
+        });
+      });
+
+      test('updatePackage() unlock a resource non available', done => {
+        jest.doMock('@verdaccio/file-locking', () => {
+          return {
+            readFile: (name, options, cb) => cb(fSError(resourceNotAvailable, 503), { name }),
+            unlockFile: (something, cb) => cb(null)
+          };
+        });
+        const LocalFS = require('../local-fs').default;
+        const localFs: ILocalPackageManager = new LocalFS(path.join(__dirname, '__fixtures__/update-package'), logger);
+
+        localFs.updatePackage('updatePackage', updateHandler, onWrite, transform, err => {
+          expect(err).not.toBeNull();
+          expect(transform).toHaveBeenCalledTimes(0);
+          expect(updateHandler).toHaveBeenCalledTimes(0);
+          expect(onWrite).toHaveBeenCalledTimes(0);
+          done();
+        });
+      });
+
+      test('updatePackage() if updateHandler fails', done => {
+        jest.doMock('@verdaccio/file-locking', () => {
+          return {
+            readFile: (name, options, cb) => cb(null, { name }),
+            unlockFile: (something, cb) => cb(null)
+          };
+        });
+
+        const LocalFS = require('../local-fs').default;
+        const localFs: ILocalPackageManager = new LocalFS(path.join(__dirname, '__fixtures__/update-package'), logger);
+        const updateHandler = jest.fn((name, cb) => {
+          cb(fSError('something wrong', 500));
+        });
+
+        localFs.updatePackage('updatePackage', updateHandler, onWrite, transform, err => {
+          expect(err).not.toBeNull();
+          expect(transform).toHaveBeenCalledTimes(0);
+          expect(updateHandler).toHaveBeenCalledTimes(1);
+          expect(onWrite).toHaveBeenCalledTimes(0);
+          done();
+        });
+      });
+    });
+  });
 });
