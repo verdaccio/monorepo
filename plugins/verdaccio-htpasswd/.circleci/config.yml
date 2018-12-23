@@ -32,6 +32,15 @@ jobs:
       - run: yarn install --no-progress --registry https://registry.verdaccio.org --no-lockfile
       - run: yarn run test
       - run: yarn run coverage
+      
+  test_10:
+    docker: 
+      - image: circleci/node:10
+    steps:
+      - checkout
+      - run: yarn install --no-progress --registry https://registry.verdaccio.org --no-lockfile
+      - run: yarn run test
+      - run: yarn run coverage      
 
 workflows:
   version: 2
@@ -47,3 +56,6 @@ workflows:
       - test_9:
           requires:
             - lint
+      - test_10:
+          requires:
+            - lint            
