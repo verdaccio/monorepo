@@ -160,6 +160,11 @@ declare type verdaccio$UpLinkConf = {
   strict_ssl?: boolean | void;
 }
 
+declare type verdaccio$AuthPluginPackage = {
+  packageName: string,
+  packageVersion?: string
+}
+
 declare type verdaccio$PackageAccess = {
   storage?: string;
   publish: Array<string>;
@@ -389,7 +394,7 @@ declare interface verdaccio$IBasicAuth {
   aesEncrypt(buf: Buffer): Buffer;
   authenticate(user: string, password: string, cb: verdaccio$Callback): void;
   changePassword(user: string, password: string, newPassword: string, cb: verdaccio$Callback): void;
-  allow_access(packageName: string, user: verdaccio$RemoteUser, callback: verdaccio$Callback): void;
+  allow_access(pkg: verdaccio$AuthPluginPackage, user: verdaccio$RemoteUser, callback: verdaccio$Callback): void;
   add_user(user: string, password: string, cb: verdaccio$Callback): any;
 }
 
@@ -499,4 +504,5 @@ declare module "@verdaccio/types" {
   declare export type JWTSignOptions = verdaccio$JWTSignOptions;
   declare export type JWTVerifyOptions = verdaccio$JWTVerifyOptions;
   declare export type Author = verdaccio$Author;
+  declare export type AuthPluginPackage = verdaccio$AuthPluginPackage;
 }
