@@ -4,9 +4,11 @@
 
 
 [![CircleCI](https://circleci.com/gh/verdaccio/local-storage/tree/master.svg?style=svg)](https://circleci.com/gh/verdaccio/local-storage/tree/master)
-[![Backers on Open Collective](https://opencollective.com/verdaccio/backers/badge.svg)](#backers) [![Sponsors on Open Collective](https://opencollective.com/verdaccio/sponsors/badge.svg)](#sponsors)
-[![dependencies Status](https://david-dm.org/verdaccio/local-storage/status.svg)](https://david-dm.org/verdaccio/local-storage)
 [![codecov](https://codecov.io/gh/verdaccio/local-storage/branch/master/graph/badge.svg)](https://codecov.io/gh/verdaccio/local-storage)
+[![backers](https://opencollective.com/verdaccio/tiers/backer/badge.svg?label=Backer&color=brightgreen)](https://opencollective.com/verdaccio)
+[![discord](https://img.shields.io/discord/388674437219745793.svg)](http://chat.verdaccio.org/)
+![MIT](https://img.shields.io/github/license/mashape/apistatus.svg)
+
 > This package is already built-in in verdaccio
 
 ```
