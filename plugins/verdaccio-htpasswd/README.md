@@ -1,5 +1,12 @@
+
+[![verdaccio (latest)](https://img.shields.io/npm/v/verdaccio-htpasswd/latest.svg)](https://www.npmjs.com/package/verdaccio-htpasswd)
+[![Known Vulnerabilities](https://snyk.io/test/github/verdaccio/verdaccio-htpasswd/badge.svg?targetFile=package.json)](https://snyk.io/test/github/verdaccio/verdaccio-htpasswd?targetFile=package.json)
 [![CircleCI](https://circleci.com/gh/verdaccio/verdaccio-htpasswd.svg?style=svg)](https://circleci.com/gh/ayusharma/verdaccio-htpasswd) [![codecov](https://codecov.io/gh/ayusharma/verdaccio-htpasswd/branch/master/graph/badge.svg)](https://codecov.io/gh/ayusharma/verdaccio-htpasswd)
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fverdaccio%2Fverdaccio-htpasswd.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fverdaccio%2Fverdaccio-htpasswd?ref=badge_shield)
+[![backers](https://opencollective.com/verdaccio/tiers/backer/badge.svg?label=Backer&color=brightgreen)](https://opencollective.com/verdaccio)
+[![discord](https://img.shields.io/discord/388674437219745793.svg)](http://chat.verdaccio.org/)
+![MIT](https://img.shields.io/github/license/mashape/apistatus.svg)
+
 
 # Verdaccio Module For User Auth Via Htpasswd
 
