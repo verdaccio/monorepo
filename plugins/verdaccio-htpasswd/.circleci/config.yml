@@ -13,7 +13,7 @@ jobs:
       - image: circleci/node:6
     steps:
       - checkout
-      - run: yarn install --no-progress --registry https://registry.verdaccio.org --no-lockfile
+      - run: yarn install --no-progress --registry https://registry.verdaccio.org
       - run: yarn run test
   
   test_8:
