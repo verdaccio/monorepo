@@ -68,6 +68,10 @@
       "@commitlint/config-conventional"
     ]
   },
+  "engines": {
+    "node": ">=6.12.0",
+    "npm": ">=3"
+  },
   "lint-staged": {
     "*.js": [
       "npm run format",
