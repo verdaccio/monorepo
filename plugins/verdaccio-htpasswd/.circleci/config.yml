@@ -2,7 +2,7 @@ version: 2
 jobs:
   lint:
     docker: 
-      - image: circleci/node:9
+      - image: circleci/node:10
     steps:
       - checkout
       - run: yarn install --no-progress --registry https://registry.verdaccio.org --no-lockfile
@@ -22,7 +22,7 @@ jobs:
     steps:
       - checkout
       - run: yarn install --no-progress --registry https://registry.verdaccio.org --no-lockfile
-      - run: yarn run test
+      - run: yarn run test 
 
   test_9:
     docker: 
@@ -30,8 +30,7 @@ jobs:
     steps:
       - checkout
       - run: yarn install --no-progress --registry https://registry.verdaccio.org --no-lockfile
-      - run: yarn run test
-      - run: yarn run coverage
+      - run: yarn run test      
       
   test_10:
     docker: 
@@ -39,8 +38,16 @@ jobs:
     steps:
       - checkout
       - run: yarn install --no-progress --registry https://registry.verdaccio.org --no-lockfile
-      - run: yarn run test
-      - run: yarn run coverage      
+      - run: yarn run test  
+      - run: yarn run coverage
+
+  test_11:
+    docker: 
+      - image: circleci/node:11
+    steps:
+      - checkout
+      - run: yarn install --no-progress --registry https://registry.verdaccio.org --no-lockfile
+      - run: yarn run test          
 
 workflows:
   version: 2
@@ -58,4 +65,7 @@ workflows:
             - lint
       - test_10:
           requires:
-            - lint            
+            - lint  
+      - test_11:
+          requires:
+            - lint              
