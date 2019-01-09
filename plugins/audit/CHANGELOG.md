@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.0.1"></a>
+## [1.0.1](https://github.com/verdaccio/verdaccio-audit/compare/v1.0.0...v1.0.1) (2019-01-09)
+
+
+### Bug Fixes
+
+* package.json to reduce vulnerabilities ([bdf35df](https://github.com/verdaccio/verdaccio-audit/commit/bdf35df))
+
+
+
 <a name="1.0.0"></a>
 # [1.0.0](https://github.com/verdaccio/verdaccio-audit/compare/v0.2.0...v1.0.0) (2018-10-18)
 
