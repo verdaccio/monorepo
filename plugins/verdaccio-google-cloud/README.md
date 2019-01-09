@@ -3,6 +3,10 @@
 [![CircleCI](https://circleci.com/gh/verdaccio/verdaccio-google-cloud.svg?style=svg)](https://circleci.com/gh/verdaccio/verdaccio-google-cloud)
 [![codecov](https://codecov.io/gh/verdaccio/verdaccio-google-cloud/branch/master/graph/badge.svg)](https://codecov.io/gh/verdaccio/verdaccio-google-cloud)
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fverdaccio%2Fverdaccio-google-cloud.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fverdaccio%2Fverdaccio-google-cloud?ref=badge_shield)
+[![backers](https://opencollective.com/verdaccio/tiers/backer/badge.svg?label=Backer&color=brightgreen)](https://opencollective.com/verdaccio)
+[![discord](https://img.shields.io/discord/388674437219745793.svg)](http://chat.verdaccio.org/)
+![MIT](https://img.shields.io/github/license/mashape/apistatus.svg)
+
 
 ☁️📦 Google Cloud storage plugin for verdaccio
 
