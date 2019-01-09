@@ -2,12 +2,13 @@
 
 📦 File system storage plugin for verdaccio 
 
-
+[![verdaccio (latest)](https://img.shields.io/npm/v/@verdaccio/local-storage/latest.svg)](https://www.npmjs.com/package/@verdaccio/local-storage)
 [![CircleCI](https://circleci.com/gh/verdaccio/local-storage/tree/master.svg?style=svg)](https://circleci.com/gh/verdaccio/local-storage/tree/master)
 [![codecov](https://codecov.io/gh/verdaccio/local-storage/branch/master/graph/badge.svg)](https://codecov.io/gh/verdaccio/local-storage)
 [![backers](https://opencollective.com/verdaccio/tiers/backer/badge.svg?label=Backer&color=brightgreen)](https://opencollective.com/verdaccio)
 [![discord](https://img.shields.io/discord/388674437219745793.svg)](http://chat.verdaccio.org/)
 ![MIT](https://img.shields.io/github/license/mashape/apistatus.svg)
+[![node](https://img.shields.io/node/v/@verdaccio/local-storage/latest.svg)](https://www.npmjs.com/package/@verdaccio/local-storage)
 
 > This package is already built-in in verdaccio
 
