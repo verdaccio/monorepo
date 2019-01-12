@@ -256,6 +256,7 @@ declare interface verdaccio$WebConf {
   enable: boolean;
   title: string;
   logo: string;
+  gravatar: boolean;
 }
 
 declare interface verdaccio$HttpsConf {
