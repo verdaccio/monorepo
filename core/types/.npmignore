@@ -13,3 +13,4 @@ test/
 .npmignore
 .travis.yml
 src/
+.idea/
