@@ -1,0 +1,10 @@
+src/
+tests-report/
+.editorconfig
+.gitignore
+yarn-error.log
+yarn.lock
+.idea/
+.eslintrc
+.eslintignore
+lib/.DS_Store

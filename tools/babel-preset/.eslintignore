@@ -1,0 +1,14 @@
+node_modules
+coverage/
+wiki/
+static/
+build/
+*.md
+*.lock
+*.yaml
+Dockerfile
+*.rpi
+*.html
+*.scss
+*.png
+*.jpg
