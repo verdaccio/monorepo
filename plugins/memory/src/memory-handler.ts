@@ -1,21 +1,15 @@
-// @flow
+import createError, { HttpError } from 'http-errors';
 
-import createError from 'http-errors';
-
-// $FlowFixMe
 import MemoryFileSystem from 'memory-fs';
 import { UploadTarball, ReadTarball } from '@verdaccio/streams';
-
-import type { HttpError } from 'http-errors';
-import type { Callback, Logger } from '@verdaccio/types';
-import type { IPackageStorageManager } from '@verdaccio/local-storage';
+import { Callback, Logger, IPackageStorageManager, IUploadTarball, IReadTarball } from '@verdaccio/types';
 
 export const noSuchFile: string = 'ENOENT';
 export const fileExist: string = 'EEXISTS';
 
 const fSError = function(message: string, code: number = 404): HttpError {
   const err: HttpError = createError(code, message);
-  // $FlowFixMe
+
   err.code = message;
 
   return err;
@@ -23,7 +17,7 @@ const fSError = function(message: string, code: number = 404): HttpError {
 
 const noPackageFoundError = function(message = 'no such package') {
   const err: HttpError = createError(404, message);
-  // $FlowFixMe
+
   err.code = noSuchFile;
   return err;
 };
@@ -41,6 +35,7 @@ class MemoryHandler implements IPackageStorageManager {
     this.data = data;
     this.name = packageName;
     this.logger = logger;
+    this.path = '/';
   }
 
   updatePackage(pkgFileName: string, updateHandler: Callback, onWrite: Callback, transformPackage: Function, onEnd: Callback): void {
@@ -52,7 +47,7 @@ class MemoryHandler implements IPackageStorageManager {
       return onEnd(err);
     }
 
-    updateHandler(json, err => {
+    updateHandler(json, (err: any) => {
       if (err) {
         return onEnd(err);
       }
@@ -101,7 +96,7 @@ class MemoryHandler implements IPackageStorageManager {
   }
 
   writeTarball(name: string) {
-    const uploadStream = new UploadTarball();
+    const uploadStream: IUploadTarball = new UploadTarball({});
     const temporalName = `/${name}`;
 
     process.nextTick(function() {
@@ -141,7 +136,7 @@ class MemoryHandler implements IPackageStorageManager {
   readTarball(name: string) {
     const pathName = `/${name}`;
 
-    const readTarballStream = new ReadTarball();
+    const readTarballStream: IReadTarball = new ReadTarball({});
 
     process.nextTick(function() {
       fs.exists(pathName, function(exists) {
@@ -153,7 +148,7 @@ class MemoryHandler implements IPackageStorageManager {
           readTarballStream.emit('content-length', fs.data[name].length);
           readTarballStream.emit('open');
           readStream.pipe(readTarballStream);
-          readStream.on('error', error => {
+          readStream.on('error', (error: any) => {
             readTarballStream.emit('error', error);
           });
 

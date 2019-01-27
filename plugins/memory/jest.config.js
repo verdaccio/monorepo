@@ -2,7 +2,11 @@
 
 module.exports = {
   name: 'memory-storage-jest',
-  testRegex: '(/test/.*\\.spec)\\.js',
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
+  transform: {
+    '^.+\\.(js|jsx|ts|tsx)$': 'babel-jest'
+  },
+  verbose: true,
   collectCoverage: true,
-  coveragePathIgnorePatterns: ['node_modules', '_storage', 'fixtures', 'lib', 'partials']
+  coveragePathIgnorePatterns: ['node_modules', 'fixtures']
 };

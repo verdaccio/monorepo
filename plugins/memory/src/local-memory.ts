@@ -1,26 +1,23 @@
-// @flow
-
 import MemoryHandler from './memory-handler';
-import type { Logger, Callback, Config } from '@verdaccio/types';
-import type { IPluginStorage } from '@verdaccio/local-storage';
+import { Logger, Callback, Config, IPluginStorage } from '@verdaccio/types';
 
 export type ConfigMemory = Config & { limit?: number };
 export type MemoryLocalStorage = { files: any, secret: string, list: any };
 
 const DEFAULT_LIMIT: number = 1000;
-class LocalMemory implements IPluginStorage {
+class LocalMemory implements IPluginStorage<ConfigMemory> {
   path: string;
   limit: number;
   logger: Logger;
   data: MemoryLocalStorage;
   config: ConfigMemory;
-  locked: boolean;
 
   constructor(config: ConfigMemory, options: any) {
     this.config = config;
     this.limit = config.limit || DEFAULT_LIMIT;
     this.logger = options.logger;
     this.data = this._createEmtpyDatabase();
+    this.path = '/';
   }
 
   getSecret(): Promise<any> {

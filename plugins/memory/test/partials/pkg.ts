@@ -1,4 +1,6 @@
-const pkg = {
+import { Package } from "@verdaccio/types";
+
+const pkg: Package = {
   name: '@scope/test_npm',
   versions: {
     '1.0.1': {
@@ -6,6 +8,7 @@ const pkg = {
       version: '1.0.1',
       description: '',
       main: 'index.js',
+      readme: 'test readme',
       scripts: {
         test: "echo 'Error: no test specified' && exit 1"
       },
@@ -21,8 +24,6 @@ const pkg = {
         watchdom: '^1.0.2'
       },
       _id: '@scope/test_npm@1.0.1',
-      _npmVersion: '5.6.0',
-      _nodeVersion: '9.4.0',
       _npmUser: {
         name: 'jpicado',
         email: 'dsa@dasd.com'
