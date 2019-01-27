@@ -33,14 +33,6 @@ jobs:
       - run: yarn install --no-progress
       - run: yarn test
 
-  test_9:
-    docker:
-      - image: circleci/node:9
-    steps:
-      - checkout
-      - run: yarn install --no-progress
-      - run: yarn test
-
 workflows:
   version: 2
   build_and_test:
@@ -53,8 +45,5 @@ workflows:
           requires:
             - lint
       - test_8:
-          requires:
-            - lint
-      - test_9:
           requires:
             - lint
