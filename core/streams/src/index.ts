@@ -1,25 +1,32 @@
-// @flow
-
 import {PassThrough} from 'stream';
 
-import type {IUploadTarball, IReadTarball} from '@verdaccio/streams';
+export interface IReadTarball {
+  abort?: () => void;
+}
+
+export interface IUploadTarball {
+  done?: () => void;
+  abort?: () => void;
+}
 
 /**
  * This stream is used to read tarballs from repository.
  * @param {*} options
  * @return {Stream}
  */
-class ReadTarball extends PassThrough {
+class ReadTarball extends PassThrough implements IReadTarball  {
 
   /**
    *
    * @param {Object} options
    */
-  constructor(options: duplexStreamOptions): IReadTarball {
+  constructor(options: any) {
     super(options);
     // called when data is not needed anymore
     addAbstractMethods(this, 'abort');
   }
+
+  abort(){}
 }
 
 /**
@@ -27,13 +34,13 @@ class ReadTarball extends PassThrough {
  * @param {*} options
  * @return {Stream}
  */
-class UploadTarball extends PassThrough {
+class UploadTarball extends PassThrough implements IUploadTarball {
 
   /**
    *
    * @param {Object} options
    */
-  constructor(options: duplexStreamOptions): IUploadTarball {
+  constructor(options: any) {
     super(options);
     // called when user closes connection before upload finishes
     addAbstractMethods(this, 'abort');
@@ -41,6 +48,9 @@ class UploadTarball extends PassThrough {
     // called when upload finishes successfully
     addAbstractMethods(this, 'done');
   }
+
+  abort(){}
+  done(){}
 }
 
 /**
@@ -50,26 +60,26 @@ class UploadTarball extends PassThrough {
  * @param {*} name
  */
 // Perhaps someone knows a better way to write this
-function addAbstractMethods(self, name) {
-  // $FlowFixMe
+function addAbstractMethods(self: any, name: any) {
+
   self._called_methods = self._called_methods || {};
-  // $FlowFixMe
+
   self.__defineGetter__(name, function() {
     return function() {
-      // $FlowFixMe
+
       self._called_methods[name] = true;
     };
   });
-  // $FlowFixMe
-  self.__defineSetter__(name, function(fn) {
-    // $FlowFixMe
+
+  self.__defineSetter__(name, function(fn: any ) {
+
     delete self[name];
-    // $FlowFixMe
+
     self[name] = fn;
-    // $FlowFixMe
+
     if (self._called_methods && self._called_methods[name]) {
       delete self._called_methods[name];
-      // $FlowFixMe
+
       self[name]();
     }
   });

@@ -1,13 +1,9 @@
-// @flow
-
 import {ReadTarball, UploadTarball} from '../src/index';
-
-import type {IUploadTarball, IReadTarball} from '@verdaccio/streams';
 
 describe('mystreams', () => {
 
   test('should delay events on ReadTarball abort', (cb) => {
-    const readTballStream: IReadTarball = new ReadTarball({});
+    const readTballStream = new ReadTarball({});
     readTballStream.abort();
     setTimeout(function() {
       readTballStream.abort = function() {
@@ -20,7 +16,7 @@ describe('mystreams', () => {
   });
 
   test('should delay events on UploadTarball abort', (cb) => {
-    const uploadTballStream: IUploadTarball = new UploadTarball({});
+    const uploadTballStream = new UploadTarball({});
     uploadTballStream.abort();
     setTimeout(function() {
       uploadTballStream.abort = function() {

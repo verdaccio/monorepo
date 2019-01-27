@@ -1,14 +1,3 @@
 {
-  "presets": [["env", {
-    "targets": {
-      "node": "6"
-    }
-  }], "flow"],
-  "env": {
-    "test": {
-      "plugins": [
-        "transform-async-to-generator"
-      ]
-    }
-  }
+  "presets": [["@verdaccio", {"typescript": true}]]
 }
