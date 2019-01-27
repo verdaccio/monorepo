@@ -9,7 +9,12 @@
 [![node](https://img.shields.io/node/v/@verdaccio/streams/latest.svg)](https://www.npmjs.com/package/verdaccio-memory)
 
 
-
 This project provides an extension of `PassThrough` stream.
 
+## Detail
+
 It provides 2 additional methods `abort()` and `done()`. Those implementations are widely use in the verdaccio core for handle `tarballs`.
+
+## License
+
+MIT (http://www.opensource.org/licenses/mit-license.php)
