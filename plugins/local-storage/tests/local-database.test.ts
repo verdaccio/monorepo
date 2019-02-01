@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { clone, assign } from 'lodash';
 import { ILocalData, PluginOptions } from '@verdaccio/types';
-import LocalDatabase from '../local-database';
+import LocalDatabase from '../src/local-database';
 import Config from './__mocks__/Config';
 import logger from './__mocks__/Logger';
 
@@ -33,7 +33,7 @@ describe('Local Database', () => {
   });
 
   test('should display log error if fails on load database', () => {
-    jest.doMock('../pkg-utils.ts', () => {
+    jest.doMock('../src/pkg-utils.ts', () => {
       return {
         loadPrivatePackages: () => {
           throw Error();
@@ -41,7 +41,7 @@ describe('Local Database', () => {
       };
     });
 
-    const LocalDatabase = require('../local-database').default;
+    const LocalDatabase = require('../src/local-database').default;
     new LocalDatabase(optionsPlugin.config, optionsPlugin.logger);
 
     expect(optionsPlugin.logger.error).toHaveBeenCalled();
@@ -151,7 +151,7 @@ describe('Local Database', () => {
     beforeEach(() => {
       jest.clearAllMocks();
       jest.resetModules();
-      jest.doMock('../pkg-utils.ts', () => {
+      jest.doMock('../src/pkg-utils.ts', () => {
         return {
           loadPrivatePackages: () => {
             return {
@@ -179,7 +179,7 @@ describe('Local Database', () => {
         };
       });
 
-      const LocalDatabase = require('../local-database').default;
+      const LocalDatabase = require('../src/local-database').default;
       const db = new LocalDatabase(optionsPlugin.config, optionsPlugin.logger);
 
       callSearch(db, 1, done);
@@ -201,7 +201,7 @@ describe('Local Database', () => {
         };
       });
 
-      const LocalDatabase = require('../local-database').default;
+      const LocalDatabase = require('../src/local-database').default;
       const db = new LocalDatabase(
         assign({}, optionsPlugin.config, {
           // clean up this, it creates noise
@@ -228,7 +228,7 @@ describe('Local Database', () => {
         };
       });
 
-      const LocalDatabase = require('../local-database').default;
+      const LocalDatabase = require('../src/local-database').default;
       const db = new LocalDatabase(
         assign({}, optionsPlugin.config, {
           // clean up this, it creates noise

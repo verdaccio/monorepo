@@ -1,8 +1,8 @@
 import path from 'path';
-import { findPackages } from '../utils';
-import { loadPrivatePackages } from '../pkg-utils';
+import { findPackages } from '../src/utils';
+import { loadPrivatePackages } from '../src/pkg-utils';
 import logger from './__mocks__/Logger';
-import { noSuchFile } from '../local-fs';
+import { noSuchFile } from '../src/local-fs';
 
 describe('Utitlies', () => {
   const loadDb = name => path.join(__dirname, '__fixtures__/databases', `${name}.json`);
@@ -40,7 +40,7 @@ describe('Utitlies', () => {
       };
     });
 
-    const { loadPrivatePackages } = require('../pkg-utils');
+    const { loadPrivatePackages } = require('../src/pkg-utils');
     const database = loadDb('ok');
     const db = loadPrivatePackages(database, logger);
 

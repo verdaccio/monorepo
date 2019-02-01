@@ -3,7 +3,7 @@ import mkdirp from 'mkdirp';
 import fs from 'fs';
 import rm from 'rmdir-sync';
 import { Logger, ILocalPackageManager } from '@verdaccio/types';
-import LocalDriver, { fileExist, fSError, noSuchFile, resourceNotAvailable } from '../local-fs';
+import LocalDriver, { fileExist, fSError, noSuchFile, resourceNotAvailable } from '../src/local-fs';
 import pkg from './__fixtures__/pkg';
 
 let localTempStorage: string;
@@ -165,7 +165,7 @@ describe('Local FS test', () => {
     test('writeTarball() success', done => {
       const newFileName: string = 'new-readme-0.0.0.tgz';
       const readmeStorage: ILocalPackageManager = new LocalDriver(path.join(__dirname, '__fixtures__/readme-test'), logger);
-      const writeStorage: ILocalPackageManager = new LocalDriver(path.join(__dirname, '../../_storage'), logger);
+      const writeStorage: ILocalPackageManager = new LocalDriver(path.join(__dirname, '../_storage'), logger);
       const readTarballStream = readmeStorage.readTarball('test-readme-0.0.0.tgz');
       const writeTarballStream = writeStorage.writeTarball(newFileName);
 
@@ -175,7 +175,7 @@ describe('Local FS test', () => {
       });
 
       writeTarballStream.on('success', function() {
-        const fileLocation: string = path.join(__dirname, '../../_storage', newFileName);
+        const fileLocation: string = path.join(__dirname, '../_storage', newFileName);
 
         expect(fs.existsSync(fileLocation)).toBe(true);
         done();
@@ -245,7 +245,7 @@ describe('Local FS test', () => {
         };
       });
 
-      const LocalDriver = require('../local-fs').default;
+      const LocalDriver = require('../src/local-fs').default;
       const localFs: ILocalPackageManager = new LocalDriver(path.join(__dirname, '__fixtures__/update-package'), logger);
 
       localFs.updatePackage('updatePackage', updateHandler, onWrite, transform, () => {
@@ -264,7 +264,7 @@ describe('Local FS test', () => {
             unlockFile: (something, cb) => cb(null)
           };
         });
-        const LocalFS = require('../local-fs').default;
+        const LocalFS = require('../src/local-fs').default;
         const localFs: ILocalPackageManager = new LocalDriver(path.join(__dirname, '__fixtures__/update-package'), logger);
 
         localFs.updatePackage('updatePackage', updateHandler, onWrite, transform, err => {
@@ -283,7 +283,7 @@ describe('Local FS test', () => {
             unlockFile: (something, cb) => cb(null)
           };
         });
-        const LocalDriver = require('../local-fs').default;
+        const LocalDriver = require('../src/local-fs').default;
         const localFs: ILocalPackageManager = new LocalDriver(path.join(__dirname, '__fixtures__/update-package'), logger);
 
         localFs.updatePackage('updatePackage', updateHandler, onWrite, transform, err => {
@@ -302,7 +302,7 @@ describe('Local FS test', () => {
             unlockFile: (something, cb) => cb(null)
           };
         });
-        const LocalDriver = require('../local-fs').default;
+        const LocalDriver = require('../src/local-fs').default;
         const localFs: ILocalPackageManager = new LocalDriver(path.join(__dirname, '__fixtures__/update-package'), logger);
 
         localFs.updatePackage('updatePackage', updateHandler, onWrite, transform, err => {
@@ -322,7 +322,7 @@ describe('Local FS test', () => {
           };
         });
 
-        const LocalDriver = require('../local-fs').default;
+        const LocalDriver = require('../src/local-fs').default;
         const localFs: ILocalPackageManager = new LocalDriver(path.join(__dirname, '__fixtures__/update-package'), logger);
         const updateHandler = jest.fn((name, cb) => {
           cb(fSError('something wrong', 500));
