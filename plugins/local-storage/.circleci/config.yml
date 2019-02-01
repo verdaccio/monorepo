@@ -3,9 +3,9 @@ version: 2
 aliases:
   - &defaults
     working_directory: ~/local-storage
-  - &node6_executor
+  - &node11_executor
     docker:
-      - image: circleci/node:6
+      - image: circleci/node:11
   - &node8_executor
     docker:
       - image: circleci/node:8
@@ -80,13 +80,13 @@ jobs:
           paths:
             - ~/local-storage
 
-  test_node6:
+  test_node11:
     <<: *defaults
-    <<: *node6_executor
+    <<: *node11_executor
     steps:
       - *restore_repo
       - run:
-          name: Test with Node 6
+          name: Test with Node 11
           command: yarn run test
 
   test_node8:
@@ -156,7 +156,7 @@ workflows:
     jobs:
       - prepare:
           <<: *ignore_non_dev_branches
-      - test_node6:
+      - test_node11:
           requires:
             - prepare
           <<: *ignore_non_dev_branches
@@ -174,7 +174,7 @@ workflows:
           <<: *ignore_non_dev_branches
       - coverage:
           requires:
-            - test_node6
+            - test_node11
             - test_node8
             - test_node9
             - test_node10
