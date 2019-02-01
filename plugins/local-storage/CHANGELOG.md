@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.0.0-beta.0"></a>
+# [2.0.0-beta.0](https://github.com/verdaccio/local-storage/compare/v1.2.0...v2.0.0-beta.0) (2019-02-01)
+
+
+### Bug Fixes
+
+* **deps:** update dependency lodash to v4.17.11 ([682616a](https://github.com/verdaccio/local-storage/commit/682616a))
+
+
+### Features
+
+* custom storage location ([b1423cd](https://github.com/verdaccio/local-storage/commit/b1423cd))
+* migrate to typescript ([fe8344b](https://github.com/verdaccio/local-storage/commit/fe8344b))
+
+
+### BREAKING CHANGES
+
+* we change from boolean value to string within the config file
+
+
+
 <a name="1.2.0"></a>
 # [1.2.0](https://github.com/verdaccio/local-storage/compare/v1.1.3...v1.2.0) (2018-08-25)
 
