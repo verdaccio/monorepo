@@ -1,5 +1,3 @@
-// @flow
-
 import fs from 'fs';
 import _ from 'lodash';
 import Path from 'path';
@@ -7,11 +5,10 @@ import Path from 'path';
 import async from 'async';
 import mkdirp from 'mkdirp';
 
-import LocalFS, { noSuchFile } from './local-fs';
+import LocalDriver, { noSuchFile } from './local-fs';
 import { loadPrivatePackages } from './pkg-utils';
 
-import type { StorageList, LocalStorage, Logger, Config, Callback } from '@verdaccio/types';
-import type { IPackageStorage, IPluginStorage } from '@verdaccio/local-storage';
+import { IPackageStorage, IPluginStorage, StorageList, LocalStorage, Logger, Config, Callback, PackageAccess } from '@verdaccio/types';
 
 const DEPRECATED_DB_NAME: string = '.sinopia-db.json';
 const DB_NAME: string = '.verdaccio-db.json';
@@ -19,7 +16,7 @@ const DB_NAME: string = '.verdaccio-db.json';
 /**
  * Handle local database.
  */
-class LocalDatabase implements IPluginStorage {
+class LocalDatabase implements IPluginStorage<{}> {
   path: string;
   logger: Logger;
   data: LocalStorage;
@@ -139,7 +136,7 @@ class LocalDatabase implements IPluginStorage {
     );
   }
 
-  _getTime(time: number, mtime: number) {
+  _getTime(time: number, mtime: Date) {
     return time ? time : mtime;
   }
 
@@ -157,8 +154,9 @@ class LocalDatabase implements IPluginStorage {
       const listPackagesConf = Object.keys(packages || {});
 
       listPackagesConf.map(pkg => {
-        if (packages[pkg].storage) {
-          storages[packages[pkg].storage] = true;
+        const storage = packages[pkg].storage;
+        if (storage) {
+          storages[storage] = true;
         }
       });
     }
@@ -220,8 +218,9 @@ class LocalDatabase implements IPluginStorage {
   }
 
   getPackageStorage(packageInfo: string): IPackageStorage {
-    // $FlowFixMe
-    const packagePath: string = this._getLocalStoragePath(this.config.getMatchedPackagesSpec(packageInfo).storage);
+    const packageAccess = this.config.getMatchedPackagesSpec(packageInfo);
+
+    const packagePath: string = this._getLocalStoragePath(packageAccess ? packageAccess.storage:  undefined);
 
     if (_.isString(packagePath) === false) {
       this.logger.debug({ name: packageInfo }, 'this package has no storage defined: @{name}');
@@ -230,7 +229,7 @@ class LocalDatabase implements IPluginStorage {
 
     const packageStoragePath: string = Path.join(Path.resolve(Path.dirname(this.config.self_path || ''), packagePath), packageInfo);
 
-    return new LocalFS(packageStoragePath, this.logger);
+    return new LocalDriver(packageStoragePath, this.logger);
   }
 
   /**
@@ -239,14 +238,17 @@ class LocalDatabase implements IPluginStorage {
    * @return {String}
    * @private
    */
-  _getLocalStoragePath(path: string): string {
-    const configStorage: string = (this.config: any).storage;
+  _getLocalStoragePath(storage: string | void): string {
+    const globalConfigStorage = this.config ? this.config.storage : undefined;
+    if (_.isNil(globalConfigStorage)) {
+      throw new Error('global storage is required for this plugin');
+    } else {
+      if (_.isNil(storage) === false) {
+        return Path.join(globalConfigStorage as string , storage as string);
+      }
 
-    if (_.isNil(path) === false) {
-      return Path.join(configStorage, path);
+      return globalConfigStorage as string;
     }
-
-    return configStorage;
   }
 
   /**
@@ -256,8 +258,8 @@ class LocalDatabase implements IPluginStorage {
    * @private
    */
   _buildStoragePath(config: Config) {
-    const dbGenPath = function(dbName) {
-      return Path.join(Path.resolve(Path.dirname(config.self_path || ''), (config: any).storage, dbName));
+    const dbGenPath = function(dbName: string) {
+      return Path.join(Path.resolve(Path.dirname(config.self_path || ''), config.storage as string, dbName));
     };
 
     const sinopiadbPath: string = dbGenPath(DEPRECATED_DB_NAME);

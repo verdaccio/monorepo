@@ -1,5 +1,3 @@
-// @flow
-
 import LocalDatabase from './local-database';
 
 export { LocalDatabase };

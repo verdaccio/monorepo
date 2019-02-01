@@ -1,7 +1,8 @@
 node_modules
 coverage/
 lib/
-.nyc_output
 tests-report/
-flow-typed/
 __fixtures__/
+.idea/
+**/node_modules/**
+**/__*-fixtures__/**

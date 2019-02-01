@@ -1,5 +1,3 @@
-// @flow
-
 import fs from 'fs';
 import _ from 'lodash';
 import path from 'path';
@@ -32,18 +30,18 @@ function hasScope(file: string) {
 }
 
 export async function findPackages(storagePath: string, validationHandler: Function) {
-  const listPackages = [];
+  const listPackages: Array<any> = [];
   return new Promise(async (resolve, reject) => {
     try {
       const scopePath = path.resolve(storagePath);
       const storageDirs = await readDirectory(scopePath);
-      for (const directory: string of storageDirs) {
+      for (const directory of storageDirs) {
         // we check whether has 2nd level
         if (hasScope(directory)) {
           // we read directory multiple
           const scopeDirectory = path.resolve(storagePath, directory);
           const scopedPackages = await readDirectory(scopeDirectory);
-          for (const scopedDirName: string of scopedPackages) {
+          for (const scopedDirName of scopedPackages) {
             if (validationHandler(scopedDirName)) {
               // we build the complete scope path
               const scopePath = path.resolve(storagePath, directory, scopedDirName);

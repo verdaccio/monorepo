@@ -6,12 +6,10 @@ import path from 'path';
 import _ from 'lodash';
 import mkdirp from 'mkdirp';
 import createError from 'http-errors';
-import type { HttpError } from 'http-errors';
+import { HttpError } from 'http-errors';
 import { UploadTarball, ReadTarball } from '@verdaccio/streams';
 import { unlockFile, readFile } from '@verdaccio/file-locking';
-import type { IUploadTarball } from '@verdaccio/streams';
-import type { Callback, Logger, Package } from '@verdaccio/types';
-import type { ILocalPackageManager } from '@verdaccio/local-storage';
+import { Callback, Logger, Package, ILocalPackageManager, CallbackError, IUploadTarball } from '@verdaccio/types';
 
 export const fileExist: string = 'EEXISTS';
 export const noSuchFile: string = 'ENOENT';
@@ -62,7 +60,7 @@ const renameTmp = function(src, dst, _cb) {
   });
 };
 
-class LocalFS implements ILocalPackageManager {
+export default class LocalFS implements ILocalPackageManager {
   path: string;
   logger: Logger;
 
@@ -127,11 +125,11 @@ class LocalFS implements ILocalPackageManager {
     });
   }
 
-  deletePackage(fileName: string, callback: Callback) {
+  deletePackage(fileName: string, callback: CallbackError) {
     return fs.unlink(this._getStorage(fileName), callback);
   }
 
-  removePackage(callback: Callback): void {
+  removePackage(callback: CallbackError): void {
     fs.rmdir(this._getStorage('.'), callback);
   }
 
@@ -161,7 +159,7 @@ class LocalFS implements ILocalPackageManager {
   }
 
   writeTarball(name: string): IUploadTarball {
-    const uploadStream = new UploadTarball();
+    const uploadStream = new UploadTarball({});
 
     let _ended = 0;
     uploadStream.on('end', function() {
@@ -230,7 +228,7 @@ class LocalFS implements ILocalPackageManager {
 
   readTarball(name: string) {
     const pathName: string = this._getStorage(name);
-    const readTarballStream = new ReadTarball();
+    const readTarballStream = new ReadTarball({});
 
     const readStream = fs.createReadStream(pathName);
 
@@ -335,5 +333,3 @@ class LocalFS implements ILocalPackageManager {
     unlockFile(this._getStorage(name), cb);
   }
 }
-
-export default LocalFS;

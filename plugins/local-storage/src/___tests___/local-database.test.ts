@@ -1,40 +1,39 @@
-// @flow
 import fs from 'fs';
 import path from 'path';
 import { clone, assign } from 'lodash';
-import type { ILocalData } from '@verdaccio/local-storage';
+import { ILocalData, PluginOptions } from '@verdaccio/types';
 import LocalDatabase from '../local-database';
 import Config from './__mocks__/Config';
 import logger from './__mocks__/Logger';
 
-const stuff = {
+const optionsPlugin: PluginOptions<{}> = {
   logger,
   config: new Config()
 };
 
-let locaDatabase: ILocalData;
+let locaDatabase: ILocalData<{}>;
 
 describe('Local Database', () => {
   beforeEach(() => {
     // FIXME: we have to mock properly here
     // $FlowFixMe
     fs.writeFileSync = jest.fn();
-    locaDatabase = new LocalDatabase(stuff.config, stuff.logger);
+    locaDatabase = new LocalDatabase(optionsPlugin.config, optionsPlugin.logger);
     // clean database
-    locaDatabase._sync();
+    (locaDatabase as any)._sync();
     jest.clearAllMocks();
     jest.resetModules();
   });
 
   test('should create an instance', () => {
-    const locaDatabase = new LocalDatabase(stuff.config, stuff.logger);
+    const locaDatabase = new LocalDatabase(optionsPlugin.config, optionsPlugin.logger);
 
-    expect(stuff.logger.error).not.toHaveBeenCalled();
+    expect(optionsPlugin.logger.error).not.toHaveBeenCalled();
     expect(locaDatabase).toBeDefined();
   });
 
   test('should display log error if fails on load database', () => {
-    jest.doMock('../pkg-utils.js', () => {
+    jest.doMock('../pkg-utils.ts', () => {
       return {
         loadPrivatePackages: () => {
           throw Error();
@@ -43,15 +42,15 @@ describe('Local Database', () => {
     });
 
     const LocalDatabase = require('../local-database').default;
-    new LocalDatabase(stuff.config, stuff.logger);
+    new LocalDatabase(optionsPlugin.config, optionsPlugin.logger);
 
-    expect(stuff.logger.error).toHaveBeenCalled();
-    expect(stuff.logger.error).toHaveBeenCalledTimes(2);
+    expect(optionsPlugin.logger.error).toHaveBeenCalled();
+    expect(optionsPlugin.logger.error).toHaveBeenCalledTimes(2);
   });
 
   describe('should create set secret', () => {
     test('should create get secret', async () => {
-      const locaDatabase = new LocalDatabase(clone(stuff.config), stuff.logger);
+      const locaDatabase = new LocalDatabase(clone(optionsPlugin.config), optionsPlugin.logger);
       const secretKey = await locaDatabase.getSecret();
 
       expect(secretKey).toBeDefined();
@@ -59,39 +58,39 @@ describe('Local Database', () => {
     });
 
     test('should create set secret', async () => {
-      const locaDatabase = new LocalDatabase(clone(stuff.config), stuff.logger);
+      const locaDatabase = new LocalDatabase(clone(optionsPlugin.config), optionsPlugin.logger);
 
-      await locaDatabase.setSecret(stuff.config.checkSecretKey());
+      await locaDatabase.setSecret(optionsPlugin.config.checkSecretKey());
 
-      expect(stuff.config.secret).toBeDefined();
-      expect(typeof stuff.config.secret === 'string').toBeTruthy();
+      expect(optionsPlugin.config.secret).toBeDefined();
+      expect(typeof optionsPlugin.config.secret === 'string').toBeTruthy();
 
       const fetchedSecretKey = await locaDatabase.getSecret();
-      expect(stuff.config.secret).toBe(fetchedSecretKey);
+      expect(optionsPlugin.config.secret).toBe(fetchedSecretKey);
     });
   });
 
   describe('getPackageStorage', () => {
     test('should get default storage', () => {
       const pkgName: string = 'someRandomePackage';
-      const locaDatabase = new LocalDatabase(clone(stuff.config), stuff.logger);
+      const locaDatabase = new LocalDatabase(clone(optionsPlugin.config), optionsPlugin.logger);
       const storage = locaDatabase.getPackageStorage(pkgName);
       expect(storage).toBeDefined();
 
       if (storage) {
-        expect(storage.path).toBe(path.join(__dirname, '__fixtures__', stuff.config.storage, pkgName));
+        expect(storage.path).toBe(path.join(__dirname, '__fixtures__', optionsPlugin.config.storage, pkgName));
       }
     });
 
     test('should use custom storage', () => {
       const pkgName: string = 'local-private-custom-storage';
-      const locaDatabase = new LocalDatabase(clone(stuff.config), stuff.logger);
+      const locaDatabase = new LocalDatabase(clone(optionsPlugin.config), optionsPlugin.logger);
       const storage = locaDatabase.getPackageStorage(pkgName);
 
       expect(storage).toBeDefined();
 
       if (storage) {
-        expect(storage.path).toBe(path.join(__dirname, '__fixtures__', stuff.config.storage, 'private_folder', pkgName));
+        expect(storage.path).toBe(path.join(__dirname, '__fixtures__', optionsPlugin.config.storage, 'private_folder', pkgName));
       }
     });
   });
@@ -152,7 +151,7 @@ describe('Local Database', () => {
     beforeEach(() => {
       jest.clearAllMocks();
       jest.resetModules();
-      jest.doMock('../pkg-utils.js', () => {
+      jest.doMock('../pkg-utils.ts', () => {
         return {
           loadPrivatePackages: () => {
             return {
@@ -181,7 +180,7 @@ describe('Local Database', () => {
       });
 
       const LocalDatabase = require('../local-database').default;
-      const db = new LocalDatabase(stuff.config, stuff.logger);
+      const db = new LocalDatabase(optionsPlugin.config, optionsPlugin.logger);
 
       callSearch(db, 1, done);
     });
@@ -204,11 +203,11 @@ describe('Local Database', () => {
 
       const LocalDatabase = require('../local-database').default;
       const db = new LocalDatabase(
-        assign({}, stuff.config, {
+        assign({}, optionsPlugin.config, {
           // clean up this, it creates noise
           packages: {}
         }),
-        stuff.logger
+        optionsPlugin.logger
       );
 
       callSearch(db, 2, done);
@@ -231,11 +230,11 @@ describe('Local Database', () => {
 
       const LocalDatabase = require('../local-database').default;
       const db = new LocalDatabase(
-        assign({}, stuff.config, {
+        assign({}, optionsPlugin.config, {
           // clean up this, it creates noise
           packages: {}
         }),
-        stuff.logger
+        optionsPlugin.logger
       );
 
       callSearch(db, 0, done);
