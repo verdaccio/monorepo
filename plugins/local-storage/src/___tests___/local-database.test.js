@@ -1,7 +1,7 @@
 // @flow
 import fs from 'fs';
 import path from 'path';
-import { clone } from 'lodash';
+import { clone, assign } from 'lodash';
 import type { ILocalData } from '@verdaccio/local-storage';
 import LocalDatabase from '../local-database';
 import Config from './__mocks__/Config';
@@ -34,7 +34,7 @@ describe('Local Database', () => {
   });
 
   test('should display log error if fails on load database', () => {
-    jest.doMock('../utils.js', () => {
+    jest.doMock('../pkg-utils.js', () => {
       return {
         loadPrivatePackages: () => {
           throw Error();
@@ -135,12 +135,24 @@ describe('Local Database', () => {
   });
 
   describe('search', () => {
-    let find;
+    const onPackageMock = jest.fn((item, cb) => cb());
+    const validatorMock = jest.fn(() => true);
+    const callSearch = (db, numberTimesCalled, cb) => {
+      db.search(
+        onPackageMock,
+        function onEnd() {
+          expect(onPackageMock).toHaveBeenCalledTimes(numberTimesCalled);
+          expect(validatorMock).toHaveBeenCalledTimes(numberTimesCalled);
+          cb();
+        },
+        validatorMock
+      );
+    };
+
     beforeEach(() => {
       jest.clearAllMocks();
       jest.resetModules();
-      find = 0;
-      jest.doMock('../utils.js', () => {
+      jest.doMock('../pkg-utils.js', () => {
         return {
           loadPrivatePackages: () => {
             return {
@@ -154,7 +166,6 @@ describe('Local Database', () => {
 
     test('should find scoped packages', done => {
       const nonScopedPackages = ['@pkg1/test'];
-
       jest.doMock('fs', () => {
         return {
           existsSync: () => true,
@@ -172,27 +183,11 @@ describe('Local Database', () => {
       const LocalDatabase = require('../local-database').default;
       const db = new LocalDatabase(stuff.config, stuff.logger);
 
-      db.search(
-        function onPackage(results, cb) {
-          expect(results.name).toBeDefined();
-          expect(results.path).toBeDefined();
-          expect(results.time).toBeDefined();
-          find++;
-          cb();
-        },
-        function onEnd() {
-          expect(find).toBe(1);
-          done();
-        },
-        function validator() {
-          return true;
-        }
-      );
+      callSearch(db, 1, done);
     });
 
     test('should find non scoped packages', done => {
       const nonScopedPackages = ['pkg1', 'pkg2'];
-
       jest.doMock('fs', () => {
         return {
           existsSync: () => true,
@@ -208,24 +203,42 @@ describe('Local Database', () => {
       });
 
       const LocalDatabase = require('../local-database').default;
-      const db = new LocalDatabase(stuff.config, stuff.logger);
-
-      db.search(
-        function onPackage(results, cb) {
-          expect(results.name).toBeDefined();
-          expect(results.path).toBeDefined();
-          expect(results.time).toBeDefined();
-          find++;
-          cb();
-        },
-        function onEnd() {
-          expect(find).toBe(2);
-          done();
-        },
-        function validator() {
-          return true;
-        }
+      const db = new LocalDatabase(
+        assign({}, stuff.config, {
+          // clean up this, it creates noise
+          packages: {}
+        }),
+        stuff.logger
       );
+
+      callSearch(db, 2, done);
+    });
+
+    test('should fails on read the storage', done => {
+      jest.doMock('fs', () => {
+        return {
+          existsSync: () => true,
+          stat: (storePath, cb) =>
+            cb(null, {
+              mtime: new Date()
+            }),
+          readdir: function(storePath, cb) {
+            // read directory fails here for some reason
+            return cb(Error('fails'), null);
+          }
+        };
+      });
+
+      const LocalDatabase = require('../local-database').default;
+      const db = new LocalDatabase(
+        assign({}, stuff.config, {
+          // clean up this, it creates noise
+          packages: {}
+        }),
+        stuff.logger
+      );
+
+      callSearch(db, 0, done);
     });
   });
 });

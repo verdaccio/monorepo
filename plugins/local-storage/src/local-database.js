@@ -7,8 +7,8 @@ import Path from 'path';
 import async from 'async';
 import mkdirp from 'mkdirp';
 
-import LocalFS from './local-fs';
-import { loadPrivatePackages } from './utils';
+import LocalFS, { noSuchFile } from './local-fs';
+import { loadPrivatePackages } from './pkg-utils';
 
 import type { StorageList, LocalStorage, Logger, Config, Callback } from '@verdaccio/types';
 import type { IPackageStorage, IPluginStorage } from '@verdaccio/local-storage';
@@ -66,15 +66,13 @@ class LocalDatabase implements IPluginStorage {
 
   search(onPackage: Callback, onEnd: Callback, validateName: any): void {
     const storages = this._getCustomPackageLocalStorages();
-    const base = Path.dirname(this.config.self_path);
     const self = this;
     const storageKeys = Object.keys(storages);
 
     async.eachSeries(
       storageKeys,
-      function(storage, cb) {
-        const storagePath: string = Path.resolve(base, storage);
-
+      async function(storage, cb) {
+        const storagePath: string = Path.resolve(storage);
         fs.readdir(storagePath, (err, files) => {
           if (err) {
             return cb(err);
@@ -85,7 +83,7 @@ class LocalDatabase implements IPluginStorage {
             function(file, cb) {
               if (file.match(/^@/)) {
                 // scoped
-                fs.readdir(Path.resolve(base, storage, file), function(err, files) {
+                fs.readdir(Path.resolve(storage, file), function(err, files) {
                   if (err) {
                     return cb(err);
                   }
@@ -94,7 +92,7 @@ class LocalDatabase implements IPluginStorage {
                     files,
                     (file2, cb) => {
                       if (validateName(file2)) {
-                        const packagePath = Path.resolve(base, storage, file, file2);
+                        const packagePath = Path.resolve(storage, file, file2);
 
                         fs.stat(packagePath, (err, stats) => {
                           if (_.isNil(err) === false) {
@@ -115,7 +113,7 @@ class LocalDatabase implements IPluginStorage {
                   );
                 });
               } else if (validateName(file)) {
-                const packagePath = Path.resolve(base, storage, file);
+                const packagePath = Path.resolve(storage, file);
                 fs.stat(packagePath, (err, stats) => {
                   if (_.isNil(err) === false) {
                     return cb(err);
@@ -286,7 +284,7 @@ class LocalDatabase implements IPluginStorage {
     } catch (err) {
       // readFileSync is platform specific, macOS, Linux and Windows thrown an error
       // Only recreate if file not found to prevent data loss
-      if (err.code !== 'ENOENT') {
+      if (err.code !== noSuchFile) {
         this.locked = true;
         this.logger.error('Failed to read package database file, please check the error printed below:\n', `File Path: ${this.path}\n\n ${err.message}`);
       }
