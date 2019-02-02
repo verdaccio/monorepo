@@ -243,7 +243,7 @@ class LocalDatabase implements IPluginStorage<{}> {
     if (_.isNil(globalConfigStorage)) {
       throw new Error('global storage is required for this plugin');
     } else {
-      if (_.isNil(storage) === false) {
+      if (_.isNil(storage) === false && _.isString(storage)) {
         return Path.join(globalConfigStorage as string , storage as string);
       }
 
