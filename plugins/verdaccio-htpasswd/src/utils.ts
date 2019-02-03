@@ -1,12 +1,11 @@
-// @flow
-
 import crypto from 'crypto';
 import crypt3 from './crypt3';
 import md5 from 'apache-md5';
 import bcrypt from 'bcryptjs';
+import Errors, {HttpError} from 'http-errors';
 import * as locker from '@verdaccio/file-locking';
 
-import type { Callback } from '@verdaccio/types';
+import { Callback } from '@verdaccio/types';
 
 // this function neither unlocks file nor closes it
 // it'll have to be done manually later
@@ -53,7 +52,8 @@ export function verifyPassword(passwd: string, hash: string): boolean {
     return (
       crypto
         .createHash('sha1')
-        .update(passwd, 'binary')
+        // https://nodejs.org/api/crypto.html#crypto_hash_update_data_inputencoding
+        .update(passwd, 'utf8')
         .digest('base64') === hash.substr(5)
     );
   }
@@ -74,7 +74,7 @@ export function addUserToHTPasswd(
   passwd: string
 ): string {
   if (user !== encodeURIComponent(user)) {
-    const err = Error('username should not contain non-uri-safe characters');
+    const err = Errors('username should not contain non-uri-safe characters');
 
     // $FlowFixMe
     err.status = 409;
@@ -88,7 +88,7 @@ export function addUserToHTPasswd(
       '{SHA}' +
       crypto
         .createHash('sha1')
-        .update(passwd, 'binary')
+        .update(passwd, 'utf8')
         .digest('base64');
   }
   const comment = 'autocreated ' + new Date().toJSON();
@@ -113,7 +113,7 @@ export function sanityCheck(
   verifyFn: Callback,
   users: {},
   maxUsers: number
-): Error | null {
+): HttpError | null {
   let err;
   let hash;
 
@@ -159,7 +159,7 @@ export function sanityCheck(
 export function getCryptoPassword(password: string) {
   return `{SHA}${crypto
     .createHash('sha1')
-    .update(password, 'binary')
+    .update(password, 'utf8')
     .digest('base64')}`;
 }
 

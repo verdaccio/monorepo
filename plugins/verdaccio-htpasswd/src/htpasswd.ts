@@ -1,5 +1,3 @@
-// @flow
-
 import fs from 'fs';
 import Path from 'path';
 import {
@@ -12,13 +10,17 @@ import {
   sanityCheck
 } from './utils';
 
-import type { Callback, AuthConf } from '@verdaccio/types';
-import type { VerdaccioConfigApp } from '../types';
+import { Callback, AuthConf, Config, IPluginAuth } from '@verdaccio/types';
+
+export interface VerdaccioConfigApp extends Config {
+  file: string;
+}
+
 
 /**
  * HTPasswd - Verdaccio auth class
  */
-export default class HTPasswd {
+export default class HTPasswd implements IPluginAuth<VerdaccioConfigApp> {
   /**
    *
    * @param {*} config htpasswd file
@@ -28,7 +30,7 @@ export default class HTPasswd {
   users: {};
   stuff: {};
   config: {};
-  verdaccioConfig: {};
+  verdaccioConfig: Config;
   maxUsers: number;
   path: string;
   logger: {};
@@ -53,11 +55,7 @@ export default class HTPasswd {
     this.lastTime = null;
 
     let { file } = config;
-
-    if (!file) {
-      file = this.verdaccioConfig.users_file;
-    }
-
+    
     if (!file) {
       throw new Error('should specify "file" in config');
     }
@@ -200,8 +198,7 @@ export default class HTPasswd {
   }
 
   _stringToUt8(authentication: string): string {
-    // $FlowFixMe
-    return (authentication || '').toString('utf8');
+    return (authentication || '').toString();
   }
 
   _writeFile(body: string, cb: Callback) {

@@ -9,7 +9,7 @@ import {
   sanityCheck,
   changePasswordToHTPasswd,
   getCryptoPassword
-} from '../utils';
+} from '../src/utils';
 
 describe('parseHTPasswd', () => {
   it('should parse the password for a single line', () => {
@@ -43,51 +43,53 @@ user4:$6FrCasdvppdwE:autocreated 2017-12-14T13:30:20.838Z`;
 describe('verifyPassword', () => {
   it('should verify the MD5/Crypt3 password with true', () => {
     const input = ['test', '$apr1$sKXK9.lG$rZ4Iy63Vtn8jF9/USc4BV0'];
-    expect(verifyPassword(...input)).toBeTruthy();
+    expect(verifyPassword(input[0], input[1])).toBeTruthy();
   });
   it('should verify the MD5/Crypt3 password with false', () => {
     const input = [
       'testpasswordchanged',
       '$apr1$sKXK9.lG$rZ4Iy63Vtn8jF9/USc4BV0'
     ];
-    expect(verifyPassword(...input)).toBeFalsy();
+    expect(verifyPassword(input[0], input[1])).toBeFalsy();
   });
   it('should verify the plain password with true', () => {
     const input = ['testpasswordchanged', '{PLAIN}testpasswordchanged'];
-    expect(verifyPassword(...input)).toBeTruthy();
+    expect(verifyPassword(input[0], input[1])).toBeTruthy();
   });
   it('should verify the plain password with false', () => {
     const input = ['testpassword', '{PLAIN}testpasswordchanged'];
-    expect(verifyPassword(...input)).toBeFalsy();
+    expect(verifyPassword(input[0], input[1])).toBeFalsy();
   });
   it('should verify the crypto SHA password with true', () => {
     const input = ['testpassword', '{SHA}i7YRj4/Wk1rQh2o740pxfTJwj/0='];
-    expect(verifyPassword(...input)).toBeTruthy();
+    expect(verifyPassword(input[0], input[1])).toBeTruthy();
   });
   it('should verify the crypto SHA password with false', () => {
     const input = ['testpasswordchanged', '{SHA}i7YRj4/Wk1rQh2o740pxfTJwj/0='];
-    expect(verifyPassword(...input)).toBeFalsy();
+    expect(verifyPassword(input[0], input[1])).toBeFalsy();
   });
   it('should verify the bcrypt password with true', () => {
     const input = [
       'testpassword',
       '$2y$04$Wqed4yN0OktGbiUdxSTwtOva1xfESfkNIZfcS9/vmHLsn3.lkFxJO'
     ];
-    expect(verifyPassword(...input)).toBeTruthy();
+    expect(verifyPassword(input[0], input[1])).toBeTruthy();
   });
   it('should verify the bcrypt password with false', () => {
     const input = [
       'testpasswordchanged',
       '$2y$04$Wqed4yN0OktGbiUdxSTwtOva1xfESfkNIZfcS9/vmHLsn3.lkFxJO'
     ];
-    expect(verifyPassword(...input)).toBeFalsy();
+    expect(verifyPassword(input[0], input[1])).toBeFalsy();
   });
 });
 
 describe('addUserToHTPasswd - crypt3', () => {
   beforeAll(() => {
+    // @ts-ignore
     global.Date = jest.fn(() => {
       return {
+        parse: jest.fn(),
         toJSON: () => '2018-01-14T11:17:40.712Z'
       };
     });
@@ -95,19 +97,19 @@ describe('addUserToHTPasswd - crypt3', () => {
 
   it('should add new htpasswd to the end', () => {
     const input = ['', 'username', 'password'];
-    expect(addUserToHTPasswd(...input)).toMatchSnapshot();
+    expect(addUserToHTPasswd(input[0], input[1], input[2])).toMatchSnapshot();
   });
 
   it('should add new htpasswd to the end in multiline input', () => {
     const body = `test1:$6b9MlB3WUELU:autocreated 2017-11-06T18:17:21.957Z
     test2:$6FrCaT/v0dwE:autocreated 2017-12-14T13:30:20.838Z`;
     const input = [body, 'username', 'password'];
-    expect(addUserToHTPasswd(...input)).toMatchSnapshot();
+    expect(addUserToHTPasswd(input[0], input[1], input[2])).toMatchSnapshot();
   });
 
   it('should throw an error for incorrect username with space', () => {
     const input = ['', 'firstname lastname', 'password'];
-    expect(() => addUserToHTPasswd(...input)).toThrowErrorMatchingSnapshot();
+    expect(() => addUserToHTPasswd(input[0], input[1], input[2])).toThrowErrorMatchingSnapshot();
   });
 });
 
@@ -115,10 +117,10 @@ describe('addUserToHTPasswd - crypt3', () => {
 describe('addUserToHTPasswd - crypto', () => {
   it('should create password with crypto', () => {
     jest.resetModules();
-    jest.doMock('../crypt3', () => false);
+    jest.doMock('../src/crypt3.ts', () => false);
     const input = ['', 'username', 'password'];
-    const utils = require('../utils');
-    expect(utils.addUserToHTPasswd(...input)).toEqual(
+    const utils = require('../src/utils.ts');
+    expect(utils.addUserToHTPasswd(input[0], input[1], input[2])).toEqual(
       'username:{SHA}W6ph5Mm5Pz8GgiULbPgzG37mj9g=:autocreated 2018-01-14T11:17:40.712Z\n'
     );
   });
@@ -247,8 +249,8 @@ describe('changePasswordToHTPasswd', () => {
 
   test('should change the password when crypt3 is not available', () => {
     jest.resetModules();
-    jest.doMock('../crypt3', () => false);
-    const utils = require('../utils');
+    jest.doMock('../src/crypt3.ts', () => false);
+    const utils = require('../src/utils.ts');
     const body =
       'username:{SHA}W6ph5Mm5Pz8GgiULbPgzG37mj9g=:autocreated 2018-01-14T11:17:40.712Z';
     expect(

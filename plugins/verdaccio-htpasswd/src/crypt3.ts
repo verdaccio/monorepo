@@ -1,5 +1,3 @@
-// @flow
-
 /** Node.js Crypt(3) Library
   Inspired by (and intended to be compatible with) sendanor/crypt3
   see https://github.com/sendanor/node-crypt3
