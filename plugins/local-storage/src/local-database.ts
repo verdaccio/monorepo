@@ -63,13 +63,19 @@ class LocalDatabase implements IPluginStorage<{}> {
 
   search(onPackage: Callback, onEnd: Callback, validateName: any): void {
     const storages = this._getCustomPackageLocalStorages();
+    this.logger.trace(`local-storage: [search]: ${JSON.stringify(storages)}`);
+    const base = Path.dirname(this.config.self_path);
     const self = this;
     const storageKeys = Object.keys(storages);
+    this.logger.trace(`local-storage: [search] base: ${base} keys ${storageKeys}`);
 
     async.eachSeries(
       storageKeys,
       async function(storage, cb) {
-        const storagePath: string = Path.resolve(storage);
+        const position = storageKeys.indexOf(storage);
+        const base2 = Path.join(position !== 0 ? storageKeys[0] : '');
+        const storagePath: string = Path.resolve(base, base2, storage);
+        self.logger.trace({ storagePath, storage }, 'local-storage: [search] search path: @{storagePath} : @{storage}');
         fs.readdir(storagePath, (err, files) => {
           if (err) {
             return cb(err);
@@ -78,18 +84,24 @@ class LocalDatabase implements IPluginStorage<{}> {
           async.eachSeries(
             files,
             function(file, cb) {
+              self.logger.trace({ file }, 'local-storage: [search] search file path: @{file}');
+              if (storageKeys.includes(file )) {
+                return cb();
+              }
+              
               if (file.match(/^@/)) {
                 // scoped
-                fs.readdir(Path.resolve(storage, file), function(err, files) {
+                const fileLocation = Path.resolve(base, storage, file);
+                self.logger.trace({ fileLocation }, 'local-storage: [search] search scoped file location: @{fileLocation}');
+                fs.readdir(fileLocation, function(err, files) {
                   if (err) {
                     return cb(err);
                   }
 
                   async.eachSeries(
-                    files,
-                    (file2, cb) => {
+                    files, (file2, cb) => {
                       if (validateName(file2)) {
-                        const packagePath = Path.resolve(storage, file, file2);
+                        const packagePath = Path.resolve(base, storage, file, file2);
 
                         fs.stat(packagePath, (err, stats) => {
                           if (_.isNil(err) === false) {
@@ -110,7 +122,9 @@ class LocalDatabase implements IPluginStorage<{}> {
                   );
                 });
               } else if (validateName(file)) {
-                const packagePath = Path.resolve(storage, file);
+                const base2 = Path.join(position !== 0 ? storageKeys[0] : '');
+                const packagePath = Path.resolve(base, base2, storage, file);
+                self.logger.trace({ packagePath }, 'local-storage: [search] search file location: @{packagePath}');
                 fs.stat(packagePath, (err, stats) => {
                   if (_.isNil(err) === false) {
                     return cb(err);
@@ -156,7 +170,7 @@ class LocalDatabase implements IPluginStorage<{}> {
       listPackagesConf.map(pkg => {
         const storage = packages[pkg].storage;
         if (storage) {
-          storages[storage] = true;
+          storages[storage] = false;
         }
       });
     }
@@ -217,17 +231,17 @@ class LocalDatabase implements IPluginStorage<{}> {
     }
   }
 
-  getPackageStorage(packageInfo: string): IPackageStorage {
-    const packageAccess = this.config.getMatchedPackagesSpec(packageInfo);
+  getPackageStorage(packageName: string): IPackageStorage {
+    const packageAccess = this.config.getMatchedPackagesSpec(packageName);
 
     const packagePath: string = this._getLocalStoragePath(packageAccess ? packageAccess.storage:  undefined);
 
     if (_.isString(packagePath) === false) {
-      this.logger.debug({ name: packageInfo }, 'this package has no storage defined: @{name}');
+      this.logger.debug({ name: packageName }, 'this package has no storage defined: @{name}');
       return;
     }
 
-    const packageStoragePath: string = Path.join(Path.resolve(Path.dirname(this.config.self_path || ''), packagePath), packageInfo);
+    const packageStoragePath: string = Path.join(Path.resolve(Path.dirname(this.config.self_path || ''), packagePath), packageName);
 
     return new LocalDriver(packageStoragePath, this.logger);
   }
