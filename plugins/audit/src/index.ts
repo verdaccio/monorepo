@@ -1,20 +1,24 @@
-// @flow
-
-import express from 'express';
+import express, {Request, Response} from 'express';
 import request from 'request';
-import type { Logger, IPluginMiddleware, IBasicAuth, IStorageManager } from '@verdaccio/types';
-import type { ConfigAudit, $RequestExtend, $ResponseExtend } from '../types';
+import { Logger, IPluginMiddleware, IBasicAuth, IStorageManager, PluginOptions, Plugin } from '@verdaccio/types';
 
-export default class ProxyAudit implements IPluginMiddleware {
+export type ConfigAudit = {
+  enabled: boolean
+};
+
+
+export default class ProxyAudit extends Plugin<ConfigAudit> implements IPluginMiddleware<ConfigAudit> {
   enabled: boolean;
   logger: Logger;
 
-  constructor(config: ConfigAudit, options: any) {
+  constructor(config: ConfigAudit, options: PluginOptions<ConfigAudit>) {
+    super(config, options);
     this.enabled = config.enabled || false;
+    this.logger = options.logger;
   }
 
-  register_middlewares(app: any, auth: IBasicAuth, storage: IStorageManager) {
-    const fetchAudit = (req: $RequestExtend, res: $ResponseExtend) => {
+  register_middlewares(app: any, auth: IBasicAuth<ConfigAudit>, storage: IStorageManager<ConfigAudit>) {
+    const fetchAudit = (req: Request, res: Response) => {
       const headers = req.headers;
       headers.host = 'https://registry.npmjs.org/';
 
@@ -29,7 +33,7 @@ export default class ProxyAudit implements IPluginMiddleware {
       req.pipe(request(requestOptions)).pipe(res);
     };
 
-    const handleAudit = (req: $RequestExtend, res: $ResponseExtend) => {
+    const handleAudit = (req: Request, res: Response) => {
       if (this.enabled) {
         fetchAudit(req, res);
       } else {

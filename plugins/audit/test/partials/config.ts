@@ -1,6 +1,4 @@
-// @flow
-
-import type { ConfigAudit } from '../../types';
+import { ConfigAudit } from "../../src";
 
 const config: ConfigAudit = {
   enabled: true

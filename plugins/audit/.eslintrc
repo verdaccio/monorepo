@@ -1,17 +1,16 @@
 {
   "plugins": [
-    "flowtype",
     "jest",
-    "prettier"
+    "prettier",
+    "@typescript-eslint"
   ],
   "extends": [
     "eslint:recommended",
     "google",
-    "plugin:flowtype/recommended",
     "plugin:jest/recommended",
     "plugin:prettier/recommended"
   ],
-  "parser": "babel-eslint",
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "sourceType": "module",
     "ecmaVersion": 7,
@@ -27,6 +26,7 @@
   },
   "rules": {
     "prettier/prettier": ["error", { "singleQuote": true }],
+    "@typescript-eslint/camelcase": 0,
     "no-tabs": 0,
     "keyword-spacing": 0,
     "padded-blocks": 0,
@@ -73,7 +73,7 @@
     "new-cap": 2,
     "one-var": 2,
     "no-console": [
-      1,
+      2,
       {
         "allow": [
           "warn"

@@ -1,7 +1,6 @@
-// @flow
-import ProxyAudit from '../src/index';
+import ProxyAudit, { ConfigAudit } from '../src/index';
 
-import type { Logger } from '@verdaccio/types';
+import { Logger } from '@verdaccio/types';
 
 const logger: Logger = {
   error: e => console.warn(e),
@@ -15,10 +14,10 @@ const logger: Logger = {
 
 describe('Audit plugin', () => {
   test('should test audit', () => {
-    const audit = new ProxyAudit({
-      enabled: false,
-      options: { logger: logger }
-    });
+    const config = {
+      enabled: false
+    };
+    const audit = new ProxyAudit(config, { logger, config: undefined });
     expect(audit).toBeDefined();
   });
 });
