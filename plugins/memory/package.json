@@ -33,7 +33,7 @@
     "@types/node": "10.12.18",
     "@typescript-eslint/eslint-plugin": "1.1.0",
     "@verdaccio/babel-preset": "0.0.3",
-    "@verdaccio/types": "beta",
+    "@verdaccio/types": "5.0.0-beta.1",
     "codecov": "3.0.4",
     "cross-env": "5.2.0",
     "eslint": "5.6.1",
