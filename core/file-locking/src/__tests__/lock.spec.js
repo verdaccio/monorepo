@@ -25,7 +25,7 @@ describe('testing locking', () => {
   test('file should fail to be found to be locked', (done) => {
     lockFile(getFilePath('package.fail.json'), (error) => {
       expect(error.message).toMatch(
-        /ENOENT: no such file or directory, stat '(.*)package.fail.json'/
+          /ENOENT: no such file or directory, stat '(.*)package.fail.json'/
       );
       done();
     });
@@ -63,7 +63,7 @@ describe('testing locking', () => {
     };
     readFile(getFilePath('package.fail.json'), options, (error) => {
       expect(error.message).toMatch(
-        /ENOENT: no such file or directory, open '(.*)package.fail.json'/
+          /ENOENT: no such file or directory, open '(.*)package.fail.json'/
       );
       done();
     });
@@ -75,7 +75,7 @@ describe('testing locking', () => {
     };
     readFile(getFilePath('wrong.package.json'), options, (error) => {
       expect(error.message).toEqual(
-        'Unexpected token } in JSON at position 44'
+          'Unexpected token } in JSON at position 44'
       );
       done();
     });
@@ -101,7 +101,7 @@ describe('testing locking', () => {
     };
     readFile(getFilePath('wrong.package.json'), options, (error) => {
       expect(error.message).toEqual(
-        'Unexpected token } in JSON at position 44'
+          'Unexpected token } in JSON at position 44'
       );
       removeTempFile('wrong.package.json.lock');
       done();
