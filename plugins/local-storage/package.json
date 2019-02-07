@@ -18,7 +18,7 @@
     "coverage:publish": "codecov"
   },
   "dependencies": {
-    "@verdaccio/file-locking": "0.0.7",
+    "@verdaccio/file-locking": "0.0.8",
     "@verdaccio/streams": "2.0.0-beta.0",
     "async": "2.6.1",
     "http-errors": "1.7.1",
