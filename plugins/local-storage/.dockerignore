@@ -1,0 +1,10 @@
+# Ignore all files by default
+
+# White list only the required files
+node_modules
+_storage
+.github
+.circleci
+coverage
+scripts
+lib
