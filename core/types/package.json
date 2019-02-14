@@ -2,6 +2,10 @@
   "name": "@verdaccio/types",
   "version": "5.0.0-beta.2",
   "description": "verdaccio flow types definitions",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/verdaccio/flow-types"
+  },
   "main": "lib/types.js.flow",
   "scripts": {
     "precommit": "lint-staged",
