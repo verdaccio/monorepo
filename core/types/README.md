@@ -1,7 +1,35 @@
-# Flow types for verdaccio
+# Flow/Typescript types for Verdaccio
 
-Flow definitions for verdaccio plugins and internal code.
+Typescript / Flow definitions for verdaccio plugins and internal code.
 
+# Typescript
+For usage with the library, the `tsconfig.json` should looks like this. Typescript is only available since `"@verdaccio/types": "5.0.0-beta.2"`.
+
+```
+//tsconfig.json
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "commonjs",
+    "declaration": true,
+    "noImplicitAny": false,
+    "strict": true,
+    "outDir": "lib",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "typeRoots": [
+      "./node_modules/@verdaccio/types/lib/verdaccio",
+      "./node_modules/@types"
+    ]
+  },
+  "include": [
+    "src/*.ts",
+    "types/*.d.ts"
+  ]
+}
+```
+
+# Flow 
 
 ## Usage
 
