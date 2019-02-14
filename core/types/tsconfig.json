@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+      "module": "commonjs",
+      "lib": [
+          "es6"
+      ],
+      "noImplicitAny": true,
+      "noImplicitThis": true,
+      "strictNullChecks": true,
+      "strictFunctionTypes": true,
+      "noEmit": true,
+      "forceConsistentCasingInFileNames": true
+  },
+  "typeRoots": [
+      "./node_modules/@types",
+      "src/typescript/index.d.ts"
+    ],
+  "files": [
+      "src/typescript/index.d.ts",
+      "test/typescript/verdaccio-tests.ts"
+  ]
+}

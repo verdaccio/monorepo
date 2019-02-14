@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="5.0.0-beta.2"></a>
+# [5.0.0-beta.2](https://github.com/verdaccio/flow-types/compare/v5.0.0-beta.1...v5.0.0-beta.2) (2019-02-03)
+
+
+### Features
+
+* allow_access and allow_publish are optional for auth plugin ([0d5a53c](https://github.com/verdaccio/flow-types/commit/0d5a53c))
+
+
+
+<a name="5.0.0-beta.1"></a>
+# [5.0.0-beta.1](https://github.com/verdaccio/flow-types/compare/v5.0.0-beta.0...v5.0.0-beta.1) (2019-02-01)
+
+
+
+<a name="5.0.0-beta.0"></a>
+# [5.0.0-beta.0](https://github.com/verdaccio/flow-types/compare/v4.3.0...v5.0.0-beta.0) (2019-01-27)
+
+
+
 <a name="4.3.0"></a>
 # [4.3.0](https://github.com/verdaccio/flow-types/compare/v4.2.0...v4.3.0) (2019-01-12)
 
