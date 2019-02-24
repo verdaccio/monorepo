@@ -1148,13 +1148,12 @@
     babel-plugin-emotion "9.2.10"
     babel-plugin-flow-runtime "0.18.0"
 
-"@verdaccio/file-locking@0.0.7":
-  version "0.0.7"
-  resolved "https://registry.verdaccio.org/@verdaccio%2ffile-locking/-/file-locking-0.0.7.tgz#5fd1b2bd391e54fa32d079002b5f7ba90844e344"
-  integrity sha512-yTecDiJrYJMNnsPA4Nminygc/bPRf2HB6Pj/o/IS8scljYvV++LRXuglefM1I7p18qs3mcgX/bofCZM4x2SOJA==
+"@verdaccio/file-locking@1.0.0":
+  version "1.0.0"
+  resolved "https://registry.verdaccio.org/@verdaccio%2ffile-locking/-/file-locking-1.0.0.tgz#2f148612d9ce5c3c0dfd826151561b2aa887777d"
+  integrity sha512-FncTOEL01a8yd6xOcNX1TQgc3pRYxByAI2OaAJHjGu5xxcGoqTo6RrIDU3ILdW2ypjc9Ow/xJLarUkr6zDhyfQ==
   dependencies:
-    lockfile "1.0.3"
-    lodash "4.17.10"
+    lockfile "1.0.4"
 
 "@verdaccio/types@5.0.0-beta.2":
   version "5.0.0-beta.2"
@@ -4689,10 +4688,12 @@ locate-path@^3.0.0:
     p-locate "^3.0.0"
     path-exists "^3.0.0"
 
-lockfile@1.0.3:
-  version "1.0.3"
-  resolved "https://registry.verdaccio.org/lockfile/-/lockfile-1.0.3.tgz#2638fc39a0331e9cac1a04b71799931c9c50df79"
-  integrity sha1-Jjj8OaAzHpysGgS3F5mTHJxQ33k=
+lockfile@1.0.4:
+  version "1.0.4"
+  resolved "https://registry.verdaccio.org/lockfile/-/lockfile-1.0.4.tgz#07f819d25ae48f87e538e6578b6964a4981a5609"
+  integrity sha512-cvbTwETRfsFh4nHsL1eGWapU1XFi5Ot9E85sWAwia7Y7EgB7vfqcZhTKZ+l7hCGxSPoushMv5GKhT5PdLv03WA==
+  dependencies:
+    signal-exit "^3.0.2"
 
 lodash._reinterpolate@~3.0.0:
   version "3.0.0"
@@ -4728,11 +4729,6 @@ lodash.unescape@4.0.1:
   version "4.0.1"
   resolved "https://registry.verdaccio.org/lodash.unescape/-/lodash.unescape-4.0.1.tgz#bf2249886ce514cda112fae9218cdc065211fc9c"
   integrity sha1-vyJJiGzlFM2hEvrpIYzcBlIR/Jw=
-
-lodash@4.17.10:
-  version "4.17.10"
-  resolved "https://registry.verdaccio.org/lodash/-/lodash-4.17.10.tgz#1b7793cf7259ea38fb3661d4d38b3260af8ae4e7"
-  integrity sha512-UejweD1pDoXu+AD825lWwp4ZGtSwgnpZxb3JDViD7StjQz+Nb/6l093lx4OQ0foGWNRoc19mWy7BzL+UAK2iVg==
 
 lodash@4.17.11, lodash@^4.13.1, lodash@^4.17.10, lodash@^4.17.11, lodash@^4.17.4, lodash@^4.17.5, lodash@^4.2.1:
   version "4.17.11"
