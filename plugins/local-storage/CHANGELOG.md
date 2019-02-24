@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.0.0-beta.2"></a>
+# [2.0.0-beta.2](https://github.com/verdaccio/local-storage/compare/v2.0.0-beta.1...v2.0.0-beta.2) (2019-02-24)
+
+
+### Bug Fixes
+
+* avoid open write stream if resource exist [#1191](https://github.com/verdaccio/local-storage/issues/1191) ([b13904a](https://github.com/verdaccio/local-storage/commit/b13904a))
+* package.json to reduce vulnerabilities ([97e9dc3](https://github.com/verdaccio/local-storage/commit/97e9dc3))
+
+
+
 <a name="2.0.0-beta.1"></a>
 # [2.0.0-beta.1](https://github.com/verdaccio/local-storage/compare/v2.0.0-beta.0...v2.0.0-beta.1) (2019-02-03)
 
