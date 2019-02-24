@@ -1,6 +1,5 @@
 /* @flow */
 
-import * as _ from 'lodash';
 import * as locker from 'lockfile';
 import * as fs from 'fs';
 import path from 'path';
@@ -92,13 +91,12 @@ const unlockFile= function(name: string, next: Callback) {
  * @param {*} options
  * @param {*} callback
  */
-function readFile(name: string, options: LockOptions, callback: any) {
-  if (_.isFunction(options) && _.isNil(callback)) {
+function readFile(name: string, options: LockOptions = {}, callback: any = () => {}) {
+  if (typeof options === 'function') {
     callback = options;
     options = {};
   }
 
-  options = options || {};
   options.lock = options.lock || false;
   options.parse = options.parse || false;
 
