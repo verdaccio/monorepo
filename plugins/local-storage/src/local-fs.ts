@@ -171,56 +171,57 @@ export default class LocalFS implements ILocalPackageManager {
     fs.exists(pathName, exists => {
       if (exists) {
         uploadStream.emit('error', fSError(fileExist));
-      }
+      } else {
+        const temporalName = path.join(this.path, `${name}.tmp-${String(Math.random()).replace(/^0\./, '')}`);
+        const file = fs.createWriteStream(temporalName);
+        const removeTempFile = () => fs.unlink(temporalName, function () {
+        });
+        let opened = false;
+        uploadStream.pipe(file);
 
-      const temporalName = path.join(this.path, `${name}.tmp-${String(Math.random()).replace(/^0\./, '')}`);
-      const file = fs.createWriteStream(temporalName);
-      const removeTempFile = () => fs.unlink(temporalName, function() {});
-      let opened = false;
-      uploadStream.pipe(file);
-
-      uploadStream.done = function() {
-        const onend = function() {
-          file.on('close', function() {
-            renameTmp(temporalName, pathName, function(err) {
-              if (err) {
-                uploadStream.emit('error', err);
-              } else {
-                uploadStream.emit('success');
-              }
-            });
-          });
-          file.end();
+        uploadStream.done = function () {
+            const onend = function () {
+                file.on('close', function () {
+                    renameTmp(temporalName, pathName, function (err) {
+                        if (err) {
+                            uploadStream.emit('error', err);
+                        } else {
+                            uploadStream.emit('success');
+                        }
+                    });
+                });
+                file.end();
+            };
+            if (_ended) {
+                onend();
+            } else {
+                uploadStream.on('end', onend);
+            }
         };
-        if (_ended) {
-          onend();
-        } else {
-          uploadStream.on('end', onend);
-        }
-      };
 
-      uploadStream.abort = function() {
-        if (opened) {
-          opened = false;
-          file.on('close', function() {
-            removeTempFile();
-          });
-        } else {
-          // if the file does not recieve any byte never is opened and has to be removed anyway.
-          removeTempFile();
-        }
-        file.end();
-      };
+        uploadStream.abort = function () {
+            if (opened) {
+                opened = false;
+                file.on('close', function () {
+                    removeTempFile();
+                });
+            } else {
+                // if the file does not recieve any byte never is opened and has to be removed anyway.
+                removeTempFile();
+            }
+            file.end();
+        };
 
-      file.on('open', function() {
-        opened = true;
-        // re-emitting open because it's handled in storage.js
-        uploadStream.emit('open');
-      });
+        file.on('open', function () {
+            opened = true;
+            // re-emitting open because it's handled in storage.js
+            uploadStream.emit('open');
+        });
 
-      file.on('error', function(err) {
-        uploadStream.emit('error', err);
-      });
+        file.on('error', function (err) {
+            uploadStream.emit('error', err);
+        });
+      }
     });
 
     return uploadStream;
