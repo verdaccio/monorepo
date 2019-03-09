@@ -123,6 +123,10 @@ type StringValue = string | void | null;
 	type Headers = {
 		[key: string]: string;
 	}
+	
+	type PackageUsers = {
+        [key: string]: boolean;
+	}
 
 	type Package = {
 		_id?: string;
@@ -131,6 +135,7 @@ type StringValue = string | void | null;
 		'dist-tags': GenericBody;
 		time?: GenericBody;
 		readme?: string;
+		users?: PackageUsers;
 		_distfiles: DistFiles;
 		_attachments: AttachMents;
 		_uplinks: UpLinks;

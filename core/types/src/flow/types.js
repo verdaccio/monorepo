@@ -115,6 +115,10 @@ declare type verdaccio$Headers = {
   [key: string]: string;
 }
 
+declare type verdaccio$PackageUsers = {
+  [key: string]: boolean;
+}
+
 declare type verdaccio$Package = {
   _id?: string;
   name: string;
@@ -122,6 +126,7 @@ declare type verdaccio$Package = {
   'dist-tags': verdaccio$GenericBody;
   time?: verdaccio$GenericBody;
   readme?: string;
+  users?: verdaccio$PackageUsers;
   _distfiles: verdaccio$DistFiles;
   _attachments: verdaccio$AttachMents;
   _uplinks: verdaccio$UpLinks;
@@ -470,6 +475,7 @@ declare module "@verdaccio/types" {
   declare export type Stdin = stream$Readable | tty$ReadStream;
   declare export type RemoteUser = verdaccio$RemoteUser;
   declare export type Package = verdaccio$Package;
+  declare export type PackageUsers = verdaccio$PackageUsers;
   declare export type MergeTags = verdaccio$MergeTags;
   declare export type Version = verdaccio$Version;
   declare export type Callback = verdaccio$Callback;
