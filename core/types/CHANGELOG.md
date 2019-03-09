@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="5.0.0-beta.3"></a>
+# [5.0.0-beta.3](https://github.com/verdaccio/flow-types/compare/v5.0.0-beta.2...v5.0.0-beta.3) (2019-03-09)
+
+
+### Features
+
+* add types for PackageUsers ([9bb3c26](https://github.com/verdaccio/flow-types/commit/9bb3c26))
+
+
+
 <a name="5.0.0-beta.2"></a>
 # [5.0.0-beta.2](https://github.com/verdaccio/flow-types/compare/v5.0.0-beta.1...v5.0.0-beta.2) (2019-02-03)
 
