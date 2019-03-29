@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [2.1.0](https://github.com/verdaccio/local-storage/compare/v2.0.0...v2.1.0) (2019-03-29)
+
+
+### Bug Fixes
+
+* remove uncessary async ([23a09f3](https://github.com/verdaccio/local-storage/commit/23a09f3))
+
+
+### Features
+
+* drop node v6 support ([ef548e0](https://github.com/verdaccio/local-storage/commit/ef548e0))
+
+
+
 # [2.0.0](https://github.com/verdaccio/local-storage/compare/v2.0.0-beta.3...v2.0.0) (2019-03-29)
 
 
