@@ -70,8 +70,7 @@ class LocalDatabase implements IPluginStorage<{}> {
     this.logger.trace(`local-storage: [search] base: ${base} keys ${storageKeys}`);
 
     async.eachSeries(
-      storageKeys,
-      async function(storage, cb) {
+      storageKeys, function(storage, cb) {
         const position = storageKeys.indexOf(storage);
         const base2 = Path.join(position !== 0 ? storageKeys[0] : '');
         const storagePath: string = Path.resolve(base, base2, storage);
@@ -88,7 +87,7 @@ class LocalDatabase implements IPluginStorage<{}> {
               if (storageKeys.includes(file )) {
                 return cb();
               }
-              
+
               if (file.match(/^@/)) {
                 // scoped
                 const fileLocation = Path.resolve(base, storage, file);
