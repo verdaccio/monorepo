@@ -60,7 +60,9 @@ const renameTmp = function(src, dst, _cb) {
   });
 };
 
-export default class LocalFS implements ILocalPackageManager {
+export type ILocalFSPackageManager = ILocalPackageManager & { path: string };
+
+export default class LocalFS implements ILocalFSPackageManager {
   path: string;
   logger: Logger;
 
