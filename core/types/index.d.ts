@@ -59,6 +59,7 @@ type StringValue = string | void | null;
 		keywords?: string | Array<string>,
 		nodeVersion?: string,
 		_id: string,
+        _npmVersion?: string;
 		_npmUser: Author,
 		_hasShrinkwrap?: boolean
 	};
@@ -123,7 +124,7 @@ type StringValue = string | void | null;
 	type Headers = {
 		[key: string]: string;
 	}
-	
+
 	type PackageUsers = {
         [key: string]: boolean;
 	}
@@ -356,7 +357,6 @@ type StringValue = string | void | null;
 	}
 
 	interface ILocalPackageManager {
-		path: string;
 		logger: Logger;
 		writeTarball(name: string): IUploadTarball;
 		readTarball(name: string): IReadTarball;
