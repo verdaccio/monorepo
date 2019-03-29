@@ -5,7 +5,7 @@ aliases:
     working_directory: ~/local-storage
   - &node11_executor
     docker:
-      - image: circleci/node:11
+      - image: circleci/node:11.10.1
   - &node8_executor
     docker:
       - image: circleci/node:8
@@ -106,7 +106,7 @@ jobs:
       - save_cache:
           key: *coverage_key
           paths:
-          - coverage          
+          - coverage
 
   coverage:
     <<: *defaults
