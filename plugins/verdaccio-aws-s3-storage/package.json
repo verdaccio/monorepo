@@ -1,0 +1,73 @@
+{
+  "name": "verdaccio-aws-s3-storage",
+  "version": "0.0.1",
+  "description": "aws s3 storage implementation",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/verdaccio/verdaccio-aws-s3-storage.git"
+  },
+  "bugs": {
+    "url": "https://github.com/verdaccio/verdaccio-aws-s3-storage/issues"
+  },
+  "main": "lib/index.js",
+  "scripts": {
+    "release": "standard-version -a -s",
+    "test": "npm run lint && jest",
+    "lint": "eslint .",
+    "commitmsg": "commitlint -e $GIT_PARAMS",
+    "type-check": "tsc --noEmit",
+    "type-check:watch": "npm run type-check -- --watch",
+    "build": "npm run build:types && npm run build:js",
+    "build:types": "tsc --emitDeclarationOnly",
+    "build:js": "babel src/ --out-dir lib --extensions \".ts,.tsx\" --source-maps inline",
+    "prepublish": "npm run build",
+    "format": "prettier --single-quote --trailing-comma none --write \"{src,test}/**/*.js\"",
+    "coverage:publish": "codecov"
+  },
+  "dependencies": {
+    "@verdaccio/file-locking": "1.0.0",
+    "@verdaccio/streams": "2.0.0-beta.0",
+    "aws-sdk": "2.432.0"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "7.5.2",
+    "@commitlint/config-conventional": "7.5.0",
+    "@types/aws-sdk": "2.7.0",
+    "@types/http-errors": "1.6.1",
+    "@types/jest": "24.0.11",
+    "@typescript-eslint/eslint-plugin": "1.5.0",
+    "@verdaccio/babel-preset": "0.1.0",
+    "@verdaccio/types": "5.0.0-beta.4",
+    "cross-env": "5.2.0",
+    "eslint": "5.15.3",
+    "eslint-config-google": "0.12.0",
+    "eslint-config-prettier": "4.1.0",
+    "eslint-plugin-jest": "22.4.1",
+    "eslint-plugin-prettier": "3.0.1",
+    "husky": "0.14.3",
+    "jest": "24.5.0",
+    "prettier": "1.16.4",
+    "recursive-readdir": "2.2.2",
+    "standard-version": "5.0.2",
+    "typescript": "3.4.1"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "keywords": [
+    "verdaccio",
+    "aws",
+    "plugin"
+  ],
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "engines": {
+    "node": ">=8"
+  },
+  "author": "Juan Picado <juanpicado19@gmail.com>",
+  "private": false,
+  "license": "MIT"
+}
