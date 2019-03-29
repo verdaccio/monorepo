@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [2.0.0](https://github.com/verdaccio/streams/compare/v2.0.0-beta.0...v2.0.0) (2019-03-29)
+
+
+### Features
+
+* drop node v6 support ([5771eed](https://github.com/verdaccio/streams/commit/5771eed))
+
+
+
 <a name="2.0.0-beta.0"></a>
 # [2.0.0-beta.0](https://github.com/verdaccio/streams/compare/v1.0.0...v2.0.0-beta.0) (2019-01-27)
 
