@@ -12,7 +12,7 @@
 [![node](https://img.shields.io/node/v/verdaccio-aws-s3-storage/latest.svg)](https://www.npmjs.com/package/verdaccio-aws-s3-storage)
 
 
-Based on [`verdaccio-s3-storage`](https://github.com/Remitly/verdaccio-s3-storage) by in Typescript
+Based on [`verdaccio-s3-storage`](https://github.com/Remitly/verdaccio-s3-storage) in Typescript
 
 🚧 Under construction
 
