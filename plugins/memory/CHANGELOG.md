@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [2.0.0](https://github.com/verdaccio/verdaccio-memory/compare/v2.0.0-beta.0...v2.0.0) (2019-03-29)
+
+
+### Features
+
+* drop node v6 ([227fe18](https://github.com/verdaccio/verdaccio-memory/commit/227fe18))
+
+
+
 <a name="2.0.0-beta.0"></a>
 # [2.0.0-beta.0](https://github.com/verdaccio/verdaccio-memory/compare/v1.0.3...v2.0.0-beta.0) (2019-01-27)
 
