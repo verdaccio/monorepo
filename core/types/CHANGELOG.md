@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="5.0.0-beta.4"></a>
+# [5.0.0-beta.4](https://github.com/verdaccio/flow-types/compare/v5.0.0-beta.3...v5.0.0-beta.4) (2019-03-29)
+
+
+### Features
+
+* **storage:** path is not mandatory ([784f1bb](https://github.com/verdaccio/flow-types/commit/784f1bb))
+
+
+
 <a name="5.0.0-beta.3"></a>
 # [5.0.0-beta.3](https://github.com/verdaccio/flow-types/compare/v5.0.0-beta.2...v5.0.0-beta.3) (2019-03-09)
 

@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/types",
-  "version": "5.0.0-beta.3",
+  "version": "5.0.0-beta.4",
   "description": "verdaccio flow types definitions",
   "repository": {
     "type": "git",
