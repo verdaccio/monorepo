@@ -18,10 +18,10 @@ A memory based **storage plugin**.
 
 ### Requirements
 
-Higher than `verdaccio@3.0.0`
+>`verdaccio@3.0.0` or `verdaccio@4.x`
 
 ```
-npm install -g verdaccio@latest
+npm install -g verdaccio
 ```
 
 Complete configuration example:
@@ -52,4 +52,4 @@ This plugin should not be use for production environments. It might be useful fo
 
 ## License
 
-MIT (http://www.opensource.org/licenses/mit-license.php)
+[MIT](http://www.opensource.org/licenses/mit-license.php)
