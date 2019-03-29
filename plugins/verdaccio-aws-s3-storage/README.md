@@ -39,7 +39,7 @@ In your verdaccio config, configure
 
 ```yaml
 store:
-  s3-storage:
+  aws-s3-storage:
     bucket: your-s3-bucket
     keyPrefix: some-prefix # optional, has the effect of nesting all files in a subdirectory
     region: us-west-2 # optional, will use aws s3's default behavior if not specified
