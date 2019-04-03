@@ -2,12 +2,12 @@ import path from 'path';
 import fs from 'fs';
 import { S3 } from 'aws-sdk';
 import rReadDir from 'recursive-readdir';
-import S3PackageManager from '../s3PackageManager';
-import { deleteKeyPrefix } from '../deleteKeyPrefix';
+import S3PackageManager from '../src/s3PackageManager';
+import { deleteKeyPrefix } from '../src/deleteKeyPrefix';
 import logger from './__mocks__/Logger';
 import pkg from './__fixtures__/pkg';
-import { create404Error, create409Error, is404Error } from '../s3Errors';
-import { S3Config } from '../config';
+import { create404Error, create409Error, is404Error } from '../src/s3Errors';
+import { S3Config } from '../src/config';
 
 const pkgFileName: string = 'package.json';
 

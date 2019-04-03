@@ -25,7 +25,6 @@
     "coverage:publish": "codecov"
   },
   "dependencies": {
-    "@verdaccio/file-locking": "1.0.0",
     "@verdaccio/streams": "2.0.0-beta.0",
     "aws-sdk": "2.432.0"
   },
@@ -49,7 +48,7 @@
     "prettier": "1.16.4",
     "recursive-readdir": "2.2.2",
     "standard-version": "5.0.2",
-    "typescript": "3.4.1"
+    "typescript": "3.2.1"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
