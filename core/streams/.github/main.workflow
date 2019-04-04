@@ -1,6 +1,6 @@
 workflow "New workflow" {
   on = "push"
-  resolves = ["testing npm"]
+  resolves = ["Test Publish Verdaccio"]
 }
 
 action "install packages" {
@@ -16,7 +16,7 @@ action "testing npm" {
 
 action "build npm" {
   uses = "actions/npm@59b64a598378f31e49cb76f27d6f3312b582f680"
-  needs = ["testing packages"]
+  needs = ["testing npm"]
   args = "test"
 }
 
