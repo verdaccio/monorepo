@@ -13,7 +13,7 @@
     "format": "prettier --single-quote --trailing-comma none --write \"{src,test}/**/*.js\"",
     "lint": "eslint .",
     "prepublish": "npm run build",
-    "coverage": "codecov",
+    "coverage:publish": "codecov",
     "commitmsg": "commitlint -e $GIT_PARAMS",
     "release": "standard-version -a -s",
     "type-check": "tsc --noEmit",
