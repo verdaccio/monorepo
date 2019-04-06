@@ -1,4 +1,5 @@
-import AuditPlugin, {ConfigAudit} from './audit';
+import AuditPlugin from './audit';
+import { ConfigAudit } from './types';
 
 export { ConfigAudit };
 

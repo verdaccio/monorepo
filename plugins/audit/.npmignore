@@ -1,3 +1,6 @@
+.DS_Store
+scripts/
+.circleci/
 src/
 tests-report/
 .nyc_output
