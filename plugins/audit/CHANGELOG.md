@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [1.2.0](https://github.com/verdaccio/verdaccio-audit/compare/v1.1.0...v1.2.0) (2019-04-06)
+
+
+### Bug Fixes
+
+* bad network causes the server down ([2c838b4](https://github.com/verdaccio/verdaccio-audit/commit/2c838b4))
+* types error ([16d623e](https://github.com/verdaccio/verdaccio-audit/commit/16d623e))
+
+
+### Features
+
+* migrate to typescript ([bec6824](https://github.com/verdaccio/verdaccio-audit/commit/bec6824))
+
+
+
 <a name="1.1.0"></a>
 # [1.1.0](https://github.com/verdaccio/verdaccio-audit/compare/v1.0.1...v1.1.0) (2019-01-09)
 
