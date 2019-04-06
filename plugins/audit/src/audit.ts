@@ -1,17 +1,14 @@
 import request from 'request';
-import { Config, Logger, IPluginMiddleware, IBasicAuth, IStorageManager, PluginOptions } from '@verdaccio/types';
-import { Plugin } from './types';
+import express, {Request, Response} from 'express';
 
-export interface ConfigAudit extends Config {
-    enabled: boolean
-}
+import { Logger, IPluginMiddleware, IBasicAuth, IStorageManager, PluginOptions } from '@verdaccio/types';
+import { ConfigAudit } from './types';
 
-export default class ProxyAudit extends Plugin<ConfigAudit> implements IPluginMiddleware<ConfigAudit> {
+export default class ProxyAudit implements IPluginMiddleware<ConfigAudit> {
   enabled: boolean;
   logger: Logger;
 
   constructor(config: ConfigAudit, options: PluginOptions<ConfigAudit>) {
-    super(config, options);
     this.enabled = config.enabled || false;
     this.logger = options.logger;
   }
