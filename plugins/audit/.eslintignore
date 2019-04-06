@@ -2,4 +2,7 @@ node_modules
 coverage/
 lib/
 tests-report/
-fixtures/
+__fixtures__/
+.idea/
+**/node_modules/**
+**/__*-fixtures__/**

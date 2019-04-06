@@ -1,12 +1,12 @@
 {
-  "compilerOptions": {
-    "target": "esnext",
-    "module": "commonjs",
+	"compilerOptions": {
+		"target": "esnext",
+		"module": "commonjs",
 		"declaration": true,
 		"noImplicitAny": false,
 		"strict": true,
 		"outDir": "lib",
-    "allowSyntheticDefaultImports": true,
+		"allowSyntheticDefaultImports": true,
 		"esModuleInterop": true,
 		"typeRoots": [
 			"./node_modules/@verdaccio/types/lib/verdaccio",

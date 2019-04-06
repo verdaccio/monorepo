@@ -2,6 +2,7 @@ import ProxyAudit, { ConfigAudit } from '../src/index';
 
 import { Logger } from '@verdaccio/types';
 
+// @ts-ignore
 const config: ConfigAudit = {
   enabled: true
 };
@@ -18,7 +19,8 @@ const logger: Logger = {
 
 describe('Audit plugin', () => {
   test('should test audit', () => {
-    const audit = new ProxyAudit(config, { logger, config: undefined });
+    // @ts-ignore
+      const audit = new ProxyAudit(config, { logger, config: undefined });
     expect(audit).toBeDefined();
   });
 });

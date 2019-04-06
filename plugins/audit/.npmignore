@@ -8,7 +8,7 @@ yarn.lock
 .idea/
 .eslintrc
 .babelrc
-test/
+tests/
 .eslintignore
 .eslintrc.yml
 .npmignore

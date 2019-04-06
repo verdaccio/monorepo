@@ -1,11 +1,11 @@
-import express, {Request, Response} from 'express';
 import request from 'request';
-import { Logger, IPluginMiddleware, IBasicAuth, IStorageManager, PluginOptions, Plugin } from '@verdaccio/types';
+import express, {Request, Response} from 'express';
 
-export type ConfigAudit = {
-  enabled: boolean
-};
+import { Logger, IPluginMiddleware, IBasicAuth, IStorageManager, PluginOptions, Plugin, Config } from '@verdaccio/types';
 
+export interface ConfigAudit extends Config {
+    enabled: boolean
+}
 
 export default class ProxyAudit extends Plugin<ConfigAudit> implements IPluginMiddleware<ConfigAudit> {
   enabled: boolean;
