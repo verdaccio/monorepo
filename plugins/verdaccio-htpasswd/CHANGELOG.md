@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [2.0.0](https://github.com/verdaccio/verdaccio-htpasswd/compare/v2.0.0-beta.1...v2.0.0) (2019-04-14)
+
+
+### Features
+
+* drop node v6 suport ([d1d52e8](https://github.com/verdaccio/verdaccio-htpasswd/commit/d1d52e8))
+
+
+
 <a name="2.0.0-beta.1"></a>
 # [2.0.0-beta.1](https://github.com/verdaccio/verdaccio-htpasswd/compare/v2.0.0-beta.0...v2.0.0-beta.1) (2019-02-24)
 
