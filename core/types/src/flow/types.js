@@ -1,5 +1,7 @@
 /* @flow */
 
+import {Callback, IBasicAuth, IPlugin, IStorageManager, Package} from '@verdaccio/types';
+
 declare type verdaccio$StringValue = string | void | null;
 
 declare type verdaccio$Callback = Function;
@@ -330,6 +332,7 @@ declare interface verdaccio$Config {
   max_body_size?: string;
   notifications?: verdaccio$Notifications;
   middlewares?: any;
+  storage_filters?: any;
   checkSecretKey(token: string): string;
   getMatchedPackagesSpec(storage: string): verdaccio$PackageAccess | void;
   [key: string]: any;
@@ -380,7 +383,7 @@ declare interface verdaccio$StoragePackageActions extends verdaccio$TarballActio
 declare interface verdaccio$IStorageManager extends verdaccio$StoragePackageActions {
   config: $Subtype<verdaccio$Config>;
   logger: verdaccio$Logger;
-  init(config: $Subtype<verdaccio$Config>): Promise<any>;
+  init(config: $Subtype<verdaccio$Config>, filters: any): Promise<any>;
   addPackage(name: string, metadata: any, callback: verdaccio$Callback): Promise<any>;
   getPackage(options: any): void;
   search(startkey: string, options: any): verdaccio$IReadTarball;
@@ -424,6 +427,10 @@ declare interface verdaccio$IPluginAuth extends verdaccio$IPlugin {
 
 declare interface verdaccio$IPluginMiddleware extends verdaccio$IPlugin {
   register_middlewares(app: any, auth: verdaccio$IBasicAuth, storage: verdaccio$IStorageManager): void;
+}
+
+declare interface verdaccio$IPluginStorageFilter extends verdaccio$IPlugin {
+  filter(packageInfo: verdaccio$Package, cb: verdaccio$Callback): void;
 }
 
 declare module "@verdaccio/local-storage" {
@@ -470,6 +477,7 @@ declare module "@verdaccio/types" {
   declare export type IBasicAuth = verdaccio$IBasicAuth;
   declare export type IPluginAuth = verdaccio$IPluginAuth;
   declare export type IPluginMiddleware = verdaccio$IPluginMiddleware;
+  declare export type IPluginStorageFilter = verdaccio$IPluginStorageFilter;
   declare export type PluginOptions = verdaccio$PluginOptions;
   declare export type Stdout = stream$Writable | tty$WriteStream;
   declare export type Stdin = stream$Readable | tty$ReadStream;
