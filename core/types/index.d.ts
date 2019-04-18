@@ -339,6 +339,7 @@ type StringValue = string | void | null;
 		max_body_size?: string;
 		notifications?: Notifications;
 		middlewares?: any;
+		storage_filters?: any;
 		checkSecretKey(token: string): string;
 		getMatchedPackagesSpec(storage: string): PackageAccess | void;
 		[key: string]: any;
@@ -388,7 +389,7 @@ type StringValue = string | void | null;
 	interface IStorageManager<T> extends StoragePackageActions {
 		config: T & Config;
 		logger: Logger;
-		init(config: T & Config): Promise<any>;
+		init(config: T & Config, filters: any): Promise<any>;
 		addPackage(name: string, metadata: any, callback: Callback): Promise<any>;
 		getPackage(options: any): void;
 		search(startkey: string, options: any): IReadTarball;
@@ -418,6 +419,8 @@ type StringValue = string | void | null;
 
 	interface IPlugin<T> {
 		version?: string;
+		// In case a plugin needs to be cleaned up/removed
+		close?(): void;
 	}
 
 	type PluginOptions<T> = {
@@ -436,5 +439,9 @@ type StringValue = string | void | null;
 
 	interface IPluginMiddleware<T> extends IPlugin<T> {
 		register_middlewares(app: any, auth: IBasicAuth<T>, storage: IStorageManager<T>): void;
+	}
+
+	interface IPluginStorageFilter<T> extends IPlugin<T> {
+		filter_metadata(packageInfo: Package, cb: Callback): void;
 	}
 }
