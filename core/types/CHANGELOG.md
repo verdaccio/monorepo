@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="5.0.0"></a>
+# [5.0.0](https://github.com/verdaccio/flow-types/compare/v5.0.0-beta.4...v5.0.0) (2019-04-18)
+
+
+### Features
+
+* support for an IPluginStorageFilter ([#58](https://github.com/verdaccio/flow-types/issues/58)) ([e67559f](https://github.com/verdaccio/flow-types/commit/e67559f))
+
+
+
 <a name="5.0.0-beta.4"></a>
 # [5.0.0-beta.4](https://github.com/verdaccio/flow-types/compare/v5.0.0-beta.3...v5.0.0-beta.4) (2019-03-29)
 
