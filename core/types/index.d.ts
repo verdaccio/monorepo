@@ -339,7 +339,7 @@ type StringValue = string | void | null;
 		max_body_size?: string;
 		notifications?: Notifications;
 		middlewares?: any;
-		storage_filters?: any;
+		filters?: any;
 		checkSecretKey(token: string): string;
 		getMatchedPackagesSpec(storage: string): PackageAccess | void;
 		[key: string]: any;
@@ -442,6 +442,6 @@ type StringValue = string | void | null;
 	}
 
 	interface IPluginStorageFilter<T> extends IPlugin<T> {
-		filter_metadata(packageInfo: Package, cb: Callback): void;
+		filter_metadata(packageInfo: Package): Promise<Package>;
 	}
 }

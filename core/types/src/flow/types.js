@@ -332,7 +332,7 @@ declare interface verdaccio$Config {
   max_body_size?: string;
   notifications?: verdaccio$Notifications;
   middlewares?: any;
-  storage_filters?: any;
+  filters?: any;
   checkSecretKey(token: string): string;
   getMatchedPackagesSpec(storage: string): verdaccio$PackageAccess | void;
   [key: string]: any;
@@ -409,7 +409,7 @@ declare interface verdaccio$IBasicAuth {
 
 declare interface verdaccio$IPlugin {
   version?: string;
-  close(): void;
+  // Optional: close(): void;
 }
 
 declare type verdaccio$PluginOptions = {
@@ -431,7 +431,7 @@ declare interface verdaccio$IPluginMiddleware extends verdaccio$IPlugin {
 }
 
 declare interface verdaccio$IPluginStorageFilter extends verdaccio$IPlugin {
-  filter_metadata(packageInfo: verdaccio$Package, cb: verdaccio$Callback): void;
+  filter_metadata(packageInfo: verdaccio$Package): Promise<verdaccio$Package>;
 }
 
 declare module "@verdaccio/local-storage" {
