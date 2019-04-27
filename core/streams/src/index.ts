@@ -1,4 +1,4 @@
-import {PassThrough} from 'stream';
+import { PassThrough } from 'stream';
 
 export interface IReadTarball {
   abort?: () => void;
@@ -14,8 +14,7 @@ export interface IUploadTarball {
  * @param {*} options
  * @return {Stream}
  */
-class ReadTarball extends PassThrough implements IReadTarball  {
-
+class ReadTarball extends PassThrough implements IReadTarball {
   /**
    *
    * @param {Object} options
@@ -26,7 +25,7 @@ class ReadTarball extends PassThrough implements IReadTarball  {
     addAbstractMethods(this, 'abort');
   }
 
-  abort(){}
+  abort() {}
 }
 
 /**
@@ -35,7 +34,6 @@ class ReadTarball extends PassThrough implements IReadTarball  {
  * @return {Stream}
  */
 class UploadTarball extends PassThrough implements IUploadTarball {
-
   /**
    *
    * @param {Object} options
@@ -49,8 +47,8 @@ class UploadTarball extends PassThrough implements IUploadTarball {
     addAbstractMethods(this, 'done');
   }
 
-  abort(){}
-  done(){}
+  abort() {}
+  done() {}
 }
 
 /**
@@ -61,18 +59,15 @@ class UploadTarball extends PassThrough implements IUploadTarball {
  */
 // Perhaps someone knows a better way to write this
 function addAbstractMethods(self: any, name: any) {
-
   self._called_methods = self._called_methods || {};
 
   self.__defineGetter__(name, function() {
     return function() {
-
       self._called_methods[name] = true;
     };
   });
 
-  self.__defineSetter__(name, function(fn: any ) {
-
+  self.__defineSetter__(name, function(fn: any) {
     delete self[name];
 
     self[name] = fn;
@@ -85,4 +80,4 @@ function addAbstractMethods(self: any, name: any) {
   });
 }
 
-export {ReadTarball, UploadTarball};
+export { ReadTarball, UploadTarball };

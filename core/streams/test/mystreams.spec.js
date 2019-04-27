@@ -1,8 +1,7 @@
-import {ReadTarball, UploadTarball} from '../src/index';
+import { ReadTarball, UploadTarball } from '../src/index';
 
 describe('mystreams', () => {
-
-  test('should delay events on ReadTarball abort', (cb) => {
+  test('should delay events on ReadTarball abort', cb => {
     const readTballStream = new ReadTarball({});
     readTballStream.abort();
     setTimeout(function() {
@@ -15,7 +14,7 @@ describe('mystreams', () => {
     }, 10);
   });
 
-  test('should delay events on UploadTarball abort', (cb) => {
+  test('should delay events on UploadTarball abort', cb => {
     const uploadTballStream = new UploadTarball({});
     uploadTballStream.abort();
     setTimeout(function() {
@@ -27,6 +26,4 @@ describe('mystreams', () => {
       };
     }, 10);
   });
-
 });
-
