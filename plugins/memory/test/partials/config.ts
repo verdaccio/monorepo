@@ -1,4 +1,4 @@
-import {Config} from "@verdaccio/types";
+import { Config } from '@verdaccio/types';
 
 const config: Config = {
   user_agent: 'string',

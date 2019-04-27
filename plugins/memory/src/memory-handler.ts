@@ -4,8 +4,8 @@ import MemoryFileSystem from 'memory-fs';
 import { UploadTarball, ReadTarball } from '@verdaccio/streams';
 import { Callback, Logger, IPackageStorageManager, IUploadTarball, IReadTarball } from '@verdaccio/types';
 
-export const noSuchFile: string = 'ENOENT';
-export const fileExist: string = 'EEXISTS';
+export const noSuchFile = 'ENOENT';
+export const fileExist = 'EEXISTS';
 
 const fSError = function(message: string, code: number = 404): HttpError {
   const err: HttpError = createError(code, message);
@@ -68,11 +68,11 @@ class MemoryHandler implements IPackageStorageManager {
     callback(null);
   }
 
-  createPackage(name: string, value: Object, cb: Function): void {
+  createPackage(name: string, value: Record<string, any>, cb: Function): void {
     this.savePackage(name, value, cb);
   }
 
-  savePackage(name: string, value: Object, cb: Function): void {
+  savePackage(name: string, value: Record<string, any>, cb: Function): void {
     try {
       const json: string = JSON.stringify(value, null, '\t');
 

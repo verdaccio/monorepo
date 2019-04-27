@@ -2,9 +2,13 @@ import MemoryHandler from './memory-handler';
 import { Logger, Callback, Config, IPluginStorage } from '@verdaccio/types';
 
 export type ConfigMemory = Config & { limit?: number };
-export type MemoryLocalStorage = { files: any, secret: string, list: any };
+export interface MemoryLocalStorage {
+  files: any;
+  secret: string;
+  list: any;
+}
 
-const DEFAULT_LIMIT: number = 1000;
+const DEFAULT_LIMIT = 1000;
 class LocalMemory implements IPluginStorage<ConfigMemory> {
   path: string;
   limit: number;

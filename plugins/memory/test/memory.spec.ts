@@ -26,9 +26,9 @@ describe('memory unit test .', () => {
 
     test('should create add a package', done => {
       const localMemory: IPluginStorage<ConfigMemory> = new LocalMemory(config, { logger });
-      localMemory.add('test', err => {
+      localMemory.add('test', (err: any) => {
         expect(err).toBeNull();
-        localMemory.get((err, data) => {
+        localMemory.get((err: any, data: any) => {
           expect(err).toBeNull();
           expect(data).toHaveLength(1);
           done();
@@ -54,7 +54,7 @@ describe('memory unit test .', () => {
     });
 
     test('should remove a package', done => {
-      const pkgName: string = 'test';
+      const pkgName = 'test';
       const localMemory: IPluginStorage<ConfigMemory> = new LocalMemory(config, { logger });
       localMemory.add(pkgName, err => {
         expect(err).toBeNull();
@@ -79,7 +79,7 @@ describe('memory unit test .', () => {
 
     test('should save a package', done => {
       const localMemory: IPluginStorage<ConfigMemory> = new LocalMemory(config, { logger });
-      const pkgName: string = 'test';
+      const pkgName = 'test';
 
       const handler = localMemory.getPackageStorage(pkgName);
       expect(handler).toBeDefined();
@@ -98,7 +98,7 @@ describe('memory unit test .', () => {
 
     test('should fails on read a package', done => {
       const localMemory: IPluginStorage<ConfigMemory> = new LocalMemory(config, { logger });
-      const pkgName: string = 'test';
+      const pkgName = 'test';
 
       const handler = localMemory.getPackageStorage(pkgName);
       expect(handler).toBeDefined();
@@ -114,7 +114,7 @@ describe('memory unit test .', () => {
 
     test('should update a package', done => {
       const localMemory: IPluginStorage<ConfigMemory> = new LocalMemory(config, { logger });
-      const pkgName: string = 'test';
+      const pkgName = 'test';
 
       const handler = localMemory.getPackageStorage(pkgName);
       expect(handler).toBeDefined();
@@ -136,7 +136,7 @@ describe('memory unit test .', () => {
               expect(name).toBe(pkgName);
               expect(data.name).toBe(pkgExample.name);
               onEnd();
-              expect(onEnd).toBeCalled();
+              expect(onEnd).toHaveBeenCalled();
               done();
             },
             data => {
@@ -151,8 +151,8 @@ describe('memory unit test .', () => {
 
     test('should write a tarball', done => {
       const localMemory: IPluginStorage<ConfigMemory> = new LocalMemory(config, { logger });
-      const pkgName: string = 'test';
-      const dataTarball: string = '12345';
+      const pkgName = 'test';
+      const dataTarball = '12345';
 
       const handler = localMemory.getPackageStorage(pkgName);
 
@@ -175,8 +175,8 @@ describe('memory unit test .', () => {
 
     test('should read a tarball', done => {
       const localMemory: IPluginStorage<ConfigMemory> = new LocalMemory(config, { logger });
-      const pkgName: string = 'test.tar.gz';
-      const dataTarball: string = '12345';
+      const pkgName = 'test.tar.gz';
+      const dataTarball = '12345';
 
       const handler = localMemory.getPackageStorage(pkgName);
 
@@ -199,8 +199,8 @@ describe('memory unit test .', () => {
 
     test('should abort read a tarball', done => {
       const localMemory: IPluginStorage<ConfigMemory> = new LocalMemory(config, { logger });
-      const pkgName: string = 'test2.tar.gz';
-      const dataTarball: string = '12345';
+      const pkgName = 'test2.tar.gz';
+      const dataTarball = '12345';
 
       const handler = localMemory.getPackageStorage(pkgName);
 
@@ -227,7 +227,7 @@ describe('memory unit test .', () => {
 
     test('should fails read a tarball not found', done => {
       const localMemory: IPluginStorage<ConfigMemory> = new LocalMemory(config, { logger });
-      const pkgName: string = 'test2.tar.gz';
+      const pkgName = 'test2.tar.gz';
       const handler = localMemory.getPackageStorage(pkgName);
 
       if (handler) {
@@ -242,8 +242,8 @@ describe('memory unit test .', () => {
 
     test('should abort while write a tarball', done => {
       const localMemory: IPluginStorage<ConfigMemory> = new LocalMemory(config, { logger });
-      const pkgName: string = 'test-abort.tar.gz';
-      const dataTarball: string = '12345';
+      const pkgName = 'test-abort.tar.gz';
+      const dataTarball = '12345';
 
       const handler = localMemory.getPackageStorage(pkgName);
 
@@ -264,7 +264,7 @@ describe('memory unit test .', () => {
 
     test('should delete a package', done => {
       const localMemory: IPluginStorage<ConfigMemory> = new LocalMemory(config, { logger });
-      const pkgName: string = 'test2';
+      const pkgName = 'test2';
 
       const handler: IPackageStorage = localMemory.getPackageStorage(pkgName);
       expect(handler).toBeDefined();
