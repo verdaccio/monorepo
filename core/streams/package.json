@@ -6,6 +6,7 @@
   "scripts": {
     "release": "standard-version -a -s",
     "precommit": "lint-staged",
+    "pretest": "npm run lint",
     "test": "jest",
     "lint": "npm run type-check && eslint . --ext .js,.ts",
     "type-check": "tsc --noEmit",
@@ -15,14 +16,14 @@
     "build:js": "babel src --out-dir lib --extensions \".ts,.tsx\" --source-maps inline"
   },
   "devDependencies": {
-    "@types/node": "11.12.1",
+    "@types/node": "11.13.8",
     "@verdaccio/babel-preset": "0.1.0",
-    "@verdaccio/types": "5.0.0-beta.4",
     "@verdaccio/eslint-config": "0.0.1",
+    "@verdaccio/types": "5.0.2",
     "cross-env": "5.2.0",
-    "eslint": "5.15.3",
+    "eslint": "5.16.0",
     "husky": "0.14.3",
-    "jest": "24.5.0",
+    "jest": "24.7.1",
     "lint-staged": "6.0.1",
     "standard-version": "5.0.2",
     "typescript": "3.2.4"
