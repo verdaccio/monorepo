@@ -8,7 +8,7 @@
     "url": "git://github.com/verdaccio/verdaccio-audit"
   },
   "scripts": {
-    "lint": "eslint .",
+    "lint": "eslint . --ext .js,.ts",
     "test": "npm run lint && jest",
     "prepublish": "npm run build",
     "coverage:publish": "codecov",
@@ -40,24 +40,19 @@
     "@types/http-errors": "1.6.1",
     "@types/jest": "24.0.11",
     "@types/memory-fs": "0.3.2",
-    "@types/node": "11.13.0",
+    "@types/node": "11.13.8",
     "@types/request": "2.48.1",
-    "@typescript-eslint/eslint-plugin": "1.6.0",
     "@verdaccio/babel-preset": "0.1.0",
-    "@verdaccio/types": "5.0.0-beta.4",
+    "@verdaccio/eslint-config": "0.0.1",
+    "@verdaccio/types": "5.0.2",
     "codecov": "3.3.0",
     "cross-env": "5.2.0",
     "eslint": "5.16.0",
-    "eslint-config-google": "0.12.0",
-    "eslint-config-prettier": "4.1.0",
-    "eslint-plugin-jest": "22.4.1",
-    "eslint-plugin-prettier": "3.0.1",
     "husky": "0.14.3",
     "jest": "24.7.1",
-    "prettier": "1.16.4",
     "rmdir-sync": "1.0.1",
     "standard-version": "5.0.2",
-    "typescript": "3.2.4"
+    "typescript": "3.2.1"
   },
   "husky": {
     "hooks": {

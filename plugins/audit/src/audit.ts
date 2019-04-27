@@ -1,5 +1,5 @@
 import request from 'request';
-import express, {Request, Response} from 'express';
+import express, { Request, Response } from 'express';
 
 import { Logger, IPluginMiddleware, IBasicAuth, IStorageManager, PluginOptions } from '@verdaccio/types';
 import { ConfigAudit } from './types';
@@ -26,10 +26,12 @@ export default class ProxyAudit implements IPluginMiddleware<ConfigAudit> {
         strictSSL: true
       };
 
-      req.pipe(request(requestOptions))
+      req
+        .pipe(request(requestOptions))
         .on('error', err => {
-          if (typeof res.report_error === 'function')
+          if (typeof res.report_error === 'function') {
             return res.report_error(err);
+          }
           this.logger.error(err);
           return res.status(500).end();
         })

@@ -20,7 +20,7 @@ const logger: Logger = {
 describe('Audit plugin', () => {
   test('should test audit', () => {
     // @ts-ignore
-      const audit = new ProxyAudit(config, { logger, config: undefined });
+    const audit = new ProxyAudit(config, { logger, config: undefined });
     expect(audit).toBeDefined();
   });
 });
