@@ -8,10 +8,10 @@ import mkdirp from 'mkdirp';
 import LocalDriver, { noSuchFile } from './local-fs';
 import { loadPrivatePackages } from './pkg-utils';
 
-import { IPackageStorage, IPluginStorage, StorageList, LocalStorage, Logger, Config, Callback, PackageAccess } from '@verdaccio/types';
+import { IPackageStorage, IPluginStorage, StorageList, LocalStorage, Logger, Config, Callback } from '@verdaccio/types';
 
-const DEPRECATED_DB_NAME: string = '.sinopia-db.json';
-const DB_NAME: string = '.verdaccio-db.json';
+const DEPRECATED_DB_NAME = '.sinopia-db.json';
+const DB_NAME = '.verdaccio-db.json';
 
 /**
  * Handle local database.
@@ -70,7 +70,8 @@ class LocalDatabase implements IPluginStorage<{}> {
     this.logger.trace(`local-storage: [search] base: ${base} keys ${storageKeys}`);
 
     async.eachSeries(
-      storageKeys, function(storage, cb) {
+      storageKeys,
+      function(storage, cb) {
         const position = storageKeys.indexOf(storage);
         const base2 = Path.join(position !== 0 ? storageKeys[0] : '');
         const storagePath: string = Path.resolve(base, base2, storage);
@@ -84,7 +85,7 @@ class LocalDatabase implements IPluginStorage<{}> {
             files,
             function(file, cb) {
               self.logger.trace({ file }, 'local-storage: [search] search file path: @{file}');
-              if (storageKeys.includes(file )) {
+              if (storageKeys.includes(file)) {
                 return cb();
               }
 
@@ -98,7 +99,8 @@ class LocalDatabase implements IPluginStorage<{}> {
                   }
 
                   async.eachSeries(
-                    files, (file2, cb) => {
+                    files,
+                    (file2, cb) => {
                       if (validateName(file2)) {
                         const packagePath = Path.resolve(base, storage, file, file2);
 
@@ -233,7 +235,7 @@ class LocalDatabase implements IPluginStorage<{}> {
   getPackageStorage(packageName: string): IPackageStorage {
     const packageAccess = this.config.getMatchedPackagesSpec(packageName);
 
-    const packagePath: string = this._getLocalStoragePath(packageAccess ? packageAccess.storage:  undefined);
+    const packagePath: string = this._getLocalStoragePath(packageAccess ? packageAccess.storage : undefined);
 
     if (_.isString(packagePath) === false) {
       this.logger.debug({ name: packageName }, 'this package has no storage defined: @{name}');
@@ -257,7 +259,7 @@ class LocalDatabase implements IPluginStorage<{}> {
       throw new Error('global storage is required for this plugin');
     } else {
       if (_.isNil(storage) === false && _.isString(storage)) {
-        return Path.join(globalConfigStorage as string , storage as string);
+        return Path.join(globalConfigStorage as string, storage as string);
       }
 
       return globalConfigStorage as string;

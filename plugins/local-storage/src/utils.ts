@@ -30,7 +30,7 @@ function hasScope(file: string) {
 }
 
 export async function findPackages(storagePath: string, validationHandler: Function) {
-  const listPackages: Array<any> = [];
+  const listPackages: any[] = [];
   return new Promise(async (resolve, reject) => {
     try {
       const scopePath = path.resolve(storagePath);

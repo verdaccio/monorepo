@@ -7,7 +7,7 @@ import LocalDriver, { fileExist, fSError, noSuchFile, resourceNotAvailable } fro
 import pkg from './__fixtures__/pkg';
 
 let localTempStorage: string;
-const pkgFileName: string = 'package.json';
+const pkgFileName = 'package.json';
 
 const logger: Logger = {
   error: e => console.warn(e),
@@ -163,7 +163,7 @@ describe('Local FS test', () => {
     });
 
     test('writeTarball() success', done => {
-      const newFileName: string = 'new-readme-0.0.0.tgz';
+      const newFileName = 'new-readme-0.0.0.tgz';
       const readmeStorage: ILocalPackageManager = new LocalDriver(path.join(__dirname, '__fixtures__/readme-test'), logger);
       const writeStorage: ILocalPackageManager = new LocalDriver(path.join(__dirname, '../_storage'), logger);
       const readTarballStream = readmeStorage.readTarball('test-readme-0.0.0.tgz');
@@ -203,7 +203,7 @@ describe('Local FS test', () => {
 
     test('writeTarball() abort', done => {
       const newFileLocationFolder: string = path.join(localTempStorage, '_writeTarball');
-      const newFileName: string = 'new-readme-abort-0.0.0.tgz';
+      const newFileName = 'new-readme-abort-0.0.0.tgz';
       const readmeStorage: ILocalPackageManager = new LocalDriver(path.join(__dirname, '__fixtures__/readme-test'), logger);
       const writeStorage: ILocalPackageManager = new LocalDriver(newFileLocationFolder, logger);
       const readTarballStream = readmeStorage.readTarball('test-readme-0.0.0.tgz');
@@ -264,7 +264,7 @@ describe('Local FS test', () => {
             unlockFile: (something, cb) => cb(null)
           };
         });
-        const LocalFS = require('../src/local-fs').default;
+        require('../src/local-fs').default;
         const localFs: ILocalPackageManager = new LocalDriver(path.join(__dirname, '__fixtures__/update-package'), logger);
 
         localFs.updatePackage('updatePackage', updateHandler, onWrite, transform, err => {
