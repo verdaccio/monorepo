@@ -1,7 +1,6 @@
 import { S3 } from 'aws-sdk';
 import { UploadTarball, ReadTarball } from '@verdaccio/streams';
-import { IUploadTarball, IReadTarball } from '@verdaccio/streams';
-import { Callback, Logger, Package, ILocalPackageManager, IPackageStorage } from '@verdaccio/types';
+import { Callback, Logger, Package, ILocalPackageManager } from '@verdaccio/types';
 import { is404Error, convertS3Error, create409Error } from './s3Errors';
 import { deleteKeyPrefix } from './deleteKeyPrefix';
 import { S3Config } from './config';
@@ -57,7 +56,7 @@ export default class S3PackageManager implements ILocalPackageManager {
           }
           let data;
           try {
-            //@ts-ignore
+            // @ts-ignore
             data = JSON.parse(response.Body.toString());
           } catch (e) {
             reject(e);
@@ -92,7 +91,7 @@ export default class S3PackageManager implements ILocalPackageManager {
         Bucket: this.config.bucket,
         Prefix: `${this.config.keyPrefix}${this.packageName}`
       },
-      //@ts-ignore
+      // @ts-ignore
       callback
     );
   }
@@ -126,7 +125,7 @@ export default class S3PackageManager implements ILocalPackageManager {
         Bucket: this.config.bucket,
         Key: `${this.config.keyPrefix}${this.packageName}/${pkgFileName}`
       },
-      //@ts-ignore
+      // @ts-ignore
       callback
     );
   }
@@ -243,7 +242,6 @@ export default class S3PackageManager implements ILocalPackageManager {
 
             // not sure this is necessary
             if (headersSent) {
-              console.log('********* headers already sent');
               return;
             }
 
@@ -258,7 +256,7 @@ export default class S3PackageManager implements ILocalPackageManager {
       .createReadStream();
 
     readStream.on('error', err => {
-      //@ts-ignore
+      // @ts-ignore
       readTarballStream.emit('error', convertS3Error(err));
     });
 

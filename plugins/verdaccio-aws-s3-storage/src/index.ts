@@ -157,14 +157,14 @@ export default class S3Database implements IPluginStorage<S3Config> {
               }
               return;
             }
-            //@ts-ignore
+            // @ts-ignore
             const data = JSON.parse(response.Body.toString());
             resolve(data);
           }
         );
       });
     }
-    //@ts-ignore
+    // @ts-ignore
     return this._localData;
   }
 }

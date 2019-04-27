@@ -9,7 +9,7 @@ import pkg from './__fixtures__/pkg';
 import { create404Error, create409Error, is404Error } from '../src/s3Errors';
 import { S3Config } from '../src/config';
 
-const pkgFileName: string = 'package.json';
+const pkgFileName = 'package.json';
 
 describe('S3 package manager', () => {
   // random key for testing
@@ -20,7 +20,7 @@ describe('S3 package manager', () => {
     throw new Error('no bucket specified via VERDACCIO_TEST_BUCKET env var');
   }
 
-  //@ts-ignore
+  // @ts-ignore
   const config: S3Config = {
     bucket,
     keyPrefix: `${keyPrefix}/`
@@ -252,11 +252,11 @@ describe('S3 package manager', () => {
     });
   });
 
-  describe('writeTarball() group', async () => {
+  describe('writeTarball() group', () => {
     test('writeTarball() success', async done => {
       await syncFixtureDir('readme-test');
 
-      const newFileName: string = 'new-readme-0.0.0.tgz';
+      const newFileName = 'new-readme-0.0.0.tgz';
       const readmeStorage = new S3PackageManager(config, 'readme-test', logger);
       const writeStorage = new S3PackageManager(config, 'write-storage', logger);
       const readTarballStream = readmeStorage.readTarball('test-readme-0.0.0.tgz');
@@ -290,7 +290,7 @@ describe('S3 package manager', () => {
     test('writeTarball() fails on existing file', async done => {
       await syncFixtureDir('readme-test');
 
-      const newFileName: string = 'test-readme-0.0.0.tgz';
+      const newFileName = 'test-readme-0.0.0.tgz';
       const storage = new S3PackageManager(config, 'readme-test', logger);
       const readTarballStream = storage.readTarball('test-readme-0.0.0.tgz');
       const writeTarballStream = storage.writeTarball(newFileName);
@@ -307,7 +307,7 @@ describe('S3 package manager', () => {
     test('writeTarball() abort', async done => {
       await syncFixtureDir('readme-test');
 
-      const newFileName: string = 'new-readme-abort-0.0.0.tgz';
+      const newFileName = 'new-readme-abort-0.0.0.tgz';
       const readmeStorage = new S3PackageManager(config, 'readme-test', logger);
       const writeStorage = new S3PackageManager(config, 'write-storage', logger);
       const readTarballStream = readmeStorage.readTarball('test-readme-0.0.0.tgz');

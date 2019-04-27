@@ -81,7 +81,7 @@ describe('Local Database', () => {
     expect(db).toBeDefined();
   });
 
-  describe('manages a secret', async () => {
+  describe('manages a secret', () => {
     test('should create get secret', async () => {
       const secretKey = await db.getSecret();
       expect(secretKey).toBeDefined();
