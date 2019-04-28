@@ -2,7 +2,7 @@ import crypto from 'crypto';
 import crypt3 from './crypt3';
 import md5 from 'apache-md5';
 import bcrypt from 'bcryptjs';
-import Errors, {HttpError} from 'http-errors';
+import createError, { HttpError } from 'http-errors';
 import * as locker from '@verdaccio/file-locking';
 
 import { Callback } from '@verdaccio/types';
@@ -29,7 +29,7 @@ export function unlockFile(name: string, cb: Callback): void {
  * @param {string} input
  * @returns {object}
  */
-export function parseHTPasswd(input: string): Object {
+export function parseHTPasswd(input: string): Record<string, any> {
   return input.split('\n').reduce((result, line) => {
     const args = line.split(':', 3);
     if (args.length > 1) result[args[0]] = args[1];
@@ -74,7 +74,9 @@ export function addUserToHTPasswd(
   passwd: string
 ): string {
   if (user !== encodeURIComponent(user)) {
-    const err = Errors('username should not contain non-uri-safe characters');
+    const err = createError(
+      'username should not contain non-uri-safe characters'
+    );
 
     // $FlowFixMe
     err.status = 409;
@@ -115,7 +117,6 @@ export function sanityCheck(
   maxUsers: number
 ): HttpError | null {
   let err;
-  let hash;
 
   // check for user or password
   if (!user || !password) {
@@ -125,7 +126,7 @@ export function sanityCheck(
     return err;
   }
 
-  hash = users[user];
+  const hash = users[user];
 
   if (maxUsers < 0) {
     err = Error('user registration disabled');

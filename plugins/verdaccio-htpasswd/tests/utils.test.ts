@@ -108,8 +108,8 @@ describe('addUserToHTPasswd - crypt3', () => {
   });
 
   it('should throw an error for incorrect username with space', () => {
-    const input = ['', 'firstname lastname', 'password'];
-    expect(() => addUserToHTPasswd(input[0], input[1], input[2])).toThrowErrorMatchingSnapshot();
+    const [a, b, c] = ['', 'firstname lastname', 'password'];
+    expect(() => addUserToHTPasswd(a, b, c)).toThrowErrorMatchingSnapshot();
   });
 });
 

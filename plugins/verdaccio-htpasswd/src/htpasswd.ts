@@ -16,7 +16,6 @@ export interface VerdaccioConfigApp extends Config {
   file: string;
 }
 
-
 /**
  * HTPasswd - Verdaccio auth class
  */
@@ -54,8 +53,8 @@ export default class HTPasswd implements IPluginAuth<VerdaccioConfigApp> {
 
     this.lastTime = null;
 
-    let { file } = config;
-    
+    const { file } = config;
+
     if (!file) {
       throw new Error('should specify "file" in config');
     }
@@ -146,7 +145,7 @@ export default class HTPasswd implements IPluginAuth<VerdaccioConfigApp> {
       if (err && err.code !== 'ENOENT') {
         return cb(err);
       }
-      let body = (res || '').toString('utf8');
+      const body = (res || '').toString('utf8');
       this.users = parseHTPasswd(body);
 
       // real checks, to prevent race conditions
