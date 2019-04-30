@@ -338,6 +338,20 @@ declare interface verdaccio$Config {
   [key: string]: any;
 }
 
+declare type verdaccio$Token = {
+  user: string;
+  viewToken: string;
+  key: string;
+  cidr?: Array<string>;
+  readonly: boolean;
+  createdTimestamp: number;
+  updatedTimestamp?: number;
+}
+
+declare type verdaccio$TokenFilter  = {
+  user: string;
+}
+
 declare interface verdaccio$ILocalData extends verdaccio$IPlugin {
   logger: verdaccio$Logger;
   config: $Subtype<verdaccio$Config>;
@@ -388,6 +402,9 @@ declare interface verdaccio$IStorageManager extends verdaccio$StoragePackageActi
   getPackage(options: any): void;
   search(startkey: string, options: any): verdaccio$IReadTarball;
   getLocalDatabase(callback: verdaccio$Callback): void;
+  saveToken(token: verdaccio$Token): Promise<any>;
+  deleteToken(user: string, tokenKey: string): Promise<any>;
+  getTokens(filter: verdaccio$TokenFilter): Promise<Array<verdaccio$Token>>;
 }
 
 declare interface verdaccio$IBasicStorage extends verdaccio$StoragePackageActions {

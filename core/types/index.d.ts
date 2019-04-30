@@ -241,6 +241,20 @@ type StringValue = string | void | null;
 		notifications: Notifications;
 	}
 
+	type Token = {
+		user: string;
+		viewToken: string;
+		key: string;
+		cidr?: Array<string>;
+		readonly: boolean;
+		createdTimestamp: number;
+		updatedTimestamp?: number;
+	}
+
+	type TokenFilter  = {
+		user: string;
+	}
+
 	type SyncReturn = Error | void;
 	type IPackageStorage = ILocalPackageManager | void;
 	type IPackageStorageManager = ILocalPackageManager;
@@ -394,6 +408,9 @@ type StringValue = string | void | null;
 		getPackage(options: any): void;
 		search(startkey: string, options: any): IReadTarball;
 		getLocalDatabase(callback: Callback): void;
+		saveToken(token: Token): Promise<any>;
+		deleteToken(user: string, tokenKey: string): Promise<any>;
+		getTokens(filter: TokenFilter): Promise<Array<Token>>;
 	}
 
 	interface IBasicStorage<T> extends StoragePackageActions {
