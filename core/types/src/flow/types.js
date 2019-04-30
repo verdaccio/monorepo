@@ -1,7 +1,5 @@
 /* @flow */
 
-import {Callback, IBasicAuth, IPlugin, IStorageManager, Package} from '@verdaccio/types';
-
 declare type verdaccio$StringValue = string | void | null;
 
 declare type verdaccio$Callback = Function;

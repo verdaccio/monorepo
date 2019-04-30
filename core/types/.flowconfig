@@ -16,6 +16,7 @@
 .*/wiki/.*
 .*/docs/.*
 .*/tools/.*
+lib/*
 
 [libs]
 src/
