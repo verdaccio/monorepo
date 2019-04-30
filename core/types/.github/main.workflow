@@ -1,5 +1,5 @@
 ################################################
-# Workflow for a branch push 
+# Workflow for a branch push
 ################################################
 workflow "build and test on branch" {
   resolves = [
@@ -11,7 +11,7 @@ workflow "build and test on branch" {
   on = "push"
 }
 
-# node 10 
+# node 10
 action "branch.filter" {
   uses = "actions/bin/filter@master"
   args = "branch"
@@ -92,7 +92,7 @@ workflow "build and test on PR" {
   on = "pull_request"
 }
 
-# node 10 
+# node 10
 action "pr.filter" {
   uses = "actions/bin/filter@master"
   args = "action 'opened|synchronize|reopened'"
@@ -205,7 +205,7 @@ action "release.test" {
 action "release.auth" {
   needs = ["release.test"]
   uses = "actions/bin/filter@master"
-  args = ["actor", "octocat", "torvalds"]
+  args = ["actor", "juanpicado", "verdacciobot"]
 }
 
 action "release.npm.publish" {
