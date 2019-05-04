@@ -390,6 +390,9 @@ declare interface verdaccio$StoragePackageActions extends verdaccio$TarballActio
   mergeTags(name: string, tags: verdaccio$MergeTags, callback: verdaccio$Callback): void;
   removePackage(name: string, callback: verdaccio$Callback): void;
   changePackage(name: string, metadata: verdaccio$Package, revision: string, callback: verdaccio$Callback): void;
+  saveToken(token: verdaccio$Token): Promise<any>;
+  deleteToken(user: string, tokenKey: string): Promise<any>;
+  getTokens(filter: verdaccio$TokenFilter): Promise<Array<verdaccio$Token>>;
 }
 
 declare interface verdaccio$IStorageManager extends verdaccio$StoragePackageActions {
@@ -400,9 +403,6 @@ declare interface verdaccio$IStorageManager extends verdaccio$StoragePackageActi
   getPackage(options: any): void;
   search(startkey: string, options: any): verdaccio$IReadTarball;
   getLocalDatabase(callback: verdaccio$Callback): void;
-  saveToken(token: verdaccio$Token): Promise<any>;
-  deleteToken(user: string, tokenKey: string): Promise<any>;
-  getTokens(filter: verdaccio$TokenFilter): Promise<Array<verdaccio$Token>>;
 }
 
 declare interface verdaccio$IBasicStorage extends verdaccio$StoragePackageActions {
@@ -490,6 +490,7 @@ declare module "@verdaccio/file-locking" {
 declare module "@verdaccio/types" {
   declare export type IStorageManager = verdaccio$IStorageManager;
   declare export type IBasicStorage = verdaccio$IBasicStorage;
+  declare export type Token = verdaccio$Token
   declare export type IBasicAuth = verdaccio$IBasicAuth;
   declare export type IPluginAuth = verdaccio$IPluginAuth;
   declare export type IPluginMiddleware = verdaccio$IPluginMiddleware;

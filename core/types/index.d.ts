@@ -398,6 +398,9 @@ type StringValue = string | void | null;
 		mergeTags(name: string, tags: MergeTags, callback: Callback): void;
 		removePackage(name: string, callback: Callback): void;
 		changePackage(name: string, metadata: Package, revision: string, callback: Callback): void;
+		saveToken(token: Token): Promise<any>;
+		deleteToken(user: string, tokenKey: string): Promise<any>;
+		getTokens(filter: TokenFilter): Promise<Array<Token>>;
 	}
 
 	interface IStorageManager<T> extends StoragePackageActions {
@@ -408,9 +411,6 @@ type StringValue = string | void | null;
 		getPackage(options: any): void;
 		search(startkey: string, options: any): IReadTarball;
 		getLocalDatabase(callback: Callback): void;
-		saveToken(token: Token): Promise<any>;
-		deleteToken(user: string, tokenKey: string): Promise<any>;
-		getTokens(filter: TokenFilter): Promise<Array<Token>>;
 	}
 
 	interface IBasicStorage<T> extends StoragePackageActions {
