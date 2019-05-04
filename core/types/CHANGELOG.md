@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="6.0.1"></a>
+## [6.0.1](https://github.com/verdaccio/flow-types/compare/v6.0.0...v6.0.1) (2019-05-04)
+
+
+### Bug Fixes
+
+* tokens are accesible also in local-storage ([56551cf](https://github.com/verdaccio/flow-types/commit/56551cf))
+
+
+
 <a name="6.0.0"></a>
 # [6.0.0](https://github.com/verdaccio/flow-types/compare/v5.0.2...v6.0.0) (2019-04-30)
 
