@@ -1,7 +1,5 @@
-// @flow
-
-import type { UpLinksConfList, PackageList, LoggerConf } from '@verdaccio/types';
-import type { VerdaccioConfigGoogleStorage } from '../../types';
+import { UpLinksConfList, PackageList, LoggerConf, Security } from '@verdaccio/types';
+import { VerdaccioConfigGoogleStorage } from '../../types';
 
 class Config implements VerdaccioConfigGoogleStorage {
   projectId: string;
@@ -15,6 +13,8 @@ class Config implements VerdaccioConfigGoogleStorage {
   packages: PackageList;
   uplinks: UpLinksConfList;
   logs: Array<LoggerConf>;
+  // @ts-ignore
+  security: Security;
   $key: any;
   $value: any;
 

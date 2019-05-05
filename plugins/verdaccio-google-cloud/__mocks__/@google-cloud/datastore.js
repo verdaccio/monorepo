@@ -37,13 +37,13 @@ export default class Storage {
     return Promise.resolve();
   }
 
-  update(entity) {
+  update() {
     return {};
   }
 
   delete(key) {
     const id = key[1];
-    let counter = 1;
+    const counter = 1;
     const elementToRemove = results.filter((item, index) => {
       const medatada = item[this.KEY];
 
@@ -63,7 +63,7 @@ export default class Storage {
     return Promise.resolve([response]);
   }
 
-  createQuery(key) {
+  createQuery() {
     return {
       filter: (key, valueQuery) => valueQuery
     };

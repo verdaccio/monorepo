@@ -1,4 +1,6 @@
-export function generatePackage(name) {
+import { Package } from '@verdaccio/types';
+
+export function generatePackage(name: any): Package {
   return {
     name: name,
     versions: {
@@ -23,7 +25,8 @@ export function generatePackage(name) {
         },
         _id: `${name}@1.0.1`,
         _npmVersion: '5.6.0',
-        _nodeVersion: '9.4.0',
+        nodeVersion: '9.4.0',
+        readme: '',
         _npmUser: {
           name: 'jpicado',
           email: 'dsa@dasd.com'

@@ -1,5 +1,3 @@
-// @flow
-
 import DataStorage from './data-storage';
 
 export { DataStorage };

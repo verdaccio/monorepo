@@ -1,10 +1,12 @@
-// @flow
+import Datastore from '@google-cloud/datastore';
+import { Storage } from '@google-cloud/storage';
+import { Query } from '@google-cloud/datastore/query';
 
 export default class StorageHelper {
-  datastore: any;
-  storage: any;
+  datastore: Datastore;
+  storage: Storage;
 
-  constructor(datastore: any, storage: any) {
+  constructor(datastore: Datastore, storage: Storage) {
     this.datastore = datastore;
     this.storage = storage;
   }
@@ -15,7 +17,7 @@ export default class StorageHelper {
     return query;
   }
 
-  async runQuery(query: any) {
+  async runQuery(query: Query) {
     const result = await this.datastore.runQuery(query);
 
     return result;
@@ -34,7 +36,7 @@ export default class StorageHelper {
   }
 
   async getFile(bucketName: string, path: string) {
-    const myBucket = this.storage.bucket('my-bucket');
+    const myBucket = this.storage.bucket(bucketName);
     const file = myBucket.file(path);
     const data = await file.get();
     const fileData = data[0];
@@ -55,7 +57,7 @@ export default class StorageHelper {
     const datastore = this.datastore;
     const query = datastore.createQuery(key);
     const dataQuery = await datastore.runQuery(query);
-    const data = dataQuery[0].reduce((accumulator, task) => {
+    const data = dataQuery[0].reduce((accumulator: any, task: any) => {
       const taskKey = task[datastore.KEY];
       if (task.name) {
         accumulator.push({

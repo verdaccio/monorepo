@@ -3,5 +3,4 @@ coverage/
 lib/
 .nyc_output
 tests-report/
-flow-typed/
 fixtures/

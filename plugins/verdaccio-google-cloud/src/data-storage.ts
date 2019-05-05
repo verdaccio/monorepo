@@ -1,25 +1,22 @@
-// @flow
-
-import Storage from '@google-cloud/storage';
+import { Storage } from '@google-cloud/storage';
 import Datastore from '@google-cloud/datastore';
 
 import GoogleCloudStorageHandler from './storage';
 import StorageHelper from './storage-helper';
-import type { Logger, Callback } from '@verdaccio/types';
-import type { IPluginStorage } from '@verdaccio/local-storage';
-import type { VerdaccioConfigGoogleStorage, GoogleCloudOptions, GoogleDataStorage } from '../types';
+import { Logger, Callback, IPluginStorage } from '@verdaccio/types';
+import { VerdaccioConfigGoogleStorage, GoogleCloudOptions, GoogleDataStorage } from './types';
 
-class GoogleCloudDatabase implements IPluginStorage {
+class GoogleCloudDatabase implements IPluginStorage<VerdaccioConfigGoogleStorage> {
   helper: any;
-  path: string;
+  path: string | undefined;
   logger: Logger;
   data: GoogleDataStorage;
-  locked: boolean;
+  locked: boolean | undefined;
   config: VerdaccioConfigGoogleStorage;
   kind: string;
   bucketName: string;
-  keyFilename: string;
-  GOOGLE_OPTIONS: GoogleCloudOptions;
+  keyFilename: string | undefined;
+  GOOGLE_OPTIONS: GoogleCloudOptions | undefined;
 
   constructor(config: VerdaccioConfigGoogleStorage, options: any) {
     if (!config) {
@@ -35,7 +32,7 @@ class GoogleCloudDatabase implements IPluginStorage {
       throw new Error('Google Cloud Storage requires a bucket name, please define one.');
     }
     this.bucketName = config.bucket;
-    this.data = this._createEmtpyDatabase();
+    this.data = this._createEmptyDatabase();
     this.helper = new StorageHelper(this.data.datastore, this.data.storage);
   }
 
@@ -65,7 +62,7 @@ class GoogleCloudDatabase implements IPluginStorage {
 
   getSecret(): Promise<any> {
     const key = this.data.datastore.key(['Secret', 'secret']);
-    return this.data.datastore.get(key).then(results => results[0] && results[0].secret);
+    return this.data.datastore.get(key).then((results: any) => results[0] && results[0].secret);
   }
 
   setSecret(secret: string): Promise<any> {
@@ -106,8 +103,8 @@ class GoogleCloudDatabase implements IPluginStorage {
   }
 
   remove(name: string, cb: Callback): void {
-    const deletedItems = [];
-    const sanityCheck = function(deletedItems: any) {
+    const deletedItems: any = [];
+    const sanityCheck = (deletedItems: any) => {
       if (typeof deletedItems === 'undefined' || deletedItems.length === 0 || deletedItems[0][0].indexUpdates === 0) {
         return new Error('not found');
       } else if (deletedItems[0][0].indexUpdates > 0) {
@@ -118,7 +115,7 @@ class GoogleCloudDatabase implements IPluginStorage {
     };
     this.helper
       .getEntities(this.kind)
-      .then(async entities => {
+      .then(async (entities: any) => {
         for (const item of entities) {
           if (item.name === name) {
             const deletedItem = await this._deleteItem(name, item);
@@ -127,15 +124,15 @@ class GoogleCloudDatabase implements IPluginStorage {
         }
         cb(sanityCheck(deletedItems));
       })
-      .catch(err => {
+      .catch((err: any) => {
         cb(new Error(err));
       });
   }
 
   get(cb: Callback) {
     const query = this.helper.datastore.createQuery(this.kind);
-    this.helper.runQuery(query).then(data => {
-      const names = data[0].reduce((accumulator, task) => {
+    this.helper.runQuery(query).then((data: any) => {
+      const names = data[0].reduce((accumulator: any, task: any) => {
         accumulator.push(task.name);
         return accumulator;
       }, []);
@@ -151,9 +148,10 @@ class GoogleCloudDatabase implements IPluginStorage {
     return new GoogleCloudStorageHandler(packageInfo, this.data.storage, this.data.datastore, this.helper, this.config, this.logger);
   }
 
-  _createEmtpyDatabase(): GoogleDataStorage {
-    const datastore = new Datastore(this._getGoogleOptions(this.config));
-    const storage = new Storage(this._getGoogleOptions(this.config));
+  _createEmptyDatabase(): GoogleDataStorage {
+    const options = this._getGoogleOptions(this.config);
+    const datastore = new Datastore(options);
+    const storage = new Storage(options);
 
     const list: any = [];
     const files: any = {};

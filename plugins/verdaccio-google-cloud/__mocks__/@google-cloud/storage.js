@@ -84,9 +84,10 @@ class Bucket {
   }
 }
 
-export default class Storage {
-  constructor() {
+export class Storage {
+  constructor(options) {
     this.buckets = {};
+    this.options = options;
   }
 
   bucket(name) {
@@ -100,3 +101,5 @@ export default class Storage {
     }
   }
 }
+
+module.exports = { Storage, Bucket, File };

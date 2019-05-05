@@ -6,8 +6,6 @@ tests-report/
 yarn-error.log
 yarn.lock
 .idea/
-.flowconfig
-flow-typed/
 .eslintrc
 .babelrc
 test/

@@ -1,5 +1,5 @@
-// @flow
-import type { Config } from '@verdaccio/types';
+import Datastore from '@google-cloud/datastore';
+import { Config } from '@verdaccio/types';
 
 export interface VerdaccioConfigGoogleStorage extends Config {
   // https://cloud.google.com/nodejs/docs/reference/storage/1.6.x/Bucket
@@ -17,12 +17,12 @@ export interface VerdaccioConfigGoogleStorage extends Config {
 export type GoogleValidation = boolean | string;
 
 export type GoogleCloudOptions = {
-  projectId?: string,
-  keyFilename?: string
+  projectId?: string;
+  keyFilename?: string;
 };
 
 export type GoogleDataStorage = {
-  secret: string,
-  storage: any,
-  datastore: any
+  secret: string;
+  storage: any;
+  datastore: Datastore;
 };

@@ -60,7 +60,7 @@ const pkg = {
   readme: 'ERROR: No README data found!'
 };
 
-export function generatePkg(name) {
+export function generatePkg(name: any) {
   return {
     name: `@scope/${name}`,
     versions: {
