@@ -18,7 +18,6 @@
     "test": "jest",
     "lint": "npm run js-lint",
     "js-lint": "eslint . --ext .js,.ts",
-    "flow": "flow",
     "type-check": "tsc --noEmit",
     "type-check:watch": "npm run type-check -- --watch",
     "build": "npm run build:types && npm run build:js",
