@@ -377,6 +377,9 @@ declare interface verdaccio$ILocalPackageManager {
                 transformPackage: Function,
                 onEnd: verdaccio$Callback): void;
   savePackage(fileName: string, json: verdaccio$Package, callback: verdaccio$Callback): void;
+  saveToken(token: verdaccio$Token): Promise<any>;
+  deleteToken(user: string, tokenKey: string): Promise<any>;
+  readTokens(filter: verdaccio$TokenFilter): Promise<Array<verdaccio$Token>>;
 }
 
 declare interface verdaccio$TarballActions {

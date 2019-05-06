@@ -385,6 +385,9 @@ type StringValue = string | void | null;
 									transformPackage: Function,
 									onEnd: Callback): void;
 		savePackage(fileName: string, json: Package, callback: Callback): void;
+		saveToken(token: Token): Promise<any>;
+		deleteToken(user: string, tokenKey: string): Promise<any>;
+		readTokens(filter: TokenFilter): Promise<Array<Token>>;
 	}
 
 	interface TarballActions {
