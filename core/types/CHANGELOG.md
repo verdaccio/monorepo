@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="6.1.0"></a>
+# [6.1.0](https://github.com/verdaccio/flow-types/compare/v6.0.2...v6.1.0) (2019-05-14)
+
+
+### Bug Fixes
+
+* revert token signature ([59a03e7](https://github.com/verdaccio/flow-types/commit/59a03e7))
+
+
+### Features
+
+* moved token api signature ([e51991c](https://github.com/verdaccio/flow-types/commit/e51991c))
+
+
+
 <a name="6.0.2"></a>
 ## [6.0.2](https://github.com/verdaccio/flow-types/compare/v6.0.1...v6.0.2) (2019-05-06)
 
