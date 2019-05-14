@@ -369,6 +369,9 @@ type StringValue = string | void | null;
 		setSecret(secret: string): Promise<any>;
 		getPackageStorage(packageInfo: string): IPackageStorage;
 		search(onPackage: Callback, onEnd: Callback, validateName: Function): void;
+		saveToken(token: Token): Promise<any>;
+		deleteToken(user: string, tokenKey: string): Promise<any>;
+		readTokens(filter: TokenFilter): Promise<Array<Token>>;
 	}
 
 	interface ILocalPackageManager {
@@ -385,9 +388,6 @@ type StringValue = string | void | null;
 									transformPackage: Function,
 									onEnd: Callback): void;
 		savePackage(fileName: string, json: Package, callback: Callback): void;
-		saveToken(token: Token): Promise<any>;
-		deleteToken(user: string, tokenKey: string): Promise<any>;
-		readTokens(filter: TokenFilter): Promise<Array<Token>>;
 	}
 
 	interface TarballActions {
@@ -401,9 +401,6 @@ type StringValue = string | void | null;
 		mergeTags(name: string, tags: MergeTags, callback: Callback): void;
 		removePackage(name: string, callback: Callback): void;
 		changePackage(name: string, metadata: Package, revision: string, callback: Callback): void;
-		saveToken(token: Token): Promise<any>;
-		deleteToken(user: string, tokenKey: string): Promise<any>;
-		getTokens(filter: TokenFilter): Promise<Array<Token>>;
 	}
 
 	interface IStorageManager<T> extends StoragePackageActions {
