@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="6.2.0"></a>
+# [6.2.0](https://github.com/verdaccio/flow-types/compare/v6.1.0...v6.2.0) (2019-05-28)
+
+
+### Features
+
+* add types for Version ([900861d](https://github.com/verdaccio/flow-types/commit/900861d))
+
+
+
 <a name="6.1.0"></a>
 # [6.1.0](https://github.com/verdaccio/flow-types/compare/v6.0.2...v6.1.0) (2019-05-14)
 
