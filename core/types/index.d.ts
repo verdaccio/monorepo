@@ -61,7 +61,8 @@ type StringValue = string | void | null;
 		_id: string,
         _npmVersion?: string;
 		_npmUser: Author,
-		_hasShrinkwrap?: boolean
+		_hasShrinkwrap?: boolean,
+		deprecated?: string
 	};
 
 	type Logger = {

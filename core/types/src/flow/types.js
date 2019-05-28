@@ -59,7 +59,8 @@ declare type verdaccio$Version = {
   _id: string,
   nodeVersion: string,
   _npmUser: verdaccio$Author,
-  _hasShrinkwrap: boolean
+  _hasShrinkwrap: boolean,
+  deprecated?: string
 };
 
 declare type verdaccio$Logger = {
