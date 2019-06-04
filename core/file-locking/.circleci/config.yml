@@ -9,14 +9,11 @@ aliases:
   - &node8_executor
     docker:
       - image: circleci/node:8
-  - &node9_executor
-    docker:
-      - image: circleci/node:9
   - &node10_executor
     docker:
       - image: circleci/node:10
   - &default_executor
-    <<: *node9_executor
+    <<: *node10_executor
   - &repo_key
     repo-{{ .Branch }}-{{ .Revision }}
   - &coverage_key
@@ -174,10 +171,6 @@ workflows:
           requires:
             - prepare
           <<: *ignore_non_dev_branches
-      - test_node9:
-          requires:
-            - prepare
-          <<: *ignore_non_dev_branches
       - test_node10:
           requires:
             - prepare
@@ -185,9 +178,7 @@ workflows:
       # - coverage:
       #     requires:
       #       - check_types
-      #       - test_node6
       #       - test_node8
-      #       - test_node9
       #       - test_node10
       #     <<: *ignore_non_dev_branches
       - publish_package:
@@ -196,6 +187,5 @@ workflows:
             - check_types
             - test_node12
             - test_node8
-            - test_node9
             - test_node10
           <<: *execute_on_release
