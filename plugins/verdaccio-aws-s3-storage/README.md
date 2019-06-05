@@ -30,7 +30,7 @@ npm install -g verdaccio
 ## Usage
 
 ```
-npm install verdaccio--aws-s3-storage
+npm install verdaccio-aws-s3-storage
 ```
 
 This will pull AWS credentials from your environment.
