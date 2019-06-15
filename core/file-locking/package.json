@@ -19,8 +19,8 @@
     "eslint": "5.16.0",
     "husky": "0.14.3",
     "in-publish": "2.0.0",
-    "jest": "24.7.1",
-    "lint-staged": "6.0.1",
+    "jest": "24.8.0",
+    "lint-staged": "8.1.7",
     "typescript": "3.2.4"
   },
   "author": "Juan Picado <juanpicado19@gmail.com>",
