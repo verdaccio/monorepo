@@ -14,14 +14,10 @@ aliases:
       - image: circleci/node:10
   - &default_executor
     <<: *node10_executor
-  - &repo_key
-    repo-{{ .Branch }}-{{ .Revision }}
-  - &coverage_key
-    coverage-{{ .Branch }}-{{ .Revision }}
-  - &base_config_key
-    base-config-{{ .Branch }}-{{ .Revision }}
-  - &yarn_cache_key
-    yarn-sha-{{ checksum "yarn.lock" }}
+  - &repo_key repo-{{ .Branch }}-{{ .Revision }}
+  - &coverage_key coverage-{{ .Branch }}-{{ .Revision }}
+  - &base_config_key base-config-{{ .Branch }}-{{ .Revision }}
+  - &yarn_cache_key yarn-sha-{{ checksum "yarn.lock" }}
   - &restore_repo
     restore_cache:
       keys:
@@ -80,8 +76,8 @@ jobs:
     steps:
       - *restore_repo
       - run:
-          name: Check Flow types
-          command: yarn flow
+          name: Check defined rules
+          command: yarn lint
 
   test_node12:
     <<: *defaults
