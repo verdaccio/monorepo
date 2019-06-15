@@ -97,19 +97,6 @@ jobs:
           name: Test with Node 8
           command: yarn test
 
-  test_node9:
-    <<: *defaults
-    <<: *default_executor
-    steps:
-      - *restore_repo
-      - run:
-          name: Test with Node 9
-          command: yarn test
-      - save_cache:
-          key: *coverage_key
-          paths:
-            - coverage
-
   test_node10:
     <<: *defaults
     <<: *node10_executor
@@ -118,25 +105,6 @@ jobs:
       - run:
           name: Test with Node 10
           command: yarn test
-
-  # coverage:
-  #   <<: *defaults
-  #   <<: *default_executor
-  #   steps:
-  #     - *restore_repo
-  #     - restore_cache:
-  #         key: *coverage_key
-  #     - run:
-  #         name: Publish coverage
-  #         command: yarn coverage:publish
-  #     - store_artifacts:
-  #         path: coverage/clover.xml
-  #         prefix: tests
-  #     - store_artifacts:
-  #         path: coverage
-  #         prefix: coverage
-  #     - store_test_results:
-  #         path: coverage/clover.xml
 
   publish_package:
     <<: *defaults
@@ -171,15 +139,8 @@ workflows:
           requires:
             - prepare
           <<: *ignore_non_dev_branches
-      # - coverage:
-      #     requires:
-      #       - check_types
-      #       - test_node8
-      #       - test_node10
-      #     <<: *ignore_non_dev_branches
       - publish_package:
           requires:
-            # - coverage
             - check_types
             - test_node12
             - test_node8
