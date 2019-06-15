@@ -3,5 +3,5 @@ module.exports = {
   verbose: true,
   collectCoverage: true,
   coveragePathIgnorePatterns: ['node_modules', '_storage', 'fixtures', 'lib'],
-  testURL: 'http://localhost',
+  testURL: 'http://localhost'
 };
