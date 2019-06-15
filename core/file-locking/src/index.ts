@@ -4,12 +4,12 @@ import path from 'path';
 import { Callback } from '@verdaccio/types';
 
 // locks a file by creating a lock file
-const lockFile = function(name: string, callback: Callback) {
+const lockFile = function (name: string, callback: Callback) {
   const statDir = (name: string) => {
     return new Promise((resolve, reject) => {
       // test to see if the directory exists
       const dirPath = path.dirname(name);
-      fs.stat(dirPath, function(err, stats) {
+      fs.stat(dirPath, function (err, stats) {
         if (err) {
           return reject(err);
         } else if (!stats.isDirectory()) {
@@ -24,7 +24,7 @@ const lockFile = function(name: string, callback: Callback) {
   const statfile = (name: string) => {
     return new Promise((resolve, reject) => {
       // test to see if the directory exists
-      fs.stat(name, function(err, stats) {
+      fs.stat(name, function (err, stats) {
         if (err) {
           return reject(err);
         } else if (!stats.isFile()) {
@@ -76,9 +76,9 @@ const lockFile = function(name: string, callback: Callback) {
 };
 
 // unlocks file by removing existing lock file
-const unlockFile = function(name: string, next: Callback) {
+const unlockFile = function (name: string, next: Callback) {
   const lockFileName = `${name}.lock`;
-  locker.unlock(lockFileName, function() {
+  locker.unlock(lockFileName, function () {
     return next(null);
   });
 };
@@ -92,7 +92,7 @@ const unlockFile = function(name: string, next: Callback) {
  * @param {*} options
  * @param {*} callback
  */
-function readFile(name: string, options: any = {}, callback: any = () => {}) {
+function readFile(name: string, options: any = {}, callback: any = () => { }) {
   if (typeof options === 'function') {
     callback = options;
     options = {};
@@ -101,13 +101,13 @@ function readFile(name: string, options: any = {}, callback: any = () => {}) {
   options.lock = options.lock || false;
   options.parse = options.parse || false;
 
-  const lock = function(options: { lock: string }) {
+  const lock = function (options: { lock: string }) {
     return new Promise((resolve, reject) => {
       if (!options.lock) {
         return resolve(null);
       }
 
-      lockFile(name, function(err: any) {
+      lockFile(name, function (err: any) {
         if (err) {
           return reject(err);
         }
@@ -116,9 +116,9 @@ function readFile(name: string, options: any = {}, callback: any = () => {}) {
     });
   };
 
-  const read = function() {
+  const read = function () {
     return new Promise((resolve, reject) => {
-      fs.readFile(name, 'utf8', function(err, contents) {
+      fs.readFile(name, 'utf8', function (err, contents) {
         if (err) {
           return reject(err);
         }
@@ -128,7 +128,7 @@ function readFile(name: string, options: any = {}, callback: any = () => {}) {
     });
   };
 
-  const parseJSON = function(contents: any) {
+  const parseJSON = function (contents: any) {
     return new Promise((resolve, reject) => {
       if (!options.parse) {
         return resolve(contents);
