@@ -29,9 +29,6 @@
   "dependencies": {
     "lockfile": "1.0.4"
   },
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
   "lint-staged": {
     "*.{js, json}": [
       "npm run lint",
@@ -42,7 +39,7 @@
   "scripts": {
     "commitmsg": "commitlint -e $GIT_PARAMS",
     "coverage": "codecov",
-    "test": "jest",
+    "test": "jest .",
     "lint": "npm run type-check && eslint . --ext .js,.ts",
     "type-check": "tsc --noEmit",
     "type-check:watch": "npm run type-check -- --watch",
