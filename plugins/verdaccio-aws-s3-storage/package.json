@@ -25,25 +25,25 @@
     "coverage:publish": "codecov"
   },
   "dependencies": {
-    "@verdaccio/streams": "2.0.0-beta.0",
-    "aws-sdk": "2.432.0"
+    "@verdaccio/streams": "2.0.0",
+    "aws-sdk": "2.479.0"
   },
   "devDependencies": {
-    "@commitlint/cli": "7.5.2",
-    "@commitlint/config-conventional": "7.5.0",
+    "@commitlint/cli": "8.0.0",
+    "@commitlint/config-conventional": "8.0.0",
     "@types/aws-sdk": "2.7.0",
     "@types/http-errors": "1.6.1",
-    "@types/jest": "24.0.11",
-    "@verdaccio/babel-preset": "0.1.0",
-    "@verdaccio/types": "5.0.0-beta.4",
+    "@types/jest": "24.0.15",
+    "@verdaccio/babel-preset": "0.2.1",
     "@verdaccio/eslint-config": "0.0.1",
+    "@verdaccio/types": "5.1.0",
     "cross-env": "5.2.0",
-    "eslint": "5.15.3",
-    "husky": "0.14.3",
-    "jest": "24.5.0",
+    "eslint": "5.16.0",
+    "husky": "2.4.1",
+    "jest": "24.8.0",
     "recursive-readdir": "2.2.2",
-    "standard-version": "5.0.2",
-    "typescript": "3.2.1"
+    "standard-version": "6.0.1",
+    "typescript": "3.5.2"
   },
   "keywords": [
     "verdaccio",
@@ -54,6 +54,11 @@
     "extends": [
       "@commitlint/config-conventional"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "commitlint -e $GIT_PARAMS"
+    }
   },
   "engines": {
     "node": ">=8"
