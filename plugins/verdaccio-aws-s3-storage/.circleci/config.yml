@@ -3,9 +3,9 @@ version: 2
 aliases:
   - &defaults
     working_directory: ~/aws-s3-storage
-  - &node11_executor
+  - &node12_executor
     docker:
-      - image: circleci/node:11.10.1
+      - image: circleci/node:12
   - &node8_executor
     docker:
       - image: circleci/node:8
@@ -77,13 +77,13 @@ jobs:
           paths:
             - ~/local-storage
 
-  test_node11:
+  test_node12:
     <<: *defaults
-    <<: *node11_executor
+    <<: *node12_executor
     steps:
       - *restore_repo
       - run:
-          name: Test with Node 11
+          name: Test with Node 12
           command: yarn run test
 
   test_node8:
@@ -144,7 +144,7 @@ workflows:
     jobs:
       - prepare:
           <<: *ignore_non_dev_branches
-      - test_node11:
+      - test_node12:
           requires:
             - prepare
           <<: *ignore_non_dev_branches
@@ -158,7 +158,7 @@ workflows:
           <<: *ignore_non_dev_branches
       - coverage:
           requires:
-            - test_node11
+            - test_node12
             - test_node8
             - test_node10
           <<: *ignore_non_dev_branches
