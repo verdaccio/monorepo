@@ -13,14 +13,13 @@
   "scripts": {
     "release": "standard-version -a -s",
     "test": "npm run lint && jest",
-    "lint": "eslint . --ext .js,.ts",
+    "lint": "npm run type-check && eslint . --ext .js,.ts",
     "commitmsg": "commitlint -e $GIT_PARAMS",
     "type-check": "tsc --noEmit",
     "type-check:watch": "npm run type-check -- --watch",
     "build": "npm run build:types && npm run build:js",
     "build:types": "tsc --emitDeclarationOnly",
     "build:js": "babel src/ --out-dir lib --extensions \".ts,.tsx\" --source-maps inline",
-    "prepublish": "npm run build",
     "format": "prettier --single-quote --trailing-comma none --write \"{src,test}/**/*.js\"",
     "coverage:publish": "codecov"
   },

@@ -2,7 +2,11 @@
   "extends": [
     "@verdaccio"
   ],
+  "plugins": ["jest"],
   "rules": {
     "@typescript-eslint/no-use-before-define": 0
+  },
+  "env": {
+    "jest/globals": true
   }
 }
