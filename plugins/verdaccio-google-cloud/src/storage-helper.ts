@@ -35,15 +35,15 @@ export default class StorageHelper {
     return result;
   }
 
+  // FIXME: not sure whether we need this
   async getFile(bucketName: string, path: string) {
-    const myBucket = this.storage.bucket(bucketName);
-    const file = myBucket.file(path);
-    const data = await file.get();
-    const fileData = data[0];
-    const apiResponse = data[1];
-
-    console.log('fileData', fileData);
-    console.log('apiResponse', apiResponse);
+    // const myBucket = this.storage.bucket(bucketName);
+    // const file = myBucket.file(path);
+    // const data = await file.get();
+    // const fileData = data[0];
+    // const apiResponse = data[1];
+    // // console.log('fileData', fileData);
+    // // console.log('apiResponse', apiResponse);
   }
 
   async deleteEntity(key: string, itemId: any) {

@@ -1,13 +1,13 @@
 import createError from 'http-errors';
 
-import { UploadTarball, ReadTarball, IUploadTarball, IReadTarball } from '@verdaccio/streams';
+import { UploadTarball, ReadTarball } from '@verdaccio/streams';
 import { HttpError } from 'http-errors';
 import { Package, Callback, Logger, IPackageStorageManager } from '@verdaccio/types';
 import { VerdaccioConfigGoogleStorage } from './types';
 import { Bucket, File } from '@google-cloud/storage';
 
-export const noSuchFile: string = 'ENOENT';
-export const fileExist: string = 'EEXISTS';
+export const noSuchFile = 'ENOENT';
+export const fileExist = 'EEXISTS';
 export const pkgFileName = 'package.json';
 export const defaultValidation = 'crc32c';
 
@@ -224,7 +224,7 @@ class GoogleCloudStorageHandler implements IPackageStorageManager {
   }
 
   writeTarball(name: string): UploadTarball {
-    const uploadStream: UploadTarball = new UploadTarball();
+    const uploadStream: UploadTarball = new UploadTarball({});
 
     try {
       this._fileExist(this.name, name).then(
@@ -288,7 +288,7 @@ class GoogleCloudStorageHandler implements IPackageStorageManager {
   }
 
   readTarball(name: string): ReadTarball {
-    const readTarballStream: ReadTarball = new ReadTarball();
+    const readTarballStream: ReadTarball = new ReadTarball({});
     const file = this._getBucket().file(`${this.name}/${name}`);
     const fileStream = file.createReadStream();
     this.logger.debug({ url: file.name }, 'gcloud: reading tarball from @{url}');

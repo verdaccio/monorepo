@@ -18,13 +18,13 @@ export interface VerdaccioConfigGoogleStorage extends Config {
 
 export type GoogleValidation = boolean | string;
 
-export type GoogleCloudOptions = {
+export interface GoogleCloudOptions {
   projectId?: string;
   keyFilename?: string;
-};
+}
 
-export type GoogleDataStorage = {
+export interface GoogleDataStorage {
   secret: string;
   storage: any;
   datastore: Datastore;
-};
+}

@@ -55,7 +55,7 @@ describe('Google Cloud Storage', () => {
     });
 
     describe('DataStore basic calls', () => {
-      const pkgName: string = 'dataBasicItem1';
+      const pkgName = 'dataBasicItem1';
       const deleteItem = (name: any, done: any) => {
         const cloudDatabase = new GoogleCloudDatabase(storageConfig, { logger });
         /* eslint-disable */

@@ -3,6 +3,8 @@
     "@verdaccio"
   ],
   "rules": {
-    "@typescript-eslint/no-var-requires": 0
+    "@typescript-eslint/no-var-requires": 0,
+    "@typescript-eslint/interface-name-prefix": 0,
+    "@typescript-eslint/ban-types": 1
   }
 }

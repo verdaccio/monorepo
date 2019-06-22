@@ -12,7 +12,7 @@ class Config implements VerdaccioConfigGoogleStorage {
   server_id: string;
   packages: PackageList;
   uplinks: UpLinksConfList;
-  logs: Array<LoggerConf>;
+  logs: LoggerConf[];
   // @ts-ignore
   security: Security;
   $key: any;
