@@ -6,7 +6,6 @@
   "scripts": {
     "pretest": "yarn lint",
     "test": " jest --config ./jest.config.js --maxWorkers 2",
-    "precommit": "lint-staged",
     "format": "prettier --single-quote --trailing-comma none --write \"{src,types,test}/**/*.{ts}\"",
     "lint": "eslint .",
     "prepublish": "npm run build",
@@ -48,7 +47,7 @@
     "codecov": "3.2.0",
     "cross-env": "5.2.0",
     "eslint": "^5.16.0",
-    "husky": "0.14.3",
+    "husky": "2.1.0",
     "jest": "24.5.0",
     "lint-staged": "7.2.0",
     "memory-fs": "^0.4.1",
@@ -58,6 +57,12 @@
   },
   "engines": {
     "node": ">=8"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commit-msg": "commitlint -e $GIT_PARAMS"
+    }
   },
   "commitlint": {
     "extends": [
