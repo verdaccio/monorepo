@@ -12,6 +12,8 @@ export interface VerdaccioConfigGoogleStorage extends Config {
   keyFilename?: string;
   // disable bucket validation
   validation?: GoogleValidation;
+  /** Enable/disable resumable uploads to GC Storage */
+  resumable?: boolean;
 }
 
 export type GoogleValidation = boolean | string;

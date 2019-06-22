@@ -53,7 +53,14 @@ store:
    ## default validation is, it can be overrided by 
    ## https://cloud.google.com/nodejs/docs/reference/storage/1.6.x/File.html#createWriteStream
    # validation: crc32c
+
+   ## Enable/disable resumable uploads to GC Storage
+   ## By default it's enabled in `@google-cloud/storage`
+   ## May cause failures for small package uploads so it is recommended to set it to `false`
+   ## @see https://stackoverflow.com/questions/53172050/google-cloud-storage-invalid-upload-request-error-bad-request
+   resumable: true
 ```
+
 Define `env` whether you want load the value from environment variables.
 
 > If you are willing to use some of `env` just **do not define** properties on
