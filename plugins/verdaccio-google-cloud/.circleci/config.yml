@@ -117,7 +117,7 @@ jobs:
           key: *coverage_key
       - run:
           name: Publish coverage
-          command: yarn run coverage:publish
+          command: yarn coverage:publish
       - store_artifacts:
           path: coverage/clover.xml
           prefix: tests
