@@ -19,13 +19,14 @@
     "type-check:watch": "npm run type-check -- --watch",
     "build": "npm run build:types && npm run build:js",
     "build:types": "tsc --emitDeclarationOnly",
-    "build:js": "babel src/ --out-dir lib --extensions \".ts,.tsx\" --source-maps inline",
+    "build:js": "babel src/ --out-dir lib --extensions \".ts,.tsx\"",
     "format": "prettier --single-quote --trailing-comma none --write \"{src,test}/**/*.js\"",
     "coverage:publish": "codecov"
   },
   "dependencies": {
-    "@verdaccio/streams": "2.0.0",
-    "aws-sdk": "2.479.0"
+    "@verdaccio/commons-api": "^0.1.0",
+    "@verdaccio/streams": "^2.0.0",
+    "aws-sdk": "2.480.0"
   },
   "devDependencies": {
     "@commitlint/cli": "8.0.0",
@@ -33,9 +34,11 @@
     "@types/aws-sdk": "2.7.0",
     "@types/http-errors": "1.6.1",
     "@types/jest": "24.0.15",
+    "@types/node": "^12.0.10",
     "@verdaccio/babel-preset": "0.2.1",
     "@verdaccio/eslint-config": "0.0.1",
     "@verdaccio/types": "5.1.0",
+    "codecov": "^3.5.0",
     "cross-env": "5.2.0",
     "eslint": "5.16.0",
     "husky": "2.4.1",

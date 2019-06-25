@@ -1,6 +1,5 @@
 src/
 tests-report/
-.nyc_output
 .editorconfig
 .gitignore
 yarn-error.log
@@ -20,3 +19,11 @@ travis.yml
 coverage/
 jest.config.js
 jestEnvironment.js
+tests/
+.idea/
+.circleci/
+tsconfig.json
+jest.config.js
+.DS_Store
+.prettierrc
+*.spec.js

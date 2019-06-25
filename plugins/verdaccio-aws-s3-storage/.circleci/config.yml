@@ -75,7 +75,7 @@ jobs:
       - save_cache:
           key: *repo_key
           paths:
-            - ~/local-storage
+            - ~/aws-s3-storage
 
   test_node12:
     <<: *defaults

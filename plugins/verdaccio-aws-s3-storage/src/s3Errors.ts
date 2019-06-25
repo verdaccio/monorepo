@@ -1,53 +1,40 @@
 import { AWSError } from 'aws-sdk';
+import { getNotFound, getCode, getInternalError, getConflict, API_ERROR, HTTP_STATUS, VerdaccioError } from '@verdaccio/commons-api';
 
-class VerdaccioError extends Error {
-  httpCode: number;
-  code: string;
-  constructor(message: string, httpCode: number | string, code: string) {
-    super(message);
-    this.httpCode = httpCode as number;
-    this.code = code;
-  }
+export function is404Error(err: VerdaccioError): boolean {
+  return err.code === HTTP_STATUS.NOT_FOUND;
 }
 
-const error404Code = 'ENOENT';
-
-export function is404Error(err: VerdaccioError) {
-  return err.code === error404Code;
+export function create404Error(): VerdaccioError {
+  return getNotFound('no such package available');
 }
 
-export function create404Error() {
-  return new VerdaccioError('no such package available', 404, error404Code);
+export function is409Error(err: VerdaccioError): boolean {
+  return err.code === HTTP_STATUS.CONFLICT;
 }
 
-const error409Code = 'EEXISTS';
-
-export function is409Error(err: VerdaccioError) {
-  return err.code === error409Code;
+export function create409Error(): VerdaccioError {
+  return getConflict('file already exists');
 }
 
-export function create409Error() {
-  return new VerdaccioError('file exists', 409, error409Code);
+export function is503Error(err: VerdaccioError): boolean {
+  return err.code === HTTP_STATUS.SERVICE_UNAVAILABLE;
 }
 
-const error503Code = 'EAGAIN';
-
-export function is503Error(err: VerdaccioError) {
-  return err.code === error503Code;
-}
-
-export function create503Error() {
-  return new VerdaccioError('resource temporarily unavailable', 500, error503Code);
+export function create503Error(): VerdaccioError {
+  return getCode(HTTP_STATUS.SERVICE_UNAVAILABLE, 'resource temporarily unavailable');
 }
 
 export function convertS3Error(err: AWSError): VerdaccioError {
   switch (err.code) {
     case 'NoSuchKey':
     case 'NotFound':
-      return create404Error();
+      return getNotFound();
+    case 'StreamContentLengthMismatch':
+      return getInternalError(API_ERROR.CONTENT_MISMATCH);
     case 'RequestAbortedError':
-      return new VerdaccioError('request aborted', 0, 'ABORTED');
+      return getInternalError('request aborted');
     default:
-      return new VerdaccioError(err.message, err.statusCode, err.code);
+      return getCode(err.statusCode, err.message);
   }
 }

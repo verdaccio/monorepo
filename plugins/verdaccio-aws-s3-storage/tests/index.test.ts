@@ -7,7 +7,7 @@ import { deleteKeyPrefix } from '../src/deleteKeyPrefix';
 import { is404Error } from '../src/s3Errors';
 import { S3Config } from '../src/config';
 
-describe('Local Database', () => {
+describe.skip('Local Database', () => {
   let db: IPluginStorage<S3Config>;
   let config;
   // random key for testing

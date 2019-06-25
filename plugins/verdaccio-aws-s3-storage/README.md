@@ -12,7 +12,7 @@
 [![node](https://img.shields.io/node/v/verdaccio-aws-s3-storage/latest.svg)](https://www.npmjs.com/package/verdaccio-aws-s3-storage)
 
 
-Based on [`verdaccio-s3-storage`](https://github.com/Remitly/verdaccio-s3-storage) in Typescript
+Based on [`verdaccio-s3-storage`](https://github.com/Remitly/verdaccio-s3-storage) built in Typescript.
 
 🚧 Under construction
 
@@ -45,4 +45,6 @@ store:
     region: us-west-2 # optional, will use aws s3's default behavior if not specified
     endpoint: https://{service}.{region}.amazonaws.com # optional, will use aws s3's default behavior if not specified
     s3ForcePathStyle: false # optional, will use path style URLs for S3 objects
+    accessKeyId: your-access-key-id # optional, aws accessKeyId for private S3 bucket
+    secretAccessKey: your-secret-access-key # optional, aws secretAccessKey for private S3 bucket
 ```

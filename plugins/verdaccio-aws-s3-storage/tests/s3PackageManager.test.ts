@@ -11,7 +11,7 @@ import { S3Config } from '../src/config';
 
 const pkgFileName = 'package.json';
 
-describe('S3 package manager', () => {
+describe.skip('S3 package manager', () => {
   // random key for testing
   const keyPrefix = `test/${Math.floor(Math.random() * Math.pow(10, 8))}`;
 
