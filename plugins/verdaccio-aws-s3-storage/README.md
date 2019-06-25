@@ -21,7 +21,7 @@ Based on [`verdaccio-s3-storage`](https://github.com/Remitly/verdaccio-s3-storag
 ### Requirements
 
 * AWS Account
-* Verdaccio server (4.0) (for 3.x use `verdaccio-aws-s3-storage`)
+* Verdaccio server (4.0) (for 3.x use `verdaccio-s3-storage` instead)
 
 ```
 npm install -g verdaccio
