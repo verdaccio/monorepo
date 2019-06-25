@@ -12,14 +12,16 @@
 [![node](https://img.shields.io/node/v/verdaccio-aws-s3-storage/latest.svg)](https://www.npmjs.com/package/verdaccio-aws-s3-storage)
 
 
-Based on [`verdaccio-s3-storage`](https://github.com/Remitly/verdaccio-s3-storage) built in Typescript.
+Based on [`verdaccio-s3-storage`](https://github.com/Remitly/verdaccio-s3-storage) built in Typescript + other features.
 
-🚧 Under construction
+🚧 Alpha testing
+
+**See it in action in our [LocalStack + Verdaccio 4 + S3 Plugin example](https://github.com/verdaccio/docker-examples/tree/master/amazon-s3-docker-example).
 
 ### Requirements
 
 * AWS Account
-* Verdaccio server (4.0) (for 3.x use `verdaccio-s3-storage`)
+* Verdaccio server (4.0) (for 3.x use `verdaccio-aws-s3-storage`)
 
 ```
 npm install -g verdaccio
