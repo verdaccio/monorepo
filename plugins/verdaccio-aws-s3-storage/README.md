@@ -16,7 +16,7 @@ Based on [`verdaccio-s3-storage`](https://github.com/Remitly/verdaccio-s3-storag
 
 🚧 Alpha testing
 
-**See it in action in our [LocalStack + Verdaccio 4 + S3 Plugin example](https://github.com/verdaccio/docker-examples/tree/master/amazon-s3-docker-example).
+**See it in action** in our [LocalStack + Verdaccio 4 + S3 Plugin example](https://github.com/verdaccio/docker-examples/tree/master/amazon-s3-docker-example).
 
 ### Requirements
 
