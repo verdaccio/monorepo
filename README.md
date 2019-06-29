@@ -1,6 +1,6 @@
 # Verdaccio Core
 
-This monorepo contains the core packages of the Verdaccio architechture.
+This monorepo contains the core packages of the Verdaccio architecture.
 
 ## List of packages
 
