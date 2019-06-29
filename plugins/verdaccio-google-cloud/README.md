@@ -46,7 +46,7 @@ store:
    ## this pluging do not create the bucket, it has to exist
    bucket: my-bucket-name
 
-   ## google cloud recomend this file only for development
+   ## google cloud recommend this file only for development
    ## this field is not mandatory
    keyFilename: /path/project-01.json || env (GOOGLE_CLOUD_VERDACCIO_KEY)
 
