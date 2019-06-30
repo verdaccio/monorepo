@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "scripts": {
     "release": "standard-version -a -s",
-    "test": "npm run lint && jest",
+    "test": "jest",
     "lint": "eslint . --ext .js,.ts",
     "commitmsg": "commitlint -e $GIT_PARAMS",
     "type-check": "tsc --noEmit",

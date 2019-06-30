@@ -16,6 +16,8 @@ export const noSuchFile = 'ENOENT';
 export const resourceNotAvailable = 'EAGAIN';
 export const pkgFileName = 'package.json';
 
+type CallbackFS = NodeJS.ErrnoException | null;
+
 export const fSError = function(message: string, code: number = 409): HttpError {
   const err: HttpError = createError(code, message);
   // $FlowFixMe
@@ -127,11 +129,11 @@ export default class LocalFS implements ILocalFSPackageManager {
     });
   }
 
-  deletePackage(fileName: string, callback: CallbackError) {
+  deletePackage(fileName: string, callback: (err: NodeJS.ErrnoException | null) => void) {
     return fs.unlink(this._getStorage(fileName), callback);
   }
 
-  removePackage(callback: CallbackError): void {
+  removePackage(callback: (err: NodeJS.ErrnoException | null) => void): void {
     fs.rmdir(this._getStorage('.'), callback);
   }
 
