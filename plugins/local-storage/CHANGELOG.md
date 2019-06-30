@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.2.1](https://github.com/verdaccio/local-storage/compare/v2.2.0...v2.2.1) (2019-06-30)
+
+
+### Bug Fixes
+
+* **build:** error on types for fs callback ([774d808](https://github.com/verdaccio/local-storage/commit/774d808))
+
+
+
 ## [2.2.0](https://github.com/verdaccio/local-storage/compare/v2.1.0...v2.2.0) (2019-06-30)
 
 
