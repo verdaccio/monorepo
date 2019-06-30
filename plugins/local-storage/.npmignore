@@ -6,8 +6,6 @@ tests-report/
 yarn-error.log
 yarn.lock
 .idea/
-.flowconfig
-flow-typed/
 .eslintrc
 .babelrc
 test/
@@ -20,7 +18,18 @@ _storage/
 circle.yml
 travis.yml
 *.md
+*.json
+__mocks__
+types/
+.prettierrc
 coverage/
+tests/
 jest.config.js
 jestEnvironment.js
+renovate.json
+.circleci/
+scripts/
+.DS_Store
+.github/
+.dockerignore
 Dockerfile
