@@ -9,7 +9,8 @@
   ],
   "dependencies": {
     "lockfile": "1.0.4",
-    "lodash": "4.17.11"
+    "lodash": "4.17.11",
+    "snyk": "^1.189.0"
   },
   "devDependencies": {
     "@verdaccio/types": "4.2.0"
@@ -32,7 +33,9 @@
     "flow": "flow",
     "build": "babel src/ --out-dir lib/ --copy-files --ignore __tests__",
     "precommit": "lint-staged",
-    "prepare": "npm run build"
+    "prepare": "npm run build",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "commitlint": {
     "extends": [
@@ -42,5 +45,6 @@
   "engines": {
     "node": ">=4.6.1",
     "npm": ">=2.15.9"
-  }
+  },
+  "snyk": true
 }
