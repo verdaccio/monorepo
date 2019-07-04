@@ -28,9 +28,15 @@
     "eslint-plugin-import": "2.14.0",
     "eslint-plugin-jest": "21.22.1",
     "eslint-plugin-prettier": "2.6.2",
-    "eslint-plugin-react": "7.11.1"
+    "eslint-plugin-react": "7.11.1",
+    "snyk": "^1.189.0"
   },
   "eslintConfig": {
     "extends": "./index.js"
-  }
+  },
+  "scripts": {
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
+  },
+  "snyk": true
 }
