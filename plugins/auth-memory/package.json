@@ -1,6 +1,6 @@
 {
   "name": "verdaccio-auth-memory",
-  "main": "index.js",
+  "main": "lib/index.js",
   "version": "1.0.1",
   "description": "auth plugin for verdaccio that keeps users in memory",
   "author": "Juan Picado <juanpicado19@gmail.com>",
