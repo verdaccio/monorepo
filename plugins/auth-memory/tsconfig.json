@@ -6,7 +6,7 @@
 		"noImplicitAny": true,
 		"strict": true,
 		"outDir": "lib",
-    "allowSyntheticDefaultImports": true,
+    	"allowSyntheticDefaultImports": true,
 		"esModuleInterop": true,
 		"typeRoots": [
 			"./node_modules/@verdaccio/types/lib/verdaccio",
