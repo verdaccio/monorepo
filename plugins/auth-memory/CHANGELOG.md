@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.1](https://github.com/verdaccio/verdaccio-auth-memory/compare/v1.0.0...v1.0.1) (2019-07-12)
+
+
+### Bug Fixes
+
+* remove source maps ([6f29a06](https://github.com/verdaccio/verdaccio-auth-memory/commit/6f29a06))
+
+
+
 ## [1.0.0](https://github.com/verdaccio/verdaccio-auth-memory/compare/v0.0.4...v1.0.0) (2019-07-12)
 
 
