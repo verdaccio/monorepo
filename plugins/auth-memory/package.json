@@ -9,33 +9,24 @@
     "url": "git://github.com/verdaccio/verdaccio-auth-memory.git"
   },
   "devDependencies": {
-    "@commitlint/cli": "7.2.0",
-    "@commitlint/config-conventional": "7.1.2",
-    "@commitlint/travis-cli": "7.2.0",
-    "@verdaccio/types": "4.1.1",
-    "babel-cli": "6.26.0",
-    "babel-core": "6.26.3",
-    "babel-eslint": "8.2.6",
-    "babel-jest": "23.6.0",
-    "babel-plugin-flow-runtime": "0.17.0",
-    "babel-plugin-transform-async-to-generator": "6.24.1",
-    "babel-preset-env": "1.7.0",
-    "babel-preset-flow": "6.23.0",
-    "codecov": "3.0.4",
+    "@commitlint/cli": "8.0.0",
+    "@commitlint/config-conventional": "8.0.0",
+    "@commitlint/travis-cli": "8.0.0",
+    "@types/http-errors": "1.6.1",
+    "@types/jest": "24.0.15",
+    "@types/memory-fs": "0.3.2",
+    "@types/node": "12.6.2",
+    "@verdaccio/babel-preset": "0.2.1",
+    "@verdaccio/eslint-config": "0.0.1",
+    "@verdaccio/types": "5.3.0",
+    "codecov": "3.5.0",
     "cross-env": "5.2.0",
-    "eslint": "5.6.1",
-    "eslint-config-google": "0.10.0",
-    "eslint-config-prettier": "3.1.0",
-    "eslint-plugin-flowtype": "2.50.3",
-    "eslint-plugin-jest": "21.24.1",
-    "eslint-plugin-prettier": "3.0.0",
-    "flow-bin": "0.82.0",
-    "flow-runtime": "0.17.0",
-    "husky": "0.14.3",
-    "jest": "23.6.0",
-    "lint-staged": "7.2.0",
-    "prettier": "1.14.3",
-    "standard-version": "4.4.0"
+    "eslint": "5.16.0",
+    "husky": "3.0.0",
+    "jest": "24.8.0",
+    "rmdir-sync": "1.0.1",
+    "standard-version": "6.0.1",
+    "typescript": "3.5.3"
   },
   "keywords": [
     "verdaccio",
@@ -47,27 +38,30 @@
   "bugs": {
     "url": "https://github.com/verdaccio/verdaccio-auth-memory/issues"
   },
-  "lint-staged": {
-    "*.{js, json}": [
-      "npm run lint",
-      "git add"
-    ]
+  "husky": {
+    "hooks": {
+      "pre-commit": "commitlint -e $GIT_PARAMS"
+    }
+  },
+  "engines": {
+    "node": ">=8"
   },
   "homepage": "https://github.com/verdaccio/verdaccio-auth-memory",
   "scripts": {
     "release": "standard-version -a -s",
     "pretest": "npm run lint",
     "test": "jest",
-    "precommit": "lint-staged",
-    "format": "prettier --single-quote --trailing-comma none --write \"{src,test}/**/*.js\"",
-    "lint": "npm run flow && eslint .",
-    "flow": "flow",
-    "prepublish": "npm run build",
+    "format": "prettier --single-quote --trailing-comma none --write \"{src,test}/**/*.ts\"",
+    "lint": "npm run type-check && eslint . --ext .js,.ts",
     "coverage": "codecov",
     "commitmsg": "commitlint -e $GIT_PARAMS",
-    "build": "babel src/ --out-dir lib/ --copy-files"
+    "type-check": "tsc --noEmit",
+    "type-check:watch": "npm run type-check -- --watch",
+    "build": "npm run build:types && npm run build:js",
+    "build:types": "tsc --emitDeclarationOnly",
+    "build:js": "babel src/ --out-dir lib --extensions \".ts,.tsx\" --source-maps inline"
   },
   "dependencies": {
-    "http-errors": "1.7.1"
+    "@verdaccio/commons-api": "0.1.0"
   }
 }

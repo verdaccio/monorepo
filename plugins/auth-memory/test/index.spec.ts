@@ -1,11 +1,11 @@
 // @flow
 
 import Memory from '../src/index';
-import type { Callback } from '@verdaccio/types';
+import { Callback } from '@verdaccio/types';
 
 describe('Memory', function() {
   let auth;
-  let logger = {
+  const logger = {
     child: jest.fn(),
     warn: jest.fn(),
     error: jest.fn(),
@@ -92,7 +92,7 @@ describe('Memory', function() {
       });
     });
 
-    const accessBy = (roles: Array<string>, done: Callback) => {
+    const accessBy = (roles: string[], done: Callback) => {
       auth.allow_access(
         {
           name: 'test',
@@ -152,7 +152,7 @@ describe('Memory', function() {
       });
     });
 
-    const accessBy = (roles: Array<string>, done: Callback) => {
+    const accessBy = (roles: string[], done: Callback) => {
       auth.allow_publish(
         {
           name: 'test',
