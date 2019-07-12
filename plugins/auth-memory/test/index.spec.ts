@@ -1,5 +1,3 @@
-// @flow
-
 import Memory from '../src/index';
 import { Callback } from '@verdaccio/types';
 
@@ -8,14 +6,16 @@ describe('Memory', function() {
   const logger = {
     child: jest.fn(),
     warn: jest.fn(),
+    info: jest.fn(),
+    debug: jest.fn(),
     error: jest.fn(),
     fatal: jest.fn()
   };
 
   beforeEach(function() {
     auth = new Memory(
-      // $FlowFixMe
-      {},
+      // @ts-ignore
+      { max_users: 100 },
       {
         config: {},
         logger

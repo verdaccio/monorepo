@@ -59,7 +59,7 @@ export default class Memory implements IPluginAuth<VerdaccioMemoryConfig> {
 
   changePassword(username: string, password: string, newPassword: string, cb: Callback) {
     const user: UserMemory = this._users[username];
-    this._logger.debug({ user: user.name }, 'user: @{user} init change password');
+    this._logger.debug({ user: username }, 'user: @{user} init change password');
 
     if (user && user.password === password) {
       user.password = newPassword;
@@ -69,7 +69,7 @@ export default class Memory implements IPluginAuth<VerdaccioMemoryConfig> {
       cb(null, user);
     } else {
       const err = getNotFound('user not found');
-      this._logger.debug({ user: user.name }, 'change password user  @{user} not found');
+      this._logger.debug({ user: username }, 'change password user  @{user} not found');
 
       return cb(err);
     }
