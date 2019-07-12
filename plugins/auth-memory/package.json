@@ -3,7 +3,7 @@
   "main": "index.js",
   "version": "0.0.4",
   "description": "auth plugin for verdaccio that keeps users in memory",
-  "author": "Verdaccio community <verdaccio.npm@gmail.com>",
+  "author": "Juan Picado <juanpicado19@gmail.com>",
   "repository": {
     "type": "git",
     "url": "git://github.com/verdaccio/verdaccio-auth-memory.git"
@@ -45,6 +45,11 @@
   },
   "engines": {
     "node": ">=8"
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
   },
   "homepage": "https://github.com/verdaccio/verdaccio-auth-memory",
   "scripts": {
