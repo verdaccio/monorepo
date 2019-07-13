@@ -2,21 +2,22 @@ import path from 'path';
 import mkdirp from 'mkdirp';
 import fs from 'fs';
 import rm from 'rmdir-sync';
-import { Logger, ILocalPackageManager } from '@verdaccio/types';
+
 import LocalDriver, { fileExist, fSError, noSuchFile, resourceNotAvailable } from '../src/local-fs';
+import { Logger, ILocalPackageManager } from '@verdaccio/types';
 import pkg from './__fixtures__/pkg';
 
 let localTempStorage: string;
 const pkgFileName = 'package.json';
 
 const logger: Logger = {
-  error: e => console.warn(e),
-  info: e => console.warn(e),
-  debug: e => console.warn(e),
-  warn: e => console.warn(e),
-  child: e => console.warn(e),
-  http: e => console.warn(e),
-  trace: e => console.warn(e)
+  error: e => jest.fn(),
+  info: e => jest.fn(),
+  debug: e => jest.fn(),
+  warn: e => jest.fn(),
+  child: e => jest.fn(),
+  http: e => jest.fn(),
+  trace: e => jest.fn()
 };
 
 beforeAll(() => {
