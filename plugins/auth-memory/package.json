@@ -70,6 +70,6 @@
     "prepublish": "in-publish && npm run build || not-in-publish"
   },
   "dependencies": {
-    "@verdaccio/commons-api": "0.1.0"
+    "@verdaccio/commons-api": "0.1.2"
   }
 }

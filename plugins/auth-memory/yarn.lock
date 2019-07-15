@@ -1448,10 +1448,10 @@
     babel-plugin-emotion "10.0.9"
     babel-plugin-flow-runtime "0.19.0"
 
-"@verdaccio/commons-api@0.1.0":
-  version "0.1.0"
-  resolved "https://registry.verdaccio.org/@verdaccio%2fcommons-api/-/commons-api-0.1.0.tgz#6d36820038b64ee34026a2dcf15a15d6c3623edf"
-  integrity sha512-qWIaXL9fzUabiAKRp1idROBeCn3GUwfMjwpOd3wDHwP1LQJZh0CDifIP+p0DROx2mR/fAteu0SIRRP5hV41Ryg==
+"@verdaccio/commons-api@0.1.2":
+  version "0.1.2"
+  resolved "https://registry.verdaccio.org/@verdaccio%2fcommons-api/-/commons-api-0.1.2.tgz#084c2c06b22e998ff3bab265de17397998953da3"
+  integrity sha512-BweLdqHGVpDPZf1BkFVOTb+OW+WQp8TiEFJ4EvVJkpngg9rgvK9MAdJF/NZorGuUIoVIPJmtNwf/fId/ya9Udw==
   dependencies:
     http-errors "1.7.3"
 
