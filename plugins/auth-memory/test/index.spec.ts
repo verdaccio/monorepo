@@ -188,7 +188,7 @@ describe('Memory', function() {
       // $FlowFixMe
       auth.allow_publish({}, { publish: [], proxy: [], access: [] }, function(err, groups) {
         expect(err).not.toBeNull();
-        expect(err.message).toMatch(/not allowed to publish package/);
+        expect(err.message).toMatch(/name field is mandatory, please define a name for each user/);
         done();
       });
     });
@@ -197,7 +197,7 @@ describe('Memory', function() {
       // $FlowFixMe
       auth.allow_publish({}, { publish: ['anyOtherUser'], proxy: [], access: [] }, function(err, groups) {
         expect(err).not.toBeNull();
-        expect(err.message).toMatch(/not allowed to publish package/);
+        expect(err.message).toMatch(/name field is mandatory, please define a name for each user/);
         done();
       });
     });
