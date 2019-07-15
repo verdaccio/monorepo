@@ -106,8 +106,8 @@ export default class Memory implements IPluginAuth<VerdaccioMemoryConfig> {
     }
 
     if (!user.name) {
-      const err = getForbidden('name field is mandatory, please define a name for each user');
-      this._logger.debug({ user: user.name }, 'user: @{user} name field is mandatory, please define a name for each user');
+      const err = getForbidden('not allowed to publish package');
+      this._logger.debug({ user: user.name }, 'user: @{user} not allowed to publish package');
 
       return cb(err);
     }
