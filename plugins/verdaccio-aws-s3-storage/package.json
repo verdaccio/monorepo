@@ -24,7 +24,7 @@
     "coverage:publish": "codecov"
   },
   "dependencies": {
-    "@verdaccio/commons-api": "^0.1.1",
+    "@verdaccio/commons-api": "^0.1.2",
     "@verdaccio/streams": "^2.0.0",
     "aws-sdk": "2.480.0"
   },
@@ -34,7 +34,7 @@
     "@types/aws-sdk": "2.7.0",
     "@types/http-errors": "1.6.1",
     "@types/jest": "24.0.15",
-    "@types/node": "12.0.10",
+    "@types/node": "12.6.2",
     "@verdaccio/babel-preset": "0.2.1",
     "@verdaccio/eslint-config": "0.0.1",
     "@verdaccio/types": "5.1.0",

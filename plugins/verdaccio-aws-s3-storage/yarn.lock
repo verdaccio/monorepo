@@ -1434,10 +1434,10 @@
   dependencies:
     "@types/jest-diff" "*"
 
-"@types/node@12.0.10":
-  version "12.0.10"
-  resolved "https://registry.verdaccio.org/@types%2fnode/-/node-12.0.10.tgz#51babf9c7deadd5343620055fc8aff7995c8b031"
-  integrity sha512-LcsGbPomWsad6wmMNv7nBLw7YYYyfdYcz6xryKYQhx89c3XXan+8Q6AJ43G5XDIaklaVkK3mE4fCb0SBvMiPSQ==
+"@types/node@12.6.2":
+  version "12.6.2"
+  resolved "https://registry.verdaccio.org/@types%2fnode/-/node-12.6.2.tgz#a5ccec6abb6060d5f20d256fb03ed743e9774999"
+  integrity sha512-gojym4tX0FWeV2gsW4Xmzo5wxGjXGm550oVUII7f7G5o4BV6c7DBdiG1RRQd+y1bvqRyYtPfMK85UM95vsapqQ==
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.0"
@@ -1518,10 +1518,10 @@
     babel-plugin-emotion "10.0.9"
     babel-plugin-flow-runtime "0.19.0"
 
-"@verdaccio/commons-api@^0.1.1":
-  version "0.1.1"
-  resolved "https://registry.verdaccio.org/@verdaccio%2fcommons-api/-/commons-api-0.1.1.tgz#2248e98fb43b258da026e761140141e3f2fd213b"
-  integrity sha512-n7JdKfac9TV5CubXP3ZeH5Ci8Gj/Q+gPfYF5pwm9MRH5VYs3oNWFtjGsOVZEKDTeKGelnf/Ht6iuAE9LVWntiQ==
+"@verdaccio/commons-api@^0.1.2":
+  version "0.1.2"
+  resolved "https://registry.verdaccio.org/@verdaccio%2fcommons-api/-/commons-api-0.1.2.tgz#084c2c06b22e998ff3bab265de17397998953da3"
+  integrity sha512-BweLdqHGVpDPZf1BkFVOTb+OW+WQp8TiEFJ4EvVJkpngg9rgvK9MAdJF/NZorGuUIoVIPJmtNwf/fId/ya9Udw==
   dependencies:
     http-errors "1.7.3"
 
