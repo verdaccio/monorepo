@@ -12,3 +12,12 @@ test/
 .eslintrc.yml
 .npmignore
 .travis.yml
+__tests__
+coverage/
+.idea/
+tsconfig.json
+.DS_Store
+.prettierrc
+jest.config.js
+.circleci
+types/
