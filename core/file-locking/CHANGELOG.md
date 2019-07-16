@@ -1,6 +1,16 @@
-# Change Log
+# Changelog
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+### [1.0.4](https://github.com/verdaccio/file-locking/compare/v1.0.3...v1.0.4) (2019-07-16)
+
+
+### Build System
+
+* **deps:** update dependencies ([45b12de](https://github.com/verdaccio/file-locking/commit/45b12de))
+* **deps:** update husky dependency ([bdb7bad](https://github.com/verdaccio/file-locking/commit/bdb7bad))
+
+
 
 <a name="1.0.3"></a>
 ## [1.0.3](https://github.com/verdaccio/file-locking/compare/v1.0.2...v1.0.3) (2019-06-22)
