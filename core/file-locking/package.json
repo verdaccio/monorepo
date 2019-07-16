@@ -8,8 +8,8 @@
     "fs"
   ],
   "devDependencies": {
-    "@commitlint/cli": "8.1.0",
-    "@commitlint/config-conventional": "8.1.0",
+    "@commitlint/cli": "8.0.0",
+    "@commitlint/config-conventional": "8.0.0",
     "@types/jest": "24.0.15",
     "@types/node": "12.6.4",
     "@verdaccio/babel-preset": "1.0.0",
@@ -25,7 +25,6 @@
   },
   "author": "Juan Picado <juanpicado19@gmail.com>",
   "private": false,
-  "license": "MIT",
   "dependencies": {
     "lockfile": "1.0.4"
   },
@@ -33,6 +32,12 @@
     "hooks": {
       "pre-commit": "commitlint -e $GIT_PARAMS"
     }
+  },
+  "license": "MIT",
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
   },
   "homepage": "https://github.com/verdaccio/file-locking",
   "scripts": {
@@ -47,11 +52,6 @@
     "build:types": "tsc --emitDeclarationOnly",
     "build:js": "babel src/ --out-dir lib --extensions \".ts,.tsx\" --ignore __tests__",
     "prepublish": "in-publish && npm run lint && npm run build || not-in-publish"
-  },
-  "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
-    ]
   },
   "engines": {
     "node": ">=8"
