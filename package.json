@@ -6,7 +6,7 @@
   "workspaces": [
     "core/*",
     "plugins/*",
-    "tooling/*"
+    "tools/*"
   ],
   "devDependencies": {
     "@commitlint/cli": "^8.1.0",

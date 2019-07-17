@@ -3,7 +3,7 @@
   "packages": [
     "core/*",
     "plugins/*",
-    "tooling/*"
+    "tools/*"
   ],
   "npmClient": "yarn",
   "useWorkspaces": true,
