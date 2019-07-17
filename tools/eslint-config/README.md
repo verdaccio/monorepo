@@ -1,6 +1,6 @@
 # @verdaccio/eslint-config
 
-eslint shareable configuration for Verdaccio that uses Typescript.
+ESLint shareable configuration for Verdaccio that uses Typescript
 
 ```
  npm install -D @verdaccio/eslint-config
