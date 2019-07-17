@@ -16,11 +16,11 @@
     "lint-staged": "^9.2.0"
   },
   "scripts": {
-    "build": "lerna run build --stream",
-    "lint": "lerna run lint --stream",
+    "build": "lerna run build",
+    "lint": "lerna run lint",
     "release": "lerna version --conventional-commits",
     "release:publish": "lerna publish from-git",
-    "test": "lerna run test --stream"
+    "test": "lerna run test"
   },
   "husky": {
     "hooks": {
