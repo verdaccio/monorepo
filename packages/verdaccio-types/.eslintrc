@@ -1,8 +1,0 @@
-{
-  "extends": ["@verdaccio"],
-  "rules": {
-    "no-console": [
-      2, { "allow": ["log"] }
-    ]
-  }
-}
