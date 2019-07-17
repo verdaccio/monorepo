@@ -1,6 +1,6 @@
 # Contributing
 
-This project is managed in a Monorepo structure. We decided to use Lerna for this purpose. If you don't know what a monorepo is, we recommend you to read the core concepts described in [this article](https://medium.com/@maoberlehner/monorepos-in-the-wild-33c6eb246cb9) and [Lerna docs](https://lernajs.io/).
+This project is managed in a Monorepo structure. We decided to use Lerna with Yarn Workspaces for this purpose. If you don't know what a monorepo is, we recommend you to read the core concepts described in [this article](https://medium.com/@maoberlehner/monorepos-in-the-wild-33c6eb246cb9) and [Lerna docs](https://lernajs.io/).
 
 ## Investigate
 
@@ -12,25 +12,21 @@ If you are not sure about the problem, you can talk with us at Discord, in our [
 
 To start developing, you should perform some steps to prepare the packages:
 
-1.  Install monorepo dependencies. We use [Yarn](https://yarnpkg.com) as package manager.
+1.  Install monorepo dependencies. We use [Yarn](https://yarnpkg.com) as package manager. We recommend the use of `--frozen-lockfile` option to keep the same dependency tree as we have.
     ```shell
-    yarn install
+    yarn install --frozen-lockfile
     ```
-2.  Install packages dependencies and link them together (if have dependency in each). **Note:** If you install or add dependencies in any package manually, ensure that the links with other packages are not broken, in that case repeat this step.
-    ```shell
-    yarn bootstrap
-    ```
-3.  Move to package directory to work normally (e.g, pass tests with `yarn test`)
+2.  Move to package directory to work normally (e.g, pass tests with `yarn test`)
 
 ## Committing changes
 
 We follow [Conventional Commits Specification](https://conventionalcommits.org/) to generate changelogs automatically. Because every commit affects every package in the monorepo, we must specify the package folder in the scope field to generate each changelog correctly. Some examples of use is:
 ```shell
-feat([babel-preset-core]): add basic config
+feat(babel-preset): add basic config
 ```
 ```shell
-fix([eslint-config-core]): remove unnecessary comment
+fix(eslint-config): remove unnecessary comment
 ```
 ```shell
-chore([eslint-config-core]): update some deps
+chore(eslint-config): update some deps
 ```
