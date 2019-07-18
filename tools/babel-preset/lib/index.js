@@ -8,8 +8,9 @@ module.exports = (api, opts) => {
   const presets = builder(api, opts, babelEnv, isPro);
 
   if (opts.debug) {
-    /* eslint no-console: 0 */
+    /* eslint-disable no-console */
     console.log(JSON.stringify(presets, null, 4));
+    /* eslint-enable no-console */
   }
 
   return presets;

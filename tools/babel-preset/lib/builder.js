@@ -35,6 +35,7 @@ const getTranspiler = () => {
   return typescriptRequirements;
 };
 
+/* eslint-disable-next-line @typescript-eslint/no-unused-vars */
 module.exports = (api, opts, env, isPro) => {
   // see docs about api at https://babeljs.io/docs/en/config-files#apicache
   api.assertVersion("^7.0.0");
