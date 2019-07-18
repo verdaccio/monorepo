@@ -14,7 +14,7 @@
     "node": ">=8"
   },
   "dependencies": {
-    "jsx-ast-utils": "^2.2.1"
+    "jsx-ast-utils": "2.2.1"
   },
   "devDependencies": {
     "mocha": "^6.1.4"
