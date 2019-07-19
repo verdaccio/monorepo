@@ -1319,6 +1319,23 @@
     resolve-from "5.0.0"
     resolve-global "1.0.0"
 
+"@commitlint/cli@^7.5.2":
+  version "7.6.1"
+  resolved "https://registry.yarnpkg.com/@commitlint/cli/-/cli-7.6.1.tgz#a93cf995082831999937f6d5ec1a582c8fc0393a"
+  integrity sha512-HEJwQ/aK0AOcAwn77ZKbb/GZhlGxBSPhtVp07uoJFVqM12l2Ia2JHA+MTpfHCFdVahKyYGREZgxde6LyKyG8aQ==
+  dependencies:
+    "@commitlint/format" "^7.6.1"
+    "@commitlint/lint" "^7.6.0"
+    "@commitlint/load" "^7.6.1"
+    "@commitlint/read" "^7.6.0"
+    babel-polyfill "6.26.0"
+    chalk "2.3.1"
+    get-stdin "7.0.0"
+    lodash "4.17.11"
+    meow "5.0.0"
+    resolve-from "5.0.0"
+    resolve-global "1.0.0"
+
 "@commitlint/cli@^8.0.0", "@commitlint/cli@^8.1.0":
   version "8.1.0"
   resolved "https://registry.verdaccio.org/@commitlint%2fcli/-/cli-8.1.0.tgz#a3d4236c0ac961d7026a53d728b179c696d6a045"
@@ -1381,7 +1398,7 @@
   resolved "https://registry.verdaccio.org/@commitlint%2fexecute-rule/-/execute-rule-8.1.0.tgz#e8386bd0836b3dcdd41ebb9d5904bbeb447e4715"
   integrity sha512-+vpH3RFuO6ypuCqhP2rSqTjFTQ7ClzXtUvXphpROv9v9+7zH4L+Ex+wZLVkL8Xj2cxefSLn/5Kcqa9XyJTn3kg==
 
-"@commitlint/format@^7.5.0":
+"@commitlint/format@^7.5.0", "@commitlint/format@^7.6.1":
   version "7.6.1"
   resolved "https://registry.yarnpkg.com/@commitlint/format/-/format-7.6.1.tgz#106750de50fab7d153eed80e7577c768bb9a3a1b"
   integrity sha512-Ldzf5N2Sr9RQqvlYwaQn4vz1WOZ7byYinspC/WCrbfcETGy28j7QE4OueZU6nNB9TjwwEorKm13uy7tDWPR7dg==
@@ -1411,7 +1428,7 @@
     "@types/semver" "^6.0.1"
     semver "6.1.1"
 
-"@commitlint/lint@^7.5.2":
+"@commitlint/lint@^7.5.2", "@commitlint/lint@^7.6.0":
   version "7.6.0"
   resolved "https://registry.yarnpkg.com/@commitlint/lint/-/lint-7.6.0.tgz#a6da320026b937aa9bf971e060e471edd6b088ec"
   integrity sha512-aUIFX0lPRZL7WmT8W8qzogJD4LmHk6JPG3XUAX+K0pOHGjC/0ALvSAytvoLXy4fvmSnGJkXmWhzSW7c0Spa14Q==
@@ -1433,7 +1450,7 @@
     babel-runtime "^6.23.0"
     lodash "4.17.14"
 
-"@commitlint/load@^7.5.0":
+"@commitlint/load@^7.5.0", "@commitlint/load@^7.6.1":
   version "7.6.2"
   resolved "https://registry.yarnpkg.com/@commitlint/load/-/load-7.6.2.tgz#b5ed8163fa3117d60faf70a4e677b2017bbc71bb"
   integrity sha512-I+xk+BkXAG1roXNrPsR1eOd5hEa+oLc6HLYnHAT/HLGKKB3E01IGg3O5SGlg7lpf1yiAaYI+wAnNTr3f3sIbWQ==
@@ -1486,7 +1503,7 @@
     conventional-commits-parser "^2.1.0"
     lodash "^4.17.11"
 
-"@commitlint/read@^7.5.0":
+"@commitlint/read@^7.5.0", "@commitlint/read@^7.6.0":
   version "7.6.0"
   resolved "https://registry.yarnpkg.com/@commitlint/read/-/read-7.6.0.tgz#e55863354b436683daa2081de7ec2189573bc306"
   integrity sha512-OyligtK/e4xnQklrQqTcSMM27eNhq+LqXfoeVouuPx059oDEw9wZYNN4HGzyxs4Pb6GdMpzRHLdeMQ24M+AiYw==
@@ -1571,6 +1588,15 @@
   integrity sha512-EvQuofuA/+0l1w9pkG/PRyIwACmZdIh9qxyax7w7mR8qqmSHscqf2jARIylh1TOx0uI9egO8MuPLiwC1RwyREA==
   dependencies:
     find-up "^4.0.0"
+
+"@commitlint/travis-cli@7.5.2":
+  version "7.5.2"
+  resolved "https://registry.yarnpkg.com/@commitlint/travis-cli/-/travis-cli-7.5.2.tgz#f82ca57296eb913b6557124b80eac9773dcbbf1d"
+  integrity sha512-kbkn8TIjRtGWcKOJBM/fbT9yRPjbLTybetRH5mkAQdX9ratkV9+N3akaOSmv5eemNfHsOM1cdrWkcjZbSqZV2A==
+  dependencies:
+    "@commitlint/cli" "^7.5.2"
+    babel-runtime "6.26.0"
+    execa "0.9.0"
 
 "@commitlint/travis-cli@8.0.0":
   version "8.0.0"
@@ -2996,6 +3022,13 @@
   resolved "https://registry.yarnpkg.com/@types/long/-/long-4.0.0.tgz#719551d2352d301ac8b81db732acb6bdc28dbdef"
   integrity sha512-1w52Nyx4Gq47uuu0EVcsHBxZFJgurQ+rTKS3qMHxR1GY2T8c2AJYd6vZoZ9q1rupaDjU0yT+Jc2XTyXkjeMA+Q==
 
+"@types/memory-fs@0.3.2":
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/@types/memory-fs/-/memory-fs-0.3.2.tgz#5d4753f9b390cb077c8c8af97bc96463399ceccd"
+  integrity sha512-j5AcZo7dbMxHoOimcHEIh0JZe5e1b8q8AqGSpZJrYc7xOgCIP79cIjTdx5jSDLtySnQDwkDTqwlC7Xw7uXw7qg==
+  dependencies:
+    "@types/node" "*"
+
 "@types/minimatch@*", "@types/minimatch@3.0.3":
   version "3.0.3"
   resolved "https://registry.verdaccio.org/@types%2fminimatch/-/minimatch-3.0.3.tgz#3dca0e3f33b200fc7d1139c0cd96c1268cadfd9d"
@@ -3010,6 +3043,11 @@
   version "11.12.1"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-11.12.1.tgz#d90123f6c61fdf2f7cddd286ddae891586dd3488"
   integrity sha512-sKDlqv6COJrR7ar0+GqqhrXQDzQlMcqMnF2iEU6m9hLo8kxozoAGUazwPyELHlRVmjsbvlnGXjnzyptSXVmceA==
+
+"@types/node@11.13.8":
+  version "11.13.8"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-11.13.8.tgz#e5d71173c95533be9842b2c798978f095f912aab"
+  integrity sha512-szA3x/3miL90ZJxUCzx9haNbK5/zmPieGraZEe4WI+3srN0eGLiT22NXeMHmyhNEopn+IrxqMc7wdVwvPl8meg==
 
 "@types/node@12.0.10":
   version "12.0.10"
@@ -3243,6 +3281,11 @@
   version "5.0.0-beta.4"
   resolved "https://registry.yarnpkg.com/@verdaccio/types/-/types-5.0.0-beta.4.tgz#433a36bef5b3bbd31711c48071989ac35dc83e54"
   integrity sha512-aPrCUrFMXo/ikgT/9YEAr5EDlH2gFJGfdrUra2ipQxV3SbNrRN95KxwwSDS+W+YKG0+rAIQKIxnx8hf6gEtePQ==
+
+"@verdaccio/types@5.0.2":
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/@verdaccio/types/-/types-5.0.2.tgz#b9a00a1a7c4fb3f410a839b10417bc3201b10415"
+  integrity sha512-jjuBKxRcKTLcFNI1Ul1yquDLgYwNcuaTxYZdGK2XvN4e/BQ24WzBEnMW9LSZlWDZQgpINAD6qVuTT+albtdnXQ==
 
 "@verdaccio/types@5.1.0":
   version "5.1.0"
@@ -4476,6 +4519,17 @@ codecov@3.2.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/codecov/-/codecov-3.2.0.tgz#4465ee19884528092d8c313e1f9e4bdc7d3065cd"
   integrity sha512-3NJvNARXxilqnqVfgzDHyVrF4oeVgaYW1c1O6Oi5mn93exE7HTSSFNiYdwojWW6IwrCZABJ8crpNbKoo9aUHQw==
+  dependencies:
+    argv "^0.0.2"
+    ignore-walk "^3.0.1"
+    js-yaml "^3.12.0"
+    teeny-request "^3.7.0"
+    urlgrey "^0.4.4"
+
+codecov@3.3.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/codecov/-/codecov-3.3.0.tgz#7bf337b3f7b0474606b5c31c56dd9e44e395e15d"
+  integrity sha512-S70c3Eg9SixumOvxaKE/yKUxb9ihu/uebD9iPO2IR73IdP4i6ZzjXEULj3d0HeyWPr0DqBfDkjNBWxURjVO5hw==
   dependencies:
     argv "^0.0.2"
     ignore-walk "^3.0.1"
@@ -7382,7 +7436,7 @@ jest-changed-files@^24.8.0:
     execa "^1.0.0"
     throat "^4.0.0"
 
-jest-cli@^24.5.0, jest-cli@^24.8.0:
+jest-cli@^24.5.0, jest-cli@^24.7.1, jest-cli@^24.8.0:
   version "24.8.0"
   resolved "https://registry.yarnpkg.com/jest-cli/-/jest-cli-24.8.0.tgz#b075ac914492ed114fa338ade7362a301693e989"
   integrity sha512-+p6J00jSMPQ116ZLlHJJvdf8wbjNbZdeSX9ptfHX06/MSNaXmKihQzx5vQcw0q2G6JsdVkUIdWbOWtSnaYs3yA==
@@ -7689,7 +7743,7 @@ jest-util@^24.8.0:
     slash "^2.0.0"
     source-map "^0.6.0"
 
-jest-validate@^23.0.0:
+jest-validate@^23.0.0, jest-validate@^23.5.0:
   version "23.6.0"
   resolved "https://registry.yarnpkg.com/jest-validate/-/jest-validate-23.6.0.tgz#36761f99d1ed33fcd425b4e4c5595d62b6597474"
   integrity sha512-OFKapYxe72yz7agrDAWi8v2WL8GIfVqcbKRCLbRG9PAxtzF9b1SEDdTpytNDN12z2fJynoBwpMpvj2R39plI2A==
@@ -7739,6 +7793,14 @@ jest@24.5.0:
   dependencies:
     import-local "^2.0.0"
     jest-cli "^24.5.0"
+
+jest@24.7.1:
+  version "24.7.1"
+  resolved "https://registry.yarnpkg.com/jest/-/jest-24.7.1.tgz#0d94331cf510c75893ee32f87d7321d5bf8f2501"
+  integrity sha512-AbvRar5r++izmqo5gdbAjTeA6uNRGoNRuj5vHB0OnDXo2DXWZJVuaObiGgtlvhKb+cWy2oYbQSfxv7Q7GjnAtA==
+  dependencies:
+    import-local "^2.0.0"
+    jest-cli "^24.7.1"
 
 jest@24.8.0:
   version "24.8.0"
@@ -8031,6 +8093,34 @@ lint-staged@7.2.0:
     is-glob "^4.0.0"
     is-windows "^1.0.2"
     jest-validate "^23.0.0"
+    listr "^0.14.1"
+    lodash "^4.17.5"
+    log-symbols "^2.2.0"
+    micromatch "^3.1.8"
+    npm-which "^3.0.1"
+    p-map "^1.1.1"
+    path-is-inside "^1.0.2"
+    pify "^3.0.0"
+    please-upgrade-node "^3.0.2"
+    staged-git-files "1.1.1"
+    string-argv "^0.0.2"
+    stringify-object "^3.2.2"
+
+lint-staged@7.3.0:
+  version "7.3.0"
+  resolved "https://registry.yarnpkg.com/lint-staged/-/lint-staged-7.3.0.tgz#90ff33e5ca61ed3dbac35b6f6502dbefdc0db58d"
+  integrity sha512-AXk40M9DAiPi7f4tdJggwuKIViUplYtVj1os1MVEteW7qOkU50EOehayCfO9TsoGK24o/EsWb41yrEgfJDDjCw==
+  dependencies:
+    chalk "^2.3.1"
+    commander "^2.14.1"
+    cosmiconfig "^5.0.2"
+    debug "^3.1.0"
+    dedent "^0.7.0"
+    execa "^0.9.0"
+    find-parent-dir "^0.3.0"
+    is-glob "^4.0.0"
+    is-windows "^1.0.2"
+    jest-validate "^23.5.0"
     listr "^0.14.1"
     lodash "^4.17.5"
     log-symbols "^2.2.0"

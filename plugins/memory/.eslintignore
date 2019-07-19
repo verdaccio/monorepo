@@ -1,0 +1,6 @@
+node_modules
+coverage/
+lib/
+_storage/
+.circleci/
+.github/
