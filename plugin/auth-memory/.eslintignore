@@ -1,0 +1,12 @@
+node_modules
+coverage/
+lib/
+flow-typed/
+fixtures/
+.flowconfig
+.prettierrc
+.yarnrc
+jest*
+.vscode/
+.circleci/
+.eslintrc
