@@ -1,0 +1,76 @@
+{
+  "name": "verdaccio-htpasswd",
+  "version": "2.0.0",
+  "description": "verdaccio htpasswd auth plugin",
+  "main": "lib/index.js",
+  "keywords": [
+    "verdaccio",
+    "local-storage",
+    "plugin"
+  ],
+  "author": "Ayush Sharma <ayush.aceit@gmail.com>",
+  "private": false,
+  "license": "MIT",
+  "scripts": {
+    "commitmsg": "commitlint -e $GIT_PARAMS",
+    "coverage": "codecov",
+    "release": "standard-version -a -s",
+    "test": "jest",
+    "lint": "npm run js-lint",
+    "js-lint": "eslint . --ext .js,.ts",
+    "type-check": "tsc --noEmit",
+    "type-check:watch": "npm run type-check -- --watch",
+    "build": "npm run build:types && npm run build:js",
+    "build:types": "tsc --emitDeclarationOnly",
+    "build:js": "babel src/ --out-dir lib --extensions \".ts,.tsx\" --source-maps inline",
+    "precommit": "lint-staged",
+    "prepublish": "in-publish && npm run lint && npm run build || not-in-publish"
+  },
+  "dependencies": {
+    "@verdaccio/file-locking": "1.0.0",
+    "apache-md5": "1.1.2",
+    "bcryptjs": "2.4.3",
+    "http-errors": "1.7.2",
+    "unix-crypt-td-js": "1.0.0"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "7.5.2",
+    "@commitlint/config-conventional": "7.5.0",
+    "@octokit/rest": "16.23.2",
+    "@types/bcryptjs": "2.4.2",
+    "@types/http-errors": "1.6.1",
+    "@types/jest": "24.0.11",
+    "@types/node": "11.12.1",
+    "@verdaccio/babel-preset": "0.1.0",
+    "@verdaccio/types": "5.0.0-beta.4",
+    "@verdaccio/eslint-config": "0.0.1",
+    "codecov": "3.2.0",
+    "cross-env": "5.2.0",
+    "eslint": "5.15.3",
+    "get-stdin": "6.0.0",
+    "husky": "0.14.3",
+    "in-publish": "2.0.0",
+    "jest": "24.5.0",
+    "lint-staged": "7.2.0",
+    "standard-version": "5.0.2",
+    "typescript": "3.2.4"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "engines": {
+    "node": ">=8"
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "lint-staged": {
+    "*.{js, json}": [
+      "eslint .",
+      "prettier --write",
+      "git add"
+    ]
+  }
+}
