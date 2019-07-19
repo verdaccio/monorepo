@@ -1,0 +1,16 @@
+{
+  "semi": true,
+	"singleQuote": true,
+	"useTabs": false,
+  "printWidth": 800,
+  "tabWidth": 2,
+  "bracketSpacing": true,
+  "overrides": [
+    {
+      "files": "*.test.js",
+      "options": {
+        "semi": true
+      }
+    }
+  ]
+}
