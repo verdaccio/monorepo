@@ -1,0 +1,8 @@
+node_modules
+coverage/
+lib/
+tests-report/
+__fixtures__/
+.idea/
+**/node_modules/**
+**/__*-fixtures__/**
