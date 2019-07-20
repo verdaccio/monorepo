@@ -9,11 +9,3 @@ coverage/
 # Istanbul
 .nyc*
 tests-report
-
-# IDE
-.vscode/*
-.idea/
-*.log
-*.tar
-*.gz
-*.tmp-*
