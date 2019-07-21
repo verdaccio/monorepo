@@ -448,7 +448,6 @@ type StringValue = string | void | null;
 	}
 
 	interface IPluginAuth<T> extends IPlugin<T> {
-		login_url?: string;
 		authenticate(user: string, password: string, cb: Callback): void;
 		adduser?(user: string, password: string, cb: Callback): void;
 		changePassword?(user: string, password: string, newPassword: string, cb: Callback): void;
