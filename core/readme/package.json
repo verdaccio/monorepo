@@ -2,64 +2,49 @@
   "name": "@verdaccio/readme",
   "version": "1.0.4",
   "description": "Readme markdown parser",
+  "keywords": [
+    "verdaccio",
+    "readme",
+    "markdown"
+  ],
   "author": {
     "name": "Juan Picado",
     "email": "juanpicado19@gmail.com"
   },
-  "main": "lib/index.js",
-  "scripts": {
-    "release": "standard-version -a -s",
-    "pretest": "npm run lint",
-    "test": "jest",
-    "precommit": "lint-staged",
-    "format": "prettier --single-quote --trailing-comma none --write \"{src,test}/**/*.ts\"",
-    "lint": "eslint . --ext .js,.ts",
-    "commitmsg": "commitlint -e $GIT_PARAMS",
-    "type-check": "tsc --noEmit",
-    "coverage:publish": "codecov",
-    "type-check:watch": "npm run type-check -- --watch",
-    "build": "npm run build:types && npm run build:js",
-    "build:types": "tsc --emitDeclarationOnly",
-    "build:js": "babel src/ --out-dir lib --extensions \".ts,.tsx\""
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
   },
+  "main": "lib/index.js",
   "dependencies": {
     "dompurify": "1.0.11",
     "jsdom": "15.1.1",
     "marked": "0.6.2"
   },
   "devDependencies": {
-    "@commitlint/cli": "8.0.0",
-    "@commitlint/config-conventional": "8.0.0",
-    "@types/jest": "24.0.15",
-    "@types/node": "12.0.10",
-    "@verdaccio/babel-preset": "0.2.1",
-    "@verdaccio/eslint-config": "0.0.1",
-    "@verdaccio/types": "6.0.2",
-    "codecov": "3.5.0",
-    "cross-env": "5.2.0",
-    "eslint": "5.16.0",
-    "husky": "0.14.3",
-    "jest": "24.8.0",
-    "lint-staged": "8.2.1",
-    "standard-version": "6.0.1",
-    "typescript": "3.5.2"
+    "@verdaccio/babel-preset": "^0.2.1",
+    "@verdaccio/eslint-config": "^0.0.1",
+    "@verdaccio/types": "^6.0.2"
   },
-  "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
-    ]
+  "scripts": {
+    "commitmsg": "commitlint -e $GIT_PARAMS",
+    "precommit": "lint-staged",
+    "build": "npm run build:types && npm run build:js",
+    "build:js": "babel src/ --out-dir lib --extensions \".ts,.tsx\"",
+    "build:types": "tsc --emitDeclarationOnly",
+    "coverage:publish": "codecov",
+    "format": "prettier --single-quote --trailing-comma none --write '**/*.{js,ts}'",
+    "lint": "eslint '**/*.{js,ts}'",
+    "pretest": "npm run lint",
+    "test": "jest",
+    "type-check": "tsc --noEmit",
+    "type-check:watch": "npm run type-check -- --watch"
   },
   "lint-staged": {
-    "*.{ts, json}": [
+    "**/*.{ts, json}": [
       "eslint .",
       "prettier --write",
       "git add"
     ]
-  },
-  "keywords": [
-    "verdaccio",
-    "readme",
-    "markdown"
-  ],
-  "license": "MIT"
+  }
 }

@@ -3,17 +3,15 @@ import fs from 'fs';
 import path from 'path';
 
 function readReadme(project: string, fileName: string = 'readme.md'): Promise<string> {
-  return new Promise(
-    (resolve, reject): void => {
-      fs.readFile(path.join(__dirname, 'partials', project, fileName), 'utf8', (err, data) => {
-        if (err) {
-          return reject(err);
-        }
+  return new Promise((resolve, reject): void => {
+    fs.readFile(path.join(__dirname, 'partials', project, fileName), 'utf8', (err, data) => {
+      if (err) {
+        return reject(err);
+      }
 
-        return resolve(data.toString());
-      });
-    }
-  );
+      return resolve(data.toString());
+    });
+  });
 }
 
 function clean(text: string) {

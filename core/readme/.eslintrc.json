@@ -1,7 +1,5 @@
 {
-  "extends": [
-    "@verdaccio"
-  ],
+  "extends": ["@verdaccio"],
   "rules": {
     "@typescript-eslint/no-var-requires": ["warn"],
     "@typescript-eslint/explicit-function-return-type": [0],
