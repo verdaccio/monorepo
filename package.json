@@ -24,7 +24,10 @@
     "build": "lerna run build",
     "lint": "lerna run lint",
     "release": "lerna version --conventional-commits",
+    "release:prerelease": "lerna version --conventional-commits --conventional-prerelease --preid next",
+    "release:from-prerelease": "lerna version --conventional-commits --conventional-graduate",
     "release:publish": "lerna publish from-git",
+    "release:publish-prerelease": "lerna publish from-git --pre-dist-tag next",
     "test": "lerna run test"
   },
   "husky": {
