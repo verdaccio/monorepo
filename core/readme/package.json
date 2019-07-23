@@ -1,0 +1,53 @@
+{
+  "name": "@verdaccio/readme",
+  "version": "1.0.4",
+  "description": "Readme markdown parser",
+  "keywords": [
+    "verdaccio",
+    "readme",
+    "markdown"
+  ],
+  "author": {
+    "name": "Juan Picado",
+    "email": "juanpicado19@gmail.com"
+  },
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib"
+  ],
+  "dependencies": {
+    "dompurify": "1.0.11",
+    "jsdom": "15.1.1",
+    "marked": "0.6.2"
+  },
+  "devDependencies": {
+    "@verdaccio/babel-preset": "^0.2.1",
+    "@verdaccio/eslint-config": "^0.0.1",
+    "@verdaccio/types": "^6.0.2"
+  },
+  "scripts": {
+    "build": "npm run build:types && npm run build:js",
+    "build:js": "babel src/ --out-dir lib --extensions \".ts,.tsx\"",
+    "build:types": "tsc --emitDeclarationOnly",
+    "coverage:publish": "codecov",
+    "format": "prettier --single-quote --trailing-comma none --write '**/*.{js,ts}'",
+    "lint": "eslint '**/*.{js,ts}'",
+    "lint:stage": "lint-staged",
+    "pretest": "npm run lint",
+    "test": "jest",
+    "type-check": "tsc --noEmit",
+    "type-check:watch": "npm run type-check -- --watch"
+  },
+  "lint-staged": {
+    "**/*.{ts, json}": [
+      "eslint .",
+      "prettier --write",
+      "git add"
+    ]
+  }
+}
