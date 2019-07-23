@@ -31,14 +31,13 @@
     "@verdaccio/types": "^6.0.2"
   },
   "scripts": {
-    "commitmsg": "commitlint -e $GIT_PARAMS",
-    "precommit": "lint-staged",
     "build": "npm run build:types && npm run build:js",
     "build:js": "babel src/ --out-dir lib --extensions \".ts,.tsx\"",
     "build:types": "tsc --emitDeclarationOnly",
     "coverage:publish": "codecov",
     "format": "prettier --single-quote --trailing-comma none --write '**/*.{js,ts}'",
     "lint": "eslint '**/*.{js,ts}'",
+    "lint:stage": "lint-staged",
     "pretest": "npm run lint",
     "test": "jest",
     "type-check": "tsc --noEmit",
