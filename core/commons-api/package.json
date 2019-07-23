@@ -1,0 +1,46 @@
+{
+  "name": "@verdaccio/commons-api",
+  "version": "0.1.2",
+  "description": "Commons API utilities for Verdaccio",
+  "keywords": [
+    "http",
+    "verdaccio",
+    "api"
+  ],
+  "author": "Juan Picado <juanpicado19@gmail.com>",
+  "license": "MIT",
+  "publishConfig": {
+    "access": true
+  },
+  "main": "lib/index.js",
+  "files": [
+    "lib"
+  ],
+  "engines": {
+    "node": ">=8"
+  },
+  "dependencies": {
+    "http-errors": "1.7.3"
+  },
+  "devDependencies": {
+    "@verdaccio/babel-preset": "^0.2.1",
+    "@verdaccio/eslint-config": "^0.0.1"
+  },
+  "scripts": {
+    "build": "npm run build:types && npm run build:js",
+    "build:js": "babel src/ --out-dir lib --extensions \".ts,.tsx\"",
+    "build:types": "tsc --emitDeclarationOnly",
+    "coverage:publish": "codecov",
+    "lint": "eslint '**/*.{js,ts}'",
+    "lint:stage": "lint-staged",
+    "test": "jest",
+    "type-check": "tsc --noEmit",
+    "type-check:watch": "npm run type-check -- --watch"
+  },
+  "lint-staged": {
+    "**/*.{ts, json}": [
+      "eslint --fix",
+      "git add"
+    ]
+  }
+}
