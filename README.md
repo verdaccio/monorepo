@@ -1,6 +1,6 @@
 # Verdaccio Monorepo
 
-[![CircleCI](https://circleci.com/gh/verdaccio/monorepo/tree/master.svg?style=svg)](https://circleci.com/gh/verdaccio/monorepo/tree/master)
+[![CircleCI](https://circleci.com/gh/verdaccio/monorepo.svg?style=svg)](https://circleci.com/gh/verdaccio/monorepo)
 
 This monorepo contains the all the packages that composes the Verdaccio architecture, except [Verdaccio](https://github.com/verdaccio/verdaccio) itself and [UI](https://github.com/verdaccio/ui).
 
