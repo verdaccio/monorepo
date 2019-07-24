@@ -26,8 +26,8 @@
     "marked": "0.6.2"
   },
   "devDependencies": {
-    "@verdaccio/babel-preset": "^0.2.1",
-    "@verdaccio/eslint-config": "^0.0.1",
+    "@verdaccio/babel-preset": "^2.0.0",
+    "@verdaccio/eslint-config": "^2.0.0",
     "@verdaccio/types": "^6.0.2"
   },
   "scripts": {
