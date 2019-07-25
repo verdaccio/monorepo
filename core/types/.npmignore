@@ -14,3 +14,6 @@ test/
 .travis.yml
 src/
 .idea/
+.github/
+scripts/
+.DS_Store

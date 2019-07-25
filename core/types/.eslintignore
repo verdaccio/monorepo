@@ -1,4 +1,4 @@
 lib/
 .idea/
 **/node_modules/**
-**/__*-fixtures__/**
+/**/*.d.ts

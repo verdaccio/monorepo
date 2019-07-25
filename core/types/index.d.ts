@@ -1,8 +1,7 @@
 import { Stream, PassThrough } from "stream";
 
 declare module "@verdaccio/types" {
-type StringValue = string | void | null;
-
+	type StringValue = string | void | null;
 
 	type StorageList = Array<string>;
 	type Callback = Function;
@@ -460,7 +459,7 @@ type StringValue = string | void | null;
 		allow_publish?(user: RemoteUser, pkg: T & PackageAccess, cb: Callback): void;
 		allow_access?(user: RemoteUser, pkg: AllowAccess & PackageAccess, cb: Callback): void;
 		allow_publish?(user: RemoteUser, pkg: AllowAccess & PackageAccess, cb: Callback): void;
-		allow_unpublish?(user: RemoteUser, pkg: AllowAccess & PackageAccess, cb: Callback): void;s
+		allow_unpublish?(user: RemoteUser, pkg: AllowAccess & PackageAccess, cb: Callback): void;
 		apiJWTmiddleware?(helpers : any): Function;
 	}
 

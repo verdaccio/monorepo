@@ -6,16 +6,12 @@
     "type": "git",
     "url": "git://github.com/verdaccio/flow-types"
   },
-  "main": "lib/types.js.flow",
+  "main": "index.d.ts",
+  "types": "index.d.ts",
   "scripts": {
-    "precommit": "lint-staged",
-    "lint": "eslint .",
-    "prepublish": "npm run build",
-    "format": "prettier --write",
+    "test": "tsc --noEmit",
     "release": "standard-version -a -s",
-    "build": "npm run build:flow",
-    "build:flow": "mkdir -p lib && cp src/flow/types.js lib/types.js.flow",
-    "test": "npm run lint && flow check"
+    "build": "echo \"no buid required\""
   },
   "keywords": [
     "flow-type",
@@ -26,37 +22,11 @@
   "private": false,
   "license": "MIT",
   "devDependencies": {
-    "@octokit/rest": "^16.25.0",
-    "@types/node": "10.12.18",
-    "babel-eslint": "10.0.1",
-    "eslint": "5.12.0",
-    "eslint-config-prettier": "3.3.0",
-    "eslint-plugin-flow-typed": "1.0.1",
-    "eslint-plugin-flowtype": "3.2.1",
-    "eslint-plugin-prettier": "3.0.1",
-    "flow-bin": "0.90.0",
-    "get-stdin": "^7.0.0",
-    "husky": "0.14.3",
-    "lint-staged": "8.1.0",
-    "prettier": "1.15.3",
-    "standard-version": "4.4.0",
-    "typescript": "3.2.4"
-  },
-  "peerDependencies": {
-    "@types/node": "10.12.18",
-    "flow-bin": "0.90.0",
-    "typescript": "3.2.4"
-  },
-  "lint-staged": {
-    "linters": {
-      "package.json": [
-        "prettier --write",
-        "git add"
-      ],
-      "*.js": [
-        "eslint --fix",
-        "git add"
-      ]
-    }
+    "@octokit/rest": "^16.28.6",
+    "@types/node": "12.6.8",
+    "get-stdin": "7.0.0",
+    "husky": "3.0.1",
+    "standard-version": "6.0.1",
+    "typescript": "^3.5.3"
   }
 }

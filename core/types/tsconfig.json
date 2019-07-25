@@ -1,9 +1,7 @@
 {
   "compilerOptions": {
+      "target": "esnext",
       "module": "commonjs",
-      "lib": [
-          "es6"
-      ],
       "noImplicitAny": true,
       "noImplicitThis": true,
       "strictNullChecks": true,
@@ -12,11 +10,10 @@
       "forceConsistentCasingInFileNames": true
   },
   "typeRoots": [
-      "./node_modules/@types",
-      "src/typescript/index.d.ts"
-    ],
-  "files": [
-      "src/typescript/index.d.ts",
-      "test/typescript/verdaccio-tests.ts"
+     "./node_modules/@types",
+      "./index.d.ts"
+  ],
+  "includes": [
+    "./index.d.ts"
   ]
 }
