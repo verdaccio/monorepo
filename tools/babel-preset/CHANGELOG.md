@@ -1,3 +1,41 @@
+# Change Log
+
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+# 2.0.0 (2019-07-21)
+
+
+### Features
+
+* **babel-preset:** import babel-preset package ([9b39181](https://github.com/verdaccio/monorepo/commit/9b39181))
+
+
+### BREAKING CHANGES
+
+* **babel-preset:** it remove ui dependencies need to be defined in a specific webpack project
+
+- babel-loader, eslint-loader
+
+- chore(release): 0.2.0
+
+- chore: update lock file
+
+- chore: add circleci
+
+- chore: update circleci
+
+- chore(release): 0.2.1
+
+- feat: remove flow from configuration
+* **babel-preset:** flow is not need it anymore
+
+- chore(release): 1.0.0
+
+
+
+
+
 # Changelog
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.

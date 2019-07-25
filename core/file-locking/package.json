@@ -1,0 +1,49 @@
+{
+  "name": "@verdaccio/file-locking",
+  "version": "1.0.4",
+  "description": "library that handle file locking",
+  "keywords": [
+    "verdaccio",
+    "lock",
+    "fs"
+  ],
+  "author": "Juan Picado <juanpicado19@gmail.com>",
+  "license": "MIT",
+  "publishConfig": {
+    "access": true
+  },
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib"
+  ],
+  "engines": {
+    "node": ">=8"
+  },
+  "dependencies": {
+    "lockfile": "1.0.4"
+  },
+  "devDependencies": {
+    "@verdaccio/babel-preset": "^2.0.0",
+    "@verdaccio/eslint-config": "^2.0.0",
+    "@verdaccio/types": "^5.3.0"
+  },
+  "scripts": {
+    "build": "npm run build:types && npm run build:js",
+    "build:js": "babel src/ --out-dir lib/  --ignore **/__tests__ --extensions \".ts,.tsx\"",
+    "build:types": "tsc --emitDeclarationOnly",
+    "coverage:publish": "codecov",
+    "lint": "eslint '**/*.{js,ts}'",
+    "lint:stage": "lint-staged",
+    "pretest": "npm run lint",
+    "test": "jest",
+    "type-check": "tsc --noEmit",
+    "type-check:watch": "npm run type-check -- --watch"
+  },
+  "lint-staged": {
+    "**/*.{ts,js}": [
+      "eslint --fix",
+      "git add"
+    ]
+  }
+}
