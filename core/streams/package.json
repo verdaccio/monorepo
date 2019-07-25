@@ -23,7 +23,7 @@
   "devDependencies": {
     "@verdaccio/babel-preset": "^2.0.0",
     "@verdaccio/eslint-config": "^2.0.0",
-    "@verdaccio/types": "^5.0.2"
+    "@verdaccio/types": "^7.0.0"
   },
   "scripts": {
     "build": "npm run build:types && npm run build:js",

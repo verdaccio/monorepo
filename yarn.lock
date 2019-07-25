@@ -2236,7 +2236,7 @@
     lodash.unescape "4.0.1"
     semver "5.5.0"
 
-"@verdaccio/types@^5.0.2", "@verdaccio/types@^5.3.0":
+"@verdaccio/types@^5.3.0":
   version "5.3.0"
   resolved "https://registry.verdaccio.org/@verdaccio%2ftypes/-/types-5.3.0.tgz#24fe5d96eb26810091aaf25c52ccbc682b9bd3b0"
   integrity sha512-k7VTU4155c68IUOQ9vTKEQb5Up83n9JRL1jK/HhgUi3RfuW/uSuLabCLHcIQbq/V7x6hYeZWlGmDggfFY3YIrA==
