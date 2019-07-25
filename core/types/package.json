@@ -2,31 +2,19 @@
   "name": "@verdaccio/types",
   "version": "7.0.0",
   "description": "verdaccio flow types definitions",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/verdaccio/flow-types"
+  "keywords": [
+    "verdaccio",
+    "typescript",
+    "types"
+  ],
+  "author": "Juan Picado <juanpicado19@gmail.com>",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
   },
   "main": "index.d.ts",
   "types": "index.d.ts",
   "scripts": {
-    "test": "tsc --noEmit",
-    "release": "standard-version -a -s",
-    "build": "echo \"no buid required\""
-  },
-  "keywords": [
-    "flow-type",
-    "typescript",
-    "verdaccio"
-  ],
-  "author": "Juan Picado <juanpicado19@gmail.com>",
-  "private": false,
-  "license": "MIT",
-  "devDependencies": {
-    "@octokit/rest": "^16.28.6",
-    "@types/node": "12.6.8",
-    "get-stdin": "7.0.0",
-    "husky": "3.0.1",
-    "standard-version": "6.0.1",
-    "typescript": "^3.5.3"
+    "test": "tsc --noEmit"
   }
 }
