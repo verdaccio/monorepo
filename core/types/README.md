@@ -3,7 +3,7 @@
 Typescript definitions for verdaccio plugins and internal code
 
 # Typescript
-For usage with the library, the `tsconfig.json` should looks like this. Typescript is only available since `"@verdaccio/types": "5.0.0-beta.2"`.
+For usage with the library, the `tsconfig.json` should looks like this.
 
 ```
 //tsconfig.json
