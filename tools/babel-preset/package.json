@@ -46,7 +46,7 @@
     "@verdaccio/eslint-config": "^2.0.0"
   },
   "scripts": {
-    "lint": "eslint '**/*.js'",
+    "lint": "eslint \"**/*.js\"",
     "lint:stage": "lint-staged"
   },
   "lint-staged": {

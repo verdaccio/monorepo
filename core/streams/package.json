@@ -29,7 +29,7 @@
     "build": "npm run build:types && npm run build:js",
     "build:js": "babel src --out-dir lib --extensions \".ts,.tsx\" --source-maps inline",
     "build:types": "tsc --emitDeclarationOnly",
-    "lint": "eslint '**/*.{js,ts}'",
+    "lint": "eslint \"**/*.{js,ts}\"",
     "lint:stage": "lint-staged",
     "pretest": "npm run lint",
     "test": "jest",
