@@ -1,0 +1,38 @@
+trigger:
+  branches:
+    include:
+      - /*/
+
+strategy:
+  matrix:
+    node12_linux:
+      imageName: 'ubuntu-latest'
+      nodeVersion: 12.x
+    node_12_windows:
+      imageName: 'windows-2019'
+      nodeVersion: 12.x
+    node_12_macos:
+      imageName: 'macOS-10.14'
+      nodeVersion: 12.x
+  maxParallel: 3
+
+pool:
+  vmImage: $(imageName)
+
+steps:
+  - task: NodeTool@0
+    inputs:
+      versionSpec: $(nodeVersion)
+    displayName: "Install Node.js"
+
+  - script: yarn install --frozen-lockfile
+    displayName: 'Install dependencies'
+
+  - script: yarn build
+    displayName: 'Build projects'
+
+  - script: yarn lint
+    displayName: 'Lint projects'
+
+  - script: yarn test
+    displayName: 'Run tests'
