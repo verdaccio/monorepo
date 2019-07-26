@@ -73,8 +73,9 @@ describe('testing locking', () => {
     const options = {
       parse: true
     };
+    const errorMessage = process.platform === 'win32' ? 'Unexpected token } in JSON at position 47' : 'Unexpected token } in JSON at position 44';
     readFile(getFilePath('wrong.package.json'), options, (error: Error) => {
-      expect(error.message).toEqual('Unexpected token } in JSON at position 44');
+      expect(error.message).toEqual(errorMessage);
       done();
     });
   });
@@ -97,8 +98,9 @@ describe('testing locking', () => {
       parse: true,
       lock: true
     };
+    const errorMessage = process.platform === 'win32' ? 'Unexpected token } in JSON at position 47' : 'Unexpected token } in JSON at position 44';
     readFile(getFilePath('wrong.package.json'), options, (error: Error) => {
-      expect(error.message).toEqual('Unexpected token } in JSON at position 44');
+      expect(error.message).toEqual(errorMessage);
       removeTempFile('wrong.package.json.lock');
       done();
     });
