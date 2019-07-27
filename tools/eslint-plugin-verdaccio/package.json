@@ -20,7 +20,7 @@
     "mocha": "^6.1.4"
   },
   "scripts": {
-    "lint": "eslint '**/*.js'",
+    "lint": "eslint \"**/*.js\"",
     "lint:stage": "lint-staged",
     "test": "mocha tests --recursive"
   },

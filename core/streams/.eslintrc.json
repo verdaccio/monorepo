@@ -1,6 +1,7 @@
 {
   "extends": ["@verdaccio"],
   "rules": {
+    "prettier/prettier": ["error", { "endOfLine": "auto", "singleQuote": true }],
     "@typescript-eslint/interface-name-prefix": "off",
     "@typescript-eslint/no-use-before-define": "off"
   }

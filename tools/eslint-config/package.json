@@ -34,7 +34,7 @@
     "tsutils": "3.14.0"
   },
   "scripts": {
-    "lint": "eslint '**/*.js'",
+    "lint": "eslint \"**/*.js\"",
     "lint:stage": "lint-staged"
   },
   "lint-staged": {

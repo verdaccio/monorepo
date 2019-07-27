@@ -33,7 +33,7 @@
     "build:js": "babel src/ --out-dir lib/  --ignore **/__tests__ --extensions \".ts,.tsx\"",
     "build:types": "tsc --emitDeclarationOnly",
     "coverage:publish": "codecov",
-    "lint": "eslint '**/*.{js,ts}'",
+    "lint": "eslint \"**/*.{js,ts}\"",
     "lint:stage": "lint-staged",
     "pretest": "npm run lint",
     "test": "jest",
