@@ -1,0 +1,20 @@
+{
+  "name": "@verdaccio/types",
+  "version": "7.0.0",
+  "description": "verdaccio flow types definitions",
+  "keywords": [
+    "verdaccio",
+    "typescript",
+    "types"
+  ],
+  "author": "Juan Picado <juanpicado19@gmail.com>",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "index.d.ts",
+  "types": "index.d.ts",
+  "scripts": {
+    "test": "tsc --noEmit"
+  }
+}

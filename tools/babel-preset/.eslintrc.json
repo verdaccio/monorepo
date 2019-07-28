@@ -36,7 +36,7 @@
   },
   "rules": {
     "babel/no-invalid-this": "warn",
-    "prettier/prettier": ["error", null, "@prettier"],
+    "prettier/prettier": ["error", { "endOfLine": "auto" }, "@prettier"],
     "semi": ["error"],
     "comma-dangle": "off",
     "camelcase": "off",

@@ -28,7 +28,7 @@
   "devDependencies": {
     "@verdaccio/babel-preset": "^2.0.0",
     "@verdaccio/eslint-config": "^2.0.0",
-    "@verdaccio/types": "^6.0.2"
+    "@verdaccio/types": "^7.0.0"
   },
   "scripts": {
     "build": "npm run build:types && npm run build:js",
@@ -36,7 +36,7 @@
     "build:types": "tsc --emitDeclarationOnly",
     "coverage:publish": "codecov",
     "format": "prettier --single-quote --trailing-comma none --write '**/*.{js,ts}'",
-    "lint": "eslint '**/*.{js,ts}'",
+    "lint": "eslint \"**/*.{js,ts}\"",
     "lint:stage": "lint-staged",
     "pretest": "npm run lint",
     "test": "jest",

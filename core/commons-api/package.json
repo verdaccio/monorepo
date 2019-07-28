@@ -31,7 +31,7 @@
     "build:js": "babel src/ --out-dir lib --extensions \".ts,.tsx\"",
     "build:types": "tsc --emitDeclarationOnly",
     "coverage:publish": "codecov",
-    "lint": "eslint '**/*.{js,ts}'",
+    "lint": "eslint \"**/*.{js,ts}\"",
     "lint:stage": "lint-staged",
     "test": "jest",
     "type-check": "tsc --noEmit",

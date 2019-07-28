@@ -23,13 +23,13 @@
   "devDependencies": {
     "@verdaccio/babel-preset": "^2.0.0",
     "@verdaccio/eslint-config": "^2.0.0",
-    "@verdaccio/types": "^5.0.2"
+    "@verdaccio/types": "^7.0.0"
   },
   "scripts": {
     "build": "npm run build:types && npm run build:js",
     "build:js": "babel src --out-dir lib --extensions \".ts,.tsx\" --source-maps inline",
     "build:types": "tsc --emitDeclarationOnly",
-    "lint": "eslint '**/*.{js,ts}'",
+    "lint": "eslint \"**/*.{js,ts}\"",
     "lint:stage": "lint-staged",
     "pretest": "npm run lint",
     "test": "jest",
