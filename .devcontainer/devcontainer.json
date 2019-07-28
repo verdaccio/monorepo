@@ -1,0 +1,30 @@
+{
+	"name": "Node.js (latest)",
+	"image": "node:latest",
+
+	"runArgs": [ "-v", "${env:HOME}${env:USERPROFILE}/.ssh:/root/.ssh-localhost:ro" ],
+
+	"settings":  {
+		"editor.rulers": [80, 120],
+		"files.insertFinalNewline": true,
+		"files.trimFinalNewlines": true,
+		"files.trimTrailingWhitespace": true,
+		"eslint.autoFixOnSave": true,
+		"eslint.validate": [
+			"javascript",
+			"javascriptreact",
+			{ "language": "typescript", "autoFix": true },
+			{ "language": "typescriptreact", "autoFix": true },
+		],
+		"prettier.eslintIntegration": true,
+	},
+
+	"postCreateCommand": "mkdir -p ~/.ssh && cp -r ~/.ssh-localhost/* ~/.ssh && chmod 700 ~/.ssh && chmod 600 ~/.ssh/* && yarn install --frozen-lockfile",
+
+	"extensions": [
+		"dbaeumer.vscode-eslint",
+		"esbenp.prettier-vscode",
+		"visualstudioexptteam.vscodeintellicode",
+		"christian-kohler.path-intellisense",
+	]
+}
