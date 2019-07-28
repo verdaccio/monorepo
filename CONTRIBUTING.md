@@ -1,32 +1,67 @@
-# Contributing
+# Contributing to Verdaccio Monorepo
 
-This project is managed in a Monorepo structure. We decided to use Lerna with Yarn Workspaces for this purpose. If you don't know what a monorepo is, we recommend you to read the core concepts described in [this article](https://medium.com/@maoberlehner/monorepos-in-the-wild-33c6eb246cb9) and [Lerna docs](https://lernajs.io/).
+We are happy that you wish to contribute to this project. For that reason, we present you this guide.
 
-## Investigate
+All you need to know is in this guide. If you need to know more information, you can ask in our [chat](#chat).
 
-First of all, we encourage you to search issues and find if it is already opened. If not, open a new one with a detailed description. With more details we can help you better.
+## Contents
 
-If you are not sure about the problem, you can talk with us at Discord, in our [general](https://discord.gg/6s5CBRu) or [question channel](https://discord.gg/BVyg4F6).
+- [Contents](#contents)
+- [How Can I Contribute?](#how-can-i-contribute)
+- [Reporting Bugs](#reporting-bugs)
+  - [Issue Search](#issue-search)
+  - [How to Report](#how-to-report)
+  - [Chat](#chat)
+- [Requesting Features](#requesting-features)
+  - [Submitting a Pull Request](#submitting-a-pull-request)
+  - [Commiting Changes](#commiting-changes)
+- [Development](#development)
+  - [Project Structure](#project-structure)
+  - [Installing Tools](#installing-tools)
+  - [Interesting Commands](#interesting-commands)
+  - [Creating Packages](#creating-packages)
+  - [Importing Packages](#importing-packages)
+  - [Managing Dependencies](#managing-dependencies)
+- [Using VSCode Remote Development Environment](#using-vscode-remote-development-environment)
+
+## How Can I Contribute?
+
+There are different ways to contribute, each with a different level of involvement and technical knowledge, such as:
+
+- [Reporting Bugs](#reporting-bugs)
+- [Requesting Features](#requesting-features)
+- [Development](#development)
+
+**Please read this document carefully. It will help maintainers and readers in solving your issue(s), evaluating your features request(s), etc.**
+
+## Reporting Bugs
+
+### Issue Search
+
+### How to Report
+
+### Chat
+
+## Requesting Features
+
+### Commiting Changes
+
+### Submitting a Pull Request
 
 ## Development
 
-To start developing, you should perform some steps to prepare the packages:
+### Project Structure
 
-1.  Install monorepo dependencies. We use [Yarn](https://yarnpkg.com) as package manager. We recommend the use of `--frozen-lockfile` option to keep the same dependency tree as we have.
-    ```shell
-    yarn install --frozen-lockfile
-    ```
-2.  Move to package directory to work normally (e.g, pass tests with `yarn test`)
+### Installing Tools
 
-## Committing changes
+### Interesting Commands
 
-We follow [Conventional Commits Specification](https://conventionalcommits.org/) to generate changelogs automatically. Because every commit affects every package in the monorepo, we must specify the package folder in the scope field to generate each changelog correctly. Some examples of use is:
-```shell
-feat(babel-preset): add basic config
-```
-```shell
-fix(eslint-config): remove unnecessary comment
-```
-```shell
-chore(eslint-config): update some deps
-```
+### Creating Packages
+
+### Importing Packages
+
+### Managing Dependencies
+
+## Using VSCode Development Environment
+
+_This section is optional_
