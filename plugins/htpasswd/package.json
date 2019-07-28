@@ -36,20 +36,14 @@
     "unix-crypt-td-js": "1.0.0"
   },
   "devDependencies": {
-    "@commitlint/config-conventional": "^7.5.0",
     "@octokit/rest": "^16.23.2",
     "@types/bcryptjs": "^2.4.2",
-    "@verdaccio/babel-preset": "^0.1.0",
-    "@verdaccio/types": "^5.0.0-beta.4",
-    "@verdaccio/eslint-config": "^0.0.1",
+    "@verdaccio/babel-preset": "^2.0.0",
+    "@verdaccio/eslint-config": "^2.0.0",
+    "@verdaccio/types": "^7.0.0",
     "cross-env": "^5.2.0",
     "get-stdin": "^6.0.0",
-    "in-publish": "^2.0.0",
-    "standard-version": "^5.0.2"
-  },
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/",
-    "access": true
+    "in-publish": "^2.0.0"
   },
   "engines": {
     "node": ">=8"
