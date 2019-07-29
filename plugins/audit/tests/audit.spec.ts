@@ -23,4 +23,12 @@ describe('Audit plugin', () => {
     const audit = new ProxyAudit(config, { logger, config: undefined });
     expect(audit).toBeDefined();
   });
+
+  test('should test audit with configuration', () => {
+    // @ts-ignore
+    const config: ConfigAudit = { strict_ssl: false };
+    const audit = new ProxyAudit(config, { logger, config: config });
+    expect(audit).toBeDefined();
+    expect(audit.strict_ssl).toBeFalsy();
+  });
 });

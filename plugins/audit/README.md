@@ -18,11 +18,16 @@
 
 ## Usage
 To enable it you need to add this to your configuration file.
-```
+```yaml
 middlewares:
   audit:
     enabled: true
+    strict_ssl: true # optional, defaults to true
 ```
+
+### Strict SSL
+
+In some scenarios it may be necessary to disable SSL certificate validation. Setting *strict_ssl* to false will disable these checks, but will make all connections passing through this plugin inherently insecure.
 
 ## Disclaimer
 

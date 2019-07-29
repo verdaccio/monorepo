@@ -7,9 +7,11 @@ import { ConfigAudit } from './types';
 export default class ProxyAudit implements IPluginMiddleware<ConfigAudit> {
   enabled: boolean;
   logger: Logger;
+  strict_ssl: boolean;
 
   constructor(config: ConfigAudit, options: PluginOptions<ConfigAudit>) {
     this.enabled = config.enabled || false;
+    this.strict_ssl = config.strict_ssl !== undefined ? config.strict_ssl : true;
     this.logger = options.logger;
   }
 
@@ -23,7 +25,7 @@ export default class ProxyAudit implements IPluginMiddleware<ConfigAudit> {
         method: req.method,
         proxy: auth.config.https_proxy,
         req,
-        strictSSL: true
+        strictSSL: this.strict_ssl
       };
 
       req
