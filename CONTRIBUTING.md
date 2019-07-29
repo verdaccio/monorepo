@@ -129,17 +129,157 @@ information on [branch rebasing](https://git-scm.com/book/en/v2/Git-Branching-Re
 
 ## Development
 
+This project is managed by [Lerna](https://lerna.js.org/) and [Yarn Workspaces](https://yarnpkg.com/lang/en/docs/workspaces/). These concepts are a little hard to understand, but we are working to facilitate you that work as much as we can.
+
+To have a better understanding about how Lerna and Yarn Workspaces work together, read this great [article](https://yarnpkg.com/blog/2017/08/02/introducing-workspaces/).
+
+#### Lerna
+
+Lerna is a tool to manage several Javascript projects with multiple packages, called _monorepos_.
+
+When you have many Javascript projects separated in multiple repositories that have common parts like scripts, devDependencies, tools, etc, you have to maintain and make the same changes in several projects at the same time, e.g, when a devDependency, like ESLint, release a new version.
+
+Unifying those packages in a monorepo architecture allows you to have only one repository and make changes in several projects at the same time, perform scripts like test or lint with only one command, and more. This gives faster and easier maintenance.
+
+#### Yarn Workspaces
+
+Yarn Workspaces is way to setup packages architecture, simplifying dependencies installation, package linking, etc.
+
+Using Yarn Workspaces, all types of dependencies will be installed in a root _node_modules_ (wherever they are defined). Only one lockfile will control all dependencies from the projects in the workspace.
+
+Also, if a package from the workspace have dependency on another package from the same workspace, they will be linked automatically. This is better mechanism than normal linking because this only affects workspace and not the whole system.
+
 ### Project Structure
+
+This project is separated into three types of packages, depending on the behaviour:
+
+- _core_: main parts of the Verdaccio architecture
+- _plugins_: developed to extend or change the main behaviour of Verdaccio
+- _tools_: packages to improve and maintain a robust codebase for all of our projects
+
+Inside each folder, there are several packages to keep them easy.
 
 ### Installing Tools
 
+First of all, you need [Yarn](https://yarnpkg.com) to install all the dependencies from the project (using Yarn Workspaces as described above).
+
+In case you have it installed, you can skip this step. You can install following the method you prefer from their official [docs](https://yarnpkg.com/en/docs/install#debian-stable).
+
+After that, you only need to execute the installation command. We prefer to use `--frozen-lockfile` option to install the same dependency tree we have to avoid the typical _"in my machine works"_.
+
+```bash
+yarn install --frozen-lockfile
+```
+
+There is a special note, we do not need to run `lerna bootstrap` to install projects dependencies and link together, because Yarn Workspaces do that when installing.
+
+After this, you can move into the package folder you desire and work like a normal package with their own scripts, or stay in the root folder and run the scripts for all the packages.
+
+Optionally, you would like to install Lerna globally. You can do this with the package manager you prefer:
+
+| npm                          | yarn                    | pnpm                          |
+| ---------------------------- | ----------------------- | ----------------------------- |
+| `npm install --global lerna` | `yarn global add lerna` | `pnpm install --global lerna` |
+
 ### Interesting Commands
+
+There are some interesting commands you would need to know when working with Lerna and Yarn Workspaces.
+
+#### Lerna
+
+The main commands you need to know are:
+
+- `lerna bootstrap`: install root project and packages dependencies. Also, it will link packages located in the monorepo. We do not need this command as it's managed by Yarn.
+- `lerna run <script>`: run the script specified in packages that have that script defined, e.g, `lerna run test` will pass tests on all the packages that contains tests.
+- `lerna exec <script>`: run script on all packages unless you ignore packages with `--ignore=<pkg1>,<pkg2>` or specify in which it should execute with `--scope=<pkg3>,<pkg4>`.
+- `lerna clean`: clean _node_modules_ from root and all packages.
+- `lerna create <name> <location>`: create a new package named name in location specified (it could be `core`, `plugins` or `tools`).
+- `lerna import <source_package> --dest=<location>`: import an external package from _source_package_ in the location specified (it could be `core`, `plugins` or `tools`).
+
+There are more commands and options well explained you can see in their [GitHub repository](https://github.com/lerna/lerna).
+
+#### Yarn Workspaces
+
+We delegate high-level managing commands to Lerna, but there are some commands you should know:
+
+- `yarn workspaces info`: show info and relations between packages in the workspace, and if a package dependency from the workspace is not updated.
+- `yarn workspace <package> <command>`: run command in the package specified.
+
+For more information, take a look at [`yarn workspace`](https://yarnpkg.com/lang/en/docs/cli/workspace) and [`yarn workspaces`](https://yarnpkg.com/en/docs/cli/workspaces) CLI docs.
 
 ### Creating Packages
 
+To create a new package, you can create with:
+
+`lerna create <package_name> <scope_location>`
+
+And then, follow the next steps in the package recently created:
+
+1. Add MIT LICENSE file (using`npx license -o Verdaccio mit > LICENSE`) and complete README.
+2. Add the necessary tools files the project will require like `.gitignore`, `.eslintrc.json`, `tsconfig.json` or `.babelrc`. You can see other packages in the monorepo to know which tools are we using.
+3. Add all the necessary stuff in the `package.json`, like scripts or dependencies, taking care of script naming like `lint`, `lint:stage` or `test`.
+4. In case the package is scoped (like `@verdaccio/streams`), add next block in `package.json`:
+   ```json
+   "publishConfig": {
+     "access": "public"
+   }
+   ```
+5. Flat those `devDependencies` that aren't part of the monorepo to the root `package.json`, like `in-publish`, but not `devDependencies` like `@verdaccio/eslint-config`.
+6. Ensure everything is working correctly, both in package and with root scripts.
+
 ### Importing Packages
 
+The steps for importing and creating packages differ a little bit. First, you need to have cloned the project to import in your local filesystem and then you need to import all the project git tree using next command:
+
+`lerna import <project_location> --dest=<scope_location>`
+
+If this process fails because there were merge conflicts, you must add `--flatten` option to the command above to flat history.
+
+Later, follow the next steps in the package recently imported:
+
+1. Remove unnecessary stuff, like CI settings, GitHub stuff, CONTRIBUTING, unnecessary things from .gitignore, etc.
+2. Update LICENSE year.
+3. Follow the steps described in [Creating Packages](#creating-packages) to complete the flow.
+
 ### Managing Dependencies
+
+Every package contains their own dependencies and devDependencies. We need to understand how to manage them, because each type have their own restrictions.
+
+#### Dependencies
+
+All packages must contain their own dependencies defined in their `package.json` and never should be flattened.
+
+If a package dependencies are flattened, the user of that package will not know what dependencies needs to install, so the package could be broken. So never flatten them.
+
+Also, we have decided to fix versions of all dependencies to manage them manually.
+
+#### Development Dependencies
+
+There are two ways for defining devDependencies.
+
+First, we prefer to define devDependencies in root `package.json` to share them with every package in the monorepo, even when the package is used only by one package. This way, all packages share the same devDependencies and we can manage them easily.
+
+Second, if a package requires a specific devDependency version of a package defined in the root `package.json`, we must define that in the `package.json` located under the package we want.
+
+An example of this could be next: We have a monorepo with packages `foo` and `bar`. We use `eslint@5.16.0` for all, so in `<root>/package.json` we define:
+
+```json
+"devDependencies": {
+    "eslint": "^5.16.0
+}
+```
+
+But now we want `bar` package use a new release of that package. So we can keep `<root>/package.json` as before and define next block in `<root>/packages/bar/package.json`:
+
+```json
+"devDependencies": {
+    "eslint": "^6.0.0
+}
+```
+
+This way, we will have both versions installed but each package use what they require.
+
+Also, it's important to note that we prefer to use caret (`^`) when managing `devDependencies`. As they are used only for developing, we don't need to take as care as with package `dependencies`.
 
 ## Using VSCode Development Environment
 
