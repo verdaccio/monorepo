@@ -281,6 +281,23 @@ This way, we will have both versions installed but each package use what they re
 
 Also, it's important to note that we prefer to use caret (`^`) when managing `devDependencies`. As they are used only for developing, we don't need to take as care as with package `dependencies`.
 
-## Using VSCode Development Environment
+## Using VSCode Remote Development Environment
 
 _This section is optional_
+
+For those inexperienced developer or who only want to make some simple changes (like improving documentation) or who only want to program in the same environment we use to develop, we want to help you with an isolated development environment.
+
+VSCode Remote Development Environment allows us to define a container where you will have the source code, your SSH credentials and a set of plugins and settings we think you would need to work.
+
+The requirements and installation process is defined in [VSCode docs](https://code.visualstudio.com/docs/remote/containers#_getting-started). We make a summary you will need:
+
+- [Docker](https://www.docker.com/)
+- [VSCode](https://code.visualstudio.com/)
+- [Remote - Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) for VSCode
+- _(Optional)_ [Remote Development extension pack](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack) for VSCode (includes the extension _Remote - Containers_)
+
+With everything configured, you only need to open Command Palette and select `Remote-Containers: Open Folder in Container` option, and select the root folder of this project in your filesystem, or simply `Remove-Containers: Reopen Folder in Container`.
+
+It will reload VSCode and start the container with the configuration specified. You need to wait a little bit until it starts completely.
+
+To exit the container, you only need to open Command Palette again and select `Remote-Containers: Reopen Folder Locally`.
