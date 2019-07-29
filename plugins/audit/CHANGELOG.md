@@ -1,6 +1,20 @@
-# Change Log
+# Changelog
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+### [1.2.1](https://github.com/verdaccio/verdaccio-audit/compare/v1.2.0...v1.2.1) (2019-07-29)
+
+
+### Bug Fixes
+
+*  audit module doesn't support strict_ssl flag ([f7d3f86](https://github.com/verdaccio/verdaccio-audit/commit/f7d3f86))
+
+
+### Build System
+
+* update dependencies ([ddaa990](https://github.com/verdaccio/verdaccio-audit/commit/ddaa990))
+
+
 
 # [1.2.0](https://github.com/verdaccio/verdaccio-audit/compare/v1.1.0...v1.2.0) (2019-04-06)
 
