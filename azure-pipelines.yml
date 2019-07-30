@@ -1,8 +1,3 @@
-trigger:
-  branches:
-    include:
-      - /*/
-
 strategy:
   matrix:
     node12_linux:
