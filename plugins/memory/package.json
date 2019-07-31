@@ -1,22 +1,22 @@
 {
   "name": "verdaccio-memory",
   "version": "2.0.0",
-  "description": "storage implementation in memory",
+  "description": "Storage implementation in memory",
+  "keywords": [
+    "verdaccio",
+    "plugin",
+    "storage",
+    "memory"
+  ],
+  "author": "Juan Picado <juanpicado19@gmail.com>",
+  "license": "MIT",
   "main": "lib/index.js",
-  "scripts": {
-    "release": "standard-version -a -s",
-    "pretest": "npm run lint",
-    "test": "jest",
-    "precommit": "lint-staged",
-    "format": "prettier --single-quote --trailing-comma none --write \"{src,test}/**/*.ts\"",
-    "lint": "eslint . --ext .js,.ts",
-    "coverage": "codecov",
-    "commitmsg": "commitlint -e $GIT_PARAMS",
-    "type-check": "tsc --noEmit",
-    "type-check:watch": "npm run type-check -- --watch",
-    "build": "npm run build:types && npm run build:js",
-    "build:types": "tsc --emitDeclarationOnly",
-    "build:js": "babel src/ --out-dir lib --extensions \".ts,.tsx\" --source-maps inline"
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib/"
+  ],
+  "engines": {
+    "node": ">=8"
   },
   "dependencies": {
     "@verdaccio/streams": "2.0.0",
@@ -24,47 +24,28 @@
     "memory-fs": "0.4.1"
   },
   "devDependencies": {
-    "@commitlint/cli": "7.5.2",
-    "@commitlint/config-conventional": "7.5.0",
-    "@commitlint/travis-cli": "7.5.2",
-    "@types/http-errors": "1.6.1",
-    "@types/jest": "24.0.11",
-    "@types/memory-fs": "0.3.2",
-    "@types/node": "11.13.8",
-    "@verdaccio/babel-preset": "0.1.0",
-    "@verdaccio/eslint-config": "0.0.1",
-    "@verdaccio/types": "5.0.2",
-    "codecov": "3.3.0",
-    "cross-env": "5.2.0",
-    "eslint": "5.16.0",
-    "husky": "0.14.3",
-    "jest": "24.7.1",
-    "lint-staged": "7.3.0",
-    "rmdir-sync": "1.0.1",
-    "standard-version": "5.0.2",
-    "typescript": "3.2.4"
+    "@verdaccio/babel-preset": "^2.0.0",
+    "@verdaccio/eslint-config": "^2.0.0",
+    "@verdaccio/types": "^5.3.0"
   },
-  "keywords": [
-    "verdaccio",
-    "plugin",
-    "storage"
-  ],
-  "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
-    ]
+  "scripts": {
+    "build": "npm run build:types && npm run build:js",
+    "build:js": "babel src/ --out-dir lib --extensions \".ts,.tsx\" --source-maps inline",
+    "build:types": "tsc --emitDeclarationOnly",
+    "coverage": "codecov",
+    "format": "prettier --single-quote --trailing-comma none --write \"{src,test}/**/*.ts\"",
+    "lint": "eslint . --ext .js,.ts",
+    "lint:stage": "lint-staged",
+    "pretest": "npm run lint",
+    "test": "jest",
+    "type-check": "tsc --noEmit",
+    "type-check:watch": "npm run type-check -- --watch"
   },
   "lint-staged": {
-    "*.js": [
-      "npm run format",
-      "npm run lint",
+    "**/*.{js,ts}": [
+      "eslint .",
+      "prettier --write",
       "git add"
     ]
-  },
-  "engines": {
-    "node": ">=8"
-  },
-  "author": "Juan Picado <juanpicado19@gmail.com>",
-  "private": false,
-  "license": "MIT"
+  }
 }
