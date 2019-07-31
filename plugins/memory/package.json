@@ -1,0 +1,51 @@
+{
+  "name": "verdaccio-memory",
+  "version": "2.0.0",
+  "description": "Storage implementation in memory",
+  "keywords": [
+    "verdaccio",
+    "plugin",
+    "storage",
+    "memory"
+  ],
+  "author": "Juan Picado <juanpicado19@gmail.com>",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib/"
+  ],
+  "engines": {
+    "node": ">=8"
+  },
+  "dependencies": {
+    "@verdaccio/streams": "2.0.0",
+    "http-errors": "1.7.2",
+    "memory-fs": "0.4.1"
+  },
+  "devDependencies": {
+    "@verdaccio/babel-preset": "^2.0.0",
+    "@verdaccio/eslint-config": "^2.0.0",
+    "@verdaccio/types": "^5.3.0"
+  },
+  "scripts": {
+    "build": "npm run build:types && npm run build:js",
+    "build:js": "babel src/ --out-dir lib --extensions \".ts,.tsx\" --source-maps inline",
+    "build:types": "tsc --emitDeclarationOnly",
+    "coverage": "codecov",
+    "format": "prettier --single-quote --trailing-comma none --write \"{src,test}/**/*.ts\"",
+    "lint": "eslint . --ext .js,.ts",
+    "lint:stage": "lint-staged",
+    "pretest": "npm run lint",
+    "test": "jest",
+    "type-check": "tsc --noEmit",
+    "type-check:watch": "npm run type-check -- --watch"
+  },
+  "lint-staged": {
+    "**/*.{js,ts}": [
+      "eslint .",
+      "prettier --write",
+      "git add"
+    ]
+  }
+}
