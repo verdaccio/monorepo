@@ -1,0 +1,15 @@
+npm-debug.log
+.DS_Store
+
+_storage/
+lib/
+node_modules/
+coverage/
+
+# IDE
+.vscode/*
+.idea/
+*.log
+*.tar
+*.gz
+*.tmp-*
