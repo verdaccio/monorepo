@@ -1,3 +1,5 @@
 {
-  "presets": [["@verdaccio", {"typescript": true}]]
+  "presets": [
+    ["@verdaccio", { "typescript": true }]
+  ]
 }
