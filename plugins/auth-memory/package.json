@@ -1,75 +1,48 @@
 {
   "name": "verdaccio-auth-memory",
-  "main": "lib/index.js",
   "version": "1.1.5",
-  "description": "auth plugin for verdaccio that keeps users in memory",
-  "author": "Juan Picado <juanpicado19@gmail.com>",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/verdaccio/verdaccio-auth-memory.git"
-  },
-  "devDependencies": {
-    "@commitlint/cli": "8.0.0",
-    "@commitlint/config-conventional": "8.0.0",
-    "@commitlint/travis-cli": "8.0.0",
-    "@types/http-errors": "1.6.1",
-    "@types/jest": "24.0.15",
-    "@types/memory-fs": "0.3.2",
-    "@types/node": "12.6.2",
-    "@verdaccio/babel-preset": "0.2.1",
-    "@verdaccio/eslint-config": "0.0.1",
-    "@verdaccio/types": "5.3.0",
-    "codecov": "3.5.0",
-    "cross-env": "5.2.0",
-    "eslint": "5.16.0",
-    "husky": "3.0.0",
-    "in-publish": "2.0.0",
-    "jest": "24.8.0",
-    "rmdir-sync": "1.0.1",
-    "standard-version": "6.0.1",
-    "typescript": "3.5.3"
-  },
+  "description": "Auth plugin for Verdaccio that keeps users in memory",
   "keywords": [
     "verdaccio",
-    "auth",
     "plugin",
+    "auth",
     "memory"
   ],
+  "author": "Juan Picado <juanpicado19@gmail.com>",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/verdaccio/verdaccio-auth-memory/issues"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "commitlint -e $GIT_PARAMS"
-    }
-  },
+  "main": "lib/index.js",
+  "types": "lib/src/index.d.ts",
+  "files": [
+    "lib/"
+  ],
   "engines": {
     "node": ">=8"
   },
-  "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
-    ]
-  },
-  "homepage": "https://github.com/verdaccio/verdaccio-auth-memory",
-  "scripts": {
-    "release": "standard-version -a -s",
-    "pretest": "npm run lint",
-    "test": "jest",
-    "format": "prettier --single-quote --trailing-comma none --write \"{src,test}/**/*.ts\"",
-    "lint": "npm run type-check && eslint . --ext .js,.ts",
-    "coverage": "codecov",
-    "commitmsg": "commitlint -e $GIT_PARAMS",
-    "type-check": "tsc --noEmit",
-    "type-check:watch": "npm run type-check -- --watch",
-    "build": "npm run build:types && npm run build:js",
-    "build:types": "tsc --emitDeclarationOnly",
-    "build:js": "babel src/ --out-dir lib --extensions \".ts,.tsx\"",
-    "coverage:publish": "codecov",
-    "prepublish": "in-publish && npm run build || not-in-publish"
-  },
   "dependencies": {
     "@verdaccio/commons-api": "0.1.2"
+  },
+  "devDependencies": {
+    "@verdaccio/babel-preset": "^2.0.0",
+    "@verdaccio/eslint-config": "^2.0.0",
+    "@verdaccio/types": "^7.0.0"
+  },
+  "scripts": {
+    "build": "npm run build:types && npm run build:js",
+    "build:js": "babel src/ --out-dir lib --extensions \".ts,.tsx\"",
+    "build:types": "tsc --emitDeclarationOnly",
+    "format": "prettier --single-quote --trailing-comma none --write \"{src,test}/**/*.ts\"",
+    "lint": "npm run type-check && eslint . --ext .js,.ts",
+    "lint:stage": "lint-staged",
+    "pretest": "npm run lint",
+    "test": "jest",
+    "type-check": "tsc --noEmit",
+    "type-check:watch": "npm run type-check -- --watch"
+  },
+  "lint-staged": {
+    "**/*.{js,ts}": [
+      "eslint .",
+      "prettier --write",
+      "git add"
+    ]
   }
 }
