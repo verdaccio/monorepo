@@ -11,6 +11,9 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 * **eslint-config:** import eslint-config-verdaccio package ([6d602f4](https://github.com/verdaccio/monorepo/commit/6d602f4))
 
 
+### BREAKING CHANGES
+
+* **eslint-config:** ESLint and Prettier won't be provided anymore. They are moved as peerDependencies
 
 
 

@@ -23,6 +23,8 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### BREAKING CHANGES
 
+* **eslint-config:** ESLint and Prettier won't be provided anymore. They are moved as peerDependencies
+
 * **babel-preset:** it remove ui dependencies need to be defined in a specific webpack project
 
 - babel-loader, eslint-loader
