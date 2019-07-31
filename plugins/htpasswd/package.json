@@ -1,0 +1,63 @@
+{
+  "name": "verdaccio-htpasswd",
+  "version": "2.0.0",
+  "description": "verdaccio htpasswd auth plugin",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib"
+  ],
+  "keywords": [
+    "verdaccio",
+    "local-storage",
+    "plugin"
+  ],
+  "author": "Ayush Sharma <ayush.aceit@gmail.com>",
+  "private": false,
+  "license": "MIT",
+  "scripts": {
+    "coverage": "codecov",
+    "test": "jest",
+    "lint": "npm run js-lint",
+    "lint:stage": "lint-staged",
+    "js-lint": "eslint . --ext .js,.ts",
+    "type-check": "tsc --noEmit",
+    "type-check:watch": "npm run type-check -- --watch",
+    "build": "npm run build:types && npm run build:js",
+    "build:types": "tsc --emitDeclarationOnly",
+    "build:js": "babel src/ --out-dir lib --extensions \".ts,.tsx\" --source-maps inline",
+    "prepublish": "in-publish && npm run lint && npm run build || not-in-publish"
+  },
+  "dependencies": {
+    "@verdaccio/file-locking": "1.0.0",
+    "apache-md5": "1.1.2",
+    "bcryptjs": "2.4.3",
+    "http-errors": "1.7.2",
+    "unix-crypt-td-js": "1.0.0"
+  },
+  "devDependencies": {
+    "@octokit/rest": "^16.23.2",
+    "@types/bcryptjs": "^2.4.2",
+    "@verdaccio/babel-preset": "^2.0.0",
+    "@verdaccio/eslint-config": "^2.0.0",
+    "@verdaccio/types": "^7.0.0",
+    "cross-env": "^5.2.0",
+    "get-stdin": "^6.0.0",
+    "in-publish": "^2.0.0"
+  },
+  "engines": {
+    "node": ">=8"
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "lint-staged": {
+    "*.{js, json}": [
+      "eslint .",
+      "prettier --write",
+      "git add"
+    ]
+  }
+}

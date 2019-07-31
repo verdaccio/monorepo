@@ -1,0 +1,6 @@
+_storage/
+lib/
+
+# Istanbul
+.nyc*
+tests-report

@@ -1,8 +1,8 @@
+.DS_Store
+
 ### Code ###
 .settings/
 .vscode/
-tsconfig.json
-jsconfig.json
 
 ### Intellij ###
 .idea/**
