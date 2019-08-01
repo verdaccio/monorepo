@@ -67,6 +67,14 @@ jobs:
           root: *repo_path
           paths:
             - ./*
+  lint:
+    <<: *defaults
+    <<: *default_executor
+    steps:
+      - *restore_repo
+      - run:
+          name: Lint code
+          command: yarn lint
 
   test_node12:
     <<: *defaults
@@ -125,6 +133,10 @@ workflows:
     jobs:
       - prepare:
           <<: *ignore_non_dev_branches
+      - lint:
+          requires:
+            - prepare
+          <<: *ignore_non_dev_branches
       - test_node12:
           requires:
             - prepare
@@ -139,12 +151,14 @@ workflows:
           <<: *ignore_non_dev_branches
       - publish:
           requires:
+            - lint
             - test_node12
             - test_node10
             - test_node8
           <<: *execute_on_release
       - publish_prerelease:
           requires:
+            - lint
             - test_node12
             - test_node10
             - test_node8
