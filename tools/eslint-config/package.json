@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/eslint-config",
-  "version": "8.0.0-next.0",
+  "version": "8.0.0-next.1",
   "description": "Verdaccio ESLint shareable config",
   "keywords": [
     "verdaccio",
@@ -33,7 +33,7 @@
     "eslint-plugin-import": "2.18.0",
     "eslint-plugin-jest": "22.10.0",
     "eslint-plugin-prettier": "3.1.0",
-    "eslint-plugin-verdaccio": "^8.0.0-next.0",
+    "eslint-plugin-verdaccio": "^8.0.0-next.1",
     "tsutils": "3.14.0"
   },
   "scripts": {
