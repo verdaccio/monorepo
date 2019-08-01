@@ -1,9 +1,9 @@
-import Datastore from '@google-cloud/datastore';
+import { Datastore } from '@google-cloud/datastore';
 import { Config } from '@verdaccio/types';
 
 export interface VerdaccioConfigGoogleStorage extends Config {
   // https://cloud.google.com/nodejs/docs/reference/storage/1.6.x/Bucket
-  bucket?: string;
+  bucket: string;
   // TODO: add description
   projectId?: string;
   // https://cloud.google.com/datastore/docs/reference/data/rest/v1/Key
@@ -17,11 +17,6 @@ export interface VerdaccioConfigGoogleStorage extends Config {
 }
 
 export type GoogleValidation = boolean | string;
-
-export interface GoogleCloudOptions {
-  projectId?: string;
-  keyFilename?: string;
-}
 
 export interface GoogleDataStorage {
   secret: string;

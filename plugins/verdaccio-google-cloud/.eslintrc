@@ -2,9 +2,15 @@
   "extends": [
     "@verdaccio"
   ],
+  "plugins": ["jest"],
   "rules": {
+    "spaced-comment": 1,
     "@typescript-eslint/no-var-requires": 0,
     "@typescript-eslint/interface-name-prefix": 0,
-    "@typescript-eslint/ban-types": 1
+    "@typescript-eslint/ban-types": 1,
+    "@typescript-eslint/no-inferrable-types": 1
+  },
+  "env": {
+    "jest/globals": true
   }
 }

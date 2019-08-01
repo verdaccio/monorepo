@@ -1,5 +1,4 @@
-import { UpLinksConfList, PackageList, LoggerConf, Security } from '@verdaccio/types';
-import { VerdaccioConfigGoogleStorage } from '../../types';
+import { VerdaccioConfigGoogleStorage } from '../../src/types';
 
 class Config implements VerdaccioConfigGoogleStorage {
   projectId: string;
@@ -33,7 +32,7 @@ class Config implements VerdaccioConfigGoogleStorage {
     this.kind = 'partial_test_metadataDatabaseKey';
     this.bucket = 'verdaccio-plugin';
     this.projectId = 'verdaccio-01';
-    this.keyFilename = './verdaccio-01-56f693e3aab0.json';
+    // this.keyFilename = './verdaccio-01-56f693e3aab0.json';
   }
   checkSecretKey(): string {
     return '';
