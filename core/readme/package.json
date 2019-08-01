@@ -23,7 +23,7 @@
   "dependencies": {
     "dompurify": "1.0.11",
     "jsdom": "15.1.1",
-    "marked": "0.6.2"
+    "marked": "0.7.0"
   },
   "devDependencies": {
     "@verdaccio/babel-preset": "^2.0.0",
