@@ -13,6 +13,9 @@
     "access": "public"
   },
   "main": "index.js",
+  "files": [
+    "rules/"
+  ],
   "engines": {
     "node": ">= 8"
   },
@@ -35,7 +38,8 @@
   },
   "scripts": {
     "lint": "eslint \"**/*.js\"",
-    "lint:stage": "lint-staged"
+    "lint:stage": "lint-staged",
+    "test-prettier-rules": "eslint --print-config index.js | eslint-config-prettier-check"
   },
   "lint-staged": {
     "**/*.js": [
