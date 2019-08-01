@@ -31,20 +31,20 @@
   "dependencies": {
     "@google-cloud/datastore": "4.1.3",
     "@google-cloud/storage": "2.5.0",
-    "@verdaccio/commons-api": "^0.1.0",
+    "@verdaccio/commons-api": "^0.1.2",
     "@verdaccio/streams": "2.0.0"
   },
   "devDependencies": {
-    "@commitlint/cli": "8.0.0",
-    "@commitlint/config-conventional": "8.0.0",
-    "@commitlint/travis-cli": "8.0.0",
+    "@commitlint/cli": "8.1.0",
+    "@commitlint/config-conventional": "8.1.0",
+    "@commitlint/travis-cli": "8.1.0",
     "@types/http-errors": "1.6.1",
-    "@types/jest": "24.0.15",
-    "@types/lodash": "4.14.135",
-    "@types/node": "12.0.10",
+    "@types/jest": "24.0.16",
+    "@types/lodash": "4.14.136",
+    "@types/node": "12.6.8",
     "@verdaccio/babel-preset": "0.2.1",
     "@verdaccio/eslint-config": "0.0.1",
-    "@verdaccio/types": "6.1.0",
+    "@verdaccio/types": "7.0.0",
     "codecov": "3.5.0",
     "cross-env": "5.2.0",
     "eslint": "5.16.0",
@@ -52,8 +52,8 @@
     "jest": "24.8.0",
     "lint-staged": "8.2.1",
     "memory-fs": "0.4.1",
-    "standard-version": "6.0.1",
-    "typescript": "3.5.2"
+    "standard-version": "7.0.0",
+    "typescript": "3.5.3"
   },
   "optionalDependencies": {
     "fast-crc32c": "1.0.4"
