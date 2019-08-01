@@ -10,7 +10,7 @@
   "author": "Juan Picado <juanpicado19@gmail.com>",
   "license": "MIT",
   "publishConfig": {
-    "access": true
+    "access": "public"
   },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
