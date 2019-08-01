@@ -1,3 +1,25 @@
+# Change Log
+
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+# [8.0.0-next.0](https://github.com/verdaccio/monorepo/compare/v2.0.0...v8.0.0-next.0) (2019-08-01)
+
+
+### Bug Fixes
+
+* eslint and typescript errors ([8b3f153](https://github.com/verdaccio/monorepo/commit/8b3f153))
+* lint issues ([d195fff](https://github.com/verdaccio/monorepo/commit/d195fff))
+
+
+### Features
+
+* remote lodash as dependency ([affb65b](https://github.com/verdaccio/monorepo/commit/affb65b))
+
+
+
+
+
 # Changelog
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.

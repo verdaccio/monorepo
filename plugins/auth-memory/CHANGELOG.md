@@ -1,3 +1,29 @@
+# Change Log
+
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+# [8.0.0-next.0](https://github.com/verdaccio/monorepo/compare/v2.0.0...v8.0.0-next.0) (2019-08-01)
+
+
+### Bug Fixes
+
+* main file is correct routed ([245b115](https://github.com/verdaccio/monorepo/commit/245b115))
+* remove source maps ([6ca4895](https://github.com/verdaccio/monorepo/commit/6ca4895))
+* restore error messages ([5d241b6](https://github.com/verdaccio/monorepo/commit/5d241b6))
+
+
+### Features
+
+* add logging output for each action ([66f183c](https://github.com/verdaccio/monorepo/commit/66f183c))
+* change password ([de0a341](https://github.com/verdaccio/monorepo/commit/de0a341))
+* migrate to typescript BREAKING CHANGE: new compiler might bring issues ([13ebde2](https://github.com/verdaccio/monorepo/commit/13ebde2))
+* **config:** allow set users ([e5326fd](https://github.com/verdaccio/monorepo/commit/e5326fd))
+
+
+
+
+
 # Changelog
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.

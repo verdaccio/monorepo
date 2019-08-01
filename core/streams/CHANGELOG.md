@@ -1,5 +1,30 @@
 # Change Log
 
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+# [8.0.0-next.0](https://github.com/verdaccio/monorepo/compare/v2.0.0...v8.0.0-next.0) (2019-08-01)
+
+
+### Bug Fixes
+
+* add es6 imports ([932a22d](https://github.com/verdaccio/monorepo/commit/932a22d))
+* lint warnings ([444a99e](https://github.com/verdaccio/monorepo/commit/444a99e))
+
+
+### Features
+
+* drop node v6 support ([bb319c4](https://github.com/verdaccio/monorepo/commit/bb319c4))
+* **build:** use typescript, jest 24 and babel 7 as stack BREAKING CHANGE: typescript build system requires a major release to avoid issues with old installations ([4743a9a](https://github.com/verdaccio/monorepo/commit/4743a9a))
+* add stream library ([434628f](https://github.com/verdaccio/monorepo/commit/434628f))
+* migration to typescript ([748ca92](https://github.com/verdaccio/monorepo/commit/748ca92))
+
+
+
+
+
+# Change Log
+
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
 # [2.0.0](https://github.com/verdaccio/streams/compare/v2.0.0-beta.0...v2.0.0) (2019-03-29)

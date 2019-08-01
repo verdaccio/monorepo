@@ -1,3 +1,20 @@
+# Change Log
+
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+# [8.0.0-next.0](https://github.com/verdaccio/monorepo/compare/v2.0.0...v8.0.0-next.0) (2019-08-01)
+
+
+### Features
+
+* **readme:** import readme package ([f4bbf3a](https://github.com/verdaccio/monorepo/commit/f4bbf3a))
+* **readme:** modernize project ([0d8f963](https://github.com/verdaccio/monorepo/commit/0d8f963))
+
+
+
+
+
 # Changelog
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
