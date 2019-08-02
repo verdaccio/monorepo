@@ -25,7 +25,7 @@ export default class ProxyAudit implements IPluginMiddleware<ConfigAudit> {
         method: req.method,
         proxy: auth.config.https_proxy,
         req,
-        strictSSL: this.strict_ssl
+        strictSSL: this.strict_ssl,
       };
 
       req
