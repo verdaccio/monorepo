@@ -9,7 +9,7 @@ describe('Memory', function() {
     info: jest.fn(),
     debug: jest.fn(),
     error: jest.fn(),
-    fatal: jest.fn()
+    fatal: jest.fn(),
   };
 
   beforeEach(function() {
@@ -18,7 +18,7 @@ describe('Memory', function() {
       { max_users: 100 },
       {
         config: {},
-        logger
+        logger,
       }
     );
   });
@@ -50,9 +50,9 @@ describe('Memory', function() {
         {},
         {
           config: {
-            max_users: -1
+            max_users: -1,
           },
-          logger
+          logger,
         }
       );
       auth.adduser('test', 'secret', function(err, user) {
@@ -97,7 +97,7 @@ describe('Memory', function() {
         {
           name: 'test',
           groups: [],
-          real_groups: []
+          real_groups: [],
         },
         { access: roles, publish: [], proxy: [] },
         function(err, groups) {
@@ -126,7 +126,7 @@ describe('Memory', function() {
 
     test('should not to be allowed to access any package', function(done) {
       // $FlowFixMe
-      auth.allow_access({}, { access: [], publish: [], proxy: [], }, function(err, groups) {
+      auth.allow_access({}, { access: [], publish: [], proxy: [] }, function(err, groups) {
         expect(err).not.toBeNull();
         expect(err.message).toMatch(/not allowed to access package/);
         done();
@@ -135,7 +135,7 @@ describe('Memory', function() {
 
     test('should not to be allowed to access the anyOtherUser package', function(done) {
       // $FlowFixMe
-      auth.allow_access({}, { access: ['anyOtherUser'], publish: [], proxy: [], }, function(err, groups) {
+      auth.allow_access({}, { access: ['anyOtherUser'], publish: [], proxy: [] }, function(err, groups) {
         expect(err).not.toBeNull();
         expect(err.message).toMatch(/not allowed to access package/);
         done();
@@ -157,7 +157,7 @@ describe('Memory', function() {
         {
           name: 'test',
           groups: [],
-          real_groups: []
+          real_groups: [],
         },
         { publish: roles, proxy: [], access: [] },
         function(err, groups) {
@@ -212,7 +212,7 @@ describe('Memory', function() {
         {},
         {
           config: {},
-          logger
+          logger,
         }
       );
       auth.adduser('test', 'secret', function(err, user) {
