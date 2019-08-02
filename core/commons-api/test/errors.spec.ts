@@ -1,4 +1,16 @@
-import { getNotFound, VerdaccioError, HTTP_STATUS, getConflict, getBadData, getInternalError, API_ERROR, getUnauthorized, getForbidden, getServiceUnavailable, getCode } from '../src/index';
+import {
+  getNotFound,
+  VerdaccioError,
+  HTTP_STATUS,
+  getConflict,
+  getBadData,
+  getInternalError,
+  API_ERROR,
+  getUnauthorized,
+  getForbidden,
+  getServiceUnavailable,
+  getCode,
+} from '../src/index';
 import _ from 'lodash';
 
 describe('testing errors', () => {
