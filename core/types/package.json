@@ -15,6 +15,14 @@
   "main": "index.d.ts",
   "types": "index.d.ts",
   "scripts": {
+    "lint": "eslint \"**/*.{js,ts}\"",
+    "lint:stage": "lint-staged",
     "test": "tsc --noEmit"
+  },
+  "lint-staged": {
+    "**/*.{js,ts}": [
+      "eslint --fix",
+      "git add"
+    ]
   }
 }
