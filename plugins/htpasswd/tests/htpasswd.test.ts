@@ -7,12 +7,12 @@ import Config from './__mocks__/Config';
 
 const stuff = {
   logger: new Logger(),
-  config: new Config()
+  config: new Config(),
 };
 
 const config = {
   file: './htpasswd',
-  max_users: 1000
+  max_users: 1000,
 };
 
 describe('HTPasswd', () => {
@@ -31,7 +31,7 @@ describe('HTPasswd', () => {
           {},
           // @ts-ignore
           {
-            config: {}
+            config: {},
           }
         );
       }).toThrow(/should specify "file" in config/);
@@ -94,7 +94,7 @@ describe('HTPasswd', () => {
       test('sanityCheck should return an Error', done => {
         jest.doMock('../src/utils.ts', () => {
           return {
-            sanityCheck: () => Error('some error')
+            sanityCheck: () => Error('some error'),
           };
         });
 
@@ -111,7 +111,7 @@ describe('HTPasswd', () => {
         jest.doMock('../src/utils.ts', () => {
           return {
             sanityCheck: () => null,
-            lockAndRead: (a, b) => b(new Error('lock error'))
+            lockAndRead: (a, b) => b(new Error('lock error')),
           };
         });
 
@@ -130,7 +130,7 @@ describe('HTPasswd', () => {
             sanityCheck: () => null,
             parseHTPasswd: () => {},
             lockAndRead: (a, b) => b(null, ''),
-            unlockFile: (a, b) => b()
+            unlockFile: (a, b) => b(),
           };
         });
 
@@ -148,14 +148,14 @@ describe('HTPasswd', () => {
             parseHTPasswd: () => {},
             lockAndRead: (a, b) => b(null, ''),
             unlockFile: (a, b) => b(),
-            addUserToHTPasswd: () => {}
+            addUserToHTPasswd: () => {},
           };
         });
         jest.doMock('fs', () => {
           return {
             writeFile: jest.fn((name, data, callback) => {
               callback(new Error('write error'));
-            })
+            }),
           };
         });
 
@@ -184,7 +184,7 @@ describe('HTPasswd', () => {
           return {
             stat: (name, callback) => {
               callback(new Error('stat error'), null);
-            }
+            },
           };
         });
         const callback = err => {
@@ -203,9 +203,9 @@ describe('HTPasswd', () => {
           return {
             stat: (name, callback) => {
               callback(null, {
-                mtime: null
+                mtime: null,
               });
-            }
+            },
           };
         });
         const callback = err => {
@@ -224,7 +224,7 @@ describe('HTPasswd', () => {
             stat: require.requireActual('fs').stat,
             readFile: (name, format, callback) => {
               callback(new Error('read error'), null);
-            }
+            },
           };
         });
         const callback = err => {
@@ -247,12 +247,7 @@ describe('HTPasswd', () => {
       expect(isSuccess).toBeFalsy();
       done();
     };
-    wrapper.changePassword(
-      'usernotpresent',
-      'oldPassword',
-      'newPassword',
-      callback
-    );
+    wrapper.changePassword('usernotpresent', 'oldPassword', 'newPassword', callback);
   });
 
   test('changePassword - it should throw an error for wrong password', done => {
@@ -262,12 +257,7 @@ describe('HTPasswd', () => {
       expect(isSuccess).toBeFalsy();
       done();
     };
-    wrapper.changePassword(
-      'username',
-      'wrongPassword',
-      'newPassword',
-      callback
-    );
+    wrapper.changePassword('username', 'wrongPassword', 'newPassword', callback);
   });
 
   test('changePassword - it should change password', done => {

@@ -4,9 +4,9 @@ jest.mock('crypto', () => {
   return {
     randomBytes: () => {
       return {
-        toString: () => '/UEGzD0RxSNDZA=='
+        toString: () => '/UEGzD0RxSNDZA==',
       };
-    }
+    },
   };
 });
 
