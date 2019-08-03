@@ -82,14 +82,14 @@ export default class LocalFS implements ILocalFSPackageManager {
       let locked = false;
       const self = this;
       // callback that cleans up lock first
-      const unLockCallback = (lockError: Error) => {
+      const unLockCallback = function(lockError: Error) {
         const _args = arguments;
 
         if (locked) {
           self._unlockJSON(pkgFileName, () => {
             // ignore any error from the unlock
             if (lockError !== null) {
-              this.logger.trace(
+              self.logger.trace(
                 {
                   name,
                   lockError
@@ -101,7 +101,7 @@ export default class LocalFS implements ILocalFSPackageManager {
             onEnd.apply(lockError, _args);
           });
         } else {
-          this.logger.trace({ name }, '[local-storage/updatePackage/unLockCallback] file: @{name} has been updated');
+          self.logger.trace({ name }, '[local-storage/updatePackage/unLockCallback] file: @{name} has been updated');
 
           onEnd(..._args);
         }
