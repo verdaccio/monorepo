@@ -9,9 +9,9 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "typeRoots": [
-      "./node_modules/@verdaccio/types/lib/verdaccio",
-      "./node_modules/@types",
-      "./node_modules/@google-cloud"
+      "../../node_modules/@verdaccio/types/lib/verdaccio",
+      "../../node_modules/@types",
+      "../../node_modules/@google-cloud"
     ]
   },
   "include": [
