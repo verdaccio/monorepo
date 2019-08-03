@@ -2,6 +2,16 @@
   "name": "verdaccio-aws-s3-storage",
   "version": "0.1.2",
   "description": "aws s3 storage implementation",
+  "keywords": [
+    "verdaccio",
+    "aws",
+    "plugin"
+  ],
+  "engines": {
+    "node": ">=8"
+  },
+  "author": "Juan Picado <juanpicado19@gmail.com>",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/verdaccio/verdaccio-aws-s3-storage.git"
@@ -34,16 +44,5 @@
     "@verdaccio/types": "5.1.0",
     "cross-env": "5.2.0",
     "recursive-readdir": "2.2.2"
-  },
-  "keywords": [
-    "verdaccio",
-    "aws",
-    "plugin"
-  ],
-  "engines": {
-    "node": ">=8"
-  },
-  "author": "Juan Picado <juanpicado19@gmail.com>",
-  "private": false,
-  "license": "MIT"
+  }
 }
