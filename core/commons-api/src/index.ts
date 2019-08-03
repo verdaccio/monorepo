@@ -16,7 +16,7 @@ export const HTTP_STATUS = {
   BAD_DATA: 422,
   INTERNAL_ERROR: 500,
   SERVICE_UNAVAILABLE: 503,
-  LOOP_DETECTED: 508
+  LOOP_DETECTED: 508,
 };
 
 export const HEADERS = {
@@ -39,7 +39,7 @@ export const HEADERS = {
   OCTET_STREAM: 'application/octet-stream; charset=utf-8',
   TEXT_CHARSET: 'text/plain; charset=utf-8',
   WWW_AUTH: 'WWW-Authenticate',
-  GZIP: 'gzip'
+  GZIP: 'gzip',
 };
 
 export const API_MESSAGE = {
@@ -52,11 +52,12 @@ export const API_MESSAGE = {
   TAG_UPDATED: 'tags updated',
   TAG_REMOVED: 'tag removed',
   TAG_ADDED: 'package tagged',
-  LOGGED_OUT: 'Logged out'
+  LOGGED_OUT: 'Logged out',
 };
 
 export const API_ERROR = {
-  PASSWORD_SHORT: (passLength: number = DEFAULT_MIN_LIMIT_PASSWORD) => `The provided password is too short. Please pick a password longer than ${passLength} characters.`,
+  PASSWORD_SHORT: (passLength: number = DEFAULT_MIN_LIMIT_PASSWORD) =>
+    `The provided password is too short. Please pick a password longer than ${passLength} characters.`,
   MUST_BE_LOGGED: 'You must be logged in to publish packages.',
   PLUGIN_ERROR: 'bug in the auth plugin system',
   CONFIG_BAD_FORMAT: 'config file must be an object',
@@ -85,7 +86,7 @@ export const API_ERROR = {
   RESOURCE_UNAVAILABLE: 'resource unavailable',
   BAD_PACKAGE_DATA: 'bad incoming package data',
   USERNAME_PASSWORD_REQUIRED: 'username and password is required',
-  USERNAME_ALREADY_REGISTERED: 'username is already registered'
+  USERNAME_ALREADY_REGISTERED: 'username is already registered',
 };
 
 export type VerdaccioError = HttpError & { code: number };
@@ -111,7 +112,9 @@ export function getBadRequest(customMessage: string): VerdaccioError {
 }
 
 export function getInternalError(customMessage?: string): VerdaccioError {
-  return customMessage ? getError(HTTP_STATUS.INTERNAL_ERROR, customMessage) : getError(HTTP_STATUS.INTERNAL_ERROR, API_ERROR.UNKNOWN_ERROR);
+  return customMessage
+    ? getError(HTTP_STATUS.INTERNAL_ERROR, customMessage)
+    : getError(HTTP_STATUS.INTERNAL_ERROR, API_ERROR.UNKNOWN_ERROR);
 }
 
 export function getUnauthorized(message: string = 'no credentials provided'): VerdaccioError {

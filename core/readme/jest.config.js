@@ -2,9 +2,9 @@ module.exports = {
   name: 'readme-jest',
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
   transform: {
-    '^.+\\.(js|jsx|ts|tsx)$': 'babel-jest'
+    '^.+\\.(js|jsx|ts|tsx)$': 'babel-jest',
   },
   verbose: true,
   collectCoverage: true,
-  coveragePathIgnorePatterns: ['node_modules', 'fixtures']
+  coveragePathIgnorePatterns: ['node_modules', 'fixtures'],
 };

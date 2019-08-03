@@ -1,6 +1,6 @@
-"use strict";
+'use strict';
 
-const builder = require("./builder");
+const builder = require('./builder');
 
 module.exports = (api, opts) => {
   const babelEnv = process.env.BABEL_ENV;

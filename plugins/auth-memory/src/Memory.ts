@@ -20,26 +20,26 @@ export default class Memory implements IPluginAuth<VerdaccioMemoryConfig> {
     const userCredentials = this._users[user];
 
     if (!userCredentials) {
-      this._logger.debug({user}, '[VerdaccioMemory] user @{user} does not exist');
+      this._logger.debug({ user }, '[VerdaccioMemory] user @{user} does not exist');
       return done(null, false);
     }
 
     if (password !== userCredentials.password) {
       const err = getUnauthorized("i don't like your password");
-      this._logger.info({user}, '[VerdaccioMemory] password invalid for: @{user}');
+      this._logger.info({ user }, '[VerdaccioMemory] password invalid for: @{user}');
 
       return done(err);
     }
 
     // authentication succeeded!
     // return all usergroups this user has access to;
-    this._logger.info({user}, '[VerdaccioMemory] authentication succeeded for @{user}');
+    this._logger.info({ user }, '[VerdaccioMemory] authentication succeeded for @{user}');
     return done(null, [user]);
   }
 
   adduser(user: string, password: string, done: Callback) {
     if (this._users[user]) {
-      this._logger.debug({user}, '[VerdaccioMemory] user @{user} already exist');
+      this._logger.debug({ user }, '[VerdaccioMemory] user @{user} already exist');
       return done(null, true);
     }
 

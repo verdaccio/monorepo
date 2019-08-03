@@ -15,7 +15,7 @@ export function deleteKeyPrefix(s3: S3, options: DeleteKeyPrefixOptions, callbac
         {
           Bucket: options.Bucket,
           // @ts-ignore
-          Delete: { Objects: data.Contents.map(({ Key }) => ({ Key })) }
+          Delete: { Objects: data.Contents.map(({ Key }) => ({ Key })) },
         },
         (err, data) => {
           if (err) {
