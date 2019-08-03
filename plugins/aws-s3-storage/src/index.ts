@@ -23,7 +23,8 @@ export default class S3Database implements IPluginStorage<S3Config> {
     }
     const configKeyPrefix = this.config.keyPrefix;
     this._localData = null;
-    this.config.keyPrefix = configKeyPrefix != null ? (configKeyPrefix.endsWith('/') ? configKeyPrefix : `${configKeyPrefix}/`) : '';
+    this.config.keyPrefix =
+      configKeyPrefix != null ? (configKeyPrefix.endsWith('/') ? configKeyPrefix : `${configKeyPrefix}/`) : '';
 
     this.logger.debug({ config: JSON.stringify(this.config, null, 4) }, 's3: configuration: @{config}');
 
@@ -32,7 +33,7 @@ export default class S3Database implements IPluginStorage<S3Config> {
       region: this.config.region,
       s3ForcePathStyle: this.config.s3ForcePathStyle,
       accessKeyId: this.config.accessKeyId,
-      secretAccessKey: this.config.secretAccessKey
+      secretAccessKey: this.config.secretAccessKey,
     });
   }
 
@@ -80,7 +81,7 @@ export default class S3Database implements IPluginStorage<S3Config> {
       this.s3.headObject(
         {
           Bucket: bucket,
-          Key: `${keyPrefix + packageName}/package.json`
+          Key: `${keyPrefix + packageName}/package.json`,
         },
         (err, response) => {
           if (err) {
@@ -94,7 +95,7 @@ export default class S3Database implements IPluginStorage<S3Config> {
               {
                 name: packageName,
                 path: packageName,
-                time: LastModified.getTime()
+                time: LastModified.getTime(),
               },
               resolve
             );
@@ -146,7 +147,7 @@ export default class S3Database implements IPluginStorage<S3Config> {
         {
           Bucket: this.config.bucket,
           Key: `${this.config.keyPrefix}verdaccio-s3-db.json`,
-          Body: JSON.stringify(this._localData)
+          Body: JSON.stringify(this._localData),
         },
         (err, data) => {
           if (err) {
@@ -177,7 +178,7 @@ export default class S3Database implements IPluginStorage<S3Config> {
         this.s3.getObject(
           {
             Bucket: bucket,
-            Key: `${keyPrefix}verdaccio-s3-db.json`
+            Key: `${keyPrefix}verdaccio-s3-db.json`,
           },
           (err, response) => {
             if (err) {

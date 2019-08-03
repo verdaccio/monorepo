@@ -7,7 +7,7 @@ const logger: Logger = {
   warn: e => console.warn(e),
   child: e => console.warn(e),
   http: e => console.warn(e),
-  trace: e => console.warn(e)
+  trace: e => console.warn(e),
 };
 
 export default logger;
