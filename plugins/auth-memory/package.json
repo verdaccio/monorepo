@@ -30,18 +30,15 @@
     "build": "npm run build:types && npm run build:js",
     "build:js": "babel src/ --out-dir lib --extensions \".ts,.tsx\"",
     "build:types": "tsc --emitDeclarationOnly",
-    "format": "prettier --single-quote --trailing-comma none --write \"{src,test}/**/*.ts\"",
-    "lint": "npm run type-check && eslint . --ext .js,.ts",
+    "lint": "eslint \"**/*.{js,ts}\"",
     "lint:stage": "lint-staged",
-    "pretest": "npm run lint",
     "test": "jest",
     "type-check": "tsc --noEmit",
     "type-check:watch": "npm run type-check -- --watch"
   },
   "lint-staged": {
     "**/*.{js,ts}": [
-      "eslint .",
-      "prettier --write",
+      "eslint --fix",
       "git add"
     ]
   }

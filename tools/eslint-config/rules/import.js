@@ -1,3 +1,3 @@
 module.exports = {
-  extends: ['plugin:import/typescript']
+  extends: ['plugin:import/typescript'],
 };

@@ -38,7 +38,13 @@ class MemoryHandler implements IPackageStorageManager {
     this.path = '/';
   }
 
-  updatePackage(pkgFileName: string, updateHandler: Callback, onWrite: Callback, transformPackage: Function, onEnd: Callback): void {
+  updatePackage(
+    pkgFileName: string,
+    updateHandler: Callback,
+    onWrite: Callback,
+    transformPackage: Function,
+    onEnd: Callback
+  ): void {
     let json = this._getStorage(pkgFileName);
 
     try {

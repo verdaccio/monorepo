@@ -5,42 +5,42 @@ export default class Config {
     this.auth = {
       htpasswd: {
         file: './htpasswd',
-        max_users: 1000
-      }
+        max_users: 1000,
+      },
     };
     this.uplinks = {
       npmjs: {
         url: 'https://registry.npmjs.org',
-        cache: true
-      }
+        cache: true,
+      },
     };
     this.packages = {
       '@*/*': {
         access: ['$all'],
         publish: ['$authenticated'],
-        proxy: []
+        proxy: [],
       },
       '*': {
         access: ['$all'],
         publish: ['$authenticated'],
-        proxy: ['npmjs']
+        proxy: ['npmjs'],
       },
       '**': {
         access: [],
         publish: [],
-        proxy: []
-      }
+        proxy: [],
+      },
     };
     this.logs = [
       {
         type: 'stdout',
         format: 'pretty',
-        level: 35
-      }
+        level: 35,
+      },
     ];
     this.self_path = './src/___tests___/__fixtures__/config.yaml';
     this.https = {
-      enable: false
+      enable: false,
     };
     this.user_agent = 'verdaccio/3.0.0-alpha.7';
     this.users = {};

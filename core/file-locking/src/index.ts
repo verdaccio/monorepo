@@ -48,7 +48,7 @@ const lockFile = function(name: string, callback: Callback) {
         // number of times to attempt to create a lock
         retries: 100,
         // time (ms) between tries
-        retryWait: 100
+        retryWait: 100,
       };
       const lockFileName = `${name}.lock`;
       locker.lock(lockFileName, lockOpts, () => {

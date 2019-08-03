@@ -35,18 +35,15 @@
     "build:js": "babel src/ --out-dir lib --extensions \".ts,.tsx\"",
     "build:types": "tsc --emitDeclarationOnly",
     "coverage:publish": "codecov",
-    "format": "prettier --single-quote --trailing-comma none --write '**/*.{js,ts}'",
     "lint": "eslint \"**/*.{js,ts}\"",
     "lint:stage": "lint-staged",
-    "pretest": "npm run lint",
     "test": "jest",
     "type-check": "tsc --noEmit",
     "type-check:watch": "npm run type-check -- --watch"
   },
   "lint-staged": {
-    "**/*.{ts, json}": [
-      "eslint .",
-      "prettier --write",
+    "**/*.{js,ts}": [
+      "eslint --fix",
       "git add"
     ]
   }

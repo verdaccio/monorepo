@@ -18,7 +18,7 @@ module.exports = {
     'guard-for-in': 'error',
     'handle-callback-err': 'error',
     'new-cap': 'error',
-    'max-len': ['warn', 160],
+    'max-len': ['warn', 120],
     'no-console': ['error', { allow: ['warn'] }],
     'no-constant-condition': 'error',
     'no-debugger': 'error',
@@ -33,6 +33,6 @@ module.exports = {
     'one-var': 'error',
     'prefer-rest-params': 'warn',
     'prefer-spread': 'warn',
-    semi: ['error', 'always']
-  }
+    semi: ['error', 'always'],
+  },
 };

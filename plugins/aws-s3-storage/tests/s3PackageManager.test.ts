@@ -23,7 +23,7 @@ describe.skip('S3 package manager', () => {
   // @ts-ignore
   const config: S3Config = {
     bucket,
-    keyPrefix: `${keyPrefix}/`
+    keyPrefix: `${keyPrefix}/`,
   };
 
   afterEach(async () => {
@@ -40,7 +40,7 @@ describe.skip('S3 package manager', () => {
         expect(
           data.Contents.map(({ Key, Size }) => ({
             Key: Key.split(keyPrefix)[1],
-            Size
+            Size,
           }))
         ).toMatchSnapshot();
         resolve();
@@ -53,7 +53,7 @@ describe.skip('S3 package manager', () => {
           s3,
           {
             Bucket: bucket,
-            Prefix: keyPrefix
+            Prefix: keyPrefix,
           },
           err => {
             if (err) {
