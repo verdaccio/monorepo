@@ -244,12 +244,12 @@ declare module "@verdaccio/types" {
 
 	type Token = {
 		user: string;
-		viewToken: string;
+		token: string;
 		key: string;
 		cidr?: Array<string>;
 		readonly: boolean;
-		createdTimestamp: number;
-		updatedTimestamp?: number;
+		created: number | string;
+		updated?: number | string;
 	}
 
 	type TokenFilter  = {
@@ -360,7 +360,13 @@ declare module "@verdaccio/types" {
 		[key: string]: any;
 	}
 
-	interface ILocalData<T> extends IPlugin<T> {
+	interface ITokenActions {
+		saveToken(token: Token): Promise<any>;
+		deleteToken(user: string, tokenKey: string): Promise<any>;
+		readTokens(filter: TokenFilter): Promise<Array<Token>>;
+	}
+
+	interface ILocalData<T> extends IPlugin<T>, ITokenActions {
 		logger: Logger;
 		config: T & Config;
 		add(name: string, callback: Callback): void;
@@ -370,9 +376,6 @@ declare module "@verdaccio/types" {
 		setSecret(secret: string): Promise<any>;
 		getPackageStorage(packageInfo: string): IPackageStorage;
 		search(onPackage: Callback, onEnd: Callback, validateName: Function): void;
-		saveToken(token: Token): Promise<any>;
-		deleteToken(user: string, tokenKey: string): Promise<any>;
-		readTokens(filter: TokenFilter): Promise<Array<Token>>;
 	}
 
 	interface ILocalPackageManager {
