@@ -237,9 +237,20 @@ If this process fails because there were merge conflicts, you must add `--flatte
 
 Later, follow the next steps in the package recently imported:
 
-1. Remove unnecessary stuff, like CI settings, GitHub stuff, CONTRIBUTING, unnecessary things from .gitignore, etc.
-2. Update LICENSE year.
-3. Follow the steps described in [Creating Packages](#creating-packages) to complete the flow.
+1. Remove unnecessary stuff, like CI settings, GitHub stuff, CONTRIBUTING, unnecessary things from .gitignore, devDependencies, scripts, etc.
+2. Remove .npmignore (a blacklist file) and whitelist folders that should be packaged using `files` field. Also, provide `main` and `types` fields if necessary.
+4. Update [`@verdaccio/eslint-config`](tools/eslint-config/package.json) and [`@verdaccio/babel-preset`](tools/babel-preset/package.json) packages to the latest version set in the monorepo and add caret (`^`). Also, remove Prettier stuff as its settings are provided by [`@verdaccio/eslint-config`](tools/eslint-config/rules/prettier.js).
+5. Add `"lint:stage": "lint-staged"` script and lint-staged settings in package.json:
+    ```json
+    "lint-staged": {
+      "**/*.{js,ts}": [
+        "eslint --fix",
+        "git add
+      ]
+    }
+    ```
+6. Update LICENSE year.
+7. Follow the steps described in [Creating Packages](#creating-packages) to complete the flow.
 
 ### Managing Dependencies
 
