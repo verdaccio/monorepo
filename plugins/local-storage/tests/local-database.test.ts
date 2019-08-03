@@ -167,7 +167,10 @@ describe('Local Database', () => {
       const nonScopedPackages = ['@pkg1/test'];
       jest.doMock('fs', () => {
         return {
-          existsSync: () => true,
+          accessSync: () => {},
+          constants: {
+            F_OK: 0
+          },
           stat: (storePath, cb) =>
             cb(null, {
               mtime: new Date()
@@ -189,7 +192,10 @@ describe('Local Database', () => {
       const nonScopedPackages = ['pkg1', 'pkg2'];
       jest.doMock('fs', () => {
         return {
-          existsSync: () => true,
+          accessSync: () => {},
+          constants: {
+            F_OK: 0
+          },
           stat: (storePath, cb) =>
             cb(null, {
               mtime: new Date()
@@ -216,7 +222,10 @@ describe('Local Database', () => {
     test('should fails on read the storage', done => {
       jest.doMock('fs', () => {
         return {
-          existsSync: () => true,
+          accessSync: () => {},
+          constants: {
+            F_OK: 0
+          },
           stat: (storePath, cb) =>
             cb(null, {
               mtime: new Date()

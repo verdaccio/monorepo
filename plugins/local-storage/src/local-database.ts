@@ -307,11 +307,17 @@ class LocalDatabase implements IPluginStorage<{}> {
     };
 
     const sinopiadbPath: string = dbGenPath(DEPRECATED_DB_NAME);
-    if (fs.existsSync(sinopiadbPath)) {
+    try {
+      fs.accessSync(sinopiadbPath, fs.constants.F_OK);
       return sinopiadbPath;
+    } catch (err) {
+      if(err.code === noSuchFile) {
+        return dbGenPath(DB_NAME);
+      }
+
+      throw err
     }
 
-    return dbGenPath(DB_NAME);
   }
 
   /**
