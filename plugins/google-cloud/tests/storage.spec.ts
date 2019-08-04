@@ -22,7 +22,7 @@ const logger: Logger = {
   child: jest.fn(),
   warn: jest.fn(),
   http: jest.fn(),
-  trace: jest.fn()
+  trace: jest.fn(),
 };
 
 const FileMocked = class {
@@ -94,13 +94,13 @@ describe('Google Cloud Storage', () => {
               constructor(props) {
                 super(props);
                 this.config = {
-                  bucket: 'foo'
+                  bucket: 'foo',
                 };
                 this.storage = {
-                  bucket: name => new Bucket(name, false)
+                  bucket: name => new Bucket(name, false),
                 };
               }
-            }
+            },
           };
         });
 
@@ -127,13 +127,13 @@ describe('Google Cloud Storage', () => {
               constructor(props) {
                 super(props);
                 this.config = {
-                  bucket: 'foo'
+                  bucket: 'foo',
                 };
                 this.storage = {
-                  bucket: name => new Bucket(name, true)
+                  bucket: name => new Bucket(name, true),
                 };
               }
-            }
+            },
           };
         });
 
@@ -172,13 +172,13 @@ describe('Google Cloud Storage', () => {
               constructor(props) {
                 super(props);
                 this.config = {
-                  bucket: 'foo'
+                  bucket: 'foo',
                 };
                 this.storage = {
-                  bucket: name => new Bucket(name, true, FileMockedFailure)
+                  bucket: name => new Bucket(name, true, FileMockedFailure),
                 };
               }
-            }
+            },
           };
         });
 
@@ -442,13 +442,13 @@ describe('Google Cloud Storage', () => {
               constructor(props) {
                 super(props);
                 this.config = {
-                  bucket: 'foo'
+                  bucket: 'foo',
                 };
                 this.storage = {
-                  bucket: name => new Bucket(name, false, FileWriteMocked)
+                  bucket: name => new Bucket(name, false, FileWriteMocked),
                 };
               }
-            }
+            },
           };
         });
 
@@ -600,12 +600,12 @@ describe('Google Cloud Storage', () => {
                   delete: () =>
                     Promise.resolve([
                       {
-                        foo: 'bar'
-                      }
-                    ])
+                        foo: 'bar',
+                      },
+                    ]),
                 };
               }
-            }
+            },
           };
         });
 
@@ -627,10 +627,10 @@ describe('Google Cloud Storage', () => {
               buildFilePath() {
                 return {
                   name: 'foo',
-                  delete: () => Promise.reject(new Error(API_ERROR.NO_PACKAGE))
+                  delete: () => Promise.reject(new Error(API_ERROR.NO_PACKAGE)),
                 };
               }
-            }
+            },
           };
         });
 

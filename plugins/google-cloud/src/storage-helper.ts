@@ -97,7 +97,7 @@ export default class StorageHelper implements IStorageHelper {
       if (task.name) {
         accumulator.push({
           id: taskKey.id,
-          name: task.name
+          name: task.name,
         });
       }
       return accumulator;

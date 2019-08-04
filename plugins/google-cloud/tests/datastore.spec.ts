@@ -14,7 +14,7 @@ const loggerDefault: Logger = {
   child: jest.fn(),
   warn: jest.fn(),
   http: jest.fn(),
-  trace: jest.fn()
+  trace: jest.fn(),
 };
 
 describe('Google Cloud Storage', () => {
@@ -87,14 +87,14 @@ describe('Google Cloud Storage', () => {
                     Promise.resolve([
                       [
                         {
-                          name: pkgName
-                        }
+                          name: pkgName,
+                        },
                       ],
-                      {}
-                    ])
+                      {},
+                    ]),
                 };
               }
-            }
+            },
           };
         });
 
@@ -131,14 +131,14 @@ describe('Google Cloud Storage', () => {
                     Promise.resolve([
                       [
                         {
-                          name: pkgName
-                        }
+                          name: pkgName,
+                        },
                       ],
-                      {}
-                    ])
+                      {},
+                    ]),
                 };
               }
-            }
+            },
           };
         });
 
@@ -173,15 +173,15 @@ describe('Google Cloud Storage', () => {
                   runQuery: () => {
                     const entity = {
                       name: pkgName,
-                      id: 1
+                      id: 1,
                     };
                     entity[sym] = entity;
 
                     return Promise.resolve([[entity], {}]);
-                  }
+                  },
                 };
               }
-            }
+            },
           };
         });
 

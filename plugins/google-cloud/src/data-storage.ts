@@ -107,7 +107,7 @@ class GoogleCloudDatabase implements IPluginStorage<VerdaccioConfigGoogleStorage
     const key = this.helper.datastore.key(['Secret', 'secret']);
     const entity = {
       key,
-      data: { secret }
+      data: { secret },
     };
     this.logger.debug('gcloud: [datastore setSecret] added');
 
@@ -118,33 +118,29 @@ class GoogleCloudDatabase implements IPluginStorage<VerdaccioConfigGoogleStorage
     const datastore = this.helper.datastore;
     const key = datastore.key([this.kind, name]);
     const data = {
-      name: name
+      name: name,
     };
     this.logger.debug('gcloud: [datastore add] @{name} init');
 
     datastore
       .save({
         key: key,
-        data: data
+        data: data,
       })
-      .then(
-        (response: CommitResponse): void => {
-          const res = response[0];
+      .then((response: CommitResponse): void => {
+        const res = response[0];
 
-          this.logger.debug('gcloud: [datastore add] @{name} has been added');
-          this.logger.trace({ res }, 'gcloud: [datastore add] @{name} response: @{res}');
+        this.logger.debug('gcloud: [datastore add] @{name} has been added');
+        this.logger.trace({ res }, 'gcloud: [datastore add] @{name} response: @{res}');
 
-          cb(null);
-        }
-      )
-      .catch(
-        (err: Error): void => {
-          const error: VerdaccioError = getInternalError(err.message);
+        cb(null);
+      })
+      .catch((err: Error): void => {
+        const error: VerdaccioError = getInternalError(err.message);
 
-          this.logger.debug({ error }, 'gcloud: [datastore add] @{name} error @{error}');
-          cb(getInternalError(error.message));
-        }
-      );
+        this.logger.debug({ error }, 'gcloud: [datastore add] @{name} error @{error}');
+        cb(getInternalError(error.message));
+      });
   }
 
   public async _deleteItem(name: string, item: any): Promise<void | Error> {
@@ -183,11 +179,9 @@ class GoogleCloudDatabase implements IPluginStorage<VerdaccioConfigGoogleStorage
           cb(null);
         }
       )
-      .catch(
-        (err: Error): void => {
-          cb(getInternalError(err.message));
-        }
-      );
+      .catch((err: Error): void => {
+        cb(getInternalError(err.message));
+      });
   }
 
   public get(cb: Callback): void {
@@ -196,21 +190,19 @@ class GoogleCloudDatabase implements IPluginStorage<VerdaccioConfigGoogleStorage
     const query = this.helper.datastore.createQuery(this.kind);
     this.logger.trace({ query }, 'gcloud: [datastore get] query @{query}');
 
-    this.helper.runQuery(query).then(
-      (data: RunQueryResponse): void => {
-        const response: object[] = data[0];
+    this.helper.runQuery(query).then((data: RunQueryResponse): void => {
+      const response: object[] = data[0];
 
-        this.logger.trace({ response }, 'gcloud: [datastore get] query results @{response}');
+      this.logger.trace({ response }, 'gcloud: [datastore get] query results @{response}');
 
-        const names = response.reduce((accumulator: string[], task: any): string[] => {
-          accumulator.push(task.name);
-          return accumulator;
-        }, []);
+      const names = response.reduce((accumulator: string[], task: any): string[] => {
+        accumulator.push(task.name);
+        return accumulator;
+      }, []);
 
-        this.logger.trace({ names }, 'gcloud: [datastore get] names @{names}');
-        cb(null, names);
-      }
-    );
+      this.logger.trace({ names }, 'gcloud: [datastore get] names @{names}');
+      cb(null, names);
+    });
   }
 
   public sync(): void {
@@ -235,7 +227,7 @@ class GoogleCloudDatabase implements IPluginStorage<VerdaccioConfigGoogleStorage
       storage,
       list, // not used
       files, // not used
-      secret: ''
+      secret: '',
     };
 
     return emptyDatabase;
