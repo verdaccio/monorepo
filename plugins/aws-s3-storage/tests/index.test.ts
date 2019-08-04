@@ -23,9 +23,9 @@ describe.skip('Local Database', () => {
       store: {
         's3-storage': {
           bucket,
-          keyPrefix
-        }
-      }
+          keyPrefix,
+        },
+      },
     });
     db = new S3Database(config, { logger, config });
   });
@@ -44,7 +44,7 @@ describe.skip('Local Database', () => {
         expect(
           data.Contents.map(({ Key, Size }) => ({
             Key: Key.split(keyPrefix)[1],
-            Size
+            Size,
           }))
         ).toMatchSnapshot();
         resolve();
@@ -57,7 +57,7 @@ describe.skip('Local Database', () => {
           s3,
           {
             Bucket: bucket,
-            Prefix: keyPrefix
+            Prefix: keyPrefix,
           },
           err => {
             if (err) {

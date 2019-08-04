@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/streams",
-  "version": "8.0.0-next.1",
+  "version": "8.0.0-next.2",
   "description": "Stream extension for Verdaccio",
   "keywords": [
     "verdaccio",
@@ -21,9 +21,9 @@
     "npm": ">=5"
   },
   "devDependencies": {
-    "@verdaccio/babel-preset": "^8.0.0-next.1",
-    "@verdaccio/eslint-config": "^8.0.0-next.1",
-    "@verdaccio/types": "^8.0.0-next.1"
+    "@verdaccio/babel-preset": "^8.0.0-next.2",
+    "@verdaccio/eslint-config": "^8.0.0-next.2",
+    "@verdaccio/types": "^8.0.0-next.2"
   },
   "scripts": {
     "build": "npm run build:types && npm run build:js",
@@ -31,13 +31,12 @@
     "build:types": "tsc --emitDeclarationOnly",
     "lint": "eslint \"**/*.{js,ts}\"",
     "lint:stage": "lint-staged",
-    "pretest": "npm run lint",
     "test": "jest",
     "type-check": "tsc --noEmit",
     "type-check:watch": "npm run type-check -- --watch"
   },
   "lint-staged": {
-    "*/**.{js,ts}": [
+    "**/*.{js,ts}": [
       "eslint --fix",
       "git add"
     ]

@@ -68,15 +68,9 @@ export function verifyPassword(passwd: string, hash: string): boolean {
  * @param {string} passwd
  * @returns {string}
  */
-export function addUserToHTPasswd(
-  body: string,
-  user: string,
-  passwd: string
-): string {
+export function addUserToHTPasswd(body: string, user: string, passwd: string): string {
   if (user !== encodeURIComponent(user)) {
-    const err = createError(
-      'username should not contain non-uri-safe characters'
-    );
+    const err = createError('username should not contain non-uri-safe characters');
 
     // $FlowFixMe
     err.status = 409;
@@ -172,12 +166,7 @@ export function getCryptoPassword(password: string) {
  * @param {string} newPasswd
  * @returns {string}
  */
-export function changePasswordToHTPasswd(
-  body: string,
-  user: string,
-  passwd: string,
-  newPasswd: string
-): string {
+export function changePasswordToHTPasswd(body: string, user: string, passwd: string, newPasswd: string): string {
   let _passwd;
   let _newPasswd;
   if (crypt3) {

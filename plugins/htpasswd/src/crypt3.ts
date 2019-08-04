@@ -42,9 +42,6 @@ export function createSalt(type: string = 'sha512'): string {
  * @see https://en.wikipedia.org/wiki/Crypt_(C)
  */
 
-export default function crypt3(
-  key: string,
-  salt: string = createSalt()
-): string {
+export default function crypt3(key: string, salt: string = createSalt()): string {
   return crypt(key, salt);
 }

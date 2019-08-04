@@ -13,7 +13,7 @@ const logger: Logger = {
   child: e => console.warn(e),
   warn: e => console.warn(e),
   http: e => console.warn(e),
-  trace: e => console.warn(e)
+  trace: e => console.warn(e),
 };
 
 describe('memory unit test .', () => {

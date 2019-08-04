@@ -1,0 +1,13 @@
+{
+  "extends": ["@verdaccio"],
+  "rules": {
+    "@typescript-eslint/no-use-before-define": "off",
+    "@typescript-eslint/explicit-function-return-type": [
+      "warn",
+      {
+          "allowExpressions": true,
+          "allowTypedFunctionExpressions": true
+      }
+    ]
+  }
+}

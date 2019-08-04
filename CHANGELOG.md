@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.0.0-next.2](https://github.com/verdaccio/monorepo/compare/v8.0.0-next.1...v8.0.0-next.2) (2019-08-03)
+
+
+### Bug Fixes
+
+* update types for tokens ([9734fa8](https://github.com/verdaccio/monorepo/commit/9734fa8))
+
+
+### Features
+
+* add aws s3 plugin in typescrip ([d65c88d](https://github.com/verdaccio/monorepo/commit/d65c88d))
+* add logging ([#5](https://github.com/verdaccio/monorepo/issues/5)) ([4d7a068](https://github.com/verdaccio/monorepo/commit/4d7a068))
+
+
+
+
+
 # [8.0.0-next.1](https://github.com/verdaccio/monorepo/compare/v8.0.0-next.0...v8.0.0-next.1) (2019-08-01)
 
 **Note:** Version bump only for package @verdaccio/monorepo

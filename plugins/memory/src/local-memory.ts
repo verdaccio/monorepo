@@ -83,7 +83,7 @@ class LocalMemory implements IPluginStorage<ConfigMemory> {
     const emptyDatabase = {
       list,
       files,
-      secret: ''
+      secret: '',
     };
 
     return emptyDatabase;

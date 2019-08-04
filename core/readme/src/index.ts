@@ -8,7 +8,7 @@ export default function parseReadme(readme: string): string | void {
   if (readme) {
     return DOMPurify.sanitize(
       marked(readme, {
-        sanitize: false
+        sanitize: false,
       }).trim()
     );
   }
