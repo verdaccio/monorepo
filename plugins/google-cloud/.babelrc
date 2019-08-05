@@ -1,0 +1,4 @@
+{
+  "presets": [["@verdaccio", {"typescript": true}]],
+  "plugins": ["dynamic-import-node"]
+}
