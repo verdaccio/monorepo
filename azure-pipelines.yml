@@ -3,13 +3,30 @@ strategy:
     node12_linux:
       imageName: 'ubuntu-latest'
       nodeVersion: 12.x
-    node_12_windows:
+    node12_windows:
       imageName: 'windows-2019'
       nodeVersion: 12.x
-    node_12_macos:
+    node12_macos:
       imageName: 'macOS-10.14'
       nodeVersion: 12.x
-  maxParallel: 3
+    node10_linux:
+      imageName: 'ubuntu-latest'
+      nodeVersion: 10.x
+    node10_windows:
+      imageName: 'windows-2019'
+      nodeVersion: 10.x
+    node10_macos:
+      imageName: 'macOS-10.14'
+      nodeVersion: 10.x
+    node8_linux:
+      imageName: 'ubuntu-latest'
+      nodeVersion: 8.x
+    node8_windows:
+      imageName: 'windows-2019'
+      nodeVersion: '8.16'
+    node8_macos:
+      imageName: 'macOS-10.14'
+      nodeVersion: 8.x
 
 pool:
   vmImage: $(imageName)
@@ -18,7 +35,7 @@ steps:
   - task: NodeTool@0
     inputs:
       versionSpec: $(nodeVersion)
-    displayName: "Install Node.js"
+    displayName: 'Install Node.js'
 
   - script: yarn install --frozen-lockfile
     displayName: 'Install dependencies'
