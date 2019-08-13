@@ -1,7 +1,7 @@
 import minimatch from 'minimatch';
 
 // FUTURE: we should use the same is on verdaccio
-export function getMatchedPackagesSpec(pkgName, packages) {
+export function getMatchedPackagesSpec(pkgName: string, packages: object): object | undefined {
   for (const i in packages) {
     if (minimatch.makeRe(i).exec(pkgName)) {
       return packages[i];
@@ -11,7 +11,7 @@ export function getMatchedPackagesSpec(pkgName, packages) {
 }
 
 export default class Config {
-  constructor() {
+  public constructor() {
     this.storage = './test-storage';
 
     this.listen = 'http://localhost:1443/';

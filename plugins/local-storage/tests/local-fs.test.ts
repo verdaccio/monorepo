@@ -2,9 +2,8 @@ import path from 'path';
 import mkdirp from 'mkdirp';
 import fs from 'fs';
 import rm from 'rmdir-sync';
-
+import { Logger, ILocalPackageManager, Package } from '@verdaccio/types';
 import LocalDriver, { fileExist, fSError, noSuchFile, resourceNotAvailable } from '../src/local-fs';
-import { Logger, ILocalPackageManager } from '@verdaccio/types';
 import pkg from './__fixtures__/pkg';
 
 let localTempStorage: string;
@@ -28,10 +27,10 @@ beforeAll(() => {
 describe('Local FS test', () => {
   describe('savePackage() group', () => {
     test('savePackage()', done => {
-      const data: any = '{data:5}';
+      const data = {};
       const localFs = new LocalDriver(path.join(localTempStorage, 'first-package'), logger);
 
-      localFs.savePackage('pkg.1.0.0.tar.gz', data, err => {
+      localFs.savePackage('pkg.1.0.0.tar.gz', data as Package, err => {
         expect(err).toBeNull();
         done();
       });
@@ -42,7 +41,7 @@ describe('Local FS test', () => {
     test('readPackage() success', done => {
       const localFs: ILocalPackageManager = new LocalDriver(path.join(__dirname, '__fixtures__/readme-test'), logger);
 
-      localFs.readPackage(pkgFileName, (err, data) => {
+      localFs.readPackage(pkgFileName, err => {
         expect(err).toBeNull();
         done();
       });
@@ -102,7 +101,7 @@ describe('Local FS test', () => {
 
   describe('removePackage() group', () => {
     beforeEach(() => {
-      mkdirp(path.join(localTempStorage, '_toDelete'));
+      mkdirp.sync(path.join(localTempStorage, '_toDelete'));
     });
 
     test('removePackage() success', done => {
@@ -160,7 +159,7 @@ describe('Local FS test', () => {
     beforeEach(() => {
       const writeTarballFolder: string = path.join(localTempStorage, '_writeTarball');
       rm(writeTarballFolder);
-      mkdirp(writeTarballFolder);
+      mkdirp.sync(writeTarballFolder);
     });
 
     test('writeTarball() success', done => {

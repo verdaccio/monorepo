@@ -1,10 +1,12 @@
 import fs from 'fs';
 import path from 'path';
-import { clone, assign } from 'lodash';
-import { ILocalData, PluginOptions } from '@verdaccio/types';
+import { assign } from 'lodash';
+import { ILocalData, PluginOptions, Token } from '@verdaccio/types';
 import LocalDatabase from '../src/local-database';
 import Config from './__mocks__/Config';
 import logger from './__mocks__/Logger';
+import * as pkgUtils from '../src/pkg-utils';
+import { ILocalFSPackageManager } from '../src/local-fs';
 
 const optionsPlugin: PluginOptions<{}> = {
   logger,
@@ -12,36 +14,31 @@ const optionsPlugin: PluginOptions<{}> = {
 };
 
 let locaDatabase: ILocalData<{}>;
+let loadPrivatePackages;
 
 describe('Local Database', () => {
   beforeEach(() => {
-    // FIXME: we have to mock properly here
-    // $FlowFixMe
-    fs.writeFileSync = jest.fn();
+    const writeMock = jest.spyOn(fs, 'writeFileSync').mockImplementation();
+    loadPrivatePackages = jest.spyOn(pkgUtils, 'loadPrivatePackages').mockReturnValue({ list: [], secret: '' });
     locaDatabase = new LocalDatabase(optionsPlugin.config, optionsPlugin.logger);
-    // clean database
-    (locaDatabase as any)._sync();
+    (locaDatabase as LocalDatabase).clean();
+    writeMock.mockClear();
+  });
+
+  afterEach(() => {
     jest.clearAllMocks();
-    jest.resetModules();
   });
 
   test('should create an instance', () => {
-    const locaDatabase = new LocalDatabase(optionsPlugin.config, optionsPlugin.logger);
-
     expect(optionsPlugin.logger.error).not.toHaveBeenCalled();
     expect(locaDatabase).toBeDefined();
   });
 
   test('should display log error if fails on load database', () => {
-    jest.doMock('../src/pkg-utils.ts', () => {
-      return {
-        loadPrivatePackages: () => {
-          throw Error();
-        }
-      };
+    loadPrivatePackages.mockImplementation(() => {
+      throw Error();
     });
 
-    const LocalDatabase = require('../src/local-database').default;
     new LocalDatabase(optionsPlugin.config, optionsPlugin.logger);
 
     expect(optionsPlugin.logger.error).toHaveBeenCalled();
@@ -50,7 +47,6 @@ describe('Local Database', () => {
 
   describe('should create set secret', () => {
     test('should create get secret', async () => {
-      const locaDatabase = new LocalDatabase(clone(optionsPlugin.config), optionsPlugin.logger);
       const secretKey = await locaDatabase.getSecret();
 
       expect(secretKey).toBeDefined();
@@ -58,9 +54,7 @@ describe('Local Database', () => {
     });
 
     test('should create set secret', async () => {
-      const locaDatabase = new LocalDatabase(clone(optionsPlugin.config), optionsPlugin.logger);
-
-      await locaDatabase.setSecret(optionsPlugin.config.checkSecretKey());
+      await locaDatabase.setSecret(optionsPlugin.config.checkSecretKey(''));
 
       expect(optionsPlugin.config.secret).toBeDefined();
       expect(typeof optionsPlugin.config.secret === 'string').toBeTruthy();
@@ -73,24 +67,24 @@ describe('Local Database', () => {
   describe('getPackageStorage', () => {
     test('should get default storage', () => {
       const pkgName = 'someRandomePackage';
-      const locaDatabase = new LocalDatabase(clone(optionsPlugin.config), optionsPlugin.logger);
       const storage = locaDatabase.getPackageStorage(pkgName);
       expect(storage).toBeDefined();
 
       if (storage) {
-        expect(storage.path).toBe(path.join(__dirname, '__fixtures__', optionsPlugin.config.storage, pkgName));
+        const storagePath = (storage as ILocalFSPackageManager).path;
+        expect(storagePath).toBe(path.join(__dirname, '__fixtures__', optionsPlugin.config.storage || '', pkgName));
       }
     });
 
     test('should use custom storage', () => {
       const pkgName = 'local-private-custom-storage';
-      const locaDatabase = new LocalDatabase(clone(optionsPlugin.config), optionsPlugin.logger);
       const storage = locaDatabase.getPackageStorage(pkgName);
 
       expect(storage).toBeDefined();
 
       if (storage) {
-        expect(storage.path).toBe(path.join(__dirname, '__fixtures__', optionsPlugin.config.storage, 'private_folder', pkgName));
+        const storagePath = (storage as ILocalFSPackageManager).path;
+        expect(storagePath).toBe(path.join(__dirname, '__fixtures__', optionsPlugin.config.storage || '', 'private_folder', pkgName));
       }
     });
   });
@@ -136,7 +130,7 @@ describe('Local Database', () => {
   describe('search', () => {
     const onPackageMock = jest.fn((item, cb) => cb());
     const validatorMock = jest.fn(() => true);
-    const callSearch = (db, numberTimesCalled, cb) => {
+    const callSearch = (db, numberTimesCalled, cb): void => {
       db.search(
         onPackageMock,
         function onEnd() {
@@ -148,66 +142,21 @@ describe('Local Database', () => {
       );
     };
 
-    beforeEach(() => {
-      jest.clearAllMocks();
-      jest.resetModules();
-      jest.doMock('../src/pkg-utils.ts', () => {
-        return {
-          loadPrivatePackages: () => {
-            return {
-              list: [],
-              secret: ''
-            };
-          }
-        };
-      });
-    });
-
     test('should find scoped packages', done => {
-      const nonScopedPackages = ['@pkg1/test'];
-      jest.doMock('fs', () => {
-        return {
-          accessSync: () => {},
-          constants: {
-            F_OK: 0
-          },
-          stat: (storePath, cb) =>
-            cb(null, {
-              mtime: new Date()
-            }),
-          readdir: function(storePath, cb) {
-            // here we want to limit to one store
-            return cb(null, storePath.match('test-storage') ? nonScopedPackages : []);
-          }
-        };
-      });
+      const scopedPackages = ['@pkg1/test'];
+      const stats = { mtime: new Date() };
+      jest.spyOn(fs, 'stat').mockImplementation((_, cb) => cb(null, stats as fs.Stats));
+      jest.spyOn(fs, 'readdir').mockImplementation((storePath, cb) => cb(null, storePath.match('test-storage') ? scopedPackages : []));
 
-      const LocalDatabase = require('../src/local-database').default;
-      const db = new LocalDatabase(optionsPlugin.config, optionsPlugin.logger);
-
-      callSearch(db, 1, done);
+      callSearch(locaDatabase, 1, done);
     });
 
     test('should find non scoped packages', done => {
       const nonScopedPackages = ['pkg1', 'pkg2'];
-      jest.doMock('fs', () => {
-        return {
-          accessSync: () => {},
-          constants: {
-            F_OK: 0
-          },
-          stat: (storePath, cb) =>
-            cb(null, {
-              mtime: new Date()
-            }),
-          readdir: function(storePath, cb) {
-            // here we want to limit to one store
-            return cb(null, storePath.match('test-storage') ? nonScopedPackages : []);
-          }
-        };
-      });
+      const stats = { mtime: new Date() };
+      jest.spyOn(fs, 'stat').mockImplementation((_, cb) => cb(null, stats as fs.Stats));
+      jest.spyOn(fs, 'readdir').mockImplementation((storePath, cb) => cb(null, storePath.match('test-storage') ? nonScopedPackages : []));
 
-      const LocalDatabase = require('../src/local-database').default;
       const db = new LocalDatabase(
         assign({}, optionsPlugin.config, {
           // clean up this, it creates noise
@@ -220,24 +169,8 @@ describe('Local Database', () => {
     });
 
     test('should fails on read the storage', done => {
-      jest.doMock('fs', () => {
-        return {
-          accessSync: () => {},
-          constants: {
-            F_OK: 0
-          },
-          stat: (storePath, cb) =>
-            cb(null, {
-              mtime: new Date()
-            }),
-          readdir: function(storePath, cb) {
-            // read directory fails here for some reason
-            return cb(Error('fails'), null);
-          }
-        };
-      });
+      jest.spyOn(fs, 'readdir').mockImplementation((_, cb) => cb(Error('fails'), null));
 
-      const LocalDatabase = require('../src/local-database').default;
       const db = new LocalDatabase(
         assign({}, optionsPlugin.config, {
           // clean up this, it creates noise
@@ -247,6 +180,86 @@ describe('Local Database', () => {
       );
 
       callSearch(db, 0, done);
+    });
+  });
+
+  describe('token', () => {
+    let token: Token;
+
+    beforeEach(() => {
+      (locaDatabase as LocalDatabase).tokenDb = {
+        put: jest.fn().mockImplementation((key, value, cb) => cb()),
+        del: jest.fn().mockImplementation((key, cb) => cb()),
+        createReadStream: jest.fn()
+      };
+
+      token = {
+        user: 'someUser',
+        viewToken: 'viewToken',
+        key: 'someHash',
+        readonly: true,
+        createdTimestamp: new Date().getTime()
+      };
+    });
+
+    test('should save token', async done => {
+      const db = (locaDatabase as LocalDatabase).tokenDb;
+
+      await locaDatabase.saveToken(token);
+
+      expect(db.put).toHaveBeenCalledWith('someUser:someHash', token, expect.anything());
+      done();
+    });
+
+    test('should delete token', async done => {
+      const db = (locaDatabase as LocalDatabase).tokenDb;
+
+      await locaDatabase.deleteToken('someUser', 'someHash');
+
+      expect(db.del).toHaveBeenCalledWith('someUser:someHash', expect.anything());
+      done();
+    });
+
+    test('should get tokens', async () => {
+      const db = (locaDatabase as LocalDatabase).tokenDb;
+      const events = { on: {}, once: {} };
+      const stream = {
+        on: (event, cb) => {
+          events.on[event] = cb;
+        },
+        once: (event, cb) => {
+          events.once[event] = cb;
+        }
+      };
+      db.createReadStream.mockImplementation(() => stream);
+      setTimeout(() => events.on['data']({ value: token }));
+      setTimeout(() => events.once['end']());
+
+      const tokens = await locaDatabase.readTokens({ user: 'someUser' });
+
+      expect(db.createReadStream).toHaveBeenCalledWith({
+        gte: 'someUser:',
+        lte: 't'
+      });
+      expect(tokens).toHaveLength(1);
+      expect(tokens[0]).toBe(token);
+    });
+
+    test('should fail getting tokens if something goes wrong', async () => {
+      const db = (locaDatabase as LocalDatabase).tokenDb;
+      const events = { on: {}, once: {} };
+      const stream = {
+        on: (event, cb) => {
+          events.on[event] = cb;
+        },
+        once: (event, cb) => {
+          events.once[event] = cb;
+        }
+      };
+      db.createReadStream.mockImplementation(() => stream);
+      setTimeout(() => events.once['error'](new Error('Unexpected error!')));
+
+      await expect(locaDatabase.readTokens({ user: 'someUser' })).rejects.toThrow('Unexpected error!');
     });
   });
 });

@@ -2,7 +2,7 @@ import fs from 'fs';
 import _ from 'lodash';
 import path from 'path';
 
-export function getFileStats(packagePath: string): any {
+export function getFileStats(packagePath: string): Promise<fs.Stats> {
   return new Promise((resolve, reject) => {
     fs.stat(packagePath, (err, stats) => {
       if (_.isNil(err) === false) {
@@ -13,7 +13,7 @@ export function getFileStats(packagePath: string): any {
   });
 }
 
-export function readDirectory(packagePath: string): Promise<any> {
+export function readDirectory(packagePath: string): Promise<string[]> {
   return new Promise((resolve, reject) => {
     fs.readdir(packagePath, (err, scopedPackages) => {
       if (_.isNil(err) === false) {
@@ -25,12 +25,12 @@ export function readDirectory(packagePath: string): Promise<any> {
   });
 }
 
-function hasScope(file: string) {
-  return file.match(/^@/);
+function hasScope(file: string): boolean {
+  return file.match(/^@/) !== null;
 }
 
-export async function findPackages(storagePath: string, validationHandler: Function) {
-  const listPackages: any[] = [];
+export async function findPackages(storagePath: string, validationHandler: Function): Promise<{ name: string; path: string }[]> {
+  const listPackages: { name: string; path: string }[] = [];
   return new Promise(async (resolve, reject) => {
     try {
       const scopePath = path.resolve(storagePath);

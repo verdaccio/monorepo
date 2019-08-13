@@ -4,15 +4,39 @@ import Path from 'path';
 // $FlowFixMe
 import async from 'async';
 import mkdirp from 'mkdirp';
+import stream from 'stream';
 
 import LocalDriver, { noSuchFile } from './local-fs';
 import { loadPrivatePackages } from './pkg-utils';
 
-import { IPackageStorage, IPluginStorage, StorageList, LocalStorage, Logger, Config, Callback } from '@verdaccio/types';
-import { getInternalError } from "@verdaccio/commons-api/lib";
+import {
+  Callback,
+  Config,
+  IPackageStorage,
+  IPluginStorage,
+  LocalStorage,
+  Logger,
+  StorageList,
+  Token,
+  TokenFilter
+} from '@verdaccio/types';
+
+import level from 'level';
+import { getInternalError } from '@verdaccio/commons-api/lib';
 
 const DEPRECATED_DB_NAME = '.sinopia-db.json';
 const DB_NAME = '.verdaccio-db.json';
+const TOKEN_DB_NAME = '.token-db';
+
+interface Level {
+  put(key: string, token, fn?: Function): void;
+
+  get(key: string, fn?: Function): void;
+
+  del(key: string, fn?: Function): void;
+
+  createReadStream(options?: object): stream.Readable;
+}
 
 /**
  * Handle local database.
@@ -23,6 +47,7 @@ class LocalDatabase implements IPluginStorage<{}> {
   public data: LocalStorage;
   public config: Config;
   public locked: boolean;
+  public tokenDb;
 
   /**
    * Load an parse the local json database.
@@ -40,11 +65,11 @@ class LocalDatabase implements IPluginStorage<{}> {
     this._sync();
   }
 
-  getSecret(): Promise<string> {
+  public getSecret(): Promise<string> {
     return Promise.resolve(this.data.secret);
   }
 
-  setSecret(secret: string): Promise<string> {
+  public setSecret(secret: string): Promise<Error | null> {
     return new Promise(resolve => {
       this.data.secret = secret;
 
@@ -57,7 +82,7 @@ class LocalDatabase implements IPluginStorage<{}> {
    * @param {*} name
    * @return {Error|*}
    */
-  public add(name: string, cb: Callback) {
+  public add(name: string, cb: Callback): void {
     if (this.data.list.indexOf(name) === -1) {
       this.data.list.push(name);
 
@@ -68,7 +93,7 @@ class LocalDatabase implements IPluginStorage<{}> {
     }
   }
 
-  public search(onPackage: Callback, onEnd: Callback, validateName: any): void {
+  public search(onPackage: Callback, onEnd: Callback, validateName: (name: string) => boolean): void {
     const storages = this._getCustomPackageLocalStorages();
     this.logger.trace(`local-storage: [search]: ${JSON.stringify(storages)}`);
     const base = Path.dirname(this.config.self_path);
@@ -158,11 +183,118 @@ class LocalDatabase implements IPluginStorage<{}> {
     );
   }
 
-  private _getTime(time: number, mtime: Date) {
+  /**
+   * Remove an element from the database.
+   * @param {*} name
+   * @return {Error|*}
+   */
+  public remove(name: string, cb: Callback): void {
+    this.get((err, data) => {
+      if (err) {
+        cb(getInternalError('error remove private package'));
+        this.logger.error({ err }, '[local-storage/remove]: remove the private package has failed @{err}');
+      }
+
+      const pkgName = data.indexOf(name);
+      if (pkgName !== -1) {
+        this.data.list.splice(pkgName, 1);
+
+        this.logger.trace({ name }, 'local-storage: [remove] package @{name} has been removed');
+      }
+
+      cb(this._sync());
+    });
+  }
+
+  /**
+   * Return all database elements.
+   * @return {Array}
+   */
+  public get(cb: Callback): void {
+    const list = this.data.list;
+    const totalItems = this.data.list.length;
+
+    cb(null, list);
+
+    this.logger.trace({ totalItems }, 'local-storage: [get] full list of packages (@{totalItems}) has been fetched');
+  }
+
+  public getPackageStorage(packageName: string): IPackageStorage {
+    const packageAccess = this.config.getMatchedPackagesSpec(packageName);
+
+    const packagePath: string = this._getLocalStoragePath(packageAccess ? packageAccess.storage : undefined);
+    this.logger.trace({ packagePath }, '[local-storage/getPackageStorage]: storage selected: @{packagePath}');
+
+    if (_.isString(packagePath) === false) {
+      this.logger.debug({ name: packageName }, 'this package has no storage defined: @{name}');
+      return;
+    }
+
+    const packageStoragePath: string = Path.join(Path.resolve(Path.dirname(this.config.self_path || ''), packagePath), packageName);
+
+    this.logger.trace({ packageStoragePath }, '[local-storage/getPackageStorage]: storage path: @{packageStoragePath}');
+
+    return new LocalDriver(packageStoragePath, this.logger);
+  }
+
+  public clean(): void {
+    this._sync();
+  }
+
+  public saveToken(token: Token): Promise<void> {
+    const key = this._getTokenKey(token);
+    const db = this.getTokenDb();
+
+    return new Promise((resolve, reject) => {
+      db.put(key, token, err => {
+        if (err) {
+          reject(err);
+          return;
+        }
+        resolve();
+      });
+    });
+  }
+
+  public deleteToken(user: string, tokenKey: string): Promise<void> {
+    const key = this._compoundTokenKey(user, tokenKey);
+    const db = this.getTokenDb();
+    return new Promise((resolve, reject) => {
+      db.del(key, err => {
+        if (err) {
+          reject(err);
+          return;
+        }
+        resolve();
+      });
+    });
+  }
+
+  public readTokens(filter: TokenFilter): Promise<Token[]> {
+    return new Promise((resolve, reject) => {
+      const tokens: Token[] = [];
+      const key = filter.user + ':';
+      const db = this.getTokenDb();
+      const stream = db.createReadStream({
+        gte: key,
+        lte: String.fromCharCode(key.charCodeAt(0) + 1)
+      });
+
+      stream.on('data', data => {
+        tokens.push(data.value);
+      });
+
+      stream.once('end', () => resolve(tokens));
+
+      stream.once('error', err => reject(err));
+    });
+  }
+
+  private _getTime(time: number, mtime: Date): number | Date {
     return time ? time : mtime;
   }
 
-  private _getCustomPackageLocalStorages() {
+  private _getCustomPackageLocalStorages(): object {
     const storages = {};
 
     // add custom storage if exist
@@ -187,46 +319,10 @@ class LocalDatabase implements IPluginStorage<{}> {
   }
 
   /**
-   * Remove an element from the database.
-   * @param {*} name
-   * @return {Error|*}
-   */
-  public remove(name: string, cb: Callback) {
-    this.get((err, data) => {
-      if (err) {
-        cb(getInternalError('error remove private package'));
-        this.logger.error({ err }, '[local-storage/remove]: remove the private package has failed @{err}');
-      }
-
-      const pkgName = data.indexOf(name);
-      if (pkgName !== -1) {
-        this.data.list.splice(pkgName, 1);
-
-        this.logger.trace({ name }, 'local-storage: [remove] package @{name} has been removed');
-      }
-
-      cb(this._sync());
-    });
-  }
-
-  /**
-   * Return all database elements.
-   * @return {Array}
-   */
-  public get(cb: Callback) {
-    const list = this.data.list;
-    const totalItems = this.data.list.length;
-
-    cb(null, list);
-
-    this.logger.trace({ totalItems} ,'local-storage: [get] full list of packages (@{totalItems}) has been fetched');
-  }
-
-  /**
    * Syncronize {create} database whether does not exist.
    * @return {Error|*}
    */
-  private _sync() {
+  private _sync(): Error | null {
     this.logger.debug('[local-storage/_sync]: init sync database');
 
     if (this.locked) {
@@ -258,24 +354,6 @@ class LocalDatabase implements IPluginStorage<{}> {
     }
   }
 
-  public getPackageStorage(packageName: string): IPackageStorage {
-    const packageAccess = this.config.getMatchedPackagesSpec(packageName);
-
-    const packagePath: string = this._getLocalStoragePath(packageAccess ? packageAccess.storage : undefined);
-    this.logger.trace({ packagePath }, '[local-storage/getPackageStorage]: storage selected: @{packagePath}');
-
-    if (_.isString(packagePath) === false) {
-      this.logger.debug({ name: packageName }, 'this package has no storage defined: @{name}');
-      return;
-    }
-
-    const packageStoragePath: string = Path.join(Path.resolve(Path.dirname(this.config.self_path || ''), packagePath), packageName);
-
-    this.logger.trace({ packageStoragePath }, '[local-storage/getPackageStorage]: storage path: @{packageStoragePath}');
-
-    return new LocalDriver(packageStoragePath, this.logger);
-  }
-
   /**
    * Verify the right local storage location.
    * @param {String} path
@@ -301,23 +379,22 @@ class LocalDatabase implements IPluginStorage<{}> {
    * @return {string|String|*}
    * @private
    */
-  private _buildStoragePath(config: Config) {
-    const dbGenPath = function(dbName: string) {
-      return Path.join(Path.resolve(Path.dirname(config.self_path || ''), config.storage as string, dbName));
-    };
-
-    const sinopiadbPath: string = dbGenPath(DEPRECATED_DB_NAME);
+  private _buildStoragePath(config: Config): string {
+    const sinopiadbPath: string = this._dbGenPath(DEPRECATED_DB_NAME, config);
     try {
       fs.accessSync(sinopiadbPath, fs.constants.F_OK);
       return sinopiadbPath;
     } catch (err) {
-      if(err.code === noSuchFile) {
-        return dbGenPath(DB_NAME);
+      if (err.code === noSuchFile) {
+        return this._dbGenPath(DB_NAME, config);
       }
 
-      throw err
+      throw err;
     }
+  }
 
+  private _dbGenPath(dbName: string, config: Config): string {
+    return Path.join(Path.resolve(Path.dirname(config.self_path || ''), config.storage as string, dbName));
   }
 
   /**
@@ -343,6 +420,25 @@ class LocalDatabase implements IPluginStorage<{}> {
 
       return emptyDatabase;
     }
+  }
+
+  private getTokenDb(): Level {
+    if (!this.tokenDb) {
+      this.tokenDb = level(this._dbGenPath(TOKEN_DB_NAME, this.config), {
+        valueEncoding: 'json'
+      });
+    }
+
+    return this.tokenDb;
+  }
+
+  private _getTokenKey(token: Token): string {
+    const { user, key } = token;
+    return this._compoundTokenKey(user, key);
+  }
+
+  private _compoundTokenKey(user: string, key: string): string {
+    return `${user}:${key}`;
   }
 }
 
