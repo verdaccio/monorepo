@@ -1,4 +1,5 @@
-import { Stream, PassThrough } from 'stream';
+// eslint-disable-next-line no-unused-vars
+import { PassThrough } from 'stream';
 
 declare module '@verdaccio/types' {
   type StringValue = string | void | null;
@@ -9,10 +10,7 @@ declare module '@verdaccio/types' {
   type CallbackError = (err: NodeJS.ErrnoException) => void;
 
   interface RemoteUserCallback {
-    (
-      error?: Error,
-      user?: RemoteUser
-    ): void;
+    (error?: Error, user?: RemoteUser): void;
   }
 
   interface Author {
@@ -152,11 +150,13 @@ declare module '@verdaccio/types' {
     _rev: string;
   }
 
+  // eslint-disable-next-line no-unused-vars
   class IUploadTarball extends PassThrough {
     abort(): void;
     done(): void;
   }
 
+  // eslint-disable-next-line no-unused-vars
   class IReadTarball extends PassThrough {
     abort(): void;
   }
@@ -408,14 +408,30 @@ declare module '@verdaccio/types' {
   interface TarballActions {
     addTarball(name: string, filename: string): IUploadTarball;
     getTarball(name: string, filename: string): IReadTarball;
-    removeTarball(name: string, filename: string, revision: string, callback: Callback): void;
+    removeTarball(
+      name: string,
+      filename: string,
+      revision: string,
+      callback: Callback
+    ): void;
   }
 
   interface StoragePackageActions extends TarballActions {
-    addVersion(name: string, version: string, metadata: Version, tag: StringValue, callback: Callback): void;
+    addVersion(
+      name: string,
+      version: string,
+      metadata: Version,
+      tag: StringValue,
+      callback: Callback
+    ): void;
     mergeTags(name: string, tags: MergeTags, callback: Callback): void;
     removePackage(name: string, callback: Callback): void;
-    changePackage(name: string, metadata: Package, revision: string, callback: Callback): void;
+    changePackage(
+      name: string,
+      metadata: Package,
+      revision: string,
+      callback: Callback
+    ): void;
   }
 
   interface IStorageManager<T> extends StoragePackageActions {
@@ -430,7 +446,11 @@ declare module '@verdaccio/types' {
 
   interface IBasicStorage<T> extends StoragePackageActions {
     addPackage(name: string, info: Package, callback: Callback): void;
-    updateVersions(name: string, packageInfo: Package, callback: Callback): void;
+    updateVersions(
+      name: string,
+      packageInfo: Package,
+      callback: Callback
+    ): void;
     getPackageMetadata(name: string, callback: Callback): void;
     search(startKey: string, options: any): IReadTarball;
     getSecret(config: T & Config): Promise<any>;
@@ -440,11 +460,21 @@ declare module '@verdaccio/types' {
     config: T & Config;
     aesEncrypt(buf: Buffer): Buffer;
     authenticate(user: string, password: string, cb: Callback): void;
-    changePassword(user: string, password: string, newPassword: string, cb: Callback): void;
-    allow_access(pkg: AuthPluginPackage, user: RemoteUser, callback: Callback): void;
+    changePassword(
+      user: string,
+      password: string,
+      newPassword: string,
+      cb: Callback
+    ): void;
+    allow_access(
+      pkg: AuthPluginPackage,
+      user: RemoteUser,
+      callback: Callback
+    ): void;
     add_user(user: string, password: string, cb: Callback): any;
   }
 
+  // eslint-disable-next-line no-unused-vars
   class Plugin<T> {
     constructor(config: T, options: PluginOptions<T>);
   }
@@ -468,17 +498,42 @@ declare module '@verdaccio/types' {
   interface IPluginAuth<T> extends IPlugin<T> {
     authenticate(user: string, password: string, cb: Callback): void;
     adduser?(user: string, password: string, cb: Callback): void;
-    changePassword?(user: string, password: string, newPassword: string, cb: Callback): void;
+    changePassword?(
+      user: string,
+      password: string,
+      newPassword: string,
+      cb: Callback
+    ): void;
     allow_access?(user: RemoteUser, pkg: T & PackageAccess, cb: Callback): void;
-    allow_publish?(user: RemoteUser, pkg: T & PackageAccess, cb: Callback): void;
-    allow_access?(user: RemoteUser, pkg: AllowAccess & PackageAccess, cb: Callback): void;
-    allow_publish?(user: RemoteUser, pkg: AllowAccess & PackageAccess, cb: Callback): void;
-    allow_unpublish?(user: RemoteUser, pkg: AllowAccess & PackageAccess, cb: Callback): void;
+    allow_publish?(
+      user: RemoteUser,
+      pkg: T & PackageAccess,
+      cb: Callback
+    ): void;
+    allow_access?(
+      user: RemoteUser,
+      pkg: AllowAccess & PackageAccess,
+      cb: Callback
+    ): void;
+    allow_publish?(
+      user: RemoteUser,
+      pkg: AllowAccess & PackageAccess,
+      cb: Callback
+    ): void;
+    allow_unpublish?(
+      user: RemoteUser,
+      pkg: AllowAccess & PackageAccess,
+      cb: Callback
+    ): void;
     apiJWTmiddleware?(helpers: any): Function;
   }
 
   interface IPluginMiddleware<T> extends IPlugin<T> {
-    register_middlewares(app: any, auth: IBasicAuth<T>, storage: IStorageManager<T>): void;
+    register_middlewares(
+      app: any,
+      auth: IBasicAuth<T>,
+      storage: IStorageManager<T>
+    ): void;
   }
 
   interface IPluginStorageFilter<T> extends IPlugin<T> {
