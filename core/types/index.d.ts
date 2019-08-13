@@ -4,8 +4,17 @@ declare module '@verdaccio/types' {
   type StringValue = string | void | null;
 
   type StorageList = string[];
+  type GroupList = string[];
   type Callback = Function;
   type CallbackError = (err: NodeJS.ErrnoException) => void;
+
+  interface RemoteUserCallback {
+    (
+      error?: Error,
+      user?: RemoteUser
+    ): void;
+  }
+
   interface Author {
     name: string;
     email?: string;
@@ -20,7 +29,7 @@ declare module '@verdaccio/types' {
 
   interface RemoteUser {
     real_groups: string[];
-    groups: string[];
+    groups: GroupList;
     name: string | void;
     error?: string;
   }
