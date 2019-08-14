@@ -19,52 +19,52 @@ export default class Config {
     this.auth = {
       htpasswd: {
         file: './htpasswd',
-        max_users: 1000
-      }
+        max_users: 1000,
+      },
     };
 
     this.uplinks = {
       npmjs: {
         url: 'https://registry.npmjs.org',
-        cache: true
-      }
+        cache: true,
+      },
     };
 
     this.packages = {
       '@*/*': {
         access: ['$all'],
         publish: ['$authenticated'],
-        proxy: []
+        proxy: [],
       },
       'local-private-custom-storage': {
         access: ['$all'],
         publish: ['$authenticated'],
-        storage: 'private_folder'
+        storage: 'private_folder',
       },
       '*': {
         access: ['$all'],
         publish: ['$authenticated'],
-        proxy: ['npmjs']
+        proxy: ['npmjs'],
       },
       '**': {
         access: [],
         publish: [],
-        proxy: []
-      }
+        proxy: [],
+      },
     };
 
     this.logs = [
       {
         type: 'stdout',
         format: 'pretty',
-        level: 35
-      }
+        level: 35,
+      },
     ];
 
     this.self_path = './tests/__fixtures__/config.yaml';
 
     this.https = {
-      enable: false
+      enable: false,
     };
 
     this.user_agent = 'verdaccio/3.0.0-alpha.7';

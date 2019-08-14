@@ -29,7 +29,10 @@ function hasScope(file: string): boolean {
   return file.match(/^@/) !== null;
 }
 
-export async function findPackages(storagePath: string, validationHandler: Function): Promise<{ name: string; path: string }[]> {
+export async function findPackages(
+  storagePath: string,
+  validationHandler: Function
+): Promise<{ name: string; path: string }[]> {
   const listPackages: { name: string; path: string }[] = [];
   return new Promise(async (resolve, reject) => {
     try {
@@ -48,7 +51,7 @@ export async function findPackages(storagePath: string, validationHandler: Funct
               // list content of such directory
               listPackages.push({
                 name: `${directory}/${scopedDirName}`,
-                path: scopePath
+                path: scopePath,
               });
             }
           }
@@ -58,7 +61,7 @@ export async function findPackages(storagePath: string, validationHandler: Funct
             const scopePath = path.resolve(storagePath, directory);
             listPackages.push({
               name: directory,
-              path: scopePath
+              path: scopePath,
             });
           }
         }

@@ -1,66 +1,58 @@
 {
   "name": "@verdaccio/local-storage",
   "version": "2.3.0",
-  "description": "local storage implementation",
+  "description": "Local storage implementation",
+  "keywords": [
+    "plugin",
+    "verdaccio",
+    "storage",
+    "local-storage"
+  ],
+  "author": "Juan Picado <juanpicado19@gmail.com>",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
   "main": "lib/index.js",
-  "scripts": {
-    "release": "standard-version -a -s",
-    "test": "jest",
-    "lint": "npm run type-check && eslint . --ext .js,.ts",
-    "commitmsg": "commitlint -e $GIT_PARAMS",
-    "type-check": "tsc --noEmit",
-    "type-check:watch": "npm run type-check -- --watch",
-    "build": "npm run build:types && npm run build:js",
-    "build:types": "tsc --emitDeclarationOnly",
-    "build:js": "babel src/ --out-dir lib --extensions \".ts,.tsx\" --source-maps inline",
-    "prepublish": "npm run build",
-    "format": "prettier --single-quote --trailing-comma none --write \"{src,test}/**/*.js\"",
-    "coverage:publish": "codecov"
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib/"
+  ],
+  "engines": {
+    "node": ">=8"
   },
   "dependencies": {
-    "@verdaccio/commons-api": "0.1.2",
-    "@verdaccio/file-locking": "1.0.4",
-    "@verdaccio/streams": "2.0.0",
+    "@verdaccio/commons-api": "^8.0.0-next.2",
+    "@verdaccio/file-locking": "^8.0.0-next.2",
+    "@verdaccio/streams": "^8.0.0-next.2",
     "async": "3.1.0",
-    "level": "^5.0.1",
+    "level": "5.0.1",
     "lodash": "4.17.15",
     "mkdirp": "0.5.1"
   },
   "devDependencies": {
-    "@commitlint/cli": "8.1.0",
-    "@commitlint/config-conventional": "8.1.0",
-    "@types/jest": "24.0.17",
-    "@types/lodash": "4.14.136",
-    "@types/minimatch": "3.0.3",
-    "@types/node": "12.7.1",
-    "@typescript-eslint/eslint-plugin": "1.13.0",
-    "@verdaccio/babel-preset": "1.0.0",
-    "@verdaccio/eslint-config": "0.0.1",
-    "@verdaccio/types": "6.2.0",
-    "codecov": "3.5.0",
-    "cross-env": "5.2.0",
-    "eslint": "5.16.0",
-    "husky": "0.14.3",
-    "jest": "24.8.0",
-    "minimatch": "3.0.4",
-    "rmdir-sync": "1.0.1",
-    "standard-version": "7.0.0",
-    "typescript": "3.5.3"
+    "@types/minimatch": "^3.0.3",
+    "@verdaccio/babel-preset": "^8.0.0-next.2",
+    "@verdaccio/eslint-config": "^8.0.0-next.2",
+    "@verdaccio/types": "^8.0.0-next.2",
+    "minimatch": "^3.0.4",
+    "rmdir-sync": "^1.0.1"
   },
-  "keywords": [
-    "plugin",
-    "verdaccio",
-    "local-storage"
-  ],
-  "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
+  "scripts": {
+    "build": "npm run build:types && npm run build:js",
+    "build:js": "babel src/ --out-dir lib --extensions \".ts,.tsx\" --source-maps inline",
+    "build:types": "tsc --emitDeclarationOnly",
+    "coverage": "codecov",
+    "lint": "eslint \"**/*.{js,ts}\"",
+    "lint:stage": "lint-staged",
+    "test": "jest --no-cache",
+    "type-check": "tsc --noEmit",
+    "type-check:watch": "npm run type-check -- --watch"
+  },
+  "lint-staged": {
+    "**/*.{js,ts}": [
+      "eslint --fix",
+      "git add"
     ]
-  },
-  "engines": {
-    "node": ">=8"
-  },
-  "author": "Juan Picado <juanpicado19@gmail.com>",
-  "private": false,
-  "license": "MIT"
+  }
 }

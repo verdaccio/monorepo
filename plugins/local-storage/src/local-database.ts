@@ -18,7 +18,7 @@ import {
   Logger,
   StorageList,
   Token,
-  TokenFilter
+  TokenFilter,
 } from '@verdaccio/types';
 
 import level from 'level';
@@ -124,7 +124,10 @@ class LocalDatabase implements IPluginStorage<{}> {
               if (file.match(/^@/)) {
                 // scoped
                 const fileLocation = Path.resolve(base, storage, file);
-                self.logger.trace({ fileLocation }, 'local-storage: [search] search scoped file location: @{fileLocation}');
+                self.logger.trace(
+                  { fileLocation },
+                  'local-storage: [search] search scoped file location: @{fileLocation}'
+                );
                 fs.readdir(fileLocation, function(err, files) {
                   if (err) {
                     return cb(err);
@@ -143,7 +146,7 @@ class LocalDatabase implements IPluginStorage<{}> {
                           const item = {
                             name: `${file}/${file2}`,
                             path: packagePath,
-                            time: stats.mtime.getTime()
+                            time: stats.mtime.getTime(),
                           };
                           onPackage(item, cb);
                         });
@@ -166,7 +169,7 @@ class LocalDatabase implements IPluginStorage<{}> {
                     {
                       name: file,
                       path: packagePath,
-                      time: self._getTime(stats.mtime.getTime(), stats.mtime)
+                      time: self._getTime(stats.mtime.getTime(), stats.mtime),
                     },
                     cb
                   );
@@ -230,7 +233,10 @@ class LocalDatabase implements IPluginStorage<{}> {
       return;
     }
 
-    const packageStoragePath: string = Path.join(Path.resolve(Path.dirname(this.config.self_path || ''), packagePath), packageName);
+    const packageStoragePath: string = Path.join(
+      Path.resolve(Path.dirname(this.config.self_path || ''), packagePath),
+      packageName
+    );
 
     this.logger.trace({ packageStoragePath }, '[local-storage/getPackageStorage]: storage path: @{packageStoragePath}');
 
@@ -277,7 +283,7 @@ class LocalDatabase implements IPluginStorage<{}> {
       const db = this.getTokenDb();
       const stream = db.createReadStream({
         gte: key,
-        lte: String.fromCharCode(key.charCodeAt(0) + 1)
+        lte: String.fromCharCode(key.charCodeAt(0) + 1),
       });
 
       stream.on('data', data => {
@@ -327,7 +333,9 @@ class LocalDatabase implements IPluginStorage<{}> {
 
     if (this.locked) {
       this.logger.error('Database is locked, please check error message printed during startup to prevent data loss.');
-      return new Error('Verdaccio database is locked, please contact your administrator to checkout logs during verdaccio startup.');
+      return new Error(
+        'Verdaccio database is locked, please contact your administrator to checkout logs during verdaccio startup.'
+      );
     }
     // Uses sync to prevent ugly race condition
     try {
@@ -415,7 +423,10 @@ class LocalDatabase implements IPluginStorage<{}> {
       // Only recreate if file not found to prevent data loss
       if (err.code !== noSuchFile) {
         this.locked = true;
-        this.logger.error('Failed to read package database file, please check the error printed below:\n', `File Path: ${this.path}\n\n ${err.message}`);
+        this.logger.error(
+          'Failed to read package database file, please check the error printed below:\n',
+          `File Path: ${this.path}\n\n ${err.message}`
+        );
       }
 
       return emptyDatabase;
@@ -425,7 +436,7 @@ class LocalDatabase implements IPluginStorage<{}> {
   private getTokenDb(): Level {
     if (!this.tokenDb) {
       this.tokenDb = level(this._dbGenPath(TOKEN_DB_NAME, this.config), {
-        valueEncoding: 'json'
+        valueEncoding: 'json',
       });
     }
 

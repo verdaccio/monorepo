@@ -77,12 +77,19 @@ export default class LocalFS implements ILocalFSPackageManager {
     * @param {*} transformPackage
     * @param {*} onEnd
     */
-  public updatePackage(name: string, updateHandler: Callback, onWrite: Callback, transformPackage: Function, onEnd: Callback) {
+  public updatePackage(
+    name: string,
+    updateHandler: Callback,
+    onWrite: Callback,
+    transformPackage: Function,
+    onEnd: Callback
+  ) {
     this._lockAndReadJSON(pkgFileName, (err, json) => {
       let locked = false;
       const self = this;
       // callback that cleans up lock first
       const unLockCallback = function(lockError: Error) {
+        // eslint-disable-next-line prefer-rest-params
         const _args = arguments;
 
         if (locked) {
@@ -92,7 +99,7 @@ export default class LocalFS implements ILocalFSPackageManager {
               self.logger.trace(
                 {
                   name,
-                  lockError
+                  lockError,
                 },
                 '[local-storage/updatePackage/unLockCallback] file: @{name} lock has failed lockError: @{lockError}'
               );
@@ -111,7 +118,7 @@ export default class LocalFS implements ILocalFSPackageManager {
         locked = true;
         this.logger.trace(
           {
-            name
+            name,
           },
           '[local-storage/updatePackage] file: @{name} has been locked'
         );
@@ -169,7 +176,10 @@ export default class LocalFS implements ILocalFSPackageManager {
         try {
           const data: any = JSON.parse(res.toString('utf8'));
 
-          this.logger.trace({ packageName: name }, '[local-storage/readPackage/_readStorageFile] read a package succeed: @{packageName}');
+          this.logger.trace(
+            { packageName: name },
+            '[local-storage/readPackage/_readStorageFile] read a package succeed: @{packageName}'
+          );
           cb(null, data);
         } catch (err) {
           this.logger.trace({ err }, '[local-storage/readPackage/_readStorageFile] error on read a package: @{err}');
@@ -186,7 +196,10 @@ export default class LocalFS implements ILocalFSPackageManager {
 
   public writeTarball(name: string): IUploadTarball {
     const uploadStream = new UploadTarball({});
-    this.logger.debug({ packageName: name }, '[local-storage/writeTarball] write a tarball for package: @{packageName}');
+    this.logger.debug(
+      { packageName: name },
+      '[local-storage/writeTarball] write a tarball for package: @{packageName}'
+    );
 
     let _ended = 0;
     uploadStream.on('end', function() {
@@ -195,7 +208,7 @@ export default class LocalFS implements ILocalFSPackageManager {
 
     const pathName: string = this._getStorage(name);
 
-    fs.access(pathName, (fileNotFound) => {
+    fs.access(pathName, fileNotFound => {
       const exists = !fileNotFound;
       if (exists) {
         uploadStream.emit('error', fSError(fileExist));
@@ -364,7 +377,7 @@ export default class LocalFS implements ILocalFSPackageManager {
       fileName,
       {
         lock: true,
-        parse: true
+        parse: true,
       },
       (err, res) => {
         if (err) {

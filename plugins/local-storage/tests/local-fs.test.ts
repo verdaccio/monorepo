@@ -16,7 +16,7 @@ const logger: Logger = {
   warn: e => jest.fn(),
   child: e => jest.fn(),
   http: e => jest.fn(),
-  trace: e => jest.fn()
+  trace: e => jest.fn(),
 };
 
 beforeAll(() => {
@@ -57,7 +57,10 @@ describe('Local FS test', () => {
     });
 
     test('readPackage() fails corrupt', done => {
-      const localFs: ILocalPackageManager = new LocalDriver(path.join(__dirname, '__fixtures__/readme-test-corrupt'), logger);
+      const localFs: ILocalPackageManager = new LocalDriver(
+        path.join(__dirname, '__fixtures__/readme-test-corrupt'),
+        logger
+      );
 
       localFs.readPackage('corrupt.js', err => {
         expect(err).toBeTruthy();
@@ -164,7 +167,10 @@ describe('Local FS test', () => {
 
     test('writeTarball() success', done => {
       const newFileName = 'new-readme-0.0.0.tgz';
-      const readmeStorage: ILocalPackageManager = new LocalDriver(path.join(__dirname, '__fixtures__/readme-test'), logger);
+      const readmeStorage: ILocalPackageManager = new LocalDriver(
+        path.join(__dirname, '__fixtures__/readme-test'),
+        logger
+      );
       const writeStorage: ILocalPackageManager = new LocalDriver(path.join(__dirname, '../_storage'), logger);
       const readTarballStream = readmeStorage.readTarball('test-readme-0.0.0.tgz');
       const writeTarballStream = writeStorage.writeTarball(newFileName);
@@ -204,7 +210,10 @@ describe('Local FS test', () => {
     test('writeTarball() abort', done => {
       const newFileLocationFolder: string = path.join(localTempStorage, '_writeTarball');
       const newFileName = 'new-readme-abort-0.0.0.tgz';
-      const readmeStorage: ILocalPackageManager = new LocalDriver(path.join(__dirname, '__fixtures__/readme-test'), logger);
+      const readmeStorage: ILocalPackageManager = new LocalDriver(
+        path.join(__dirname, '__fixtures__/readme-test'),
+        logger
+      );
       const writeStorage: ILocalPackageManager = new LocalDriver(newFileLocationFolder, logger);
       const readTarballStream = readmeStorage.readTarball('test-readme-0.0.0.tgz');
       const writeTarballStream = writeStorage.writeTarball(newFileName);
@@ -241,12 +250,15 @@ describe('Local FS test', () => {
       jest.doMock('@verdaccio/file-locking', () => {
         return {
           readFile: (name, options, cb) => cb(null, { name }),
-          unlockFile: (something, cb) => cb(null)
+          unlockFile: (something, cb) => cb(null),
         };
       });
 
       const LocalDriver = require('../src/local-fs').default;
-      const localFs: ILocalPackageManager = new LocalDriver(path.join(__dirname, '__fixtures__/update-package'), logger);
+      const localFs: ILocalPackageManager = new LocalDriver(
+        path.join(__dirname, '__fixtures__/update-package'),
+        logger
+      );
 
       localFs.updatePackage('updatePackage', updateHandler, onWrite, transform, () => {
         expect(transform).toHaveBeenCalledTimes(1);
@@ -261,11 +273,14 @@ describe('Local FS test', () => {
         jest.doMock('@verdaccio/file-locking', () => {
           return {
             readFile: (name, options, cb) => cb(Error('whateverError'), { name }),
-            unlockFile: (something, cb) => cb(null)
+            unlockFile: (something, cb) => cb(null),
           };
         });
         require('../src/local-fs').default;
-        const localFs: ILocalPackageManager = new LocalDriver(path.join(__dirname, '__fixtures__/update-package'), logger);
+        const localFs: ILocalPackageManager = new LocalDriver(
+          path.join(__dirname, '__fixtures__/update-package'),
+          logger
+        );
 
         localFs.updatePackage('updatePackage', updateHandler, onWrite, transform, err => {
           expect(err).not.toBeNull();
@@ -280,11 +295,14 @@ describe('Local FS test', () => {
         jest.doMock('@verdaccio/file-locking', () => {
           return {
             readFile: (name, options, cb) => cb(fSError(noSuchFile, 404), { name }),
-            unlockFile: (something, cb) => cb(null)
+            unlockFile: (something, cb) => cb(null),
           };
         });
         const LocalDriver = require('../src/local-fs').default;
-        const localFs: ILocalPackageManager = new LocalDriver(path.join(__dirname, '__fixtures__/update-package'), logger);
+        const localFs: ILocalPackageManager = new LocalDriver(
+          path.join(__dirname, '__fixtures__/update-package'),
+          logger
+        );
 
         localFs.updatePackage('updatePackage', updateHandler, onWrite, transform, err => {
           expect(err).not.toBeNull();
@@ -299,11 +317,14 @@ describe('Local FS test', () => {
         jest.doMock('@verdaccio/file-locking', () => {
           return {
             readFile: (name, options, cb) => cb(fSError(resourceNotAvailable, 503), { name }),
-            unlockFile: (something, cb) => cb(null)
+            unlockFile: (something, cb) => cb(null),
           };
         });
         const LocalDriver = require('../src/local-fs').default;
-        const localFs: ILocalPackageManager = new LocalDriver(path.join(__dirname, '__fixtures__/update-package'), logger);
+        const localFs: ILocalPackageManager = new LocalDriver(
+          path.join(__dirname, '__fixtures__/update-package'),
+          logger
+        );
 
         localFs.updatePackage('updatePackage', updateHandler, onWrite, transform, err => {
           expect(err).not.toBeNull();
@@ -318,12 +339,15 @@ describe('Local FS test', () => {
         jest.doMock('@verdaccio/file-locking', () => {
           return {
             readFile: (name, options, cb) => cb(null, { name }),
-            unlockFile: (something, cb) => cb(null)
+            unlockFile: (something, cb) => cb(null),
           };
         });
 
         const LocalDriver = require('../src/local-fs').default;
-        const localFs: ILocalPackageManager = new LocalDriver(path.join(__dirname, '__fixtures__/update-package'), logger);
+        const localFs: ILocalPackageManager = new LocalDriver(
+          path.join(__dirname, '__fixtures__/update-package'),
+          logger
+        );
         const updateHandler = jest.fn((name, cb) => {
           cb(fSError('something wrong', 500));
         });
