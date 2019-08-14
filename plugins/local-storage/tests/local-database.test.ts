@@ -175,7 +175,7 @@ describe('Local Database', () => {
     });
 
     test('should fails on read the storage', done => {
-      jest.spyOn(fs, 'readdir').mockImplementation((_, cb) => cb(Error('fails'), null));
+      const spyInstance = jest.spyOn(fs, 'readdir').mockImplementation((_, cb) => cb(Error('fails'), null));
 
       const db = new LocalDatabase(
         assign({}, optionsPlugin.config, {
@@ -186,6 +186,7 @@ describe('Local Database', () => {
       );
 
       callSearch(db, 0, done);
+      spyInstance.mockRestore();
     });
   });
 

@@ -45,7 +45,7 @@
     "coverage": "codecov",
     "lint": "eslint \"**/*.{js,ts}\"",
     "lint:stage": "lint-staged",
-    "test": "jest --no-cache",
+    "test": "jest",
     "type-check": "tsc --noEmit",
     "type-check:watch": "npm run type-check -- --watch"
   },

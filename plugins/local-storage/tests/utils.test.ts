@@ -43,7 +43,7 @@ describe('Utitlies', () => {
 
     expect(db.list).toHaveLength(0);
 
-    spy.mockClear();
+    spy.mockRestore();
   });
 
   describe('find packages', () => {

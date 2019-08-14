@@ -8,5 +8,5 @@ module.exports = {
   },
   verbose: true,
   collectCoverage: true,
-  coveragePathIgnorePatterns: ['node_modules', '_storage', 'fixtures'],
+  coveragePathIgnorePatterns: ['node_modules', '_storage', 'fixtures', 'lib'],
 };
