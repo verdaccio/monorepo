@@ -1,0 +1,58 @@
+{
+  "name": "@verdaccio/local-storage",
+  "version": "2.3.0",
+  "description": "Local storage implementation",
+  "keywords": [
+    "plugin",
+    "verdaccio",
+    "storage",
+    "local-storage"
+  ],
+  "author": "Juan Picado <juanpicado19@gmail.com>",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib/"
+  ],
+  "engines": {
+    "node": ">=8"
+  },
+  "dependencies": {
+    "@verdaccio/commons-api": "^8.0.0-next.2",
+    "@verdaccio/file-locking": "^8.0.0-next.2",
+    "@verdaccio/streams": "^8.0.0-next.2",
+    "async": "3.1.0",
+    "level": "5.0.1",
+    "lodash": "4.17.15",
+    "mkdirp": "0.5.1"
+  },
+  "devDependencies": {
+    "@types/minimatch": "^3.0.3",
+    "@verdaccio/babel-preset": "^8.0.0-next.2",
+    "@verdaccio/eslint-config": "^8.0.0-next.2",
+    "@verdaccio/types": "^8.0.0-next.2",
+    "minimatch": "^3.0.4",
+    "rmdir-sync": "^1.0.1"
+  },
+  "scripts": {
+    "build": "npm run build:types && npm run build:js",
+    "build:js": "babel src/ --out-dir lib --extensions \".ts,.tsx\" --source-maps inline",
+    "build:types": "tsc --emitDeclarationOnly",
+    "coverage": "codecov",
+    "lint": "eslint \"**/*.{js,ts}\"",
+    "lint:stage": "lint-staged",
+    "test": "jest",
+    "type-check": "tsc --noEmit",
+    "type-check:watch": "npm run type-check -- --watch"
+  },
+  "lint-staged": {
+    "**/*.{js,ts}": [
+      "eslint --fix",
+      "git add"
+    ]
+  }
+}
