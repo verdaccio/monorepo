@@ -71,8 +71,12 @@ describe('Local Database', () => {
       expect(storage).toBeDefined();
 
       if (storage) {
-        const storagePath = (storage as ILocalFSPackageManager).path;
-        expect(storagePath).toBe(path.join(__dirname, '__fixtures__', optionsPlugin.config.storage || '', pkgName));
+        const storagePath = path.normalize((storage as ILocalFSPackageManager).path).toLowerCase();
+        expect(storagePath).toBe(
+          path
+            .normalize(path.join(__dirname, '__fixtures__', optionsPlugin.config.storage || '', pkgName))
+            .toLowerCase()
+        );
       }
     });
 
@@ -83,9 +87,13 @@ describe('Local Database', () => {
       expect(storage).toBeDefined();
 
       if (storage) {
-        const storagePath = (storage as ILocalFSPackageManager).path;
+        const storagePath = path.normalize((storage as ILocalFSPackageManager).path).toLowerCase();
         expect(storagePath).toBe(
-          path.join(__dirname, '__fixtures__', optionsPlugin.config.storage || '', 'private_folder', pkgName)
+          path
+            .normalize(
+              path.join(__dirname, '__fixtures__', optionsPlugin.config.storage || '', 'private_folder', pkgName)
+            )
+            .toLowerCase()
         );
       }
     });
