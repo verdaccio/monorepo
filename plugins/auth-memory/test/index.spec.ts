@@ -46,7 +46,6 @@ describe('Memory', function() {
 
     test('max users reached', function(done) {
       const auth = new Memory(
-        // $FlowFixMe
         {},
         {
           config: {
@@ -125,7 +124,6 @@ describe('Memory', function() {
     });
 
     test('should not to be allowed to access any package', function(done) {
-      // $FlowFixMe
       auth.allow_access({}, { access: [], publish: [], proxy: [] }, function(err, groups) {
         expect(err).not.toBeNull();
         expect(err.message).toMatch(/not allowed to access package/);
@@ -134,7 +132,6 @@ describe('Memory', function() {
     });
 
     test('should not to be allowed to access the anyOtherUser package', function(done) {
-      // $FlowFixMe
       auth.allow_access({}, { access: ['anyOtherUser'], publish: [], proxy: [] }, function(err, groups) {
         expect(err).not.toBeNull();
         expect(err.message).toMatch(/not allowed to access package/);
@@ -185,7 +182,6 @@ describe('Memory', function() {
     });
 
     test('should not to be allowed to access any package', function(done) {
-      // $FlowFixMe
       auth.allow_publish({}, { publish: [], proxy: [], access: [] }, function(err, groups) {
         expect(err).not.toBeNull();
         expect(err.message).toMatch(/not allowed to publish package/);
@@ -194,7 +190,6 @@ describe('Memory', function() {
     });
 
     test('should not to be allowed to access the anyOtherUser package', function(done) {
-      // $FlowFixMe
       auth.allow_publish({}, { publish: ['anyOtherUser'], proxy: [], access: [] }, function(err, groups) {
         expect(err).not.toBeNull();
         expect(err.message).toMatch(/not allowed to publish package/);
@@ -208,7 +203,6 @@ describe('Memory', function() {
 
     beforeEach(function(done) {
       auth = new Memory(
-        // $FlowFixMe
         {},
         {
           config: {},

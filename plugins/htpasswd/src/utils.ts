@@ -72,7 +72,6 @@ export function addUserToHTPasswd(body: string, user: string, passwd: string): s
   if (user !== encodeURIComponent(user)) {
     const err = createError('username should not contain non-uri-safe characters');
 
-    // $FlowFixMe
     err.status = 409;
     throw err;
   }
@@ -115,7 +114,6 @@ export function sanityCheck(
   // check for user or password
   if (!user || !password) {
     err = Error('username and password is required');
-    // $FlowFixMe
     err.status = 400;
     return err;
   }
@@ -124,7 +122,6 @@ export function sanityCheck(
 
   if (maxUsers < 0) {
     err = Error('user registration disabled');
-    // $FlowFixMe
     err.status = 409;
     return err;
   }
@@ -133,17 +130,14 @@ export function sanityCheck(
     const auth = verifyFn(password, users[user]);
     if (auth) {
       err = Error('username is already registered');
-      // $FlowFixMe
       err.status = 409;
       return err;
     }
     err = Error('unauthorized access');
-    // $FlowFixMe
     err.status = 401;
     return err;
   } else if (Object.keys(users).length >= maxUsers) {
     err = Error('maximum amount of users reached');
-    // $FlowFixMe
     err.status = 403;
     return err;
   }

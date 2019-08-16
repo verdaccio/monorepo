@@ -1,7 +1,6 @@
 import fs from 'fs';
 import _ from 'lodash';
 import Path from 'path';
-// $FlowFixMe
 import async from 'async';
 import mkdirp from 'mkdirp';
 import stream from 'stream';
