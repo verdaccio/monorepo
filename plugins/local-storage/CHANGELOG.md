@@ -1,3 +1,55 @@
+# Change Log
+
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+# [8.0.0-next.3](https://github.com/verdaccio/monorepo/compare/v8.0.0-next.2...v8.0.0-next.3) (2019-08-16)
+
+
+### Bug Fixes
+
+* restore closure ([32b9d7e](https://github.com/verdaccio/monorepo/commit/32b9d7e))
+* **build:** error on types for fs callback ([cc35acb](https://github.com/verdaccio/monorepo/commit/cc35acb))
+* Add DATE and VERSION in search result ([e352b75](https://github.com/verdaccio/monorepo/commit/e352b75))
+* avoid open write stream if resource exist [#1191](https://github.com/verdaccio/monorepo/issues/1191) ([f041d3f](https://github.com/verdaccio/monorepo/commit/f041d3f))
+* bug fixing integration ([6c75ac8](https://github.com/verdaccio/monorepo/commit/6c75ac8))
+* build before publish ([cd6c7ff](https://github.com/verdaccio/monorepo/commit/cd6c7ff))
+* check whether path exist before return result ([a4d2af1](https://github.com/verdaccio/monorepo/commit/a4d2af1))
+* flow issues ([f42a284](https://github.com/verdaccio/monorepo/commit/f42a284))
+* ignore flow on this one, we need it ([c8e0b2b](https://github.com/verdaccio/monorepo/commit/c8e0b2b))
+* local storage requires package.json file for read, save and create all the time ([33c847b](https://github.com/verdaccio/monorepo/commit/33c847b))
+* migration from main repository merge [#306](https://github.com/verdaccio/monorepo/issues/306) ([8fbe86e](https://github.com/verdaccio/monorepo/commit/8fbe86e))
+* missing callback ([abfc422](https://github.com/verdaccio/monorepo/commit/abfc422))
+* missing error code ([7121939](https://github.com/verdaccio/monorepo/commit/7121939))
+* move to local storage the fs location handler ([3b12083](https://github.com/verdaccio/monorepo/commit/3b12083))
+* mtimeMs is not backward compatible ([c6f74eb](https://github.com/verdaccio/monorepo/commit/c6f74eb))
+* remove temp file whether is emtpy and fails ([655102f](https://github.com/verdaccio/monorepo/commit/655102f))
+* remove uncessary async ([3e3e3a6](https://github.com/verdaccio/monorepo/commit/3e3e3a6))
+* remove unused parameters ([554e301](https://github.com/verdaccio/monorepo/commit/554e301))
+* restore build path ([4902042](https://github.com/verdaccio/monorepo/commit/4902042))
+* return time as milliseconds ([15467ba](https://github.com/verdaccio/monorepo/commit/15467ba))
+* sync after set secret ([2abae4f](https://github.com/verdaccio/monorepo/commit/2abae4f))
+* temp files are written into the storage ([89a1dc8](https://github.com/verdaccio/monorepo/commit/89a1dc8))
+* unit test ([995a27c](https://github.com/verdaccio/monorepo/commit/995a27c))
+* update @verdaccio/file-locking@1.0.0 ([9bd36f0](https://github.com/verdaccio/monorepo/commit/9bd36f0))
+* update lodash types ([184466c](https://github.com/verdaccio/monorepo/commit/184466c))
+
+
+### Features
+
+* token support with level.js ([#168](https://github.com/verdaccio/monorepo/issues/168)) ([ca877ff](https://github.com/verdaccio/monorepo/commit/ca877ff))
+* **build:** standardize build ([33fe090](https://github.com/verdaccio/monorepo/commit/33fe090))
+* change new db name to verdaccio ([#83](https://github.com/verdaccio/monorepo/issues/83)) ([edfca9f](https://github.com/verdaccio/monorepo/commit/edfca9f))
+* drop node v6 support ([664f288](https://github.com/verdaccio/monorepo/commit/664f288))
+* implement search ([2e2bb32](https://github.com/verdaccio/monorepo/commit/2e2bb32))
+* migrate to typescript ([c439d25](https://github.com/verdaccio/monorepo/commit/c439d25))
+* update database method with callbacks ([ef202a9](https://github.com/verdaccio/monorepo/commit/ef202a9))
+* update minor dependencies ([007b026](https://github.com/verdaccio/monorepo/commit/007b026))
+
+
+
+
+
 # Changelog
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.

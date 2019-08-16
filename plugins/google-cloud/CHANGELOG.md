@@ -1,3 +1,19 @@
+# Change Log
+
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+# [8.0.0-next.3](https://github.com/verdaccio/verdaccio-google-cloud/compare/v8.0.0-next.2...v8.0.0-next.3) (2019-08-16)
+
+
+### Bug Fixes
+
+* CI build ([4d586fb](https://github.com/verdaccio/verdaccio-google-cloud/commit/4d586fb))
+
+
+
+
+
 # Changelog
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
