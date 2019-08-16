@@ -5,7 +5,7 @@
 	"runArgs": [ "-v", "${env:HOME}${env:USERPROFILE}/.ssh:/root/.ssh-localhost:ro" ],
 
 	"settings":  {
-		"editor.rulers": [80, 120],
+		"editor.rulers": [120],
 		"files.insertFinalNewline": true,
 		"files.trimFinalNewlines": true,
 		"files.trimTrailingWhitespace": true,
@@ -16,15 +16,19 @@
 			{ "language": "typescript", "autoFix": true },
 			{ "language": "typescriptreact", "autoFix": true },
 		],
-		"prettier.eslintIntegration": true,
+    "prettier.eslintIntegration": true,
+    "[markdown]": {
+      "files.trimTrailingWhitespace": false,
+    },
 	},
 
 	"postCreateCommand": "mkdir -p ~/.ssh && cp -r ~/.ssh-localhost/* ~/.ssh && chmod 700 ~/.ssh && chmod 600 ~/.ssh/* && yarn install --frozen-lockfile",
 
 	"extensions": [
+		"editorconfig.editorconfig",
 		"dbaeumer.vscode-eslint",
 		"esbenp.prettier-vscode",
 		"visualstudioexptteam.vscodeintellicode",
 		"christian-kohler.path-intellisense",
-	]
+	],
 }
