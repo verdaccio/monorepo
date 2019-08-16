@@ -98,4 +98,4 @@ Use `npm run commitmsg` to check your commit message.
 
 Any change in the sour code **must to include test update**, if you need support about how test works, please [refers to the following guide](https://github.com/verdaccio/verdaccio/wiki/Running-and-Debugging-tests). Please include test whether is a new feature, otherwise will be hold and never be merged.
 
-> Documentation, website, build, deployment, assets  or flow types are excluded in this section
+> Documentation, website, build, deployment, assets  or types are excluded in this section

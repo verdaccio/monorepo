@@ -25,7 +25,6 @@ export default class HTPasswd implements IPluginAuth<VerdaccioConfigApp> {
    * @param {*} config htpasswd file
    * @param {object} stuff config.yaml in object from
    */
-  // flow types
   users: {};
   stuff: {};
   config: {};

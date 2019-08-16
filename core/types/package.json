@@ -1,7 +1,7 @@
 {
   "name": "@verdaccio/types",
   "version": "8.0.0-next.2",
-  "description": "verdaccio flow types definitions",
+  "description": "verdaccio types definitions",
   "keywords": [
     "verdaccio",
     "typescript",
