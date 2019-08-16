@@ -14,14 +14,14 @@ module.exports = {
     docs: {
       description: 'check the usage of nested objects as classnames',
       category: 'Stylistic Issues',
-      recommended: true
+      recommended: true,
     },
     fixable: null, // or "code" or "whitespace"
     schema: [
       {
-        enum: ['always', 'never']
-      }
-    ]
+        enum: ['always', 'never'],
+      },
+    ],
   },
 
   create: function(context) {
@@ -45,13 +45,15 @@ module.exports = {
         }
 
         node.attributes.some(decl => {
-          if (decl.type === 'JSXAttribute' &&
-              decl.name.name === 'className' &&
-              decl.value.type === 'JSXExpressionContainer') {
+          if (
+            decl.type === 'JSXAttribute' &&
+            decl.name.name === 'className' &&
+            decl.value.type === 'JSXExpressionContainer'
+          ) {
             if (decl.value.expression.type === 'ObjectExpression') {
               context.report({
                 node: node,
-                message: ERROR_MESSAGE
+                message: ERROR_MESSAGE,
               });
               return true;
             }
@@ -61,7 +63,7 @@ module.exports = {
         });
 
         return;
-      }
+      },
     };
-  }
+  },
 };

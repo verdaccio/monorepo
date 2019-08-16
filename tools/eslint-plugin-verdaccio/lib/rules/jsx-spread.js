@@ -14,14 +14,14 @@ const rule = {
     docs: {
       description: 'spread over jsx',
       category: 'Stylistic Issues',
-      recommended: true
+      recommended: true,
     },
     fixable: null, // or "code" or "whitespace"
     schema: [
       {
-        enum: ['always', 'never']
-      }
-    ]
+        enum: ['always', 'never'],
+      },
+    ],
   },
 
   create: function(context) {
@@ -48,7 +48,7 @@ const rule = {
           if (decl.type === 'JSXSpreadAttribute') {
             context.report({
               node: node,
-              message: ERROR_MESSAGE
+              message: ERROR_MESSAGE,
             });
             return true;
           }
@@ -57,10 +57,9 @@ const rule = {
         });
 
         return;
-      }
-
+      },
     };
-  }
+  },
 };
 
 module.exports = rule;

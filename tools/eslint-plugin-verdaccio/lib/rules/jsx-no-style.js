@@ -15,14 +15,14 @@ module.exports = {
     docs: {
       description: 'disallow style on jsx components',
       category: 'Stylistic Issues',
-      recommended: true
+      recommended: true,
     },
     fixable: null, // or "code" or "whitespace"
     schema: [
       {
-        enum: ['always', 'never']
-      }
-    ]
+        enum: ['always', 'never'],
+      },
+    ],
   },
 
   create: function(context) {
@@ -39,7 +39,7 @@ module.exports = {
           if (decl.type === 'JSXAttribute' && decl.name.name === 'style') {
             context.report({
               node: node,
-              message: ERROR_MESSAGE
+              message: ERROR_MESSAGE,
             });
             return true;
           }
@@ -48,7 +48,7 @@ module.exports = {
         });
 
         return;
-      }
+      },
     };
-  }
+  },
 };
