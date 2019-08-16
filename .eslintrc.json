@@ -1,0 +1,4 @@
+{
+  "extends": ["@verdaccio"],
+  "root": true
+}

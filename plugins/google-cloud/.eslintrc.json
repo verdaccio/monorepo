@@ -1,0 +1,9 @@
+{
+  "rules": {
+    "spaced-comment": "warn",
+    "@typescript-eslint/no-var-requires": "off",
+    "@typescript-eslint/interface-name-prefix": "off",
+    "@typescript-eslint/ban-types": "warn",
+    "@typescript-eslint/no-inferrable-types": "warn"
+  }
+}

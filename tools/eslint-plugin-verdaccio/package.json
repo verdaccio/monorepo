@@ -17,6 +17,7 @@
     "jsx-ast-utils": "2.2.1"
   },
   "devDependencies": {
+    "@verdaccio/eslint-config": "^8.0.0-next.2",
     "mocha": "^6.1.4"
   },
   "scripts": {
