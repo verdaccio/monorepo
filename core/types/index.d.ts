@@ -1,4 +1,4 @@
-import { Stream, PassThrough } from 'stream';
+import { PassThrough } from 'stream';
 
 declare module '@verdaccio/types' {
   type StringValue = string | void | null;
