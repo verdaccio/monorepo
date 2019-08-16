@@ -43,7 +43,8 @@
     "babel-plugin-emotion": "10.0.14"
   },
   "devDependencies": {
-    "@verdaccio/eslint-config": "^8.0.0-next.2"
+    "@verdaccio/eslint-config": "^8.0.0-next.2",
+    "eslint-plugin-verdaccio": "^8.0.0-next.1"
   },
   "scripts": {
     "lint": "eslint \"**/*.js\"",

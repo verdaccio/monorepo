@@ -1,6 +1,5 @@
 {
   "extends": [
-    "@verdaccio",
     "plugin:prettier/recommended",
     "plugin:verdaccio/recommended"
   ],

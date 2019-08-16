@@ -1,5 +1,4 @@
 {
-    "extends": ["@verdaccio"],
     "rules": {
         "@typescript-eslint/adjacent-overload-signatures": "off",
         "@typescript-eslint/explicit-member-accessibility": "off",
