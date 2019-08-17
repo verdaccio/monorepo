@@ -217,14 +217,14 @@ And then, follow the next steps in the package recently created:
 
 1. Add MIT LICENSE file (using`npx license -o Verdaccio mit > LICENSE`) and complete README.
 2. Add the necessary tools files the project will require like `.gitignore`, `.eslintrc.json`, `tsconfig.json` or `.babelrc`. You can see other packages in the monorepo to know which tools are we using.
-3. Add all the necessary stuff in the `package.json`, like scripts or dependencies, taking care of script naming like `lint`, `lint:stage` or `test`.
+3. Add all the necessary stuff in the `package.json`, like scripts or dependencies, taking care of script naming like `build`, `lint`, `lint:stage` or `test`.
 4. In case the package is scoped (like `@verdaccio/streams`), add next block in `package.json`:
    ```json
    "publishConfig": {
      "access": "public"
    }
    ```
-5. Flat those `devDependencies` that aren't part of the monorepo to the root `package.json`, like `in-publish`, but not `devDependencies` like `@verdaccio/eslint-config`.
+5. Hoist those `devDependencies` that aren't part of the monorepo to the root `package.json`, like `in-publish`, but not `devDependencies` like `@verdaccio/eslint-config`.
 6. Ensure everything is working correctly, both in package and with root scripts.
 
 ### Importing Packages
@@ -237,8 +237,12 @@ If this process fails because there were merge conflicts, you must add `--flatte
 
 Later, follow the next steps in the package recently imported:
 
-1. Remove unnecessary stuff, like CI settings, GitHub stuff, CONTRIBUTING, unnecessary things from .gitignore, devDependencies, scripts, etc.
+1. Remove unnecessary stuff and clean project
+   - Remove CI stuff (`.circleci`, `.travis.yml`, `azure-pipelines.yml`), GitHub stuff (`.github`), CONTRIBUTING, CODE_OF_CONDUCT, etc
+   - Clean `.gitignore`, `.eslintignore`, `.eslintrc`, `.babelrc`, etc
+   - Add `.json` extension to `.eslintrc`
 2. Remove .npmignore (a blacklist file) and whitelist folders that should be packaged using `files` field. Also, provide `main` and `types` fields if necessary.
+3. Update LICENSE year.
 4. Update [`@verdaccio/eslint-config`](tools/eslint-config/package.json) and [`@verdaccio/babel-preset`](tools/babel-preset/package.json) packages to the latest version set in the monorepo and add caret (`^`). Also, remove Prettier stuff as its settings are provided by [`@verdaccio/eslint-config`](tools/eslint-config/rules/prettier.js).
 5. Add `"lint:stage": "lint-staged"` script and lint-staged settings in package.json:
     ```json
@@ -249,8 +253,7 @@ Later, follow the next steps in the package recently imported:
       ]
     }
     ```
-6. Update LICENSE year.
-7. Follow the steps described in [Creating Packages](#creating-packages) to complete the flow.
+6. Follow the steps described in [Creating Packages](#creating-packages) to complete the flow.
 
 ### Managing Dependencies
 
