@@ -16,7 +16,6 @@
   "private": false,
   "license": "MIT",
   "scripts": {
-    "coverage": "codecov",
     "test": "jest",
     "lint": "eslint \"**/*.{js,ts}\"",
     "lint:stage": "lint-staged",

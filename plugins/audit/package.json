@@ -31,7 +31,6 @@
     "build": "npm run build:types && npm run build:js",
     "build:js": "babel src/ --out-dir lib --extensions \".ts,.tsx\" --source-maps inline",
     "build:types": "tsc --emitDeclarationOnly",
-    "coverage": "codecov",
     "format": "eslint --fix \"**/*.{js,ts}\"",
     "lint": "eslint \"**/*.{js,ts}\"",
     "lint:stage": "lint-staged",
