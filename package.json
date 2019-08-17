@@ -32,6 +32,7 @@
   },
   "scripts": {
     "build": "lerna run build",
+    "coverage:publish": "codecov",
     "lint": "lerna run lint",
     "release": "lerna version --conventional-commits",
     "release:prerelease": "lerna version --conventional-commits --conventional-prerelease --preid next",

@@ -38,8 +38,7 @@
     "type-check": "tsc --noEmit",
     "type-check:watch": "npm run type-check -- --watch",
     "prepublish": "npm run build",
-    "build": "babel src/ --out-dir lib/ --copy-files --extensions \".ts,.tsx\"",
-    "coverage:publish": "codecov"
+    "build": "babel src/ --out-dir lib/ --copy-files --extensions \".ts,.tsx\""
   },
   "optionalDependencies": {
     "fast-crc32c": "1.0.4"

@@ -84,6 +84,9 @@ jobs:
       - run:
           name: Test with Node 12
           command: yarn test
+      - run:
+          name: Publish coverage
+          command: yarn coverage:publish
 
   test_node10:
     <<: *defaults
