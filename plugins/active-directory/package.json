@@ -1,0 +1,50 @@
+{
+  "name": "@verdaccio/active-directory",
+  "version": "8.0.0-next.3",
+  "description": "Active Directory authentication plugin for Verdaccio",
+  "keywords": [
+    "verdaccio",
+    "active-directory",
+    "auth",
+    "plugin"
+  ],
+  "author": "Sergio Herrera <sergio@sergiohgz.eu>",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib"
+  ],
+  "engines": {
+    "node": ">=8"
+  },
+  "dependencies": {
+    "@verdaccio/commons-api": "^8.0.0-next.2",
+    "activedirectory2": "1.2.7"
+  },
+  "devDependencies": {
+    "@types/activedirectory2": "^1.2.0",
+    "@verdaccio/babel-preset": "^8.0.0-next.2",
+    "@verdaccio/eslint-config": "^8.0.0-next.2",
+    "@verdaccio/types": "^8.0.0-next.2"
+  },
+  "scripts": {
+    "build": "npm run build:types && npm run build:js",
+    "build:js": "babel src --out-dir lib --extensions \".ts,.tsx\" --source-maps inline",
+    "build:types": "tsc --emitDeclarationOnly",
+    "lint": "eslint \"**/*.{js,ts}\"",
+    "lint:stage": "lint-staged",
+    "test": "jest",
+    "type-check": "tsc --noEmit",
+    "type-check:watch": "npm run type-check -- --watch"
+  },
+  "lint-staged": {
+    "**/*.{js,ts}": [
+      "eslint --fix",
+      "git add"
+    ]
+  }
+}
