@@ -22,6 +22,7 @@
     "node": ">=8"
   },
   "dependencies": {
+    "@verdaccio/commons-api": "^8.0.0-next.2",
     "activedirectory2": "1.2.7"
   },
   "devDependencies": {

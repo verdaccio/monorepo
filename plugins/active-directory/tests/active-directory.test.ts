@@ -2,6 +2,7 @@
 import ActiveDirectory from 'activedirectory2';
 import ActiveDirectoryPlugin, { NotAuthMessage } from '../src/active-directory';
 import logger from './__mocks__/Logger';
+import { HTTP_STATUS } from '@verdaccio/commons-api';
 
 describe('Active Directory Plugin', () => {
   let adPlugin;
@@ -41,7 +42,8 @@ describe('Active Directory Plugin', () => {
     adPlugin.authenticate('', '', (error, authUser) => {
       expect(ActiveDirectory.prototype.authenticate).toHaveBeenCalled();
       expect(logger.warn).toHaveBeenCalled();
-      expect(error).toBe(errorMessage);
+      expect(error.code).toBe(HTTP_STATUS.INTERNAL_ERROR);
+      expect(error.message).toBe(errorMessage);
       expect(authUser).toBeUndefined();
       done();
     });
@@ -53,6 +55,7 @@ describe('Active Directory Plugin', () => {
     adPlugin.authenticate('', '', (error, authUser) => {
       expect(ActiveDirectory.prototype.authenticate).toHaveBeenCalled();
       expect(logger.warn).toHaveBeenCalledWith(NotAuthMessage);
+      expect(error.code).toBe(HTTP_STATUS.UNAUTHORIZED);
       expect(error.message).toBe(NotAuthMessage);
       expect(authUser).toBeUndefined();
       done();
@@ -85,23 +88,28 @@ describe('Active Directory Plugin', () => {
       // @ts-ignore
       expect(ActiveDirectory.prototype.getGroupMembershipForUser).toHaveBeenCalled();
       expect(logger.warn).toHaveBeenCalled();
-      expect(error).toBe(errorMessage);
+      expect(error.code).toBe(HTTP_STATUS.INTERNAL_ERROR);
+      expect(error.message).toBe(errorMessage);
       expect(authUser).toBeUndefined();
       done();
     });
   });
 
   test('get error when user groups do not match', done => {
+    const user = 'user';
+    const password = 'password';
+
     ActiveDirectory.prototype.authenticate = jest.fn((_1, _2, cb) => cb(null, true));
     // @ts-ignore
     ActiveDirectory.prototype.getGroupMembershipForUser = jest.fn((_, cb) => cb(null, [{ cn: 'notMatchGroup' }]));
 
-    adPluginSingleGroup.authenticate('', '', (error, authUser) => {
+    adPluginSingleGroup.authenticate(user, password, (error, authUser) => {
       expect(ActiveDirectory.prototype.authenticate).toHaveBeenCalled();
       // @ts-ignore
       expect(ActiveDirectory.prototype.getGroupMembershipForUser).toHaveBeenCalled();
       expect(logger.warn).toHaveBeenCalled();
-      expect(error).toBeDefined();
+      expect(error.code).toBe(HTTP_STATUS.FORBIDDEN);
+      expect(error.message).toBe(`AD - User ${user} is not member of group(s): ${configSingleGroup.groupName}`);
       expect(authUser).toBeUndefined();
       done();
     });
