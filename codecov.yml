@@ -2,10 +2,10 @@ coverage:
   status:
     project:
       default:
-        target: 50%
+        target: 60%
       core:
         flags: core
-        target: 50%
+        target: 80%
       plugins:
         flags: plugins
         target: 50%
