@@ -21,6 +21,7 @@
   },
   "main": "lib/index.js",
   "scripts": {
+    "coverage:publish": "codecov --root=../../ -F plugins",
     "test": "jest",
     "lint": "eslint \"**/*.{js,ts}\"",
     "lint:stage": "lint-staged",

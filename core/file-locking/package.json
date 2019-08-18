@@ -32,6 +32,7 @@
     "build": "npm run build:types && npm run build:js",
     "build:js": "babel src/ --out-dir lib/  --ignore **/__tests__ --extensions \".ts,.tsx\"",
     "build:types": "tsc --emitDeclarationOnly",
+    "coverage:publish": "codecov --root=../../ -F core",
     "lint": "eslint \"**/*.{js,ts}\"",
     "lint:stage": "lint-staged",
     "test": "jest",

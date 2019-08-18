@@ -39,6 +39,7 @@
     "rmdir-sync": "^1.0.1"
   },
   "scripts": {
+    "coverage:publish": "codecov --root=../../ -F plugins",
     "build": "npm run build:types && npm run build:js",
     "build:js": "babel src/ --out-dir lib --extensions \".ts,.tsx\" --source-maps inline",
     "build:types": "tsc --emitDeclarationOnly",

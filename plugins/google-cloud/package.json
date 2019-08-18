@@ -32,6 +32,7 @@
     "memory-fs": "0.4.1"
   },
   "scripts": {
+    "coverage:publish": "codecov --root=../../ -F plugins",
     "test": " jest --config ./jest.config.js",
     "format": "prettier --single-quote --trailing-comma none --write \"{src,test}/**/*.ts\"",
     "lint": "eslint \"**/*.{js,ts}\"",

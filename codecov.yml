@@ -1,0 +1,29 @@
+coverage:
+  status:
+    project:
+      default:
+        target: 50%
+      core:
+        flags: core
+        target: 50%
+      plugins:
+        flags: plugins
+        target: 50%
+
+flags:
+  core:
+    paths:
+      - core/commons-api
+      - core/file-locking
+      - core/readme
+      - core/streams
+  plugins:
+    paths:
+      - plugins/active-directory
+      - plugins/audit
+      - plugins/auth-memory
+      - plugins/aws-s3-storage
+      - plugins/google-cloud
+      - plugins/htpasswd
+      - plugins/local-storage
+      - plugins/memory
