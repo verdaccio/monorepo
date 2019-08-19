@@ -1,0 +1,28 @@
+# Verdaccio in-memory if publish will work correctly
+# It uses:
+# - verdaccio-auth-memory as in memory authentication
+# - verdaccio-memory as in memory storage
+# IMPORTANT: This configuration has too much security lacks to use in production.
+# Please, don't use it on production, only for testing purpose
+
+auth:
+  auth-memory:
+    users:
+      user:
+        name: user
+        password: test
+store:
+  memory:
+    limit: 200
+uplinks:
+  npmjs:
+    url: https://registry.npmjs.org/
+packages:
+  '@*/*':
+    access: $all
+    publish: $authenticated
+    proxy: npmjs
+  '**':
+    access: $all
+    publish: $authenticated
+    proxy: npmjs

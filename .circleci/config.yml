@@ -106,6 +106,44 @@ jobs:
           name: Test with Node 8
           command: yarn test
 
+  test_publish:
+    <<: *defaults
+    <<: *default_executor
+    steps:
+      - *restore_repo
+      - run:
+          name: 'Install tools to run a Verdaccio in memory'
+          command: |
+            yarn global add verdaccio verdaccio-auth-memory verdaccio-memory nohup npm-auth-to-token
+            tmp_registry_log=`mktemp`
+            nohup verdaccio -c verdaccio.yml 2>&1 &>$tmp_registry_log &
+            grep -q 'http address' <(tail -f $tmp_registry_log)
+      - run:
+          name: 'Setup local registry credentials'
+          command: npm-auth-to-token -u user -p test -e test@test.com -r http://localhost:4873
+      - run:
+          name: 'Try to publish release to local registry'
+          command: yarn release:publish --yes --registry=http://localhost:4873
+
+  test_publish_prerelease:
+    <<: *defaults
+    <<: *default_executor
+    steps:
+      - *restore_repo
+      - run:
+          name: 'Install tools to run a Verdaccio in memory'
+          command: |
+            yarn global add verdaccio verdaccio-auth-memory verdaccio-memory nohup npm-auth-to-token
+            tmp_registry_log=`mktemp`
+            nohup verdaccio -c verdaccio.yml 2>&1 &>$tmp_registry_log &
+            grep -q 'http address' <(tail -f $tmp_registry_log)
+      - run:
+          name: 'Setup local registry credentials'
+          command: npm-auth-to-token -u user -p test -e test@test.com -r http://localhost:4873
+      - run:
+          name: 'Try to publish release to local registry'
+          command: yarn release:publish-prerelease --yes --registry=http://localhost:4873
+
   publish:
     <<: *defaults
     <<: *default_executor
@@ -152,17 +190,25 @@ workflows:
           requires:
             - prepare
           <<: *ignore_non_dev_branches
-      - publish:
+      - test_publish:
           requires:
             - lint
             - test_node12
             - test_node10
             - test_node8
           <<: *execute_on_release
-      - publish_prerelease:
+      - test_publish_prerelease:
           requires:
             - lint
             - test_node12
             - test_node10
             - test_node8
+          <<: *execute_on_release_prerelease
+      - publish:
+          requires:
+            - test_publish
+          <<: *execute_on_release
+      - publish_prerelease:
+          requires:
+            - test_publish_prerelease
           <<: *execute_on_release_prerelease
