@@ -35,8 +35,9 @@
     "coverage:publish": "codecov && lerna run coverage:publish -- -f coverage/lcov.info",
     "lint": "lerna run lint",
     "release": "lerna version --conventional-commits",
-    "release:prerelease": "lerna version --conventional-commits --conventional-prerelease --preid next",
+    "publish:canary": "lerna publish --canary",
     "release:from-prerelease": "lerna version --conventional-commits --conventional-graduate",
+    "release:prerelease": "lerna version --conventional-commits --conventional-prerelease --preid next",
     "release:publish": "lerna publish from-git",
     "release:publish-prerelease": "lerna publish from-git --pre-dist-tag next",
     "test": "lerna run test"
