@@ -31,7 +31,7 @@
     "@verdaccio/file-locking": "1.0.0",
     "apache-md5": "1.1.2",
     "bcryptjs": "2.4.3",
-    "http-errors": "1.7.2",
+    "http-errors": "1.7.3",
     "unix-crypt-td-js": "1.0.0"
   },
   "devDependencies": {
@@ -41,7 +41,7 @@
     "@verdaccio/eslint-config": "^8.0.0-next.4",
     "@verdaccio/types": "^8.0.0-next.4",
     "cross-env": "^5.2.0",
-    "get-stdin": "^6.0.0",
+    "get-stdin": "^7.0.0",
     "in-publish": "^2.0.0"
   },
   "engines": {
