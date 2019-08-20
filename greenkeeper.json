@@ -1,0 +1,47 @@
+{
+  "groups": {
+    "common": {
+      "packages": [
+        "package.json"
+      ]
+    },
+    "core": {
+      "packages": [
+        "core/commons-api/package.json",
+        "core/file-locking/package.json",
+        "core/readme/package.json",
+        "core/streams/package.json",
+        "core/types/package.json"
+      ]
+    },
+    "plugins": {
+      "packages": [
+        "plugins/active-directory/package.json",
+        "plugins/audit/package.json",
+        "plugins/auth-memory/package.json",
+        "plugins/aws-s3-storage/package.json",
+        "plugins/google-cloud/package.json",
+        "plugins/htpasswd/package.json",
+        "plugins/local-storage/package.json",
+        "plugins/memory/package.json"
+      ]
+    },
+    "tools": {
+      "packages": [
+        "tools/babel-preset/package.json",
+        "tools/eslint-config/package.json",
+        "tools/eslint-plugin-verdaccio/package.json"
+      ]
+    }
+  },
+  "ignore": [
+    "@verdaccio/commons-api",
+    "@verdaccio/file-locking",
+    "@verdaccio/readme",
+    "@verdaccio/streams",
+    "@verdaccio/types",
+    "@verdaccio/babel-preset",
+    "@verdaccio/eslint-config",
+    "eslint-plugin-verdaccio"
+  ]
+}
