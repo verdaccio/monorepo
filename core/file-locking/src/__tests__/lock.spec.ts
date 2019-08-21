@@ -6,11 +6,11 @@ interface Error {
   message: string;
 }
 
-const getFilePath = (filename: string) => {
+const getFilePath = (filename: string): string => {
   return path.resolve(__dirname, `assets/${filename}`);
 };
 
-const removeTempFile = (filename: string) => {
+const removeTempFile = (filename: string): void => {
   const filepath = getFilePath(filename);
   fs.unlink(filepath, error => {
     if (error) throw error;
