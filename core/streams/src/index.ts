@@ -19,13 +19,13 @@ class ReadTarball extends PassThrough implements IReadTarball {
    *
    * @param {Object} options
    */
-  constructor(options: any) {
+  public constructor(options: any) {
     super(options);
     // called when data is not needed anymore
     addAbstractMethods(this, 'abort');
   }
 
-  abort() {}
+  public abort(): void {}
 }
 
 /**
@@ -38,7 +38,7 @@ class UploadTarball extends PassThrough implements IUploadTarball {
    *
    * @param {Object} options
    */
-  constructor(options: any) {
+  public constructor(options: any) {
     super(options);
     // called when user closes connection before upload finishes
     addAbstractMethods(this, 'abort');
@@ -47,8 +47,8 @@ class UploadTarball extends PassThrough implements IUploadTarball {
     addAbstractMethods(this, 'done');
   }
 
-  abort() {}
-  done() {}
+  public abort(): void {}
+  public done(): void {}
 }
 
 /**
@@ -58,11 +58,11 @@ class UploadTarball extends PassThrough implements IUploadTarball {
  * @param {*} name
  */
 // Perhaps someone knows a better way to write this
-function addAbstractMethods(self: any, name: any) {
+function addAbstractMethods(self: any, name: any): void {
   self._called_methods = self._called_methods || {};
 
   self.__defineGetter__(name, function() {
-    return function() {
+    return function(): void {
       self._called_methods[name] = true;
     };
   });

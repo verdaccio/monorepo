@@ -5,10 +5,10 @@ describe('mystreams', () => {
     const readTballStream = new ReadTarball({});
     readTballStream.abort();
     setTimeout(function() {
-      readTballStream.abort = function() {
+      readTballStream.abort = function(): void {
         cb();
       };
-      readTballStream.abort = function() {
+      readTballStream.abort = function(): never {
         throw Error('fail');
       };
     }, 10);
@@ -18,10 +18,10 @@ describe('mystreams', () => {
     const uploadTballStream = new UploadTarball({});
     uploadTballStream.abort();
     setTimeout(function() {
-      uploadTballStream.abort = function() {
+      uploadTballStream.abort = function(): void {
         cb();
       };
-      uploadTballStream.abort = function() {
+      uploadTballStream.abort = function(): never {
         throw Error('fail');
       };
     }, 10);
