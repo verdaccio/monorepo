@@ -56,7 +56,7 @@ export const API_MESSAGE = {
 };
 
 export const API_ERROR = {
-  PASSWORD_SHORT: (passLength: number = DEFAULT_MIN_LIMIT_PASSWORD) =>
+  PASSWORD_SHORT: (passLength = DEFAULT_MIN_LIMIT_PASSWORD): string =>
     `The provided password is too short. Please pick a password longer than ${passLength} characters.`,
   MUST_BE_LOGGED: 'You must be logged in to publish packages.',
   PLUGIN_ERROR: 'bug in the auth plugin system',
@@ -117,11 +117,11 @@ export function getInternalError(customMessage?: string): VerdaccioError {
     : getError(HTTP_STATUS.INTERNAL_ERROR, API_ERROR.UNKNOWN_ERROR);
 }
 
-export function getUnauthorized(message: string = 'no credentials provided'): VerdaccioError {
+export function getUnauthorized(message = 'no credentials provided'): VerdaccioError {
   return getError(HTTP_STATUS.UNAUTHORIZED, message);
 }
 
-export function getForbidden(message: string = "can't use this filename"): VerdaccioError {
+export function getForbidden(message = "can't use this filename"): VerdaccioError {
   return getError(HTTP_STATUS.FORBIDDEN, message);
 }
 
