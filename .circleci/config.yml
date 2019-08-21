@@ -123,7 +123,13 @@ jobs:
             nohup verdaccio -c verdaccio.yml 2>&1 &>$tmp_registry_log &
             grep -q 'http address' <(tail -f $tmp_registry_log)
             npm-auth-to-token -u user -p test -e test@test.com -r http://localhost:4873
-            yarn publish:canary --yes --no-push --registry=http://localhost:4873
+            yarn publish:canary --yes --no-push --preid=$CIRCLE_BRANCH --registry=http://localhost:4873
+      - run:
+          name: 'Setup publish credentials for our Verdaccio instance'
+          command: echo "//registry.verdaccio.org/:_authToken=${VERDACCIO_TOKEN}" > ~/.npmrc
+      - run:
+          name: 'Publish canary version in our Verdaccio instance'
+          command: yarn publish:canary --yes --no-push --preid=$CIRCLE_BRANCH --registry=https://registry.verdaccio.org
 
   publish:
     <<: *defaults
