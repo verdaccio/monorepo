@@ -299,7 +299,7 @@ Also, it's important to note that we prefer to use caret (`^`) when managing `de
 
 _This section is optional_
 
-For those inexperienced developer or who only want to make some simple changes (like improving documentation) or who only want to program in the same environment we use to develop, we want to help you with an isolated development environment.
+For those inexperienced developers or who only want to make some simple changes (like improving documentation) or who only want to program in the same environment we use to develop, we want to help you with an isolated development environment.
 
 VSCode Remote Development Environment allows us to define a container where you will have the source code, your SSH credentials and a set of plugins and settings we think you would need to work.
 
