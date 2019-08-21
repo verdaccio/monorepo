@@ -2533,10 +2533,10 @@
     "@types/node" "*"
     "@types/range-parser" "*"
 
-"@types/express@4.16.1":
-  version "4.16.1"
-  resolved "https://registry.verdaccio.org/@types%2fexpress/-/express-4.16.1.tgz#d756bd1a85c34d87eaf44c888bad27ba8a4b7cf0"
-  integrity sha512-V0clmJow23WeyblmACoxbHBu2JKlE5TiIme6Lem14FnPW9gsttyHtk6wq7njcdIWH1njAaFgR8gW09lgY98gQg==
+"@types/express@^4.17.1":
+  version "4.17.1"
+  resolved "https://registry.verdaccio.org/@types%2fexpress/-/express-4.17.1.tgz#4cf7849ae3b47125a567dfee18bfca4254b88c5c"
+  integrity sha512-VfH/XCP0QbQk5B5puLqTLEeFgR8lfCJHZJKkInZ9mkYd+u8byX0kztXEQxEk4wZXJs8HI+7km2ALXjn4YKcX9w==
   dependencies:
     "@types/body-parser" "*"
     "@types/express-serve-static-core" "*"
@@ -2647,7 +2647,7 @@
   resolved "https://registry.verdaccio.org/@types%2frange-parser/-/range-parser-1.2.3.tgz#7ee330ba7caafb98090bece86a5ee44115904c2c"
   integrity sha512-ewFXqrQHlFsgc09MK5jP5iR7vumV/BYayNC6PgJO2LPe8vrnNFyjQjSppfEngITi0qvfKtzFvgKymGheFM9UOA==
 
-"@types/request@2.48.2":
+"@types/request@^2.48.2":
   version "2.48.2"
   resolved "https://registry.verdaccio.org/@types%2frequest/-/request-2.48.2.tgz#936374cbe1179d7ed529fc02543deb4597450fed"
   integrity sha512-gP+PSFXAXMrd5PcD7SqHeUjdGshAI8vKQ3+AvpQr3ht9iQea+59LOKvKITcQI+Lg+1EIkDP6AFSBUJPWG8GDyA==
