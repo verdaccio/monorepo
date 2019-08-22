@@ -48,12 +48,10 @@ class ActiveDirectoryPlugin implements IPluginAuth<ActiveDirectoryConfig> {
         this.logger.info('AD - Active Directory authentication succeeded');
         cb(null, [user]);
       } else {
-        // TODO check for updates on @types/activedirectory2 or add types for this fn
-        // @ts-ignore
         connection.getGroupMembershipForUser(username, (err, groups: object[]): void => {
           if (err) {
             this.logger.warn(`AD - Active Directory group check failed with error: ${err}`);
-            return cb(getInternalError(err));
+            return cb(getInternalError((err as unknown) as string));
           }
 
           const requestedGroups = Array.isArray(groupName) ? groupName : [groupName];
