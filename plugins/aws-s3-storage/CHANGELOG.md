@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.0.0](https://github.com/verdaccio/verdaccio-aws-s3-storage/compare/v8.0.0-next.4...v8.0.0) (2019-08-22)
+
+
+### Bug Fixes
+
+* **package:** update aws-sdk to version 2.514.0 ([16860e6](https://github.com/verdaccio/verdaccio-aws-s3-storage/commit/16860e6))
+* **package:** update aws-sdk to version 2.515.0 ([eed8547](https://github.com/verdaccio/verdaccio-aws-s3-storage/commit/eed8547))
+
+
+
+
+
 # [8.0.0-next.4](https://github.com/verdaccio/verdaccio-aws-s3-storage/compare/v8.0.0-next.3...v8.0.0-next.4) (2019-08-18)
 
 **Note:** Version bump only for package verdaccio-aws-s3-storage

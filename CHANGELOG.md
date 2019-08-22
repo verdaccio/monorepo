@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.0.0](https://github.com/verdaccio/monorepo/compare/v8.0.0-next.4...v8.0.0) (2019-08-22)
+
+
+### Bug Fixes
+
+* **package:** update aws-sdk to version 2.514.0 ([16860e6](https://github.com/verdaccio/monorepo/commit/16860e6))
+* **package:** update aws-sdk to version 2.515.0 ([eed8547](https://github.com/verdaccio/monorepo/commit/eed8547))
+* **package:** update eslint-plugin-jest to version 22.15.2 ([35a191c](https://github.com/verdaccio/monorepo/commit/35a191c))
+
+
+
+
+
 # [8.0.0-next.4](https://github.com/verdaccio/monorepo/compare/v8.0.0-next.3...v8.0.0-next.4) (2019-08-18)
 
 
