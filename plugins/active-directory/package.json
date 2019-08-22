@@ -26,7 +26,7 @@
     "activedirectory2": "1.2.7"
   },
   "devDependencies": {
-    "@types/activedirectory2": "^1.2.0",
+    "@types/activedirectory2": "^1.2.1",
     "@verdaccio/babel-preset": "^8.0.0",
     "@verdaccio/eslint-config": "^8.0.0",
     "@verdaccio/types": "^8.0.0"

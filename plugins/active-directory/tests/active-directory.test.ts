@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import ActiveDirectory from 'activedirectory2';
 import ActiveDirectoryPlugin, { NotAuthMessage } from '../src/active-directory';
 import logger from './__mocks__/Logger';
@@ -80,12 +79,12 @@ describe('Active Directory Plugin', () => {
   test('get error when getting groups for user', done => {
     const errorMessage = 'Unknown error retrieving groups';
     ActiveDirectory.prototype.authenticate = jest.fn((_1, _2, cb) => cb(null, true));
-    // @ts-ignore
-    ActiveDirectory.prototype.getGroupMembershipForUser = jest.fn((_, cb) => cb(errorMessage));
+    ActiveDirectory.prototype.getGroupMembershipForUser = jest.fn((_, cb) =>
+      cb((errorMessage as unknown) as object, null)
+    ) as jest.Mock;
 
     adPluginSingleGroup.authenticate('', '', (error, authUser) => {
       expect(ActiveDirectory.prototype.authenticate).toHaveBeenCalled();
-      // @ts-ignore
       expect(ActiveDirectory.prototype.getGroupMembershipForUser).toHaveBeenCalled();
       expect(logger.warn).toHaveBeenCalled();
       expect(error.code).toBe(HTTP_STATUS.INTERNAL_ERROR);
@@ -100,12 +99,12 @@ describe('Active Directory Plugin', () => {
     const password = 'password';
 
     ActiveDirectory.prototype.authenticate = jest.fn((_1, _2, cb) => cb(null, true));
-    // @ts-ignore
-    ActiveDirectory.prototype.getGroupMembershipForUser = jest.fn((_, cb) => cb(null, [{ cn: 'notMatchGroup' }]));
+    ActiveDirectory.prototype.getGroupMembershipForUser = jest.fn((_, cb) =>
+      cb(null, [{ cn: 'notMatchGroup' }])
+    ) as jest.Mock;
 
     adPluginSingleGroup.authenticate(user, password, (error, authUser) => {
       expect(ActiveDirectory.prototype.authenticate).toHaveBeenCalled();
-      // @ts-ignore
       expect(ActiveDirectory.prototype.getGroupMembershipForUser).toHaveBeenCalled();
       expect(logger.warn).toHaveBeenCalled();
       expect(error.code).toBe(HTTP_STATUS.FORBIDDEN);
@@ -121,12 +120,12 @@ describe('Active Directory Plugin', () => {
     const password = 'password';
 
     ActiveDirectory.prototype.authenticate = jest.fn((_1, _2, cb) => cb(null, true));
-    // @ts-ignore
-    ActiveDirectory.prototype.getGroupMembershipForUser = jest.fn((_, cb) => cb(null, [{ cn: groupName }]));
+    ActiveDirectory.prototype.getGroupMembershipForUser = jest.fn((_, cb) =>
+      cb(null, [{ cn: groupName }])
+    ) as jest.Mock;
 
     adPluginSingleGroup.authenticate(user, password, (error, authUser) => {
       expect(ActiveDirectory.prototype.authenticate).toHaveBeenCalled();
-      // @ts-ignore
       expect(ActiveDirectory.prototype.getGroupMembershipForUser).toHaveBeenCalled();
       expect(logger.info).toHaveBeenCalled();
       expect(error).toBeNull();
@@ -141,14 +140,12 @@ describe('Active Directory Plugin', () => {
     const password = 'password';
 
     ActiveDirectory.prototype.authenticate = jest.fn((_1, _2, cb) => cb(null, true));
-    // @ts-ignore
     ActiveDirectory.prototype.getGroupMembershipForUser = jest.fn((_, cb) =>
       cb(null, [{ cn: group2 }, { dn: group3 }])
-    );
+    ) as jest.Mock;
 
     adPluginMultiGroups.authenticate(user, password, (error, authUser) => {
       expect(ActiveDirectory.prototype.authenticate).toHaveBeenCalled();
-      // @ts-ignore
       expect(ActiveDirectory.prototype.getGroupMembershipForUser).toHaveBeenCalled();
       expect(logger.info).toHaveBeenCalled();
       expect(error).toBeNull();

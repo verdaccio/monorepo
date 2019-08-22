@@ -2436,10 +2436,10 @@
   dependencies:
     any-observable "^0.3.0"
 
-"@types/activedirectory2@^1.2.0":
-  version "1.2.0"
-  resolved "https://registry.verdaccio.org/@types%2factivedirectory2/-/activedirectory2-1.2.0.tgz#7bff73039bacfde637468190faf257329065ea33"
-  integrity sha512-j/g+jSFICP1twYfREZH9E53dRXqjFy6/W8GRQ0BuTich8iCGrZPZwJkkPcilT2LFRf7NEv2Z4ksBtB0ORNnS6g==
+"@types/activedirectory2@^1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@types/activedirectory2/-/activedirectory2-1.2.1.tgz#ed1290b71bbe4a5fbb443b2d4a64ee010d2e1a66"
+  integrity sha512-/SUAFASJ/WGYzZ+KkYC0PSsP0tw3Pm659wmiZPJDZGZK+v0UrnseMFS28molozZSYU8x7l/k9J5440DIgsfwkA==
   dependencies:
     "@types/ldapjs" "*"
 
