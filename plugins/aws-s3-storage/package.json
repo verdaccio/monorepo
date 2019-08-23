@@ -43,11 +43,5 @@
     "@verdaccio/types": "^5.3.0",
     "cross-env": "5.2.0",
     "recursive-readdir": "2.2.2"
-  },
-  "lint-staged": {
-    "**/*.{js,ts}": [
-      "eslint --fix",
-      "git add"
-    ]
   }
 }

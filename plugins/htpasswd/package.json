@@ -51,11 +51,5 @@
     "extends": [
       "@commitlint/config-conventional"
     ]
-  },
-  "lint-staged": {
-    "**/*.{js,ts}": [
-      "eslint --fix",
-      "git add"
-    ]
   }
 }

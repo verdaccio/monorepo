@@ -24,11 +24,5 @@
     "lint": "eslint \"**/*.js\"",
     "lint:stage": "lint-staged",
     "test": "mocha tests --recursive"
-  },
-  "lint-staged": {
-    "**/*.js": [
-      "eslint --fix",
-      "git add"
-    ]
   }
 }

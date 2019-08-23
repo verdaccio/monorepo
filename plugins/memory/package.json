@@ -39,11 +39,5 @@
     "test": "jest",
     "type-check": "tsc --noEmit",
     "type-check:watch": "npm run type-check -- --watch"
-  },
-  "lint-staged": {
-    "**/*.{js,ts}": [
-      "eslint --fix",
-      "git add"
-    ]
   }
 }

@@ -43,11 +43,5 @@
   },
   "optionalDependencies": {
     "fast-crc32c": "1.0.4"
-  },
-  "lint-staged": {
-    "*.{ts, json}": [
-      "eslint --fix",
-      "git add"
-    ]
   }
 }

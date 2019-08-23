@@ -44,8 +44,14 @@
   "husky": {
     "hooks": {
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS --verbose",
-      "pre-commit": "lerna run lint:stage"
+      "pre-commit": "lint-staged"
     }
+  },
+  "lint-staged": {
+    "**/*.{js,ts}": [
+      "eslint --fix",
+      "git add"
+    ]
   },
   "commitlint": {
     "extends": [
