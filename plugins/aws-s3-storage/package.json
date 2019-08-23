@@ -34,7 +34,7 @@
   "dependencies": {
     "@verdaccio/commons-api": "^0.1.2",
     "@verdaccio/streams": "^2.0.0",
-    "aws-sdk": "2.516.0"
+    "aws-sdk": "2.517.0"
   },
   "devDependencies": {
     "@types/aws-sdk": "2.7.0",
