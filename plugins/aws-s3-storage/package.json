@@ -40,7 +40,7 @@
     "@types/aws-sdk": "2.7.0",
     "@verdaccio/babel-preset": "^8.0.0",
     "@verdaccio/eslint-config": "^8.0.0",
-    "@verdaccio/types": "^5.3.0",
+    "@verdaccio/types": "^8.0.0",
     "cross-env": "5.2.0",
     "recursive-readdir": "2.2.2"
   }
