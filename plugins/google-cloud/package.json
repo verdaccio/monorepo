@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "@google-cloud/datastore": "4.2.0",
-    "@google-cloud/storage": "3.2.0",
+    "@google-cloud/storage": "3.2.1",
     "@verdaccio/commons-api": "^0.1.2",
     "@verdaccio/streams": "2.0.0"
   },
