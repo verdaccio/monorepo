@@ -15,6 +15,15 @@
   "author": "Ayush Sharma <ayush.aceit@gmail.com>",
   "private": false,
   "license": "MIT",
+  "homepage": "https://verdaccio.org",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/verdaccio/monorepo",
+    "directory": "plugins/htpasswd"
+  },
+  "bugs": {
+    "url": "https://github.com/verdaccio/monorepo/issues"
+  },
   "scripts": {
     "coverage:publish": "codecov --root=../../ -F plugins",
     "test": "jest",

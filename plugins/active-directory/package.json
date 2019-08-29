@@ -10,6 +10,15 @@
   ],
   "author": "Sergio Herrera <sergio@sergiohgz.eu>",
   "license": "MIT",
+  "homepage": "https://verdaccio.org",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/verdaccio/monorepo",
+    "directory": "plugins/active-directory"
+  },
+  "bugs": {
+    "url": "https://github.com/verdaccio/monorepo/issues"
+  },
   "publishConfig": {
     "access": "public"
   },
