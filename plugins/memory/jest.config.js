@@ -1,5 +1,3 @@
-/* eslint comma-dangle: 0 */
-
 module.exports = {
   name: 'memory-storage-jest',
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],

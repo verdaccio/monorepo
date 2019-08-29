@@ -1,5 +1,3 @@
-/* eslint comma-dangle: 0 */
-
 module.exports = {
   name: 'verdaccio-streams',
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],

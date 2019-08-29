@@ -87,6 +87,7 @@ class GoogleCloudStorageHandler implements IPackageStorageManager {
     try {
       file
         .delete()
+        // @ts-ignore
         .then((data: [Response]): void => {
           const apiResponse = data[0];
           this.logger.debug({ name: file.name }, 'gcloud: @{name} was deleted successfully from storage');

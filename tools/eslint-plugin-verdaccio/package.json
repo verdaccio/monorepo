@@ -19,6 +19,9 @@
     "url": "https://github.com/verdaccio/monorepo/issues"
   },
   "main": "lib/index.js",
+  "files": [
+    "lib/"
+  ],
   "engines": {
     "node": ">=8"
   },

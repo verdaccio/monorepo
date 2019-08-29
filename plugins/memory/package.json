@@ -42,7 +42,6 @@
     "build:js": "babel src/ --out-dir lib --extensions \".ts,.tsx\" --source-maps inline",
     "build:types": "tsc --emitDeclarationOnly",
     "coverage:publish": "codecov --root=../../ -F plugins",
-    "format": "prettier --single-quote --trailing-comma none --write \"{src,test}/**/*.ts\"",
     "lint": "eslint \"**/*.{js,ts}\"",
     "lint:stage": "lint-staged",
     "test": "jest",
