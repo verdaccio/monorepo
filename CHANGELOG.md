@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.0.1-next.1](https://github.com/verdaccio/monorepo/compare/v8.0.1-next.0...v8.0.1-next.1) (2019-08-29)
+
+**Note:** Version bump only for package @verdaccio/monorepo
+
+
+
+
+
+## [8.0.1-next.0](https://github.com/verdaccio/monorepo/compare/v8.0.0...v8.0.1-next.0) (2019-08-29)
+
+
+### Bug Fixes
+
+* **package:** update @google-cloud/storage to version 3.2.0 ([8a0b0dc](https://github.com/verdaccio/monorepo/commit/8a0b0dc))
+* **package:** update aws-sdk to version 2.516.0 ([82f7117](https://github.com/verdaccio/monorepo/commit/82f7117))
+* **package:** update aws-sdk to version 2.517.0 ([39183eb](https://github.com/verdaccio/monorepo/commit/39183eb))
+* **package:** update aws-sdk to version 2.518.0 ([c4f18a6](https://github.com/verdaccio/monorepo/commit/c4f18a6))
+* **package:** update babel-eslint to version 10.0.3 ([16918f5](https://github.com/verdaccio/monorepo/commit/16918f5))
+* **package:** update babel-eslint to version 10.0.3 ([a6d65fa](https://github.com/verdaccio/monorepo/commit/a6d65fa))
+
+
+
+
+
 # [8.0.0](https://github.com/verdaccio/monorepo/compare/v8.0.0-next.4...v8.0.0) (2019-08-22)
 
 

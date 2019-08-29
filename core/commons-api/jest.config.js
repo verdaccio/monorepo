@@ -1,5 +1,3 @@
-/* eslint comma-dangle: 0 */
-
 module.exports = {
   name: 'common-api-jest',
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],

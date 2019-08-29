@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/file-locking",
-  "version": "8.0.0",
+  "version": "8.0.1-next.1",
   "description": "library that handle file locking",
   "keywords": [
     "verdaccio",
@@ -9,6 +9,15 @@
   ],
   "author": "Juan Picado <juanpicado19@gmail.com>",
   "license": "MIT",
+  "homepage": "https://verdaccio.org",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/verdaccio/monorepo",
+    "directory": "core/file-locking"
+  },
+  "bugs": {
+    "url": "https://github.com/verdaccio/monorepo/issues"
+  },
   "publishConfig": {
     "access": "public"
   },
@@ -24,9 +33,9 @@
     "lockfile": "1.0.4"
   },
   "devDependencies": {
-    "@verdaccio/babel-preset": "^8.0.0",
-    "@verdaccio/eslint-config": "^8.0.0",
-    "@verdaccio/types": "^8.0.0"
+    "@verdaccio/babel-preset": "^8.0.1-next.1",
+    "@verdaccio/eslint-config": "^8.0.1-next.1",
+    "@verdaccio/types": "^8.0.1-next.1"
   },
   "scripts": {
     "build": "npm run build:types && npm run build:js",

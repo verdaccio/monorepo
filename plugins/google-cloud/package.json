@@ -1,27 +1,36 @@
 {
   "name": "verdaccio-google-cloud",
-  "version": "8.0.0",
-  "description": "verdaccio storage plugin implementation for google cloud",
+  "version": "8.0.1-next.1",
+  "description": "Google Cloud storage implementation for Verdaccio",
   "keywords": [
     "verdaccio",
-    "verdaccio-plugin",
+    "plugin",
+    "storage",
     "google-cloud",
-    "datastore",
-    "storage"
+    "datastore"
   ],
-  "main": "lib/index.js",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/verdaccio/verdaccio-google-cloud"
-  },
   "author": "Juan Picado <juanpicado19@gmail.com>",
   "license": "MIT",
+  "homepage": "https://verdaccio.org",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/verdaccio/monorepo",
+    "directory": "plugins/google-cloud"
+  },
+  "bugs": {
+    "url": "https://github.com/verdaccio/monorepo/issues"
+  },
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib/"
+  ],
   "engines": {
     "node": ">=8"
   },
   "dependencies": {
     "@google-cloud/datastore": "4.2.0",
-    "@google-cloud/storage": "3.2.0",
+    "@google-cloud/storage": "3.2.1",
     "@verdaccio/commons-api": "^0.1.2",
     "@verdaccio/streams": "2.0.0"
   },
@@ -31,17 +40,17 @@
     "@verdaccio/types": "7.0.0",
     "memory-fs": "0.4.1"
   },
-  "scripts": {
-    "coverage:publish": "codecov --root=../../ -F plugins",
-    "test": " jest --config ./jest.config.js",
-    "format": "prettier --single-quote --trailing-comma none --write \"{src,test}/**/*.ts\"",
-    "lint": "eslint \"**/*.{js,ts}\"",
-    "type-check": "tsc --noEmit",
-    "type-check:watch": "npm run type-check -- --watch",
-    "prepublish": "npm run build",
-    "build": "babel src/ --out-dir lib/ --copy-files --extensions \".ts,.tsx\""
-  },
   "optionalDependencies": {
     "fast-crc32c": "1.0.4"
+  },
+  "scripts": {
+    "build": "npm run build:types && npm run build:js",
+    "build:js": "babel src/ --out-dir lib --extensions \".ts,.tsx\" --source-maps inline",
+    "build:types": "tsc --emitDeclarationOnly",
+    "coverage:publish": "codecov --root=../../ -F plugins",
+    "lint": "eslint \"**/*.{js,ts}\"",
+    "test": " jest --config ./jest.config.js",
+    "type-check": "tsc --noEmit",
+    "type-check:watch": "npm run type-check -- --watch"
   }
 }

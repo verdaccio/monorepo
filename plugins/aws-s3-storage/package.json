@@ -1,35 +1,31 @@
 {
   "name": "verdaccio-aws-s3-storage",
-  "version": "8.0.0",
-  "description": "aws s3 storage implementation",
+  "version": "8.0.1-next.1",
+  "description": "AWS S3 storage implementation for Verdaccio",
   "keywords": [
     "verdaccio",
-    "aws",
-    "plugin"
+    "plugin",
+    "storage",
+    "aws"
+  ],
+  "author": "Juan Picado <juanpicado19@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://verdaccio.org",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/verdaccio/monorepo",
+    "directory": "plugins/aws-s3-storage"
+  },
+  "bugs": {
+    "url": "https://github.com/verdaccio/monorepo/issues"
+  },
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib/"
   ],
   "engines": {
     "node": ">=8"
-  },
-  "author": "Juan Picado <juanpicado19@gmail.com>",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/verdaccio/verdaccio-aws-s3-storage.git"
-  },
-  "bugs": {
-    "url": "https://github.com/verdaccio/verdaccio-aws-s3-storage/issues"
-  },
-  "main": "lib/index.js",
-  "scripts": {
-    "coverage:publish": "codecov --root=../../ -F plugins",
-    "test": "jest",
-    "lint": "eslint \"**/*.{js,ts}\"",
-    "lint:stage": "lint-staged",
-    "type-check": "tsc --noEmit",
-    "type-check:watch": "npm run type-check -- --watch",
-    "build": "npm run build:types && npm run build:js",
-    "build:types": "tsc --emitDeclarationOnly",
-    "build:js": "babel src/ --out-dir lib --extensions \".ts,.tsx\""
   },
   "dependencies": {
     "@verdaccio/commons-api": "^0.1.2",
@@ -37,10 +33,19 @@
     "aws-sdk": "2.518.0"
   },
   "devDependencies": {
-    "@verdaccio/babel-preset": "^8.0.0",
-    "@verdaccio/eslint-config": "^8.0.0",
-    "@verdaccio/types": "^8.0.0",
-    "cross-env": "5.2.0",
+    "@verdaccio/babel-preset": "^8.0.1-next.1",
+    "@verdaccio/eslint-config": "^8.0.1-next.1",
+    "@verdaccio/types": "^8.0.1-next.1",
     "recursive-readdir": "2.2.2"
+  },
+  "scripts": {
+    "build": "npm run build:types && npm run build:js",
+    "build:js": "babel src/ --out-dir lib --extensions \".ts,.tsx\"",
+    "build:types": "tsc --emitDeclarationOnly",
+    "coverage:publish": "codecov --root=../../ -F plugins",
+    "lint": "eslint \"**/*.{js,ts}\"",
+    "test": "jest",
+    "type-check": "tsc --noEmit",
+    "type-check:watch": "npm run type-check -- --watch"
   }
 }

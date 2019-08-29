@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/babel-preset",
-  "version": "8.0.0",
+  "version": "8.0.1-next.1",
   "description": "A common preset for Verdaccio projects",
   "keywords": [
     "verdaccio",
@@ -9,6 +9,18 @@
   ],
   "author": "Juan Picado <juanpicado19@gmail.com>",
   "license": "MIT",
+  "homepage": "https://verdaccio.org",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/verdaccio/monorepo",
+    "directory": "tools/babel-preset"
+  },
+  "bugs": {
+    "url": "https://github.com/verdaccio/monorepo/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "main": "lib/index.js",
   "files": [
     "lib"
@@ -43,8 +55,8 @@
     "babel-plugin-emotion": "10.0.16"
   },
   "devDependencies": {
-    "@verdaccio/eslint-config": "^8.0.0",
-    "eslint-plugin-verdaccio": "^8.0.0"
+    "@verdaccio/eslint-config": "^8.0.1-next.1",
+    "eslint-plugin-verdaccio": "^8.0.1-next.1"
   },
   "scripts": {
     "lint": "eslint \"**/*.js\"",

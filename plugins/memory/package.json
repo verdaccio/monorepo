@@ -1,6 +1,6 @@
 {
   "name": "verdaccio-memory",
-  "version": "8.0.0",
+  "version": "8.0.1-next.1",
   "description": "Storage implementation in memory",
   "keywords": [
     "verdaccio",
@@ -10,6 +10,15 @@
   ],
   "author": "Juan Picado <juanpicado19@gmail.com>",
   "license": "MIT",
+  "homepage": "https://verdaccio.org",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/verdaccio/monorepo",
+    "directory": "plugins/memory"
+  },
+  "bugs": {
+    "url": "https://github.com/verdaccio/monorepo/issues"
+  },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "files": [
@@ -19,22 +28,21 @@
     "node": ">=8"
   },
   "dependencies": {
-    "@verdaccio/commons-api": "^8.0.0",
-    "@verdaccio/streams": "^8.0.0",
+    "@verdaccio/commons-api": "^8.0.1-next.1",
+    "@verdaccio/streams": "^8.0.1-next.1",
     "http-errors": "1.7.3",
     "memory-fs": "0.4.1"
   },
   "devDependencies": {
-    "@verdaccio/babel-preset": "^8.0.0",
-    "@verdaccio/eslint-config": "^8.0.0",
-    "@verdaccio/types": "^8.0.0"
+    "@verdaccio/babel-preset": "^8.0.1-next.1",
+    "@verdaccio/eslint-config": "^8.0.1-next.1",
+    "@verdaccio/types": "^8.0.1-next.1"
   },
   "scripts": {
     "build": "npm run build:types && npm run build:js",
     "build:js": "babel src/ --out-dir lib --extensions \".ts,.tsx\" --source-maps inline",
     "build:types": "tsc --emitDeclarationOnly",
     "coverage:publish": "codecov --root=../../ -F plugins",
-    "format": "prettier --single-quote --trailing-comma none --write \"{src,test}/**/*.ts\"",
     "lint": "eslint \"**/*.{js,ts}\"",
     "lint:stage": "lint-staged",
     "test": "jest",
