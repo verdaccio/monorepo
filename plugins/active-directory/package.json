@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/active-directory",
-  "version": "8.0.1-next.0",
+  "version": "8.0.1-next.1",
   "description": "Active Directory authentication plugin for Verdaccio",
   "keywords": [
     "verdaccio",
@@ -31,14 +31,14 @@
     "node": ">=8"
   },
   "dependencies": {
-    "@verdaccio/commons-api": "^8.0.1-next.0",
+    "@verdaccio/commons-api": "^8.0.1-next.1",
     "activedirectory2": "1.2.7"
   },
   "devDependencies": {
     "@types/activedirectory2": "^1.2.1",
-    "@verdaccio/babel-preset": "^8.0.1-next.0",
-    "@verdaccio/eslint-config": "^8.0.1-next.0",
-    "@verdaccio/types": "^8.0.1-next.0"
+    "@verdaccio/babel-preset": "^8.0.1-next.1",
+    "@verdaccio/eslint-config": "^8.0.1-next.1",
+    "@verdaccio/types": "^8.0.1-next.1"
   },
   "scripts": {
     "coverage:publish": "codecov --root=../../ -F plugins",
