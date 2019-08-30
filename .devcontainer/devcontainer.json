@@ -16,10 +16,9 @@
 			{ "language": "typescript", "autoFix": true },
 			{ "language": "typescriptreact", "autoFix": true },
 		],
-    "prettier.eslintIntegration": true,
-    "[markdown]": {
-      "files.trimTrailingWhitespace": false,
-    },
+		"[markdown]": {
+			"files.trimTrailingWhitespace": false,
+		},
 	},
 
 	"postCreateCommand": "mkdir -p ~/.ssh && cp -r ~/.ssh-localhost/* ~/.ssh && chmod 700 ~/.ssh && chmod 600 ~/.ssh/* && yarn install --frozen-lockfile",
