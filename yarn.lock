@@ -2443,13 +2443,6 @@
   dependencies:
     "@types/ldapjs" "*"
 
-"@types/aws-sdk@2.7.0":
-  version "2.7.0"
-  resolved "https://registry.verdaccio.org/@types%2faws-sdk/-/aws-sdk-2.7.0.tgz#83588b3d14ebdca1d4ce5e023387577568ce82f3"
-  integrity sha1-g1iLPRTr3KHUzl4CM4dXdWjOgvM=
-  dependencies:
-    aws-sdk "*"
-
 "@types/babel__core@^7.1.0":
   version "7.1.2"
   resolved "https://registry.verdaccio.org/@types%2fbabel__core/-/babel__core-7.1.2.tgz#608c74f55928033fce18b99b213c16be4b3d114f"
@@ -2851,11 +2844,6 @@
   resolved "https://registry.verdaccio.org/@verdaccio%2ftypes/-/types-7.0.0.tgz#2b0fb871c10b3b5beafefbb4973306e6217b5213"
   integrity sha512-rSRQBeEeHc0pFcpwyVYfQLRQDvZykgXtVzx195W4JuHlZABhkGDqs42hPixMmPxXk1S7tmkIrX2pjRSDnAVzAw==
 
-"@verdaccio/types@^5.3.0":
-  version "5.3.0"
-  resolved "https://registry.verdaccio.org/@verdaccio%2ftypes/-/types-5.3.0.tgz#24fe5d96eb26810091aaf25c52ccbc682b9bd3b0"
-  integrity sha512-k7VTU4155c68IUOQ9vTKEQb5Up83n9JRL1jK/HhgUi3RfuW/uSuLabCLHcIQbq/V7x6hYeZWlGmDggfFY3YIrA==
-
 "@zkochan/cmd-shim@^3.1.0":
   version "3.1.0"
   resolved "https://registry.verdaccio.org/@zkochan%2fcmd-shim/-/cmd-shim-3.1.0.tgz#2ab8ed81f5bb5452a85f25758eb9b8681982fd2e"
@@ -3240,21 +3228,6 @@ atob@^2.1.1:
   version "2.1.2"
   resolved "https://registry.verdaccio.org/atob/-/atob-2.1.2.tgz#6d9517eb9e030d2436666651e86bd9f6f13533c9"
   integrity sha512-Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg==
-
-aws-sdk@*:
-  version "2.519.0"
-  resolved "https://registry.verdaccio.org/aws-sdk/-/aws-sdk-2.519.0.tgz#8219ecb56c93685ed6ca360250d7f1a1f4f37bba"
-  integrity sha512-bQqHiYBpvRUhHyvxgXaz1hERF9tSG1n/i+x2jNrvDjWzxkUpNexOIaNqaGb1JanTaQTQHVxqiAKjJqfimcWzxw==
-  dependencies:
-    buffer "4.9.1"
-    events "1.1.1"
-    ieee754 "1.1.8"
-    jmespath "0.15.0"
-    querystring "0.2.0"
-    sax "1.2.1"
-    url "0.10.3"
-    uuid "3.3.2"
-    xml2js "0.4.19"
 
 aws-sdk@2.518.0:
   version "2.518.0"
