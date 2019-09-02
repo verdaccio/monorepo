@@ -29,6 +29,7 @@ function hasScope(file: string): boolean {
   return file.match(/^@/) !== null;
 }
 
+/* eslint-disable no-async-promise-executor */
 export async function findPackages(
   storagePath: string,
   validationHandler: Function
@@ -73,3 +74,4 @@ export async function findPackages(
     resolve(listPackages);
   });
 }
+/* eslint-enable no-async-promise-executor */
