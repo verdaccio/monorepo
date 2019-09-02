@@ -31,13 +31,13 @@
   "dependencies": {
     "@google-cloud/datastore": "4.2.0",
     "@google-cloud/storage": "3.2.1",
-    "@verdaccio/commons-api": "^0.1.2",
-    "@verdaccio/streams": "2.0.0"
+    "@verdaccio/commons-api": "8.0.1-next.1",
+    "@verdaccio/streams": "8.0.1-next.1"
   },
   "devDependencies": {
-    "@verdaccio/babel-preset": "0.2.1",
-    "@verdaccio/eslint-config": "0.0.1",
-    "@verdaccio/types": "7.0.0",
+    "@verdaccio/babel-preset": "^8.0.1-next.1",
+    "@verdaccio/eslint-config": "^8.0.1-next.1",
+    "@verdaccio/types": "^8.0.1-next.1",
     "memory-fs": "0.4.1"
   },
   "optionalDependencies": {
