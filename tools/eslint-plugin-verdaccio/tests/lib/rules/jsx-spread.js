@@ -31,7 +31,6 @@ ruleTester.run('jsx-spread', rule, {
     {
       code: '<div {...props}/>',
       options: ['never'],
-      parser: 'babel-eslint',
     },
     {
       code: '<div {...props} foo={"1"}/>',

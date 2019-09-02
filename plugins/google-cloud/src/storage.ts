@@ -157,6 +157,7 @@ class GoogleCloudStorageHandler implements IPackageStorageManager {
       });
   }
 
+  /* eslint-disable no-async-promise-executor */
   private _savePackage(name: string, metadata: Package): Promise<null | VerdaccioError> {
     return new Promise(
       async (resolve, reject): Promise<void> => {
@@ -178,6 +179,7 @@ class GoogleCloudStorageHandler implements IPackageStorageManager {
       }
     );
   }
+  /* eslint-enable no-async-promise-executor */
 
   private _convertToString(value: Package): string {
     return JSON.stringify(value, null, '\t');
@@ -196,6 +198,7 @@ class GoogleCloudStorageHandler implements IPackageStorageManager {
       });
   }
 
+  /* eslint-disable no-async-promise-executor */
   private _fileExist(name: string, fileName: string): Promise<boolean> {
     return new Promise(
       async (resolve, reject): Promise<void> => {
@@ -236,6 +239,7 @@ class GoogleCloudStorageHandler implements IPackageStorageManager {
       }
     );
   }
+  /* eslint-disable no-async-promise-executor */
 
   public writeTarball(name: string): UploadTarball {
     const uploadStream: UploadTarball = new UploadTarball({});
