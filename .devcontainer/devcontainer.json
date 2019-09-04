@@ -1,5 +1,5 @@
 {
-	"name": "Node.js (latest)",
+	"name": "Verdaccio Monorepo (Node)",
 	"image": "node:latest",
 
 	"runArgs": [ "-v", "${env:HOME}${env:USERPROFILE}/.ssh:/root/.ssh-localhost:ro" ],
