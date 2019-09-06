@@ -106,7 +106,7 @@ describe('HTPasswd', () => {
         jest.doMock('../src/utils.ts', () => {
           return {
             sanityCheck: (): any => null,
-            lockAndRead: (_, b): any => b(new Error('lock error')),
+            lockAndRead: (_a, b): any => b(new Error('lock error')),
           };
         });
 
@@ -124,8 +124,8 @@ describe('HTPasswd', () => {
           return {
             sanityCheck: (): any => null,
             parseHTPasswd: (): void => {},
-            lockAndRead: (_, b): any => b(null, ''),
-            unlockFile: (_, b): any => b(),
+            lockAndRead: (_a, b): any => b(null, ''),
+            unlockFile: (_a, b): any => b(),
           };
         });
 
@@ -141,14 +141,14 @@ describe('HTPasswd', () => {
           return {
             sanityCheck: (): any => null,
             parseHTPasswd: (): void => {},
-            lockAndRead: (_, b): any => b(null, ''),
-            unlockFile: (_, b): any => b(),
+            lockAndRead: (_a, b): any => b(null, ''),
+            unlockFile: (_a, b): any => b(),
             addUserToHTPasswd: (): void => {},
           };
         });
         jest.doMock('fs', () => {
           return {
-            writeFile: jest.fn((_1, _2, callback) => {
+            writeFile: jest.fn((_name, _data, callback) => {
               callback(new Error('write error'));
             }),
           };
@@ -177,7 +177,7 @@ describe('HTPasswd', () => {
       test('reload should fails on check file', done => {
         jest.doMock('fs', () => {
           return {
-            stat: (_, callback): void => {
+            stat: (_name, callback): void => {
               callback(new Error('stat error'), null);
             },
           };
@@ -196,7 +196,7 @@ describe('HTPasswd', () => {
       test('reload times match', done => {
         jest.doMock('fs', () => {
           return {
-            stat: (_, callback): void => {
+            stat: (_name, callback): void => {
               callback(null, {
                 mtime: null,
               });
@@ -217,7 +217,7 @@ describe('HTPasswd', () => {
         jest.doMock('fs', () => {
           return {
             stat: require.requireActual('fs').stat,
-            readFile: (_1, _2, callback): void => {
+            readFile: (_name, _format, callback): void => {
               callback(new Error('read error'), null);
             },
           };
@@ -258,7 +258,7 @@ describe('HTPasswd', () => {
   test('changePassword - it should change password', done => {
     let dataToWrite;
     // @ts-ignore
-    fs.writeFile = jest.fn((_, data, callback) => {
+    fs.writeFile = jest.fn((_name, data, callback) => {
       dataToWrite = data;
       callback();
     });

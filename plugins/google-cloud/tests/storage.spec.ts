@@ -73,10 +73,10 @@ describe('Google Cloud Storage', () => {
   // storage test
 
   describe('Google Cloud Storage', () => {
-    const createPackage = (_1: ITestLocalData, _2: string, done: jest.DoneCallback): void => {
+    const createPackage = (_cloudDatabase: ITestLocalData, _name: string, done: jest.DoneCallback): void => {
       done();
     };
-    const deletePackage = (_1: ITestLocalData, _2: string, done: jest.DoneCallback): void => {
+    const deletePackage = (_cloudDatabase: ITestLocalData, _name: string, done: jest.DoneCallback): void => {
       done();
     };
 
@@ -331,11 +331,11 @@ describe('Google Cloud Storage', () => {
         if (store) {
           store.updatePackage(
             pkg.name,
-            (_: unknown, cb: Callback) => {
+            (_data: unknown, cb: Callback) => {
               // Handle Update
               cb();
             },
-            (_: string, json: any, cb: Callback) => {
+            (_name: string, json: any, cb: Callback) => {
               // Write Package
               expect(json.test).toBe('test');
               cb(null);
