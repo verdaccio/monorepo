@@ -239,10 +239,10 @@ describe('Local Database', () => {
       const db = (locaDatabase as LocalDatabase).tokenDb;
       const events = { on: {}, once: {} };
       const stream = {
-        on: (event, cb) => {
+        on: (event, cb): void => {
           events.on[event] = cb;
         },
-        once: (event, cb) => {
+        once: (event, cb): void => {
           events.once[event] = cb;
         },
       };
@@ -264,10 +264,10 @@ describe('Local Database', () => {
       const db = (locaDatabase as LocalDatabase).tokenDb;
       const events = { on: {}, once: {} };
       const stream = {
-        on: (event, cb) => {
+        on: (event, cb): void => {
           events.on[event] = cb;
         },
-        once: (event, cb) => {
+        once: (event, cb): void => {
           events.once[event] = cb;
         },
       };

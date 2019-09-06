@@ -13,7 +13,7 @@ export const noSuchFile = 'ENOENT';
 export const resourceNotAvailable = 'EAGAIN';
 export const pkgFileName = 'package.json';
 
-export const fSError = function(message: string, code: number = 409): VerdaccioError {
+export const fSError = function(message: string, code = 409): VerdaccioError {
   const err: VerdaccioError = getCode(code, message);
   // FIXME: we should return http-status codes here instead, future improvement
   // @ts-ignore
@@ -22,14 +22,14 @@ export const fSError = function(message: string, code: number = 409): VerdaccioE
   return err;
 };
 
-const tempFile = function(str) {
+const tempFile = function(str): string {
   return `${str}.tmp${String(Math.random()).substr(2)}`;
 };
 
-const renameTmp = function(src, dst, _cb) {
-  const cb = err => {
+const renameTmp = function(src, dst, _cb): void {
+  const cb = (err): void => {
     if (err) {
-      fs.unlink(src, function() {});
+      fs.unlink(src, () => {});
     }
     _cb(err);
   };
@@ -55,7 +55,7 @@ export default class LocalFS implements ILocalFSPackageManager {
   public path: string;
   public logger: Logger;
 
-  constructor(path: string, logger: Logger) {
+  public constructor(path: string, logger: Logger) {
     this.path = path;
     this.logger = logger;
   }
@@ -81,12 +81,12 @@ export default class LocalFS implements ILocalFSPackageManager {
     onWrite: Callback,
     transformPackage: Function,
     onEnd: Callback
-  ) {
+  ): void {
     this._lockAndReadJSON(pkgFileName, (err, json) => {
       let locked = false;
       const self = this;
       // callback that cleans up lock first
-      const unLockCallback = function(lockError: Error) {
+      const unLockCallback = function(lockError: Error): void {
         // eslint-disable-next-line prefer-rest-params
         const _args = arguments;
 
@@ -142,7 +142,7 @@ export default class LocalFS implements ILocalFSPackageManager {
     });
   }
 
-  public deletePackage(packageName: string, callback: (err: NodeJS.ErrnoException | null) => void) {
+  public deletePackage(packageName: string, callback: (err: NodeJS.ErrnoException | null) => void): void {
     this.logger.debug({ packageName }, '[local-storage/deletePackage] delete a package @{packageName}');
 
     return fs.unlink(this._getStorage(packageName), callback);
@@ -154,19 +154,19 @@ export default class LocalFS implements ILocalFSPackageManager {
     fs.rmdir(this._getStorage('.'), callback);
   }
 
-  public createPackage(name: string, value: Package, cb: Callback) {
+  public createPackage(name: string, value: Package, cb: Callback): void {
     this.logger.debug({ packageName: name }, '[local-storage/createPackage] create a package: @{packageName}');
 
     this._createFile(this._getStorage(pkgFileName), this._convertToString(value), cb);
   }
 
-  public savePackage(name: string, value: Package, cb: Callback) {
+  public savePackage(name: string, value: Package, cb: Callback): void {
     this.logger.debug({ packageName: name }, '[local-storage/savePackage] save a package: @{packageName}');
 
     this._writeFile(this._getStorage(pkgFileName), this._convertToString(value), cb);
   }
 
-  public readPackage(name: string, cb: Callback) {
+  public readPackage(name: string, cb: Callback): void {
     this.logger.debug({ packageName: name }, '[local-storage/readPackage] read a package: @{packageName}');
 
     this._readStorageFile(this._getStorage(pkgFileName)).then(
@@ -213,12 +213,12 @@ export default class LocalFS implements ILocalFSPackageManager {
       } else {
         const temporalName = path.join(this.path, `${name}.tmp-${String(Math.random()).replace(/^0\./, '')}`);
         const file = fs.createWriteStream(temporalName);
-        const removeTempFile = () => fs.unlink(temporalName, function() {});
+        const removeTempFile = (): void => fs.unlink(temporalName, () => {});
         let opened = false;
         uploadStream.pipe(file);
 
-        uploadStream.done = function() {
-          const onend = function() {
+        uploadStream.done = function(): void {
+          const onend = function(): void {
             file.on('close', function() {
               renameTmp(temporalName, pathName, function(err) {
                 if (err) {
@@ -237,7 +237,7 @@ export default class LocalFS implements ILocalFSPackageManager {
           }
         };
 
-        uploadStream.abort = function() {
+        uploadStream.abort = function(): void {
           if (opened) {
             opened = false;
             file.on('close', function() {
@@ -265,7 +265,7 @@ export default class LocalFS implements ILocalFSPackageManager {
     return uploadStream;
   }
 
-  public readTarball(name: string) {
+  public readTarball(name: string): ReadTarball {
     const pathName: string = this._getStorage(name);
     this.logger.debug({ packageName: name }, '[local-storage/readTarball] read a tarball for package: @{packageName}');
 
@@ -288,14 +288,14 @@ export default class LocalFS implements ILocalFSPackageManager {
       });
     });
 
-    readTarballStream.abort = function() {
+    readTarballStream.abort = function(): void {
       readStream.close();
     };
 
     return readTarballStream;
   }
 
-  private _createFile(name: string, contents: any, callback: Function) {
+  private _createFile(name: string, contents: any, callback: Function): void {
     this.logger.trace({ name }, '[local-storage/_createFile] create a new file: @{name}');
 
     fs.open(name, 'wx', err => {
@@ -312,7 +312,7 @@ export default class LocalFS implements ILocalFSPackageManager {
   }
 
   private _readStorageFile(name: string): Promise<any> {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve, reject): void => {
       this.logger.trace({ name }, '[local-storage/_readStorageFile] read a file: @{name}');
 
       fs.readFile(name, (err, data) => {
@@ -332,14 +332,14 @@ export default class LocalFS implements ILocalFSPackageManager {
     return JSON.stringify(value, null, '\t');
   }
 
-  private _getStorage(fileName: string = '') {
+  private _getStorage(fileName = ''): string {
     const storagePath: string = path.join(this.path, fileName);
 
     return storagePath;
   }
 
-  private _writeFile(dest: string, data: string, cb: Callback) {
-    const createTempFile = cb => {
+  private _writeFile(dest: string, data: string, cb: Callback): void {
+    const createTempFile = (cb): void => {
       const tempFilePath = tempFile(dest);
 
       fs.writeFile(tempFilePath, data, err => {
@@ -368,7 +368,7 @@ export default class LocalFS implements ILocalFSPackageManager {
     });
   }
 
-  private _lockAndReadJSON(name: string, cb: Function) {
+  private _lockAndReadJSON(name: string, cb: Function): void {
     const fileName: string = this._getStorage(name);
 
     readFile(
@@ -390,7 +390,7 @@ export default class LocalFS implements ILocalFSPackageManager {
     );
   }
 
-  private _unlockJSON(name: string, cb: Function) {
+  private _unlockJSON(name: string, cb: Function): void {
     unlockFile(this._getStorage(name), cb);
   }
 }
