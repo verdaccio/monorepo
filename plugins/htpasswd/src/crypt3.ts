@@ -15,7 +15,7 @@ import crypto from 'crypto';
  * distros), sha256 or sha512. Default is sha512.
  * @returns {string} Generated salt string
  */
-export function createSalt(type: string = 'sha512'): string {
+export function createSalt(type = 'sha512'): string {
   switch (type) {
     case 'md5':
       return '$1$' + crypto.randomBytes(10).toString('base64');

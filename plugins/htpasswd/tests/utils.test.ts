@@ -81,7 +81,7 @@ describe('addUserToHTPasswd - crypt3', () => {
     global.Date = jest.fn(() => {
       return {
         parse: jest.fn(),
-        toJSON: () => '2018-01-14T11:17:40.712Z',
+        toJSON: (): string => '2018-01-14T11:17:40.712Z',
       };
     });
   });
@@ -123,7 +123,7 @@ describe('lockAndRead', () => {
   });
 
   it('should call the readFile method', () => {
-    const cb = () => {};
+    const cb = (): void => {};
     lockAndRead('.htpasswd', cb);
     expect(locker.readFile).toHaveBeenCalled();
   });
@@ -135,7 +135,7 @@ describe('unlockFile', () => {
   });
 
   it('should call the unlock method', () => {
-    const cb = () => {};
+    const cb = (): void => {};
     unlockFile('htpasswd', cb);
     expect(locker.readFile).toHaveBeenCalled();
   });
@@ -157,41 +157,41 @@ describe('sanityCheck', () => {
   });
 
   test('should throw error for registration disabled of users', () => {
-    const verifyFn = () => {};
+    const verifyFn = (): void => {};
     const input = sanityCheck('username', users.test, verifyFn, users, -1);
     expect(input.status).toEqual(409);
     expect(input.message).toEqual('user registration disabled');
   });
 
   test('should throw error max number of users', () => {
-    const verifyFn = () => {};
+    const verifyFn = (): void => {};
     const input = sanityCheck('username', users.test, verifyFn, users, 1);
     expect(input.status).toEqual(403);
     expect(input.message).toEqual('maximum amount of users reached');
   });
 
   test('should not throw anything and sanity check', () => {
-    const verifyFn = () => {};
+    const verifyFn = (): void => {};
     const input = sanityCheck('username', users.test, verifyFn, users, 2);
     expect(input).toBeNull();
   });
 
   test('should throw error for required username field', () => {
-    const verifyFn = () => {};
+    const verifyFn = (): void => {};
     const input = sanityCheck(undefined, users.test, verifyFn, users, 2);
     expect(input.message).toEqual('username and password is required');
     expect(input.status).toEqual(400);
   });
 
   test('should throw error for required password field', () => {
-    const verifyFn = () => {};
+    const verifyFn = (): void => {};
     const input = sanityCheck('username', undefined, verifyFn, users, 2);
     expect(input.message).toEqual('username and password is required');
     expect(input.status).toEqual(400);
   });
 
   test('should throw error for required username & password fields', () => {
-    const verifyFn = () => {};
+    const verifyFn = (): void => {};
     const input = sanityCheck(undefined, undefined, verifyFn, users, 2);
     expect(input.message).toEqual('username and password is required');
     expect(input.status).toEqual(400);

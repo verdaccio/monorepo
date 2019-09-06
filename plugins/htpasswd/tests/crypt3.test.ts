@@ -2,9 +2,9 @@ import { createSalt } from '../src/crypt3';
 
 jest.mock('crypto', () => {
   return {
-    randomBytes: () => {
+    randomBytes: (): { toString: () => string } => {
       return {
-        toString: () => '/UEGzD0RxSNDZA==',
+        toString: (): string => '/UEGzD0RxSNDZA==',
       };
     },
   };
