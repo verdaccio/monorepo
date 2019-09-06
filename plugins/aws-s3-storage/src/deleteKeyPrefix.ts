@@ -6,7 +6,7 @@ interface DeleteKeyPrefixOptions {
   Prefix: string;
 }
 
-export function deleteKeyPrefix(s3: S3, options: DeleteKeyPrefixOptions, callback: (err: Error | null) => void) {
+export function deleteKeyPrefix(s3: S3, options: DeleteKeyPrefixOptions, callback: (err: Error | null) => void): void {
   s3.listObjectsV2(options, (err, data) => {
     if (err) {
       callback(convertS3Error(err));
@@ -17,7 +17,7 @@ export function deleteKeyPrefix(s3: S3, options: DeleteKeyPrefixOptions, callbac
           // @ts-ignore
           Delete: { Objects: data.Contents.map(({ Key }) => ({ Key })) },
         },
-        (err, data) => {
+        err => {
           if (err) {
             callback(convertS3Error(err));
           } else {

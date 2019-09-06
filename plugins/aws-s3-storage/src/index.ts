@@ -73,7 +73,7 @@ export default class S3Database implements IPluginStorage<S3Config> {
     });
   }
 
-  public async search(onPackage: Function, onEnd: Function, validateName: Function): Promise<void> {
+  public async search(onPackage: Function, onEnd: Function): Promise<void> {
     this.logger.debug('s3: [search]');
     const storage = await this._getData();
     const storageInfoMap = storage.list.map(this._fetchPackageInfo.bind(this, onPackage));
@@ -86,7 +86,7 @@ export default class S3Database implements IPluginStorage<S3Config> {
     const { bucket, keyPrefix } = this.config;
     this.logger.debug({ packageName }, 's3: [_fetchPackageInfo] @{packageName}');
     this.logger.trace({ keyPrefix, bucket }, 's3: [_fetchPackageInfo] bucket: @{bucket} prefix: @{keyPrefix}');
-    return new Promise(resolve => {
+    return new Promise((resolve): void => {
       this.s3.headObject(
         {
           Bucket: bucket,
@@ -149,7 +149,7 @@ export default class S3Database implements IPluginStorage<S3Config> {
 
   // Create/write database file to s3
   private async _sync(): Promise<void> {
-    await new Promise((resolve, reject) => {
+    await new Promise((resolve, reject): void => {
       const { bucket, keyPrefix } = this.config;
       this.logger.debug({ keyPrefix, bucket }, 's3: [_sync] bucket: @{bucket} prefix: @{keyPrefix}');
       this.s3.putObject(
@@ -158,7 +158,7 @@ export default class S3Database implements IPluginStorage<S3Config> {
           Key: `${this.config.keyPrefix}verdaccio-s3-db.json`,
           Body: JSON.stringify(this._localData),
         },
-        (err, data) => {
+        err => {
           if (err) {
             this.logger.error({ err }, 's3: [_sync] error: @{err}');
             reject(err);
@@ -180,7 +180,7 @@ export default class S3Database implements IPluginStorage<S3Config> {
 
   private async _getData(): Promise<LocalStorage> {
     if (!this._localData) {
-      this._localData = await new Promise((resolve, reject) => {
+      this._localData = await new Promise((resolve, reject): void => {
         const { bucket, keyPrefix } = this.config;
         this.logger.debug({ keyPrefix, bucket }, 's3: [_getData] bucket: @{bucket} prefix: @{keyPrefix}');
         this.logger.trace('s3: [_getData] get database object');
@@ -202,8 +202,7 @@ export default class S3Database implements IPluginStorage<S3Config> {
               return;
             }
 
-            // @ts-ignore
-            const body = response.Body.toString();
+            const body = response.Body ? response.Body.toString() : '';
             const data = JSON.parse(body);
             this.logger.trace({ body }, 's3: [_getData] get data @{body}');
             resolve(data);

@@ -1,4 +1,4 @@
-import { S3 } from 'aws-sdk';
+import { S3, AWSError } from 'aws-sdk';
 import { UploadTarball, ReadTarball } from '@verdaccio/streams';
 import { HEADERS, HTTP_STATUS } from '@verdaccio/commons-api';
 import { Callback, Logger, Package, ILocalPackageManager } from '@verdaccio/types';
@@ -38,7 +38,7 @@ export default class S3PackageManager implements ILocalPackageManager {
     onEnd: Callback
   ): void {
     this.logger.debug({ name }, 's3: [S3PackageManager updatePackage init] @{name}');
-    (async () => {
+    (async (): Promise<any> => {
       try {
         const json = await this._getData();
         updateHandler(json, err => {
@@ -62,9 +62,9 @@ export default class S3PackageManager implements ILocalPackageManager {
     })();
   }
 
-  private async _getData(): Promise<any> {
+  private async _getData(): Promise<unknown> {
     this.logger.debug('s3: [S3PackageManager _getData init]');
-    return await new Promise((resolve, reject) => {
+    return await new Promise((resolve, reject): void => {
       this.s3.getObject(
         {
           Bucket: this.config.bucket,
@@ -103,7 +103,7 @@ export default class S3PackageManager implements ILocalPackageManager {
         Bucket: this.config.bucket,
         Key: `${this.config.keyPrefix}${this.packageName}/${fileName}`,
       },
-      (err, data) => {
+      err => {
         if (err) {
           callback(err);
         } else {
@@ -195,7 +195,7 @@ export default class S3PackageManager implements ILocalPackageManager {
     })();
   }
 
-  public writeTarball(name: string): any {
+  public writeTarball(name: string): UploadTarball {
     this.logger.debug(
       { name, packageName: this.packageName },
       's3: [S3PackageManager writeTarball init] name @{name}/@{packageName}'
@@ -224,7 +224,7 @@ export default class S3PackageManager implements ILocalPackageManager {
         Bucket: this.config.bucket,
         Key: `${this.config.keyPrefix}${this.packageName}/${name}`,
       },
-      (err, response) => {
+      err => {
         if (err) {
           const convertedErr = convertS3Error(err);
           this.logger.error({ convertedErr }, 's3: [S3PackageManager writeTarball headObject] @convertedErr');
@@ -237,7 +237,7 @@ export default class S3PackageManager implements ILocalPackageManager {
             this.logger.debug('s3: [S3PackageManager writeTarball managedUpload] init stream');
             const managedUpload = this.s3.upload(Object.assign({}, baseS3Params, { Body: uploadStream }));
             // NOTE: there's a managedUpload.promise, but it doesn't seem to work
-            const promise = new Promise(resolve => {
+            const promise = new Promise((resolve): void => {
               this.logger.debug('s3: [S3PackageManager writeTarball managedUpload] send');
               managedUpload.send((err, data) => {
                 if (err) {
@@ -259,7 +259,7 @@ export default class S3PackageManager implements ILocalPackageManager {
               uploadStream.emit('open');
             });
 
-            uploadStream.done = () => {
+            uploadStream.done = (): void => {
               const onEnd = async (): Promise<void> => {
                 try {
                   await promise;
@@ -287,7 +287,7 @@ export default class S3PackageManager implements ILocalPackageManager {
               }
             };
 
-            uploadStream.abort = () => {
+            uploadStream.abort = (): void => {
               this.logger.debug('s3: [S3PackageManager writeTarball uploadStream abort] init');
               try {
                 this.logger.debug('s3: [S3PackageManager writeTarball managedUpload abort]');
@@ -321,7 +321,7 @@ export default class S3PackageManager implements ILocalPackageManager {
     return uploadStream;
   }
 
-  public readTarball(name: string): any {
+  public readTarball(name: string): ReadTarball {
     this.logger.debug(
       { name, packageName: this.packageName },
       's3: [S3PackageManager readTarball init] name @{name}/@{packageName}'
@@ -376,8 +376,7 @@ export default class S3PackageManager implements ILocalPackageManager {
       .createReadStream();
 
     readStream.on('error', err => {
-      // @ts-ignore
-      const error: HttpError = convertS3Error(err);
+      const error: HttpError = convertS3Error(err as AWSError);
 
       readTarballStream.emit('error', error);
       this.logger.error({ error }, 's3: [S3PackageManager readTarball readTarballStream event] error @{error}');
@@ -386,7 +385,7 @@ export default class S3PackageManager implements ILocalPackageManager {
     this.logger.trace('s3: [S3PackageManager readTarball readTarballStream event] pipe');
     readStream.pipe(readTarballStream);
 
-    readTarballStream.abort = () => {
+    readTarballStream.abort = (): void => {
       this.logger.debug('s3: [S3PackageManager readTarball readTarballStream event] request abort');
       request.abort();
       this.logger.debug('s3: [S3PackageManager readTarball readTarballStream event] request destroy');
