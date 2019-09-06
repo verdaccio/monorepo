@@ -45,7 +45,7 @@ export default class Config {
     this.user_agent = 'verdaccio/3.0.0-alpha.7';
     this.users = {};
     this.server_id = 'severMockId';
-    this.checkSecretKey = secret => {
+    this.checkSecretKey = (secret): string => {
       if (!secret) {
         const newSecret = 'superNewSecret';
         this.secret = newSecret;

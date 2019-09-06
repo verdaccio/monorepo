@@ -23,7 +23,7 @@ describe('Google Cloud Storage', () => {
     jest.resetModules();
   });
 
-  const getCloudDatabase = (storageConfig, logger = loggerDefault) => {
+  const getCloudDatabase = (storageConfig, logger = loggerDefault): any => {
     const GoogleCloudDatabase = require('../src/index').default;
     const cloudDatabase = new GoogleCloudDatabase(storageConfig, { logger });
 
@@ -76,14 +76,14 @@ describe('Google Cloud Storage', () => {
           return {
             __esModule: true,
             default: class Foo extends originalModule {
-              datastore: any;
-              constructor(props) {
+              public datastore: object;
+              public constructor(props) {
                 super(props);
                 this.datastore = {
                   key: jest.fn(),
-                  save: _keyData => Promise.resolve([]),
-                  createQuery: () => 'query',
-                  runQuery: () =>
+                  save: (): Promise<[]> => Promise.resolve([]),
+                  createQuery: (): string => 'query',
+                  runQuery: (): Promise<object[]> =>
                     Promise.resolve([
                       [
                         {
@@ -102,7 +102,7 @@ describe('Google Cloud Storage', () => {
         cloudDatabase.add(pkgName, (err: VerdaccioError) => {
           expect(err).toBeNull();
 
-          cloudDatabase.get((err: VerdaccioError, results: any) => {
+          cloudDatabase.get((err: VerdaccioError, results: string[]) => {
             expect(results).not.toBeNull();
             expect(err).toBeNull();
             expect(results).toHaveLength(1);
@@ -120,14 +120,14 @@ describe('Google Cloud Storage', () => {
           return {
             __esModule: true,
             default: class Foo extends originalModule {
-              datastore: any;
-              constructor(props) {
+              public datastore: object;
+              public constructor(props) {
                 super(props);
                 this.datastore = {
                   key: jest.fn(),
-                  save: _keyData => Promise.reject(new Error('')),
-                  createQuery: () => 'query',
-                  runQuery: () =>
+                  save: (): Promise<never> => Promise.reject(new Error('')),
+                  createQuery: (): string => 'query',
+                  runQuery: (): Promise<object[]> =>
                     Promise.resolve([
                       [
                         {
@@ -159,8 +159,8 @@ describe('Google Cloud Storage', () => {
           return {
             __esModule: true,
             default: class Foo extends originalModule {
-              datastore: any;
-              constructor(props) {
+              public datastore: object;
+              public constructor(props) {
                 super(props);
                 // gcloud sdk uses Symbols for metadata in entities
                 const sym = Symbol('name');
@@ -169,8 +169,8 @@ describe('Google Cloud Storage', () => {
                   key: jest.fn(() => true),
                   int: jest.fn(() => 1),
                   delete: deleteDataStore,
-                  createQuery: () => 'query',
-                  runQuery: () => {
+                  createQuery: (): string => 'query',
+                  runQuery: (): Promise<object[]> => {
                     const entity = {
                       name: pkgName,
                       id: 1,

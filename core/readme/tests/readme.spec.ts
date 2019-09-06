@@ -2,7 +2,7 @@ import parseReadme from '../src';
 import fs from 'fs';
 import path from 'path';
 
-function readReadme(project: string, fileName: string = 'readme.md'): Promise<string> {
+function readReadme(project: string, fileName = 'readme.md'): Promise<string> {
   return new Promise((resolve, reject): void => {
     fs.readFile(path.join(__dirname, 'partials', project, fileName), 'utf8', (err, data) => {
       if (err) {
@@ -14,7 +14,7 @@ function readReadme(project: string, fileName: string = 'readme.md'): Promise<st
   });
 }
 
-function clean(text: string) {
+function clean(text: string): string {
   return text.replace(/\n|\r/g, '').trim();
 }
 

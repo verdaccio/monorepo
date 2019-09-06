@@ -26,33 +26,33 @@ const logger: Logger = {
 };
 
 const FileMocked = class {
-  name: string;
-  exist: boolean;
-  constructor(fileName, exist) {
+  public name: string;
+  public exist: boolean;
+  public constructor(fileName, exist) {
     this.name = fileName;
     this.exist = exist;
   }
-  save() {
+  public save(): Promise<void> {
     return Promise.resolve();
   }
-  exists(): Promise<any> {
+  public exists(): Promise<boolean[]> {
     return Promise.resolve([this.exist]);
   }
-  download(): Promise<DownloadResponse> {
+  public download(): Promise<DownloadResponse> {
     return Promise.resolve([Buffer.from(JSON.stringify({ name: 'foo' }))]);
   }
 };
 
-const Bucket: any = class {
-  name: string;
-  exists: boolean;
-  FiledMocked: any;
-  constructor(bucketName, exists = false, File = FileMocked) {
+const Bucket = class {
+  public name: string;
+  public exists: boolean;
+  public FiledMocked: typeof FileMocked;
+  public constructor(bucketName, exists = false, File = FileMocked) {
     this.name = bucketName;
     this.exists = exists;
     this.FiledMocked = File;
   }
-  file(fileName) {
+  public file(fileName): any {
     return new this.FiledMocked(fileName, this.exists);
   }
 };
@@ -63,7 +63,7 @@ describe('Google Cloud Storage', () => {
     jest.resetModules();
   });
 
-  const getCloudDatabase = storageConfig => {
+  const getCloudDatabase = (storageConfig): any => {
     const GoogleCloudDatabase = require('../src/index').default;
     const cloudDatabase = new GoogleCloudDatabase(storageConfig, { logger });
 
@@ -73,10 +73,10 @@ describe('Google Cloud Storage', () => {
   // storage test
 
   describe('Google Cloud Storage', () => {
-    const createPackage = (cloudDatabase: ITestLocalData, name: string, done: jest.DoneCallback) => {
+    const createPackage = (_cloudDatabase: ITestLocalData, _name: string, done: jest.DoneCallback): void => {
       done();
     };
-    const deletePackage = (cloudDatabase: ITestLocalData, name: string, done: jest.DoneCallback) => {
+    const deletePackage = (_cloudDatabase: ITestLocalData, _name: string, done: jest.DoneCallback): void => {
       done();
     };
 
@@ -89,15 +89,15 @@ describe('Google Cloud Storage', () => {
           return {
             __esModule: true,
             default: class Foo extends originalModule {
-              storage: any;
-              config: any;
-              constructor(props) {
+              public storage: object;
+              public config: object;
+              public constructor(props) {
                 super(props);
                 this.config = {
                   bucket: 'foo',
                 };
                 this.storage = {
-                  bucket: name => new Bucket(name, false),
+                  bucket: (name): any => new Bucket(name, false),
                 };
               }
             },
@@ -122,9 +122,9 @@ describe('Google Cloud Storage', () => {
           return {
             __esModule: true,
             default: class Foo extends originalModule {
-              storage: any;
-              config: any;
-              constructor(props) {
+              public storage: object;
+              public config: object;
+              public constructor(props) {
                 super(props);
                 this.config = {
                   bucket: 'foo',
@@ -157,7 +157,7 @@ describe('Google Cloud Storage', () => {
 
       test('should fails on package unexpected error', done => {
         const FileMockedFailure = class {
-          exists(): Promise<any> {
+          public exists(): Promise<never> {
             return Promise.reject(new Error(API_ERROR.UNKNOWN_ERROR));
           }
         };
@@ -167,9 +167,9 @@ describe('Google Cloud Storage', () => {
           return {
             __esModule: true,
             default: class Foo extends originalModule {
-              storage: any;
-              config: any;
-              constructor(props) {
+              public storage: object;
+              public config: object;
+              public constructor(props) {
                 super(props);
                 this.config = {
                   bucket: 'foo',
@@ -331,11 +331,11 @@ describe('Google Cloud Storage', () => {
         if (store) {
           store.updatePackage(
             pkg.name,
-            (data: any, cb: Callback) => {
+            (_data: unknown, cb: Callback) => {
               // Handle Update
               cb();
             },
-            (name: string, json: any, cb: Callback) => {
+            (_name: string, json: any, cb: Callback) => {
               // Write Package
               expect(json.test).toBe('test');
               cb(null);
@@ -394,32 +394,35 @@ describe('Google Cloud Storage', () => {
     });
 
     describe('GoogleCloudStorageHandler:: writeFile', () => {
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
       const MemoryFileSystem = require('memory-fs');
       const memfs = new MemoryFileSystem();
       const tarballFile = path.join(__dirname, '/partials/test-pkg/', 'test-pkg-1.0.0.tgz');
       const FileWriteMocked = class {
-        name: string;
-        exist: boolean;
-        constructor(fileName, exist) {
+        public name: string;
+        public exist: boolean;
+        public constructor(fileName, exist) {
           this.name = fileName;
           this.exist = exist;
         }
-        save() {
+        public save(): Promise<void> {
           return Promise.resolve();
         }
-        exists(): Promise<any> {
+        public exists(): Promise<boolean[]> {
           return Promise.resolve([this.exist]);
         }
-        createWriteStream(): Writable {
+        public createWriteStream(): Writable {
           const stream = memfs.createWriteStream(`/test`);
           // process.nextTick(function() {
           stream.on('end', () => {
             stream.emit('response');
           });
           stream.on('data', d => {
+            // eslint-disable-next-line no-console
             console.log('data-->', d);
           });
           stream.on('response', d => {
+            // eslint-disable-next-line no-console
             console.log('response-->', d);
           });
           stream.on('close', () => {
@@ -437,9 +440,9 @@ describe('Google Cloud Storage', () => {
           return {
             __esModule: true,
             default: class Foo extends originalModule {
-              storage: any;
-              config: any;
-              constructor(props) {
+              public storage: object;
+              public config: object;
+              public constructor(props) {
                 super(props);
                 this.config = {
                   bucket: 'foo',
@@ -594,10 +597,10 @@ describe('Google Cloud Storage', () => {
           return {
             __esModule: true,
             default: class Foo {
-              buildFilePath() {
+              public buildFilePath(): { name: string; delete: () => Promise<object[]> } {
                 return {
                   name: 'foo',
-                  delete: () =>
+                  delete: (): Promise<object[]> =>
                     Promise.resolve([
                       {
                         foo: 'bar',
@@ -624,10 +627,10 @@ describe('Google Cloud Storage', () => {
           return {
             __esModule: true,
             default: class Foo {
-              buildFilePath() {
+              public buildFilePath(): { name: string; delete: () => Promise<never> } {
                 return {
                   name: 'foo',
-                  delete: () => Promise.reject(new Error(API_ERROR.NO_PACKAGE)),
+                  delete: (): Promise<never> => Promise.reject(new Error(API_ERROR.NO_PACKAGE)),
                 };
               }
             },

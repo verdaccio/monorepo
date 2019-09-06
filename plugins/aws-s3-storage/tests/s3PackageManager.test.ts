@@ -8,6 +8,7 @@ import logger from './__mocks__/Logger';
 import pkg from './__fixtures__/pkg';
 import { create404Error, create409Error, is404Error } from '../src/s3Errors';
 import { S3Config } from '../src/config';
+import { Package } from '@verdaccio/types';
 
 const pkgFileName = 'package.json';
 
@@ -20,16 +21,15 @@ describe.skip('S3 package manager', () => {
     throw new Error('no bucket specified via VERDACCIO_TEST_BUCKET env var');
   }
 
-  // @ts-ignore
   const config: S3Config = {
     bucket,
     keyPrefix: `${keyPrefix}/`,
-  };
+  } as S3Config;
 
   afterEach(async () => {
     const s3 = new S3();
     // snapshot test the final state of s3
-    await new Promise((resolve, reject) => {
+    await new Promise((resolve, reject): void => {
       s3.listObjectsV2({ Bucket: bucket, Prefix: config.keyPrefix }, (err, data) => {
         if (err) {
           reject(err);
@@ -48,7 +48,7 @@ describe.skip('S3 package manager', () => {
     });
     // clean up s3
     try {
-      await new Promise((resolve, reject) => {
+      await new Promise((resolve, reject): void => {
         deleteKeyPrefix(
           s3,
           {
@@ -75,7 +75,7 @@ describe.skip('S3 package manager', () => {
 
   describe('savePackage() group', () => {
     test('savePackage()', done => {
-      const data: any = '{data:5}';
+      const data = ('{data:5}' as unknown) as Package;
       const packageManager = new S3PackageManager(config, 'first-package', logger);
 
       packageManager.savePackage('pkg.1.0.0.tar.gz', data, err => {
@@ -85,11 +85,11 @@ describe.skip('S3 package manager', () => {
     });
   });
 
-  async function syncFixtureDir(fixture) {
+  async function syncFixtureDir(fixture): Promise<void> {
     const s3 = new S3();
     const dir = path.join(__dirname, '__fixtures__');
 
-    const filenames = await new Promise((resolve, reject) =>
+    const filenames = await new Promise<string[]>((resolve, reject): void =>
       rReadDir(path.join(dir, fixture), (err, filenames) => {
         if (err) {
           reject(err);
@@ -102,14 +102,14 @@ describe.skip('S3 package manager', () => {
     await Promise.all(
       filenames.map(
         filename =>
-          new Promise((resolve, reject) => {
+          new Promise((resolve, reject): void => {
             const key = `${config.keyPrefix}${path.relative(dir, filename)}`;
             fs.readFile(filename, (err, data) => {
               if (err) {
                 reject(err);
                 return;
               }
-              s3.upload({ Bucket: bucket, Key: key, Body: data }).send((err, data) => {
+              s3.upload({ Bucket: bucket, Key: key, Body: data }).send(err => {
                 if (err) {
                   reject(err);
                   return;
@@ -128,7 +128,7 @@ describe.skip('S3 package manager', () => {
 
       const packageManager = new S3PackageManager(config, 'readme-test', logger);
 
-      packageManager.readPackage(pkgFileName, (err, data) => {
+      packageManager.readPackage(pkgFileName, err => {
         expect(err).toBeNull();
         done();
       });

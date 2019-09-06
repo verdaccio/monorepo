@@ -10,13 +10,13 @@ let localTempStorage: string;
 const pkgFileName = 'package.json';
 
 const logger: Logger = {
-  error: e => jest.fn(),
-  info: e => jest.fn(),
-  debug: e => jest.fn(),
-  warn: e => jest.fn(),
-  child: e => jest.fn(),
-  http: e => jest.fn(),
-  trace: e => jest.fn(),
+  error: () => jest.fn(),
+  info: () => jest.fn(),
+  debug: () => jest.fn(),
+  warn: () => jest.fn(),
+  child: () => jest.fn(),
+  http: () => jest.fn(),
+  trace: () => jest.fn(),
 };
 
 beforeAll(() => {
@@ -249,8 +249,8 @@ describe('Local FS test', () => {
     test('updatePackage() success', done => {
       jest.doMock('@verdaccio/file-locking', () => {
         return {
-          readFile: (name, options, cb) => cb(null, { name }),
-          unlockFile: (something, cb) => cb(null),
+          readFile: (name, _options, cb): any => cb(null, { name }),
+          unlockFile: (_something, cb): any => cb(null),
         };
       });
 
@@ -272,8 +272,8 @@ describe('Local FS test', () => {
       test('updatePackage() whether locking fails', done => {
         jest.doMock('@verdaccio/file-locking', () => {
           return {
-            readFile: (name, options, cb) => cb(Error('whateverError'), { name }),
-            unlockFile: (something, cb) => cb(null),
+            readFile: (name, _options, cb): any => cb(Error('whateverError'), { name }),
+            unlockFile: (_something, cb): any => cb(null),
           };
         });
         require('../src/local-fs').default;
@@ -294,8 +294,8 @@ describe('Local FS test', () => {
       test('updatePackage() unlock a missing package', done => {
         jest.doMock('@verdaccio/file-locking', () => {
           return {
-            readFile: (name, options, cb) => cb(fSError(noSuchFile, 404), { name }),
-            unlockFile: (something, cb) => cb(null),
+            readFile: (name, _options, cb): any => cb(fSError(noSuchFile, 404), { name }),
+            unlockFile: (_something, cb): any => cb(null),
           };
         });
         const LocalDriver = require('../src/local-fs').default;
@@ -316,8 +316,8 @@ describe('Local FS test', () => {
       test('updatePackage() unlock a resource non available', done => {
         jest.doMock('@verdaccio/file-locking', () => {
           return {
-            readFile: (name, options, cb) => cb(fSError(resourceNotAvailable, 503), { name }),
-            unlockFile: (something, cb) => cb(null),
+            readFile: (name, _options, cb): any => cb(fSError(resourceNotAvailable, 503), { name }),
+            unlockFile: (_something, cb): any => cb(null),
           };
         });
         const LocalDriver = require('../src/local-fs').default;
@@ -338,8 +338,8 @@ describe('Local FS test', () => {
       test('updatePackage() if updateHandler fails', done => {
         jest.doMock('@verdaccio/file-locking', () => {
           return {
-            readFile: (name, options, cb) => cb(null, { name }),
-            unlockFile: (something, cb) => cb(null),
+            readFile: (name, _options, cb): any => cb(null, { name }),
+            unlockFile: (_something, cb): any => cb(null),
           };
         });
 
@@ -348,7 +348,7 @@ describe('Local FS test', () => {
           path.join(__dirname, '__fixtures__/update-package'),
           logger
         );
-        const updateHandler = jest.fn((name, cb) => {
+        const updateHandler = jest.fn((_name, cb) => {
           cb(fSError('something wrong', 500));
         });
 

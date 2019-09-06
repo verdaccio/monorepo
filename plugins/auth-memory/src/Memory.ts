@@ -9,14 +9,14 @@ export default class Memory implements IPluginAuth<VerdaccioMemoryConfig> {
   public _config: {};
   public _app_config: VerdaccioMemoryConfig;
 
-  constructor(config: VerdaccioMemoryConfig, appOptions: PluginOptions<VerdaccioMemoryConfig>) {
+  public constructor(config: VerdaccioMemoryConfig, appOptions: PluginOptions<VerdaccioMemoryConfig>) {
     this._users = config.users || {};
     this._config = config;
     this._logger = appOptions.logger;
     this._app_config = appOptions.config;
   }
 
-  authenticate(user: string, password: string, done: Callback) {
+  public authenticate(user: string, password: string, done: Callback): void {
     const userCredentials = this._users[user];
 
     if (!userCredentials) {
@@ -37,7 +37,7 @@ export default class Memory implements IPluginAuth<VerdaccioMemoryConfig> {
     return done(null, [user]);
   }
 
-  adduser(user: string, password: string, done: Callback) {
+  public adduser(user: string, password: string, done: Callback): void {
     if (this._users[user]) {
       this._logger.debug({ user }, '[VerdaccioMemory] user @{user} already exist');
       return done(null, true);
@@ -57,7 +57,7 @@ export default class Memory implements IPluginAuth<VerdaccioMemoryConfig> {
     done(null, user);
   }
 
-  changePassword(username: string, password: string, newPassword: string, cb: Callback) {
+  public changePassword(username: string, password: string, newPassword: string, cb: Callback): void {
     const user: UserMemory = this._users[username];
     this._logger.debug({ user: username }, 'user: @{user} init change password');
 
@@ -75,8 +75,8 @@ export default class Memory implements IPluginAuth<VerdaccioMemoryConfig> {
     }
   }
 
-  allow_access(user: RemoteUser, pkg: PackageAccess, cb: Callback) {
-    if (pkg.access!.includes('$all') || pkg.access!.includes('$anonymous')) {
+  public allow_access(user: RemoteUser, pkg: PackageAccess, cb: Callback): void {
+    if ((pkg.access && pkg.access.includes('$all')) || (pkg.access && pkg.access.includes('$anonymous'))) {
       this._logger.debug({ user: user.name }, '[VerdaccioMemory] user: @{user} has been granted access');
 
       return cb(null, true);
@@ -88,7 +88,7 @@ export default class Memory implements IPluginAuth<VerdaccioMemoryConfig> {
       return cb(err);
     }
 
-    if (pkg.access!.includes(user.name) || pkg.access!.includes('$authenticated')) {
+    if ((pkg.access && pkg.access.includes(user.name)) || (pkg.access && pkg.access.includes('$authenticated'))) {
       this._logger.debug({ user: user.name }, '[VerdaccioMemory] user: @{user} has been granted access');
       return cb(null, true);
     }
@@ -99,8 +99,8 @@ export default class Memory implements IPluginAuth<VerdaccioMemoryConfig> {
     return cb(err);
   }
 
-  allow_publish(user: RemoteUser, pkg: PackageAccess, cb: Callback) {
-    if (pkg.publish!.includes('$all') || pkg.publish!.includes('$anonymous')) {
+  public allow_publish(user: RemoteUser, pkg: PackageAccess, cb: Callback): void {
+    if ((pkg.publish && pkg.publish.includes('$all')) || (pkg.publish && pkg.publish.includes('$anonymous'))) {
       this._logger.debug({ user: user.name }, '[VerdaccioMemory] user: @{user} has been granted to publish');
       return cb(null, true);
     }
@@ -112,7 +112,7 @@ export default class Memory implements IPluginAuth<VerdaccioMemoryConfig> {
       return cb(err);
     }
 
-    if (pkg.publish!.includes(user.name) || pkg.publish!.includes('$authenticated')) {
+    if ((pkg.publish && pkg.publish.includes(user.name)) || (pkg.publish && pkg.publish.includes('$authenticated'))) {
       return cb(null, true);
     }
 

@@ -1,22 +1,22 @@
 import request from 'request';
 import express, { Request, Response } from 'express';
 
-import { Logger, IPluginMiddleware, IBasicAuth, IStorageManager, PluginOptions } from '@verdaccio/types';
+import { Logger, IPluginMiddleware, IBasicAuth, PluginOptions } from '@verdaccio/types';
 import { ConfigAudit } from './types';
 
 export default class ProxyAudit implements IPluginMiddleware<ConfigAudit> {
-  enabled: boolean;
-  logger: Logger;
-  strict_ssl: boolean;
+  public enabled: boolean;
+  public logger: Logger;
+  public strict_ssl: boolean;
 
-  constructor(config: ConfigAudit, options: PluginOptions<ConfigAudit>) {
+  public constructor(config: ConfigAudit, options: PluginOptions<ConfigAudit>) {
     this.enabled = config.enabled || false;
     this.strict_ssl = config.strict_ssl !== undefined ? config.strict_ssl : true;
     this.logger = options.logger;
   }
 
-  register_middlewares(app: any, auth: IBasicAuth<ConfigAudit>, storage: IStorageManager<ConfigAudit>) {
-    const fetchAudit = (req: Request, res: Response & { report_error?: Function }) => {
+  public register_middlewares(app: any, auth: IBasicAuth<ConfigAudit>): void {
+    const fetchAudit = (req: Request, res: Response & { report_error?: Function }): void => {
       const headers = req.headers;
       headers.host = 'https://registry.npmjs.org/';
 
@@ -40,7 +40,7 @@ export default class ProxyAudit implements IPluginMiddleware<ConfigAudit> {
         .pipe(res);
     };
 
-    const handleAudit = (req: Request, res: Response) => {
+    const handleAudit = (req: Request, res: Response): void => {
       if (this.enabled) {
         fetchAudit(req, res);
       } else {

@@ -3,7 +3,7 @@ import _ from 'lodash';
 import path from 'path';
 
 export function getFileStats(packagePath: string): Promise<fs.Stats> {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve, reject): void => {
     fs.stat(packagePath, (err, stats) => {
       if (_.isNil(err) === false) {
         return reject(err);
@@ -14,7 +14,7 @@ export function getFileStats(packagePath: string): Promise<fs.Stats> {
 }
 
 export function readDirectory(packagePath: string): Promise<string[]> {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve, reject): void => {
     fs.readdir(packagePath, (err, scopedPackages) => {
       if (_.isNil(err) === false) {
         return reject(err);

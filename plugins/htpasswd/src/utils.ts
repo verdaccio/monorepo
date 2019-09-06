@@ -145,7 +145,7 @@ export function sanityCheck(
   return null;
 }
 
-export function getCryptoPassword(password: string) {
+export function getCryptoPassword(password: string): string {
   return `{SHA}${crypto
     .createHash('sha1')
     .update(password, 'utf8')

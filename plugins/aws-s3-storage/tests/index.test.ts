@@ -33,7 +33,7 @@ describe.skip('Local Database', () => {
   afterEach(async () => {
     const s3 = new S3();
     // snapshot test the final state of s3
-    await new Promise((resolve, reject) => {
+    await new Promise((resolve, reject): void => {
       s3.listObjectsV2({ Bucket: bucket, Prefix: config.store['s3-storage'].keyPrefix }, (err, data) => {
         if (err) {
           reject(err);
@@ -52,7 +52,7 @@ describe.skip('Local Database', () => {
     });
     // clean up s3
     try {
-      await new Promise((resolve, reject) => {
+      await new Promise((resolve, reject): void => {
         deleteKeyPrefix(
           s3,
           {

@@ -88,19 +88,16 @@ class GoogleCloudDatabase implements IPluginStorage<VerdaccioConfigGoogleStorage
     const key: Key = this.helper.datastore.key(['Secret', 'secret']);
     this.logger.debug('gcloud: [datastore getSecret] init');
 
-    return this.helper.datastore.get(key).then(
-      // @ts-ignore
-      (data: object): string => {
-        this.logger.trace({ data }, 'gcloud: [datastore getSecret] response @{data}');
-        const entities = data[0];
-        if (!entities) {
-          // @ts-ignore
-          return null;
-        }
-        // "{\"secret\":\"181bc38698078f880564be1e4d7ec107ac8a3b344a924c6d86cea4a84a885ae0\"}"
-        return entities.secret;
+    return this.helper.datastore.get(key).then((data: object): string => {
+      this.logger.trace({ data }, 'gcloud: [datastore getSecret] response @{data}');
+      const entities = data[0];
+      if (!entities) {
+        // @ts-ignore
+        return null;
       }
-    );
+      // "{\"secret\":\"181bc38698078f880564be1e4d7ec107ac8a3b344a924c6d86cea4a84a885ae0\"}"
+      return entities.secret;
+    });
   }
 
   public setSecret(secret: string): Promise<CommitResponse> {

@@ -42,9 +42,9 @@ const config: Config = {
     endpoint: '',
     content: '',
   },
-  checkSecretKey: token => '1234',
+  checkSecretKey: () => '1234',
   getMatchedPackagesSpec: () => {},
-  hasProxyTo: (pkg, upLink) => false,
+  hasProxyTo: () => false,
 };
 
 export default config;

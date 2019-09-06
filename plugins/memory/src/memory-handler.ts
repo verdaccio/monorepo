@@ -7,7 +7,7 @@ import { Callback, Logger, IPackageStorageManager, IUploadTarball, IReadTarball 
 export const noSuchFile = 'ENOENT';
 export const fileExist = 'EEXISTS';
 
-const fSError = function(message: string, code: number = 404): HttpError {
+const fSError = function(message: string, code = 404): HttpError {
   const err: HttpError = createError(code, message);
 
   err.code = message;
@@ -15,7 +15,7 @@ const fSError = function(message: string, code: number = 404): HttpError {
   return err;
 };
 
-const noPackageFoundError = function(message = 'no such package') {
+const noPackageFoundError = function(message = 'no such package'): HttpError {
   const err: HttpError = createError(404, message);
 
   err.code = noSuchFile;
@@ -25,12 +25,12 @@ const noPackageFoundError = function(message = 'no such package') {
 const fs = new MemoryFileSystem();
 
 class MemoryHandler implements IPackageStorageManager {
-  data: any;
-  name: string;
-  path: string;
-  logger: Logger;
+  private data: any;
+  private name: string;
+  private path: string;
+  public logger: Logger;
 
-  constructor(packageName: string, data: any, logger: Logger) {
+  public constructor(packageName: string, data: any, logger: Logger) {
     // this is not need it
     this.data = data;
     this.name = packageName;
@@ -38,7 +38,7 @@ class MemoryHandler implements IPackageStorageManager {
     this.path = '/';
   }
 
-  updatePackage(
+  public updatePackage(
     pkgFileName: string,
     updateHandler: Callback,
     onWrite: Callback,
@@ -65,20 +65,20 @@ class MemoryHandler implements IPackageStorageManager {
     });
   }
 
-  deletePackage(pkgName: string, callback: Callback) {
+  public deletePackage(pkgName: string, callback: Callback): void {
     delete this.data[pkgName];
     callback(null);
   }
 
-  removePackage(callback: Callback): void {
+  public removePackage(callback: Callback): void {
     callback(null);
   }
 
-  createPackage(name: string, value: Record<string, any>, cb: Function): void {
+  public createPackage(name: string, value: Record<string, any>, cb: Function): void {
     this.savePackage(name, value, cb);
   }
 
-  savePackage(name: string, value: Record<string, any>, cb: Function): void {
+  public savePackage(name: string, value: Record<string, any>, cb: Function): void {
     try {
       const json: string = JSON.stringify(value, null, '\t');
 
@@ -90,7 +90,7 @@ class MemoryHandler implements IPackageStorageManager {
     cb(null);
   }
 
-  readPackage(name: string, cb: Function): void {
+  public readPackage(name: string, cb: Function): void {
     const json = this._getStorage(name);
     const isJson = typeof json === 'undefined';
 
@@ -101,7 +101,7 @@ class MemoryHandler implements IPackageStorageManager {
     }
   }
 
-  writeTarball(name: string) {
+  public writeTarball(name: string): IUploadTarball {
     const uploadStream: IUploadTarball = new UploadTarball({});
     const temporalName = `/${name}`;
 
@@ -116,15 +116,15 @@ class MemoryHandler implements IPackageStorageManager {
 
           uploadStream.pipe(file);
 
-          uploadStream.done = function() {
-            const onEnd = function() {
+          uploadStream.done = function(): void {
+            const onEnd = function(): void {
               uploadStream.emit('success');
             };
 
             uploadStream.on('end', onEnd);
           };
 
-          uploadStream.abort = function() {
+          uploadStream.abort = function(): void {
             uploadStream.emit('error', fSError('transmision aborted', 400));
             file.end();
           };
@@ -139,7 +139,7 @@ class MemoryHandler implements IPackageStorageManager {
     return uploadStream;
   }
 
-  readTarball(name: string) {
+  public readTarball(name: string): IReadTarball {
     const pathName = `/${name}`;
 
     const readTarballStream: IReadTarball = new ReadTarball({});
@@ -158,7 +158,7 @@ class MemoryHandler implements IPackageStorageManager {
             readTarballStream.emit('error', error);
           });
 
-          readTarballStream.abort = function() {
+          readTarballStream.abort = function(): void {
             readStream.destroy(fSError('read has been aborted', 400));
           };
         }
@@ -168,7 +168,7 @@ class MemoryHandler implements IPackageStorageManager {
     return readTarballStream;
   }
 
-  _getStorage(name: string = ''): string {
+  private _getStorage(name = ''): string {
     return this.data[name];
   }
 }

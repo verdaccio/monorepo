@@ -25,16 +25,16 @@ export default class HTPasswd implements IPluginAuth<VerdaccioConfigApp> {
    * @param {*} config htpasswd file
    * @param {object} stuff config.yaml in object from
    */
-  users: {};
-  stuff: {};
-  config: {};
-  verdaccioConfig: Config;
-  maxUsers: number;
-  path: string;
-  logger: {};
-  lastTime: any;
+  private users: {};
+  private stuff: {};
+  private config: {};
+  private verdaccioConfig: Config;
+  private maxUsers: number;
+  private path: string;
+  private logger: {};
+  private lastTime: any;
   // constructor
-  constructor(config: AuthConf, stuff: VerdaccioConfigApp) {
+  public constructor(config: AuthConf, stuff: VerdaccioConfigApp) {
     this.users = {};
 
     // config for this module
@@ -68,7 +68,7 @@ export default class HTPasswd implements IPluginAuth<VerdaccioConfigApp> {
    * @param {function} cd
    * @returns {function}
    */
-  authenticate(user: string, password: string, cb: Callback) {
+  public authenticate(user: string, password: string, cb: Callback): void {
     this.reload(err => {
       if (err) {
         return cb(err.code === 'ENOENT' ? null : err);
@@ -102,7 +102,7 @@ export default class HTPasswd implements IPluginAuth<VerdaccioConfigApp> {
    * @param {function} realCb
    * @returns {function}
    */
-  adduser(user: string, password: string, realCb: Callback) {
+  public adduser(user: string, password: string, realCb: Callback): any {
     const pathPass = this.path;
     let sanity = sanityCheck(user, password, verifyPassword, this.users, this.maxUsers);
 
@@ -112,11 +112,11 @@ export default class HTPasswd implements IPluginAuth<VerdaccioConfigApp> {
       return realCb(sanity, false);
     }
 
-    lockAndRead(pathPass, (err, res) => {
+    lockAndRead(pathPass, (err, res): void => {
       let locked = false;
 
       // callback that cleans up lock first
-      const cb = err => {
+      const cb = (err): void => {
         if (locked) {
           unlockFile(pathPass, () => {
             // ignore any error from the unlock
@@ -158,7 +158,7 @@ export default class HTPasswd implements IPluginAuth<VerdaccioConfigApp> {
    * Reload users
    * @param {function} callback
    */
-  reload(callback: Callback) {
+  public reload(callback: Callback): void {
     fs.stat(this.path, (err, stats) => {
       if (err) {
         return callback(err);
@@ -180,11 +180,11 @@ export default class HTPasswd implements IPluginAuth<VerdaccioConfigApp> {
     });
   }
 
-  _stringToUt8(authentication: string): string {
+  private _stringToUt8(authentication: string): string {
     return (authentication || '').toString();
   }
 
-  _writeFile(body: string, cb: Callback) {
+  private _writeFile(body: string, cb: Callback): void {
     fs.writeFile(this.path, body, err => {
       if (err) {
         cb(err);
@@ -203,13 +203,13 @@ export default class HTPasswd implements IPluginAuth<VerdaccioConfigApp> {
    * @param {function} cd
    * @returns {function}
    */
-  changePassword(user: string, password: string, newPassword: string, realCb: Callback) {
+  public changePassword(user: string, password: string, newPassword: string, realCb: Callback): void {
     lockAndRead(this.path, (err, res) => {
       let locked = false;
       const pathPassFile = this.path;
 
       // callback that cleans up lock first
-      const cb = err => {
+      const cb = (err): void => {
         if (locked) {
           unlockFile(pathPassFile, () => {
             // ignore any error from the unlock

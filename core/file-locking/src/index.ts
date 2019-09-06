@@ -4,9 +4,9 @@ import path from 'path';
 import { Callback } from '@verdaccio/types';
 
 // locks a file by creating a lock file
-const lockFile = function(name: string, callback: Callback) {
-  const statDir = (name: string) => {
-    return new Promise<any>((resolve, reject) => {
+const lockFile = function(name: string, callback: Callback): void {
+  const statDir = (name: string): Promise<any> => {
+    return new Promise<any>((resolve, reject): void => {
       // test to see if the directory exists
       const dirPath = path.dirname(name);
       fs.stat(dirPath, function(err, stats) {
@@ -21,8 +21,8 @@ const lockFile = function(name: string, callback: Callback) {
     });
   };
 
-  const statfile = (name: string) => {
-    return new Promise<any>((resolve, reject) => {
+  const statfile = (name: string): Promise<any> => {
+    return new Promise<any>((resolve, reject): void => {
       // test to see if the directory exists
       fs.stat(name, function(err, stats) {
         if (err) {
@@ -36,8 +36,8 @@ const lockFile = function(name: string, callback: Callback) {
     });
   };
 
-  const lockfile = (name: string) => {
-    return new Promise(resolve => {
+  const lockfile = (name: string): Promise<unknown> => {
+    return new Promise((resolve): void => {
       const lockOpts = {
         // time (ms) to wait when checking for stale locks
         wait: 1000,
@@ -76,7 +76,7 @@ const lockFile = function(name: string, callback: Callback) {
 };
 
 // unlocks file by removing existing lock file
-const unlockFile = function(name: string, next: Callback) {
+const unlockFile = function(name: string, next: Callback): void {
   const lockFileName = `${name}.lock`;
   locker.unlock(lockFileName, function() {
     return next(null);
@@ -92,7 +92,7 @@ const unlockFile = function(name: string, next: Callback) {
  * @param {*} options
  * @param {*} callback
  */
-function readFile(name: string, options: any = {}, callback: any = () => {}) {
+function readFile(name: string, options: any = {}, callback: any = (): void => {}): void {
   if (typeof options === 'function') {
     callback = options;
     options = {};
@@ -101,8 +101,8 @@ function readFile(name: string, options: any = {}, callback: any = () => {}) {
   options.lock = options.lock || false;
   options.parse = options.parse || false;
 
-  const lock = function(options: { lock: string }) {
-    return new Promise<any>((resolve, reject) => {
+  const lock = function(options: { lock: string }): Promise<any> {
+    return new Promise<any>((resolve, reject): void => {
       if (!options.lock) {
         return resolve(null);
       }
@@ -116,8 +116,8 @@ function readFile(name: string, options: any = {}, callback: any = () => {}) {
     });
   };
 
-  const read = function() {
-    return new Promise<any>((resolve, reject) => {
+  const read = function(): Promise<any> {
+    return new Promise<any>((resolve, reject): void => {
       fs.readFile(name, 'utf8', function(err, contents) {
         if (err) {
           return reject(err);
@@ -128,8 +128,8 @@ function readFile(name: string, options: any = {}, callback: any = () => {}) {
     });
   };
 
-  const parseJSON = function(contents: any) {
-    return new Promise((resolve, reject) => {
+  const parseJSON = function(contents: any): Promise<unknown> {
+    return new Promise((resolve, reject): void => {
       if (!options.parse) {
         return resolve(contents);
       }

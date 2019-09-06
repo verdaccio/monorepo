@@ -56,7 +56,10 @@ class ActiveDirectoryPlugin implements IPluginAuth<ActiveDirectoryConfig> {
 
           const requestedGroups = Array.isArray(groupName) ? groupName : [groupName];
           const matchingGroups = requestedGroups.filter((requestedGroup): boolean =>
-            groups.some((group: any): boolean => requestedGroup === group.cn || requestedGroup === group.dn)
+            groups.some(
+              (group: { cn?: string; dn?: string }): boolean =>
+                requestedGroup === group.cn || requestedGroup === group.dn
+            )
           );
 
           if (matchingGroups.length <= 0) {

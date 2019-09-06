@@ -69,7 +69,7 @@ class LocalDatabase implements IPluginStorage<{}> {
   }
 
   public setSecret(secret: string): Promise<Error | null> {
-    return new Promise(resolve => {
+    return new Promise((resolve): void => {
       this.data.secret = secret;
 
       resolve(this._sync());
@@ -250,7 +250,7 @@ class LocalDatabase implements IPluginStorage<{}> {
     const key = this._getTokenKey(token);
     const db = this.getTokenDb();
 
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve, reject): void => {
       db.put(key, token, err => {
         if (err) {
           reject(err);
@@ -264,7 +264,7 @@ class LocalDatabase implements IPluginStorage<{}> {
   public deleteToken(user: string, tokenKey: string): Promise<void> {
     const key = this._compoundTokenKey(user, tokenKey);
     const db = this.getTokenDb();
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve, reject): void => {
       db.del(key, err => {
         if (err) {
           reject(err);
@@ -276,7 +276,7 @@ class LocalDatabase implements IPluginStorage<{}> {
   }
 
   public readTokens(filter: TokenFilter): Promise<Token[]> {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve, reject): void => {
       const tokens: Token[] = [];
       const key = filter.user + ':';
       const db = this.getTokenDb();
