@@ -2634,10 +2634,10 @@ acorn@^7.0.0:
   resolved "https://registry.verdaccio.org/acorn/-/acorn-7.0.0.tgz#26b8d1cd9a9b700350b71c0905546f64d1284e7a"
   integrity sha512-PaF/MduxijYYt7unVGRuds1vBC9bFxbNf+VWqhOClfdgy7RlVkQqt610ig1/yxTgsDIfW1cWDel5EBbOy3jdtQ==
 
-activedirectory2@1.2.7:
-  version "1.2.7"
-  resolved "https://registry.verdaccio.org/activedirectory2/-/activedirectory2-1.2.7.tgz#4b22055d303dfd3451cbf6d4cc44c100fe0547f2"
-  integrity sha512-gOI05h8RJoBy8GrRWp5Rx+LopCqdfLOBWzmAIM7F65qqmkX4nGRdVsH1rM9JmQCXNl12MLybUh8IB+xU7YzRFA==
+activedirectory2@1.2.8:
+  version "1.2.8"
+  resolved "https://registry.verdaccio.org/activedirectory2/-/activedirectory2-1.2.8.tgz#b236cb969ac153aa929ff76bd04d69b95ad0fca1"
+  integrity sha512-JstcClJlHuDkIBTFOwvj6pZ3LQJep66JGa20H/BjS4OUT2BUosManvvBNFxEI1BdLIAwGT6EsoaG2xjUAYCYAg==
   dependencies:
     abstract-logging "^1.0.0"
     async "^2.5.0"
