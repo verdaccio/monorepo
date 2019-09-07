@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/babel-preset",
-  "version": "8.0.1-next.1",
+  "version": "8.1.0",
   "description": "A common preset for Verdaccio projects",
   "keywords": [
     "verdaccio",
@@ -55,8 +55,8 @@
     "babel-plugin-emotion": "10.0.17"
   },
   "devDependencies": {
-    "@verdaccio/eslint-config": "^8.0.1-next.1",
-    "eslint-plugin-verdaccio": "^8.0.1-next.1"
+    "@verdaccio/eslint-config": "^8.1.0",
+    "eslint-plugin-verdaccio": "^8.1.0"
   },
   "scripts": {
     "lint": "eslint \"**/*.js\"",

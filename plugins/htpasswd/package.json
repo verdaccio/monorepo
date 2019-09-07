@@ -1,6 +1,6 @@
 {
   "name": "verdaccio-htpasswd",
-  "version": "8.0.1-next.1",
+  "version": "8.1.0",
   "description": "htpasswd auth plugin for Verdaccio",
   "keywords": [
     "verdaccio",
@@ -37,9 +37,9 @@
   "devDependencies": {
     "@octokit/rest": "^16.23.2",
     "@types/bcryptjs": "^2.4.2",
-    "@verdaccio/babel-preset": "^8.0.1-next.1",
-    "@verdaccio/eslint-config": "^8.0.1-next.1",
-    "@verdaccio/types": "^8.0.1-next.1"
+    "@verdaccio/babel-preset": "^8.1.0",
+    "@verdaccio/eslint-config": "^8.1.0",
+    "@verdaccio/types": "^8.1.0"
   },
   "scripts": {
     "build": "npm run build:types && npm run build:js",
