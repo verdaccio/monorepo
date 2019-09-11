@@ -5,17 +5,14 @@ aliases:
     ~/monorepo
   - &defaults
     working_directory: *repo_path
-  - &node12_executor
+  - &node_latest_executor
     docker:
-      - image: circleci/node:12
-  - &node10_executor
+      - image: circleci/node:latest
+  - &node_lts_executor
     docker:
-      - image: circleci/node:10
-  - &node8_executor
-    docker:
-      - image: circleci/node:8
+      - image: circleci/node:lts
   - &default_executor
-    <<: *node12_executor
+    <<: *node_latest_executor
   - &yarn_cache_key
     yarn-sha-{{ checksum "yarn.lock" }}
   - &restore_repo
@@ -67,6 +64,7 @@ jobs:
           root: *repo_path
           paths:
             - ./*
+
   lint:
     <<: *defaults
     <<: *default_executor
@@ -76,34 +74,25 @@ jobs:
           name: Lint code
           command: yarn lint
 
-  test_node12:
+  test_node_latest:
     <<: *defaults
-    <<: *node12_executor
+    <<: *node_latest_executor
     steps:
       - *restore_repo
       - run:
-          name: Test with Node 12
+          name: Test with Node (Latest)
           command: yarn test
       - run:
           name: Publish coverage
           command: yarn coverage:publish
 
-  test_node10:
+  test_node_lts:
     <<: *defaults
-    <<: *node10_executor
+    <<: *node_lts_executor
     steps:
       - *restore_repo
       - run:
-          name: Test with Node 10
-          command: yarn test
-
-  test_node8:
-    <<: *defaults
-    <<: *node8_executor
-    steps:
-      - *restore_repo
-      - run:
-          name: Test with Node 8
+          name: Test with Node (LTS)
           command: yarn test
 
   test_publish:
@@ -168,24 +157,19 @@ workflows:
           requires:
             - prepare
           <<: *ignore_non_dev_branches
-      - test_node12:
+      - test_node_latest:
           requires:
             - prepare
           <<: *ignore_non_dev_branches
-      - test_node10:
-          requires:
-            - prepare
-          <<: *ignore_non_dev_branches
-      - test_node8:
+      - test_node_lts:
           requires:
             - prepare
           <<: *ignore_non_dev_branches
       - test_publish:
           requires:
             - lint
-            - test_node12
-            - test_node10
-            - test_node8
+            - test_node_latest
+            - test_node_lts
           <<: *ignore_non_dev_branches
       - publish:
           requires:

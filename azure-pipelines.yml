@@ -18,15 +18,6 @@ strategy:
     node10_macos:
       imageName: 'macOS-10.14'
       nodeVersion: 10.x
-    node8_linux:
-      imageName: 'ubuntu-latest'
-      nodeVersion: 8.x
-    node8_windows:
-      imageName: 'windows-2019'
-      nodeVersion: '8.16'
-    node8_macos:
-      imageName: 'macOS-10.14'
-      nodeVersion: 8.x
 
 pool:
   vmImage: $(imageName)
