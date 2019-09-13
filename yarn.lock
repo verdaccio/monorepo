@@ -1151,10 +1151,10 @@
     retry-request "^4.0.0"
     teeny-request "^5.2.1"
 
-"@google-cloud/datastore@4.2.0":
-  version "4.2.0"
-  resolved "https://registry.verdaccio.org/@google-cloud%2fdatastore/-/datastore-4.2.0.tgz#79f71c525d39ccc757bbbb11029fb43dad288d47"
-  integrity sha512-URywIcBGfntfeh0c98Z+CkzrxXJoLQrVTbALXNslLyHKgDSMuqwLPbg76+YJhBJtMzXieG8W7ZGULPq0VxDg9w==
+"@google-cloud/datastore@4.3.0":
+  version "4.3.0"
+  resolved "https://registry.verdaccio.org/@google-cloud%2fdatastore/-/datastore-4.3.0.tgz#19c069339d6f8d74b7d18e8d3c7edad653bc0a18"
+  integrity sha512-5LCmnCfihzdkiWSr3z4/z10TIGC4ARfl06sh0hande+RslqedpqOoh18pVaZamCNHzOjh4wXUflDiVOVGINSTg==
   dependencies:
     "@google-cloud/projectify" "^1.0.0"
     "@google-cloud/promisify" "^1.0.0"
