@@ -1,5 +1,5 @@
 module.exports = {
-  extends: ['./rules/base', './rules/typescript', './rules/import', './rules/prettier'].map(require.resolve),
+  extends: ['./rules/base', './rules/prettier'].map(require.resolve),
   env: {
     es6: true,
     node: true,
@@ -16,4 +16,10 @@ module.exports = {
       jsx: true,
     },
   },
+  overrides: [
+    {
+      files: ['*.ts', '*.tsx'],
+      extends: ['./rules/base', './rules/typescript', './rules/import', './rules/prettier'].map(require.resolve),
+    },
+  ],
 };
