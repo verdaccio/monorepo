@@ -16,13 +16,18 @@ This settings can be set in `config.yaml`. All fields are mandatory except `grou
 auth:
   activedirectory:
     url: "ldap://localhost"
-    baseDN: 'dc=local,dc=host'
-    domainSuffix: 'local.host'
+    baseDN: "dc=local,dc=host"
+    domainSuffix: "local.host"
     # groupName: 'singleGroup' # optional, single group syntax
     # groupName:               # optional, multiple groups syntax
     #   - 'group1'
     #   - 'group2'
 ```
+
+## Inspiration
+
+This plugin is based on [verdaccio-activedirectory](https://github.com/nowhammies/verdaccio-activedirectory), which is based on [siponia-activedirectory](https://github.com/ela-compil/sinopia-activedirectory).  
+Thanks to [Doug Dennie](https://github.com/nowhammies) and [Ela-compil sp. z o. o.](https://github.com/ela-compil) for making this possible.
 
 ## License
 
