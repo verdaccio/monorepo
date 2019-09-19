@@ -915,13 +915,13 @@
     resolve-global "1.0.0"
 
 "@commitlint/config-lerna-scopes@^8.1.0":
-  version "8.1.0"
-  resolved "https://registry.verdaccio.org/@commitlint%2fconfig-lerna-scopes/-/config-lerna-scopes-8.1.0.tgz#6c76efd6b04348adf6c2710c5b075bcf92a23d5b"
-  integrity sha512-BHM9h349fP21VJM7cMYMikrUwwQE9EzQURDf/48ncblTYGIPLdf8ba32Aj9jZhBVZxBAVft4oACC85pEuLAbYw==
+  version "8.2.0"
+  resolved "https://registry.verdaccio.org/@commitlint%2fconfig-lerna-scopes/-/config-lerna-scopes-8.2.0.tgz#19809fec506a5356018a483af5754196bcb22129"
+  integrity sha512-V8Y4wq0UfZhKZGWLn0F3J11OANOp5wGPS6OdNf67PDbV0Xs39zc9j6HoH1PCEnVcaRHlSCr09B1kkxZvsABUEw==
   dependencies:
     import-from "3.0.0"
     resolve-pkg "2.0.0"
-    semver "6.1.1"
+    semver "6.2.0"
 
 "@commitlint/ensure@^8.1.0":
   version "8.1.0"
@@ -9115,6 +9115,11 @@ semver@6.1.1:
   version "6.1.1"
   resolved "https://registry.verdaccio.org/semver/-/semver-6.1.1.tgz#53f53da9b30b2103cd4f15eab3a18ecbcb210c9b"
   integrity sha512-rWYq2e5iYW+fFe/oPPtYJxYgjBm8sC4rmoGdUOgBB7VnwKt6HrL793l2voH1UlsyYZpJ4g0wfjnTEO1s1NP2eQ==
+
+semver@6.2.0:
+  version "6.2.0"
+  resolved "https://registry.verdaccio.org/semver/-/semver-6.2.0.tgz#4d813d9590aaf8a9192693d6c85b9344de5901db"
+  integrity sha512-jdFC1VdUGT/2Scgbimf7FSx9iJLXoqfglSF+gJeuNWVpiE37OIbc1jywR/GJyFdz3mnkz2/id0L0J/cr0izR5A==
 
 semver@^6.0.0, semver@^6.1.2, semver@^6.2.0, semver@^6.3.0:
   version "6.3.0"
