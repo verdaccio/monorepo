@@ -3502,9 +3502,9 @@ code-point-at@^1.0.0:
   integrity sha1-DQcLTQQ6W+ozovGkDi7bPZpMz3c=
 
 codecov@^3.5.0:
-  version "3.5.0"
-  resolved "https://registry.verdaccio.org/codecov/-/codecov-3.5.0.tgz#3d0748932f9cb41e1ad7f21fa346ef1b2b1bed47"
-  integrity sha512-/OsWOfIHaQIr7aeZ4pY0UC1PZT6kimoKFOFYFNb6wxo3iw12nRrh+mNGH72rnXxNsq6SGfesVPizm/6Q3XqcFQ==
+  version "3.6.0"
+  resolved "https://registry.verdaccio.org/codecov/-/codecov-3.6.0.tgz#6915561b7064c064e30a588ea23c1384b14d744b"
+  integrity sha512-d9SEDdgEZ1PDXLY52itsk5pMmxVbqmT4+8OCzmZOHUUOxWpmnPK2Fgz35yYUipT8QqkrDRihIvIJKjRynUdk4g==
   dependencies:
     argv "^0.0.2"
     ignore-walk "^3.0.1"
@@ -9096,11 +9096,6 @@ semver@5.5.0:
   version "5.5.0"
   resolved "https://registry.verdaccio.org/semver/-/semver-5.5.0.tgz#dc4bbc7a6ca9d916dee5d43516f0092b58f7b8ab"
   integrity sha512-4SJ3dm0WAwWy/NVeioZh5AntkdJoWKxHxcmyP622fOkgHa4z3R0TdBJICINyaSDE6uNwVc8gZr+ZinwZAH4xIA==
-
-semver@6.1.1:
-  version "6.1.1"
-  resolved "https://registry.verdaccio.org/semver/-/semver-6.1.1.tgz#53f53da9b30b2103cd4f15eab3a18ecbcb210c9b"
-  integrity sha512-rWYq2e5iYW+fFe/oPPtYJxYgjBm8sC4rmoGdUOgBB7VnwKt6HrL793l2voH1UlsyYZpJ4g0wfjnTEO1s1NP2eQ==
 
 semver@6.2.0:
   version "6.2.0"
