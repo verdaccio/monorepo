@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.1.1](https://github.com/verdaccio/monorepo/compare/v8.1.0...v8.1.1) (2019-09-26)
+
+
+### Bug Fixes
+
+* **security:** Cross-site Scripting (XSS) for readme ([7b53e1b](https://github.com/verdaccio/monorepo/commit/7b53e1b))
+
+
+
+
+
 # [8.1.0](https://github.com/verdaccio/monorepo/compare/v8.0.1-next.1...v8.1.0) (2019-09-07)
 
 **Note:** Version bump only for package @verdaccio/readme
