@@ -1,6 +1,6 @@
 {
   "name": "verdaccio-google-cloud",
-  "version": "8.1.1",
+  "version": "8.1.2",
   "description": "Google Cloud storage implementation for Verdaccio",
   "keywords": [
     "verdaccio",
@@ -31,12 +31,12 @@
   "dependencies": {
     "@google-cloud/datastore": "4.3.0",
     "@google-cloud/storage": "3.2.1",
-    "@verdaccio/commons-api": "^8.1.1",
-    "@verdaccio/streams": "^8.1.1"
+    "@verdaccio/commons-api": "^8.1.2",
+    "@verdaccio/streams": "^8.1.2"
   },
   "devDependencies": {
-    "@verdaccio/babel-preset": "^8.1.1",
-    "@verdaccio/eslint-config": "^8.1.1",
+    "@verdaccio/babel-preset": "^8.1.2",
+    "@verdaccio/eslint-config": "^8.1.2",
     "@verdaccio/types": "^8.1.0",
     "memory-fs": "0.4.1"
   },

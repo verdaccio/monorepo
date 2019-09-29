@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.1.2](https://github.com/verdaccio/monorepo/compare/v8.1.1...v8.1.2) (2019-09-29)
+
+
+### Bug Fixes
+
+* **readme:** security vulnerabilities in marked dep ([ee604b1](https://github.com/verdaccio/monorepo/commit/ee604b1))
+
+
+
+
+
 ## [8.1.1](https://github.com/verdaccio/monorepo/compare/v8.1.0...v8.1.1) (2019-09-26)
 
 
