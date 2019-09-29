@@ -1,5 +1,6 @@
 import MemoryHandler from './memory-handler';
-import { Logger, Callback, Config, IPluginStorage } from '@verdaccio/types';
+import { getServiceUnavailable } from '@verdaccio/commons-api';
+import { Logger, Callback, Config, IPluginStorage, Token, TokenFilter } from '@verdaccio/types';
 
 export type ConfigMemory = Config & { limit?: number };
 export interface MemoryLocalStorage {
@@ -10,13 +11,13 @@ export interface MemoryLocalStorage {
 
 const DEFAULT_LIMIT = 1000;
 class LocalMemory implements IPluginStorage<ConfigMemory> {
-  path: string;
-  limit: number;
-  logger: Logger;
-  data: MemoryLocalStorage;
-  config: ConfigMemory;
+  private path: string;
+  private limit: number;
+  public logger: Logger;
+  private data: MemoryLocalStorage;
+  public config: ConfigMemory;
 
-  constructor(config: ConfigMemory, options: any) {
+  public constructor(config: ConfigMemory, options: any) {
     this.config = config;
     this.limit = config.limit || DEFAULT_LIMIT;
     this.logger = options.logger;
@@ -24,18 +25,18 @@ class LocalMemory implements IPluginStorage<ConfigMemory> {
     this.path = '/';
   }
 
-  getSecret(): Promise<any> {
+  public getSecret(): Promise<string> {
     return Promise.resolve(this.data.secret);
   }
 
-  setSecret(secret: string): Promise<any> {
-    return new Promise((resolve, reject) => {
+  public setSecret(secret: string): Promise<any> {
+    return new Promise((resolve): void => {
       this.data.secret = secret;
       resolve(null);
     });
   }
 
-  add(name: string, cb: Callback) {
+  public add(name: string, cb: Callback): void {
     const { list } = this.data;
 
     if (list.length < this.limit) {
@@ -49,12 +50,12 @@ class LocalMemory implements IPluginStorage<ConfigMemory> {
     }
   }
 
-  search(onPackage: Callback, onEnd: Callback, validateName: any): void {
+  public search(onPackage: Callback, onEnd: Callback, validateName: Function): void {
     // TODO: pending to implement
     onEnd();
   }
 
-  remove(name: string, cb: Callback) {
+  public remove(name: string, cb: Callback): void {
     const { list } = this.data;
     const item = list.indexOf(name);
 
@@ -65,28 +66,42 @@ class LocalMemory implements IPluginStorage<ConfigMemory> {
     cb(null);
   }
 
-  get(cb: Callback) {
+  public get(cb: Callback): void {
     cb(null, this.data.list);
   }
 
-  sync() {
-    // nothing to do
-  }
-
-  getPackageStorage(packageInfo: string) {
+  public getPackageStorage(packageInfo: string): MemoryHandler {
     return new MemoryHandler(packageInfo, this.data.files, this.logger);
   }
 
-  _createEmtpyDatabase(): MemoryLocalStorage {
+  private _createEmtpyDatabase(): MemoryLocalStorage {
     const list: any = [];
-    const files: any = {};
+    const files = {};
     const emptyDatabase = {
       list,
       files,
-      secret: ''
+      secret: '',
     };
 
     return emptyDatabase;
+  }
+
+  public saveToken(token: Token): Promise<void> {
+    this.logger.warn({ token }, 'save token has not been implemented yet @{token}');
+
+    return Promise.reject(getServiceUnavailable('[saveToken] method not implemented'));
+  }
+
+  public deleteToken(user: string, tokenKey: string): Promise<void> {
+    this.logger.warn({ tokenKey, user }, 'delete token has not been implemented yet @{user}');
+
+    return Promise.reject(getServiceUnavailable('[deleteToken] method not implemented'));
+  }
+
+  public readTokens(filter: TokenFilter): Promise<Token[]> {
+    this.logger.warn({ filter }, 'read tokens has not been implemented yet @{filter}');
+
+    return Promise.reject(getServiceUnavailable('[readTokens] method not implemented'));
   }
 }
 

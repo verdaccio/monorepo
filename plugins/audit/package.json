@@ -1,6 +1,6 @@
 {
   "name": "verdaccio-audit",
-  "version": "1.2.1",
+  "version": "8.1.1",
   "description": "Verdaccio Middleware plugin to bypass npmjs audit",
   "keywords": [
     "verdaccio",
@@ -10,6 +10,15 @@
   ],
   "author": "Juan Picado <juanpicado19@gmail.com>",
   "license": "MIT",
+  "homepage": "https://verdaccio.org",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/verdaccio/monorepo",
+    "directory": "plugins/audit"
+  },
+  "bugs": {
+    "url": "https://github.com/verdaccio/monorepo/issues"
+  },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "files": [
@@ -19,31 +28,23 @@
     "node": ">=8"
   },
   "dependencies": {
-    "express": "4.16.4",
+    "express": "4.18.0",
     "request": "2.88.0"
   },
   "devDependencies": {
-    "@verdaccio/babel-preset": "^2.0.0",
-    "@verdaccio/eslint-config": "^2.0.0",
-    "@verdaccio/types": "^7.0.0"
+    "@verdaccio/babel-preset": "^8.1.1",
+    "@verdaccio/eslint-config": "^8.1.1",
+    "@verdaccio/types": "^8.1.0"
   },
   "scripts": {
     "build": "npm run build:types && npm run build:js",
     "build:js": "babel src/ --out-dir lib --extensions \".ts,.tsx\" --source-maps inline",
     "build:types": "tsc --emitDeclarationOnly",
-    "coverage": "codecov",
-    "format": "prettier --single-quote --trailing-comma none --write \"{src,test}/**/*.ts\"",
-    "lint": "eslint . --ext .js,.ts",
+    "coverage:publish": "codecov --root=../../ -F plugins",
+    "lint": "eslint \"**/*.{js,ts}\"",
     "lint:stage": "lint-staged",
-    "test": "npm run lint && jest",
+    "test": "jest",
     "type-check": "tsc --noEmit",
     "type-check:watch": "npm run type-check -- --watch"
-  },
-  "lint-staged": {
-    "**/*.{js,ts}": [
-      "eslint .",
-      "prettier --write",
-      "git add"
-    ]
   }
 }

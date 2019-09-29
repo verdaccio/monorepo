@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/readme",
-  "version": "1.0.4",
+  "version": "8.1.1",
   "description": "Readme markdown parser",
   "keywords": [
     "verdaccio",
@@ -12,6 +12,15 @@
     "email": "juanpicado19@gmail.com"
   },
   "license": "MIT",
+  "homepage": "https://verdaccio.org",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/verdaccio/monorepo",
+    "directory": "core/readme"
+  },
+  "bugs": {
+    "url": "https://github.com/verdaccio/monorepo/issues"
+  },
   "publishConfig": {
     "access": "public"
   },
@@ -21,33 +30,24 @@
     "lib"
   ],
   "dependencies": {
-    "dompurify": "1.0.11",
+    "dompurify": "2.0.3",
     "jsdom": "15.1.1",
     "marked": "0.7.0"
   },
   "devDependencies": {
-    "@verdaccio/babel-preset": "^2.0.0",
-    "@verdaccio/eslint-config": "^2.0.0",
-    "@verdaccio/types": "^7.0.0"
+    "@verdaccio/babel-preset": "^8.1.1",
+    "@verdaccio/eslint-config": "^8.1.1",
+    "@verdaccio/types": "^8.1.0"
   },
   "scripts": {
     "build": "npm run build:types && npm run build:js",
     "build:js": "babel src/ --out-dir lib --extensions \".ts,.tsx\"",
     "build:types": "tsc --emitDeclarationOnly",
-    "coverage:publish": "codecov",
-    "format": "prettier --single-quote --trailing-comma none --write '**/*.{js,ts}'",
+    "coverage:publish": "codecov --root=../../ -F core",
     "lint": "eslint \"**/*.{js,ts}\"",
     "lint:stage": "lint-staged",
-    "pretest": "npm run lint",
     "test": "jest",
     "type-check": "tsc --noEmit",
     "type-check:watch": "npm run type-check -- --watch"
-  },
-  "lint-staged": {
-    "**/*.{ts, json}": [
-      "eslint .",
-      "prettier --write",
-      "git add"
-    ]
   }
 }

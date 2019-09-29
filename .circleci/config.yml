@@ -5,17 +5,14 @@ aliases:
     ~/monorepo
   - &defaults
     working_directory: *repo_path
-  - &node12_executor
+  - &node_latest_executor
     docker:
-      - image: circleci/node:12
-  - &node10_executor
+      - image: circleci/node:latest
+  - &node_lts_executor
     docker:
-      - image: circleci/node:10
-  - &node8_executor
-    docker:
-      - image: circleci/node:8
+      - image: circleci/node:lts
   - &default_executor
-    <<: *node12_executor
+    <<: *node_latest_executor
   - &yarn_cache_key
     yarn-sha-{{ checksum "yarn.lock" }}
   - &restore_repo
@@ -68,32 +65,63 @@ jobs:
           paths:
             - ./*
 
-  test_node12:
+  lint:
     <<: *defaults
-    <<: *node12_executor
+    <<: *default_executor
     steps:
       - *restore_repo
       - run:
-          name: Test with Node 12
+          name: Lint code
+          command: yarn lint
+
+  test_node_latest:
+    <<: *defaults
+    <<: *node_latest_executor
+    steps:
+      - *restore_repo
+      - run:
+          name: Test with Node (Latest)
+          command: yarn test
+      - run:
+          name: Publish coverage
+          command: yarn coverage:publish
+
+  test_node_lts:
+    <<: *defaults
+    <<: *node_lts_executor
+    steps:
+      - *restore_repo
+      - run:
+          name: Test with Node (LTS)
           command: yarn test
 
-  test_node10:
+  test_publish:
     <<: *defaults
-    <<: *node10_executor
+    <<: *default_executor
     steps:
       - *restore_repo
       - run:
-          name: Test with Node 10
-          command: yarn test
-
-  test_node8:
-    <<: *defaults
-    <<: *node8_executor
-    steps:
-      - *restore_repo
+          name: 'Publish canary version in a Verdaccio in memory'
+          command: |
+            export YARN_CONFIG_PREFIX="/tmp/yarn-global"
+            mkdir $YARN_CONFIG_PREFIX
+            yarn config set prefix $YARN_CONFIG_PREFIX
+            export PATH="$PATH:$YARN_CONFIG_PREFIX/bin"
+            preid=$(echo $CIRCLE_BRANCH | sed -r 's/[^[:alpha:][:digit:]]+/-/g')
+            yarn global add verdaccio verdaccio-auth-memory verdaccio-memory nohup npm-auth-to-token
+            tmp_registry_log=`mktemp`
+            nohup verdaccio -c verdaccio.yml 2>&1 &>$tmp_registry_log &
+            grep -q 'http address' <(tail -f $tmp_registry_log)
+            npm-auth-to-token -u user -p test -e test@test.com -r http://localhost:4873
+            yarn publish:canary --yes --no-push --preid=$preid --registry=http://localhost:4873
       - run:
-          name: Test with Node 8
-          command: yarn test
+          name: 'Setup publish credentials for our Verdaccio instance'
+          command: echo "//registry.verdaccio.org/:_authToken=${VERDACCIO_TOKEN}" > ~/.npmrc
+      - run:
+          name: 'Publish canary version in our Verdaccio instance'
+          command: |
+            preid=$(echo $CIRCLE_BRANCH | sed -r 's/[^[:alpha:][:digit:]]+/-/g')
+            yarn publish:canary --yes --no-push --preid=$preid --registry=https://registry.verdaccio.org
 
   publish:
     <<: *defaults
@@ -105,7 +133,7 @@ jobs:
           command: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
       - run:
           name: Publish
-          command: yarn release:publish --yes
+          command: yarn release:publish --yes --registry=https://registry.npmjs.org
 
   publish_prerelease:
     <<: *defaults
@@ -117,7 +145,7 @@ jobs:
           command: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
       - run:
           name: Publish prerelease
-          command: yarn release:publish-prerelease --yes
+          command: yarn release:publish-prerelease --yes --registry=https://registry.npmjs.org
 
 workflows:
   version: 2
@@ -125,27 +153,29 @@ workflows:
     jobs:
       - prepare:
           <<: *ignore_non_dev_branches
-      - test_node12:
+      - lint:
           requires:
             - prepare
           <<: *ignore_non_dev_branches
-      - test_node10:
+      - test_node_latest:
           requires:
             - prepare
           <<: *ignore_non_dev_branches
-      - test_node8:
+      - test_node_lts:
           requires:
             - prepare
+          <<: *ignore_non_dev_branches
+      - test_publish:
+          requires:
+            - lint
+            - test_node_latest
+            - test_node_lts
           <<: *ignore_non_dev_branches
       - publish:
           requires:
-            - test_node12
-            - test_node10
-            - test_node8
+            - test_publish
           <<: *execute_on_release
       - publish_prerelease:
           requires:
-            - test_node12
-            - test_node10
-            - test_node8
+            - test_publish
           <<: *execute_on_release_prerelease

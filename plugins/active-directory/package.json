@@ -1,0 +1,54 @@
+{
+  "name": "@verdaccio/active-directory",
+  "version": "8.1.1",
+  "description": "Active Directory authentication plugin for Verdaccio",
+  "keywords": [
+    "verdaccio",
+    "active-directory",
+    "auth",
+    "plugin"
+  ],
+  "author": "Sergio Herrera <sergio@sergiohgz.eu>",
+  "license": "MIT",
+  "homepage": "https://verdaccio.org",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/verdaccio/monorepo",
+    "directory": "plugins/active-directory"
+  },
+  "bugs": {
+    "url": "https://github.com/verdaccio/monorepo/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib"
+  ],
+  "engines": {
+    "node": ">=8"
+  },
+  "dependencies": {
+    "@verdaccio/commons-api": "^8.1.1",
+    "activedirectory2": "1.2.9"
+  },
+  "devDependencies": {
+    "@types/activedirectory2": "^1.2.1",
+    "@verdaccio/babel-preset": "^8.1.1",
+    "@verdaccio/eslint-config": "^8.1.1",
+    "@verdaccio/types": "^8.1.0"
+  },
+  "scripts": {
+    "coverage:publish": "codecov --root=../../ -F plugins",
+    "build": "npm run build:types && npm run build:js",
+    "build:js": "babel src --out-dir lib --extensions \".ts,.tsx\" --source-maps inline",
+    "build:types": "tsc --emitDeclarationOnly",
+    "lint": "eslint \"**/*.{js,ts}\"",
+    "lint:stage": "lint-staged",
+    "test": "jest",
+    "type-check": "tsc --noEmit",
+    "type-check:watch": "npm run type-check -- --watch"
+  }
+}

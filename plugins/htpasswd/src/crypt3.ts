@@ -15,7 +15,7 @@ import crypto from 'crypto';
  * distros), sha256 or sha512. Default is sha512.
  * @returns {string} Generated salt string
  */
-export function createSalt(type: string = 'sha512'): string {
+export function createSalt(type = 'sha512'): string {
   switch (type) {
     case 'md5':
       return '$1$' + crypto.randomBytes(10).toString('base64');
@@ -42,9 +42,6 @@ export function createSalt(type: string = 'sha512'): string {
  * @see https://en.wikipedia.org/wiki/Crypt_(C)
  */
 
-export default function crypt3(
-  key: string,
-  salt: string = createSalt()
-): string {
+export default function crypt3(key: string, salt: string = createSalt()): string {
   return crypt(key, salt);
 }

@@ -7,30 +7,30 @@ const config: Config = {
   self_path: './nowhere',
   uplinks: {
     npmjs: {
-      url: 'https://registry.npmjs.org/'
-    }
+      url: 'https://registry.npmjs.org/',
+    },
   },
   security: {
     web: {
       sign: {},
-      verify: {}
+      verify: {},
     },
     api: {
-      legacy: true
-    }
+      legacy: true,
+    },
   },
   packages: {
     test: {
       storage: '',
       publish: [''],
       proxy: [''],
-      access: ['']
-    }
+      access: [''],
+    },
   },
   web: {
     enable: true,
     title: 'string',
-    logo: 'string'
+    logo: 'string',
   },
   logs: [],
   auth: {},
@@ -40,11 +40,11 @@ const config: Config = {
     packagePatternFlags: '',
     headers: {},
     endpoint: '',
-    content: ''
+    content: '',
   },
-  checkSecretKey: token => '1234',
+  checkSecretKey: () => '1234',
   getMatchedPackagesSpec: () => {},
-  hasProxyTo: (pkg, upLink) => false
+  hasProxyTo: () => false,
 };
 
 export default config;

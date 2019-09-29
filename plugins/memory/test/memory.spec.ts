@@ -13,7 +13,7 @@ const logger: Logger = {
   child: e => console.warn(e),
   warn: e => console.warn(e),
   http: e => console.warn(e),
-  trace: e => console.warn(e)
+  trace: e => console.warn(e),
 };
 
 describe('memory unit test .', () => {
@@ -104,7 +104,7 @@ describe('memory unit test .', () => {
       expect(handler).toBeDefined();
 
       if (handler) {
-        handler.readPackage(pkgName, (err, data) => {
+        handler.readPackage(pkgName, err => {
           expect(err).not.toBeNull();
           expect(err.code).toBe(noSuchFile);
           done();
@@ -212,7 +212,7 @@ describe('memory unit test .', () => {
         });
         stream.on('success', () => {
           const readStream = handler.readTarball(pkgName);
-          readStream.on('data', data => {
+          readStream.on('data', () => {
             readStream.abort();
           });
           readStream.on('error', err => {
@@ -271,9 +271,9 @@ describe('memory unit test .', () => {
       if (handler) {
         handler.createPackage(pkgName, pkgExample, err => {
           expect(err).toBeNull();
-          handler.deletePackage(pkgName, (err, data) => {
+          handler.deletePackage(pkgName, err => {
             expect(err).toBeNull();
-            handler.readPackage(pkgName, (err, data) => {
+            handler.readPackage(pkgName, err => {
               expect(err).not.toBeNull();
               expect(err.message).toMatch(/no such package/);
               done();

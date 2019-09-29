@@ -1,7 +1,7 @@
 {
   "name": "@verdaccio/types",
-  "version": "7.0.0",
-  "description": "verdaccio flow types definitions",
+  "version": "8.1.0",
+  "description": "verdaccio types definitions",
   "keywords": [
     "verdaccio",
     "typescript",
@@ -9,12 +9,23 @@
   ],
   "author": "Juan Picado <juanpicado19@gmail.com>",
   "license": "MIT",
+  "homepage": "https://verdaccio.org",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/verdaccio/monorepo",
+    "directory": "core/types"
+  },
+  "bugs": {
+    "url": "https://github.com/verdaccio/monorepo/issues"
+  },
   "publishConfig": {
     "access": "public"
   },
   "main": "index.d.ts",
   "types": "index.d.ts",
   "scripts": {
+    "lint": "eslint \"**/*.{js,ts}\"",
+    "lint:stage": "lint-staged",
     "test": "tsc --noEmit"
   }
 }

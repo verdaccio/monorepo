@@ -68,17 +68,10 @@ export function verifyPassword(passwd: string, hash: string): boolean {
  * @param {string} passwd
  * @returns {string}
  */
-export function addUserToHTPasswd(
-  body: string,
-  user: string,
-  passwd: string
-): string {
+export function addUserToHTPasswd(body: string, user: string, passwd: string): string {
   if (user !== encodeURIComponent(user)) {
-    const err = createError(
-      'username should not contain non-uri-safe characters'
-    );
+    const err = createError('username should not contain non-uri-safe characters');
 
-    // $FlowFixMe
     err.status = 409;
     throw err;
   }
@@ -121,7 +114,6 @@ export function sanityCheck(
   // check for user or password
   if (!user || !password) {
     err = Error('username and password is required');
-    // $FlowFixMe
     err.status = 400;
     return err;
   }
@@ -130,7 +122,6 @@ export function sanityCheck(
 
   if (maxUsers < 0) {
     err = Error('user registration disabled');
-    // $FlowFixMe
     err.status = 409;
     return err;
   }
@@ -139,17 +130,14 @@ export function sanityCheck(
     const auth = verifyFn(password, users[user]);
     if (auth) {
       err = Error('username is already registered');
-      // $FlowFixMe
       err.status = 409;
       return err;
     }
     err = Error('unauthorized access');
-    // $FlowFixMe
     err.status = 401;
     return err;
   } else if (Object.keys(users).length >= maxUsers) {
     err = Error('maximum amount of users reached');
-    // $FlowFixMe
     err.status = 403;
     return err;
   }
@@ -157,7 +145,7 @@ export function sanityCheck(
   return null;
 }
 
-export function getCryptoPassword(password: string) {
+export function getCryptoPassword(password: string): string {
   return `{SHA}${crypto
     .createHash('sha1')
     .update(password, 'utf8')
@@ -172,12 +160,7 @@ export function getCryptoPassword(password: string) {
  * @param {string} newPasswd
  * @returns {string}
  */
-export function changePasswordToHTPasswd(
-  body: string,
-  user: string,
-  passwd: string,
-  newPasswd: string
-): string {
+export function changePasswordToHTPasswd(body: string, user: string, passwd: string, newPasswd: string): string {
   let _passwd;
   let _newPasswd;
   if (crypt3) {

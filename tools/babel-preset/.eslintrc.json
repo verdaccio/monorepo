@@ -1,14 +1,10 @@
 {
-  "plugins": [
-    "babel",
-    "verdaccio"
-  ],
   "extends": [
-    "eslint:recommended",
-    "google",
-    "@verdaccio",
     "plugin:prettier/recommended",
     "plugin:verdaccio/recommended"
+  ],
+  "plugins": [
+    "babel"
   ],
   "settings": {
     "react": {
@@ -17,39 +13,17 @@
     }
   },
   "parser": "babel-eslint",
-  "parserOptions": {
-    "sourceType": "module",
-    "ecmaVersion": 7,
-    "ecmaFeatures": {
-      "impliedStrict": true,
-      "jsx": true
-    }
-  },
   "env": {
     "browser": true,
     "node": true,
     "es6": true,
     "jest": true
   },
-  "globals": {
-    "__APP_VERSION__": true
-  },
   "rules": {
     "babel/no-invalid-this": "warn",
-    "prettier/prettier": ["error", { "endOfLine": "auto" }, "@prettier"],
-    "semi": ["error"],
     "comma-dangle": "off",
-    "camelcase": "off",
     "no-useless-escape": ["error"],
     "no-invalid-this": "off",
-    "handle-callback-err": ["error"],
-    "no-fallthrough": ["error"],
-    "no-new-require": ["error"],
-    "max-len": ["error", 160],
-    "require-jsdoc": "off",
-    "valid-jsdoc": "off",
-    "prefer-spread": "warn",
-    "prefer-rest-params": "warn",
     "linebreak-style": "off",
     "quote-props":["error", "as-needed"],
     "verdaccio/jsx-no-style": ["warn"],

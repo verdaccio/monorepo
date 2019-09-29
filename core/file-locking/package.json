@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/file-locking",
-  "version": "1.0.4",
+  "version": "8.1.1",
   "description": "library that handle file locking",
   "keywords": [
     "verdaccio",
@@ -9,8 +9,17 @@
   ],
   "author": "Juan Picado <juanpicado19@gmail.com>",
   "license": "MIT",
+  "homepage": "https://verdaccio.org",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/verdaccio/monorepo",
+    "directory": "core/file-locking"
+  },
+  "bugs": {
+    "url": "https://github.com/verdaccio/monorepo/issues"
+  },
   "publishConfig": {
-    "access": true
+    "access": "public"
   },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -24,26 +33,19 @@
     "lockfile": "1.0.4"
   },
   "devDependencies": {
-    "@verdaccio/babel-preset": "^2.0.0",
-    "@verdaccio/eslint-config": "^2.0.0",
-    "@verdaccio/types": "^7.0.0"
+    "@verdaccio/babel-preset": "^8.1.1",
+    "@verdaccio/eslint-config": "^8.1.1",
+    "@verdaccio/types": "^8.1.0"
   },
   "scripts": {
     "build": "npm run build:types && npm run build:js",
     "build:js": "babel src/ --out-dir lib/  --ignore **/__tests__ --extensions \".ts,.tsx\"",
     "build:types": "tsc --emitDeclarationOnly",
-    "coverage:publish": "codecov",
+    "coverage:publish": "codecov --root=../../ -F core",
     "lint": "eslint \"**/*.{js,ts}\"",
     "lint:stage": "lint-staged",
-    "pretest": "npm run lint",
     "test": "jest",
     "type-check": "tsc --noEmit",
     "type-check:watch": "npm run type-check -- --watch"
-  },
-  "lint-staged": {
-    "**/*.{ts,js}": [
-      "eslint --fix",
-      "git add"
-    ]
   }
 }

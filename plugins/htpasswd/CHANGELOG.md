@@ -1,5 +1,82 @@
 # Change Log
 
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [8.1.1](https://github.com/verdaccio/monorepo/compare/v8.1.0...v8.1.1) (2019-09-26)
+
+**Note:** Version bump only for package verdaccio-htpasswd
+
+
+
+
+
+# [8.1.0](https://github.com/verdaccio/monorepo/compare/v8.0.1-next.1...v8.1.0) (2019-09-07)
+
+**Note:** Version bump only for package verdaccio-htpasswd
+
+
+
+
+
+## [8.0.1-next.1](https://github.com/verdaccio/monorepo/compare/v8.0.1-next.0...v8.0.1-next.1) (2019-08-29)
+
+**Note:** Version bump only for package verdaccio-htpasswd
+
+
+
+
+
+## [8.0.1-next.0](https://github.com/verdaccio/monorepo/compare/v8.0.0...v8.0.1-next.0) (2019-08-29)
+
+**Note:** Version bump only for package verdaccio-htpasswd
+
+
+
+
+
+# [8.0.0](https://github.com/verdaccio/monorepo/compare/v8.0.0-next.4...v8.0.0) (2019-08-22)
+
+**Note:** Version bump only for package verdaccio-htpasswd
+
+
+
+
+
+# [8.0.0-next.4](https://github.com/verdaccio/monorepo/compare/v8.0.0-next.3...v8.0.0-next.4) (2019-08-18)
+
+**Note:** Version bump only for package verdaccio-htpasswd
+
+
+
+
+
+# [8.0.0-next.2](https://github.com/verdaccio/monorepo/compare/v8.0.0-next.1...v8.0.0-next.2) (2019-08-03)
+
+**Note:** Version bump only for package verdaccio-htpasswd
+
+
+
+
+
+# [8.0.0-next.1](https://github.com/verdaccio/monorepo/compare/v8.0.0-next.0...v8.0.0-next.1) (2019-08-01)
+
+**Note:** Version bump only for package verdaccio-htpasswd
+
+
+
+
+
+# [8.0.0-next.0](https://github.com/verdaccio/monorepo/compare/v2.0.0...v8.0.0-next.0) (2019-08-01)
+
+**Note:** Version bump only for package verdaccio-htpasswd
+
+
+
+
+
+# Change Log
+
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
 # [2.0.0](https://github.com/verdaccio/verdaccio-htpasswd/compare/v2.0.0-beta.1...v2.0.0) (2019-04-14)

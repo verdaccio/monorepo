@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/eslint-config",
-  "version": "2.0.0",
+  "version": "8.1.1",
   "description": "Verdaccio ESLint shareable config",
   "keywords": [
     "verdaccio",
@@ -9,10 +9,22 @@
   ],
   "author": "Juan Picado <juanpicado19@gmail.com>",
   "license": "MIT",
+  "homepage": "https://verdaccio.org",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/verdaccio/monorepo",
+    "directory": "tools/eslint-config"
+  },
+  "bugs": {
+    "url": "https://github.com/verdaccio/monorepo/issues"
+  },
   "publishConfig": {
     "access": "public"
   },
   "main": "index.js",
+  "files": [
+    "rules/"
+  ],
   "engines": {
     "node": ">= 8"
   },
@@ -21,26 +33,20 @@
     "prettier": ">=1.18.2"
   },
   "dependencies": {
-    "@typescript-eslint/eslint-plugin": "1.12.0",
-    "@typescript-eslint/parser": "1.12.0",
-    "babel-eslint": "10.0.2",
-    "eslint-config-google": "0.13.0",
-    "eslint-config-prettier": "6.0.0",
+    "@typescript-eslint/eslint-plugin": "2.3.0",
+    "@typescript-eslint/parser": "2.3.1",
+    "babel-eslint": "10.0.3",
+    "eslint-config-google": "0.14.0",
+    "eslint-config-prettier": "6.3.0",
     "eslint-plugin-babel": "5.3.0",
-    "eslint-plugin-import": "2.18.0",
-    "eslint-plugin-jest": "22.10.0",
-    "eslint-plugin-prettier": "3.1.0",
-    "eslint-plugin-verdaccio": "^2.0.0",
-    "tsutils": "3.14.0"
+    "eslint-plugin-import": "2.18.2",
+    "eslint-plugin-jest": "22.17.0",
+    "eslint-plugin-prettier": "3.1.1",
+    "tsutils": "3.17.1"
   },
   "scripts": {
     "lint": "eslint \"**/*.js\"",
-    "lint:stage": "lint-staged"
-  },
-  "lint-staged": {
-    "**/*.js": [
-      "eslint --fix",
-      "git add"
-    ]
+    "lint:stage": "lint-staged",
+    "test-prettier-rules": "eslint --print-config index.js | eslint-config-prettier-check"
   }
 }

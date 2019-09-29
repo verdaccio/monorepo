@@ -1,6 +1,6 @@
 {
   "name": "verdaccio-auth-memory",
-  "version": "1.1.5",
+  "version": "8.1.1",
   "description": "Auth plugin for Verdaccio that keeps users in memory",
   "keywords": [
     "verdaccio",
@@ -10,6 +10,15 @@
   ],
   "author": "Juan Picado <juanpicado19@gmail.com>",
   "license": "MIT",
+  "homepage": "https://verdaccio.org",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/verdaccio/monorepo",
+    "directory": "plugins/auth-memory"
+  },
+  "bugs": {
+    "url": "https://github.com/verdaccio/monorepo/issues"
+  },
   "main": "lib/index.js",
   "types": "lib/src/index.d.ts",
   "files": [
@@ -19,30 +28,22 @@
     "node": ">=8"
   },
   "dependencies": {
-    "@verdaccio/commons-api": "0.1.2"
+    "@verdaccio/commons-api": "^8.1.1"
   },
   "devDependencies": {
-    "@verdaccio/babel-preset": "^2.0.0",
-    "@verdaccio/eslint-config": "^2.0.0",
-    "@verdaccio/types": "^7.0.0"
+    "@verdaccio/babel-preset": "^8.1.1",
+    "@verdaccio/eslint-config": "^8.1.1",
+    "@verdaccio/types": "^8.1.0"
   },
   "scripts": {
     "build": "npm run build:types && npm run build:js",
     "build:js": "babel src/ --out-dir lib --extensions \".ts,.tsx\"",
     "build:types": "tsc --emitDeclarationOnly",
-    "format": "prettier --single-quote --trailing-comma none --write \"{src,test}/**/*.ts\"",
-    "lint": "npm run type-check && eslint . --ext .js,.ts",
+    "coverage:publish": "codecov --root=../../ -F plugins",
+    "lint": "eslint \"**/*.{js,ts}\"",
     "lint:stage": "lint-staged",
-    "pretest": "npm run lint",
     "test": "jest",
     "type-check": "tsc --noEmit",
     "type-check:watch": "npm run type-check -- --watch"
-  },
-  "lint-staged": {
-    "**/*.{js,ts}": [
-      "eslint .",
-      "prettier --write",
-      "git add"
-    ]
   }
 }
