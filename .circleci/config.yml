@@ -7,14 +7,13 @@ executors:
   node_lts:
     docker:
       - image: circleci/node:lts
+  default_executor: node_latest
 
 aliases:
   - &repo_path
     ~/monorepo
   - &defaults
     working_directory: *repo_path
-  - &default_executor
-    node_latest
   - &yarn_cache_key
     yarn-sha-{{ checksum "yarn.lock" }}
   - &ignore_non_dev_branches
@@ -49,7 +48,7 @@ commands:
 jobs:
   prepare:
     <<: *defaults
-    executor: *default_executor
+    executor: default_executor
     steps:
       - checkout
       - restore_cache:
@@ -73,7 +72,7 @@ jobs:
 
   lint:
     <<: *defaults
-    executor: *default_executor
+    executor: default_executor
     steps:
       - restore_repo
       - run:
@@ -103,7 +102,7 @@ jobs:
 
   test_publish:
     <<: *defaults
-    executor: *default_executor
+    executor: default_executor
     steps:
       - restore_repo
       - run:
@@ -131,7 +130,7 @@ jobs:
 
   publish:
     <<: *defaults
-    executor: *default_executor
+    executor: default_executor
     steps:
       - restore_repo
       - run:
@@ -143,7 +142,7 @@ jobs:
 
   publish_prerelease:
     <<: *defaults
-    executor: *default_executor
+    executor: default_executor
     steps:
       - restore_repo
       - run:
