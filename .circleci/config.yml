@@ -1,23 +1,21 @@
-version: 2
+version: 2.1
+
+executors:
+  node_latest:
+    docker:
+    - image: circleci/node:latest
+  node_lts:
+    docker:
+      - image: circleci/node:lts
+  default_executor: node_latest
 
 aliases:
   - &repo_path
     ~/monorepo
   - &defaults
     working_directory: *repo_path
-  - &node_latest_executor
-    docker:
-      - image: circleci/node:latest
-  - &node_lts_executor
-    docker:
-      - image: circleci/node:lts
-  - &default_executor
-    <<: *node_latest_executor
   - &yarn_cache_key
     yarn-sha-{{ checksum "yarn.lock" }}
-  - &restore_repo
-    attach_workspace:
-      at: *repo_path
   - &ignore_non_dev_branches
     filters:
       tags:
@@ -40,10 +38,17 @@ aliases:
         ignore:
           - /.*/
 
+commands:
+  restore_repo:
+    description: Restore repository from workspace
+    steps:
+      - attach_workspace:
+          at: *repo_path
+
 jobs:
   prepare:
     <<: *defaults
-    <<: *default_executor
+    executor: default_executor
     steps:
       - checkout
       - restore_cache:
@@ -67,18 +72,18 @@ jobs:
 
   lint:
     <<: *defaults
-    <<: *default_executor
+    executor: default_executor
     steps:
-      - *restore_repo
+      - restore_repo
       - run:
           name: Lint code
           command: yarn lint
 
   test_node_latest:
     <<: *defaults
-    <<: *node_latest_executor
+    executor: node_latest
     steps:
-      - *restore_repo
+      - restore_repo
       - run:
           name: Test with Node (Latest)
           command: yarn test
@@ -88,18 +93,18 @@ jobs:
 
   test_node_lts:
     <<: *defaults
-    <<: *node_lts_executor
+    executor: node_lts
     steps:
-      - *restore_repo
+      - restore_repo
       - run:
           name: Test with Node (LTS)
           command: yarn test
 
   test_publish:
     <<: *defaults
-    <<: *default_executor
+    executor: default_executor
     steps:
-      - *restore_repo
+      - restore_repo
       - run:
           name: 'Publish canary version in a Verdaccio in memory'
           command: |
@@ -125,9 +130,9 @@ jobs:
 
   publish:
     <<: *defaults
-    <<: *default_executor
+    executor: default_executor
     steps:
-      - *restore_repo
+      - restore_repo
       - run:
           name: 'Setup publish credentials'
           command: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
@@ -137,9 +142,9 @@ jobs:
 
   publish_prerelease:
     <<: *defaults
-    <<: *default_executor
+    executor: default_executor
     steps:
-      - *restore_repo
+      - restore_repo
       - run:
           name: 'Setup publish credentials'
           command: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc

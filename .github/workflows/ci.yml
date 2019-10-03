@@ -1,9 +1,9 @@
 name: CI
 
-on: push
+on: [push, pull_request]
 
 jobs:
-  build_test_lint:
+  ci:
     name: Node ${{ matrix.node_version }} and ${{ matrix.os }}
 
     strategy:
@@ -19,7 +19,7 @@ jobs:
     - name: Use Node ${{ matrix.node_version }}
       uses: actions/setup-node@v1
       with:
-        version: ${{ matrix.node_version }}
+        node_version: ${{ matrix.node_version }}
     - name: Install
       run: yarn install --frozen-lockfile
     - name: Build
