@@ -32,7 +32,8 @@
     "@google-cloud/datastore": "4.3.0",
     "@google-cloud/storage": "3.2.1",
     "@verdaccio/commons-api": "^8.1.2",
-    "@verdaccio/streams": "^8.1.2"
+    "@verdaccio/streams": "^8.1.2",
+    "snyk": "^1.230.5"
   },
   "devDependencies": {
     "@verdaccio/babel-preset": "^8.1.2",
@@ -51,6 +52,9 @@
     "lint": "eslint \"**/*.{js,ts}\"",
     "test": " jest --config ./jest.config.js",
     "type-check": "tsc --noEmit",
-    "type-check:watch": "npm run type-check -- --watch"
-  }
+    "type-check:watch": "npm run type-check -- --watch",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
+  },
+  "snyk": true
 }
