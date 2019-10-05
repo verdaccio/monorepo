@@ -106,8 +106,8 @@ class MemoryHandler implements IPackageStorageManager {
     const temporalName = `/${name}`;
 
     process.nextTick(function() {
-      fs.exists(temporalName, function(exists) {
-        if (exists) {
+      fs.stat(temporalName, function(fileError, stats) {
+        if (!fileError && stats) {
           return uploadStream.emit('error', fSError(fileExist));
         }
 
@@ -145,13 +145,16 @@ class MemoryHandler implements IPackageStorageManager {
     const readTarballStream: IReadTarball = new ReadTarball({});
 
     process.nextTick(function() {
-      fs.exists(pathName, function(exists) {
-        if (!exists) {
-          readTarballStream.emit('error', noPackageFoundError());
-        } else {
+      fs.stat(pathName, function(fileError, stats) {
+        if (fileError && !stats) {
+          return readTarballStream.emit('error', noPackageFoundError());
+        }
+
+        try {
           const readStream = fs.createReadStream(pathName);
 
-          readTarballStream.emit('content-length', fs.data[name].length);
+          const contentLength: number = (fs.data[name] && fs.data[name].length) || 0;
+          readTarballStream.emit('content-length', contentLength);
           readTarballStream.emit('open');
           readStream.pipe(readTarballStream);
           readStream.on('error', (error: any) => {
@@ -161,6 +164,8 @@ class MemoryHandler implements IPackageStorageManager {
           readTarballStream.abort = function(): void {
             readStream.destroy(fSError('read has been aborted', 400));
           };
+        } catch (err) {
+          readTarballStream.emit('error', err);
         }
       });
     });
