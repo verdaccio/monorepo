@@ -182,8 +182,8 @@ describe('Local FS test', () => {
 
       writeTarballStream.on('success', function() {
         const fileLocation: string = path.join(__dirname, '../_storage', newFileName);
-        expect(() => fs.accessSync(fileLocation, fs.constants.R_OK | fs.constants.W_OK)).not.toThrow();
 
+        expect(fs.existsSync(fileLocation)).toBe(true);
         done();
       });
 
