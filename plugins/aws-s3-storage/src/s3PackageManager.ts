@@ -119,6 +119,11 @@ export default class S3PackageManager implements ILocalPackageManager {
         Bucket: this.config.bucket,
         Prefix: `${this.config.keyPrefix}${this.packageName}`,
       },
+      /**
+       *  TODO: devinmotion: We could remove the ts-ignore with the following, but I am not sure whether this could break something outside:
+       *    (Breaking) change the function signature of the public remove Package
+       *    by changing type from Callback to more detailed (err: Error | null) => void
+       * */
       // @ts-ignore
       callback
     );
