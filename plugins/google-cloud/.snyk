@@ -34,3 +34,7 @@ patch:
         patched: '2019-10-04T05:12:08.723Z'
     - '@google-cloud/storage > gcs-resumable-upload > google-auth-library > gtoken > gaxios > https-proxy-agent':
         patched: '2019-10-04T05:12:08.723Z'
+    - snyk > proxy-agent > https-proxy-agent:
+        patched: '2019-10-05T07:58:30.881Z'
+    - snyk > proxy-agent > pac-proxy-agent > https-proxy-agent:
+        patched: '2019-10-05T07:58:30.881Z'
