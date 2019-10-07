@@ -1,6 +1,6 @@
 import { S3, AWSError } from 'aws-sdk';
 import { UploadTarball, ReadTarball } from '@verdaccio/streams';
-import { HEADERS, HTTP_STATUS } from '@verdaccio/commons-api';
+import { HEADERS, HTTP_STATUS, VerdaccioError } from '@verdaccio/commons-api';
 import { Callback, Logger, Package, ILocalPackageManager } from '@verdaccio/types';
 import { is404Error, convertS3Error, create409Error } from './s3Errors';
 import { deleteKeyPrefix } from './deleteKeyPrefix';
@@ -79,7 +79,7 @@ export default class S3PackageManager implements ILocalPackageManager {
             reject(error);
             return;
           }
-          const body = response.Body !== undefined ? response.Body.toString() : '';
+          const body = response.Body ? response.Body.toString() : '';
           let data;
           try {
             data = JSON.parse(body);
@@ -123,7 +123,11 @@ export default class S3PackageManager implements ILocalPackageManager {
     );
   }
 
-  public createPackage(name: string, value: Package, callback: Function): void {
+  public createPackage(
+    name: string,
+    value: Package,
+    callback: (err: VerdaccioError, data?: S3.PutObjectOutput) => void
+  ): void {
     this.logger.debug(
       { name, packageName: this.packageName },
       's3: [S3PackageManager createPackage init] name @{name}/@{packageName}'
@@ -154,7 +158,11 @@ export default class S3PackageManager implements ILocalPackageManager {
     );
   }
 
-  public savePackage(name: string, value: Package, callback: Function): void {
+  public savePackage(
+    name: string,
+    value: Package,
+    callback: (err: VerdaccioError, data: S3.PutObjectOutput) => void
+  ): void {
     this.logger.debug(
       { name, packageName: this.packageName },
       's3: [S3PackageManager savePackage init] name @{name}/@{packageName}'
@@ -167,7 +175,6 @@ export default class S3PackageManager implements ILocalPackageManager {
         Bucket: this.config.bucket,
         Key: `${this.config.keyPrefix}${this.packageName}/${pkgFileName}`,
       },
-      // @ts-ignore
       callback
     );
   }
