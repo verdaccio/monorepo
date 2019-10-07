@@ -6,8 +6,9 @@
   javascript version is used.
 */
 
-import crypt from 'unix-crypt-td-js';
 import crypto from 'crypto';
+
+import crypt from 'unix-crypt-td-js';
 
 /**
  * Create salt

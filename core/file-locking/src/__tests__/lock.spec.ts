@@ -29,9 +29,7 @@ describe('testing locking', () => {
 
   test('file should fail to be found to be locked', done => {
     lockFile(getFilePath('package.fail.json'), (error: Error) => {
-      expect(error.message).toMatch(
-        /ENOENT: no such file or directory, stat '(.*)package.fail.json'/
-      );
+      expect(error.message).toMatch(/ENOENT: no such file or directory, stat '(.*)package.fail.json'/);
       done();
     });
   });
@@ -53,34 +51,28 @@ describe('testing locking', () => {
 
   test('read file with no options should to be found to be read it as object', done => {
     const options = {
-      parse: true
+      parse: true,
     };
-    readFile(
-      getFilePath('package.json'),
-      options,
-      (error: Error, data: any) => {
-        expect(error).toBeNull();
-        expect(data).toMatchSnapshot();
-        done();
-      }
-    );
+    readFile(getFilePath('package.json'), options, (error: Error, data: any) => {
+      expect(error).toBeNull();
+      expect(data).toMatchSnapshot();
+      done();
+    });
   });
 
   test('read file with options (parse) should to be not found to be read it', done => {
     const options = {
-      parse: true
+      parse: true,
     };
     readFile(getFilePath('package.fail.json'), options, (error: Error) => {
-      expect(error.message).toMatch(
-        /ENOENT: no such file or directory, open '(.*)package.fail.json'/
-      );
+      expect(error.message).toMatch(/ENOENT: no such file or directory, open '(.*)package.fail.json'/);
       done();
     });
   });
 
   test('read file with options should to be found to be read it and fails to be parsed', done => {
     const options = {
-      parse: true
+      parse: true,
     };
     const errorMessage =
       process.platform === 'win32'
@@ -95,24 +87,20 @@ describe('testing locking', () => {
   test('read file with  options (parse, lock) should to be found to be read it as object', done => {
     const options = {
       parse: true,
-      lock: true
+      lock: true,
     };
-    readFile(
-      getFilePath('package2.json'),
-      options,
-      (error: Error, data: any) => {
-        expect(error).toBeNull();
-        expect(data).toMatchSnapshot();
-        removeTempFile('package2.json.lock');
-        done();
-      }
-    );
+    readFile(getFilePath('package2.json'), options, (error: Error, data: any) => {
+      expect(error).toBeNull();
+      expect(data).toMatchSnapshot();
+      removeTempFile('package2.json.lock');
+      done();
+    });
   });
 
   test('read file with options (parse, lock) should to be found to be read it and fails to be parsed', done => {
     const options = {
       parse: true,
-      lock: true
+      lock: true,
     };
     const errorMessage =
       process.platform === 'win32'

@@ -11,7 +11,7 @@ import {
   getUnauthorized,
   getForbidden,
   getServiceUnavailable,
-  getCode
+  getCode,
 } from '../src/index';
 
 describe('testing errors', () => {

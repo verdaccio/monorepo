@@ -1,6 +1,7 @@
-import MemoryHandler from './memory-handler';
 import { getServiceUnavailable } from '@verdaccio/commons-api';
 import { Logger, Callback, Config, IPluginStorage, Token, TokenFilter } from '@verdaccio/types';
+
+import MemoryHandler from './memory-handler';
 
 export type ConfigMemory = Config & { limit?: number };
 export interface MemoryLocalStorage {

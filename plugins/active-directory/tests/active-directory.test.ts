@@ -1,7 +1,9 @@
 import ActiveDirectory from 'activedirectory2';
-import ActiveDirectoryPlugin, { NotAuthMessage } from '../src/active-directory';
-import logger from './__mocks__/Logger';
 import { HTTP_STATUS } from '@verdaccio/commons-api';
+
+import ActiveDirectoryPlugin, { NotAuthMessage } from '../src/active-directory';
+
+import logger from './__mocks__/Logger';
 
 describe('Active Directory Plugin', () => {
   let adPlugin;

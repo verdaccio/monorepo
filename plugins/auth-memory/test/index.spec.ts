@@ -1,6 +1,7 @@
-import Memory from '../src/index';
 import { Callback } from '@verdaccio/types';
+
 import { VerdaccioMemoryConfig } from '../types';
+import Memory from '../src/index';
 
 describe('Memory', function() {
   let auth;

@@ -1,9 +1,12 @@
 import path from 'path';
-import mkdirp from 'mkdirp';
 import fs from 'fs';
+
+import mkdirp from 'mkdirp';
 import rm from 'rmdir-sync';
 import { Logger, ILocalPackageManager, Package } from '@verdaccio/types';
+
 import LocalDriver, { fileExist, fSError, noSuchFile, resourceNotAvailable } from '../src/local-fs';
+
 import pkg from './__fixtures__/pkg';
 
 let localTempStorage: string;

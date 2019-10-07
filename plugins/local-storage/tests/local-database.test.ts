@@ -1,12 +1,15 @@
 import fs from 'fs';
 import path from 'path';
+
 import { assign } from 'lodash';
 import { ILocalData, PluginOptions, Token } from '@verdaccio/types';
+
 import LocalDatabase from '../src/local-database';
+import { ILocalFSPackageManager } from '../src/local-fs';
+import * as pkgUtils from '../src/pkg-utils';
+
 import Config from './__mocks__/Config';
 import logger from './__mocks__/Logger';
-import * as pkgUtils from '../src/pkg-utils';
-import { ILocalFSPackageManager } from '../src/local-fs';
 
 const optionsPlugin: PluginOptions<{}> = {
   logger,

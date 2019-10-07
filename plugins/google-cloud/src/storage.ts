@@ -1,8 +1,8 @@
+import { Readable } from 'stream';
+
 import { UploadTarball, ReadTarball } from '@verdaccio/streams';
 import { Package, Callback, Logger, IPackageStorageManager } from '@verdaccio/types';
-import { VerdaccioConfigGoogleStorage } from './types';
 import { File, DownloadResponse } from '@google-cloud/storage';
-import { IStorageHelper } from './storage-helper';
 import {
   VerdaccioError,
   getInternalError,
@@ -12,7 +12,9 @@ import {
   HTTP_STATUS,
 } from '@verdaccio/commons-api';
 import { Response } from 'request';
-import { Readable } from 'stream';
+
+import { IStorageHelper } from './storage-helper';
+import { VerdaccioConfigGoogleStorage } from './types';
 
 export const pkgFileName = 'package.json';
 export const defaultValidation = 'crc32c';

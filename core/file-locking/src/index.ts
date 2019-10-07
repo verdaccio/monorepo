@@ -1,7 +1,7 @@
-import locker from 'lockfile';
 import fs from 'fs';
 import path from 'path';
 
+import locker from 'lockfile';
 import { Callback } from '@verdaccio/types';
 
 // locks a file by creating a lock file
@@ -49,7 +49,7 @@ const lockFile = function(name: string, callback: Callback): void {
         // number of times to attempt to create a lock
         retries: 100,
         // time (ms) between tries
-        retryWait: 100
+        retryWait: 100,
       };
       const lockFileName = `${name}.lock`;
       locker.lock(lockFileName, lockOpts, () => {
@@ -93,11 +93,7 @@ const unlockFile = function(name: string, next: Callback): void {
  * @param {*} options
  * @param {*} callback
  */
-function readFile(
-  name: string,
-  options: any = {},
-  callback: any = (): void => {}
-): void {
+function readFile(name: string, options: any = {}, callback: any = (): void => {}): void {
   if (typeof options === 'function') {
     callback = options;
     options = {};

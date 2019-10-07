@@ -1,17 +1,18 @@
 import fs from 'fs';
 import path from 'path';
+import { Writable } from 'stream';
+
+import { DownloadResponse } from '@google-cloud/storage';
+import { IPackageStorageManager } from '@verdaccio/types';
+import { Logger, ILocalData, Callback, Package, IPackageStorage } from '@verdaccio/types';
+import { HTTP_STATUS, API_ERROR, VerdaccioError } from '@verdaccio/commons-api';
+
 import { pkgFileName } from '../src/storage';
+import { VerdaccioConfigGoogleStorage } from '../src/types';
+
 import storageConfig from './partials/config';
 import pkgExample from './partials/pkg';
 import { generatePackage } from './partials/utils.helpers';
-import { IPackageStorageManager } from '@verdaccio/types';
-
-import { VerdaccioConfigGoogleStorage } from '../src/types';
-
-import { Logger, ILocalData, Callback, Package, IPackageStorage } from '@verdaccio/types';
-import { HTTP_STATUS, API_ERROR, VerdaccioError } from '@verdaccio/commons-api';
-import { DownloadResponse } from '@google-cloud/storage';
-import { Writable } from 'stream';
 
 type ITestLocalData = ILocalData<VerdaccioConfigGoogleStorage>;
 
@@ -597,7 +598,10 @@ describe('Google Cloud Storage', () => {
           return {
             __esModule: true,
             default: class Foo {
-              public buildFilePath(): { name: string; delete: () => Promise<object[]> } {
+              public buildFilePath(): {
+                name: string;
+                delete: () => Promise<object[]>;
+              } {
                 return {
                   name: 'foo',
                   delete: (): Promise<object[]> =>
@@ -627,7 +631,10 @@ describe('Google Cloud Storage', () => {
           return {
             __esModule: true,
             default: class Foo {
-              public buildFilePath(): { name: string; delete: () => Promise<never> } {
+              public buildFilePath(): {
+                name: string;
+                delete: () => Promise<never>;
+              } {
                 return {
                   name: 'foo',
                   delete: (): Promise<never> => Promise.reject(new Error(API_ERROR.NO_PACKAGE)),

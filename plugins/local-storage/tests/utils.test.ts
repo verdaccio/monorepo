@@ -1,9 +1,11 @@
 import path from 'path';
+import fs from 'fs';
+
 import { findPackages } from '../src/utils';
 import { loadPrivatePackages } from '../src/pkg-utils';
-import logger from './__mocks__/Logger';
 import { noSuchFile } from '../src/local-fs';
-import fs from 'fs';
+
+import logger from './__mocks__/Logger';
 
 describe('Utitlies', () => {
   const loadDb = (name): string => path.join(__dirname, '__fixtures__/databases', `${name}.json`);
