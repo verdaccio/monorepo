@@ -79,7 +79,7 @@ export default class S3PackageManager implements ILocalPackageManager {
             reject(error);
             return;
           }
-          const body = response.Body !== undefined ? response.Body.toString() : '';
+          const body = response.Body ? response.Body.toString() : '';
           let data;
           try {
             data = JSON.parse(body);
