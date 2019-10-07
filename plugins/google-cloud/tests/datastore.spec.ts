@@ -1,11 +1,12 @@
 import _ from 'lodash';
-import storageConfig from './partials/config';
-import { VerdaccioConfigGoogleStorage } from '../src/types';
-
 import { Logger, ILocalPackageManager } from '@verdaccio/types';
 import { VerdaccioError } from '@verdaccio/commons-api';
-import { ERROR_MISSING_CONFIG } from '../src/data-storage';
 import { HTTP_STATUS } from '@verdaccio/commons-api/lib';
+
+import { ERROR_MISSING_CONFIG } from '../src/data-storage';
+import { VerdaccioConfigGoogleStorage } from '../src/types';
+
+import storageConfig from './partials/config';
 
 const loggerDefault: Logger = {
   error: jest.fn(),

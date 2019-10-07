@@ -2,6 +2,7 @@
 import fs from 'fs';
 
 import HTPasswd, { VerdaccioConfigApp } from '../src/htpasswd';
+
 import Logger from './__mocks__/Logger';
 import Config from './__mocks__/Config';
 

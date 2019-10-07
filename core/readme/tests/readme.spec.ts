@@ -1,6 +1,7 @@
-import parseReadme from '../src';
 import fs from 'fs';
 import path from 'path';
+
+import parseReadme from '../src';
 
 function readReadme(project: string, fileName = 'readme.md'): Promise<string> {
   return new Promise((resolve, reject): void => {

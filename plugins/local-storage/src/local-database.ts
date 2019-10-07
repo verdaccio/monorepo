@@ -1,13 +1,10 @@
 import fs from 'fs';
-import _ from 'lodash';
 import Path from 'path';
-import async from 'async';
-import mkdirp from 'mkdirp';
 import stream from 'stream';
 
-import LocalDriver, { noSuchFile } from './local-fs';
-import { loadPrivatePackages } from './pkg-utils';
-
+import _ from 'lodash';
+import async from 'async';
+import mkdirp from 'mkdirp';
 import {
   Callback,
   Config,
@@ -19,9 +16,11 @@ import {
   Token,
   TokenFilter,
 } from '@verdaccio/types';
-
 import level from 'level';
 import { getInternalError } from '@verdaccio/commons-api/lib';
+
+import LocalDriver, { noSuchFile } from './local-fs';
+import { loadPrivatePackages } from './pkg-utils';
 
 const DEPRECATED_DB_NAME = '.sinopia-db.json';
 const DB_NAME = '.verdaccio-db.json';

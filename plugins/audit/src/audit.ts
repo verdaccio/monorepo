@@ -1,7 +1,7 @@
 import request from 'request';
 import express, { Request, Response } from 'express';
-
 import { Logger, IPluginMiddleware, IBasicAuth, PluginOptions } from '@verdaccio/types';
+
 import { ConfigAudit } from './types';
 
 export default class ProxyAudit implements IPluginMiddleware<ConfigAudit> {

@@ -1,6 +1,7 @@
-import locker from 'lockfile';
 import fs from 'fs';
 import path from 'path';
+
+import locker from 'lockfile';
 import { Callback } from '@verdaccio/types';
 
 // locks a file by creating a lock file

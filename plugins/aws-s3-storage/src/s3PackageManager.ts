@@ -2,10 +2,11 @@ import { S3, AWSError } from 'aws-sdk';
 import { UploadTarball, ReadTarball } from '@verdaccio/streams';
 import { HEADERS, HTTP_STATUS } from '@verdaccio/commons-api';
 import { Callback, Logger, Package, ILocalPackageManager } from '@verdaccio/types';
+import { HttpError } from 'http-errors';
+
 import { is404Error, convertS3Error, create409Error } from './s3Errors';
 import { deleteKeyPrefix } from './deleteKeyPrefix';
 import { S3Config } from './config';
-import { HttpError } from 'http-errors';
 
 const pkgFileName = 'package.json';
 

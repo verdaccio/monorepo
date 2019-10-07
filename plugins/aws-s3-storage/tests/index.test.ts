@@ -1,11 +1,13 @@
 import { S3 } from 'aws-sdk';
 import { IPluginStorage } from '@verdaccio/types';
+
 import S3Database from '../src/index';
-import Config from './__mocks__/Config';
-import logger from './__mocks__/Logger';
 import { deleteKeyPrefix } from '../src/deleteKeyPrefix';
 import { is404Error } from '../src/s3Errors';
 import { S3Config } from '../src/config';
+
+import logger from './__mocks__/Logger';
+import Config from './__mocks__/Config';
 
 describe.skip('Local Database', () => {
   let db: IPluginStorage<S3Config>;

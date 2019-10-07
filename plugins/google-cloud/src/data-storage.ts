@@ -1,13 +1,14 @@
 import { Storage } from '@google-cloud/storage';
 import { Datastore, DatastoreOptions } from '@google-cloud/datastore';
 import { getServiceUnavailable, getInternalError, VerdaccioError } from '@verdaccio/commons-api';
-import GoogleCloudStorageHandler from './storage';
-import StorageHelper, { IStorageHelper } from './storage-helper';
 import { Logger, Callback, IPluginStorage, Token, TokenFilter, IPackageStorageManager } from '@verdaccio/types';
-import { VerdaccioConfigGoogleStorage, GoogleDataStorage } from './types';
 import { CommitResponse } from '@google-cloud/datastore/build/src/request';
 import { RunQueryResponse } from '@google-cloud/datastore/build/src/query';
 import { entity } from '@google-cloud/datastore/build/src/entity';
+
+import { VerdaccioConfigGoogleStorage, GoogleDataStorage } from './types';
+import StorageHelper, { IStorageHelper } from './storage-helper';
+import GoogleCloudStorageHandler from './storage';
 type Key = entity.Key;
 
 export const ERROR_MISSING_CONFIG = 'google cloud storage missing config. Add `store.google-cloud` to your config file';

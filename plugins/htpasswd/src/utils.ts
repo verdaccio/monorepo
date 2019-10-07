@@ -1,11 +1,12 @@
 import crypto from 'crypto';
-import crypt3 from './crypt3';
+
 import md5 from 'apache-md5';
 import bcrypt from 'bcryptjs';
 import createError, { HttpError } from 'http-errors';
 import * as locker from '@verdaccio/file-locking';
-
 import { Callback } from '@verdaccio/types';
+
+import crypt3 from './crypt3';
 
 // this function neither unlocks file nor closes it
 // it'll have to be done manually later

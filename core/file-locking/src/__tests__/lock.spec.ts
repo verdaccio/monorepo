@@ -1,5 +1,6 @@
 import path from 'path';
 import fs from 'fs';
+
 import { lockFile, unlockFile, readFile } from '../index';
 
 interface Error {

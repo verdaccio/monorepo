@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 import {
   getNotFound,
   VerdaccioError,
@@ -11,7 +13,6 @@ import {
   getServiceUnavailable,
   getCode,
 } from '../src/index';
-import _ from 'lodash';
 
 describe('testing errors', () => {
   test('should qualify as an native error', () => {

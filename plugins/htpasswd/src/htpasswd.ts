@@ -1,5 +1,8 @@
 import fs from 'fs';
 import Path from 'path';
+
+import { Callback, AuthConf, Config, IPluginAuth } from '@verdaccio/types';
+
 import {
   verifyPassword,
   lockAndRead,
@@ -9,8 +12,6 @@ import {
   changePasswordToHTPasswd,
   sanityCheck,
 } from './utils';
-
-import { Callback, AuthConf, Config, IPluginAuth } from '@verdaccio/types';
 
 export interface VerdaccioConfigApp extends Config {
   file: string;

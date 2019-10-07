@@ -10,6 +10,7 @@ import {
 } from '@verdaccio/types';
 import { getInternalError, VerdaccioError, getServiceUnavailable } from '@verdaccio/commons-api';
 import { S3 } from 'aws-sdk';
+
 import { S3Config } from './config';
 import S3PackageManager from './s3PackageManager';
 import { convertS3Error, is404Error } from './s3Errors';

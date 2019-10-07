@@ -1,10 +1,11 @@
+import { Logger, IPluginStorage, IPackageStorage } from '@verdaccio/types';
+
+import { ConfigMemory } from '../src/local-memory';
 import LocalMemory from '../src/index';
-import config from './partials/config';
-import pkgExample from './partials/pkg';
 import MemoryHandler, { noSuchFile } from '../src/memory-handler';
 
-import { Logger, IPluginStorage, IPackageStorage } from '@verdaccio/types';
-import { ConfigMemory } from '../src/local-memory';
+import config from './partials/config';
+import pkgExample from './partials/pkg';
 
 const logger: Logger = {
   error: e => console.warn(e),
