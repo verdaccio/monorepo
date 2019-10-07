@@ -3,4 +3,5 @@ module.exports = {
   rules: {
     'import/order': ['error', { 'newlines-between': 'always' }],
   },
+  plugins: ['import'],
 };

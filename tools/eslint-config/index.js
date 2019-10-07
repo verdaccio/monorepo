@@ -20,7 +20,6 @@ module.exports = {
     {
       files: ['*.ts', '*.tsx'],
       extends: ['./rules/base', './rules/typescript', './rules/import', './rules/prettier'].map(require.resolve),
-      plugins: ['import'],
     },
   ],
 };
