@@ -1,8 +1,8 @@
-import locker from "lockfile";
-import fs from "fs";
-import path from "path";
+import locker from 'lockfile';
+import fs from 'fs';
+import path from 'path';
 
-import { Callback } from "@verdaccio/types";
+import { Callback } from '@verdaccio/types';
 
 // locks a file by creating a lock file
 const lockFile = function(name: string, callback: Callback): void {
@@ -98,7 +98,7 @@ function readFile(
   options: any = {},
   callback: any = (): void => {}
 ): void {
-  if (typeof options === "function") {
+  if (typeof options === 'function') {
     callback = options;
     options = {};
   }
@@ -123,7 +123,7 @@ function readFile(
 
   const read = function(): Promise<any> {
     return new Promise<any>((resolve, reject): void => {
-      fs.readFile(name, "utf8", function(err, contents) {
+      fs.readFile(name, 'utf8', function(err, contents) {
         if (err) {
           return reject(err);
         }

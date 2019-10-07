@@ -1,7 +1,7 @@
-import path from "path";
-import fs from "fs";
+import path from 'path';
+import fs from 'fs';
 
-import { lockFile, unlockFile, readFile } from "../index";
+import { lockFile, unlockFile, readFile } from '../index';
 
 interface Error {
   message: string;
@@ -18,17 +18,17 @@ const removeTempFile = (filename: string): void => {
   });
 };
 
-describe("testing locking", () => {
-  test("file should be found to be locked", done => {
-    lockFile(getFilePath("package.json"), (error: Error) => {
+describe('testing locking', () => {
+  test('file should be found to be locked', done => {
+    lockFile(getFilePath('package.json'), (error: Error) => {
       expect(error).toBeNull();
-      removeTempFile("package.json.lock");
+      removeTempFile('package.json.lock');
       done();
     });
   });
 
-  test("file should fail to be found to be locked", done => {
-    lockFile(getFilePath("package.fail.json"), (error: Error) => {
+  test('file should fail to be found to be locked', done => {
+    lockFile(getFilePath('package.fail.json'), (error: Error) => {
       expect(error.message).toMatch(
         /ENOENT: no such file or directory, stat '(.*)package.fail.json'/
       );
@@ -36,27 +36,27 @@ describe("testing locking", () => {
     });
   });
 
-  test("file should to be found to be unLock", done => {
-    unlockFile(getFilePath("package.json.lock"), (error: Error) => {
+  test('file should to be found to be unLock', done => {
+    unlockFile(getFilePath('package.json.lock'), (error: Error) => {
       expect(error).toBeNull();
       done();
     });
   });
 
-  test("read file with no options should to be found to be read it as string", done => {
-    readFile(getFilePath("package.json"), (error: Error, data: any) => {
+  test('read file with no options should to be found to be read it as string', done => {
+    readFile(getFilePath('package.json'), (error: Error, data: any) => {
       expect(error).toBeNull();
       expect(data).toMatchSnapshot();
       done();
     });
   });
 
-  test("read file with no options should to be found to be read it as object", done => {
+  test('read file with no options should to be found to be read it as object', done => {
     const options = {
       parse: true
     };
     readFile(
-      getFilePath("package.json"),
+      getFilePath('package.json'),
       options,
       (error: Error, data: any) => {
         expect(error).toBeNull();
@@ -66,11 +66,11 @@ describe("testing locking", () => {
     );
   });
 
-  test("read file with options (parse) should to be not found to be read it", done => {
+  test('read file with options (parse) should to be not found to be read it', done => {
     const options = {
       parse: true
     };
-    readFile(getFilePath("package.fail.json"), options, (error: Error) => {
+    readFile(getFilePath('package.fail.json'), options, (error: Error) => {
       expect(error.message).toMatch(
         /ENOENT: no such file or directory, open '(.*)package.fail.json'/
       );
@@ -78,49 +78,49 @@ describe("testing locking", () => {
     });
   });
 
-  test("read file with options should to be found to be read it and fails to be parsed", done => {
+  test('read file with options should to be found to be read it and fails to be parsed', done => {
     const options = {
       parse: true
     };
     const errorMessage =
-      process.platform === "win32"
-        ? "Unexpected token } in JSON at position 47"
-        : "Unexpected token } in JSON at position 44";
-    readFile(getFilePath("wrong.package.json"), options, (error: Error) => {
+      process.platform === 'win32'
+        ? 'Unexpected token } in JSON at position 47'
+        : 'Unexpected token } in JSON at position 44';
+    readFile(getFilePath('wrong.package.json'), options, (error: Error) => {
       expect(error.message).toEqual(errorMessage);
       done();
     });
   });
 
-  test("read file with  options (parse, lock) should to be found to be read it as object", done => {
+  test('read file with  options (parse, lock) should to be found to be read it as object', done => {
     const options = {
       parse: true,
       lock: true
     };
     readFile(
-      getFilePath("package2.json"),
+      getFilePath('package2.json'),
       options,
       (error: Error, data: any) => {
         expect(error).toBeNull();
         expect(data).toMatchSnapshot();
-        removeTempFile("package2.json.lock");
+        removeTempFile('package2.json.lock');
         done();
       }
     );
   });
 
-  test("read file with options (parse, lock) should to be found to be read it and fails to be parsed", done => {
+  test('read file with options (parse, lock) should to be found to be read it and fails to be parsed', done => {
     const options = {
       parse: true,
       lock: true
     };
     const errorMessage =
-      process.platform === "win32"
-        ? "Unexpected token } in JSON at position 47"
-        : "Unexpected token } in JSON at position 44";
-    readFile(getFilePath("wrong.package.json"), options, (error: Error) => {
+      process.platform === 'win32'
+        ? 'Unexpected token } in JSON at position 47'
+        : 'Unexpected token } in JSON at position 44';
+    readFile(getFilePath('wrong.package.json'), options, (error: Error) => {
       expect(error.message).toEqual(errorMessage);
-      removeTempFile("wrong.package.json.lock");
+      removeTempFile('wrong.package.json.lock');
       done();
     });
   });
