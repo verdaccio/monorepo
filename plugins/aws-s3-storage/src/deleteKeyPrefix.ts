@@ -12,11 +12,13 @@ export function deleteKeyPrefix(s3: S3, options: DeleteKeyPrefixOptions, callbac
     if (err) {
       callback(convertS3Error(err));
     } else if (data.KeyCount) {
+      const objectsToDelete: S3.ObjectIdentifierList = data.Contents
+        ? data.Contents.map(s3Object => ({ Key: s3Object.Key as S3.ObjectKey }))
+        : [];
       s3.deleteObjects(
         {
           Bucket: options.Bucket,
-          // @ts-ignore
-          Delete: { Objects: data.Contents.map(({ Key }) => ({ Key })) },
+          Delete: { Objects: objectsToDelete },
         },
         err => {
           if (err) {

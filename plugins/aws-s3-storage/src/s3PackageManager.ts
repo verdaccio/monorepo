@@ -80,8 +80,7 @@ export default class S3PackageManager implements ILocalPackageManager {
             reject(error);
             return;
           }
-          // @ts-ignore
-          const body = response.Body.toString();
+          const body = response.Body ? response.Body.toString() : '';
           let data;
           try {
             data = JSON.parse(body);
@@ -114,14 +113,13 @@ export default class S3PackageManager implements ILocalPackageManager {
     );
   }
 
-  public removePackage(callback: Callback): void {
+  public removePackage(callback: (err: Error | null) => void): void {
     deleteKeyPrefix(
       this.s3,
       {
         Bucket: this.config.bucket,
         Prefix: `${this.config.keyPrefix}${this.packageName}`,
       },
-      // @ts-ignore
       callback
     );
   }
