@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/commons-api",
-  "version": "8.1.2",
+  "version": "8.2.0-next.0",
   "description": "Commons API utilities for Verdaccio",
   "keywords": [
     "http",
@@ -32,8 +32,8 @@
     "http-errors": "1.7.3"
   },
   "devDependencies": {
-    "@verdaccio/babel-preset": "^8.1.2",
-    "@verdaccio/eslint-config": "^8.1.2"
+    "@verdaccio/babel-preset": "^8.2.0-next.0",
+    "@verdaccio/eslint-config": "^8.2.0-next.0"
   },
   "scripts": {
     "build": "npm run build:types && npm run build:js",

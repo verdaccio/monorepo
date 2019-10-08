@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.2.0-next.0](https://github.com/verdaccio/monorepo/compare/v8.1.4...v8.2.0-next.0) (2019-10-08)
+
+
+### Bug Fixes
+
+* fixed lint errors ([5e677f7](https://github.com/verdaccio/monorepo/commit/5e677f7))
+* fixed lint errors ([c80e915](https://github.com/verdaccio/monorepo/commit/c80e915))
+
+
+### Features
+
+* added eslint rule import/order ([55b925d](https://github.com/verdaccio/monorepo/commit/55b925d))
+
+
+
+
+
 ## [8.1.2](https://github.com/verdaccio/monorepo/compare/v8.1.1...v8.1.2) (2019-09-29)
 
 **Note:** Version bump only for package @verdaccio/eslint-config

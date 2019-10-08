@@ -1,6 +1,6 @@
 {
   "name": "verdaccio-aws-s3-storage",
-  "version": "8.1.2",
+  "version": "8.2.0-next.0",
   "description": "AWS S3 storage implementation for Verdaccio",
   "keywords": [
     "verdaccio",
@@ -33,8 +33,8 @@
     "aws-sdk": "2.542.0"
   },
   "devDependencies": {
-    "@verdaccio/babel-preset": "^8.1.2",
-    "@verdaccio/eslint-config": "^8.1.2",
+    "@verdaccio/babel-preset": "^8.2.0-next.0",
+    "@verdaccio/eslint-config": "^8.2.0-next.0",
     "@verdaccio/types": "^8.1.0",
     "recursive-readdir": "2.2.2"
   },

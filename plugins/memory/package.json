@@ -1,6 +1,6 @@
 {
   "name": "verdaccio-memory",
-  "version": "8.1.2",
+  "version": "8.2.0-next.0",
   "description": "Storage implementation in memory",
   "keywords": [
     "verdaccio",
@@ -28,14 +28,14 @@
     "node": ">=8"
   },
   "dependencies": {
-    "@verdaccio/commons-api": "^8.1.2",
-    "@verdaccio/streams": "^8.1.2",
+    "@verdaccio/commons-api": "^8.2.0-next.0",
+    "@verdaccio/streams": "^8.2.0-next.0",
     "http-errors": "1.7.3",
     "memory-fs": "0.4.1"
   },
   "devDependencies": {
-    "@verdaccio/babel-preset": "^8.1.2",
-    "@verdaccio/eslint-config": "^8.1.2",
+    "@verdaccio/babel-preset": "^8.2.0-next.0",
+    "@verdaccio/eslint-config": "^8.2.0-next.0",
     "@verdaccio/types": "^8.1.0"
   },
   "scripts": {
