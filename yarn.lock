@@ -3167,10 +3167,10 @@ babel-plugin-dynamic-import-node@2.3.0, babel-plugin-dynamic-import-node@^2.3.0:
   dependencies:
     object.assign "^4.1.0"
 
-babel-plugin-emotion@10.0.20:
-  version "10.0.20"
-  resolved "https://registry.verdaccio.org/babel-plugin-emotion/-/babel-plugin-emotion-10.0.20.tgz#635766d390b7923bb0c01bfbb87529e0ff35478b"
-  integrity sha512-Lmyc1wk+zdvz9LY0IZub51fwTxsptxdvBR7aGGmPit9PX7suYUtndFcge945TNqcz7MZxbMxlo52RaRxH+3wiw==
+babel-plugin-emotion@10.0.21:
+  version "10.0.21"
+  resolved "https://registry.verdaccio.org/babel-plugin-emotion/-/babel-plugin-emotion-10.0.21.tgz#9ebeb12edeea3e60a5476b0e07c9868605e65968"
+  integrity sha512-03o+T6sfVAJhNDcSdLapgv4IeewcFPzxlvBUVdSf7o5PI57ZSxoDvmy+ZulVWSu+rOWAWkEejNcsb29TuzJHbg==
   dependencies:
     "@babel/helper-module-imports" "^7.0.0"
     "@emotion/hash" "0.7.3"
