@@ -217,7 +217,7 @@ describe('HTPasswd', () => {
       test('reload should fails on read file', done => {
         jest.doMock('fs', () => {
           return {
-            stat: require.requireActual('fs').stat,
+            stat: jest.requireActual('fs').stat,
             readFile: (_name, _format, callback): void => {
               callback(new Error('read error'), null);
             },
