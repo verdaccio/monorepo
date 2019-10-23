@@ -1,6 +1,6 @@
 # Testing Utilities
 
-[![CircleCI](https://circleci.com/gh/verdaccio/testing-utilities.svg?style=svg)](https://circleci.com/gh/ayusharma/@verdaccio/testing-utilities)
+[![CircleCI](https://circleci.com/gh/verdaccio/testing-utilities.svg?style=svg)](https://circleci.com/gh/verdaccio/@verdaccio/testing-utilities)
 [![codecov](https://codecov.io/gh/verdaccio/testing-utilities/branch/master/graph/badge.svg)](https://codecov.io/gh/verdaccio/testing-utilities)
 [![verdaccio (latest)](https://img.shields.io/npm/v/@verdaccio/testing-utilities/latest.svg)](https://www.npmjs.com/package/@verdaccio/testing-utilities)
 [![backers](https://opencollective.com/verdaccio/tiers/backer/badge.svg?label=Backer&color=brightgreen)](https://opencollective.com/verdaccio)
