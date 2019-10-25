@@ -32,7 +32,7 @@
     "apache-md5": "1.1.2",
     "bcryptjs": "2.4.3",
     "http-errors": "1.7.3",
-    "unix-crypt-td-js": "1.0.0"
+    "unix-crypt-td-js": "1.1.4"
   },
   "devDependencies": {
     "@octokit/rest": "^16.23.2",
