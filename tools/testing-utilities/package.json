@@ -1,12 +1,12 @@
 {
-  "name": "verdaccio-audit",
-  "version": "8.2.0",
-  "description": "Verdaccio Middleware plugin to bypass npmjs audit",
+  "name": "@verdaccio/testing-utilities",
+  "version": "8.2.0-next.0",
+  "description": "Utils for Verdaccio",
   "keywords": [
     "verdaccio",
-    "plugin",
-    "middleware",
-    "audit"
+    "package",
+    "utils",
+    "testing"
   ],
   "author": "Juan Picado <juanpicado19@gmail.com>",
   "license": "MIT",
@@ -14,33 +14,33 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/verdaccio/monorepo",
-    "directory": "plugins/audit"
+    "directory": "core/utils"
   },
   "bugs": {
     "url": "https://github.com/verdaccio/monorepo/issues"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "files": [
-    "lib/"
+    "lib"
   ],
   "engines": {
-    "node": ">=8"
-  },
-  "dependencies": {
-    "express": "4.17.1",
-    "request": "2.88.0"
+    "node": ">=8",
+    "npm": ">=5"
   },
   "devDependencies": {
-    "@verdaccio/babel-preset": "^8.2.0",
-    "@verdaccio/eslint-config": "^8.2.0",
+    "@verdaccio/babel-preset": "^8.2.0-next.0",
+    "@verdaccio/eslint-config": "^8.2.0-next.0",
     "@verdaccio/types": "^8.1.0"
   },
   "scripts": {
     "build": "npm run build:types && npm run build:js",
-    "build:js": "babel src/ --out-dir lib --extensions \".ts,.tsx\" --source-maps inline",
+    "build:js": "babel src --out-dir lib --extensions \\\".ts,.tsx\\\" --source-maps inline",
     "build:types": "tsc --emitDeclarationOnly",
-    "coverage:publish": "codecov --root=../../ -F plugins",
+    "coverage:publish": "codecov --root=../../ -F core",
     "lint": "eslint \"**/*.{js,ts}\"",
     "lint:stage": "lint-staged",
     "test": "jest",

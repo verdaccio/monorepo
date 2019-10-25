@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.2.0](https://github.com/verdaccio/monorepo/compare/v8.2.0-next.0...v8.2.0) (2019-10-23)
+
+
+### Bug Fixes
+
+* core/readme/package.json to reduce vulnerabilities ([#216](https://github.com/verdaccio/monorepo/issues/216)) ([40299ab](https://github.com/verdaccio/monorepo/commit/40299ab))
+
+
+
+
+
 # [8.2.0-next.0](https://github.com/verdaccio/monorepo/compare/v8.1.4...v8.2.0-next.0) (2019-10-08)
 
 
