@@ -29,7 +29,8 @@
     "node": ">=8"
   },
   "dependencies": {
-    "http-errors": "1.7.3"
+    "http-errors": "1.7.3",
+    "http-status-codes": "1.3.2"
   },
   "devDependencies": {
     "@verdaccio/babel-preset": "^8.2.0",
