@@ -456,7 +456,7 @@ declare module '@verdaccio/types' {
     version?: string;
   }
 
-  type AuthCallback = (error: string | null, groups: string[] | false) => void
+  type AuthCallback = (error: string | null, groups: string[] | false) => void;
 
   interface IPluginAuth<T> extends IPlugin<T> {
     authenticate(user: string, password: string, cb: AuthCallback): void;
