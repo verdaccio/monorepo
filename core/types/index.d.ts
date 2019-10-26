@@ -456,15 +456,17 @@ declare module '@verdaccio/types' {
     version?: string;
   }
 
+  type AuthCallback = (error: string | null, groups: string[] | false) => void
+
   interface IPluginAuth<T> extends IPlugin<T> {
-    authenticate(user: string, password: string, cb: Callback): void;
-    adduser?(user: string, password: string, cb: Callback): void;
-    changePassword?(user: string, password: string, newPassword: string, cb: Callback): void;
-    allow_access?(user: RemoteUser, pkg: T & PackageAccess, cb: Callback): void;
-    allow_publish?(user: RemoteUser, pkg: T & PackageAccess, cb: Callback): void;
-    allow_access?(user: RemoteUser, pkg: AllowAccess & PackageAccess, cb: Callback): void;
-    allow_publish?(user: RemoteUser, pkg: AllowAccess & PackageAccess, cb: Callback): void;
-    allow_unpublish?(user: RemoteUser, pkg: AllowAccess & PackageAccess, cb: Callback): void;
+    authenticate(user: string, password: string, cb: AuthCallback): void;
+    adduser?(user: string, password: string, cb: AuthCallback): void;
+    changePassword?(user: string, password: string, newPassword: string, cb: AuthCallback): void;
+    allow_access?(user: RemoteUser, pkg: T & PackageAccess, cb: AuthCallback): void;
+    allow_publish?(user: RemoteUser, pkg: T & PackageAccess, cb: AuthCallback): void;
+    allow_access?(user: RemoteUser, pkg: AllowAccess & PackageAccess, cb: AuthCallback): void;
+    allow_publish?(user: RemoteUser, pkg: AllowAccess & PackageAccess, cb: AuthCallback): void;
+    allow_unpublish?(user: RemoteUser, pkg: AllowAccess & PackageAccess, cb: AuthCallback): void;
     apiJWTmiddleware?(helpers: any): Function;
   }
 
