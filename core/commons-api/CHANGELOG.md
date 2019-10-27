@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.3.0](https://github.com/verdaccio/monorepo/compare/v8.2.0...v8.3.0) (2019-10-27)
+
+
+### Features
+
+* add http-status-codes dep ([#212](https://github.com/verdaccio/monorepo/issues/212)) ([00b66af](https://github.com/verdaccio/monorepo/commit/00b66af))
+
+
+
+
+
 # [8.2.0](https://github.com/verdaccio/monorepo/compare/v8.2.0-next.0...v8.2.0) (2019-10-23)
 
 **Note:** Version bump only for package @verdaccio/commons-api

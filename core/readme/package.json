@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/readme",
-  "version": "8.2.0",
+  "version": "8.3.0",
   "description": "Readme markdown parser",
   "keywords": [
     "verdaccio",
@@ -37,7 +37,7 @@
   "devDependencies": {
     "@verdaccio/babel-preset": "^8.2.0",
     "@verdaccio/eslint-config": "^8.2.0",
-    "@verdaccio/types": "^8.1.0"
+    "@verdaccio/types": "^8.3.0"
   },
   "scripts": {
     "build": "npm run build:types && npm run build:js",

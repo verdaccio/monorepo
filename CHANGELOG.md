@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.3.0](https://github.com/verdaccio/monorepo/compare/v8.2.0...v8.3.0) (2019-10-27)
+
+
+### Features
+
+* add http-status-codes dep ([#212](https://github.com/verdaccio/monorepo/issues/212)) ([00b66af](https://github.com/verdaccio/monorepo/commit/00b66af))
+* add testing-utilities package ([#214](https://github.com/verdaccio/monorepo/issues/214)) ([dd78a8d](https://github.com/verdaccio/monorepo/commit/dd78a8d))
+* improve auth callback TS types ([#225](https://github.com/verdaccio/monorepo/issues/225)) ([ee442a0](https://github.com/verdaccio/monorepo/commit/ee442a0))
+
+
+
+
+
 # [8.2.0](https://github.com/verdaccio/monorepo/compare/v8.2.0-next.0...v8.2.0) (2019-10-23)
 
 
