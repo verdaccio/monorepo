@@ -1188,10 +1188,10 @@
   resolved "https://registry.verdaccio.org/@google-cloud%2fpromisify/-/promisify-1.0.2.tgz#e581aa79ff71fb6074acc1cc59e3d81bf84ce07b"
   integrity sha512-7WfV4R/3YV5T30WRZW0lqmvZy9hE2/p9MvpI34WuKa2Wz62mLu5XplGTFEMK6uTbJCLWUxTcZ4J4IyClKucE5g==
 
-"@google-cloud/storage@3.2.1":
-  version "3.2.1"
-  resolved "https://registry.verdaccio.org/@google-cloud%2fstorage/-/storage-3.2.1.tgz#6701fbc91b95304e0da88c0f193b1800c9ba4159"
-  integrity sha512-129EwPGej6bXzY1u5nja2aeMDew6DIHaJn7ZV6nteQ74LQQSNv2jKrqTlyhndBsAwpuwQAxeghPTCoFT/H8Frg==
+"@google-cloud/storage@4.0.0":
+  version "4.0.0"
+  resolved "https://registry.verdaccio.org/@google-cloud%2fstorage/-/storage-4.0.0.tgz#ad7df44eb7a7ce469c26d86967c444a7484cf595"
+  integrity sha512-ZhMSvIrsyULJNGuhB3vK9VKxIh92W/sOjEezaxykKewB/NxK/d09cC1AfpwHFcnxN+ZZcy1fSLAIwfNAnKU+lA==
   dependencies:
     "@google-cloud/common" "^2.1.1"
     "@google-cloud/paginator" "^2.0.0"
@@ -1199,17 +1199,18 @@
     arrify "^2.0.0"
     compressible "^2.0.12"
     concat-stream "^2.0.0"
-    date-and-time "^0.9.0"
+    date-and-time "^0.10.0"
     duplexify "^3.5.0"
     extend "^3.0.2"
     gaxios "^2.0.1"
-    gcs-resumable-upload "^2.0.0"
-    hash-stream-validation "^0.2.1"
+    gcs-resumable-upload "^2.2.4"
+    hash-stream-validation "^0.2.2"
     mime "^2.2.0"
     mime-types "^2.0.8"
     onetime "^5.1.0"
     p-limit "^2.2.0"
     pumpify "^2.0.0"
+    readable-stream "^3.4.0"
     snakeize "^0.1.0"
     stream-events "^1.0.1"
     through2 "^3.0.0"
@@ -4145,10 +4146,10 @@ data-urls@^1.0.0, data-urls@^1.1.0:
     whatwg-mimetype "^2.2.0"
     whatwg-url "^7.0.0"
 
-date-and-time@^0.9.0:
-  version "0.9.0"
-  resolved "https://registry.verdaccio.org/date-and-time/-/date-and-time-0.9.0.tgz#1524579e56dc07675c640b41735a7665c0659240"
-  integrity sha512-4JybB6PbR+EebpFx/KyR5Ybl+TcdXMLIJkyYsCx3P4M4CWGMuDyFF19yh6TyasMAIF5lrsgIxiSHBXh2FFc7Fg==
+date-and-time@^0.10.0:
+  version "0.10.0"
+  resolved "https://registry.verdaccio.org/date-and-time/-/date-and-time-0.10.0.tgz#53825b774167b55fbdf0bbd0f17f19357df7bc70"
+  integrity sha512-IbIzxtvK80JZOVsWF6+NOjunTaoFVYxkAQoyzmflJyuRCJAJebehy48mPiCAedcGp4P7/UO3QYRWa0fe6INftg==
 
 date-fns@^1.27.2:
   version "1.30.1"
@@ -5363,10 +5364,10 @@ gcp-metadata@^2.0.0:
     gaxios "^2.0.1"
     json-bigint "^0.3.0"
 
-gcs-resumable-upload@^2.0.0:
-  version "2.2.4"
-  resolved "https://registry.verdaccio.org/gcs-resumable-upload/-/gcs-resumable-upload-2.2.4.tgz#c81f58c456cbc6c14c71f12c51779de454d1ccad"
-  integrity sha512-UqoGRLImof+6DRv/7QnMGP3ot+RKhsIS2dVziGFe+ajFDW0cnit7xYyViFA99utDQB0RD+fSqKBkYwNXX3Y42w==
+gcs-resumable-upload@^2.2.4:
+  version "2.3.0"
+  resolved "https://registry.verdaccio.org/gcs-resumable-upload/-/gcs-resumable-upload-2.3.0.tgz#7d7eef01df5f45f66975ebc0c268d17d9a2c3b9c"
+  integrity sha512-PclXJiEngrVx0c4K0LfE1XOxhmOkBEy39Rrhspdn6jAbbwe4OQMZfjo7Z1LHBrh57+bNZeIN4M+BooYppCoHSg==
   dependencies:
     abort-controller "^3.0.0"
     configstore "^5.0.0"
@@ -5787,10 +5788,10 @@ has@^1.0.1, has@^1.0.3:
   dependencies:
     function-bind "^1.1.1"
 
-hash-stream-validation@^0.2.1:
-  version "0.2.1"
-  resolved "https://registry.verdaccio.org/hash-stream-validation/-/hash-stream-validation-0.2.1.tgz#ecc9b997b218be5bb31298628bb807869b73dcd1"
-  integrity sha1-7Mm5l7IYvluzEphii7gHhptz3NE=
+hash-stream-validation@^0.2.2:
+  version "0.2.2"
+  resolved "https://registry.verdaccio.org/hash-stream-validation/-/hash-stream-validation-0.2.2.tgz#6b34c4fce5e9fce265f1d3380900049d92a10090"
+  integrity sha512-cMlva5CxWZOrlS/cY0C+9qAzesn5srhFA8IT1VPiHc9bWWBLkJfEUIZr7MWoi89oOOGmpg8ymchaOjiArsGu5A==
   dependencies:
     through2 "^2.0.0"
 
@@ -9195,7 +9196,7 @@ read@1, read@~1.0.1:
     string_decoder "~1.1.1"
     util-deprecate "~1.0.1"
 
-"readable-stream@2 || 3", readable-stream@^3.0.1, readable-stream@^3.0.2, readable-stream@^3.1.1:
+"readable-stream@2 || 3", readable-stream@^3.0.1, readable-stream@^3.0.2, readable-stream@^3.1.1, readable-stream@^3.4.0:
   version "3.4.0"
   resolved "https://registry.verdaccio.org/readable-stream/-/readable-stream-3.4.0.tgz#a51c26754658e0a3c21dbf59163bd45ba6f447fc"
   integrity sha512-jItXPLmrSR8jmTRmRWJXCnGJsfy85mB3Wd/uINMXA65yrnFo0cPClFIUWzo2najVNSl+mx7/4W8ttlLWJe99pQ==

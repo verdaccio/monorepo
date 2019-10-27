@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "@google-cloud/datastore": "4.3.0",
-    "@google-cloud/storage": "3.2.1",
+    "@google-cloud/storage": "4.0.0",
     "@verdaccio/commons-api": "^8.3.0",
     "@verdaccio/streams": "^8.3.0",
     "snyk": "^1.231.0"
