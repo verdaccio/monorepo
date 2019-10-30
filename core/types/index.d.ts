@@ -286,6 +286,7 @@ declare module '@verdaccio/types' {
     title?: string;
     logo?: string;
     gravatar?: boolean;
+    sort_packages?: string;
   }
 
   interface HttpsConf {
