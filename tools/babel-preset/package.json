@@ -52,7 +52,7 @@
     "babel-eslint": "10.0.3",
     "babel-jest": "24.9.0",
     "babel-plugin-dynamic-import-node": "2.3.0",
-    "babel-plugin-emotion": "10.0.21"
+    "babel-plugin-emotion": "10.0.23"
   },
   "devDependencies": {
     "@verdaccio/eslint-config": "^8.2.0",

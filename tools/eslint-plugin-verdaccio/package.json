@@ -26,11 +26,11 @@
     "node": ">=8"
   },
   "dependencies": {
-    "jsx-ast-utils": "2.2.1"
+    "jsx-ast-utils": "2.2.3"
   },
   "devDependencies": {
     "@verdaccio/eslint-config": "^8.2.0",
-    "mocha": "^6.1.4"
+    "mocha": "^6.2.2"
   },
   "scripts": {
     "lint": "eslint \"**/*.js\"",
