@@ -30,7 +30,7 @@
   "dependencies": {
     "@verdaccio/commons-api": "^0.1.2",
     "@verdaccio/streams": "^2.0.0",
-    "aws-sdk": "2.562.0"
+    "aws-sdk": "2.567.0"
   },
   "devDependencies": {
     "@verdaccio/babel-preset": "^8.2.0",
