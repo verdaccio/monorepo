@@ -17,5 +17,28 @@
 npm install @verdaccio/readme
 ```
 
+## Usage
+
+Simple usage
+
+```js
+import parseReadme from '@verdaccio/readme';
+
+const markdownString = '## hello world';
+
+parseReadme(markdownString);
+```
+
+Using syntax highlighter
+
+```js
+import parseReadme from '@verdaccio/readme';
+
+const markdownString = '## hello world';
+
+parseReadme(markdownString, true); // true for highlighting syntax
+```
+
 ## License
+
 Verdaccio is [MIT licensed](https://github.com/verdaccio/readme/blob/master/LICENSE).

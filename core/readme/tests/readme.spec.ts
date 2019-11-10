@@ -226,4 +226,12 @@ describe('readme', () => {
       );
     });
   });
+  describe('syntax highlighting support', () => {
+    test('should handle syntax highlighting readme', async () => {
+      const readme: string = await readReadme('syntax-highlighting');
+      expect(parseReadme(readme, true))
+        .toEqual(`<pre><code class="language-js"><span class="hljs-keyword">const</span> welcomeMsg = <span class="hljs-string">"Welcome to verdaccio"</span>
+<span class="hljs-built_in">console</span>.log(welcomeMsg)</code></pre>`);
+    });
+  });
 });
