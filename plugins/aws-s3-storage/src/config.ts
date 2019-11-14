@@ -6,6 +6,7 @@ export interface S3Config extends Config {
   endpoint?: string;
   region?: string;
   s3ForcePathStyle?: boolean;
+  packageACL?: string;
   accessKeyId?: string;
   secretAccessKey?: string;
 }
