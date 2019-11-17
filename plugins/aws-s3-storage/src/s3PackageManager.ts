@@ -14,22 +14,22 @@ export default class S3PackageManager implements ILocalPackageManager {
   public config: S3Config;
   public logger: Logger;
   private packageName: string;
-  private packageACL: string;
+  private tarballACL: string;
   private s3: S3;
 
   public constructor(config: S3Config, packageName: string, logger: Logger) {
     this.config = config;
     this.packageName = packageName;
     this.logger = logger;
-    const { endpoint, region, s3ForcePathStyle, packageACL, accessKeyId, secretAccessKey } = config;
+    const { endpoint, region, s3ForcePathStyle, tarballACL, accessKeyId, secretAccessKey } = config;
 
-    this.packageACL = packageACL || 'private';
+    this.tarballACL = tarballACL || 'private';
     this.s3 = new S3({ endpoint, region, s3ForcePathStyle, accessKeyId, secretAccessKey });
     this.logger.trace({ packageName }, 's3: [S3PackageManager constructor] packageName @{packageName}');
     this.logger.trace({ endpoint }, 's3: [S3PackageManager constructor] endpoint @{endpoint}');
     this.logger.trace({ region }, 's3: [S3PackageManager constructor] region @{region}');
     this.logger.trace({ s3ForcePathStyle }, 's3: [S3PackageManager constructor] s3ForcePathStyle @{s3ForcePathStyle}');
-    this.logger.trace({ packageACL }, 's3: [S3PackageManager constructor] packageACL @{packageACL}');
+    this.logger.trace({ tarballACL }, 's3: [S3PackageManager constructor] tarballACL @{tarballACL}');
     this.logger.trace({ accessKeyId }, 's3: [S3PackageManager constructor] accessKeyId @{accessKeyId}');
     this.logger.trace({ secretAccessKey }, 's3: [S3PackageManager constructor] secretAccessKey @{secretAccessKey}');
   }
@@ -170,7 +170,6 @@ export default class S3PackageManager implements ILocalPackageManager {
         Body: JSON.stringify(value, null, '  '),
         Bucket: this.config.bucket,
         Key: `${this.config.keyPrefix}${this.packageName}/${pkgFileName}`,
-        ACL: this.packageACL,
       },
       // @ts-ignore
       callback
@@ -239,7 +238,7 @@ export default class S3PackageManager implements ILocalPackageManager {
           } else {
             this.logger.debug('s3: [S3PackageManager writeTarball managedUpload] init stream');
             const managedUpload = this.s3.upload(
-              Object.assign({}, baseS3Params, { Body: uploadStream, ACL: this.packageACL })
+              Object.assign({}, baseS3Params, { Body: uploadStream, ACL: this.tarballACL })
             );
             // NOTE: there's a managedUpload.promise, but it doesn't seem to work
             const promise = new Promise((resolve): void => {

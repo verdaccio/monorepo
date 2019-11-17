@@ -47,7 +47,7 @@ store:
     region: us-west-2 # optional, will use aws s3's default behavior if not specified
     endpoint: https://{service}.{region}.amazonaws.com # optional, will use aws s3's default behavior if not specified
     s3ForcePathStyle: false # optional, will use path style URLs for S3 objects
-    packageACL: private # optional, use public-read to work with CDN like Amazon CloudFront or digitalocean spaces CDN
+    tarballACL: private # optional, use public-read to work with CDN like Amazon CloudFront or digitalocean spaces CDN
     accessKeyId: your-access-key-id # optional, aws accessKeyId for private S3 bucket
     secretAccessKey: your-secret-access-key # optional, aws secretAccessKey for private S3 bucket
 ```
