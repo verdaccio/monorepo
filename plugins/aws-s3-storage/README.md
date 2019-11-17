@@ -48,6 +48,7 @@ store:
     endpoint: https://{service}.{region}.amazonaws.com # optional, will use aws s3's default behavior if not specified
     s3ForcePathStyle: false # optional, will use path style URLs for S3 objects
     tarballACL: private # optional, use public-read to work with CDN like Amazon CloudFront or digitalocean spaces CDN
+    tarballEdgeUrl: some-distribution.cloudfront.net # optional, along with tarballACL='public-read' to enable s3 built-in CDN/Edge integration for tarball serving.
     accessKeyId: your-access-key-id # optional, aws accessKeyId for private S3 bucket
     secretAccessKey: your-secret-access-key # optional, aws secretAccessKey for private S3 bucket
 ```
