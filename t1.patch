@@ -1,0 +1,47 @@
+diff --git a/plugins/aws-s3-storage/tests/s3PackageManager.test.ts b/plugins/aws-s3-storage/tests/s3PackageManager.test.ts
+index baf9e40..e9eda5c 100644
+--- a/plugins/aws-s3-storage/tests/s3PackageManager.test.ts
++++ b/plugins/aws-s3-storage/tests/s3PackageManager.test.ts
+@@ -15,7 +15,7 @@ import pkg from './__fixtures__/pkg';
+
+ const pkgFileName = 'package.json';
+
+-describe.skip('S3 package manager', () => {
++describe('S3 package manager', () => {
+   // random key for testing
+   const keyPrefix = `test/${Math.floor(Math.random() * Math.pow(10, 8))}`;
+
+@@ -24,13 +24,23 @@ describe.skip('S3 package manager', () => {
+     throw new Error('no bucket specified via VERDACCIO_TEST_BUCKET env var');
+   }
+
++  const s3ClientConf = {
++    endpoint: 'http://127.0.0.1:9000',
++    region: 'us-east-1',
++    s3ForcePathStyle: true,
++    accessKeyId: 'admin',
++    secretAccessKey: 'password',
++  }
++
+   const config: S3Config = {
+     bucket,
++    tarballACL: 'private',
+     keyPrefix: `${keyPrefix}/`,
++    ...s3ClientConf
+   } as S3Config;
+
+   afterEach(async () => {
+-    const s3 = new S3();
++    const s3 = new S3(s3ClientConf);
+     // snapshot test the final state of s3
+     await new Promise((resolve, reject): void => {
+       s3.listObjectsV2({ Bucket: bucket, Prefix: config.keyPrefix }, (err, data) => {
+@@ -89,7 +99,7 @@ describe.skip('S3 package manager', () => {
+   });
+
+   async function syncFixtureDir(fixture): Promise<void> {
+-    const s3 = new S3();
++    const s3 = new S3(s3ClientConf);
+     const dir = path.join(__dirname, '__fixtures__');
+
+     const filenames = await new Promise<string[]>((resolve, reject): void =>

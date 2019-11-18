@@ -1,0 +1,79 @@
+diff --git a/plugins/aws-s3-storage/src/config.ts b/plugins/aws-s3-storage/src/config.ts
+index ac22387..90622f9 100644
+--- a/plugins/aws-s3-storage/src/config.ts
++++ b/plugins/aws-s3-storage/src/config.ts
+@@ -4,6 +4,7 @@ export interface S3Config extends Config {
+   bucket: string;
+   keyPrefix: string;
+   endpoint?: string;
++  edgeUrl?: string;
+   region?: string;
+   s3ForcePathStyle?: boolean;
+   tarballACL?: string;
+diff --git a/plugins/aws-s3-storage/src/s3PackageManager.ts b/plugins/aws-s3-storage/src/s3PackageManager.ts
+index edc2ef2..8f4d143 100644
+--- a/plugins/aws-s3-storage/src/s3PackageManager.ts
++++ b/plugins/aws-s3-storage/src/s3PackageManager.ts
+@@ -15,15 +15,20 @@ export default class S3PackageManager implements ILocalPackageManager {
+   public logger: Logger;
+   private packageName: string;
+   private tarballACL: string;
++  private edgeUrl: string;
+   private s3: S3;
+
+   public constructor(config: S3Config, packageName: string, logger: Logger) {
+     this.config = config;
+     this.packageName = packageName;
+     this.logger = logger;
+-    const { endpoint, region, s3ForcePathStyle, tarballACL, accessKeyId, secretAccessKey } = config;
++    const { endpoint, edgeUrl, region, s3ForcePathStyle, tarballACL, accessKeyId, secretAccessKey } = config;
+
+     this.tarballACL = tarballACL || 'private';
++    this.edgeUrl = edgeUrl || '';
++    if (this.edgeUrl.endsWith('/'))
++      this.edgeUrl = this.edgeUrl.slice(0, -1);
++
+     this.s3 = new S3({ endpoint, region, s3ForcePathStyle, accessKeyId, secretAccessKey });
+     this.logger.trace({ packageName }, 's3: [S3PackageManager constructor] packageName @{packageName}');
+     this.logger.trace({ endpoint }, 's3: [S3PackageManager constructor] endpoint @{endpoint}');
+@@ -185,6 +190,13 @@ export default class S3PackageManager implements ILocalPackageManager {
+     (async (): Promise<void> => {
+       try {
+         const data = await this._getData();
++        if (this.edgeUrl)
++          this._replaceTarballToEdgeUrl(data);
++        if (data) {
++          let d1 = data as any;
++          if (d1 && d1.versions && d1.versions['1.6.1'])
++            this.logger.warn('1.6.1: ', d1.versions['1.6.1'].dist);
++        }
+         this.logger.trace(
+           { data, packageName: this.packageName },
+           's3: [S3PackageManager readPackage] packageName: @{packageName} / data @data'
+@@ -198,6 +210,26 @@ export default class S3PackageManager implements ILocalPackageManager {
+     })();
+   }
+
++  private _replaceTarballToEdgeUrl(data: unknown) {
++    let json = data as any;
++    if (!json)
++      return;
++    if (json.versions) {
++      Object.keys(json.versions).map(key => json.versions[key]).forEach(val => {
++        this.replaceTarballToEdgeUrlInDist(val.dist);
++      })
++    }
++  }
++
++  private replaceTarballToEdgeUrlInDist(dist: any) {
++    if (!dist || !dist.tarball)
++      return;
++    let name = dist.tarball.split('/-/')[1];
++    let tarballUrl = `${this.edgeUrl}/${this.config.keyPrefix}${this.packageName}/${name}`;
++    dist.tarball = tarballUrl;
++    this.logger.warn('dist: ', dist);
++  }
++
+   public writeTarball(name: string): UploadTarball {
+     this.logger.debug(
+       { name, packageName: this.packageName },
