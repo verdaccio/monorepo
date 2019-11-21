@@ -51,7 +51,10 @@ describe('Utitlies', () => {
   describe('find packages', () => {
     test('should fails on wrong storage path', async () => {
       try {
-        await findPackages('./no_such_folder_fake', jest.fn(() => true));
+        await findPackages(
+          './no_such_folder_fake',
+          jest.fn(() => true)
+        );
       } catch (e) {
         expect(e.code).toEqual(noSuchFile);
       }
