@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-verdaccio",
-  "version": "8.4.0",
+  "version": "8.4.1",
   "description": "Verdaccio code guidelines",
   "keywords": [
     "verdaccio",
@@ -29,7 +29,7 @@
     "jsx-ast-utils": "2.2.3"
   },
   "devDependencies": {
-    "@verdaccio/eslint-config": "^8.4.0",
+    "@verdaccio/eslint-config": "^8.4.1",
     "mocha": "^6.2.2"
   },
   "scripts": {
