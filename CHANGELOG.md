@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.4.0](https://github.com/verdaccio/monorepo/compare/v8.3.0...v8.4.0) (2019-11-22)
+
+
+### Bug Fixes
+
+* adds sort_packages in WebConf Interface ([#227](https://github.com/verdaccio/monorepo/issues/227)) ([5b60ade](https://github.com/verdaccio/monorepo/commit/5b60adef5da49d7d1b62aa9f484b27c9fa319bdd))
+
+
+### Features
+
+* **babel-preset:** upgrade babel ([7069b24](https://github.com/verdaccio/monorepo/commit/7069b247a6bb0e4e0240b4348dbbc13357b52b26))
+
+
+
+
+
 # [8.3.0](https://github.com/verdaccio/monorepo/compare/v8.2.0...v8.3.0) (2019-10-27)
 
 
