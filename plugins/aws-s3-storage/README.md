@@ -48,7 +48,27 @@ store:
     endpoint: https://{service}.{region}.amazonaws.com # optional, will use aws s3's default behavior if not specified
     s3ForcePathStyle: false # optional, will use path style URLs for S3 objects
     tarballACL: private # optional, use public-read to work with CDN like Amazon CloudFront or digitalocean spaces CDN
-    tarballEdgeUrl: some-distribution.cloudfront.net # optional, along with tarballACL='public-read' to enable s3 built-in CDN/Edge integration for tarball serving.
+    tarballEdgeUrl: https://{distribution}.cloudfront.net # optional, along with tarballACL='public-read' to enable s3 built-in CDN/Edge integration for tarball serving
     accessKeyId: your-access-key-id # optional, aws accessKeyId for private S3 bucket
     secretAccessKey: your-secret-access-key # optional, aws secretAccessKey for private S3 bucket
+```
+
+## Use S3 Built-in CDN/Edge to Serve Tarball Files
+
+CDN/Edge service plays an important role when distributing binary files. When deploying verdaccio as a public registry, it brings benefits such as reducing NodeJS server load and faster download speed. Most S3-compatible storages have built-in CDN/Edge service integrated, like CloudFront for S3, DigitalOcean CDN for spaces, Google Cloud CDN for Google Cloud Storage. To use CDN/Edge to serve tarball files, add below to your verdaccio config.
+
+```yaml
+# Amazon CloudFront example
+store:
+  aws-s3-storage:
+    tarballACL: public-read # Change tarball ACL to public-read to enable anonymous read permission
+    tarballEdgeUrl: https://{distribution}.cloudfront.net
+```
+
+```yaml
+# DigitalOcean example
+store:
+  aws-s3-storage:
+    tarballACL: public-read # Change tarball ACL to public-read to enable anonymous read permission
+    tarballEdgeUrl: https://{space-name}.{region}.cdn.digitaloceanspaces.com
 ```
