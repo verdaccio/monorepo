@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/eslint-config",
-  "version": "8.4.1",
+  "version": "8.4.2",
   "description": "Verdaccio ESLint shareable config",
   "keywords": [
     "verdaccio",
