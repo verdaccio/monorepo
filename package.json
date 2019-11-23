@@ -27,7 +27,7 @@
     "lint-staged": "^9.4.2",
     "lodash": "^4.17.15",
     "prettier": "^1.18.2",
-    "typescript": "^3.6.4"
+    "typescript": "^3.7.2"
   },
   "scripts": {
     "build": "lerna run build",

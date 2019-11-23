@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.4.1](https://github.com/verdaccio/monorepo/compare/v8.4.0...v8.4.1) (2019-11-22)
+
+**Note:** Version bump only for package @verdaccio/babel-preset
+
+
+
+
+
+# [8.4.0](https://github.com/verdaccio/monorepo/compare/v8.3.0...v8.4.0) (2019-11-22)
+
+
+### Features
+
+* **babel-preset:** upgrade babel ([7069b24](https://github.com/verdaccio/monorepo/commit/7069b247a6bb0e4e0240b4348dbbc13357b52b26))
+
+
+
+
+
 # [8.2.0](https://github.com/verdaccio/monorepo/compare/v8.2.0-next.0...v8.2.0) (2019-10-23)
 
 **Note:** Version bump only for package @verdaccio/babel-preset
