@@ -60,6 +60,8 @@ CDN/Edge service plays an important role when distributing binary files. When de
 ```yaml
 # Amazon CloudFront example
 store:
+  # Turn on managedTarballUrl to disable tarball conversion feature
+  managedTarballUrl: true
   aws-s3-storage:
     tarballACL: public-read # Change tarball ACL to public-read to enable anonymous read permission
     tarballEdgeUrl: https://{distribution}.cloudfront.net
@@ -68,6 +70,8 @@ store:
 ```yaml
 # DigitalOcean example
 store:
+  # Turn on managedTarballUrl to disable tarball conversion feature
+  managedTarballUrl: true
   aws-s3-storage:
     tarballACL: public-read # Change tarball ACL to public-read to enable anonymous read permission
     tarballEdgeUrl: https://{space-name}.{region}.cdn.digitaloceanspaces.com
