@@ -57,21 +57,23 @@ store:
 
 CDN/Edge service plays an important role when distributing binary files. When deploying verdaccio as a public registry, it brings benefits such as reducing NodeJS server load and faster download speed. Most S3-compatible storages have built-in CDN/Edge service integrated, like CloudFront for S3, DigitalOcean CDN for spaces, Google Cloud CDN for Google Cloud Storage. To use CDN/Edge to serve tarball files, add below to your verdaccio config.
 
+Amazon CloudFront example
+
 ```yaml
-# Amazon CloudFront example
+# Turn off local tarball url conversion
+convert_to_local_tarball_url: false
 store:
-  # Turn on managedTarballUrl to disable tarball conversion feature
-  managedTarballUrl: true
   aws-s3-storage:
     tarballACL: public-read # Change tarball ACL to public-read to enable anonymous read permission
     tarballEdgeUrl: https://{distribution}.cloudfront.net
 ```
 
+DigitalOcean Space CDN example
+
 ```yaml
-# DigitalOcean example
+# Turn off local tarball url conversion
+convert_to_local_tarball_url: false
 store:
-  # Turn on managedTarballUrl to disable tarball conversion feature
-  managedTarballUrl: true
   aws-s3-storage:
     tarballACL: public-read # Change tarball ACL to public-read to enable anonymous read permission
     tarballEdgeUrl: https://{space-name}.{region}.cdn.digitaloceanspaces.com
