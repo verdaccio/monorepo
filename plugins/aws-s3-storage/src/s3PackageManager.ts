@@ -252,10 +252,13 @@ export default class S3PackageManager implements ILocalPackageManager {
       err => {
         if (err) {
           const convertedErr = convertS3Error(err);
-          this.logger.error({ convertedErr }, 's3: [S3PackageManager writeTarball headObject] @convertedErr');
+          this.logger.error({ convertedErr }, 's3: [S3PackageManager writeTarball headObject] @{convertedErr}');
 
           if (is404Error(convertedErr) === false) {
-            this.logger.error({ convertedErr }, 's3: [S3PackageManager writeTarball headObject] non a 404 emit error');
+            this.logger.error(
+              { convertedErr },
+              's3: [S3PackageManager writeTarball headObject] @{convertedErr} non a 404 emit error'
+            );
 
             uploadStream.emit('error', convertedErr);
           } else {
