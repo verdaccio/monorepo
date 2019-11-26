@@ -252,7 +252,7 @@ export default class S3PackageManager implements ILocalPackageManager {
       err => {
         if (err) {
           const convertedErr = convertS3Error(err);
-          this.logger.error({ convertedErr }, 's3: [S3PackageManager writeTarball headObject] @{convertedErr}');
+          this.logger.debug({ convertedErr }, 's3: [S3PackageManager writeTarball headObject] @{convertedErr}');
 
           if (is404Error(convertedErr) === false) {
             this.logger.error(
