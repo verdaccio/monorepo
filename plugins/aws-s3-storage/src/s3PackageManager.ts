@@ -149,9 +149,9 @@ export default class S3PackageManager implements ILocalPackageManager {
           if (is404Error(s3Err)) {
             this.logger.debug({ s3Err }, 's3: [S3PackageManager createPackage] 404 package not found]');
             this.savePackage(name, value, callback);
-            this.logger.trace({ data }, 's3: [S3PackageManager createPackage] package saved data from s3: @data');
+            this.logger.trace({ data }, 's3: [S3PackageManager createPackage] package saved data from s3: @{data}');
           } else {
-            this.logger.error({ s3Err }, 's3: [S3PackageManager createPackage error] @s3Err');
+            this.logger.error({ s3Err }, 's3: [S3PackageManager createPackage error] @{s3Err}');
             callback(s3Err);
           }
         } else {
@@ -167,7 +167,7 @@ export default class S3PackageManager implements ILocalPackageManager {
       { name, packageName: this.packageName },
       's3: [S3PackageManager savePackage init] name @{name}/@{packageName}'
     );
-    this.logger.trace({ value }, 's3: [S3PackageManager savePackage ] init value @value');
+    this.logger.trace({ value }, 's3: [S3PackageManager savePackage ] init value @{value}');
     this.s3.putObject(
       {
         // TODO: not sure whether save the object with spaces will increase storage size
@@ -191,7 +191,7 @@ export default class S3PackageManager implements ILocalPackageManager {
         if (this.tarballEdgeUrl) this._convertToEdgeTarballUrls(data);
         this.logger.trace(
           { data, packageName: this.packageName },
-          's3: [S3PackageManager readPackage] packageName: @{packageName} / data @data'
+          's3: [S3PackageManager readPackage] packageName: @{packageName} / data @{data}'
         );
         callback(null, data);
       } catch (err) {
@@ -276,7 +276,10 @@ export default class S3PackageManager implements ILocalPackageManager {
 
                   uploadStream.emit('error', error);
                 } else {
-                  this.logger.trace({ data }, 's3: [S3PackageManager writeTarball managedUpload send] response @data');
+                  this.logger.trace(
+                    { data },
+                    's3: [S3PackageManager writeTarball managedUpload send] response @{data}'
+                  );
 
                   resolve();
                 }
@@ -330,7 +333,7 @@ export default class S3PackageManager implements ILocalPackageManager {
               } finally {
                 this.logger.debug(
                   { name, baseS3Params },
-                  's3: [S3PackageManager writeTarball uploadStream abort] s3.deleteObject @{name}/@baseS3Params'
+                  's3: [S3PackageManager writeTarball uploadStream abort] s3.deleteObject @{name}/@{baseS3Params}'
                 );
 
                 this.s3.deleteObject(baseS3Params);
@@ -377,7 +380,7 @@ export default class S3PackageManager implements ILocalPackageManager {
         this.logger.trace({ headers }, 's3: [S3PackageManager readTarball httpHeaders event] headers @headers');
         this.logger.trace(
           { statusCode },
-          's3: [S3PackageManager readTarball httpHeaders event] statusCode @statusCode'
+          's3: [S3PackageManager readTarball httpHeaders event] statusCode @{statusCode}'
         );
         if (statusCode !== HTTP_STATUS.NOT_FOUND) {
           if (headers[HEADERS.CONTENT_LENGTH]) {
