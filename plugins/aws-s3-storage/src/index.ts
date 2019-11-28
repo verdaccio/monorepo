@@ -186,16 +186,47 @@ export default class S3Database implements IPluginStorage<S3Config> {
   }
 
   private async _getPackageList(): Promise<any> {
+    let logger = this.logger;
     const { bucket, keyPrefix } = this.config;
     const listPath = keyPrefix.endsWith('/') ? keyPrefix : '/';
-    this.logger.debug({ keyPrefix, bucket }, 's3: [_getPackageList] bucket: @{bucket} prefix: @{keyPrefix} listPath: @{listPath}');
+    logger.debug({ keyPrefix, bucket }, 's3: [_getPackageList] bucket: @{bucket} prefix: @{keyPrefix} listPath: @{listPath}');
     const lister = s3ls({ bucket, s3: this.s3 });
-    const { files, folders } = await lister.ls(listPath);
-    // folders: ['prefix/package-a/', 'prefix/package-b/', ...]
-    if (!folders) return [];
-    else return folders.map(function(folder) {
-      return folder.split('/').slice(-2)[0];
-    })
+    // Generate tree { packages:[], scopes[] } data
+    function generate(folder: string, scopeFolder: boolean) : Promise<any> {
+      return lister.ls(folder).then(data => {
+        const { files, folders } = data;
+        // folders: ['prefix/package-a/', 'prefix/package-b/', 'prefix/@scope/package-c/', ...]
+        const tree = {
+          packages: [] as string[],
+          scopes: [] as string[],
+        };
+        folders.forEach(folder => {
+          let segs = folder.split('/');
+          let seg = segs[segs.length - 2];
+          if (seg.startsWith('@')) tree.scopes.push(seg);
+          else {
+            if (!scopeFolder)
+              logger.debug({seg}, 's3: [_getPackageList] package: @{seg}');
+            tree.packages.push(seg);
+          }
+        })
+        return Promise.resolve(tree);
+      });
+    }
+    return generate(listPath, false).then(tree => {
+      if (!tree.scopes.length) return Promise.resolve(tree.packages);
+      else return Promise.all(
+        tree.scopes.map(scope => {
+          return generate(listPath + scope + '/', true).then(subtree => {
+            subtree.packages.map(pkg => scope + '/' + pkg).forEach(pkg => {
+              logger.debug({pkg}, 's3: [_getPackageList] scoped package: @{pkg}');
+              tree.packages.push(pkg);
+            });
+            return Promise.resolve();
+          });
+        })
+      ).then(() => tree.packages);
+    });
   }
 
   public saveToken(token: Token): Promise<void> {
