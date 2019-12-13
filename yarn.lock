@@ -4532,15 +4532,15 @@ dot-prop@^5.1.0:
   dependencies:
     is-obj "^2.0.0"
 
-dotnet-deps-parser@4.5.2:
-  version "4.5.2"
-  resolved "https://registry.npmjs.org/dotnet-deps-parser/-/dotnet-deps-parser-4.5.2.tgz#f3223fa2b9d0d247c3e855d6b5a292904c2c8109"
-  integrity sha512-bk5Q1luEwQ10rrBwZbtTxUNadaLz2dM6xzOLoTK+oUBcaq6saCeELmkIgdG+Fwkn58XRgLQvOySVS0gp4OG6RA==
+dotnet-deps-parser@4.7.0:
+  version "4.7.0"
+  resolved "https://registry.verdaccio.org/dotnet-deps-parser/-/dotnet-deps-parser-4.7.0.tgz#eaa0810c37a43fbcae12892b031ec3b73b4697a7"
+  integrity sha512-dmXi1UzukjjgjMuov65Ibv4fGJyVXPj2mVyEkLZob4Q2aQ5WJYAn6R2MWckq0N9X1CE6rrdvROAyXl/v/aGLpw==
   dependencies:
     "@types/xml2js" "0.4.3"
     lodash "^4.17.11"
     source-map-support "^0.5.7"
-    tslib "^1.9.3"
+    tslib "^1.10.0"
     xml2js "0.4.19"
 
 dtrace-provider@~0.8:
@@ -10169,13 +10169,13 @@ snyk-nodejs-lockfile-parser@1.16.1:
     tslib "^1.9.3"
     uuid "^3.3.2"
 
-snyk-nuget-plugin@1.13.1:
-  version "1.13.1"
-  resolved "https://registry.npmjs.org/snyk-nuget-plugin/-/snyk-nuget-plugin-1.13.1.tgz#e94f6b129b62f7c0134851be233deab5a472518b"
-  integrity sha512-2AQVeahBK7Rt38p0Acl1fMsFQu3dsqoRODPoRaS0IM/bOBzVdAkDF9pCb5yKMREGpMZcyRFkt8Q+hGiUk0Nlfg==
+snyk-nuget-plugin@1.14.0:
+  version "1.14.0"
+  resolved "https://registry.verdaccio.org/snyk-nuget-plugin/-/snyk-nuget-plugin-1.14.0.tgz#085c397ab3da8d00ef4778d25c3e56b6a1bea460"
+  integrity sha512-RqXZQEA1s9LIA3euvLtx17UQQ1/q/sHkUf6p0sgTxG2D1xQI8vMtrbDxYgfpPwaHK22AjGaeK3J0TgPND5qZdw==
   dependencies:
     debug "^3.1.0"
-    dotnet-deps-parser "4.5.2"
+    dotnet-deps-parser "4.7.0"
     jszip "^3.1.5"
     lodash "^4.17.14"
     snyk-paket-parser "1.5.0"
@@ -10252,14 +10252,14 @@ snyk-resolve@1.0.1, snyk-resolve@^1.0.0, snyk-resolve@^1.0.1:
     debug "^3.1.0"
     then-fs "^2.0.0"
 
-snyk-sbt-plugin@2.9.0:
-  version "2.9.0"
-  resolved "https://registry.npmjs.org/snyk-sbt-plugin/-/snyk-sbt-plugin-2.9.0.tgz#cdbc3047b8749f71c51522c6cc908f0a5525e129"
-  integrity sha512-R8jfRDkqlSsiSHYNAItKBUKUwb0n5z304Ko8ply/eoNAJMkXbFASDKHRto1v4F4wryJb4Rl1j/vFvIwytqZrww==
+snyk-sbt-plugin@2.9.1:
+  version "2.9.1"
+  resolved "https://registry.verdaccio.org/snyk-sbt-plugin/-/snyk-sbt-plugin-2.9.1.tgz#41f90f6c318b4657d8bf0cb0ed6856ba0518880f"
+  integrity sha512-+cRFH4uAaoW7NeVLaWmpU236uhe4JRBakNGe+M9UhAswEqDAyFmyzWVU57EAjlzJKLIdh9JPFUvzjntGNs1I1A==
   dependencies:
+    debug "^4.1.1"
     semver "^6.1.2"
     tmp "^0.1.0"
-    tree-kill "^1.2.1"
     tslib "^1.10.0"
 
 snyk-tree@^1.0.0:
@@ -10280,9 +10280,9 @@ snyk-try-require@1.3.1, snyk-try-require@^1.1.1, snyk-try-require@^1.3.1:
     then-fs "^2.0.0"
 
 snyk@^1.241.0:
-  version "1.256.0"
-  resolved "https://registry.verdaccio.org/snyk/-/snyk-1.256.0.tgz#b04dd4a2d97e3c9b6086c47836ee70ea067438ee"
-  integrity sha512-wG6eTSZ6f4hH3cIOl4F9JE//a6eIv6O4K786/JgFDuf3XPM+zEGoY5dC+Q5yliPAarWcI1CeF1akPpyStiCkoA==
+  version "1.259.0"
+  resolved "https://registry.verdaccio.org/snyk/-/snyk-1.259.0.tgz#8d9416638291adcd257e0130b4f89948ce42ceb1"
+  integrity sha512-miPuJtJeJ7rX3620ZeoDum5z9tNbpbwogqlOlccYY6UiAUFWnmEhqFxpSeGMq3aguj+rYmyGwClhP2LooGgUaA==
   dependencies:
     "@snyk/cli-interface" "2.3.0"
     "@snyk/dep-graph" "1.13.1"
@@ -10314,13 +10314,13 @@ snyk@^1.241.0:
     snyk-module "1.9.1"
     snyk-mvn-plugin "2.7.0"
     snyk-nodejs-lockfile-parser "1.16.1"
-    snyk-nuget-plugin "1.13.1"
+    snyk-nuget-plugin "1.14.0"
     snyk-php-plugin "1.7.0"
     snyk-policy "1.13.5"
     snyk-python-plugin "^1.14.0"
     snyk-resolve "1.0.1"
     snyk-resolve-deps "4.4.0"
-    snyk-sbt-plugin "2.9.0"
+    snyk-sbt-plugin "2.9.1"
     snyk-tree "^1.0.0"
     snyk-try-require "1.3.1"
     source-map-support "^0.5.11"
@@ -10993,11 +10993,6 @@ tr46@^1.0.1:
   integrity sha1-qLE/1r/SSJUZZ0zN5VujaTtwbQk=
   dependencies:
     punycode "^2.1.0"
-
-tree-kill@^1.2.1:
-  version "1.2.1"
-  resolved "https://registry.npmjs.org/tree-kill/-/tree-kill-1.2.1.tgz#5398f374e2f292b9dcc7b2e71e30a5c3bb6c743a"
-  integrity sha512-4hjqbObwlh2dLyW4tcz0Ymw0ggoaVDMveUB9w8kFSQScdRLo0gxO9J7WFcUBo+W3C1TLdFIEwNOWebgZZ0RH9Q==
 
 trim-newlines@^1.0.0:
   version "1.0.0"
