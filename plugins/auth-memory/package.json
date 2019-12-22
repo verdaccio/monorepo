@@ -1,6 +1,6 @@
 {
   "name": "verdaccio-auth-memory",
-  "version": "8.4.2",
+  "version": "8.5.0",
   "description": "Auth plugin for Verdaccio that keeps users in memory",
   "keywords": [
     "verdaccio",
@@ -28,12 +28,12 @@
     "node": ">=8"
   },
   "dependencies": {
-    "@verdaccio/commons-api": "^8.4.2"
+    "@verdaccio/commons-api": "^8.5.0"
   },
   "devDependencies": {
-    "@verdaccio/babel-preset": "^8.4.2",
-    "@verdaccio/eslint-config": "^8.4.2",
-    "@verdaccio/types": "^8.4.2"
+    "@verdaccio/babel-preset": "^8.5.0",
+    "@verdaccio/eslint-config": "^8.5.0",
+    "@verdaccio/types": "^8.5.0"
   },
   "scripts": {
     "build": "npm run build:types && npm run build:js",

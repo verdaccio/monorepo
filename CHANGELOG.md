@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.5.0](https://github.com/verdaccio/monorepo/compare/v8.4.2...v8.5.0) (2019-12-22)
+
+
+### Bug Fixes
+
+* **types:** add allow_unpublish generic ([#305](https://github.com/verdaccio/monorepo/issues/305)) ([aeaf64c](https://github.com/verdaccio/monorepo/commit/aeaf64c67cafb9ec16fa5a66aad9c4912f2a3710))
+
+
+### Features
+
+* **babel-preset:** enable Typescript 3.7 features ([e763c24](https://github.com/verdaccio/monorepo/commit/e763c244db7057b7f91d932b0d796164432a4d46))
+* **eslint-config:** update [@typescript-eslint](https://github.com/typescript-eslint) to enable rules for Ts 3.7 ([0e52ac2](https://github.com/verdaccio/monorepo/commit/0e52ac21d70e515b1c340a0766ec37c2a55e0542))
+
+
+
+
+
 ## [8.4.2](https://github.com/verdaccio/monorepo/compare/v8.4.1...v8.4.2) (2019-11-23)
 
 **Note:** Version bump only for package @verdaccio/monorepo

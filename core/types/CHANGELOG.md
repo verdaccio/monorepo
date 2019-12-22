@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.5.0](https://github.com/verdaccio/monorepo/compare/v8.4.2...v8.5.0) (2019-12-22)
+
+
+### Bug Fixes
+
+* **types:** add allow_unpublish generic ([#305](https://github.com/verdaccio/monorepo/issues/305)) ([aeaf64c](https://github.com/verdaccio/monorepo/commit/aeaf64c67cafb9ec16fa5a66aad9c4912f2a3710))
+
+
+
+
+
 ## [8.4.2](https://github.com/verdaccio/monorepo/compare/v8.4.1...v8.4.2) (2019-11-23)
 
 **Note:** Version bump only for package @verdaccio/types
