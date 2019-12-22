@@ -6,6 +6,7 @@ declare module '@verdaccio/types' {
   type StorageList = string[];
   type Callback = Function;
   type CallbackError = (err: NodeJS.ErrnoException) => void;
+  type Test = string;
   interface Author {
     name: string;
     email?: string;
