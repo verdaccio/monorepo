@@ -5,6 +5,7 @@ declare module '@verdaccio/types' {
 
   type StorageList = string[];
   type Callback = Function;
+  type CallbackAction = (err?: string) => void;
   type CallbackError = (err: NodeJS.ErrnoException) => void;
   interface Author {
     name: string;
@@ -367,6 +368,25 @@ declare module '@verdaccio/types' {
     readTokens(filter: TokenFilter): Promise<Token[]>;
   }
 
+  /**
+   * This method expect return a Package object
+   * eg:
+   * {
+   *   name: string;
+   *   time: number;
+   *   ... and other props
+   * }
+   *
+   * The `cb` callback object will be executed if:
+   *  - it might return object (truly)
+   *  - it might reutrn null
+   */
+  type onSearchPackage = (item: Package, cb: CallbackAction) => void;
+  // FIXME: error should be export type `VerdaccioError = HttpError & { code: number };`
+  // but this type is on @verdaccio/commons-api and cannot be used here yet
+  type onEndSearchPackage = (error?: any) => void;
+  type onValidatePackage = (name: string) => boolean;
+
   interface ILocalData<T> extends IPlugin<T>, ITokenActions {
     logger: Logger;
     config: T & Config;
@@ -376,7 +396,7 @@ declare module '@verdaccio/types' {
     getSecret(): Promise<string>;
     setSecret(secret: string): Promise<any>;
     getPackageStorage(packageInfo: string): IPackageStorage;
-    search(onPackage: Callback, onEnd: Callback, validateName: Function): void;
+    search(onPackage: onSearchPackage, onEnd: onEndSearchPackage, validateName: onValidatePackage): void;
   }
 
   interface ILocalPackageManager {
