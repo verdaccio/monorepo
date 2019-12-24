@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.5.1](https://github.com/verdaccio/monorepo/compare/v8.5.0...v8.5.1) (2019-12-24)
+
+
+### Bug Fixes
+
+* add new types for local storage ([#306](https://github.com/verdaccio/monorepo/issues/306)) ([e715e24](https://github.com/verdaccio/monorepo/commit/e715e24ec7b7e7b3dca31a3321714ebccadf2a8d))
+
+
+
+
+
 # [8.5.0](https://github.com/verdaccio/monorepo/compare/v8.4.2...v8.5.0) (2019-12-22)
 
 
