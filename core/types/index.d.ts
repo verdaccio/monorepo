@@ -411,7 +411,7 @@ declare module '@verdaccio/types' {
     writeTarball(pkgName: string): IUploadTarball;
     readTarball(pkgName: string): IReadTarball;
     readPackage(fileName: string, callback: ReadPackageCallback): void;
-    createPackage(pkgName: string, value: Package, cb: Callback): void;
+    createPackage(pkgName: string, value: Package, cb: CallbackAction): void;
     deletePackage(fileName: string, callback: CallbackAction): void;
     removePackage(callback: CallbackAction): void;
     updatePackage(
