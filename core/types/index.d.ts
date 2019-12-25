@@ -5,7 +5,8 @@ declare module '@verdaccio/types' {
 
   type StorageList = string[];
   type Callback = Function;
-  type CallbackAction = (err?: string) => void;
+  // FIXME: err should be something flexible enough for any implementation
+  type CallbackAction = (err: any | null) => void;
   type CallbackError = (err: NodeJS.ErrnoException) => void;
   interface Author {
     name: string;
