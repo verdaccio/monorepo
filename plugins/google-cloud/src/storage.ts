@@ -1,7 +1,17 @@
 import { Readable } from 'stream';
 
 import { UploadTarball, ReadTarball } from '@verdaccio/streams';
-import { Package, Callback, Logger, IPackageStorageManager } from '@verdaccio/types';
+import {
+  Package,
+  Callback,
+  Logger,
+  IPackageStorageManager,
+  StorageUpdateCallback,
+  StorageWriteCallback,
+  PackageTransformer,
+  CallbackAction,
+  ReadPackageCallback,
+} from '@verdaccio/types';
 import { File, DownloadResponse } from '@google-cloud/storage';
 import {
   VerdaccioError,
@@ -40,10 +50,10 @@ class GoogleCloudStorageHandler implements IPackageStorageManager {
 
   public updatePackage(
     name: string,
-    updateHandler: Callback,
-    onWrite: Callback,
-    transformPackage: Function,
-    onEnd: Callback
+    updateHandler: StorageUpdateCallback,
+    onWrite: StorageWriteCallback,
+    transformPackage: PackageTransformer,
+    onEnd: CallbackAction
   ): void {
     this._readPackage(name)
       .then(
@@ -78,22 +88,22 @@ class GoogleCloudStorageHandler implements IPackageStorageManager {
             { name, error: err },
             'gcloud: trying to update @{name} and was not found on storage err: @{error}'
           );
+          // @ts-ignore
           return onEnd(getNotFound());
         }
       );
   }
 
-  public deletePackage(fileName: string, cb: Callback): void {
+  public deletePackage(fileName: string, cb: CallbackAction): void {
     const file = this.helper.buildFilePath(this.name, fileName);
     this.logger.debug({ name: file.name }, 'gcloud: deleting @{name} from storage');
     try {
       file
         .delete()
         // @ts-ignore
-        .then((data: [Response]): void => {
-          const apiResponse = data[0];
+        .then((_data: [Response]): void => {
           this.logger.debug({ name: file.name }, 'gcloud: @{name} was deleted successfully from storage');
-          cb(null, apiResponse);
+          cb(null);
         })
         .catch((err: Error): void => {
           this.logger.error(
@@ -108,7 +118,7 @@ class GoogleCloudStorageHandler implements IPackageStorageManager {
     }
   }
 
-  public removePackage(callback: Callback): void {
+  public removePackage(callback: CallbackAction): void {
     // remove all files from storage
     const file = this.helper.getBucket().file(`${this.name}`);
     this.logger.debug({ name: file.name }, 'gcloud: removing the package @{name} from storage');
@@ -127,7 +137,7 @@ class GoogleCloudStorageHandler implements IPackageStorageManager {
     );
   }
 
-  public createPackage(name: string, metadata: Package, cb: Function): void {
+  public createPackage(name: string, metadata: Package, cb: CallbackAction): void {
     this.logger.debug({ name }, 'gcloud: creating new package for @{name}');
     this._fileExist(name, pkgFileName).then(
       (exist: boolean): void => {
@@ -146,7 +156,7 @@ class GoogleCloudStorageHandler implements IPackageStorageManager {
     );
   }
 
-  public savePackage(name: string, value: Package, cb: Function): void {
+  public savePackage(name: string, value: Package, cb: CallbackAction): void {
     this.logger.debug({ name }, 'gcloud: saving package for @{name}');
     this._savePackage(name, value)
       .then((): void => {
@@ -187,7 +197,7 @@ class GoogleCloudStorageHandler implements IPackageStorageManager {
     return JSON.stringify(value, null, '\t');
   }
 
-  public readPackage(name: string, cb: Function): void {
+  public readPackage(name: string, cb: ReadPackageCallback): void {
     this.logger.debug({ name }, 'gcloud: reading package for @{name}');
     this._readPackage(name)
       .then((json: Package): void => {

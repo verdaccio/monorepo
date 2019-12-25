@@ -1,7 +1,19 @@
 import createError, { HttpError } from 'http-errors';
 import MemoryFileSystem from 'memory-fs';
 import { UploadTarball, ReadTarball } from '@verdaccio/streams';
-import { Callback, Logger, IPackageStorageManager, IUploadTarball, IReadTarball } from '@verdaccio/types';
+import {
+  Callback,
+  Logger,
+  IPackageStorageManager,
+  IUploadTarball,
+  IReadTarball,
+  CallbackAction,
+  StorageUpdateCallback,
+  StorageWriteCallback,
+  PackageTransformer,
+  Package,
+  ReadPackageCallback,
+} from '@verdaccio/types';
 
 export const noSuchFile = 'ENOENT';
 export const fileExist = 'EEXISTS';
@@ -39,25 +51,26 @@ class MemoryHandler implements IPackageStorageManager {
 
   public updatePackage(
     pkgFileName: string,
-    updateHandler: Callback,
-    onWrite: Callback,
-    transformPackage: Function,
-    onEnd: Callback
+    updateHandler: StorageUpdateCallback,
+    onWrite: StorageWriteCallback,
+    transformPackage: PackageTransformer,
+    onEnd: CallbackAction
   ): void {
-    let json = this._getStorage(pkgFileName);
+    const json: string = this._getStorage(pkgFileName);
+    let pkg: Package;
 
     try {
-      json = JSON.parse(json);
+      pkg = JSON.parse(json) as Package;
     } catch (err) {
       return onEnd(err);
     }
 
-    updateHandler(json, (err: any) => {
+    updateHandler(pkg, (err: any) => {
       if (err) {
         return onEnd(err);
       }
       try {
-        onWrite(pkgFileName, transformPackage(json), onEnd);
+        onWrite(pkgFileName, transformPackage(pkg), onEnd);
       } catch (err) {
         return onEnd(fSError('error on parse', 500));
       }
@@ -69,15 +82,15 @@ class MemoryHandler implements IPackageStorageManager {
     callback(null);
   }
 
-  public removePackage(callback: Callback): void {
+  public removePackage(callback: CallbackAction): void {
     callback(null);
   }
 
-  public createPackage(name: string, value: Record<string, any>, cb: Function): void {
+  public createPackage(name: string, value: Record<string, any>, cb: CallbackAction): void {
     this.savePackage(name, value, cb);
   }
 
-  public savePackage(name: string, value: Record<string, any>, cb: Function): void {
+  public savePackage(name: string, value: Record<string, any>, cb: CallbackAction): void {
     try {
       const json: string = JSON.stringify(value, null, '\t');
 
@@ -89,7 +102,7 @@ class MemoryHandler implements IPackageStorageManager {
     cb(null);
   }
 
-  public readPackage(name: string, cb: Function): void {
+  public readPackage(name: string, cb: ReadPackageCallback): void {
     const json = this._getStorage(name);
     const isJson = typeof json === 'undefined';
 

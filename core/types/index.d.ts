@@ -5,7 +5,8 @@ declare module '@verdaccio/types' {
 
   type StorageList = string[];
   type Callback = Function;
-  type CallbackAction = (err?: string) => void;
+  // FIXME: err should be something flexible enough for any implementation
+  type CallbackAction = (err: any | null) => void;
   type CallbackError = (err: NodeJS.ErrnoException) => void;
   interface Author {
     name: string;
@@ -399,22 +400,28 @@ declare module '@verdaccio/types' {
     search(onPackage: onSearchPackage, onEnd: onEndSearchPackage, validateName: onValidatePackage): void;
   }
 
+  type StorageUpdateCallback = (data: Package, cb: CallbackAction) => void;
+  type StorageUpdateHandler = (name: string, cb: StorageUpdateCallback) => void;
+  type StorageWriteCallback = (name: string, json: Package, callback: Callback) => void;
+  type PackageTransformer = (pkg: Package) => Package;
+  type ReadPackageCallback = (err: any | null, data?: Package) => void;
+
   interface ILocalPackageManager {
     logger: Logger;
-    writeTarball(name: string): IUploadTarball;
-    readTarball(name: string): IReadTarball;
-    readPackage(fileName: string, callback: Callback): void;
-    createPackage(name: string, value: Package, cb: Callback): void;
-    deletePackage(fileName: string, callback: Callback): void;
-    removePackage(callback: Callback): void;
+    writeTarball(pkgName: string): IUploadTarball;
+    readTarball(pkgName: string): IReadTarball;
+    readPackage(fileName: string, callback: ReadPackageCallback): void;
+    createPackage(pkgName: string, value: Package, cb: CallbackAction): void;
+    deletePackage(fileName: string, callback: CallbackAction): void;
+    removePackage(callback: CallbackAction): void;
     updatePackage(
       pkgFileName: string,
-      updateHandler: Callback,
-      onWrite: Callback,
-      transformPackage: Function,
-      onEnd: Callback
+      updateHandler: StorageUpdateCallback,
+      onWrite: StorageWriteCallback,
+      transformPackage: PackageTransformer,
+      onEnd: CallbackAction
     ): void;
-    savePackage(fileName: string, json: Package, callback: Callback): void;
+    savePackage(fileName: string, json: Package, callback: CallbackAction): void;
   }
 
   interface TarballActions {
