@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.5.0](https://github.com/verdaccio/monorepo/compare/v8.4.2...v8.5.0) (2019-12-22)
+
+
+### Features
+
+* **eslint-config:** update [@typescript-eslint](https://github.com/typescript-eslint) to enable rules for Ts 3.7 ([0e52ac2](https://github.com/verdaccio/monorepo/commit/0e52ac21d70e515b1c340a0766ec37c2a55e0542))
+
+
+
+
+
 ## [8.4.2](https://github.com/verdaccio/monorepo/compare/v8.4.1...v8.4.2) (2019-11-23)
 
 **Note:** Version bump only for package @verdaccio/eslint-config

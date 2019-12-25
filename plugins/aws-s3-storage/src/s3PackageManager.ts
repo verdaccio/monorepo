@@ -1,7 +1,7 @@
 import { S3, AWSError } from 'aws-sdk';
 import { UploadTarball, ReadTarball } from '@verdaccio/streams';
 import { HEADERS, HTTP_STATUS, VerdaccioError } from '@verdaccio/commons-api';
-import { Callback, Logger, Package, ILocalPackageManager } from '@verdaccio/types';
+import { Callback, Logger, Package, ILocalPackageManager, CallbackAction, ReadPackageCallback } from '@verdaccio/types';
 import { HttpError } from 'http-errors';
 
 import { is404Error, convertS3Error, create409Error } from './s3Errors';
@@ -113,7 +113,7 @@ export default class S3PackageManager implements ILocalPackageManager {
     );
   }
 
-  public removePackage(callback: (err: Error | null) => void): void {
+  public removePackage(callback: CallbackAction): void {
     deleteKeyPrefix(
       this.s3,
       {
@@ -127,7 +127,7 @@ export default class S3PackageManager implements ILocalPackageManager {
     );
   }
 
-  public createPackage(name: string, value: Package, callback: Function): void {
+  public createPackage(name: string, value: Package, callback: CallbackAction): void {
     this.logger.debug(
       { name, packageName: this.packageName },
       's3: [S3PackageManager createPackage init] name @{name}/@{packageName}'
@@ -158,7 +158,7 @@ export default class S3PackageManager implements ILocalPackageManager {
     );
   }
 
-  public savePackage(name: string, value: Package, callback: Function): void {
+  public savePackage(name: string, value: Package, callback: CallbackAction): void {
     this.logger.debug(
       { name, packageName: this.packageName },
       's3: [S3PackageManager savePackage init] name @{name}/@{packageName}'
@@ -171,19 +171,18 @@ export default class S3PackageManager implements ILocalPackageManager {
         Bucket: this.config.bucket,
         Key: `${this.config.keyPrefix}${this.packageName}/${pkgFileName}`,
       },
-      // @ts-ignore
       callback
     );
   }
 
-  public readPackage(name: string, callback: Function): void {
+  public readPackage(name: string, callback: ReadPackageCallback): void {
     this.logger.debug(
       { name, packageName: this.packageName },
       's3: [S3PackageManager readPackage init] name @{name}/@{packageName}'
     );
     (async (): Promise<void> => {
       try {
-        const data = await this._getData();
+        const data: Package = (await this._getData()) as Package;
         this.logger.trace(
           { data, packageName: this.packageName },
           's3: [S3PackageManager readPackage] packageName: @{packageName} / data @data'

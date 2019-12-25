@@ -3,6 +3,39 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.5.2](https://github.com/verdaccio/monorepo/compare/v8.5.1...v8.5.2) (2019-12-25)
+
+
+### Bug Fixes
+
+* add types for storage handler ([#307](https://github.com/verdaccio/monorepo/issues/307)) ([c35746e](https://github.com/verdaccio/monorepo/commit/c35746ebba071900db172608dedff66a7d27c23d))
+
+
+
+
+
+## [8.5.1](https://github.com/verdaccio/monorepo/compare/v8.5.0...v8.5.1) (2019-12-24)
+
+
+### Bug Fixes
+
+* add new types for local storage ([#306](https://github.com/verdaccio/monorepo/issues/306)) ([e715e24](https://github.com/verdaccio/monorepo/commit/e715e24ec7b7e7b3dca31a3321714ebccadf2a8d))
+
+
+
+
+
+# [8.5.0](https://github.com/verdaccio/monorepo/compare/v8.4.2...v8.5.0) (2019-12-22)
+
+
+### Bug Fixes
+
+* **types:** add allow_unpublish generic ([#305](https://github.com/verdaccio/monorepo/issues/305)) ([aeaf64c](https://github.com/verdaccio/monorepo/commit/aeaf64c67cafb9ec16fa5a66aad9c4912f2a3710))
+
+
+
+
+
 ## [8.4.2](https://github.com/verdaccio/monorepo/compare/v8.4.1...v8.4.2) (2019-11-23)
 
 **Note:** Version bump only for package @verdaccio/types

@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/eslint-config",
-  "version": "8.4.2",
+  "version": "8.5.0",
   "description": "Verdaccio ESLint shareable config",
   "keywords": [
     "verdaccio",
@@ -33,14 +33,14 @@
     "prettier": ">=1.18.2"
   },
   "dependencies": {
-    "@typescript-eslint/eslint-plugin": "2.8.0",
-    "@typescript-eslint/parser": "2.8.0",
+    "@typescript-eslint/eslint-plugin": "2.9.0",
+    "@typescript-eslint/parser": "2.10.0",
     "babel-eslint": "10.0.3",
     "eslint-config-google": "0.14.0",
     "eslint-config-prettier": "6.7.0",
     "eslint-plugin-babel": "5.3.0",
     "eslint-plugin-import": "2.18.2",
-    "eslint-plugin-jest": "23.0.4",
+    "eslint-plugin-jest": "23.1.1",
     "eslint-plugin-prettier": "3.1.1",
     "tsutils": "3.17.1"
   },

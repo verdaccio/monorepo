@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.5.0](https://github.com/verdaccio/monorepo/compare/v8.4.2...v8.5.0) (2019-12-22)
+
+
+### Features
+
+* **babel-preset:** enable Typescript 3.7 features ([e763c24](https://github.com/verdaccio/monorepo/commit/e763c244db7057b7f91d932b0d796164432a4d46))
+
+
+
+
+
 ## [8.4.2](https://github.com/verdaccio/monorepo/compare/v8.4.1...v8.4.2) (2019-11-23)
 
 **Note:** Version bump only for package @verdaccio/babel-preset

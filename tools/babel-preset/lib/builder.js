@@ -19,7 +19,7 @@ const defaultPlugins = ['@babel/proposal-class-properties', '@babel/proposal-obj
 
 const typescriptRequirements = {
   presets: ['@babel/typescript'],
-  plugins: [],
+  plugins: ['@babel/proposal-nullish-coalescing-operator', '@babel/proposal-optional-chaining'],
 };
 
 const getTranspiler = () => {
