@@ -14,7 +14,9 @@ const getFilePath = (filename: string): string => {
 const removeTempFile = (filename: string): void => {
   const filepath = getFilePath(filename);
   fs.unlink(filepath, error => {
-    if (error) throw error;
+    if (error) {
+      throw error;
+    }
   });
 };
 
