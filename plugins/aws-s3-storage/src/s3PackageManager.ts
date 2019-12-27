@@ -1,6 +1,6 @@
 import { S3, AWSError } from 'aws-sdk';
 import { UploadTarball, ReadTarball } from '@verdaccio/streams';
-import { HEADERS, HTTP_STATUS } from '@verdaccio/commons-api';
+import { HEADERS, HTTP_STATUS, VerdaccioError } from '@verdaccio/commons-api';
 import { Callback, Logger, Package, ILocalPackageManager, CallbackAction, ReadPackageCallback } from '@verdaccio/types';
 import { HttpError } from 'http-errors';
 
@@ -120,7 +120,10 @@ export default class S3PackageManager implements ILocalPackageManager {
         Bucket: this.config.bucket,
         Prefix: `${this.config.keyPrefix}${this.packageName}`,
       },
-      callback
+      function(err) {
+        if (err && is404Error(err as VerdaccioError)) callback(null);
+        else callback(err);
+      }
     );
   }
 
