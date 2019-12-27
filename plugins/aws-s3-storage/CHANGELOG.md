@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.5.3](https://github.com/verdaccio/monorepo/compare/v8.5.2...v8.5.3) (2019-12-27)
+
+
+### Bug Fixes
+
+* verdaccio/verdaccio/issues/1435 ([#289](https://github.com/verdaccio/monorepo/issues/289)) ([7a130ca](https://github.com/verdaccio/monorepo/commit/7a130ca0281ac2a008091753341baae4f17fb71a)), closes [/github.com/verdaccio/verdaccio/issues/1435#issuecomment-559977118](https://github.com//github.com/verdaccio/verdaccio/issues/1435/issues/issuecomment-559977118)
+
+
+
+
+
 ## [8.5.2](https://github.com/verdaccio/monorepo/compare/v8.5.1...v8.5.2) (2019-12-25)
 
 

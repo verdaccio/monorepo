@@ -1,6 +1,6 @@
 {
   "name": "verdaccio-aws-s3-storage",
-  "version": "8.5.2",
+  "version": "8.5.3",
   "description": "AWS S3 storage implementation for Verdaccio",
   "keywords": [
     "verdaccio",
