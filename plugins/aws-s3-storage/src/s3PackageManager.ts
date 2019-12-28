@@ -121,8 +121,11 @@ export default class S3PackageManager implements ILocalPackageManager {
         Prefix: `${this.config.keyPrefix}${this.packageName}`,
       },
       function(err) {
-        if (err && is404Error(err as VerdaccioError)) callback(null);
-        else callback(err);
+        if (err && is404Error(err as VerdaccioError)) {
+          callback(null);
+        } else {
+          callback(err);
+        }
       }
     );
   }
