@@ -27,18 +27,21 @@
     "lint-staged": "^9.5.0",
     "lodash": "^4.17.15",
     "prettier": "^1.19.1",
+    "snyk": "^1.269.0",
     "typescript": "^3.7.4"
   },
   "scripts": {
     "build": "lerna run build",
     "coverage:publish": "codecov && lerna run coverage:publish -- -f coverage/lcov.info",
     "lint": "lerna run lint",
-    "release": "lerna version --conventional-commits",
+    "preversion": "snyk protect",
     "publish:canary": "lerna publish --canary",
+    "release": "lerna version --conventional-commits",
     "release:from-prerelease": "lerna version --conventional-commits --conventional-graduate",
     "release:prerelease": "lerna version --conventional-commits --conventional-prerelease --preid next",
     "release:publish": "lerna publish from-git",
     "release:publish-prerelease": "lerna publish from-git --pre-dist-tag next",
+    "snyk-protect": "snyk protect",
     "test": "lerna run test"
   },
   "husky": {
