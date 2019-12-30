@@ -35,7 +35,7 @@
     "@verdaccio/file-locking": "^8.5.2",
     "@verdaccio/streams": "^8.5.2",
     "async": "3.1.0",
-    "level": "5.0.1",
+    "level": "6.0.0",
     "lodash": "4.17.15",
     "mkdirp": "0.5.1"
   },
