@@ -35,7 +35,7 @@
     "unix-crypt-td-js": "1.1.4"
   },
   "devDependencies": {
-    "@octokit/rest": "^16.34.1",
+    "@octokit/rest": "^16.36.0",
     "@types/bcryptjs": "^2.4.2",
     "@verdaccio/babel-preset": "^8.5.0",
     "@verdaccio/eslint-config": "^8.5.0",
