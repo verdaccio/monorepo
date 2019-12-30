@@ -1194,14 +1194,14 @@
     retry-request "^4.0.0"
     teeny-request "^5.2.1"
 
-"@google-cloud/datastore@4.5.0":
-  version "4.5.0"
-  resolved "https://registry.verdaccio.org/@google-cloud%2fdatastore/-/datastore-4.5.0.tgz#6c1da841b1721867c76ac8b8328eb2f9aacb85aa"
-  integrity sha512-hICTxTOAMhthjMDAFSpa7aSoQ+wop8H8GxK+zQ/SKIo8n8Y+43mqM9zBWf5BljXg5sGfascOBPYKkt3pLo7tjA==
+"@google-cloud/datastore@5.0.2":
+  version "5.0.2"
+  resolved "https://registry.verdaccio.org/@google-cloud%2fdatastore/-/datastore-5.0.2.tgz#df3d2b344fa02aabcc935ce6b974de56bfad2825"
+  integrity sha512-Gm2G7JfcBzUEIz23GWRPhR36jsgnP+f79+xhVphW5k+AXTzV5JETlVyVtw0pE0YNmrIH+gUr+BNn5LIv1cOsDA==
   dependencies:
     "@google-cloud/projectify" "^1.0.0"
     "@google-cloud/promisify" "^1.0.0"
-    "@grpc/grpc-js" "0.6.9"
+    "@grpc/grpc-js" "0.6.14"
     "@types/duplexify" "^3.6.0"
     "@types/long" "^4.0.0"
     arrify "^2.0.1"
@@ -1259,10 +1259,10 @@
     through2 "^3.0.0"
     xdg-basedir "^4.0.0"
 
-"@grpc/grpc-js@0.6.9":
-  version "0.6.9"
-  resolved "https://registry.verdaccio.org/@grpc%2fgrpc-js/-/grpc-js-0.6.9.tgz#49e0b32b92b822df294cc576df169cc6112063b4"
-  integrity sha512-r1nDOEEiYmAsVYBaS4DPPqdwPOXPw7YhVOnnpPdWhlNtKbYzPash6DqWTTza9gBiYMA5d2Wiq6HzrPqsRaP4yA==
+"@grpc/grpc-js@0.6.14":
+  version "0.6.14"
+  resolved "https://registry.verdaccio.org/@grpc%2fgrpc-js/-/grpc-js-0.6.14.tgz#956d38e8541af2296fdb651fcc6e80f30e51b3b5"
+  integrity sha512-M6q3MtHzk0NQPs1PB+SXSJtkDtK8WXJh+1B1WVJQp5HTURadzj9t1bUb/Fjhq+K57lKsOgL60r8WGmE7vks1eg==
   dependencies:
     semver "^6.2.0"
 
