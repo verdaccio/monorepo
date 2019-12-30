@@ -42,7 +42,7 @@
     "snyk": "^1.269.0"
   },
   "optionalDependencies": {
-    "fast-crc32c": "1.0.4"
+    "fast-crc32c": "2.0.0"
   },
   "scripts": {
     "build": "npm run build:types && npm run build:js",
