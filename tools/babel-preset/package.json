@@ -63,5 +63,9 @@
   "scripts": {
     "lint": "eslint \"**/*.js\"",
     "lint:stage": "lint-staged"
+  },
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/verdaccio"
   }
 }
