@@ -48,5 +48,9 @@
     "lint": "eslint \"**/*.js\"",
     "lint:stage": "lint-staged",
     "test-prettier-rules": "eslint --print-config index.js | eslint-config-prettier-check"
+  },
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/verdaccio"
   }
 }

@@ -27,5 +27,9 @@
     "lint": "eslint \"**/*.{js,ts}\"",
     "lint:stage": "lint-staged",
     "test": "tsc --noEmit"
+  },
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/verdaccio"
   }
 }

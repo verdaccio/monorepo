@@ -36,5 +36,9 @@
     "lint": "eslint \"**/*.js\"",
     "lint:stage": "lint-staged",
     "test": "mocha tests --recursive"
+  },
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/verdaccio"
   }
 }
