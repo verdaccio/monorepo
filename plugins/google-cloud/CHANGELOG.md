@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [9.0.0](https://github.com/verdaccio/monorepo/compare/v8.5.3...v9.0.0) (2020-01-07)
+
+
+### Bug Fixes
+
+* **verdaccio-google-cloud:** catch missing Secret on first run ([#247](https://github.com/verdaccio/monorepo/issues/247)) ([7742eea](https://github.com/verdaccio/monorepo/commit/7742eeaf061f1fe870e4de69ae7e0e5b649e273b))
+
+
+### chore
+
+* update dependencies ([68add74](https://github.com/verdaccio/monorepo/commit/68add743159867f678ddb9168d2bc8391844de47))
+
+
+### BREAKING CHANGES
+
+* @verdaccio/eslint-config requires ESLint >=6.8.0 and Prettier >=1.19.1 to fix compatibility with overrides.extends config
+
+
+
+
+
 ## [8.5.2](https://github.com/verdaccio/monorepo/compare/v8.5.1...v8.5.2) (2019-12-25)
 
 
