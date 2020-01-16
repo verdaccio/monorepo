@@ -36,6 +36,7 @@
     "@verdaccio/babel-preset": "^9.0.0",
     "@verdaccio/eslint-config": "^9.0.0",
     "@verdaccio/types": "^9.0.0",
+    "jest": "^24.9.0",
     "recursive-readdir": "2.2.2"
   },
   "scripts": {
