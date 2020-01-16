@@ -6,19 +6,19 @@ import { S3Config } from '../src/config';
 import logger from './__mocks__/Logger';
 import pkg from './__fixtures__/pkg';
 
-const mockHead = jest.fn();
-const mockPut = jest.fn();
-const mockDelete = jest.fn();
-const mockList = jest.fn();
+const mockHeadObject = jest.fn();
+const mockPutObject = jest.fn();
+const mockDeleteObject = jest.fn();
+const mockListObject = jest.fn();
 const mockDeleteObjects = jest.fn();
 const mockGetObject = jest.fn();
 
 jest.mock('aws-sdk', () => ({
   S3: jest.fn().mockImplementation(() => ({
-    headObject: mockHead,
-    putObject: mockPut,
-    deleteObject: mockDelete,
-    listObjectsV2: mockList,
+    headObject: mockHeadObject,
+    putObject: mockPutObject,
+    deleteObject: mockDeleteObject,
+    listObjectsV2: mockListObject,
     deleteObjects: mockDeleteObjects,
     getObject: mockGetObject,
   })),
@@ -26,21 +26,22 @@ jest.mock('aws-sdk', () => ({
 
 describe('S3PackageManager with mocked s3', function() {
   beforeEach(() => {
-    mockHead.mockClear();
-    mockPut.mockClear();
-    mockDelete.mockClear();
+    mockHeadObject.mockClear();
+    mockPutObject.mockClear();
+    mockDeleteObject.mockClear();
     mockDeleteObjects.mockClear();
-    mockList.mockClear();
+    mockListObject.mockClear();
     mockGetObject.mockClear();
   });
-  test('existing packages on s3 are not recreated', async done => {
+  test('existing packages on s3 are not recreated', done => {
+    expect.assertions(1);
     const config: S3Config = {
       bucket: 'test-bucket',
       keyPrefix: 'keyPrefix/',
       getMatchedPackagesSpec: jest.fn(() => null) as PackageAccess,
     } as S3Config;
 
-    mockHead.mockImplementation((params, callback) => {
+    mockHeadObject.mockImplementation((params, callback) => {
       callback();
     });
 
@@ -52,18 +53,20 @@ describe('S3PackageManager with mocked s3', function() {
     });
   });
 
-  test('new package is created on s3', async done => {
+  test('new package is created on s3', done => {
+    expect.assertions(2);
+
     const config: S3Config = {
       bucket: 'test-bucket',
       keyPrefix: 'keyPrefix/',
       getMatchedPackagesSpec: jest.fn(() => null) as PackageAccess,
     } as S3Config;
 
-    mockHead.mockImplementation((params, callback) => {
+    mockHeadObject.mockImplementation((params, callback) => {
       callback({ code: 'NoSuchKey' }, 'some data');
     });
 
-    mockPut.mockImplementation((params, callback) => {
+    mockPutObject.mockImplementation((params, callback) => {
       callback();
     });
 
@@ -71,30 +74,31 @@ describe('S3PackageManager with mocked s3', function() {
 
     testPackageManager.createPackage('test-0.0.0.tgz', pkg, err => {
       expect(err).toBeUndefined();
-      expect(mockPut).toHaveBeenCalled();
+      expect(mockPutObject).toHaveBeenCalled();
       done();
     });
   });
 
   test('new package is uploaded to keyprefix if custom storage is not specified', done => {
+    expect.assertions(1);
     const config: S3Config = {
       bucket: 'test-bucket',
       keyPrefix: 'testKeyPrefix/',
       getMatchedPackagesSpec: jest.fn(() => null) as PackageAccess,
     } as S3Config;
 
-    mockHead.mockImplementation((params, callback) => {
+    mockHeadObject.mockImplementation((params, callback) => {
       callback({ code: 'NoSuchKey' }, 'some data');
     });
 
-    mockPut.mockImplementation((params, callback) => {
+    mockPutObject.mockImplementation((params, callback) => {
       callback();
     });
 
     const testPackageManager = new S3PackageManager(config, 'test-package', logger);
 
     testPackageManager.createPackage('test-0.0.0.tgz', pkg, () => {
-      expect(mockPut).toHaveBeenCalledWith(
+      expect(mockPutObject).toHaveBeenCalledWith(
         expect.objectContaining({
           Bucket: 'test-bucket',
           Key: 'testKeyPrefix/test-package/package.json',
@@ -106,6 +110,7 @@ describe('S3PackageManager with mocked s3', function() {
   });
 
   test('new package is uploaded to custom storage prefix as specified on package section in config', done => {
+    expect.assertions(2);
     const config: S3Config = {
       bucket: 'test-bucket',
       keyPrefix: 'testKeyPrefix/',
@@ -114,25 +119,25 @@ describe('S3PackageManager with mocked s3', function() {
       })) as PackageAccess,
     } as S3Config;
 
-    mockHead.mockImplementation((params, callback) => {
+    mockHeadObject.mockImplementation((params, callback) => {
       callback({ code: 'NoSuchKey' }, 'some data');
     });
 
-    mockPut.mockImplementation((params, callback) => {
+    mockPutObject.mockImplementation((params, callback) => {
       callback();
     });
 
     const testPackageManager = new S3PackageManager(config, '@company/test-package', logger);
 
     testPackageManager.createPackage('test-0.0.0.tgz', pkg, () => {
-      expect(mockHead).toHaveBeenCalledWith(
+      expect(mockHeadObject).toHaveBeenCalledWith(
         {
           Bucket: 'test-bucket',
           Key: 'testKeyPrefix/customFolder/@company/test-package/package.json',
         },
         expect.any(Function)
       );
-      expect(mockPut).toHaveBeenCalledWith(
+      expect(mockPutObject).toHaveBeenCalledWith(
         expect.objectContaining({
           Bucket: 'test-bucket',
           Key: 'testKeyPrefix/customFolder/@company/test-package/package.json',
@@ -144,6 +149,7 @@ describe('S3PackageManager with mocked s3', function() {
   });
 
   test('delete package with custom folder from s3 bucket', done => {
+    expect.assertions(1);
     const config: S3Config = {
       bucket: 'test-bucket',
       keyPrefix: 'testKeyPrefix/',
@@ -152,14 +158,14 @@ describe('S3PackageManager with mocked s3', function() {
       })) as PackageAccess,
     } as S3Config;
 
-    mockDelete.mockImplementation((params, callback) => {
+    mockDeleteObject.mockImplementation((params, callback) => {
       callback();
     });
 
     const testPackageManager = new S3PackageManager(config, '@company/test-package', logger);
 
     testPackageManager.deletePackage('test-0.0.0.tgz', () => {
-      expect(mockDelete).toHaveBeenCalledWith(
+      expect(mockDeleteObject).toHaveBeenCalledWith(
         {
           Bucket: 'test-bucket',
           Key: 'testKeyPrefix/customFolder/@company/test-package/test-0.0.0.tgz',
@@ -171,20 +177,21 @@ describe('S3PackageManager with mocked s3', function() {
   });
 
   test('delete package from s3 bucket', done => {
+    expect.assertions(1);
     const config: S3Config = {
       bucket: 'test-bucket',
       keyPrefix: 'testKeyPrefix/',
       getMatchedPackagesSpec: jest.fn(() => ({})) as PackageAccess,
     } as S3Config;
 
-    mockDelete.mockImplementation((params, callback) => {
+    mockDeleteObject.mockImplementation((params, callback) => {
       callback();
     });
 
     const testPackageManager = new S3PackageManager(config, '@company/test-package', logger);
 
     testPackageManager.deletePackage('test-0.0.0.tgz', () => {
-      expect(mockDelete).toHaveBeenCalledWith(
+      expect(mockDeleteObject).toHaveBeenCalledWith(
         {
           Bucket: 'test-bucket',
           Key: 'testKeyPrefix/@company/test-package/test-0.0.0.tgz',
@@ -196,13 +203,14 @@ describe('S3PackageManager with mocked s3', function() {
   });
 
   test('remove packages from s3 bucket', done => {
+    expect.assertions(2);
     const config: S3Config = {
       bucket: 'test-bucket',
       keyPrefix: 'testKeyPrefix/',
       getMatchedPackagesSpec: jest.fn(() => ({})) as PackageAccess,
     } as S3Config;
 
-    mockList.mockImplementation((params, callback) => {
+    mockListObject.mockImplementation((params, callback) => {
       callback(null, { KeyCount: 1 });
     });
 
@@ -220,7 +228,7 @@ describe('S3PackageManager with mocked s3', function() {
         },
         expect.any(Function)
       );
-      expect(mockList).toHaveBeenCalledWith(
+      expect(mockListObject).toHaveBeenCalledWith(
         {
           Bucket: 'test-bucket',
           Prefix: 'testKeyPrefix/@company/test-package',
@@ -232,6 +240,7 @@ describe('S3PackageManager with mocked s3', function() {
   });
 
   test('remove packages with custom storage from s3 bucket', done => {
+    expect.assertions(2);
     const config: S3Config = {
       bucket: 'test-bucket',
       keyPrefix: 'testKeyPrefix/',
@@ -240,7 +249,7 @@ describe('S3PackageManager with mocked s3', function() {
       })) as PackageAccess,
     } as S3Config;
 
-    mockList.mockImplementation((params, callback) => {
+    mockListObject.mockImplementation((params, callback) => {
       callback(null, { KeyCount: 1 });
     });
 
@@ -258,7 +267,7 @@ describe('S3PackageManager with mocked s3', function() {
         },
         expect.any(Function)
       );
-      expect(mockList).toHaveBeenCalledWith(
+      expect(mockListObject).toHaveBeenCalledWith(
         {
           Bucket: 'test-bucket',
           Prefix: 'testKeyPrefix/customFolder/@company/test-package',
@@ -270,6 +279,7 @@ describe('S3PackageManager with mocked s3', function() {
   });
 
   test('read packages with custom storage from s3 bucket', done => {
+    expect.assertions(1);
     const config: S3Config = {
       bucket: 'test-bucket',
       keyPrefix: 'testKeyPrefix/',
@@ -297,6 +307,7 @@ describe('S3PackageManager with mocked s3', function() {
   });
 
   test('read packages from s3 bucket', done => {
+    expect.assertions(1);
     const config: S3Config = {
       bucket: 'test-bucket',
       keyPrefix: 'testKeyPrefix/',
@@ -322,6 +333,7 @@ describe('S3PackageManager with mocked s3', function() {
   });
 
   test('read tarballs from s3 bucket', () => {
+    expect.assertions(1);
     const config: S3Config = {
       bucket: 'test-bucket',
       keyPrefix: 'testKeyPrefix/',
@@ -350,6 +362,7 @@ describe('S3PackageManager with mocked s3', function() {
   });
 
   test('read tarballs for a custom folder from s3 bucket', () => {
+    expect.assertions(1);
     const config: S3Config = {
       bucket: 'test-bucket',
       keyPrefix: 'testKeyPrefix/',
@@ -380,17 +393,21 @@ describe('S3PackageManager with mocked s3', function() {
   });
 
   test('write tarballs from s3 bucket', () => {
+    expect.assertions(1);
+
     const config: S3Config = {
       bucket: 'test-bucket',
       keyPrefix: 'testKeyPrefix/',
       getMatchedPackagesSpec: jest.fn(() => null) as PackageAccess,
     } as S3Config;
 
+    mockHeadObject.mockImplementation(() => {});
+
     const testPackageManager = new S3PackageManager(config, '@company/test-package', logger);
 
     testPackageManager.writeTarball('tarballfile.gz');
 
-    expect(mockHead).toHaveBeenCalledWith(
+    expect(mockHeadObject).toHaveBeenCalledWith(
       {
         Bucket: 'test-bucket',
         Key: 'testKeyPrefix/@company/test-package/tarballfile.gz',
@@ -400,6 +417,7 @@ describe('S3PackageManager with mocked s3', function() {
   });
 
   test('write tarballs with custom storage from s3 bucket', () => {
+    expect.assertions(1);
     const config: S3Config = {
       bucket: 'test-bucket',
       keyPrefix: 'testKeyPrefix/',
@@ -410,9 +428,11 @@ describe('S3PackageManager with mocked s3', function() {
 
     const testPackageManager = new S3PackageManager(config, '@company/test-package', logger);
 
+    mockHeadObject.mockImplementation(() => {});
+
     testPackageManager.writeTarball('tarballfile.gz');
 
-    expect(mockHead).toHaveBeenCalledWith(
+    expect(mockHeadObject).toHaveBeenCalledWith(
       {
         Bucket: 'test-bucket',
         Key: 'testKeyPrefix/customStorage/@company/test-package/tarballfile.gz',
