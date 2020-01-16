@@ -19,16 +19,19 @@ export default class Config {
         access: ['$all'],
         publish: ['$authenticated'],
         proxy: [],
+        storage: 'scoped/folder',
       },
       '*': {
         access: ['$all'],
         publish: ['$authenticated'],
         proxy: ['npmjs'],
+        storage: 'unscoped/folder',
       },
       '**': {
         access: [],
         publish: [],
         proxy: [],
+        storage: 'allother/folder',
       },
     };
     this.logs = [
