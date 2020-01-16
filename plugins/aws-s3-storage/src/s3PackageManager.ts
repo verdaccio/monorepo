@@ -7,6 +7,7 @@ import { HttpError } from 'http-errors';
 import { is404Error, convertS3Error, create409Error } from './s3Errors';
 import { deleteKeyPrefix } from './deleteKeyPrefix';
 import { S3Config } from './config';
+import addTrailingSlash from './addTrailingSlash';
 
 const pkgFileName = 'package.json';
 
@@ -34,7 +35,7 @@ export default class S3PackageManager implements ILocalPackageManager {
     const packageAccess = this.config.getMatchedPackagesSpec(packageName);
     if (packageAccess) {
       const storage = packageAccess.storage;
-      const packageCustomFolder = storage != null ? (storage.endsWith('/') ? storage : `${storage}/`) : '';
+      const packageCustomFolder = addTrailingSlash(storage);
       this.packagePath = `${this.config.keyPrefix}${packageCustomFolder}${this.packageName}`;
     } else {
       this.packagePath = `${this.config.keyPrefix}${this.packageName}`;

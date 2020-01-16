@@ -14,6 +14,7 @@ import { S3 } from 'aws-sdk';
 import { S3Config } from './config';
 import S3PackageManager from './s3PackageManager';
 import { convertS3Error, is404Error } from './s3Errors';
+import addTrailingSlash from './addTrailingSlash';
 
 export default class S3Database implements IPluginStorage<S3Config> {
   public logger: Logger;
@@ -33,8 +34,7 @@ export default class S3Database implements IPluginStorage<S3Config> {
     }
     const configKeyPrefix = this.config.keyPrefix;
     this._localData = null;
-    this.config.keyPrefix =
-      configKeyPrefix != null ? (configKeyPrefix.endsWith('/') ? configKeyPrefix : `${configKeyPrefix}/`) : '';
+    this.config.keyPrefix = addTrailingSlash(configKeyPrefix);
 
     this.logger.debug({ config: JSON.stringify(this.config, null, 4) }, 's3: configuration: @{config}');
 
