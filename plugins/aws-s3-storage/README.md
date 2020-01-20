@@ -50,3 +50,18 @@ store:
     accessKeyId: your-access-key-id # optional, aws accessKeyId for private S3 bucket
     secretAccessKey: your-secret-access-key # optional, aws secretAccessKey for private S3 bucket
 ```
+
+store properties can be defined for packages. The storage location corresponds to the folder in s3 bucket.
+
+```
+packages:
+  '@scope/*':
+    access: all
+    publish: $all
+    storage: 'scoped'
+  '**':
+    access: $all
+    publish: $all
+    proxy: npmjs
+    storage: 'public'
+```
