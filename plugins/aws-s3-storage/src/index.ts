@@ -28,7 +28,8 @@ export default class S3Database implements IPluginStorage<S3Config> {
     if (!config) {
       throw new Error('s3 storage missing config. Add `store.s3-storage` to your config file');
     }
-    this.config = Object.assign({}, config.store['aws-s3-storage']);
+    this.config = Object.assign(config, config.store['aws-s3-storage']);
+
     if (!this.config.bucket) {
       throw new Error('s3 storage requires a bucket');
     }
