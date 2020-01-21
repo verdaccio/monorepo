@@ -65,3 +65,13 @@ packages:
     proxy: npmjs
     storage: 'public'
 ```
+
+# Developer Testing #
+
+In case of local testing, this project can be used self-efficiently. Three main ingredients are as follows:
+
+* config.yaml, see [verdaccio documentation](https://verdaccio.org/docs/en/configuration.html)
+* The provided docker file allows to test the plugin, with no need for main verdaccio application
+* The provided docker-compose also provides minio in orchestration as a local substitute for S3 backend
+  
+

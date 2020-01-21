@@ -7,7 +7,7 @@ store:
     bucket: rise
     keyPrefix: verdaccio
     region: eu-central-1
-    endpoint: http://host.docker.internal:9000
+    endpoint: http://minio:9000
     accessKeyId: foobar
     secretAccessKey: 1234567e
     s3ForcePathStyle: true
