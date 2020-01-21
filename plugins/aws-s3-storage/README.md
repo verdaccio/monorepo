@@ -77,7 +77,7 @@ In case of local testing, this project can be used self-efficiently. Four main i
 
 ```    
 AWS_ACCESS_KEY_ID=foobar
-AWS_SECRET_ACCESS_KEY=12345678
+AWS_SECRET_ACCESS_KEY=1234567e
 AWS_DEFAULT_REGION=eu-central-1
 AWS_S3_ENDPOINT=https://localhost:9000/
 AWS_S3_PATH_STYLE=true
