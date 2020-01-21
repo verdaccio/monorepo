@@ -68,10 +68,20 @@ packages:
 
 # Developer Testing #
 
-In case of local testing, this project can be used self-efficiently. Three main ingredients are as follows:
+In case of local testing, this project can be used self-efficiently. Four main ingredients are as follows:
 
 * config.yaml, see [verdaccio documentation](https://verdaccio.org/docs/en/configuration.html)
 * The provided docker file allows to test the plugin, with no need for main verdaccio application
 * The provided docker-compose also provides minio in orchestration as a local substitute for S3 backend
-  
+* registry.envs set as follows. This file does not exist on the repo and should be generated after cloning the project.  
 
+```    
+AWS_ACCESS_KEY_ID=foobar
+AWS_SECRET_ACCESS_KEY=12345678
+AWS_DEFAULT_REGION=eu-central-1
+AWS_S3_ENDPOINT=https://localhost:9000/
+AWS_S3_PATH_STYLE=true
+```
+
+The default values should work out of the box. If you change anything, make sure the corresponding variables are set in
+other parts of the ingredient as well.
