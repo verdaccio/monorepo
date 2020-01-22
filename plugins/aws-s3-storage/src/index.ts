@@ -33,7 +33,8 @@ export default class S3Database implements IPluginStorage<S3Config> {
     if (!this.config.bucket) {
       throw new Error('s3 storage requires a bucket');
     }
-    const configKeyPrefix = this.config.keyPrefix;
+    this.config.bucket = process.env[this.config.bucket] || this.config.bucket;
+    const configKeyPrefix = process.env[this.config.keyPrefix] || this.config.keyPrefix;
     this._localData = null;
     this.config.keyPrefix = addTrailingSlash(configKeyPrefix);
 
@@ -41,10 +42,10 @@ export default class S3Database implements IPluginStorage<S3Config> {
 
     this.s3 = new S3({
       endpoint: this.config.endpoint,
-      region: this.config.region,
+      region: process.env[this.config.region!] || this.config.region,
       s3ForcePathStyle: this.config.s3ForcePathStyle,
-      accessKeyId: this.config.accessKeyId,
-      secretAccessKey: this.config.secretAccessKey,
+      accessKeyId: process.env[this.config.accessKeyId!] || this.config.accessKeyId,
+      secretAccessKey: process.env[this.config.secretAccessKey!] || this.config.secretAccessKey,
     });
   }
 
