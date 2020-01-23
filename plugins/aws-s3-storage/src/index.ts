@@ -14,6 +14,7 @@ import { S3 } from 'aws-sdk';
 import { S3Config } from './config';
 import S3PackageManager from './s3PackageManager';
 import { convertS3Error, is404Error } from './s3Errors';
+import addTrailingSlash from './addTrailingSlash';
 
 export default class S3Database implements IPluginStorage<S3Config> {
   public logger: Logger;
@@ -27,14 +28,14 @@ export default class S3Database implements IPluginStorage<S3Config> {
     if (!config) {
       throw new Error('s3 storage missing config. Add `store.s3-storage` to your config file');
     }
-    this.config = Object.assign({}, config.store['aws-s3-storage']);
+    this.config = Object.assign(config, config.store['aws-s3-storage']);
+
     if (!this.config.bucket) {
       throw new Error('s3 storage requires a bucket');
     }
     const configKeyPrefix = this.config.keyPrefix;
     this._localData = null;
-    this.config.keyPrefix =
-      configKeyPrefix != null ? (configKeyPrefix.endsWith('/') ? configKeyPrefix : `${configKeyPrefix}/`) : '';
+    this.config.keyPrefix = addTrailingSlash(configKeyPrefix);
 
     this.logger.debug({ config: JSON.stringify(this.config, null, 4) }, 's3: configuration: @{config}');
 
