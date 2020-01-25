@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [9.1.0](https://github.com/verdaccio/monorepo/compare/v9.0.0...v9.1.0) (2020-01-25)
+
+
+### Features
+
+* **verdaccio-aws-s3-storage:** separate s3 subfolders (key prefix for different packages) ([#313](https://github.com/verdaccio/monorepo/issues/313)) ([6639a71](https://github.com/verdaccio/monorepo/commit/6639a71c2d2056f93e913c71e27b4453acb029aa))
+* **verdaccio-aws-s3-storage:** supporting environment variables ([#315](https://github.com/verdaccio/monorepo/issues/315)) ([0c532f0](https://github.com/verdaccio/monorepo/commit/0c532f0198aba786a3292e866e7a2d933a06d2fa))
+
+
+
+
+
 # [9.0.0](https://github.com/verdaccio/monorepo/compare/v8.5.3...v9.0.0) (2020-01-07)
 
 
