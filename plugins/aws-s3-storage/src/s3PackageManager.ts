@@ -86,7 +86,7 @@ export default class S3PackageManager implements ILocalPackageManager {
           if (err) {
             this.logger.error({ err }, 's3: [S3PackageManager _getData] aws @{err}');
             const error: HttpError = convertS3Error(err);
-            this.logger.error({ error }, 's3: [S3PackageManager _getData] @{error}');
+            this.logger.error({ error: err.message }, 's3: [S3PackageManager _getData] @{error}');
 
             reject(error);
             return;

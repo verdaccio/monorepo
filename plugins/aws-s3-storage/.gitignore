@@ -1,3 +1,4 @@
 lib/
 node_modules/
 data
+plugins/aws-s3-storage/registry.env

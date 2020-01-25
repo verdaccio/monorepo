@@ -1,6 +1,6 @@
 # verdaccio-aws-s3-storage
 
-📦 AWS S3 storage plugin for verdaccio
+📦 AWS S3 storage plugin for Verdaccio
 
 [![verdaccio (latest)](https://img.shields.io/npm/v/verdaccio-aws-s3-storage/latest.svg)](https://www.npmjs.com/package/verdaccio-aws-s3-storage)
 [![CircleCI](https://circleci.com/gh/verdaccio/verdaccio-aws-s3-storage/tree/master.svg?style=svg)](https://circleci.com/gh/verdaccio/verdaccio-aws-s3-storage/tree/master)
@@ -11,23 +11,30 @@
 ![MIT](https://img.shields.io/github/license/mashape/apistatus.svg)
 [![node](https://img.shields.io/node/v/verdaccio-aws-s3-storage/latest.svg)](https://www.npmjs.com/package/verdaccio-aws-s3-storage)
 
+[![Twitter followers](https://img.shields.io/twitter/follow/verdaccio_npm.svg?style=social&label=Follow)](https://twitter.com/verdaccio_npm)
+[![Github](https://img.shields.io/github/stars/verdaccio/verdaccio.svg?style=social&label=Stars)](https://github.com/verdaccio/verdaccio/stargazers)
+[![backers](https://opencollective.com/verdaccio/tiers/backer/badge.svg?label=Backer&color=brightgreen)](https://opencollective.com/verdaccio)
+[![stackshare](https://img.shields.io/badge/Follow%20on-StackShare-blue.svg?logo=stackshare&style=flat)](https://stackshare.io/verdaccio)
 
-Based on [`verdaccio-s3-storage`](https://github.com/Remitly/verdaccio-s3-storage) built in Typescript + other features.
 
-🚧 Alpha testing
+> This plugin was forked based on [`verdaccio-s3-storage`](https://github.com/Remitly/verdaccio-s3-storage) built in Typescript + other features added along 
+the time. Both plugins might have vary in behaviour since then, we recommend use the AWS plugin on this repo due
+is under control of Verdaccio community and constantly upated. 
 
-**See it in action** in our [Docker + LocalStack + Verdaccio 4 + S3 Plugin example](https://github.com/verdaccio/docker-examples/tree/master/amazon-s3-docker-example).
+## See it in action
 
-### Requirements
+* Test on [Docker + LocalStack + Verdaccio 4 + S3 Plugin example](https://github.com/verdaccio/docker-examples/tree/master/amazon-s3-docker-example).
+* Using `docker-compose` on this repo based on [**verdaccio-minio**](https://github.com/barolab/verdaccio-minio) developed by [barolab](https://github.com/barolab).
+* Feel free to propose new ways to run this plugin. 
 
-* AWS Account
+### Basic Requirements
+
+* AWS Account (in case you are using the cloud)
 * Verdaccio server (4.0) (for 3.x use `verdaccio-s3-storage` instead)
 
 ```
 npm install -g verdaccio
 ```
-
-> This plugin is not supported in the version `2.x`
 
 ## Usage
 
@@ -86,10 +93,10 @@ packages:
 
 In case of local testing, this project can be used self-efficiently. Four main ingredients are as follows:
 
-* config.yaml, see [verdaccio documentation](https://verdaccio.org/docs/en/configuration.html)
+* `config.yaml`, see [verdaccio documentation](https://verdaccio.org/docs/en/configuration.html)
 * The provided docker file allows to test the plugin, with no need for main verdaccio application
 * The provided docker-compose also provides minio in orchestration as a local substitute for S3 backend
-* registry.envs set as follows. This file does not exist on the repo and should be generated after cloning the project.  
+* Create and set content of `registry.envs` as follows. This file does not exist on the repo and should be generated manually after cloning the project.  
 
 ```    
 AWS_ACCESS_KEY_ID=foobar
@@ -98,6 +105,17 @@ AWS_DEFAULT_REGION=eu-central-1
 AWS_S3_ENDPOINT=https://localhost:9000/
 AWS_S3_PATH_STYLE=true
 ```
+
+## Execute the docker image for testing
+
+> You need the latest docker installed in your computer
+
+```bash
+docker-compose up
+```
+
+> By default there is no bucket created, **you might need to browse `http://127.0.0.1:9000/minio/` and create
+the example bucket manually named `rise`** and then restart `docker-compose up`.
 
 The default values should work out of the box. If you change anything, make sure the corresponding variables are set in
 other parts of the ingredient as well.
