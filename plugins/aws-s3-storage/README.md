@@ -51,6 +51,22 @@ store:
     secretAccessKey: your-secret-access-key # optional, aws secretAccessKey for private S3 bucket
 ```
 
+The configured values can either be the actual value or the name of an environment variable that contains the value for the following options:
+
+- `bucket`
+- `keyPrefix`
+- `region`
+- `accessKeyID`
+- `secretAccessKey`
+
+``` yaml
+store:
+  aws-s3-storage:
+    bucket: S3_BUCKET # If an environment variable named S3_BUCKET is set, it will use that value. Otherwise assumes the bucket is named 'S3_BUCKET'
+    keyPrefix: S3_KEY_PREFIX # If an environment variable named S3_KEY_PREFIX is set, it will use that value. Otherwise assumes the bucket is named 'S3_KEY_PREFIX'
+    ...
+```
+
 store properties can be defined for packages. The storage location corresponds to the folder in s3 bucket.
 
 ```
