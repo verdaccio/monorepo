@@ -12,5 +12,5 @@ RUN apk --no-cache add openssl ca-certificates wget && \
 
 COPY . ./build/plugins/aws-s3-storage/
 
-RUN npm i && npm install ./build/plugins/aws-s3-storage/ -d
+RUN npm i && npm install ./build/plugins/aws-s3-storage/
 USER verdaccio
