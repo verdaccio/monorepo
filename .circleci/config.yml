@@ -119,14 +119,6 @@ jobs:
             grep -q 'http address' <(tail -f $tmp_registry_log)
             npm-auth-to-token -u user -p test -e test@test.com -r http://localhost:4873
             yarn publish:canary --yes --no-push --preid=$preid --registry=http://localhost:4873
-      - run:
-          name: 'Setup publish credentials for our Verdaccio instance'
-          command: echo "//registry.verdaccio.org/:_authToken=${VERDACCIO_TOKEN}" > ~/.npmrc
-      - run:
-          name: 'Publish canary version in our Verdaccio instance'
-          command: |
-            preid=$(echo $CIRCLE_BRANCH | sed -r 's/[^[:alpha:][:digit:]]+/-/g')
-            yarn publish:canary --yes --no-push --preid=$preid --registry=https://registry.verdaccio.org
 
   publish:
     <<: *defaults

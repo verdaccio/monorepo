@@ -58,7 +58,7 @@ class LocalDatabase implements IPluginStorage<{}> {
     this.locked = false;
     this.data = this._fetchLocalPackages();
 
-    this.logger.trace({ config: JSON.stringify(this.config, null, 4) }, '[local-storage]: configuration: @{config}');
+    this.logger.trace({ config: this.config }, '[local-storage]: configuration: @{config}');
 
     this._sync();
   }

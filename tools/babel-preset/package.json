@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/babel-preset",
-  "version": "8.4.2",
+  "version": "9.0.0",
   "description": "A common preset for Verdaccio projects",
   "keywords": [
     "verdaccio",
@@ -26,40 +26,46 @@
     "lib"
   ],
   "dependencies": {
-    "@babel/cli": "7.7.0",
-    "@babel/core": "7.7.2",
-    "@babel/node": "7.7.0",
-    "@babel/plugin-proposal-class-properties": "7.7.0",
-    "@babel/plugin-proposal-decorators": "7.7.0",
-    "@babel/plugin-proposal-export-namespace-from": "7.5.2",
-    "@babel/plugin-proposal-function-sent": "7.7.0",
-    "@babel/plugin-proposal-json-strings": "7.2.0",
-    "@babel/plugin-proposal-numeric-separator": "7.2.0",
-    "@babel/plugin-proposal-object-rest-spread": "7.6.2",
-    "@babel/plugin-proposal-throw-expressions": "7.2.0",
-    "@babel/plugin-syntax-dynamic-import": "7.2.0",
-    "@babel/plugin-syntax-import-meta": "7.2.0",
-    "@babel/plugin-transform-async-to-generator": "7.7.0",
-    "@babel/plugin-transform-classes": "7.7.0",
-    "@babel/plugin-transform-runtime": "7.6.2",
+    "@babel/cli": "7.7.7",
+    "@babel/core": "7.7.7",
+    "@babel/node": "7.7.7",
+    "@babel/plugin-proposal-class-properties": "7.7.4",
+    "@babel/plugin-proposal-decorators": "7.7.4",
+    "@babel/plugin-proposal-export-namespace-from": "7.7.4",
+    "@babel/plugin-proposal-function-sent": "7.7.4",
+    "@babel/plugin-proposal-json-strings": "7.7.4",
+    "@babel/plugin-proposal-nullish-coalescing-operator": "7.7.4",
+    "@babel/plugin-proposal-numeric-separator": "7.7.4",
+    "@babel/plugin-proposal-object-rest-spread": "7.7.7",
+    "@babel/plugin-proposal-optional-chaining": "7.7.5",
+    "@babel/plugin-proposal-throw-expressions": "7.7.4",
+    "@babel/plugin-syntax-dynamic-import": "7.7.4",
+    "@babel/plugin-syntax-import-meta": "7.7.4",
+    "@babel/plugin-transform-async-to-generator": "7.7.4",
+    "@babel/plugin-transform-classes": "7.7.4",
+    "@babel/plugin-transform-runtime": "7.7.6",
     "@babel/polyfill": "7.7.0",
-    "@babel/preset-env": "7.7.1",
-    "@babel/preset-react": "7.7.0",
-    "@babel/preset-typescript": "7.7.2",
-    "@babel/register": "7.7.0",
-    "@babel/runtime": "7.7.2",
+    "@babel/preset-env": "7.7.7",
+    "@babel/preset-react": "7.7.4",
+    "@babel/preset-typescript": "7.7.7",
+    "@babel/register": "7.7.7",
+    "@babel/runtime": "7.7.7",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "10.0.3",
     "babel-jest": "24.9.0",
     "babel-plugin-dynamic-import-node": "2.3.0",
-    "babel-plugin-emotion": "10.0.23"
+    "babel-plugin-emotion": "10.0.27"
   },
   "devDependencies": {
-    "@verdaccio/eslint-config": "^8.4.2",
-    "eslint-plugin-verdaccio": "^8.4.2"
+    "@verdaccio/eslint-config": "^9.0.0",
+    "eslint-plugin-verdaccio": "^9.0.0"
   },
   "scripts": {
     "lint": "eslint \"**/*.js\"",
     "lint:stage": "lint-staged"
+  },
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/verdaccio"
   }
 }

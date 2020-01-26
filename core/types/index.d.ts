@@ -5,6 +5,8 @@ declare module '@verdaccio/types' {
 
   type StorageList = string[];
   type Callback = Function;
+  // FIXME: err should be something flexible enough for any implementation
+  type CallbackAction = (err: any | null) => void;
   type CallbackError = (err: NodeJS.ErrnoException) => void;
   interface Author {
     name: string;
@@ -367,6 +369,25 @@ declare module '@verdaccio/types' {
     readTokens(filter: TokenFilter): Promise<Token[]>;
   }
 
+  /**
+   * This method expect return a Package object
+   * eg:
+   * {
+   *   name: string;
+   *   time: number;
+   *   ... and other props
+   * }
+   *
+   * The `cb` callback object will be executed if:
+   *  - it might return object (truly)
+   *  - it might reutrn null
+   */
+  type onSearchPackage = (item: Package, cb: CallbackAction) => void;
+  // FIXME: error should be export type `VerdaccioError = HttpError & { code: number };`
+  // but this type is on @verdaccio/commons-api and cannot be used here yet
+  type onEndSearchPackage = (error?: any) => void;
+  type onValidatePackage = (name: string) => boolean;
+
   interface ILocalData<T> extends IPlugin<T>, ITokenActions {
     logger: Logger;
     config: T & Config;
@@ -376,25 +397,31 @@ declare module '@verdaccio/types' {
     getSecret(): Promise<string>;
     setSecret(secret: string): Promise<any>;
     getPackageStorage(packageInfo: string): IPackageStorage;
-    search(onPackage: Callback, onEnd: Callback, validateName: Function): void;
+    search(onPackage: onSearchPackage, onEnd: onEndSearchPackage, validateName: onValidatePackage): void;
   }
+
+  type StorageUpdateCallback = (data: Package, cb: CallbackAction) => void;
+  type StorageUpdateHandler = (name: string, cb: StorageUpdateCallback) => void;
+  type StorageWriteCallback = (name: string, json: Package, callback: Callback) => void;
+  type PackageTransformer = (pkg: Package) => Package;
+  type ReadPackageCallback = (err: any | null, data?: Package) => void;
 
   interface ILocalPackageManager {
     logger: Logger;
-    writeTarball(name: string): IUploadTarball;
-    readTarball(name: string): IReadTarball;
-    readPackage(fileName: string, callback: Callback): void;
-    createPackage(name: string, value: Package, cb: Callback): void;
-    deletePackage(fileName: string, callback: Callback): void;
-    removePackage(callback: Callback): void;
+    writeTarball(pkgName: string): IUploadTarball;
+    readTarball(pkgName: string): IReadTarball;
+    readPackage(fileName: string, callback: ReadPackageCallback): void;
+    createPackage(pkgName: string, value: Package, cb: CallbackAction): void;
+    deletePackage(fileName: string, callback: CallbackAction): void;
+    removePackage(callback: CallbackAction): void;
     updatePackage(
       pkgFileName: string,
-      updateHandler: Callback,
-      onWrite: Callback,
-      transformPackage: Function,
-      onEnd: Callback
+      updateHandler: StorageUpdateCallback,
+      onWrite: StorageWriteCallback,
+      transformPackage: PackageTransformer,
+      onEnd: CallbackAction
     ): void;
-    savePackage(fileName: string, json: Package, callback: Callback): void;
+    savePackage(fileName: string, json: Package, callback: CallbackAction): void;
   }
 
   interface TarballActions {
@@ -457,17 +484,19 @@ declare module '@verdaccio/types' {
     version?: string;
   }
 
+  type AuthAccessCallback = (error: string | null, access: boolean) => void;
   type AuthCallback = (error: string | null, groups: string[] | false) => void;
 
   interface IPluginAuth<T> extends IPlugin<T> {
     authenticate(user: string, password: string, cb: AuthCallback): void;
     adduser?(user: string, password: string, cb: AuthCallback): void;
     changePassword?(user: string, password: string, newPassword: string, cb: AuthCallback): void;
-    allow_access?(user: RemoteUser, pkg: T & PackageAccess, cb: AuthCallback): void;
-    allow_publish?(user: RemoteUser, pkg: T & PackageAccess, cb: AuthCallback): void;
-    allow_access?(user: RemoteUser, pkg: AllowAccess & PackageAccess, cb: AuthCallback): void;
-    allow_publish?(user: RemoteUser, pkg: AllowAccess & PackageAccess, cb: AuthCallback): void;
-    allow_unpublish?(user: RemoteUser, pkg: AllowAccess & PackageAccess, cb: AuthCallback): void;
+    allow_publish?(user: RemoteUser, pkg: T & PackageAccess, cb: AuthAccessCallback): void;
+    allow_access?(user: RemoteUser, pkg: T & PackageAccess, cb: AuthAccessCallback): void;
+    allow_unpublish?(user: RemoteUser, pkg: T & PackageAccess, cb: AuthAccessCallback): void;
+    allow_publish?(user: RemoteUser, pkg: AllowAccess & PackageAccess, cb: AuthAccessCallback): void;
+    allow_access?(user: RemoteUser, pkg: AllowAccess & PackageAccess, cb: AuthAccessCallback): void;
+    allow_unpublish?(user: RemoteUser, pkg: AllowAccess & PackageAccess, cb: AuthAccessCallback): void;
     apiJWTmiddleware?(helpers: any): Function;
   }
 

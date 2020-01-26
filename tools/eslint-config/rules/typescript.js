@@ -5,6 +5,8 @@ module.exports = {
     '@typescript-eslint/indent': ['error', 2],
     '@typescript-eslint/interface-name-prefix': 'off',
     '@typescript-eslint/explicit-member-accessibility': ['warn'],
+    '@typescript-eslint/prefer-optional-chain': ['warn'],
+    // '@typescript-eslint/prefer-nullish-coalescing': ['warn'], // FIXME define parserOptions.project to generate parserServices
     // TODO temporal fix
     '@typescript-eslint/ban-ts-ignore': 'warn',
     '@typescript-eslint/no-empty-function': 'warn',

@@ -1,20 +1,22 @@
 import { S3, AWSError } from 'aws-sdk';
 import { UploadTarball, ReadTarball } from '@verdaccio/streams';
-import { HEADERS, HTTP_STATUS } from '@verdaccio/commons-api';
-import { Callback, Logger, Package, ILocalPackageManager } from '@verdaccio/types';
+import { HEADERS, HTTP_STATUS, VerdaccioError } from '@verdaccio/commons-api';
+import { Callback, Logger, Package, ILocalPackageManager, CallbackAction, ReadPackageCallback } from '@verdaccio/types';
 import { HttpError } from 'http-errors';
 
 import { is404Error, convertS3Error, create409Error } from './s3Errors';
 import { deleteKeyPrefix } from './deleteKeyPrefix';
 import { S3Config } from './config';
+import addTrailingSlash from './addTrailingSlash';
 
 const pkgFileName = 'package.json';
 
 export default class S3PackageManager implements ILocalPackageManager {
   public config: S3Config;
   public logger: Logger;
-  private packageName: string;
-  private s3: S3;
+  private readonly packageName: string;
+  private readonly s3: S3;
+  private readonly packagePath: string;
 
   public constructor(config: S3Config, packageName: string, logger: Logger) {
     this.config = config;
@@ -29,6 +31,15 @@ export default class S3PackageManager implements ILocalPackageManager {
     this.logger.trace({ s3ForcePathStyle }, 's3: [S3PackageManager constructor] s3ForcePathStyle @{s3ForcePathStyle}');
     this.logger.trace({ accessKeyId }, 's3: [S3PackageManager constructor] accessKeyId @{accessKeyId}');
     this.logger.trace({ secretAccessKey }, 's3: [S3PackageManager constructor] secretAccessKey @{secretAccessKey}');
+
+    const packageAccess = this.config.getMatchedPackagesSpec(packageName);
+    if (packageAccess) {
+      const storage = packageAccess.storage;
+      const packageCustomFolder = addTrailingSlash(storage);
+      this.packagePath = `${this.config.keyPrefix}${packageCustomFolder}${this.packageName}`;
+    } else {
+      this.packagePath = `${this.config.keyPrefix}${this.packageName}`;
+    }
   }
 
   public updatePackage(
@@ -69,7 +80,7 @@ export default class S3PackageManager implements ILocalPackageManager {
       this.s3.getObject(
         {
           Bucket: this.config.bucket,
-          Key: `${this.config.keyPrefix}${this.packageName}/${pkgFileName}`,
+          Key: `${this.packagePath}/${pkgFileName}`,
         },
         (err, response) => {
           if (err) {
@@ -101,7 +112,7 @@ export default class S3PackageManager implements ILocalPackageManager {
     this.s3.deleteObject(
       {
         Bucket: this.config.bucket,
-        Key: `${this.config.keyPrefix}${this.packageName}/${fileName}`,
+        Key: `${this.packagePath}/${fileName}`,
       },
       err => {
         if (err) {
@@ -113,18 +124,24 @@ export default class S3PackageManager implements ILocalPackageManager {
     );
   }
 
-  public removePackage(callback: (err: Error | null) => void): void {
+  public removePackage(callback: CallbackAction): void {
     deleteKeyPrefix(
       this.s3,
       {
         Bucket: this.config.bucket,
-        Prefix: `${this.config.keyPrefix}${this.packageName}`,
+        Prefix: `${this.packagePath}`,
       },
-      callback
+      function(err) {
+        if (err && is404Error(err as VerdaccioError)) {
+          callback(null);
+        } else {
+          callback(err);
+        }
+      }
     );
   }
 
-  public createPackage(name: string, value: Package, callback: Function): void {
+  public createPackage(name: string, value: Package, callback: CallbackAction): void {
     this.logger.debug(
       { name, packageName: this.packageName },
       's3: [S3PackageManager createPackage init] name @{name}/@{packageName}'
@@ -133,7 +150,7 @@ export default class S3PackageManager implements ILocalPackageManager {
     this.s3.headObject(
       {
         Bucket: this.config.bucket,
-        Key: `${this.config.keyPrefix}${this.packageName}/${pkgFileName}`,
+        Key: `${this.packagePath}/${pkgFileName}`,
       },
       (err, data) => {
         if (err) {
@@ -155,7 +172,7 @@ export default class S3PackageManager implements ILocalPackageManager {
     );
   }
 
-  public savePackage(name: string, value: Package, callback: Function): void {
+  public savePackage(name: string, value: Package, callback: CallbackAction): void {
     this.logger.debug(
       { name, packageName: this.packageName },
       's3: [S3PackageManager savePackage init] name @{name}/@{packageName}'
@@ -166,21 +183,20 @@ export default class S3PackageManager implements ILocalPackageManager {
         // TODO: not sure whether save the object with spaces will increase storage size
         Body: JSON.stringify(value, null, '  '),
         Bucket: this.config.bucket,
-        Key: `${this.config.keyPrefix}${this.packageName}/${pkgFileName}`,
+        Key: `${this.packagePath}/${pkgFileName}`,
       },
-      // @ts-ignore
       callback
     );
   }
 
-  public readPackage(name: string, callback: Function): void {
+  public readPackage(name: string, callback: ReadPackageCallback): void {
     this.logger.debug(
       { name, packageName: this.packageName },
       's3: [S3PackageManager readPackage init] name @{name}/@{packageName}'
     );
     (async (): Promise<void> => {
       try {
-        const data = await this._getData();
+        const data: Package = (await this._getData()) as Package;
         this.logger.trace(
           { data, packageName: this.packageName },
           's3: [S3PackageManager readPackage] packageName: @{packageName} / data @data'
@@ -212,7 +228,7 @@ export default class S3PackageManager implements ILocalPackageManager {
 
     const baseS3Params = {
       Bucket: this.config.bucket,
-      Key: `${this.config.keyPrefix}${this.packageName}/${name}`,
+      Key: `${this.packagePath}/${name}`,
     };
 
     // NOTE: I'm using listObjectVersions so I don't have to download the full object with getObject.
@@ -221,7 +237,7 @@ export default class S3PackageManager implements ILocalPackageManager {
     this.s3.headObject(
       {
         Bucket: this.config.bucket,
-        Key: `${this.config.keyPrefix}${this.packageName}/${name}`,
+        Key: `${this.packagePath}/${name}`,
       },
       err => {
         if (err) {
@@ -329,7 +345,7 @@ export default class S3PackageManager implements ILocalPackageManager {
 
     const request = this.s3.getObject({
       Bucket: this.config.bucket,
-      Key: `${this.config.keyPrefix}${this.packageName}/${name}`,
+      Key: `${this.packagePath}/${name}`,
     });
 
     let headersSent = false;

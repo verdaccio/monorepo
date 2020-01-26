@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/active-directory",
-  "version": "8.4.2",
+  "version": "9.0.0",
   "description": "Active Directory authentication plugin for Verdaccio",
   "keywords": [
     "verdaccio",
@@ -31,14 +31,14 @@
     "node": ">=8"
   },
   "dependencies": {
-    "@verdaccio/commons-api": "^8.4.2",
+    "@verdaccio/commons-api": "^9.0.0",
     "activedirectory2": "1.3.0"
   },
   "devDependencies": {
     "@types/activedirectory2": "^1.2.1",
-    "@verdaccio/babel-preset": "^8.4.2",
-    "@verdaccio/eslint-config": "^8.4.2",
-    "@verdaccio/types": "^8.4.2"
+    "@verdaccio/babel-preset": "^9.0.0",
+    "@verdaccio/eslint-config": "^9.0.0",
+    "@verdaccio/types": "^9.0.0"
   },
   "scripts": {
     "coverage:publish": "codecov --root=../../ -F plugins",
@@ -50,5 +50,9 @@
     "test": "jest",
     "type-check": "tsc --noEmit",
     "type-check:watch": "npm run type-check -- --watch"
+  },
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/verdaccio"
   }
 }
