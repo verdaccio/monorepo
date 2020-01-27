@@ -37,6 +37,7 @@ export default class S3Database implements IPluginStorage<S3Config> {
 
     this.config.bucket = setConfigValue(this.config.bucket);
     this.config.keyPrefix = setConfigValue(this.config.keyPrefix);
+    this.config.endpoint = setConfigValue(this.config.endpoint);
     this.config.region = setConfigValue(this.config.region);
     this.config.accessKeyId = setConfigValue(this.config.accessKeyId);
     this.config.secretAccessKey = setConfigValue(this.config.secretAccessKey);
