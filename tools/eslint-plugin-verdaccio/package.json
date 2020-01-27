@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-verdaccio",
-  "version": "8.4.2",
+  "version": "9.0.0",
   "description": "Verdaccio code guidelines",
   "keywords": [
     "verdaccio",
@@ -29,12 +29,16 @@
     "jsx-ast-utils": "2.2.3"
   },
   "devDependencies": {
-    "@verdaccio/eslint-config": "^8.4.2",
+    "@verdaccio/eslint-config": "^9.0.0",
     "mocha": "^6.2.2"
   },
   "scripts": {
     "lint": "eslint \"**/*.js\"",
     "lint:stage": "lint-staged",
     "test": "mocha tests --recursive"
+  },
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/verdaccio"
   }
 }

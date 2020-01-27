@@ -3,6 +3,54 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [9.0.0](https://github.com/verdaccio/monorepo/compare/v8.5.3...v9.0.0) (2020-01-07)
+
+
+### Bug Fixes
+
+* **verdaccio-google-cloud:** catch missing Secret on first run ([#247](https://github.com/verdaccio/monorepo/issues/247)) ([7742eea](https://github.com/verdaccio/monorepo/commit/7742eeaf061f1fe870e4de69ae7e0e5b649e273b))
+
+
+### chore
+
+* update dependencies ([68add74](https://github.com/verdaccio/monorepo/commit/68add743159867f678ddb9168d2bc8391844de47))
+
+
+### BREAKING CHANGES
+
+* @verdaccio/eslint-config requires ESLint >=6.8.0 and Prettier >=1.19.1 to fix compatibility with overrides.extends config
+
+
+
+
+
+## [8.5.2](https://github.com/verdaccio/monorepo/compare/v8.5.1...v8.5.2) (2019-12-25)
+
+
+### Bug Fixes
+
+* add types for storage handler ([#307](https://github.com/verdaccio/monorepo/issues/307)) ([c35746e](https://github.com/verdaccio/monorepo/commit/c35746ebba071900db172608dedff66a7d27c23d))
+
+
+
+
+
+## [8.5.1](https://github.com/verdaccio/monorepo/compare/v8.5.0...v8.5.1) (2019-12-24)
+
+**Note:** Version bump only for package verdaccio-google-cloud
+
+
+
+
+
+# [8.5.0](https://github.com/verdaccio/monorepo/compare/v8.4.2...v8.5.0) (2019-12-22)
+
+**Note:** Version bump only for package verdaccio-google-cloud
+
+
+
+
+
 ## [8.4.2](https://github.com/verdaccio/monorepo/compare/v8.4.1...v8.4.2) (2019-11-23)
 
 **Note:** Version bump only for package verdaccio-google-cloud

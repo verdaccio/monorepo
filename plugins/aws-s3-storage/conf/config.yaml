@@ -1,0 +1,43 @@
+storage: /verdaccio/storage
+
+plugins: plugins
+
+store:
+  aws-s3-storage:
+    bucket: rise
+    keyPrefix: verdaccio
+    region: eu-central-1
+    endpoint: http://minio:9000
+    accessKeyId: foobar
+    secretAccessKey: 1234567e
+    s3ForcePathStyle: true
+
+uplinks:
+  npmjs:
+    url: https://registry.npmjs.org/
+    cache: false
+
+packages:
+  '@rise/*':
+    access: all
+    publish: $all
+    storage: 'private'
+  '@*/*':
+    access: $all
+    publish: $all
+    proxy: npmjs
+    storage: 'public'
+  '**':
+    access: $all
+    publish: $all
+    proxy: npmjs
+    storage: 'public'
+logs:
+  - {type: stdout, format: pretty, level: trace}
+
+listen:
+  - 0.0.0.0:4873
+
+auth:
+  htpasswd:
+    file: ./htpasswd

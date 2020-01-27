@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/eslint-config",
-  "version": "8.4.2",
+  "version": "9.0.0",
   "description": "Verdaccio ESLint shareable config",
   "keywords": [
     "verdaccio",
@@ -29,24 +29,28 @@
     "node": ">= 8"
   },
   "peerDependencies": {
-    "eslint": ">=5.16.0",
-    "prettier": ">=1.18.2"
+    "eslint": ">=6.8.0",
+    "prettier": ">=1.19.1"
   },
   "dependencies": {
-    "@typescript-eslint/eslint-plugin": "2.8.0",
-    "@typescript-eslint/parser": "2.8.0",
+    "@typescript-eslint/eslint-plugin": "2.13.0",
+    "@typescript-eslint/parser": "2.13.0",
     "babel-eslint": "10.0.3",
     "eslint-config-google": "0.14.0",
-    "eslint-config-prettier": "6.7.0",
+    "eslint-config-prettier": "6.9.0",
     "eslint-plugin-babel": "5.3.0",
-    "eslint-plugin-import": "2.18.2",
-    "eslint-plugin-jest": "23.0.4",
-    "eslint-plugin-prettier": "3.1.1",
+    "eslint-plugin-import": "2.19.1",
+    "eslint-plugin-jest": "23.2.0",
+    "eslint-plugin-prettier": "3.1.2",
     "tsutils": "3.17.1"
   },
   "scripts": {
     "lint": "eslint \"**/*.js\"",
     "lint:stage": "lint-staged",
     "test-prettier-rules": "eslint --print-config index.js | eslint-config-prettier-check"
+  },
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/verdaccio"
   }
 }

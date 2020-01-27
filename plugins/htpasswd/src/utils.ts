@@ -33,7 +33,9 @@ export function unlockFile(name: string, cb: Callback): void {
 export function parseHTPasswd(input: string): Record<string, any> {
   return input.split('\n').reduce((result, line) => {
     const args = line.split(':', 3);
-    if (args.length > 1) result[args[0]] = args[1];
+    if (args.length > 1) {
+      result[args[0]] = args[1];
+    }
     return result;
   }, {});
 }

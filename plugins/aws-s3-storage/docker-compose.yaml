@@ -1,0 +1,24 @@
+version: '3.7'
+
+services:
+  minio:
+    image: minio/minio
+    restart: always
+    command: server /data
+    environment:
+      MINIO_ACCESS_KEY: 'foobar'
+      MINIO_SECRET_KEY: '1234567e'
+    ports:
+      - 9000:9000
+    volumes:
+      - ./data/minio:/data
+
+  verdaccio:
+    container_name: verdaccio
+    build: .
+    env_file:
+      - registry.env
+    volumes:
+      - ./conf:/verdaccio/conf
+    ports:
+      - 4873:4873

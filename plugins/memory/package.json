@@ -1,6 +1,6 @@
 {
   "name": "verdaccio-memory",
-  "version": "8.4.2",
+  "version": "9.0.0",
   "description": "Storage implementation in memory",
   "keywords": [
     "verdaccio",
@@ -28,15 +28,15 @@
     "node": ">=8"
   },
   "dependencies": {
-    "@verdaccio/commons-api": "^8.4.2",
-    "@verdaccio/streams": "^8.4.2",
+    "@verdaccio/commons-api": "^9.0.0",
+    "@verdaccio/streams": "^9.0.0",
     "http-errors": "1.7.3",
     "memory-fs": "0.5.0"
   },
   "devDependencies": {
-    "@verdaccio/babel-preset": "^8.4.2",
-    "@verdaccio/eslint-config": "^8.4.2",
-    "@verdaccio/types": "^8.4.2"
+    "@verdaccio/babel-preset": "^9.0.0",
+    "@verdaccio/eslint-config": "^9.0.0",
+    "@verdaccio/types": "^9.0.0"
   },
   "scripts": {
     "build": "npm run build:types && npm run build:js",
@@ -48,5 +48,9 @@
     "test": "jest",
     "type-check": "tsc --noEmit",
     "type-check:watch": "npm run type-check -- --watch"
+  },
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/verdaccio"
   }
 }
