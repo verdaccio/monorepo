@@ -18,7 +18,7 @@ Based on [`verdaccio-s3-storage`](https://github.com/Remitly/verdaccio-s3-storag
 
 **See it in action** in our [Docker + LocalStack + Verdaccio 4 + S3 Plugin example](https://github.com/verdaccio/docker-examples/tree/master/amazon-s3-docker-example).
 
-### Requirements
+## Requirements
 
 * AWS Account
 * Verdaccio server (4.0) (for 3.x use `verdaccio-s3-storage` instead)
@@ -47,8 +47,7 @@ store:
     region: us-west-2 # optional, will use aws s3's default behavior if not specified
     endpoint: https://{service}.{region}.amazonaws.com # optional, will use aws s3's default behavior if not specified
     s3ForcePathStyle: false # optional, will use path style URLs for S3 objects
-    tarballACL: private # optional, use public-read to work with CDN like Amazon CloudFront or digitalocean spaces CDN
-    tarballEdgeUrl: https://{distribution}.cloudfront.net # optional, along with tarballACL='public-read' to enable s3 built-in CDN/Edge integration for tarball serving
+    tarballACL: private # optional, use public-read to work with CDN like Amazon CloudFront
     accessKeyId: your-access-key-id # optional, aws accessKeyId for private S3 bucket
     secretAccessKey: your-secret-access-key # optional, aws secretAccessKey for private S3 bucket
 ```
@@ -84,33 +83,17 @@ packages:
     storage: 'public'
 ```
 
-## Use S3 Built-in CDN/Edge to Serve Tarball Files
+### Specify ACL of Tarball Files
 
-CDN/Edge service plays an important role when distributing binary files. When deploying verdaccio as a public registry, it brings benefits such as reducing NodeJS server load and faster download speed. Most S3-compatible storages have built-in CDN/Edge service integrated, like CloudFront for S3, DigitalOcean CDN for spaces, Google Cloud CDN for Google Cloud Storage. To use CDN/Edge to serve tarball files, add below to your verdaccio config.
-
-Amazon CloudFront example
+You can specify ACL of tarball files in S3 by the *tarballACL* configuration, set to 'private' by default. To enable S3 integrated CDN service (Amazon CloudFront for example), set *tarballACL* to 'public-read' to grant tarball files anonymous read permission.
 
 ```yaml
-# Turn off local tarball url conversion
-convert_to_local_tarball_url: false
 store:
   aws-s3-storage:
-    tarballACL: public-read # Change tarball ACL to public-read to enable anonymous read permission
-    tarballEdgeUrl: https://{distribution}.cloudfront.net
+    tarballACL: public-read
 ```
 
-DigitalOcean Space CDN example
-
-```yaml
-# Turn off local tarball url conversion
-convert_to_local_tarball_url: false
-store:
-  aws-s3-storage:
-    tarballACL: public-read # Change tarball ACL to public-read to enable anonymous read permission
-    tarballEdgeUrl: https://{space-name}.{region}.cdn.digitaloceanspaces.com
-```
-
-# Developer Testing #
+## Developer Testing
 
 In case of local testing, this project can be used self-efficiently. Four main ingredients are as follows:
 
@@ -129,4 +112,3 @@ AWS_S3_PATH_STYLE=true
 
 The default values should work out of the box. If you change anything, make sure the corresponding variables are set in
 other parts of the ingredient as well.
->>>>>>> master

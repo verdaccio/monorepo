@@ -235,7 +235,6 @@ declare module '@verdaccio/types' {
     auth: AuthConf;
     publish?: PublishOptions;
     url_prefix?: string;
-    convert_to_local_tarball_url?: boolean;
     listen?: ListenAddress;
     https?: HttpsConf;
     http_proxy?: string;
@@ -349,7 +348,6 @@ declare module '@verdaccio/types' {
     security: Security;
     publish?: PublishOptions;
     url_prefix?: string;
-    convert_to_local_tarball_url?: boolean;
     store?: any;
     listen?: ListenAddress;
     https?: HttpsConf;

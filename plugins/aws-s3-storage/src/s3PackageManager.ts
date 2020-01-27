@@ -18,19 +18,14 @@ export default class S3PackageManager implements ILocalPackageManager {
   private readonly s3: S3;
   private readonly packagePath: string;
   private readonly tarballACL: string;
-  private readonly tarballEdgeUrl: string;
 
   public constructor(config: S3Config, packageName: string, logger: Logger) {
     this.config = config;
     this.packageName = packageName;
     this.logger = logger;
-    const { endpoint, region, s3ForcePathStyle, tarballACL, tarballEdgeUrl, accessKeyId, secretAccessKey } = config;
+    const { endpoint, region, s3ForcePathStyle, tarballACL, accessKeyId, secretAccessKey } = config;
 
     this.tarballACL = tarballACL || 'private';
-    this.tarballEdgeUrl = tarballEdgeUrl || '';
-    if (this.tarballEdgeUrl.endsWith('/')) {
-      this.tarballEdgeUrl = this.tarballEdgeUrl.slice(0, -1);
-    }
 
     this.s3 = new S3({ endpoint, region, s3ForcePathStyle, accessKeyId, secretAccessKey });
     this.logger.trace({ packageName }, 's3: [S3PackageManager constructor] packageName @{packageName}');
@@ -206,9 +201,6 @@ export default class S3PackageManager implements ILocalPackageManager {
     (async (): Promise<void> => {
       try {
         const data: Package = (await this._getData()) as Package;
-        if (this.tarballEdgeUrl) {
-          this._convertToEdgeTarballUrls(data);
-        }
         this.logger.trace(
           { data, packageName: this.packageName },
           's3: [S3PackageManager readPackage] packageName: @{packageName} / data @{data}'
@@ -219,29 +211,6 @@ export default class S3PackageManager implements ILocalPackageManager {
         callback(err);
       }
     })();
-  }
-
-  private _convertToEdgeTarballUrls(data: unknown) {
-    const json = data as any;
-    if (!json) {
-      return;
-    }
-    if (json.versions) {
-      Object.keys(json.versions)
-        .map(key => json.versions[key])
-        .forEach(val => {
-          this._convertDistRemoteToEdgeTarballUrl(val.dist);
-        });
-    }
-  }
-
-  private _convertDistRemoteToEdgeTarballUrl(dist: any) {
-    if (!dist || !dist.tarball) {
-      return;
-    }
-    const filename = dist.tarball.split('/-/')[1];
-    dist.tarball = `${this.tarballEdgeUrl}/${this.config.keyPrefix}${this.packageName}/${filename}`;
-    this.logger.trace('_convertDistRemoteToEdgeTarballUrl: ', dist);
   }
 
   public writeTarball(name: string): UploadTarball {

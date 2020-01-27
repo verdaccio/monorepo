@@ -7,7 +7,6 @@ export interface S3Config extends Config {
   region?: string;
   s3ForcePathStyle?: boolean;
   tarballACL?: string;
-  tarballEdgeUrl?: string;
   accessKeyId?: string;
   secretAccessKey?: string;
 }
