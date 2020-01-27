@@ -56,6 +56,7 @@ The configured values can either be the actual value or the name of an environme
 - `bucket`
 - `keyPrefix`
 - `region`
+- `endpoint`
 - `accessKeyID`
 - `secretAccessKey`
 
@@ -64,6 +65,7 @@ store:
   aws-s3-storage:
     bucket: S3_BUCKET # If an environment variable named S3_BUCKET is set, it will use that value. Otherwise assumes the bucket is named 'S3_BUCKET'
     keyPrefix: S3_KEY_PREFIX # If an environment variable named S3_KEY_PREFIX is set, it will use that value. Otherwise assumes the bucket is named 'S3_KEY_PREFIX'
+    endpoint: S3_ENDPOINT # If an environment variable named S3_ENDPOINT is set, it will use that value. Otherwise assumes the bucket is named 'S3_ENDPOINT'
     ...
 ```
 
