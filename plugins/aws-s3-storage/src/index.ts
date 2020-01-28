@@ -203,7 +203,7 @@ export default class S3Database implements IPluginStorage<S3Config> {
           (err, response) => {
             if (err) {
               const s3Err: VerdaccioError = convertS3Error(err);
-              this.logger.error({ s3Err }, 's3: [_getData] err: @{err}');
+              this.logger.error({ err: s3Err.message }, 's3: [_getData] err: @{err}');
               if (is404Error(s3Err)) {
                 this.logger.error('s3: [_getData] err 404 create new database');
                 resolve({ list: [], secret: '' });
