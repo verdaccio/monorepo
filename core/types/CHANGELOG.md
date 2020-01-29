@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [9.3.0](https://github.com/verdaccio/monorepo/compare/v9.2.0...v9.3.0) (2020-01-29)
+
+
+### Features
+
+* **types:** adding tag type for auth plugins ([#318](https://github.com/verdaccio/monorepo/issues/318)) ([7f07c94](https://github.com/verdaccio/monorepo/commit/7f07c94d9dba5ac45b35aef3bd1ffd3080fb35db))
+
+
+
+
+
 # [9.0.0](https://github.com/verdaccio/monorepo/compare/v8.5.3...v9.0.0) (2020-01-07)
 
 **Note:** Version bump only for package @verdaccio/types
