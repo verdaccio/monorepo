@@ -3182,6 +3182,21 @@ atob@^2.1.2:
   resolved "https://registry.verdaccio.org/atob/-/atob-2.1.2.tgz#6d9517eb9e030d2436666651e86bd9f6f13533c9"
   integrity sha512-Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg==
 
+aws-sdk@^2.415.0:
+  version "2.612.0"
+  resolved "https://registry.verdaccio.org/aws-sdk/-/aws-sdk-2.612.0.tgz#3af06638ec785bad10986b81ce265422fca552e3"
+  integrity sha512-/oAeVw9okULGczQLNMAO3/w9sA2ubf/+iqRQRXRjrJXVUi7INV6qYnNzIXzy7GabOkN7xpZiTbVcU+Yij5yrxg==
+  dependencies:
+    buffer "4.9.1"
+    events "1.1.1"
+    ieee754 "1.1.13"
+    jmespath "0.15.0"
+    querystring "0.2.0"
+    sax "1.2.1"
+    url "0.10.3"
+    uuid "3.3.2"
+    xml2js "0.4.19"
+
 aws-sdk@^2.607.0:
   version "2.607.0"
   resolved "https://registry.verdaccio.org/aws-sdk/-/aws-sdk-2.607.0.tgz#d3a8bdacdbcb5097629b2cf3f74ba953d80f7e46"
@@ -9843,6 +9858,13 @@ rxjs@^6.3.3, rxjs@^6.4.0, rxjs@^6.5.3:
   integrity sha512-naMQXcgEo3csAEGvw/NydRA0fuS2nDZJiw1YUWFKU7aPPAPGZEsD4Iimit96qwCieH6y614MCLYwdkrWx7z/7Q==
   dependencies:
     tslib "^1.9.0"
+
+s3-ls@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.verdaccio.org/s3-ls/-/s3-ls-3.0.0.tgz#f64e31da6427a8f4cdc1d9a5bd560850cc603f2e"
+  integrity sha512-q1fMrSNPAKWkktlI2IyHNbpZeAQw6Yy9tHZoZzZrUode4QA15e1yje9pZmhC5bVws9hNkBN91t7LiCg2VfupbA==
+  dependencies:
+    aws-sdk "^2.415.0"
 
 safe-buffer@5.1.2, safe-buffer@~5.1.0, safe-buffer@~5.1.1:
   version "5.1.2"
