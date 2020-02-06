@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [9.3.0](https://github.com/verdaccio/monorepo/compare/v9.2.0...v9.3.0) (2020-01-29)
+
+**Note:** Version bump only for package verdaccio-aws-s3-storage
+
+
+
+
+
+# [9.2.0](https://github.com/verdaccio/monorepo/compare/v9.1.0...v9.2.0) (2020-01-28)
+
+
+### Features
+
+* **verdaccio-aws-s3-storage:** Allow endpoint to be configurable ([#319](https://github.com/verdaccio/monorepo/issues/319)) ([1191dcd](https://github.com/verdaccio/monorepo/commit/1191dcd829b7d9f2dd0b4fab4910f4dc9d697565))
+
+
+
+
+
 # [9.1.0](https://github.com/verdaccio/monorepo/compare/v9.0.0...v9.1.0) (2020-01-25)
 
 

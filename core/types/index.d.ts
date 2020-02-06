@@ -177,6 +177,7 @@ declare module '@verdaccio/types' {
   interface AuthPluginPackage {
     packageName: string;
     packageVersion?: string;
+    tag?: string;
   }
 
   interface PackageAccess {
@@ -482,6 +483,7 @@ declare module '@verdaccio/types' {
   interface AllowAccess {
     name: string;
     version?: string;
+    tag?: string;
   }
 
   type AuthAccessCallback = (error: string | null, access: boolean) => void;

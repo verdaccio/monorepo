@@ -88,9 +88,9 @@ export default class S3PackageManager implements ILocalPackageManager {
         },
         (err, response) => {
           if (err) {
-            this.logger.debug({ err }, 's3: [S3PackageManager _getData] aws @{err}');
+            this.logger.error({ err: err.message }, 's3: [S3PackageManager _getData] aws @{err}');
             const error: HttpError = convertS3Error(err);
-            this.logger.debug({ error }, 's3: [S3PackageManager _getData] @{error}');
+            this.logger.error({ error: err.message }, 's3: [S3PackageManager _getData] @{error}');
 
             reject(error);
             return;
@@ -165,7 +165,7 @@ export default class S3PackageManager implements ILocalPackageManager {
             this.savePackage(name, value, callback);
             this.logger.trace({ data }, 's3: [S3PackageManager createPackage] package saved data from s3: @{data}');
           } else {
-            this.logger.error({ s3Err }, 's3: [S3PackageManager createPackage error] @{s3Err}');
+            this.logger.error({ s3Err: s3Err.message }, 's3: [S3PackageManager createPackage error] @s3Err');
             callback(s3Err);
           }
         } else {
@@ -207,7 +207,7 @@ export default class S3PackageManager implements ILocalPackageManager {
         );
         callback(null, data);
       } catch (err) {
-        this.logger.debug({ err }, 's3: [S3PackageManager readPackage] @{err}');
+        this.logger.error({ err: err.message }, 's3: [S3PackageManager readPackage] @{err}');
         callback(err);
       }
     })();
@@ -245,12 +245,14 @@ export default class S3PackageManager implements ILocalPackageManager {
       err => {
         if (err) {
           const convertedErr = convertS3Error(err);
-          this.logger.debug({ convertedErr }, 's3: [S3PackageManager writeTarball headObject] @{convertedErr}');
+          this.logger.error({ error: convertedErr.message }, 's3: [S3PackageManager writeTarball headObject] @{error}');
 
           if (is404Error(convertedErr) === false) {
             this.logger.error(
-              { convertedErr },
-              's3: [S3PackageManager writeTarball headObject] @{convertedErr} non a 404 emit error'
+              {
+                error: convertedErr.message,
+              },
+              's3: [S3PackageManager writeTarball headObject] non a 404 emit error: @{error}'
             );
 
             uploadStream.emit('error', convertedErr);
@@ -266,7 +268,7 @@ export default class S3PackageManager implements ILocalPackageManager {
                 if (err) {
                   const error: HttpError = convertS3Error(err);
                   this.logger.error(
-                    { error },
+                    { error: error.message },
                     's3: [S3PackageManager writeTarball managedUpload send] emit error @{error}'
                   );
 
@@ -405,7 +407,10 @@ export default class S3PackageManager implements ILocalPackageManager {
       const error: HttpError = convertS3Error(err as AWSError);
 
       readTarballStream.emit('error', error);
-      this.logger.error({ error }, 's3: [S3PackageManager readTarball readTarballStream event] error @{error}');
+      this.logger.error(
+        { error: error.message },
+        's3: [S3PackageManager readTarball readTarballStream event] error @{error}'
+      );
     });
 
     this.logger.trace('s3: [S3PackageManager readTarball readTarballStream event] pipe');

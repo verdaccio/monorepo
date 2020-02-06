@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [9.3.0](https://github.com/verdaccio/monorepo/compare/v9.2.0...v9.3.0) (2020-01-29)
+
+
+### Features
+
+* **types:** adding tag type for auth plugins ([#318](https://github.com/verdaccio/monorepo/issues/318)) ([7f07c94](https://github.com/verdaccio/monorepo/commit/7f07c94d9dba5ac45b35aef3bd1ffd3080fb35db))
+
+
+
+
+
+# [9.2.0](https://github.com/verdaccio/monorepo/compare/v9.1.0...v9.2.0) (2020-01-28)
+
+
+### Features
+
+* **verdaccio-aws-s3-storage:** Allow endpoint to be configurable ([#319](https://github.com/verdaccio/monorepo/issues/319)) ([1191dcd](https://github.com/verdaccio/monorepo/commit/1191dcd829b7d9f2dd0b4fab4910f4dc9d697565))
+
+
+
+
+
 # [9.1.0](https://github.com/verdaccio/monorepo/compare/v9.0.0...v9.1.0) (2020-01-25)
 
 
