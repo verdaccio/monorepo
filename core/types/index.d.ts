@@ -331,6 +331,7 @@ declare module '@verdaccio/types' {
   interface Security {
     web: JWTOptions;
     api: APITokenOptions;
+    user: APITokenOptions;
   }
 
   interface Config {
