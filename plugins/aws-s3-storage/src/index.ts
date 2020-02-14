@@ -198,7 +198,7 @@ export default class S3Database implements IPluginStorage<S3Config> {
   private async _getPackageList(): Promise<any> {
     const logger = this.logger;
     const { bucket, keyPrefix } = this.config;
-    const listPath = keyPrefix.endsWith('/') ? keyPrefix : '/';
+    const listPath = keyPrefix || '/';
     logger.debug(
       { keyPrefix, bucket, listPath },
       's3: [_getPackageList] bucket: @{bucket} prefix: @{keyPrefix} listPath: @{listPath}'
@@ -231,29 +231,22 @@ export default class S3Database implements IPluginStorage<S3Config> {
       });
     }
     return listS3Folder(listPath).then(tree => {
-      if (!tree.scopes.length) {
-        return Promise.resolve(tree.packages);
-      } else {
-        return Promise.all(
-          tree.scopes.map(scope => {
-            return listS3Folder(listPath + scope + '/').then(subtree => {
-              subtree.packages
-                .map(pkg => scope + '/' + pkg)
-                .forEach(pkg => {
-                  tree.packages.push(pkg);
-                });
-              return Promise.resolve();
-            });
-          })
-        )
-          .then(() => tree.packages)
-          .then(packages => {
-            packages.forEach(pkg => {
-              logger.debug({ pkg }, 's3: [_getPackageList] package: @{pkg}');
-            });
-            return packages;
+      return Promise.all(
+        tree.scopes.map(scope => {
+          return listS3Folder(listPath + scope + '/').then(subtree => {
+            subtree.packages
+              .map(pkg => scope + '/' + pkg)
+              .forEach(pkg => {
+                tree.packages.push(pkg);
+              });
           });
-      }
+        })
+      ).then(() => {
+        tree.packages.forEach(pkg => {
+          logger.debug({ pkg }, 's3: [_getPackageList] package: @{pkg}');
+        });
+        return tree.packages;
+      });
     });
   }
 
