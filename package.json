@@ -16,7 +16,7 @@
     "@types/jest": "^25.1.2",
     "@types/lodash": "^4.14.149",
     "@types/memory-fs": "^0.3.2",
-    "@types/node": "^13.7.1",
+    "@types/node": "13.1.1",
     "@types/request": "^2.48.4",
     "babel-eslint": "^10.0.3",
     "codecov": "^3.6.5",
