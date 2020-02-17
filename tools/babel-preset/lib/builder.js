@@ -52,7 +52,7 @@ module.exports = (api, opts, env, isPro) => {
       presets: defaultPresets(minNodeVersion)
         .concat(reactPreset)
         .concat(transpiler.presets),
-      plugins: defaultPlugins.concat(['babel-plugin-dynamic-import-node', 'emotion']),
+      plugins: defaultPlugins.concat(transpiler.plugins).concat(['babel-plugin-dynamic-import-node', 'emotion']),
     };
   } else if (env === 'docker') {
     return {
