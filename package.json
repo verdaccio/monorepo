@@ -34,7 +34,6 @@
     "build": "lerna run build",
     "coverage:publish": "codecov && lerna run coverage:publish -- -f coverage/lcov.info",
     "lint": "lerna run lint",
-    "preversion": "snyk protect",
     "publish:canary": "lerna publish --canary",
     "release": "lerna version --conventional-commits",
     "release:from-prerelease": "lerna version --conventional-commits --conventional-graduate",
