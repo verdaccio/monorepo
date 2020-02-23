@@ -1,6 +1,6 @@
 {
   "name": "verdaccio-audit",
-  "version": "9.3.0",
+  "version": "9.3.1",
   "description": "Verdaccio Middleware plugin to bypass npmjs audit",
   "keywords": [
     "verdaccio",
@@ -32,7 +32,7 @@
     "request": "2.88.0"
   },
   "devDependencies": {
-    "@verdaccio/babel-preset": "^9.0.0",
+    "@verdaccio/babel-preset": "^9.3.1",
     "@verdaccio/eslint-config": "^9.0.0",
     "@verdaccio/types": "^9.3.0"
   },

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [9.3.1](https://github.com/verdaccio/monorepo/compare/v9.3.0...v9.3.1) (2020-02-23)
+
+
+### Bug Fixes
+
+* resolve missing missing 'babel/proposal-optional-chaining' in test env ([#330](https://github.com/verdaccio/monorepo/issues/330)) ([ab70f1e](https://github.com/verdaccio/monorepo/commit/ab70f1e5ef23199f0f91275b9eb7545d1d0a43b9))
+
+
+
+
+
 # [9.3.0](https://github.com/verdaccio/monorepo/compare/v9.2.0...v9.3.0) (2020-01-29)
 
 
