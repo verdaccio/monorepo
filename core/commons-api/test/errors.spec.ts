@@ -1,5 +1,3 @@
-/* eslint-disable-next-line import/order */
-
 import _ from 'lodash';
 
 import {
