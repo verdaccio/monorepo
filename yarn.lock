@@ -386,7 +386,7 @@
   resolved "https://registry.verdaccio.org/@babel%2fparser/-/parser-7.7.7.tgz#1b886595419cf92d811316d5b715a53ff38b4937"
   integrity sha512-WtTZMZAZLbeymhkd/sEaPD8IQyGAhmuTuvTzLiCFM7iXiVdY0gc0IaI+cW0fh1BnSMbJSzXX6/fHllgHKwHhXw==
 
-"@babel/parser@^7.7.5", "@babel/parser@^7.8.3", "@babel/parser@^7.8.4":
+"@babel/parser@^7.7.0", "@babel/parser@^7.7.5", "@babel/parser@^7.8.3", "@babel/parser@^7.8.4":
   version "7.8.4"
   resolved "https://registry.verdaccio.org/@babel%2fparser/-/parser-7.8.4.tgz#d1dbe64691d60358a974295fa53da074dd2ce8e8"
   integrity sha512-0fKu/QqildpXmPVaRBoXOlyBb3MC+J0A66x97qEfLOMkn3u6nfY5esWogQwi/K0BjASYy4DbnsEWnpNL6qT5Mw==
@@ -1076,7 +1076,7 @@
     globals "^11.1.0"
     lodash "^4.17.13"
 
-"@babel/traverse@^7.8.3", "@babel/traverse@^7.8.4":
+"@babel/traverse@^7.7.0", "@babel/traverse@^7.8.3", "@babel/traverse@^7.8.4":
   version "7.8.4"
   resolved "https://registry.verdaccio.org/@babel%2ftraverse/-/traverse-7.8.4.tgz#f0845822365f9d5b0e312ed3959d3f827f869e3c"
   integrity sha512-NGLJPZwnVEyBPLI+bl9y9aSnxMhsKz42so7ApAv9D+b4vAFPpY013FTS9LdKxcABoIYFU52HcYga1pPlx454mg==
@@ -1100,7 +1100,7 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
-"@babel/types@^7.8.3":
+"@babel/types@^7.7.0", "@babel/types@^7.8.3":
   version "7.8.3"
   resolved "https://registry.verdaccio.org/@babel%2ftypes/-/types-7.8.3.tgz#5a383dffa5416db1b73dedffd311ffd0788fb31c"
   integrity sha512-jBD+G8+LWpMBBWvVcdr4QysjUE4mU/syrhN17o1u3gx0/WzJB1kwiVZAXRtWbsIPOwW8pF/YJV5+nmetPzepXg==
@@ -1624,15 +1624,6 @@
     slash "^3.0.0"
     source-map "^0.6.1"
     write-file-atomic "^3.0.0"
-
-"@jest/types@^24.9.0":
-  version "24.9.0"
-  resolved "https://registry.verdaccio.org/@jest%2ftypes/-/types-24.9.0.tgz#63cb26cb7500d069e5a389441a7c6ab5e909fc59"
-  integrity sha512-XKK7ze1apu5JWQ5eZjHITP66AX+QsLlbaJRBGYr8pNzwcAE2JVkwnf0yqjHTsDRcjR0mujy/NmZMXw5kl+kGBw==
-  dependencies:
-    "@types/istanbul-lib-coverage" "^2.0.0"
-    "@types/istanbul-reports" "^1.1.1"
-    "@types/yargs" "^13.0.0"
 
 "@jest/types@^25.1.0":
   version "25.1.0"
@@ -2794,12 +2785,13 @@
     "@types/istanbul-lib-coverage" "*"
     "@types/istanbul-lib-report" "*"
 
-"@types/jest@^24.0.25":
-  version "24.0.25"
-  resolved "https://registry.verdaccio.org/@types%2fjest/-/jest-24.0.25.tgz#2aba377824ce040114aa906ad2cac2c85351360f"
-  integrity sha512-hnP1WpjN4KbGEK4dLayul6lgtys6FPz0UfxMeMQCv0M+sTnzN3ConfiO72jHgLxl119guHgI8gLqDOrRLsyp2g==
+"@types/jest@^25.1.3":
+  version "25.1.3"
+  resolved "https://registry.verdaccio.org/@types%2fjest/-/jest-25.1.3.tgz#9b0b5addebccfb631175870be8ba62182f1bc35a"
+  integrity sha512-jqargqzyJWgWAJCXX96LBGR/Ei7wQcZBvRv0PLEu9ZByMfcs23keUJrKv9FMR6YZf9YCbfqDqgmY+JUBsnqhrg==
   dependencies:
-    jest-diff "^24.3.0"
+    jest-diff "^25.1.0"
+    pretty-format "^25.1.0"
 
 "@types/js-yaml@^3.12.1":
   version "3.12.1"
@@ -2929,13 +2921,6 @@
   resolved "https://registry.verdaccio.org/@types%2fyargs-parser/-/yargs-parser-13.1.0.tgz#c563aa192f39350a1d18da36c5a8da382bbd8228"
   integrity sha512-gCubfBUZ6KxzoibJ+SCUc/57Ms1jz5NjHe4+dI2krNmU5zCPAphyLJYyTOg06ueIyfj+SaCUqmzun7ImlxDcKg==
 
-"@types/yargs@^13.0.0":
-  version "13.0.4"
-  resolved "https://registry.verdaccio.org/@types%2fyargs/-/yargs-13.0.4.tgz#53d231cebe1a540e7e13727fc1f0d13ad4a9ba3b"
-  integrity sha512-Ke1WmBbIkVM8bpvsNEcGgQM70XcEh/nbpxQhW7FhrsbCsXSY9BmLB1+LHtD7r9zrsOcFlLiF+a/UeJsdfw3C5A==
-  dependencies:
-    "@types/yargs-parser" "*"
-
 "@types/yargs@^15.0.0":
   version "15.0.4"
   resolved "https://registry.verdaccio.org/@types%2fyargs/-/yargs-15.0.4.tgz#7e5d0f8ca25e9d5849f2ea443cf7c402decd8299"
@@ -2943,18 +2928,27 @@
   dependencies:
     "@types/yargs-parser" "*"
 
-"@typescript-eslint/eslint-plugin@2.13.0":
-  version "2.13.0"
-  resolved "https://registry.verdaccio.org/@typescript-eslint%2feslint-plugin/-/eslint-plugin-2.13.0.tgz#57e933fe16a2fc66dbac059af0d6d85d921d748e"
-  integrity sha512-QoiANo0MMGNa8ej/yX3BrW5dZj5d8HYcKiM2fyYUlezECqn8Xc7T/e4EUdiGinn8jhBrn+9X47E9TWaaup3u1g==
+"@typescript-eslint/eslint-plugin@2.21.0":
+  version "2.21.0"
+  resolved "https://registry.verdaccio.org/@typescript-eslint%2feslint-plugin/-/eslint-plugin-2.21.0.tgz#a34de84a0791cae0357c4dda805c5b4e8203b6c6"
+  integrity sha512-b5jjjDMxzcjh/Sbjuo7WyhrQmVJg0WipTHQgXh5Xwx10uYm6nPWqN1WGOsaNq4HR3Zh4wUx4IRQdDkCHwyewyw==
   dependencies:
-    "@typescript-eslint/experimental-utils" "2.13.0"
+    "@typescript-eslint/experimental-utils" "2.21.0"
     eslint-utils "^1.4.3"
     functional-red-black-tree "^1.0.1"
     regexpp "^3.0.0"
     tsutils "^3.17.1"
 
-"@typescript-eslint/experimental-utils@2.13.0", "@typescript-eslint/experimental-utils@^2.5.0":
+"@typescript-eslint/experimental-utils@2.21.0":
+  version "2.21.0"
+  resolved "https://registry.verdaccio.org/@typescript-eslint%2fexperimental-utils/-/experimental-utils-2.21.0.tgz#71de390a3ec00b280b69138d80733406e6e86bfa"
+  integrity sha512-olKw9JP/XUkav4lq0I7S1mhGgONJF9rHNhKFn9wJlpfRVjNo3PPjSvybxEldvCXnvD+WAshSzqH5cEjPp9CsBA==
+  dependencies:
+    "@types/json-schema" "^7.0.3"
+    "@typescript-eslint/typescript-estree" "2.21.0"
+    eslint-scope "^5.0.0"
+
+"@typescript-eslint/experimental-utils@^2.5.0":
   version "2.13.0"
   resolved "https://registry.verdaccio.org/@typescript-eslint%2fexperimental-utils/-/experimental-utils-2.13.0.tgz#958614faa6f77599ee2b241740e0ea402482533d"
   integrity sha512-+Hss3clwa6aNiC8ZjA45wEm4FutDV5HsVXPl/rDug1THq6gEtOYRGLqS3JlTk7mSnL5TbJz0LpEbzbPnKvY6sw==
@@ -2963,14 +2957,14 @@
     "@typescript-eslint/typescript-estree" "2.13.0"
     eslint-scope "^5.0.0"
 
-"@typescript-eslint/parser@2.13.0":
-  version "2.13.0"
-  resolved "https://registry.verdaccio.org/@typescript-eslint%2fparser/-/parser-2.13.0.tgz#ea1ab394cf9ca17467e3da7f96eca9309f57c326"
-  integrity sha512-vbDeLr5QRJ1K7x5iRK8J9wuGwR9OVyd1zDAY9XFAQvAosHVjSVbDgkm328ayE6hx2QWVGhwvGaEhedcqAbfQcA==
+"@typescript-eslint/parser@2.21.0":
+  version "2.21.0"
+  resolved "https://registry.verdaccio.org/@typescript-eslint%2fparser/-/parser-2.21.0.tgz#4f200995517c3d5fc5ef51b17527bc948992e438"
+  integrity sha512-VrmbdrrrvvI6cPPOG7uOgGUFXNYTiSbnRq8ZMyuGa4+qmXJXVLEEz78hKuqupvkpwJQNk1Ucz1TenrRP90gmBg==
   dependencies:
     "@types/eslint-visitor-keys" "^1.0.0"
-    "@typescript-eslint/experimental-utils" "2.13.0"
-    "@typescript-eslint/typescript-estree" "2.13.0"
+    "@typescript-eslint/experimental-utils" "2.21.0"
+    "@typescript-eslint/typescript-estree" "2.21.0"
     eslint-visitor-keys "^1.1.0"
 
 "@typescript-eslint/typescript-estree@2.13.0":
@@ -2983,6 +2977,19 @@
     glob "^7.1.6"
     is-glob "^4.0.1"
     lodash.unescape "4.0.1"
+    semver "^6.3.0"
+    tsutils "^3.17.1"
+
+"@typescript-eslint/typescript-estree@2.21.0":
+  version "2.21.0"
+  resolved "https://registry.verdaccio.org/@typescript-eslint%2ftypescript-estree/-/typescript-estree-2.21.0.tgz#7e4be29f2e338195a2e8c818949ed0ff727cc943"
+  integrity sha512-NC/nogZNb9IK2MEFQqyDBAciOT8Lp8O3KgAfvHx2Skx6WBo+KmDqlU3R9KxHONaijfTIKtojRe3SZQyMjr3wBw==
+  dependencies:
+    debug "^4.1.1"
+    eslint-visitor-keys "^1.1.0"
+    glob "^7.1.6"
+    is-glob "^4.0.1"
+    lodash "^4.17.15"
     semver "^6.3.0"
     tsutils "^3.17.1"
 
@@ -3178,7 +3185,7 @@ ansi-regex@^3.0.0:
   resolved "https://registry.verdaccio.org/ansi-regex/-/ansi-regex-3.0.0.tgz#ed0317c322064f79466c02966bddb605ab37d998"
   integrity sha1-7QMXwyIGT3lGbAKWa922Bas32Zg=
 
-ansi-regex@^4.0.0, ansi-regex@^4.1.0:
+ansi-regex@^4.1.0:
   version "4.1.0"
   resolved "https://registry.verdaccio.org/ansi-regex/-/ansi-regex-4.1.0.tgz#8b9f8f08cf1acb843756a839ca8c7e3168c51997"
   integrity sha512-1apePfXM1UOSqw0o9IiFAovVz9M5S1Dg+4TrDwfMewQ6p/rmMueb7tWZjQ1rx4Loy1ArBggoqGpfqqdI4rondg==
@@ -3477,7 +3484,19 @@ babel-core@7.0.0-bridge.0:
   resolved "https://registry.verdaccio.org/babel-core/-/babel-core-7.0.0-bridge.0.tgz#95a492ddd90f9b4e9a4a1da14eb335b87b634ece"
   integrity sha512-poPX9mZH/5CSanm50Q+1toVci6pv5KSRv/5TWCwtzQS5XEwn40BcCrgIeMFWP9CKKIniKXNxoIOnOq4VVlGXhg==
 
-babel-eslint@10.0.3, babel-eslint@^10.0.3:
+babel-eslint@10.1.0:
+  version "10.1.0"
+  resolved "https://registry.verdaccio.org/babel-eslint/-/babel-eslint-10.1.0.tgz#6968e568a910b78fb3779cdd8b6ac2f479943232"
+  integrity sha512-ifWaTHQ0ce+448CYop8AdrQiBsGrnC+bMgfyKFdi6EsPLTAWG+QfyDeM6OH+FmWnKvEq5NnBMLvlBUPKQZoDSg==
+  dependencies:
+    "@babel/code-frame" "^7.0.0"
+    "@babel/parser" "^7.7.0"
+    "@babel/traverse" "^7.7.0"
+    "@babel/types" "^7.7.0"
+    eslint-visitor-keys "^1.0.0"
+    resolve "^1.12.0"
+
+babel-eslint@^10.0.3:
   version "10.0.3"
   resolved "https://registry.verdaccio.org/babel-eslint/-/babel-eslint-10.0.3.tgz#81a2c669be0f205e19462fed2482d33e4687a88a"
   integrity sha512-z3U7eMY6r/3f3/JB9mTsLjyxrv0Yb1zb8PCWCLpguxfCzBIZUwy23R1t/XKewP+8mEN2Ck8Dtr4q20z6ce6SoA==
@@ -4748,11 +4767,6 @@ dezalgo@^1.0.0:
     asap "^2.0.0"
     wrappy "1"
 
-diff-sequences@^24.9.0:
-  version "24.9.0"
-  resolved "https://registry.verdaccio.org/diff-sequences/-/diff-sequences-24.9.0.tgz#5715d6244e2aa65f48bba0bc972db0b0b11e95b5"
-  integrity sha512-Dj6Wk3tWyTE+Fo1rW8v0Xhwk80um6yFYKbuAxc9c3EZxIHFDYwbi34Uk42u1CdnIiVorvt4RmlSDjIPyzGC2ew==
-
 diff-sequences@^25.1.0:
   version "25.1.0"
   resolved "https://registry.verdaccio.org/diff-sequences/-/diff-sequences-25.1.0.tgz#fd29a46f1c913fd66c22645dc75bffbe43051f32"
@@ -5058,10 +5072,10 @@ eslint-config-google@0.14.0:
   resolved "https://registry.verdaccio.org/eslint-config-google/-/eslint-config-google-0.14.0.tgz#4f5f8759ba6e11b424294a219dbfa18c508bcc1a"
   integrity sha512-WsbX4WbjuMvTdeVL6+J3rK1RGhCTqjsFjX7UMSMgZiyxxaNLkoJENbrGExzERFeoTpGw3F3FypTiWAP9ZXzkEw==
 
-eslint-config-prettier@6.9.0:
-  version "6.9.0"
-  resolved "https://registry.verdaccio.org/eslint-config-prettier/-/eslint-config-prettier-6.9.0.tgz#430d24822e82f7deb1e22a435bfa3999fae4ad64"
-  integrity sha512-k4E14HBtcLv0uqThaI6I/n1LEqROp8XaPu6SO9Z32u5NlGRC07Enu1Bh2KEFw4FNHbekH8yzbIU9kUGxbiGmCA==
+eslint-config-prettier@6.10.0:
+  version "6.10.0"
+  resolved "https://registry.verdaccio.org/eslint-config-prettier/-/eslint-config-prettier-6.10.0.tgz#7b15e303bf9c956875c948f6b21500e48ded6a7f"
+  integrity sha512-AtndijGte1rPILInUdHjvKEGbIV06NuvPrqlIEaEaWtbtvJh464mDeyGMdZEQMsGvC0ZVkiex1fSNcC4HAbRGg==
   dependencies:
     get-stdin "^6.0.0"
 
@@ -5088,10 +5102,10 @@ eslint-plugin-babel@5.3.0:
   dependencies:
     eslint-rule-composer "^0.3.0"
 
-eslint-plugin-import@2.19.1:
-  version "2.19.1"
-  resolved "https://registry.verdaccio.org/eslint-plugin-import/-/eslint-plugin-import-2.19.1.tgz#5654e10b7839d064dd0d46cd1b88ec2133a11448"
-  integrity sha512-x68131aKoCZlCae7rDXKSAQmbT5DQuManyXo2sK6fJJ0aK5CWAkv6A6HJZGgqC8IhjQxYPgo6/IY4Oz8AFsbBw==
+eslint-plugin-import@2.20.1:
+  version "2.20.1"
+  resolved "https://registry.verdaccio.org/eslint-plugin-import/-/eslint-plugin-import-2.20.1.tgz#802423196dcb11d9ce8435a5fc02a6d3b46939b3"
+  integrity sha512-qQHgFOTjguR+LnYRoToeZWT62XM55MBVXObHM6SKFd1VzDcX/vqT1kAz8ssqigh5eMj8qXcRoXXGZpPP6RfdCw==
   dependencies:
     array-includes "^3.0.3"
     array.prototype.flat "^1.2.1"
@@ -5106,10 +5120,10 @@ eslint-plugin-import@2.19.1:
     read-pkg-up "^2.0.0"
     resolve "^1.12.0"
 
-eslint-plugin-jest@23.2.0:
-  version "23.2.0"
-  resolved "https://registry.verdaccio.org/eslint-plugin-jest/-/eslint-plugin-jest-23.2.0.tgz#72d9ac0421b9b6ef774bcf4783329c016ed7cd6a"
-  integrity sha512-/jbCUW+g0jejXAvsytgcNhii6uEgolt0RO2e4+mhmXybfkcram5V3XIyrHCnUsb0vCmDKgHhJ1lYSm7F3VCEDA==
+eslint-plugin-jest@23.8.0:
+  version "23.8.0"
+  resolved "https://registry.verdaccio.org/eslint-plugin-jest/-/eslint-plugin-jest-23.8.0.tgz#c978f959fa8395801742d13c5a3125a986d2661e"
+  integrity sha512-DKXmLxguZ1Lru4u5YM12ko3WLq6gqo7dhV2b63K731+/PNyZ/Ff6NGONQsGUtPLG9zU3kdz/N+2LTbweNZifeg==
   dependencies:
     "@typescript-eslint/experimental-utils" "^2.5.0"
 
@@ -7104,16 +7118,6 @@ jest-config@^25.1.0:
     pretty-format "^25.1.0"
     realpath-native "^1.1.0"
 
-jest-diff@^24.3.0:
-  version "24.9.0"
-  resolved "https://registry.verdaccio.org/jest-diff/-/jest-diff-24.9.0.tgz#931b7d0d5778a1baf7452cb816e325e3724055da"
-  integrity sha512-qMfrTs8AdJE2iqrTp0hzh7kTd2PQWrsFyj9tORoKmu32xjPjeE4NyjVRDz8ybYwqS2ik8N4hsIpiVTyFeo2lBQ==
-  dependencies:
-    chalk "^2.0.1"
-    diff-sequences "^24.9.0"
-    jest-get-type "^24.9.0"
-    pretty-format "^24.9.0"
-
 jest-diff@^25.1.0:
   version "25.1.0"
   resolved "https://registry.verdaccio.org/jest-diff/-/jest-diff-25.1.0.tgz#58b827e63edea1bc80c1de952b80cec9ac50e1ad"
@@ -7164,11 +7168,6 @@ jest-environment-node@^25.1.0:
     "@jest/types" "^25.1.0"
     jest-mock "^25.1.0"
     jest-util "^25.1.0"
-
-jest-get-type@^24.9.0:
-  version "24.9.0"
-  resolved "https://registry.verdaccio.org/jest-get-type/-/jest-get-type-24.9.0.tgz#1684a0c8a50f2e4901b6644ae861f579eed2ef0e"
-  integrity sha512-lUseMzAley4LhIcpSP9Jf+fTrQ4a1yHQwLNeeVa2cEmbCGeoZAtYPOIv8JaxLD/sUpKxetKGP+gsHl8f8TSj8Q==
 
 jest-get-type@^25.1.0:
   version "25.1.0"
@@ -9376,16 +9375,6 @@ prettier@^1.19.1:
   resolved "https://registry.verdaccio.org/prettier/-/prettier-1.19.1.tgz#f7d7f5ff8a9cd872a7be4ca142095956a60797cb"
   integrity sha512-s7PoyDv/II1ObgQunCbB9PdLmUcBZcnWOcxDh7O0N/UwDEsHyqkW+Qh28jW+mVuCdx7gLB0BotYI1Y6uI9iyew==
 
-pretty-format@^24.9.0:
-  version "24.9.0"
-  resolved "https://registry.verdaccio.org/pretty-format/-/pretty-format-24.9.0.tgz#12fac31b37019a4eea3c11aa9a959eb7628aa7c9"
-  integrity sha512-00ZMZUiHaJrNfk33guavqgvfJS30sLYf0f8+Srklv0AMPodGGHcoHgksZ3OThYnIvOd+8yMCn0YiEOogjlgsnA==
-  dependencies:
-    "@jest/types" "^24.9.0"
-    ansi-regex "^4.0.0"
-    ansi-styles "^3.2.0"
-    react-is "^16.8.4"
-
 pretty-format@^25.1.0:
   version "25.1.0"
   resolved "https://registry.verdaccio.org/pretty-format/-/pretty-format-25.1.0.tgz#ed869bdaec1356fc5ae45de045e2c8ec7b07b0c8"
@@ -9637,11 +9626,6 @@ react-is@^16.12.0:
   version "16.13.0"
   resolved "https://registry.verdaccio.org/react-is/-/react-is-16.13.0.tgz#0f37c3613c34fe6b37cd7f763a0d6293ab15c527"
   integrity sha512-GFMtL0vHkiBv9HluwNZTggSn/sCyEt9n02aM0dSAjGGyqyNlAyftYm4phPxdvCigG15JreC5biwxCgTAJZ7yAA==
-
-react-is@^16.8.4:
-  version "16.12.0"
-  resolved "https://registry.verdaccio.org/react-is/-/react-is-16.12.0.tgz#2cc0fe0fba742d97fd527c42a13bec4eeb06241c"
-  integrity sha512-rPCkf/mWBtKc97aLL9/txD8DZdemK0vkA3JMLShjlJB3Pj3s+lpf1KaBzMfQrAmhMQB0n1cU/SUGgKKBCe837Q==
 
 read-cmd-shim@^1.0.1:
   version "1.0.5"
@@ -11459,10 +11443,10 @@ typedarray@^0.0.6:
   resolved "https://registry.verdaccio.org/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-typescript@^3.7.4:
-  version "3.7.4"
-  resolved "https://registry.verdaccio.org/typescript/-/typescript-3.7.4.tgz#1743a5ec5fef6a1fa9f3e4708e33c81c73876c19"
-  integrity sha512-A25xv5XCtarLwXpcDNZzCGvW2D1S3/bACratYBx2sax8PefsFhlYmkQicKHvpYflFS8if4zne5zT5kpJ7pzuvw==
+typescript@^3.8.2:
+  version "3.8.2"
+  resolved "https://registry.verdaccio.org/typescript/-/typescript-3.8.2.tgz#91d6868aaead7da74f493c553aeff76c0c0b1d5a"
+  integrity sha512-EgOVgL/4xfVrCMbhYKUQTdF37SQn4Iw73H5BgCrF1Abdun7Kwy/QZsE/ssAy0y4LxBbvua3PIbFsbRczWWnDdQ==
 
 uglify-js@^3.1.4:
   version "3.7.3"
