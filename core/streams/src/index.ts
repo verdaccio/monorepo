@@ -1,4 +1,4 @@
-import { PassThrough } from 'stream';
+import { PassThrough, TransformOptions } from 'stream';
 
 export interface IReadTarball {
   abort?: () => void;
@@ -19,7 +19,7 @@ class ReadTarball extends PassThrough implements IReadTarball {
    *
    * @param {Object} options
    */
-  public constructor(options: any) {
+  public constructor(options: TransformOptions) {
     super(options);
     // called when data is not needed anymore
     addAbstractMethods(this, 'abort');

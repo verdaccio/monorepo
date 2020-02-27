@@ -30,7 +30,7 @@ class LocalMemory implements IPluginStorage<ConfigMemory> {
     return Promise.resolve(this.data.secret);
   }
 
-  public setSecret(secret: string): Promise<any> {
+  public setSecret(secret: string): Promise<string | null> {
     return new Promise((resolve): void => {
       this.data.secret = secret;
       resolve(null);

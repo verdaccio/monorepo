@@ -6,8 +6,8 @@ import { Callback } from '@verdaccio/types';
 
 // locks a file by creating a lock file
 const lockFile = function(name: string, callback: Callback): void {
-  const statDir = (name: string): Promise<any> => {
-    return new Promise<any>((resolve, reject): void => {
+  const statDir = (name: string): Promise<Error | null> => {
+    return new Promise((resolve, reject): void => {
       // test to see if the directory exists
       const dirPath = path.dirname(name);
       fs.stat(dirPath, function(err, stats) {
@@ -22,8 +22,8 @@ const lockFile = function(name: string, callback: Callback): void {
     });
   };
 
-  const statfile = (name: string): Promise<any> => {
-    return new Promise<any>((resolve, reject): void => {
+  const statfile = (name: string): Promise<Error | null> => {
+    return new Promise((resolve, reject): void => {
       // test to see if the directory exists
       fs.stat(name, function(err, stats) {
         if (err) {
@@ -84,6 +84,13 @@ const unlockFile = function(name: string, next: Callback): void {
   });
 };
 
+// export type readFileCallback = (err: E)
+
+export type ReadFileOptions = {
+  parse?: boolean;
+  lock?: boolean;
+};
+
 /**
  *  Reads a local file, which involves
  *  optionally taking a lock
@@ -93,7 +100,8 @@ const unlockFile = function(name: string, next: Callback): void {
  * @param {*} options
  * @param {*} callback
  */
-function readFile(name: string, options: any = {}, callback: any = (): void => {}): void {
+// eslint-disable-next-line @typescript-eslint/no-empty-function
+function readFile(name: string, options: ReadFileOptions = {}, callback: Callback = (): void => {}): void {
   if (typeof options === 'function') {
     callback = options;
     options = {};
@@ -102,13 +110,13 @@ function readFile(name: string, options: any = {}, callback: any = (): void => {
   options.lock = options.lock || false;
   options.parse = options.parse || false;
 
-  const lock = function(options: { lock: string }): Promise<any> {
-    return new Promise<any>((resolve, reject): void => {
+  const lock = function(options: ReadFileOptions): Promise<null | NodeJS.ErrnoException> {
+    return new Promise((resolve, reject): void => {
       if (!options.lock) {
         return resolve(null);
       }
 
-      lockFile(name, function(err: any) {
+      lockFile(name, function(err: NodeJS.ErrnoException | null) {
         if (err) {
           return reject(err);
         }
@@ -117,8 +125,8 @@ function readFile(name: string, options: any = {}, callback: any = (): void => {
     });
   };
 
-  const read = function(): Promise<any> {
-    return new Promise<any>((resolve, reject): void => {
+  const read = function(): Promise<NodeJS.ErrnoException | string> {
+    return new Promise((resolve, reject): void => {
       fs.readFile(name, 'utf8', function(err, contents) {
         if (err) {
           return reject(err);
@@ -129,7 +137,7 @@ function readFile(name: string, options: any = {}, callback: any = (): void => {
     });
   };
 
-  const parseJSON = function(contents: any): Promise<unknown> {
+  const parseJSON = function(contents: string): Promise<unknown> {
     return new Promise((resolve, reject): void => {
       if (!options.parse) {
         return resolve(contents);
@@ -144,22 +152,12 @@ function readFile(name: string, options: any = {}, callback: any = (): void => {
   };
 
   Promise.resolve()
-    .then(() => {
-      return lock(options);
-    })
-    .then(() => {
-      return read();
-    })
-    .then(content => {
-      return parseJSON(content);
-    })
+    .then(() => lock(options))
+    .then(() => read())
+    .then(content => parseJSON(content as string))
     .then(
-      result => {
-        callback(null, result);
-      },
-      err => {
-        callback(err);
-      }
+      result => callback(null, result),
+      err => callback(err)
     );
 }
 
