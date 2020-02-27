@@ -28,15 +28,15 @@
     "node": ">=8"
   },
   "dependencies": {
-    "@verdaccio/commons-api": "^0.1.2",
-    "@verdaccio/streams": "^2.0.0",
+    "@verdaccio/commons-api": "^9.3.1",
+    "@verdaccio/streams": "^9.3.1",
     "aws-sdk": "^2.607.0"
   },
   "devDependencies": {
     "@verdaccio/babel-preset": "^9.3.1",
     "@verdaccio/eslint-config": "^9.0.0",
     "@verdaccio/types": "^9.3.0",
-    "jest": "^24.9.0",
+    "jest": "^25.1.0",
     "recursive-readdir": "2.2.2"
   },
   "scripts": {

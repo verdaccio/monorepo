@@ -28,7 +28,7 @@
     "node": ">=8"
   },
   "dependencies": {
-    "@verdaccio/file-locking": "1.0.0",
+    "@verdaccio/file-locking": "9.3.1",
     "apache-md5": "1.1.2",
     "bcryptjs": "2.4.3",
     "http-errors": "1.7.3",
