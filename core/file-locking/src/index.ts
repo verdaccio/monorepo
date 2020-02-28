@@ -1,3 +1,3 @@
-export { unlockFile } from './unLockFile';
-export { readFile } from './readFile';
-export { lockFile } from './lockfile';
+export * from './unclock';
+export * from './readFile';
+export * from './lockfile';
