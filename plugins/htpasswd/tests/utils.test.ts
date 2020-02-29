@@ -1,15 +1,20 @@
-import * as locker from '@verdaccio/file-locking';
-
 import {
   verifyPassword,
   lockAndRead,
-  unlockFile,
   parseHTPasswd,
   addUserToHTPasswd,
   sanityCheck,
   changePasswordToHTPasswd,
   getCryptoPassword,
 } from '../src/utils';
+
+const mockReadFile = jest.fn();
+const mockUnlockFile = jest.fn();
+
+jest.mock('@verdaccio/file-locking', () => ({
+  readFile: () => mockReadFile(),
+  unlockFile: () => mockUnlockFile(),
+}));
 
 describe('parseHTPasswd', () => {
   it('should parse the password for a single line', () => {
@@ -118,26 +123,12 @@ describe('addUserToHTPasswd - crypto', () => {
 });
 
 describe('lockAndRead', () => {
-  beforeAll(() => {
-    locker.readFile = jest.fn();
-  });
-
   it('should call the readFile method', () => {
+    // console.log(fileLocking);
+    // const spy = jest.spyOn(fileLocking, 'readFile');
     const cb = (): void => {};
     lockAndRead('.htpasswd', cb);
-    expect(locker.readFile).toHaveBeenCalled();
-  });
-});
-
-describe('unlockFile', () => {
-  beforeAll(() => {
-    locker.unlockFile = jest.fn();
-  });
-
-  it('should call the unlock method', () => {
-    const cb = (): void => {};
-    unlockFile('htpasswd', cb);
-    expect(locker.readFile).toHaveBeenCalled();
+    expect(mockReadFile).toHaveBeenCalled();
   });
 });
 
