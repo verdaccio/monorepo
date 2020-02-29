@@ -143,12 +143,13 @@ describe('HTPasswd', () => {
             sanityCheck: (): any => null,
             parseHTPasswd: (): void => {},
             lockAndRead: (_a, b): any => b(null, ''),
-            unlockFile: (_a, b): any => b(),
             addUserToHTPasswd: (): void => {},
           };
         });
         jest.doMock('fs', () => {
+          const original = jest.requireActual('fs');
           return {
+            ...original,
             writeFile: jest.fn((_name, _data, callback) => {
               callback(new Error('write error'));
             }),

@@ -2,11 +2,11 @@ import fs from 'fs';
 import Path from 'path';
 
 import { Callback, AuthConf, Config, IPluginAuth } from '@verdaccio/types';
+import { unlockFile } from '@verdaccio/file-locking';
 
 import {
   verifyPassword,
   lockAndRead,
-  unlockFile,
   parseHTPasswd,
   addUserToHTPasswd,
   changePasswordToHTPasswd,
