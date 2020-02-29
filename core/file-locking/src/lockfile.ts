@@ -5,7 +5,11 @@ import { Callback } from '@verdaccio/types';
 
 import { lockfile, statDir, statfile } from './utils';
 
-// locks a file by creating a lock file
+/**
+ * locks a file by creating a lock file
+ * @param name
+ * @param callback
+ */
 const lockFile = function(name: string, callback: Callback): void {
   Promise.resolve()
     .then(() => {
