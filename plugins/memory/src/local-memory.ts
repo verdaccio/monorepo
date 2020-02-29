@@ -1,13 +1,13 @@
 import { getServiceUnavailable } from '@verdaccio/commons-api';
-import { Logger, Callback, Config, IPluginStorage, Token, TokenFilter } from '@verdaccio/types';
+import { Logger, Callback, Config, IPluginStorage, Token, TokenFilter, PluginOptions } from '@verdaccio/types';
 
-import MemoryHandler from './memory-handler';
+import MemoryHandler, { DataHandler } from './memory-handler';
 
 export type ConfigMemory = Config & { limit?: number };
 export interface MemoryLocalStorage {
-  files: any;
   secret: string;
-  list: any;
+  list: string[];
+  files: DataHandler;
 }
 
 const DEFAULT_LIMIT = 1000;
@@ -18,7 +18,7 @@ class LocalMemory implements IPluginStorage<ConfigMemory> {
   private data: MemoryLocalStorage;
   public config: ConfigMemory;
 
-  public constructor(config: ConfigMemory, options: any) {
+  public constructor(config: ConfigMemory, options: PluginOptions<ConfigMemory>) {
     this.config = config;
     this.limit = config.limit || DEFAULT_LIMIT;
     this.logger = options.logger;
@@ -51,8 +51,9 @@ class LocalMemory implements IPluginStorage<ConfigMemory> {
     }
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public search(onPackage: Callback, onEnd: Callback, validateName: Function): void {
-    // TODO: pending to implement
+    this.logger.warn('[verdaccio/memory]: search method not implemented, PR is welcome');
     onEnd();
   }
 
@@ -76,7 +77,7 @@ class LocalMemory implements IPluginStorage<ConfigMemory> {
   }
 
   private _createEmtpyDatabase(): MemoryLocalStorage {
-    const list: any = [];
+    const list: string[] = [];
     const files = {};
     const emptyDatabase = {
       list,
