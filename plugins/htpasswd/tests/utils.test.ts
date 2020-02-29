@@ -1,5 +1,3 @@
-// import * as fileLocking from '@verdaccio/file-locking';
-
 import {
   verifyPassword,
   lockAndRead,
