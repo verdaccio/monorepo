@@ -43,7 +43,7 @@ const config: Config = {
     content: '',
   },
   checkSecretKey: () => '1234',
-  getMatchedPackagesSpec: () => {},
+  getMatchedPackagesSpec: jest.fn(),
   hasProxyTo: () => false,
 };
 

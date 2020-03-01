@@ -1,4 +1,4 @@
-import createError, { HttpError } from 'http-errors';
+import { VerdaccioError, getBadRequest, getInternalError, getConflict, getNotFound } from '@verdaccio/commons-api';
 import MemoryFileSystem from 'memory-fs';
 import { UploadTarball, ReadTarball } from '@verdaccio/streams';
 import {
@@ -15,33 +15,19 @@ import {
   ReadPackageCallback,
 } from '@verdaccio/types';
 
-export const noSuchFile = 'ENOENT';
-export const fileExist = 'EEXISTS';
-
-const fSError = function(message: string, code = 404): HttpError {
-  const err: HttpError = createError(code, message);
-
-  err.code = message;
-
-  return err;
-};
-
-const noPackageFoundError = function(message = 'no such package'): HttpError {
-  const err: HttpError = createError(404, message);
-
-  err.code = noSuchFile;
-  return err;
-};
-
 const fs = new MemoryFileSystem();
 
+export type DataHandler = {
+  [key: string]: string;
+};
+
 class MemoryHandler implements IPackageStorageManager {
-  private data: any;
+  private data: DataHandler;
   private name: string;
   private path: string;
   public logger: Logger;
 
-  public constructor(packageName: string, data: any, logger: Logger) {
+  public constructor(packageName: string, data: DataHandler, logger: Logger) {
     // this is not need it
     this.data = data;
     this.name = packageName;
@@ -65,14 +51,14 @@ class MemoryHandler implements IPackageStorageManager {
       return onEnd(err);
     }
 
-    updateHandler(pkg, (err: any) => {
+    updateHandler(pkg, (err: VerdaccioError) => {
       if (err) {
         return onEnd(err);
       }
       try {
         onWrite(pkgFileName, transformPackage(pkg), onEnd);
       } catch (err) {
-        return onEnd(fSError('error on parse', 500));
+        return onEnd(getInternalError('error on parse packument'));
       }
     });
   }
@@ -86,17 +72,17 @@ class MemoryHandler implements IPackageStorageManager {
     callback(null);
   }
 
-  public createPackage(name: string, value: Record<string, any>, cb: CallbackAction): void {
+  public createPackage(name: string, value: Package, cb: CallbackAction): void {
     this.savePackage(name, value, cb);
   }
 
-  public savePackage(name: string, value: Record<string, any>, cb: CallbackAction): void {
+  public savePackage(name: string, value: Package, cb: CallbackAction): void {
     try {
       const json: string = JSON.stringify(value, null, '\t');
 
       this.data[name] = json;
     } catch (err) {
-      cb(fSError(err.message, 500));
+      cb(getInternalError(err.message));
     }
 
     cb(null);
@@ -107,9 +93,9 @@ class MemoryHandler implements IPackageStorageManager {
     const isJson = typeof json === 'undefined';
 
     try {
-      cb(isJson ? noPackageFoundError() : null, JSON.parse(json));
+      cb(isJson ? getNotFound() : null, JSON.parse(json));
     } catch (err) {
-      cb(noPackageFoundError());
+      cb(getNotFound());
     }
   }
 
@@ -120,7 +106,7 @@ class MemoryHandler implements IPackageStorageManager {
     process.nextTick(function() {
       fs.stat(temporalName, function(fileError, stats) {
         if (!fileError && stats) {
-          return uploadStream.emit('error', fSError(fileExist));
+          return uploadStream.emit('error', getConflict());
         }
 
         try {
@@ -137,7 +123,7 @@ class MemoryHandler implements IPackageStorageManager {
           };
 
           uploadStream.abort = function(): void {
-            uploadStream.emit('error', fSError('transmision aborted', 400));
+            uploadStream.emit('error', getBadRequest('transmision aborted'));
             file.end();
           };
 
@@ -159,7 +145,7 @@ class MemoryHandler implements IPackageStorageManager {
     process.nextTick(function() {
       fs.stat(pathName, function(fileError, stats) {
         if (fileError && !stats) {
-          return readTarballStream.emit('error', noPackageFoundError());
+          return readTarballStream.emit('error', getNotFound());
         }
 
         try {
@@ -169,12 +155,12 @@ class MemoryHandler implements IPackageStorageManager {
           readTarballStream.emit('content-length', contentLength);
           readTarballStream.emit('open');
           readStream.pipe(readTarballStream);
-          readStream.on('error', (error: any) => {
+          readStream.on('error', (error: VerdaccioError) => {
             readTarballStream.emit('error', error);
           });
 
           readTarballStream.abort = function(): void {
-            readStream.destroy(fSError('read has been aborted', 400));
+            readStream.destroy(getBadRequest('read has been aborted'));
           };
         } catch (err) {
           readTarballStream.emit('error', err);
