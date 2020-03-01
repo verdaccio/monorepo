@@ -15,13 +15,6 @@ import {
   ReadPackageCallback,
 } from '@verdaccio/types';
 
-export const noSuchFile = 'ENOENT'; // NOT_FOUND
-export const fileExist = 'EEXISTS'; // CONFLICT
-
-const noPackageFoundError = function(): VerdaccioError {
-  return getNotFound('no such package');
-};
-
 const fs = new MemoryFileSystem();
 
 export type DataHandler = {
@@ -100,9 +93,9 @@ class MemoryHandler implements IPackageStorageManager {
     const isJson = typeof json === 'undefined';
 
     try {
-      cb(isJson ? noPackageFoundError() : null, JSON.parse(json));
+      cb(isJson ? getNotFound() : null, JSON.parse(json));
     } catch (err) {
-      cb(noPackageFoundError());
+      cb(getNotFound());
     }
   }
 
@@ -113,7 +106,7 @@ class MemoryHandler implements IPackageStorageManager {
     process.nextTick(function() {
       fs.stat(temporalName, function(fileError, stats) {
         if (!fileError && stats) {
-          return uploadStream.emit('error', getConflict(fileExist));
+          return uploadStream.emit('error', getConflict());
         }
 
         try {
@@ -152,7 +145,7 @@ class MemoryHandler implements IPackageStorageManager {
     process.nextTick(function() {
       fs.stat(pathName, function(fileError, stats) {
         if (fileError && !stats) {
-          return readTarballStream.emit('error', noPackageFoundError());
+          return readTarballStream.emit('error', getNotFound());
         }
 
         try {
