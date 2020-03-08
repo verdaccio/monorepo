@@ -1,7 +1,5 @@
 # verdaccio-aws-s3-storage
 
-📦 AWS S3 storage plugin for Verdaccio
-
 [![verdaccio (latest)](https://img.shields.io/npm/v/verdaccio-aws-s3-storage/latest.svg)](https://www.npmjs.com/package/verdaccio-aws-s3-storage)
 [![CircleCI](https://circleci.com/gh/verdaccio/verdaccio-aws-s3-storage/tree/master.svg?style=svg)](https://circleci.com/gh/verdaccio/verdaccio-aws-s3-storage/tree/master)
 [![Known Vulnerabilities](https://snyk.io/test/github/verdaccio/verdaccio-aws-s3-storage/badge.svg?targetFile=package.json)](https://snyk.io/test/github/verdaccio/verdaccio-aws-s3-storage?targetFile=package.json)
@@ -21,6 +19,12 @@
 the time. Both plugins might have vary in behaviour since then, we recommend use the AWS plugin on this repo due
 is under control of Verdaccio community and constantly upated. 
 
+## Introduction 
+📦 AWS S3 storage plugin for Verdaccio
+
+This plugin stores the packages data and its metadata information to configured S3 bucket instead of file storage system (from  `./storage`)
+
+ 
 ## See it in action
 
 * Test on [Docker + LocalStack + Verdaccio 4 + S3 Plugin example](https://github.com/verdaccio/docker-examples/tree/master/amazon-s3-docker-example).
@@ -42,9 +46,11 @@ npm install -g verdaccio
 npm install verdaccio-aws-s3-storage
 ```
 
-This will pull AWS credentials from your environment.
+This will pull AWS credentials from your environment variable.
 
-In your verdaccio config, configure
+In your verdaccio config, configure following key `store` and its properties as mentioned. 
+
+
 
 ```yaml
 store:
@@ -57,6 +63,8 @@ store:
     accessKeyId: your-access-key-id # optional, aws accessKeyId for private S3 bucket
     secretAccessKey: your-secret-access-key # optional, aws secretAccessKey for private S3 bucket
 ```
+
+With this configuration, you can remove `./storage` path as its not in use anymore
 
 The configured values can either be the actual value or the name of an environment variable that contains the value for the following options:
 
