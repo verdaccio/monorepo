@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [9.3.2](https://github.com/verdaccio/monorepo/compare/v9.3.1...v9.3.2) (2020-03-08)
+
+
+### Bug Fixes
+
+* update typescript@3.8.2 ([#333](https://github.com/verdaccio/monorepo/issues/333)) ([356c09b](https://github.com/verdaccio/monorepo/commit/356c09b4a212321245f1c89629107dbfbd546b9b))
+
+
+
+
+
 # [9.0.0](https://github.com/verdaccio/monorepo/compare/v8.5.3...v9.0.0) (2020-01-07)
 
 

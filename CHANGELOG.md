@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [9.3.2](https://github.com/verdaccio/monorepo/compare/v9.3.1...v9.3.2) (2020-03-08)
+
+
+### Bug Fixes
+
+* security dependency jsdom@16.2.0 update ([#338](https://github.com/verdaccio/monorepo/issues/338)) ([0599f3e](https://github.com/verdaccio/monorepo/commit/0599f3e16fd1de993494943e2e7464d10b62d6be))
+* update dependencies ([#332](https://github.com/verdaccio/monorepo/issues/332)) ([b6165ae](https://github.com/verdaccio/monorepo/commit/b6165aea9b7e4012477081eae68bfa7159c58f56))
+* update typescript@3.8.2 ([#333](https://github.com/verdaccio/monorepo/issues/333)) ([356c09b](https://github.com/verdaccio/monorepo/commit/356c09b4a212321245f1c89629107dbfbd546b9b))
+
+
+
+
+
 ## [9.3.1](https://github.com/verdaccio/monorepo/compare/v9.3.0...v9.3.1) (2020-02-23)
 
 
