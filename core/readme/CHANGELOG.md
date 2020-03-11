@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [9.3.3](https://github.com/verdaccio/monorepo/compare/v9.3.2...v9.3.3) (2020-03-11)
+
+
+### Bug Fixes
+
+* update jsdom@16.2.1 ([#340](https://github.com/verdaccio/monorepo/issues/340)) ([6060769](https://github.com/verdaccio/monorepo/commit/6060769d52f796337dda9f1a54f149c5fb22ca17))
+
+
+
+
+
 ## [9.3.2](https://github.com/verdaccio/monorepo/compare/v9.3.1...v9.3.2) (2020-03-08)
 
 
