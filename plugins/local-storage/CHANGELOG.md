@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [9.3.4](https://github.com/verdaccio/monorepo/compare/v9.3.3...v9.3.4) (2020-03-11)
+
+
+### Bug Fixes
+
+* update mkdirp@1.0.3 ([#341](https://github.com/verdaccio/monorepo/issues/341)) ([96db337](https://github.com/verdaccio/monorepo/commit/96db3378a4f2334ec89cfb113af95e9a3a6eb050))
+
+
+
+
+
 ## [9.3.2](https://github.com/verdaccio/monorepo/compare/v9.3.1...v9.3.2) (2020-03-08)
 
 
