@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [9.4.0](https://github.com/verdaccio/monorepo/compare/v9.3.4...v9.4.0) (2020-03-21)
+
+
+### Features
+
+* update babel@7.9.x ([#343](https://github.com/verdaccio/monorepo/issues/343)) ([91c6ba2](https://github.com/verdaccio/monorepo/commit/91c6ba26c7220a86becd7deb7d2814395e3421b9))
+
+
+
+
+
 ## [9.3.4](https://github.com/verdaccio/monorepo/compare/v9.3.3...v9.3.4) (2020-03-11)
 
 
