@@ -2,7 +2,6 @@
 
 [![CircleCI](https://circleci.com/gh/verdaccio/monorepo.svg?style=svg)](https://circleci.com/gh/verdaccio/monorepo)
 [![Github CI](https://github.com/verdaccio/monorepo/workflows/CI/badge.svg)](https://github.com/verdaccio/monorepo/actions)
-[![Azure Pipelines](https://dev.azure.com/verdaccioopensource/monorepo/_apis/build/status/verdaccio.monorepo?branchName=master)](https://dev.azure.com/verdaccioopensource/monorepo/_build/latest?definitionId=1&branchName=master)
 [![Codecov](https://codecov.io/gh/verdaccio/monorepo/branch/master/graph/badge.svg)](https://codecov.io/gh/verdaccio/monorepo)
 [![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=verdaccio/monorepo)](https://dependabot.com)
 [![DevDependencies](https://david-dm.org/verdaccio/monorepo/master/dev-status.svg)](https://david-dm.org/verdaccio/monorepo/master?type=dev)
