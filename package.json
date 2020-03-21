@@ -18,7 +18,7 @@
     "@types/memory-fs": "^0.3.2",
     "@types/node": "^13.1.1",
     "@types/request": "^2.48.4",
-    "babel-eslint": "^10.0.3",
+    "babel-eslint": "^10.1.0",
     "codecov": "^3.6.1",
     "eslint": "^6.8.0",
     "husky": "^3.1.0",
@@ -28,7 +28,7 @@
     "lodash": "^4.17.15",
     "prettier": "^1.19.1",
     "snyk": "^1.297.1",
-    "typescript": "^3.8.2"
+    "typescript": "^3.8.3"
   },
   "scripts": {
     "build": "lerna run build",
