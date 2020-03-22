@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "@verdaccio/file-locking": "^9.4.0",
-    "apache-md5": "1.1.2",
+    "apache-md5": "1.1.5",
     "bcryptjs": "2.4.3",
     "http-errors": "1.7.3",
     "unix-crypt-td-js": "1.1.4"
