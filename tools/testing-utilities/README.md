@@ -1,12 +1,9 @@
-# Testing Utilities
+# @verdaccio/testing-utilities
 
-[![CircleCI](https://circleci.com/gh/verdaccio/testing-utilities.svg?style=svg)](https://circleci.com/gh/verdaccio/@verdaccio/testing-utilities)
-[![codecov](https://codecov.io/gh/verdaccio/testing-utilities/branch/master/graph/badge.svg)](https://codecov.io/gh/verdaccio/testing-utilities)
-[![verdaccio (latest)](https://img.shields.io/npm/v/@verdaccio/testing-utilities/latest.svg)](https://www.npmjs.com/package/@verdaccio/testing-utilities)
-[![backers](https://opencollective.com/verdaccio/tiers/backer/badge.svg?label=Backer&color=brightgreen)](https://opencollective.com/verdaccio)
-[![discord](https://img.shields.io/discord/388674437219745793.svg)](http://chat.verdaccio.org/)
-![MIT](https://img.shields.io/github/license/mashape/apistatus.svg)
-[![node](https://img.shields.io/node/v/@verdaccio/testing-utilities/latest.svg)](https://www.npmjs.com/package/@verdaccio/testing-utilities)
+[![@verdaccio/testing-utilities (latest)](https://img.shields.io/npm/v/@verdaccio/testing-utilities/latest.svg)](https://www.npmjs.com/package/@verdaccio/testing-utilities)
+[![Node version (latest)](https://img.shields.io/node/v/@verdaccio/testing-utilities/latest.svg)](https://www.npmjs.com/package/@verdaccio/testing-utilities)
+[![DevDependencies](https://img.shields.io/david/dev/verdaccio/monorepo?path=tools%2Ftesting-utilities)](https://david-dm.org/verdaccio/monorepo/master?path=tools%2Ftesting-utilities&type=dev)
+[![MIT](https://img.shields.io/github/license/verdaccio/monorepo.svg)](./LICENSE)
 
 
 This project provides a list of helpers to be reused for unit testing.
@@ -20,4 +17,4 @@ These methods are intended to generate package metadata for multiples usage in t
 
 ## License
 
-MIT (http://www.opensource.org/licenses/mit-license.php)
+This is an open source project under [MIT license](./LICENSE)

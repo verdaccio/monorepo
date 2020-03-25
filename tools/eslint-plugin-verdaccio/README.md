@@ -1,5 +1,11 @@
 # eslint-plugin-verdaccio
 
+[![eslint-plugin-verdaccio (latest)](https://img.shields.io/npm/v/eslint-plugin-verdaccio/latest.svg)](https://www.npmjs.com/package/eslint-plugin-verdaccio)
+[![Node version (latest)](https://img.shields.io/node/v/eslint-plugin-verdaccio/latest.svg)](https://www.npmjs.com/package/eslint-plugin-verdaccio)
+[![Dependencies](https://img.shields.io/david/verdaccio/monorepo?path=tools%2Feslint-plugin-verdaccio)](https://david-dm.org/verdaccio/monorepo/master?path=tools%2Feslint-plugin-verdaccio)
+[![DevDependencies](https://img.shields.io/david/dev/verdaccio/monorepo?path=tools%2Feslint-plugin-verdaccio)](https://david-dm.org/verdaccio/monorepo/master?path=tools%2Feslint-plugin-verdaccio&type=dev)
+[![MIT](https://img.shields.io/github/license/verdaccio/monorepo.svg)](./LICENSE)
+
 verdaccio code guidelines
 
 ## Installation
@@ -50,4 +56,4 @@ Then configure the rules you want to use under the rules section.
 
 ## License
 
-[MIT](http://www.opensource.org/licenses/mit-license.php)
+This is an open source project under [MIT license](./LICENSE)
