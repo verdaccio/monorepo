@@ -24,7 +24,7 @@ module.exports = {
     ],
   },
 
-  create: function(context) {
+  create: function (context) {
     // variables should be defined here
     const configuration = context.options[0] || 'always';
 
@@ -39,7 +39,7 @@ module.exports = {
     // ----------------------------------------------------------------------
 
     return {
-      JSXOpeningElement: function(node) {
+      JSXOpeningElement: function (node) {
         if (node.attributes.length === 0 || configuration === 'never') {
           return;
         }

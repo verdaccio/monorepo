@@ -23,14 +23,14 @@
     "lib/"
   ],
   "engines": {
-    "node": ">=8"
+    "node": ">=10"
   },
   "dependencies": {
     "jsx-ast-utils": "2.2.3"
   },
   "devDependencies": {
     "@verdaccio/eslint-config": "^9.3.2",
-    "mocha": "^7.1.0"
+    "mocha": "^7.1.1"
   },
   "scripts": {
     "lint": "eslint \"**/*.js\"",

@@ -248,7 +248,7 @@ describe.skip('S3 package manager', () => {
       const packageManager = new S3PackageManager(config, 'readme-test', logger);
       const readTarballStream = packageManager.readTarball('file-does-not-exist-0.0.0.tgz');
 
-      readTarballStream.on('error', function(err) {
+      readTarballStream.on('error', function (err) {
         expect(err).toBeTruthy();
         done();
       });
@@ -265,7 +265,7 @@ describe.skip('S3 package manager', () => {
       const readTarballStream = readmeStorage.readTarball('test-readme-0.0.0.tgz');
       const writeTarballStream = writeStorage.writeTarball(newFileName);
 
-      writeTarballStream.on('error', function(err) {
+      writeTarballStream.on('error', function (err) {
         expect(err).toBeNull();
         done.fail(new Error("shouldn't have errored"));
       });

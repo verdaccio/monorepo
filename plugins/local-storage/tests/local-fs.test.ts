@@ -133,19 +133,19 @@ describe('Local FS test', () => {
       const localFs: ILocalPackageManager = new LocalDriver(path.join(__dirname, '__fixtures__/readme-test'), logger);
       const readTarballStream = localFs.readTarball('test-readme-0.0.0.tgz');
 
-      readTarballStream.on('error', function(err) {
+      readTarballStream.on('error', function (err) {
         expect(err).toBeNull();
       });
 
-      readTarballStream.on('content-length', function(content) {
+      readTarballStream.on('content-length', function (content) {
         expect(content).toBe(352);
       });
 
-      readTarballStream.on('end', function() {
+      readTarballStream.on('end', function () {
         done();
       });
 
-      readTarballStream.on('data', function(data) {
+      readTarballStream.on('data', function (data) {
         expect(data).toBeDefined();
       });
     });
@@ -154,7 +154,7 @@ describe('Local FS test', () => {
       const localFs: ILocalPackageManager = new LocalDriver(path.join(__dirname, '__fixtures__/readme-test'), logger);
       const readTarballStream = localFs.readTarball('file-does-not-exist-0.0.0.tgz');
 
-      readTarballStream.on('error', function(err) {
+      readTarballStream.on('error', function (err) {
         expect(err).toBeTruthy();
         done();
       });
@@ -178,31 +178,31 @@ describe('Local FS test', () => {
       const readTarballStream = readmeStorage.readTarball('test-readme-0.0.0.tgz');
       const writeTarballStream = writeStorage.writeTarball(newFileName);
 
-      writeTarballStream.on('error', function(err) {
+      writeTarballStream.on('error', function (err) {
         expect(err).toBeNull();
         done();
       });
 
-      writeTarballStream.on('success', function() {
+      writeTarballStream.on('success', function () {
         const fileLocation: string = path.join(__dirname, '../_storage', newFileName);
 
         expect(fs.existsSync(fileLocation)).toBe(true);
         done();
       });
 
-      readTarballStream.on('end', function() {
+      readTarballStream.on('end', function () {
         writeTarballStream.done();
       });
 
-      writeTarballStream.on('end', function() {
+      writeTarballStream.on('end', function () {
         done();
       });
 
-      writeTarballStream.on('data', function(data) {
+      writeTarballStream.on('data', function (data) {
         expect(data).toBeDefined();
       });
 
-      readTarballStream.on('error', function(err) {
+      readTarballStream.on('error', function (err) {
         expect(err).toBeNull();
         done();
       });
@@ -221,12 +221,12 @@ describe('Local FS test', () => {
       const readTarballStream = readmeStorage.readTarball('test-readme-0.0.0.tgz');
       const writeTarballStream = writeStorage.writeTarball(newFileName);
 
-      writeTarballStream.on('error', function(err) {
+      writeTarballStream.on('error', function (err) {
         expect(err).toBeTruthy();
         done();
       });
 
-      writeTarballStream.on('data', function(data) {
+      writeTarballStream.on('data', function (data) {
         expect(data).toBeDefined();
         writeTarballStream.abort();
       });
