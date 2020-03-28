@@ -20,7 +20,7 @@ We have three kind of packages, separated as:
 
 - core: the main packages for the project
 - plugins: plugins created for Verdaccio
-- tools: our own packages for tools like ESLint or Babel
+- [tools](tools): our own packages for tools like ESLint or Babel
 
 ## Contributing
 

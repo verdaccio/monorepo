@@ -29,7 +29,7 @@ import { VerdaccioConfigGoogleStorage } from './types';
 export const pkgFileName = 'package.json';
 export const defaultValidation = 'crc32c';
 
-const packageAlreadyExist = function(name: string): VerdaccioError {
+const packageAlreadyExist = function (name: string): VerdaccioError {
   return getConflict(`${name} package already exist`);
 };
 
@@ -277,7 +277,7 @@ class GoogleCloudStorageHandler implements IPackageStorageManager {
               });
             };
 
-            fileStream._destroy = function(err: Error): void {
+            fileStream._destroy = function (err: Error): void {
               // this is an error when user is not authenticated
               // [BadRequestError: Could not authenticate request
               //  getaddrinfo ENOTFOUND www.googleapis.com www.googleapis.com:443]

@@ -131,7 +131,7 @@ export default class S3PackageManager implements ILocalPackageManager {
         Bucket: this.config.bucket,
         Prefix: `${this.packagePath}`,
       },
-      function(err) {
+      function (err) {
         if (err && is404Error(err as VerdaccioError)) {
           callback(null);
         } else {

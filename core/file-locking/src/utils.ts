@@ -7,7 +7,7 @@ export const statDir = (name: string): Promise<Error | null> => {
   return new Promise((resolve, reject): void => {
     // test to see if the directory exists
     const dirPath = path.dirname(name);
-    fs.stat(dirPath, function(err, stats) {
+    fs.stat(dirPath, function (err, stats) {
       if (err) {
         return reject(err);
       } else if (!stats.isDirectory()) {
@@ -22,7 +22,7 @@ export const statDir = (name: string): Promise<Error | null> => {
 export const statfile = (name: string): Promise<Error | null> => {
   return new Promise((resolve, reject): void => {
     // test to see if the directory exists
-    fs.stat(name, function(err, stats) {
+    fs.stat(name, function (err, stats) {
       if (err) {
         return reject(err);
       } else if (!stats.isFile()) {

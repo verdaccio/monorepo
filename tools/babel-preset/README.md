@@ -1,5 +1,11 @@
 # @verdaccio/babel-preset
 
+[![@verdaccio/babel-preset (latest)](https://img.shields.io/npm/v/@verdaccio/babel-preset/latest.svg)](https://www.npmjs.com/package/@verdaccio/babel-preset)
+[![Node version (latest)](https://img.shields.io/node/v/@verdaccio/babel-preset/latest.svg)](https://www.npmjs.com/package/@verdaccio/babel-preset)
+[![Dependencies](https://img.shields.io/david/verdaccio/monorepo?path=tools%2Fbabel-preset)](https://david-dm.org/verdaccio/monorepo/master?path=tools%2Fbabel-preset)
+[![DevDependencies](https://img.shields.io/david/dev/verdaccio/monorepo?path=tools%2Fbabel-preset)](https://david-dm.org/verdaccio/monorepo/master?path=tools%2Fbabel-preset&type=dev)
+[![MIT](https://img.shields.io/github/license/verdaccio/monorepo.svg)](./LICENSE)
+
 Configurable Babel preset for Verdaccio projects
 
 ## Usage
@@ -36,4 +42,6 @@ Enable debug
 }
 ```
 
-@verdaccio/babel-preset is a open source project with [MIT license](LICENSE)
+## License
+
+This is an open source project under [MIT license](./LICENSE)

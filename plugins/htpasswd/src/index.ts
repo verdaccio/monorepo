@@ -6,6 +6,6 @@ import HTPasswd from './htpasswd';
  * @param {object} stuff
  * @returns {object}
  */
-export default function(config, stuff): HTPasswd {
+export default function (config, stuff): HTPasswd {
   return new HTPasswd(config, stuff);
 }

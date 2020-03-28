@@ -13,7 +13,7 @@ export const noSuchFile = 'ENOENT';
 export const resourceNotAvailable = 'EAGAIN';
 export const pkgFileName = 'package.json';
 
-export const fSError = function(message: string, code = 409): VerdaccioError {
+export const fSError = function (message: string, code = 409): VerdaccioError {
   const err: VerdaccioError = getCode(code, message);
   // FIXME: we should return http-status codes here instead, future improvement
   // @ts-ignore
@@ -22,11 +22,11 @@ export const fSError = function(message: string, code = 409): VerdaccioError {
   return err;
 };
 
-const tempFile = function(str): string {
+const tempFile = function (str): string {
   return `${str}.tmp${String(Math.random()).substr(2)}`;
 };
 
-const renameTmp = function(src, dst, _cb): void {
+const renameTmp = function (src, dst, _cb): void {
   const cb = (err): void => {
     if (err) {
       fs.unlink(src, () => {});
@@ -41,7 +41,7 @@ const renameTmp = function(src, dst, _cb): void {
   // windows can't remove opened file,
   // but it seem to be able to rename it
   const tmp = tempFile(dst);
-  fs.rename(dst, tmp, function(err) {
+  fs.rename(dst, tmp, function (err) {
     fs.rename(src, dst, cb);
     if (!err) {
       fs.unlink(tmp, () => {});
@@ -86,7 +86,7 @@ export default class LocalFS implements ILocalFSPackageManager {
       let locked = false;
       const self = this;
       // callback that cleans up lock first
-      const unLockCallback = function(lockError: Error): void {
+      const unLockCallback = function (lockError: Error): void {
         // eslint-disable-next-line prefer-rest-params
         const _args = arguments;
 
@@ -200,7 +200,7 @@ export default class LocalFS implements ILocalFSPackageManager {
     );
 
     let _ended = 0;
-    uploadStream.on('end', function() {
+    uploadStream.on('end', function () {
       _ended = 1;
     });
 
@@ -217,10 +217,10 @@ export default class LocalFS implements ILocalFSPackageManager {
         let opened = false;
         uploadStream.pipe(file);
 
-        uploadStream.done = function(): void {
-          const onend = function(): void {
-            file.on('close', function() {
-              renameTmp(temporalName, pathName, function(err) {
+        uploadStream.done = function (): void {
+          const onend = function (): void {
+            file.on('close', function () {
+              renameTmp(temporalName, pathName, function (err) {
                 if (err) {
                   uploadStream.emit('error', err);
                 } else {
@@ -237,10 +237,10 @@ export default class LocalFS implements ILocalFSPackageManager {
           }
         };
 
-        uploadStream.abort = function(): void {
+        uploadStream.abort = function (): void {
           if (opened) {
             opened = false;
-            file.on('close', function() {
+            file.on('close', function () {
               removeTempFile();
             });
           } else {
@@ -250,13 +250,13 @@ export default class LocalFS implements ILocalFSPackageManager {
           file.end();
         };
 
-        file.on('open', function() {
+        file.on('open', function () {
           opened = true;
           // re-emitting open because it's handled in storage.js
           uploadStream.emit('open');
         });
 
-        file.on('error', function(err) {
+        file.on('error', function (err) {
           uploadStream.emit('error', err);
         });
       }
@@ -273,12 +273,12 @@ export default class LocalFS implements ILocalFSPackageManager {
 
     const readStream = fs.createReadStream(pathName);
 
-    readStream.on('error', function(err) {
+    readStream.on('error', function (err) {
       readTarballStream.emit('error', err);
     });
 
-    readStream.on('open', function(fd) {
-      fs.fstat(fd, function(err, stats) {
+    readStream.on('open', function (fd) {
+      fs.fstat(fd, function (err, stats) {
         if (_.isNil(err) === false) {
           return readTarballStream.emit('error', err);
         }
@@ -288,7 +288,7 @@ export default class LocalFS implements ILocalFSPackageManager {
       });
     });
 
-    readTarballStream.abort = function(): void {
+    readTarballStream.abort = function (): void {
       readStream.close();
     };
 

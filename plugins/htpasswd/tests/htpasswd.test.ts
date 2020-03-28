@@ -26,7 +26,7 @@ describe('HTPasswd', () => {
 
   describe('constructor()', () => {
     test('should files whether file path does not exist', () => {
-      expect(function() {
+      expect(function () {
         new HTPasswd({}, ({
           config: {},
         } as unknown) as VerdaccioConfigApp);
