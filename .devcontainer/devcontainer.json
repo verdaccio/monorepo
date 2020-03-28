@@ -1,10 +1,11 @@
 {
   "name": "Verdaccio Monorepo (Node)",
   "dockerFile": "Dockerfile",
+  "remoteUser": "node",
 
   "runArgs": [
     "-v",
-    "${env:HOME}${env:USERPROFILE}/.ssh:/root/.ssh-localhost:ro"
+    "${env:HOME}${env:USERPROFILE}/.ssh:/home/node/.ssh-localhost:ro"
   ],
 
   "settings": {
@@ -12,12 +13,14 @@
     "files.insertFinalNewline": true,
     "files.trimFinalNewlines": true,
     "files.trimTrailingWhitespace": true,
-    "eslint.autoFixOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true
+    },
     "eslint.validate": [
       "javascript",
       "javascriptreact",
-      { "language": "typescript", "autoFix": true },
-      { "language": "typescriptreact", "autoFix": true }
+      "typescript",
+      "typescriptreact"
     ],
     "[markdown]": {
       "files.trimTrailingWhitespace": false
