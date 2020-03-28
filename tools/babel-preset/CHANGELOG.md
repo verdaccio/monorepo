@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [10.0.0-next.0](https://github.com/verdaccio/monorepo/compare/v9.4.0...v10.0.0-next.0) (2020-03-28)
+
+
+### chore
+
+* update tools dependencies and deprecate Node 8 ([61e23d5](https://github.com/verdaccio/monorepo/commit/61e23d53b82c6948601f28337fdd3054b9336914))
+
+
+### BREAKING CHANGES
+
+* New minimum Node version supported is 10.x. Also, new Prettier minimum version is 2.0.2
+
+
+
+
+
 # [9.4.0](https://github.com/verdaccio/monorepo/compare/v9.3.4...v9.4.0) (2020-03-21)
 
 
