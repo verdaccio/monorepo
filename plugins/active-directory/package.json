@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/active-directory",
-  "version": "10.0.0-next.0",
+  "version": "10.0.0-next.1",
   "description": "Active Directory authentication plugin for Verdaccio",
   "keywords": [
     "verdaccio",
@@ -31,13 +31,13 @@
     "node": ">=8"
   },
   "dependencies": {
-    "@verdaccio/commons-api": "^10.0.0-next.0",
+    "@verdaccio/commons-api": "^10.0.0-next.1",
     "activedirectory2": "1.3.0"
   },
   "devDependencies": {
     "@types/activedirectory2": "^1.2.1",
-    "@verdaccio/babel-preset": "^10.0.0-next.0",
-    "@verdaccio/eslint-config": "^10.0.0-next.0",
+    "@verdaccio/babel-preset": "^10.0.0-next.1",
+    "@verdaccio/eslint-config": "^10.0.0-next.1",
     "@verdaccio/types": "^9.3.0"
   },
   "scripts": {

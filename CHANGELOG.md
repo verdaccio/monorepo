@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [10.0.0-next.1](https://github.com/verdaccio/monorepo/compare/v10.0.0-next.0...v10.0.0-next.1) (2020-04-12)
+
+
+### chore
+
+* update dependencies ([48e080d](https://github.com/verdaccio/monorepo/commit/48e080d9dcf55997c2af1169b7d99e840dd0bf90))
+
+
+### BREAKING CHANGES
+
+* New minimum Prettier version is 2.0.4, to avoid regressions from v1
+
+
+
+
+
 # [10.0.0-next.0](https://github.com/verdaccio/monorepo/compare/v9.4.0...v10.0.0-next.0) (2020-03-28)
 
 

@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [10.0.0-next.1](https://github.com/verdaccio/monorepo/compare/v10.0.0-next.0...v10.0.0-next.1) (2020-04-12)
+
+**Note:** Version bump only for package @verdaccio/streams
+
+
+
+
+
 # [10.0.0-next.0](https://github.com/verdaccio/monorepo/compare/v9.4.0...v10.0.0-next.0) (2020-03-28)
 
 

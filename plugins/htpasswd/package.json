@@ -1,6 +1,6 @@
 {
   "name": "verdaccio-htpasswd",
-  "version": "10.0.0-next.0",
+  "version": "10.0.0-next.1",
   "description": "htpasswd auth plugin for Verdaccio",
   "keywords": [
     "verdaccio",
@@ -28,7 +28,7 @@
     "node": ">=8"
   },
   "dependencies": {
-    "@verdaccio/file-locking": "^10.0.0-next.0",
+    "@verdaccio/file-locking": "^10.0.0-next.1",
     "apache-md5": "1.1.2",
     "bcryptjs": "2.4.3",
     "http-errors": "1.7.3",
@@ -37,8 +37,8 @@
   "devDependencies": {
     "@octokit/rest": "^16.36.0",
     "@types/bcryptjs": "^2.4.2",
-    "@verdaccio/babel-preset": "^10.0.0-next.0",
-    "@verdaccio/eslint-config": "^10.0.0-next.0",
+    "@verdaccio/babel-preset": "^10.0.0-next.1",
+    "@verdaccio/eslint-config": "^10.0.0-next.1",
     "@verdaccio/types": "^9.3.0"
   },
   "scripts": {
