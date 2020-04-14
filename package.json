@@ -17,6 +17,7 @@
     "@types/lodash": "^4.14.149",
     "@types/memory-fs": "^0.3.2",
     "@types/node": "^13.11.1",
+    "@types/readable-stream": "^2.3.5",
     "@types/request": "^2.48.4",
     "babel-eslint": "^10.1.0",
     "codecov": "^3.6.5",

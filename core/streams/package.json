@@ -29,6 +29,9 @@
     "node": ">=8",
     "npm": ">=5"
   },
+  "dependencies": {
+    "readable-stream": "3.6.0"
+  },
   "devDependencies": {
     "@verdaccio/babel-preset": "^10.0.0-next.1",
     "@verdaccio/eslint-config": "^10.0.0-next.1",
