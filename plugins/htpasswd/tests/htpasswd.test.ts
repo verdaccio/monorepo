@@ -1,3 +1,4 @@
+import crypto from 'crypto';
 // @ts-ignore
 import fs from 'fs';
 
@@ -22,6 +23,12 @@ describe('HTPasswd', () => {
   beforeEach(() => {
     wrapper = new HTPasswd(config, (stuff as unknown) as VerdaccioConfigApp);
     jest.resetModules();
+
+    crypto.randomBytes = jest.fn(() => {
+      return {
+        toString: (): string => '$6',
+      };
+    });
   });
 
   describe('constructor()', () => {

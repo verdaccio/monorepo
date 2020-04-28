@@ -1,3 +1,5 @@
+import crypto from 'crypto';
+
 import {
   verifyPassword,
   lockAndRead,
@@ -87,6 +89,12 @@ describe('addUserToHTPasswd - crypt3', () => {
       return {
         parse: jest.fn(),
         toJSON: (): string => '2018-01-14T11:17:40.712Z',
+      };
+    });
+
+    crypto.randomBytes = jest.fn(() => {
+      return {
+        toString: (): string => '$6',
       };
     });
   });
