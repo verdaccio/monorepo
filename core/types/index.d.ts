@@ -288,6 +288,7 @@ declare module '@verdaccio/types' {
     enable?: boolean;
     title?: string;
     logo?: string;
+    favicon?: string;
     gravatar?: boolean;
     sort_packages?: string;
   }
