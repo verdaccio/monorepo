@@ -230,6 +230,20 @@ describe('changePasswordToHTPasswd', () => {
     expect(changePasswordToHTPasswd(body, 'root', 'demo123', 'newPassword')).toMatchSnapshot();
   });
 
+  test('should generate a different result on salt change', () => {
+    crypto.randomBytes = jest.fn(() => {
+      return {
+        toString: (): string => 'AB',
+      };
+    });
+
+    const body = 'root:$6qLTHoPfGLy2:autocreated 2018-08-20T13:38:12.164Z';
+
+    expect(changePasswordToHTPasswd(body, 'root', 'demo123', 'demo123')).toEqual(
+      'root:ABfaAAjDKIgfw:autocreated 2018-08-20T13:38:12.164Z'
+    );
+  });
+
   test('should change the password when crypt3 is not available', () => {
     jest.resetModules();
     jest.doMock('../src/crypt3.ts', () => false);
