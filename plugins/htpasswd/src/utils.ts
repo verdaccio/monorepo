@@ -159,21 +159,21 @@ export function getCryptoPassword(password: string): string {
  * @returns {string}
  */
 export function changePasswordToHTPasswd(body: string, user: string, passwd: string, newPasswd: string): string {
-  let _passwd;
-  let _newPasswd;
-  if (crypt3) {
-    _passwd = crypt3(passwd);
-    _newPasswd = crypt3(newPasswd);
-  } else {
-    _passwd = getCryptoPassword(passwd);
-    _newPasswd = getCryptoPassword(newPasswd);
-  }
-
   let lines = body.split('\n');
   lines = lines.map(line => {
     const [username, password] = line.split(':', 3);
 
     if (username === user) {
+      let _passwd;
+      let _newPasswd;
+      if (crypt3) {
+        _passwd = crypt3(passwd, password);
+        _newPasswd = crypt3(newPasswd);
+      } else {
+        _passwd = getCryptoPassword(passwd);
+        _newPasswd = getCryptoPassword(newPasswd);
+      }
+
       if (password == _passwd) {
         // replace old password hash with new password hash
         line = line.replace(_passwd, _newPasswd);

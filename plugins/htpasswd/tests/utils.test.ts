@@ -1,3 +1,5 @@
+import crypto from 'crypto';
+
 import {
   verifyPassword,
   lockAndRead,
@@ -87,6 +89,12 @@ describe('addUserToHTPasswd - crypt3', () => {
       return {
         parse: jest.fn(),
         toJSON: (): string => '2018-01-14T11:17:40.712Z',
+      };
+    });
+
+    crypto.randomBytes = jest.fn(() => {
+      return {
+        toString: (): string => '$6',
       };
     });
   });
@@ -220,6 +228,20 @@ describe('changePasswordToHTPasswd', () => {
     const body = 'root:$6qLTHoPfGLy2:autocreated 2018-08-20T13:38:12.164Z';
 
     expect(changePasswordToHTPasswd(body, 'root', 'demo123', 'newPassword')).toMatchSnapshot();
+  });
+
+  test('should generate a different result on salt change', () => {
+    crypto.randomBytes = jest.fn(() => {
+      return {
+        toString: (): string => 'AB',
+      };
+    });
+
+    const body = 'root:$6qLTHoPfGLy2:autocreated 2018-08-20T13:38:12.164Z';
+
+    expect(changePasswordToHTPasswd(body, 'root', 'demo123', 'demo123')).toEqual(
+      'root:ABfaAAjDKIgfw:autocreated 2018-08-20T13:38:12.164Z'
+    );
   });
 
   test('should change the password when crypt3 is not available', () => {
