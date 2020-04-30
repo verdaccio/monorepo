@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [9.4.1](https://github.com/verdaccio/monorepo/compare/v9.4.0...v9.4.1) (2020-04-30)
+
+
+### Bug Fixes
+
+* **verdaccio-htpasswd:** generate non-constant legacy 2 byte salt ([#357](https://github.com/verdaccio/monorepo/issues/357)) ([d522595](https://github.com/verdaccio/monorepo/commit/d522595122b7deaac8e3bc568f73658041811aaf))
+
+
+
+
+
 # [9.4.0](https://github.com/verdaccio/monorepo/compare/v9.3.4...v9.4.0) (2020-03-21)
 
 
