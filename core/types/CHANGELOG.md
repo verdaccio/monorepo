@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [9.5.0](https://github.com/verdaccio/monorepo/compare/v9.4.1...v9.5.0) (2020-05-02)
+
+
+### Features
+
+* **types:** custom favicon ([#356](https://github.com/verdaccio/monorepo/issues/356)) ([bd78861](https://github.com/verdaccio/monorepo/commit/bd78861f46cd5189808b6689d2018a7bac6755f7))
+
+
+
+
+
 # [9.3.0](https://github.com/verdaccio/monorepo/compare/v9.2.0...v9.3.0) (2020-01-29)
 
 
