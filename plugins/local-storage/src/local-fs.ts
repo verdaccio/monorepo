@@ -356,13 +356,12 @@ export default class LocalFS implements ILocalFSPackageManager {
 
     createTempFile(err => {
       if (err && err.code === noSuchFile) {
-        mkdirp(path.dirname(dest))
-          .then(() => {
-            createTempFile(cb);
-          })
-          .catch(err => {
+        mkdirp(path.dirname(dest), function(err) {
+          if (err) {
             return cb(err);
-          });
+          }
+          createTempFile(cb);
+        });
       } else {
         cb(err);
       }
