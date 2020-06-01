@@ -41,6 +41,7 @@ export default class S3Database implements IPluginStorage<S3Config> {
     this.config.region = setConfigValue(this.config.region);
     this.config.accessKeyId = setConfigValue(this.config.accessKeyId);
     this.config.secretAccessKey = setConfigValue(this.config.secretAccessKey);
+    this.config.sessionToken = setConfigValue(this.config.sessionToken);
 
     const configKeyPrefix = this.config.keyPrefix;
     this._localData = null;
@@ -54,6 +55,7 @@ export default class S3Database implements IPluginStorage<S3Config> {
       s3ForcePathStyle: this.config.s3ForcePathStyle,
       accessKeyId: this.config.accessKeyId,
       secretAccessKey: this.config.secretAccessKey,
+      sessionToken: this.config.sessionToken,
     });
   }
 

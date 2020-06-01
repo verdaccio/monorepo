@@ -8,4 +8,5 @@ export interface S3Config extends Config {
   s3ForcePathStyle?: boolean;
   accessKeyId?: string;
   secretAccessKey?: string;
+  sessionToken?: string;
 }
