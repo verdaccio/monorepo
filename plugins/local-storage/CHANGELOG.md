@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [9.5.1](https://github.com/verdaccio/monorepo/compare/v9.5.0...v9.5.1) (2020-06-03)
+
+
+### Bug Fixes
+
+* restore Node v8 support ([#361](https://github.com/verdaccio/monorepo/issues/361)) ([9be55a1](https://github.com/verdaccio/monorepo/commit/9be55a1deebe954e8eef9edc59af9fd16e29daed))
+
+
+
+
+
 # [9.5.0](https://github.com/verdaccio/monorepo/compare/v9.4.1...v9.5.0) (2020-05-02)
 
 **Note:** Version bump only for package @verdaccio/local-storage
