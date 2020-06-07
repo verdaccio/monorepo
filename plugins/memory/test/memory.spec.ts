@@ -166,6 +166,79 @@ describe('memory unit test .', () => {
       }
     });
 
+    test('should fail updateHandler update a package', done => {
+      const localMemory: IPluginStorage<ConfigMemory> = new LocalMemory(config, defaultConfig);
+      const pkgName = 'test';
+
+      const handler = localMemory.getPackageStorage(pkgName);
+      expect(handler).toBeDefined();
+      const onEnd = jest.fn(err => {
+        expect(err).not.toBeNull();
+        expect(err).toEqual(getInternalError('some error'));
+        done();
+      });
+
+      if (handler) {
+        handler.savePackage(pkgName, pkgExample, err => {
+          expect(err).toBeNull();
+
+          handler.updatePackage(
+            pkgName,
+            (json, callback) => {
+              expect(json).toBeDefined();
+              expect(json.name).toBe(pkgExample.name);
+              expect(callback).toBeDefined();
+              callback(getInternalError('some error'));
+            },
+            () => {},
+            // @ts-ignore
+            () => {},
+            onEnd
+          );
+        });
+      }
+    });
+
+    test('should onWrite update a package', done => {
+      const localMemory: IPluginStorage<ConfigMemory> = new LocalMemory(config, defaultConfig);
+      const pkgName = 'test';
+
+      const handler = localMemory.getPackageStorage(pkgName);
+      expect(handler).toBeDefined();
+      const onEnd = jest.fn(err => {
+        expect(err).not.toBeNull();
+        expect(err).toEqual(getInternalError('error on parse the metadata'));
+        done();
+      });
+
+      if (handler) {
+        handler.savePackage(pkgName, pkgExample, err => {
+          expect(err).toBeNull();
+
+          handler.updatePackage(
+            pkgName,
+            (json, callback) => {
+              expect(json).toBeDefined();
+              expect(json.name).toBe(pkgExample.name);
+              expect(callback).toBeDefined();
+              callback(null);
+            },
+            (name, data, onEnd) => {
+              expect(name).toBe(pkgName);
+              expect(data.name).toBe(pkgExample.name);
+              onEnd();
+              expect(onEnd).toHaveBeenCalled();
+              done();
+            },
+            () => {
+              throw new Error('dadsads');
+            },
+            onEnd
+          );
+        });
+      }
+    });
+
     describe('writing/reading files', () => {
       test('should write a tarball', done => {
         const localMemory: IPluginStorage<ConfigMemory> = new LocalMemory(config, defaultConfig);
