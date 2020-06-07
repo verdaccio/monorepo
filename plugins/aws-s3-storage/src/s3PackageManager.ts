@@ -22,15 +22,16 @@ export default class S3PackageManager implements ILocalPackageManager {
     this.config = config;
     this.packageName = packageName;
     this.logger = logger;
-    const { endpoint, region, s3ForcePathStyle, accessKeyId, secretAccessKey } = config;
+    const { endpoint, region, s3ForcePathStyle, accessKeyId, secretAccessKey, sessionToken } = config;
 
-    this.s3 = new S3({ endpoint, region, s3ForcePathStyle, accessKeyId, secretAccessKey });
+    this.s3 = new S3({ endpoint, region, s3ForcePathStyle, accessKeyId, secretAccessKey, sessionToken });
     this.logger.trace({ packageName }, 's3: [S3PackageManager constructor] packageName @{packageName}');
     this.logger.trace({ endpoint }, 's3: [S3PackageManager constructor] endpoint @{endpoint}');
     this.logger.trace({ region }, 's3: [S3PackageManager constructor] region @{region}');
     this.logger.trace({ s3ForcePathStyle }, 's3: [S3PackageManager constructor] s3ForcePathStyle @{s3ForcePathStyle}');
     this.logger.trace({ accessKeyId }, 's3: [S3PackageManager constructor] accessKeyId @{accessKeyId}');
     this.logger.trace({ secretAccessKey }, 's3: [S3PackageManager constructor] secretAccessKey @{secretAccessKey}');
+    this.logger.trace({ sessionToken }, 's3: [S3PackageManager constructor] sessionToken @{sessionToken}');
 
     const packageAccess = this.config.getMatchedPackagesSpec(packageName);
     if (packageAccess) {
