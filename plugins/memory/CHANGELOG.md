@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [9.6.1](https://github.com/verdaccio/monorepo/compare/v9.6.0...v9.6.1) (2020-06-07)
+
+
+### Bug Fixes
+
+* **verdaccio-memory:** race condition on save a package ([#365](https://github.com/verdaccio/monorepo/issues/365)) ([70c1fb1](https://github.com/verdaccio/monorepo/commit/70c1fb1271e9e6af8577a81f8bf94d21d80e8d6b))
+
+
+
+
+
 # [9.5.0](https://github.com/verdaccio/monorepo/compare/v9.4.1...v9.5.0) (2020-05-02)
 
 **Note:** Version bump only for package verdaccio-memory

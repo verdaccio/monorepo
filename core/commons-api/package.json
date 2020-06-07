@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/commons-api",
-  "version": "9.4.0",
+  "version": "9.6.1",
   "description": "Commons API utilities for Verdaccio",
   "keywords": [
     "http",
@@ -33,7 +33,7 @@
     "http-status-codes": "1.4.0"
   },
   "devDependencies": {
-    "@verdaccio/babel-preset": "^9.4.0",
+    "@verdaccio/babel-preset": "^9.6.1",
     "@verdaccio/eslint-config": "^9.3.2"
   },
   "scripts": {

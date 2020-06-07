@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/testing-utilities",
-  "version": "9.5.0",
+  "version": "9.6.1",
   "description": "Utils for Verdaccio",
   "keywords": [
     "verdaccio",
@@ -32,7 +32,7 @@
     "npm": ">=5"
   },
   "devDependencies": {
-    "@verdaccio/babel-preset": "^9.4.0",
+    "@verdaccio/babel-preset": "^9.6.1",
     "@verdaccio/eslint-config": "^9.3.2",
     "@verdaccio/types": "^9.5.0"
   },
