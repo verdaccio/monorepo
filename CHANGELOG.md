@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [9.6.0](https://github.com/verdaccio/monorepo/compare/v9.5.1...v9.6.0) (2020-06-07)
+
+
+### Features
+
+* allow providing session token in config ([#362](https://github.com/verdaccio/monorepo/issues/362)) ([acef36f](https://github.com/verdaccio/monorepo/commit/acef36f99c9028742bf417ee9879ed80bfbb7a8d))
+
+
+
+
+
 ## [9.5.1](https://github.com/verdaccio/monorepo/compare/v9.5.0...v9.5.1) (2020-06-03)
 
 
