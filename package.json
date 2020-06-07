@@ -23,12 +23,12 @@
     "eslint": "^6.8.0",
     "husky": "^3.1.0",
     "jest": "^26.0.1",
-    "lerna": "^3.20.2",
+    "lerna": "^3.22.0",
     "lint-staged": "^9.5.0",
     "lodash": "^4.17.15",
     "prettier": "^1.19.1",
-    "snyk": "^1.297.1",
-    "typescript": "^3.8.3"
+    "snyk": "^1.336.0",
+    "typescript": "^3.9.5"
   },
   "scripts": {
     "build": "lerna run build",
