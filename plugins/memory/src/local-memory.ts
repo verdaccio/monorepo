@@ -89,21 +89,24 @@ class LocalMemory implements IPluginStorage<ConfigMemory> {
   }
 
   public saveToken(token: Token): Promise<void> {
-    this.logger.warn({ token }, 'save token has not been implemented yet @{token}');
+    this.logger.warn('[verdaccio/memory][saveToken] save token has not been implemented yet');
 
-    return Promise.reject(getServiceUnavailable('[saveToken] method not implemented'));
+    return Promise.reject(getServiceUnavailable('method not implemented'));
   }
 
   public deleteToken(user: string, tokenKey: string): Promise<void> {
-    this.logger.warn({ tokenKey, user }, 'delete token has not been implemented yet @{user}');
+    this.logger.warn(
+      { tokenKey, user },
+      '[verdaccio/memory][deleteToken] delete token has not been implemented yet @{user}'
+    );
 
-    return Promise.reject(getServiceUnavailable('[deleteToken] method not implemented'));
+    return Promise.reject(getServiceUnavailable('method not implemented'));
   }
 
   public readTokens(filter: TokenFilter): Promise<Token[]> {
-    this.logger.warn({ filter }, 'read tokens has not been implemented yet @{filter}');
+    this.logger.warn('[verdaccio/memory][readTokens] read tokens has not been implemented yet ');
 
-    return Promise.reject(getServiceUnavailable('[readTokens] method not implemented'));
+    return Promise.reject(getServiceUnavailable('method not implemented'));
   }
 }
 

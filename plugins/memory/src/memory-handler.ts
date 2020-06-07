@@ -15,6 +15,8 @@ import {
   ReadPackageCallback,
 } from '@verdaccio/types';
 
+import { parsePackage, stringifyPackage } from './utils';
+
 const fs = new MemoryFileSystem();
 
 export type DataHandler = {
@@ -46,7 +48,7 @@ class MemoryHandler implements IPackageStorageManager {
     let pkg: Package;
 
     try {
-      pkg = JSON.parse(json) as Package;
+      pkg = parsePackage(json) as Package;
     } catch (err) {
       return onEnd(err);
     }
@@ -58,18 +60,18 @@ class MemoryHandler implements IPackageStorageManager {
       try {
         onWrite(pkgFileName, transformPackage(pkg), onEnd);
       } catch (err) {
-        return onEnd(getInternalError('error on parse packument'));
+        return onEnd(getInternalError('error on parse the metadata'));
       }
     });
   }
 
   public deletePackage(pkgName: string, callback: Callback): void {
     delete this.data[pkgName];
-    callback(null);
+    return callback(null);
   }
 
   public removePackage(callback: CallbackAction): void {
-    callback(null);
+    return callback(null);
   }
 
   public createPackage(name: string, value: Package, cb: CallbackAction): void {
@@ -78,14 +80,13 @@ class MemoryHandler implements IPackageStorageManager {
 
   public savePackage(name: string, value: Package, cb: CallbackAction): void {
     try {
-      const json: string = JSON.stringify(value, null, '\t');
+      const json: string = stringifyPackage(value);
 
       this.data[name] = json;
+      return cb(null);
     } catch (err) {
-      cb(getInternalError(err.message));
+      return cb(getInternalError(err.message));
     }
-
-    cb(null);
   }
 
   public readPackage(name: string, cb: ReadPackageCallback): void {
@@ -93,9 +94,9 @@ class MemoryHandler implements IPackageStorageManager {
     const isJson = typeof json === 'undefined';
 
     try {
-      cb(isJson ? getNotFound() : null, JSON.parse(json));
+      return cb(isJson ? getNotFound() : null, parsePackage(json));
     } catch (err) {
-      cb(getNotFound());
+      return cb(getNotFound());
     }
   }
 
@@ -128,8 +129,10 @@ class MemoryHandler implements IPackageStorageManager {
           };
 
           uploadStream.emit('open');
+          return;
         } catch (err) {
           uploadStream.emit('error', err);
+          return;
         }
       });
     });
@@ -162,8 +165,10 @@ class MemoryHandler implements IPackageStorageManager {
           readTarballStream.abort = function(): void {
             readStream.destroy(getBadRequest('read has been aborted'));
           };
+          return;
         } catch (err) {
           readTarballStream.emit('error', err);
+          return;
         }
       });
     });
