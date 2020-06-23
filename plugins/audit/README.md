@@ -33,6 +33,31 @@ In some scenarios it may be necessary to disable SSL certificate validation. Set
 
 This plugin is experimental and unstable. Please report any issue you found.
 
+## Development
+
+### Run Test
+
+```
+yarn test 
+```
+
+### Debugging request
+
+We uses `nock`, `superagent` for testing. You can do this:
+
+To check the supertest request:
+
+```bash
+  DEBUG=superagent yarn test tests/audit.spec.ts --coverage=true --runInBand
+```
+
+To check the routes:
+
+```bash
+  DEBUG=express:* yarn test tests/audit.spec.ts --coverage=true --runInBand
+```
+
+
 ## License
 
 MIT (http://www.opensource.org/licenses/mit-license.php)

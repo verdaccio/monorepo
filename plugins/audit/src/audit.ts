@@ -1,8 +1,14 @@
+import util from 'util';
+
 import request from 'request';
 import express, { Request, Response } from 'express';
 import { Logger, IPluginMiddleware, IBasicAuth, PluginOptions } from '@verdaccio/types';
 
 import { ConfigAudit } from './types';
+
+// FUTURE: we should be able to overwrite this
+export const REGISTRY_DOMAIN = 'https://registry.npmjs.org';
+export const AUDIT_ENDPOINT = `/-/npm/v1/security/audits`;
 
 export default class ProxyAudit implements IPluginMiddleware<ConfigAudit> {
   public enabled: boolean;
@@ -21,9 +27,9 @@ export default class ProxyAudit implements IPluginMiddleware<ConfigAudit> {
       headers.host = 'https://registry.npmjs.org/';
 
       const requestOptions = {
-        url: 'https://registry.npmjs.org/-/npm/v1/security/audits',
+        url: `${REGISTRY_DOMAIN}${AUDIT_ENDPOINT}`,
         method: req.method,
-        proxy: auth.config.https_proxy,
+        proxy: auth?.config?.https_proxy,
         req,
         strictSSL: this.strict_ssl,
       };
