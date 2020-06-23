@@ -22,6 +22,7 @@ To enable it you need to add this to your configuration file.
 middlewares:
   audit:
     enabled: true
+    proxy: 'h
     strict_ssl: true # optional, defaults to true
 ```
 
@@ -57,6 +58,12 @@ To check the routes:
   DEBUG=express:* yarn test tests/audit.spec.ts --coverage=true --runInBand
 ```
 
+Or just debug all of it
+
+
+```bash
+  DEBUG=* yarn test tests/audit.spec.ts --coverage=true --runInBand
+```
 
 ## License
 

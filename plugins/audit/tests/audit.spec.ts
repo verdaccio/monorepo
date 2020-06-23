@@ -8,8 +8,6 @@ import { AUDIT_ENDPOINT, REGISTRY_DOMAIN } from '../src/audit';
 
 import generateApp from './partial/webapp';
 
-jest.setTimeout(4000000);
-
 const config: ConfigAudit = {
   enabled: true,
 } as ConfigAudit;
@@ -115,6 +113,30 @@ describe('Audit plugin', () => {
       .reply(200, { some: 'response' });
     const app = generateApp();
     audit.register_middlewares(app, null);
+
+    const response = await supertest(app).post(endpoint);
+    expect(response.statusCode).toEqual(200);
+  });
+
+  test('should check proxy', async () => {
+    const audit = new ProxyAudit(
+      Object.assign({}, config, {
+        enabled: true,
+        strict_ssl: true,
+      }),
+      // @ts-ignore
+      { logger }
+    );
+    nock(REGISTRY_DOMAIN)
+      .post(AUDIT_ENDPOINT)
+      .reply(200, { some: 'response' });
+    const app = generateApp();
+    audit.register_middlewares(app, {
+      // @ts-ignore
+      config: {
+        https_proxy: 'https://somedomain.com',
+      },
+    });
 
     const response = await supertest(app).post(endpoint);
     expect(response.statusCode).toEqual(200);

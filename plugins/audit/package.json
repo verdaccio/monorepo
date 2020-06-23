@@ -29,6 +29,7 @@
   },
   "dependencies": {
     "express": "^4.17.1",
+    "https-proxy-agent": "^5.0.0",
     "node-fetch": "^2.6.0"
   },
   "devDependencies": {
