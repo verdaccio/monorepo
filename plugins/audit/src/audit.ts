@@ -14,10 +14,8 @@ const streamPipeline = util.promisify(require('stream').pipeline);
 export const REGISTRY_DOMAIN = 'https://registry.npmjs.org';
 export const AUDIT_ENDPOINT = `/-/npm/v1/security/audits`;
 
-function getSSLAgent() {
-  return new https.Agent({
-    rejectUnauthorized: true,
-  });
+function getSSLAgent(rejectUnauthorized) {
+  return new https.Agent({ rejectUnauthorized });
 }
 
 export default class ProxyAudit implements IPluginMiddleware<ConfigAudit> {
@@ -43,7 +41,7 @@ export default class ProxyAudit implements IPluginMiddleware<ConfigAudit> {
 
       if (this.strict_ssl) {
         requestOptions = Object.assign({}, requestOptions, {
-          agent: getSSLAgent(),
+          agent: getSSLAgent(this.strict_ssl),
         });
       }
 
