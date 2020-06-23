@@ -22,13 +22,17 @@ To enable it you need to add this to your configuration file.
 middlewares:
   audit:
     enabled: true
-    proxy: 'h
     strict_ssl: true # optional, defaults to true
 ```
 
 ### Strict SSL
 
 In some scenarios it may be necessary to disable SSL certificate validation. Setting *strict_ssl* to false will disable these checks, but will make all connections passing through this plugin inherently insecure.
+
+### Proxy
+
+Note: If you have the [proxy](https://verdaccio.org/docs/en/configuration#proxy) enabled, this plugin
+will use it under the hood (see the source code for more contex).
 
 ## Disclaimer
 
