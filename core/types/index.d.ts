@@ -293,13 +293,18 @@ declare module '@verdaccio/types' {
     sort_packages?: string;
   }
 
-  interface HttpsConf {
-    key?: string;
-    cert?: string;
+  interface HttpsConfKeyCert {
+    key: string;
+    cert: string;
     ca?: string;
-    pfx?: string;
+  }
+
+  interface HttpsConfPfx {
+    pfx: string;
     passphrase?: string;
   }
+
+  type HttpsConf = HttpsConfKeyCert | HttpsConfPfx;
 
   interface JWTOptions {
     sign: JWTSignOptions;
@@ -363,6 +368,10 @@ declare module '@verdaccio/types' {
     checkSecretKey(token: string): string;
     getMatchedPackagesSpec(storage: string): PackageAccess | void;
     [key: string]: any;
+  }
+
+  interface ConfigWithHttps extends Config {
+    https: HttpsConf;
   }
 
   interface ITokenActions {
