@@ -370,7 +370,7 @@ declare module '@verdaccio/types' {
     [key: string]: any;
   }
 
-  interface ConfigWithHttps {
+  interface ConfigWithHttps extends Config {
     https: HttpsConf;
   }
 
