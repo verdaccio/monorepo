@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/types",
-  "version": "9.5.0",
+  "version": "9.7.0",
   "description": "verdaccio types definitions",
   "keywords": [
     "verdaccio",

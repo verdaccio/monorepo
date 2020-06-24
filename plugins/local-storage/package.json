@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/local-storage",
-  "version": "9.6.1",
+  "version": "9.7.0",
   "description": "Local storage implementation",
   "keywords": [
     "plugin",
@@ -32,8 +32,8 @@
   },
   "dependencies": {
     "@verdaccio/commons-api": "^9.6.1",
-    "@verdaccio/file-locking": "^9.6.1",
-    "@verdaccio/streams": "^9.6.1",
+    "@verdaccio/file-locking": "^9.7.0",
+    "@verdaccio/streams": "^9.7.0",
     "async": "3.2.0",
     "level": "5.0.1",
     "lodash": "4.17.15",
@@ -43,7 +43,7 @@
     "@types/minimatch": "^3.0.3",
     "@verdaccio/babel-preset": "^9.6.1",
     "@verdaccio/eslint-config": "^9.3.2",
-    "@verdaccio/types": "^9.5.0",
+    "@verdaccio/types": "^9.7.0",
     "minimatch": "^3.0.4",
     "rmdir-sync": "^1.0.1"
   },

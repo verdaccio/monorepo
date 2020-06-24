@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [9.7.0](https://github.com/verdaccio/monorepo/compare/v9.6.1...v9.7.0) (2020-06-24)
+
+
+### Features
+
+* types for https config ([#368](https://github.com/verdaccio/monorepo/issues/368)) ([aa4aa83](https://github.com/verdaccio/monorepo/commit/aa4aa83e8a2f6a29ebe7c0b43ccc560a37fe2da9))
+
+
+
+
+
 ## [9.6.1](https://github.com/verdaccio/monorepo/compare/v9.6.0...v9.6.1) (2020-06-07)
 
 

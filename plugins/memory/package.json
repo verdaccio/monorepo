@@ -1,6 +1,6 @@
 {
   "name": "verdaccio-memory",
-  "version": "9.6.1",
+  "version": "9.7.0",
   "description": "Storage implementation in memory",
   "keywords": [
     "verdaccio",
@@ -29,13 +29,13 @@
   },
   "dependencies": {
     "@verdaccio/commons-api": "^9.6.1",
-    "@verdaccio/streams": "^9.6.1",
+    "@verdaccio/streams": "^9.7.0",
     "memory-fs": "0.5.0"
   },
   "devDependencies": {
     "@verdaccio/babel-preset": "^9.6.1",
     "@verdaccio/eslint-config": "^9.3.2",
-    "@verdaccio/types": "^9.5.0"
+    "@verdaccio/types": "^9.7.0"
   },
   "scripts": {
     "build": "npm run build:types && npm run build:js",
