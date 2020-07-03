@@ -29,7 +29,7 @@ export default class ProxyAudit implements IPluginMiddleware<ConfigAudit> {
       };
 
       req
-        .pipe(request(requestOptions))
+        .pipe(request(requestOptions), { end: false })
         .on('error', err => {
           if (typeof res.report_error === 'function') {
             return res.report_error(err);
