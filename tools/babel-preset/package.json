@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/babel-preset",
-  "version": "9.6.1",
+  "version": "9.7.1",
   "description": "A common preset for Verdaccio projects",
   "keywords": [
     "verdaccio",
