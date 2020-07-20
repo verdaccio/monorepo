@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [9.7.2](https://github.com/verdaccio/monorepo/compare/v9.7.1...v9.7.2) (2020-07-20)
+
+
+### Bug Fixes
+
+* incorrect AuthAccessCallback and AuthCallback ([#374](https://github.com/verdaccio/monorepo/issues/374)) ([97538f8](https://github.com/verdaccio/monorepo/commit/97538f886271ccdbea7862957f65c4a17c4cd831)), closes [/github.com/verdaccio/verdaccio/blob/master/src/lib/auth.ts#L264](https://github.com//github.com/verdaccio/verdaccio/blob/master/src/lib/auth.ts/issues/L264) [/github.com/verdaccio/verdaccio/blob/master/src/lib/auth.ts#L114](https://github.com//github.com/verdaccio/verdaccio/blob/master/src/lib/auth.ts/issues/L114)
+
+
+
+
+
 ## [9.7.1](https://github.com/verdaccio/monorepo/compare/v9.7.0...v9.7.1) (2020-07-10)
 
 
