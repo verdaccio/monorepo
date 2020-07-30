@@ -1,6 +1,6 @@
 {
   "name": "verdaccio-audit",
-  "version": "9.7.2",
+  "version": "9.7.3",
   "description": "Verdaccio Middleware plugin to bypass npmjs audit",
   "keywords": [
     "verdaccio",

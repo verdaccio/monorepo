@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [9.7.3](https://github.com/verdaccio/monorepo/compare/v9.7.2...v9.7.3) (2020-07-30)
+
+
+### Bug Fixes
+
+* update marked / request security vulnerability ([#378](https://github.com/verdaccio/monorepo/issues/378)) ([4188e08](https://github.com/verdaccio/monorepo/commit/4188e088f42d0f6e090c948b869312ba1f30cd79))
+
+
+
+
+
 ## [9.7.2](https://github.com/verdaccio/monorepo/compare/v9.7.1...v9.7.2) (2020-07-20)
 
 **Note:** Version bump only for package @verdaccio/readme
