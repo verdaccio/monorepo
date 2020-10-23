@@ -28,13 +28,17 @@
     "node": ">=8"
   },
   "dependencies": {
-    "express": "4.17.1",
-    "request": "2.88.2"
+    "express": "^4.17.1",
+    "https-proxy-agent": "^5.0.0",
+    "node-fetch": "^2.6.0"
   },
   "devDependencies": {
     "@verdaccio/babel-preset": "^9.7.1",
     "@verdaccio/eslint-config": "^9.3.2",
-    "@verdaccio/types": "^9.7.2"
+    "@verdaccio/types": "^9.7.0",
+    "nock": "^12.0.3",
+    "body-parser": "^1.19.0",
+    "supertest": "^4.0.2"
   },
   "scripts": {
     "build": "npm run build:types && npm run build:js",

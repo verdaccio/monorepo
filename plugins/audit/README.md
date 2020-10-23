@@ -29,9 +29,45 @@ middlewares:
 
 In some scenarios it may be necessary to disable SSL certificate validation. Setting *strict_ssl* to false will disable these checks, but will make all connections passing through this plugin inherently insecure.
 
+### Proxy
+
+Note: If you have the [proxy](https://verdaccio.org/docs/en/configuration#proxy) enabled, this plugin
+will use it under the hood (see the source code for more contex).
+
 ## Disclaimer
 
 This plugin is experimental and unstable. Please report any issue you found.
+
+## Development
+
+### Run Test
+
+```
+yarn test 
+```
+
+### Debugging request
+
+We uses `nock`, `superagent` for testing. You can do this:
+
+To check the supertest request:
+
+```bash
+  DEBUG=superagent yarn test tests/audit.spec.ts --coverage=true --runInBand
+```
+
+To check the routes:
+
+```bash
+  DEBUG=express:* yarn test tests/audit.spec.ts --coverage=true --runInBand
+```
+
+Or just debug all of it
+
+
+```bash
+  DEBUG=* yarn test tests/audit.spec.ts --coverage=true --runInBand
+```
 
 ## License
 

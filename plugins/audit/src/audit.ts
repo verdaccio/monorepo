@@ -1,8 +1,22 @@
-import request from 'request';
+import util from 'util';
+import https from 'https';
+
+import fetch, { RequestInit } from 'node-fetch';
+import createHttpsProxyAgent from 'https-proxy-agent';
 import express, { Request, Response } from 'express';
 import { Logger, IPluginMiddleware, IBasicAuth, PluginOptions } from '@verdaccio/types';
 
 import { ConfigAudit } from './types';
+
+const streamPipeline = util.promisify(require('stream').pipeline);
+
+// FUTURE: we should be able to overwrite this
+export const REGISTRY_DOMAIN = 'https://registry.npmjs.org';
+export const AUDIT_ENDPOINT = `/-/npm/v1/security/audits`;
+
+function getSSLAgent(rejectUnauthorized) {
+  return new https.Agent({ rejectUnauthorized });
+}
 
 export default class ProxyAudit implements IPluginMiddleware<ConfigAudit> {
   public enabled: boolean;
@@ -20,24 +34,38 @@ export default class ProxyAudit implements IPluginMiddleware<ConfigAudit> {
       const headers = req.headers;
       headers.host = 'https://registry.npmjs.org/';
 
-      const requestOptions = {
-        url: 'https://registry.npmjs.org/-/npm/v1/security/audits',
+      let requestOptions: RequestInit = {
         method: req.method,
-        proxy: auth.config.https_proxy,
-        req,
-        strictSSL: this.strict_ssl,
+        headers,
       };
 
-      req
-        .pipe(request(requestOptions))
-        .on('error', err => {
-          if (typeof res.report_error === 'function') {
-            return res.report_error(err);
+      if (this.strict_ssl) {
+        requestOptions = Object.assign({}, requestOptions, {
+          agent: getSSLAgent(this.strict_ssl),
+        });
+      }
+
+      if (auth?.config?.https_proxy) {
+        // we should check whether this works fine after this migration
+        // please notify if anyone is having issues
+        const agent = createHttpsProxyAgent(auth?.config?.https_proxy);
+        requestOptions = Object.assign({}, requestOptions, {
+          agent,
+        });
+      }
+
+      (async () => {
+        try {
+          const response = await fetch(`${REGISTRY_DOMAIN}${AUDIT_ENDPOINT}`, requestOptions);
+          if (response.ok) {
+            return streamPipeline(response.body, res);
           }
-          this.logger.error(err);
-          return res.status(500).end();
-        })
-        .pipe(res);
+
+          res.status(response.status).end();
+        } catch {
+          res.status(500).end();
+        }
+      })();
     };
 
     const handleAudit = (req: Request, res: Response): void => {
