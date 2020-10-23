@@ -1,7 +1,7 @@
 import util from 'util';
 import https from 'https';
 
-import fetch from 'node-fetch';
+import fetch, { RequestInit } from 'node-fetch';
 import createHttpsProxyAgent from 'https-proxy-agent';
 import express, { Request, Response } from 'express';
 import { Logger, IPluginMiddleware, IBasicAuth, PluginOptions } from '@verdaccio/types';
@@ -34,7 +34,7 @@ export default class ProxyAudit implements IPluginMiddleware<ConfigAudit> {
       const headers = req.headers;
       headers.host = 'https://registry.npmjs.org/';
 
-      let requestOptions = {
+      let requestOptions: RequestInit = {
         method: req.method,
         headers,
       };
@@ -55,12 +55,16 @@ export default class ProxyAudit implements IPluginMiddleware<ConfigAudit> {
       }
 
       (async () => {
-        const response = await fetch(`${REGISTRY_DOMAIN}${AUDIT_ENDPOINT}`, requestOptions);
-        if (response.ok) {
-          return streamPipeline(response.body, res);
-        }
+        try {
+          const response = await fetch(`${REGISTRY_DOMAIN}${AUDIT_ENDPOINT}`, requestOptions);
+          if (response.ok) {
+            return streamPipeline(response.body, res);
+          }
 
-        res.status(response.status).end();
+          res.status(response.status).end();
+        } catch {
+          res.status(500).end();
+        }
       })();
     };
 
