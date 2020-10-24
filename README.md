@@ -14,17 +14,13 @@
 
 This monorepo contains all the packages that composes the Verdaccio architecture, except [Verdaccio](https://github.com/verdaccio/verdaccio) itself and [UI](https://github.com/verdaccio/ui).
 
-## List of packages
+## Deprecated project
 
-We have three kind of packages, separated as:
+Any future change has to take place on [Verdaccio 5.x][1] branch. Master branch is not longer allowing contributions. The branch `9.x` 
+on this repo remains for bugfixes or security patches.
 
-- ~~core: the main packages for the project~~ (moved to verdaccio 5.x branch)
-- plugins: plugins created for Verdaccio
-- ~~tools: our own packages for tools like ESLint or Babel~ (deprecated)~~
+[1]: https://github.com/verdaccio/verdaccio/tree/5.x
 
-## Contributing
-
-Please, refer to our [CONTRIBUTING](CONTRIBUTING.md) to learn how to contribute.
 
 ## License
 
