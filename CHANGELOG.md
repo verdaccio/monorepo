@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [9.7.4](https://github.com/verdaccio/monorepo/compare/v9.7.3...v9.7.4) (2020-10-31)
+
+
+### Bug Fixes
+
+* update lodash ([c7fe587](https://github.com/verdaccio/monorepo/commit/c7fe587a6d8be337d7099cbd459320cbda4cfd91))
+
+
+
+
+
 ## [9.7.3](https://github.com/verdaccio/monorepo/compare/v9.7.2...v9.7.3) (2020-07-30)
 
 

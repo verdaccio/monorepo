@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/local-storage",
-  "version": "9.7.2",
+  "version": "9.7.4",
   "description": "Local storage implementation",
   "keywords": [
     "plugin",
