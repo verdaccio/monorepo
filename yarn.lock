@@ -4139,14 +4139,6 @@ bcrypt-pbkdf@^1.0.0, bcrypt-pbkdf@^1.0.2:
   dependencies:
     tweetnacl "^0.14.3"
 
-bcrypt@5.0.0:
-  version "5.0.0"
-  resolved "https://registry.npmjs.org/bcrypt/-/bcrypt-5.0.0.tgz#051407c7cd5ffbfb773d541ca3760ea0754e37e2"
-  integrity sha512-jB0yCBl4W/kVHM2whjfyqnxTmOHkCX4kHEa5nYKSoGeYe8YrjTYTc87/6bwt1g8cmV0QrbhKriETg9jWtcREhg==
-  dependencies:
-    node-addon-api "^3.0.0"
-    node-pre-gyp "0.15.0"
-
 bcryptjs@2.4.3:
   version "2.4.3"
   resolved "https://registry.verdaccio.org/bcryptjs/-/bcryptjs-2.4.3.tgz#9ab5627b93e60621ff7cdac5da9733027df1d0cb"
