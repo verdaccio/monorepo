@@ -6,7 +6,7 @@ import { readFile } from '@verdaccio/file-locking';
 import { Callback } from '@verdaccio/types';
 
 import crypt3 from './crypt3';
-import bcrypt from './bcrypt'
+import bcrypt from './bcrypt';
 
 // this function neither unlocks file nor closes it
 // it'll have to be done manually later
