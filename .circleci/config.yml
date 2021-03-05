@@ -90,15 +90,6 @@ jobs:
       - run:
           name: Publish coverage
           command: yarn coverage:publish
-
-  test_node_lts:
-    <<: *defaults
-    executor: node_lts
-    steps:
-      - restore_repo
-      - run:
-          name: Test with Node (LTS)
-          command: yarn test
   publish:
     <<: *defaults
     executor: default_executor
@@ -136,20 +127,13 @@ workflows:
       - test_node_latest:
           requires:
             - prepare
-          <<: *ignore_non_dev_branches
-      - test_node_lts:
-          requires:
-            - prepare
+            - lint
           <<: *ignore_non_dev_branches
       - publish:
           requires:
-            - lint
             - test_node_latest
-            - test_node_lts
           <<: *execute_on_release
       - publish_prerelease:
           requires:
-            - lint
             - test_node_latest
-            - test_node_lts
           <<: *execute_on_release_prerelease
