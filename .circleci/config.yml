@@ -141,12 +141,6 @@ workflows:
           requires:
             - prepare
           <<: *ignore_non_dev_branches
-      - test_publish:
-          requires:
-            - lint
-            - test_node_latest
-            - test_node_lts
-          <<: *ignore_non_dev_branches
       - publish:
           requires:
             - lint
