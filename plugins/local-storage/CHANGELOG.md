@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [9.7.5](https://github.com/verdaccio/monorepo/compare/v9.7.4...v9.7.5) (2021-03-05)
+
+
+### Bug Fixes
+
+* update dependencies ([#393](https://github.com/verdaccio/monorepo/issues/393)) ([51cb3d4](https://github.com/verdaccio/monorepo/commit/51cb3d4a533590054085dca1e5270cf9ebdeacfd))
+
+
+
+
+
 ## [9.7.4](https://github.com/verdaccio/monorepo/compare/v9.7.3...v9.7.4) (2020-10-31)
 
 
