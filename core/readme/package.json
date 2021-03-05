@@ -30,9 +30,9 @@
     "lib"
   ],
   "dependencies": {
-    "dompurify": "2.0.8",
+    "dompurify": "^2.2.6",
     "jsdom": "15.2.1",
-    "marked": "1.1.1"
+    "marked": "^2.0.1"
   },
   "devDependencies": {
     "@verdaccio/babel-preset": "^9.7.1",
