@@ -56,6 +56,7 @@ export default class TokenActions implements ITokenActions {
       // @ts-ignore
       await db
         .get(token.user)
+        // @ts-ignore
         .push(token)
         .write();
     }
