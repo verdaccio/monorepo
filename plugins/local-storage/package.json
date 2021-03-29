@@ -34,10 +34,11 @@
     "@verdaccio/commons-api": "^9.7.1",
     "@verdaccio/file-locking": "^9.7.2",
     "@verdaccio/streams": "^9.7.2",
+    "debug": "4.3.1",
     "async": "3.2.0",
-    "level": "5.0.1",
+    "lowdb": "1.0.0",
     "lodash": "4.17.21",
-    "mkdirp": "0.5.5"
+    "mkdirp": "1.0.4"
   },
   "devDependencies": {
     "@types/minimatch": "^3.0.3",
