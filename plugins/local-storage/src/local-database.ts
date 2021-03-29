@@ -61,7 +61,7 @@ class LocalDatabase extends TokenActions implements IPluginStorage<{}> {
   public search(onPackage: Callback, onEnd: Callback, validateName: (name: string) => boolean): void {
     const storages = this._getCustomPackageLocalStorages();
     debug(`search custom local packages: %o`, JSON.stringify(storages));
-    const base = Path.dirname(this.config.config_path);
+    const base = Path.dirname(this.config.self_path);
     const self = this;
     const storageKeys = Object.keys(storages);
     debug(`search base: %o keys: %o`, base, storageKeys);
@@ -193,7 +193,7 @@ class LocalDatabase extends TokenActions implements IPluginStorage<{}> {
     }
 
     const packageStoragePath: string = Path.join(
-      Path.resolve(Path.dirname(this.config.config_path || ''), packagePath),
+      Path.resolve(Path.dirname(this.config.self_path || ''), packagePath),
       packageName
     );
 
