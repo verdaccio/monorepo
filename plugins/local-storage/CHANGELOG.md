@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [10.0.1](https://github.com/verdaccio/monorepo/compare/v10.0.0...v10.0.1) (2021-03-29)
+
+
+### Bug Fixes
+
+* restore self_path variable ([#396](https://github.com/verdaccio/monorepo/issues/396)) ([b369102](https://github.com/verdaccio/monorepo/commit/b369102ab7f54ec4218dcd49c9c7f8a34f3fe9a2))
+
+
+
+
+
 # [10.0.0](https://github.com/verdaccio/monorepo/compare/v9.7.5...v10.0.0) (2021-03-29)
 
 **Note:** Version bump only for package @verdaccio/local-storage
