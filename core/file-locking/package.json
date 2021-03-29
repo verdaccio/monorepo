@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/file-locking",
-  "version": "9.7.2",
+  "version": "10.0.0",
   "description": "library that handle file locking",
   "keywords": [
     "verdaccio",
@@ -33,9 +33,9 @@
     "lockfile": "1.0.4"
   },
   "devDependencies": {
-    "@verdaccio/babel-preset": "^9.7.1",
-    "@verdaccio/eslint-config": "^9.3.2",
-    "@verdaccio/types": "^9.7.2"
+    "@verdaccio/babel-preset": "^10.0.0",
+    "@verdaccio/eslint-config": "^10.0.0",
+    "@verdaccio/types": "^10.0.0"
   },
   "scripts": {
     "build": "npm run build:types && npm run build:js",
