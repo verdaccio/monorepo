@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [10.0.2](https://github.com/verdaccio/monorepo/compare/v10.0.1...v10.0.2) (2021-04-01)
+
+
+### Bug Fixes
+
+* add warning database name ([#402](https://github.com/verdaccio/monorepo/issues/402)) ([6c250c5](https://github.com/verdaccio/monorepo/commit/6c250c5c0ee041d48a0006c242bb15fe9768be5c))
+
+
+
+
+
 ## [10.0.1](https://github.com/verdaccio/monorepo/compare/v10.0.0...v10.0.1) (2021-03-29)
 
 
