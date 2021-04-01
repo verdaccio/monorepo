@@ -42,6 +42,7 @@
   },
   "devDependencies": {
     "@types/minimatch": "^3.0.3",
+    "@types/node": "^13.1.1",
     "@verdaccio/babel-preset": "^10.0.0",
     "@verdaccio/eslint-config": "^10.0.0",
     "@verdaccio/types": "^10.0.0",
