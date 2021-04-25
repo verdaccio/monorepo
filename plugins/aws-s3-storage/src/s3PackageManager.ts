@@ -57,7 +57,7 @@ export default class S3PackageManager implements ILocalPackageManager {
     (async (): Promise<any> => {
       try {
         const json = await this._getData();
-        updateHandler(json, (err) => {
+        updateHandler(json, err => {
           if (err) {
             this.logger.error({ err }, 's3: [S3PackageManager updatePackage updateHandler onEnd] @{err}');
             onEnd(err);
@@ -118,7 +118,7 @@ export default class S3PackageManager implements ILocalPackageManager {
         Bucket: this.config.bucket,
         Key: `${this.packagePath}/${fileName}`,
       },
-      (err) => {
+      err => {
         if (err) {
           callback(err);
         } else {
@@ -135,7 +135,7 @@ export default class S3PackageManager implements ILocalPackageManager {
         Bucket: this.config.bucket,
         Prefix: `${this.packagePath}`,
       },
-      function (err) {
+      function(err) {
         if (err && is404Error(err as VerdaccioError)) {
           callback(null);
         } else {
@@ -242,7 +242,7 @@ export default class S3PackageManager implements ILocalPackageManager {
         Bucket: this.config.bucket,
         Key: `${this.packagePath}/${name}`,
       },
-      (err) => {
+      err => {
         if (err) {
           const convertedErr = convertS3Error(err);
           this.logger.error({ error: convertedErr.message }, 's3: [S3PackageManager writeTarball headObject] @{error}');
@@ -403,7 +403,7 @@ export default class S3PackageManager implements ILocalPackageManager {
       })
       .createReadStream();
 
-    readStream.on('error', (err) => {
+    readStream.on('error', err => {
       const error: HttpError = convertS3Error(err as AWSError);
 
       readTarballStream.emit('error', error);
