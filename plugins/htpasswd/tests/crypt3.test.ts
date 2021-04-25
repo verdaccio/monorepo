@@ -20,7 +20,7 @@ describe('createSalt', () => {
   });
 
   test('should fails on unkwon type', () => {
-    expect(function () {
+    expect(function() {
       createSalt('bad');
     }).toThrow(/Unknown salt type at crypt3.createSalt: bad/);
   });

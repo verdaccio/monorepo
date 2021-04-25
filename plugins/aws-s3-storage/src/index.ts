@@ -70,7 +70,7 @@ export default class S3Database implements IPluginStorage<S3Config> {
 
   public add(name: string, callback: Callback): void {
     this.logger.debug({ name }, 's3: [add] private package @{name}');
-    this._getData().then(async (data) => {
+    this._getData().then(async data => {
       if (data.list.indexOf(name) === -1) {
         data.list.push(name);
         this.logger.trace({ name }, 's3: [add] @{name} has been added');
@@ -157,7 +157,7 @@ export default class S3Database implements IPluginStorage<S3Config> {
 
   public get(callback: Callback): void {
     this.logger.debug('s3: [get]');
-    this._getData().then((data) => callback(null, data.list));
+    this._getData().then(data => callback(null, data.list));
   }
 
   // Create/write database file to s3
@@ -171,7 +171,7 @@ export default class S3Database implements IPluginStorage<S3Config> {
           Key: `${this.config.keyPrefix}verdaccio-s3-db.json`,
           Body: JSON.stringify(this._localData),
         },
-        (err) => {
+        err => {
           if (err) {
             this.logger.error({ err }, 's3: [_sync] error: @{err}');
             reject(err);

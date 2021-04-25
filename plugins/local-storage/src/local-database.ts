@@ -68,7 +68,7 @@ class LocalDatabase extends TokenActions implements IPluginStorage<{}> {
 
     async.eachSeries(
       storageKeys,
-      function (storage, cb) {
+      function(storage, cb) {
         const position = storageKeys.indexOf(storage);
         const base2 = Path.join(position !== 0 ? storageKeys[0] : '');
         const storagePath: string = Path.resolve(base, base2, storage);
@@ -80,7 +80,7 @@ class LocalDatabase extends TokenActions implements IPluginStorage<{}> {
 
           async.eachSeries(
             files,
-            function (file, cb) {
+            function(file, cb) {
               debug('local-storage: [search] search file path: %o', file);
               if (storageKeys.includes(file)) {
                 return cb();
@@ -90,7 +90,7 @@ class LocalDatabase extends TokenActions implements IPluginStorage<{}> {
                 // scoped
                 const fileLocation = Path.resolve(base, storage, file);
                 debug('search scoped file location: %o', fileLocation);
-                fs.readdir(fileLocation, function (err, files) {
+                fs.readdir(fileLocation, function(err, files) {
                   if (err) {
                     return cb(err);
                   }
@@ -223,7 +223,7 @@ class LocalDatabase extends TokenActions implements IPluginStorage<{}> {
     if (packages) {
       const listPackagesConf = Object.keys(packages || {});
 
-      listPackagesConf.map((pkg) => {
+      listPackagesConf.map(pkg => {
         const storage = packages[pkg].storage;
         if (storage) {
           storages[storage] = false;

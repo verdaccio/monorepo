@@ -28,13 +28,13 @@ function readFile(name: string, options: ReadFileOptions = {}, callback: Callbac
   options.lock = options.lock || false;
   options.parse = options.parse || false;
 
-  const lock = function (options: ReadFileOptions): Promise<null | NodeJS.ErrnoException> {
+  const lock = function(options: ReadFileOptions): Promise<null | NodeJS.ErrnoException> {
     return new Promise((resolve, reject): void => {
       if (!options.lock) {
         return resolve(null);
       }
 
-      lockFile(name, function (err: NodeJS.ErrnoException | null) {
+      lockFile(name, function(err: NodeJS.ErrnoException | null) {
         if (err) {
           return reject(err);
         }
@@ -43,9 +43,9 @@ function readFile(name: string, options: ReadFileOptions = {}, callback: Callbac
     });
   };
 
-  const read = function (): Promise<NodeJS.ErrnoException | string> {
+  const read = function(): Promise<NodeJS.ErrnoException | string> {
     return new Promise((resolve, reject): void => {
-      fs.readFile(name, 'utf8', function (err, contents) {
+      fs.readFile(name, 'utf8', function(err, contents) {
         if (err) {
           return reject(err);
         }
@@ -55,7 +55,7 @@ function readFile(name: string, options: ReadFileOptions = {}, callback: Callbac
     });
   };
 
-  const parseJSON = function (contents: string): Promise<unknown> {
+  const parseJSON = function(contents: string): Promise<unknown> {
     return new Promise((resolve, reject): void => {
       if (!options.parse) {
         return resolve(contents);
@@ -72,10 +72,10 @@ function readFile(name: string, options: ReadFileOptions = {}, callback: Callbac
   Promise.resolve()
     .then(() => lock(options))
     .then(() => read())
-    .then((content) => parseJSON(content as string))
+    .then(content => parseJSON(content as string))
     .then(
-      (result) => callback(null, result),
-      (err) => callback(err)
+      result => callback(null, result),
+      err => callback(err)
     );
 }
 

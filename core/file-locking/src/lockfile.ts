@@ -10,7 +10,7 @@ import { lockfile, statDir, statfile } from './utils';
  * @param name
  * @param callback
  */
-const lockFile = function (name: string, callback: Callback): void {
+const lockFile = function(name: string, callback: Callback): void {
   Promise.resolve()
     .then(() => {
       return statDir(name);
@@ -24,7 +24,7 @@ const lockFile = function (name: string, callback: Callback): void {
     .then(() => {
       callback(null);
     })
-    .catch((err) => {
+    .catch(err => {
       callback(err);
     });
 };

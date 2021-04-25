@@ -70,7 +70,7 @@ export default class HTPasswd implements IPluginAuth<VerdaccioConfigApp> {
    * @returns {function}
    */
   public authenticate(user: string, password: string, cb: Callback): void {
-    this.reload((err) => {
+    this.reload(err => {
       if (err) {
         return cb(err.code === 'ENOENT' ? null : err);
       }
@@ -186,7 +186,7 @@ export default class HTPasswd implements IPluginAuth<VerdaccioConfigApp> {
   }
 
   private _writeFile(body: string, cb: Callback): void {
-    fs.writeFile(this.path, body, (err) => {
+    fs.writeFile(this.path, body, err => {
       if (err) {
         cb(err);
       } else {

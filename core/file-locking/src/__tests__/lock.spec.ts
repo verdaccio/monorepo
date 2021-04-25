@@ -13,7 +13,7 @@ const getFilePath = (filename: string): string => {
 
 const removeTempFile = (filename: string): void => {
   const filepath = getFilePath(filename);
-  fs.unlink(filepath, (error) => {
+  fs.unlink(filepath, error => {
     if (error) {
       throw error;
     }
@@ -22,7 +22,7 @@ const removeTempFile = (filename: string): void => {
 
 describe('testing locking', () => {
   describe('lockFile', () => {
-    test('file should be found to be locked', (done) => {
+    test('file should be found to be locked', done => {
       lockFile(getFilePath('package.json'), (error: Error) => {
         expect(error).toBeNull();
         removeTempFile('package.json.lock');
@@ -30,7 +30,7 @@ describe('testing locking', () => {
       });
     });
 
-    test('file should fail to be found to be locked', (done) => {
+    test('file should fail to be found to be locked', done => {
       lockFile(getFilePath('package.fail.json'), (error: Error) => {
         expect(error.message).toMatch(/ENOENT: no such file or directory, stat '(.*)package.fail.json'/);
         done();
@@ -39,7 +39,7 @@ describe('testing locking', () => {
   });
 
   describe('unlockFile', () => {
-    test('file should to be found to be unLock', (done) => {
+    test('file should to be found to be unLock', done => {
       unlockFile(getFilePath('package.json.lock'), (error: Error) => {
         expect(error).toBeNull();
         done();
@@ -48,7 +48,7 @@ describe('testing locking', () => {
   });
 
   describe('readFile', () => {
-    test('read file with no options should to be found to be read it as string', (done) => {
+    test('read file with no options should to be found to be read it as string', done => {
       readFile(getFilePath('package.json'), {}, (error: Error, data: string) => {
         expect(error).toBeNull();
         expect(data).toMatchSnapshot();
@@ -56,7 +56,7 @@ describe('testing locking', () => {
       });
     });
 
-    test('read file with no options should to be found to be read it as object', (done) => {
+    test('read file with no options should to be found to be read it as object', done => {
       const options = {
         parse: true,
       };
@@ -67,7 +67,7 @@ describe('testing locking', () => {
       });
     });
 
-    test('read file with options (parse) should to be not found to be read it', (done) => {
+    test('read file with options (parse) should to be not found to be read it', done => {
       const options = {
         parse: true,
       };
@@ -77,7 +77,7 @@ describe('testing locking', () => {
       });
     });
 
-    test('read file with options should to be found to be read it and fails to be parsed', (done) => {
+    test('read file with options should to be found to be read it and fails to be parsed', done => {
       const options = {
         parse: true,
       };
@@ -91,7 +91,7 @@ describe('testing locking', () => {
       });
     });
 
-    test('read file with  options (parse, lock) should to be found to be read it as object', (done) => {
+    test('read file with  options (parse, lock) should to be found to be read it as object', done => {
       const options = {
         parse: true,
         lock: true,
@@ -104,7 +104,7 @@ describe('testing locking', () => {
       });
     });
 
-    test('read file with options (parse, lock) should to be found to be read it and fails to be parsed', (done) => {
+    test('read file with options (parse, lock) should to be found to be read it and fails to be parsed', done => {
       const options = {
         parse: true,
         lock: true,

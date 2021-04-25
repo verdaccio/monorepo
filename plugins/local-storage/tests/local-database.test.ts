@@ -104,13 +104,13 @@ describe('Local Database', () => {
   });
 
   describe('Database CRUD', () => {
-    test('should add an item to database', (done) => {
+    test('should add an item to database', done => {
       const pgkName = 'jquery';
       locaDatabase.get((err, data) => {
         expect(err).toBeNull();
         expect(data).toHaveLength(0);
 
-        locaDatabase.add(pgkName, (err) => {
+        locaDatabase.add(pgkName, err => {
           expect(err).toBeNull();
           locaDatabase.get((err, data) => {
             expect(err).toBeNull();
@@ -121,14 +121,14 @@ describe('Local Database', () => {
       });
     });
 
-    test('should remove an item to database', (done) => {
+    test('should remove an item to database', done => {
       const pgkName = 'jquery';
       locaDatabase.get((err, data) => {
         expect(err).toBeNull();
         expect(data).toHaveLength(0);
-        locaDatabase.add(pgkName, (err) => {
+        locaDatabase.add(pgkName, err => {
           expect(err).toBeNull();
-          locaDatabase.remove(pgkName, (err) => {
+          locaDatabase.remove(pgkName, err => {
             expect(err).toBeNull();
             locaDatabase.get((err, data) => {
               expect(err).toBeNull();
@@ -156,7 +156,7 @@ describe('Local Database', () => {
       );
     };
 
-    test('should find scoped packages', (done) => {
+    test('should find scoped packages', done => {
       const scopedPackages = ['@pkg1/test'];
       const stats = { mtime: new Date() };
       jest.spyOn(fs, 'stat').mockImplementation((_, cb) => cb(null, stats as fs.Stats));
@@ -167,7 +167,7 @@ describe('Local Database', () => {
       callSearch(locaDatabase, 1, done);
     });
 
-    test('should find non scoped packages', (done) => {
+    test('should find non scoped packages', done => {
       const nonScopedPackages = ['pkg1', 'pkg2'];
       const stats = { mtime: new Date() };
       jest.spyOn(fs, 'stat').mockImplementation((_, cb) => cb(null, stats as fs.Stats));
@@ -186,7 +186,7 @@ describe('Local Database', () => {
       callSearch(db, 2, done);
     });
 
-    test('should fails on read the storage', (done) => {
+    test('should fails on read the storage', done => {
       const spyInstance = jest.spyOn(fs, 'readdir').mockImplementation((_, cb) => cb(Error('fails'), null));
 
       const db = new LocalDatabase(

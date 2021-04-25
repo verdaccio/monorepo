@@ -77,7 +77,12 @@ export function addUserToHTPasswd(body: string, user: string, passwd: string): s
   if (crypt3) {
     passwd = crypt3(passwd);
   } else {
-    passwd = '{SHA}' + crypto.createHash('sha1').update(passwd, 'utf8').digest('base64');
+    passwd =
+      '{SHA}' +
+      crypto
+        .createHash('sha1')
+        .update(passwd, 'utf8')
+        .digest('base64');
   }
   const comment = 'autocreated ' + new Date().toJSON();
   let newline = `${user}:${passwd}:${comment}\n`;
@@ -139,7 +144,10 @@ export function sanityCheck(
 }
 
 export function getCryptoPassword(password: string): string {
-  return `{SHA}${crypto.createHash('sha1').update(password, 'utf8').digest('base64')}`;
+  return `{SHA}${crypto
+    .createHash('sha1')
+    .update(password, 'utf8')
+    .digest('base64')}`;
 }
 
 /**
@@ -152,7 +160,7 @@ export function getCryptoPassword(password: string): string {
  */
 export function changePasswordToHTPasswd(body: string, user: string, passwd: string, newPasswd: string): string {
   let lines = body.split('\n');
-  lines = lines.map((line) => {
+  lines = lines.map(line => {
     const [username, password] = line.split(':', 3);
 
     if (username === user) {
