@@ -3,6 +3,47 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [10.0.0](https://github.com/verdaccio/monorepo/compare/v9.7.5...v10.0.0) (2021-03-29)
+
+**Note:** Version bump only for package @verdaccio/types
+
+
+
+
+
+## [9.7.2](https://github.com/verdaccio/monorepo/compare/v9.7.1...v9.7.2) (2020-07-20)
+
+
+### Bug Fixes
+
+* incorrect AuthAccessCallback and AuthCallback ([#374](https://github.com/verdaccio/monorepo/issues/374)) ([97538f8](https://github.com/verdaccio/monorepo/commit/97538f886271ccdbea7862957f65c4a17c4cd831)), closes [/github.com/verdaccio/verdaccio/blob/master/src/lib/auth.ts#L264](https://github.com//github.com/verdaccio/verdaccio/blob/master/src/lib/auth.ts/issues/L264) [/github.com/verdaccio/verdaccio/blob/master/src/lib/auth.ts#L114](https://github.com//github.com/verdaccio/verdaccio/blob/master/src/lib/auth.ts/issues/L114)
+
+
+
+
+
+# [9.7.0](https://github.com/verdaccio/monorepo/compare/v9.6.1...v9.7.0) (2020-06-24)
+
+
+### Features
+
+* types for https config ([#368](https://github.com/verdaccio/monorepo/issues/368)) ([aa4aa83](https://github.com/verdaccio/monorepo/commit/aa4aa83e8a2f6a29ebe7c0b43ccc560a37fe2da9))
+
+
+
+
+
+# [9.5.0](https://github.com/verdaccio/monorepo/compare/v9.4.1...v9.5.0) (2020-05-02)
+
+
+### Features
+
+* **types:** custom favicon ([#356](https://github.com/verdaccio/monorepo/issues/356)) ([bd78861](https://github.com/verdaccio/monorepo/commit/bd78861f46cd5189808b6689d2018a7bac6755f7))
+
+
+
+
+
 # [9.3.0](https://github.com/verdaccio/monorepo/compare/v9.2.0...v9.3.0) (2020-01-29)
 
 

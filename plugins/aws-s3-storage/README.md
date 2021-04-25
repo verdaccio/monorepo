@@ -57,6 +57,7 @@ store:
     tarballACL: private # optional, use public-read to work with CDN like Amazon CloudFront
     accessKeyId: your-access-key-id # optional, aws accessKeyId for private S3 bucket
     secretAccessKey: your-secret-access-key # optional, aws secretAccessKey for private S3 bucket
+    sessionToken: your-session-token # optional, aws sessionToken for private S3 bucket
 ```
 
 The configured values can either be the actual value or the name of an environment variable that contains the value for the following options:
@@ -67,6 +68,7 @@ The configured values can either be the actual value or the name of an environme
 - `endpoint`
 - `accessKeyID`
 - `secretAccessKey`
+- `sessionToken`
 
 ``` yaml
 store:

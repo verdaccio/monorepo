@@ -1,3 +1,4 @@
+import crypto from 'crypto';
 // @ts-ignore
 import fs from 'fs';
 
@@ -22,11 +23,17 @@ describe('HTPasswd', () => {
   beforeEach(() => {
     wrapper = new HTPasswd(config, (stuff as unknown) as VerdaccioConfigApp);
     jest.resetModules();
+
+    crypto.randomBytes = jest.fn(() => {
+      return {
+        toString: (): string => '$6',
+      };
+    });
   });
 
   describe('constructor()', () => {
     test('should files whether file path does not exist', () => {
-      expect(function() {
+      expect(function () {
         new HTPasswd({}, ({
           config: {},
         } as unknown) as VerdaccioConfigApp);
@@ -35,7 +42,7 @@ describe('HTPasswd', () => {
   });
 
   describe('authenticate()', () => {
-    test('it should authenticate user with given credentials', done => {
+    test('it should authenticate user with given credentials', (done) => {
       const callbackTest = (a, b): void => {
         expect(a).toBeNull();
         expect(b).toContain('test');
@@ -50,7 +57,7 @@ describe('HTPasswd', () => {
       wrapper.authenticate('username', 'password', callbackUsername);
     });
 
-    test('it should not authenticate user with given credentials', done => {
+    test('it should not authenticate user with given credentials', (done) => {
       const callback = (a, b): void => {
         expect(a).toBeNull();
         expect(b).toBeFalsy();
@@ -61,7 +68,7 @@ describe('HTPasswd', () => {
   });
 
   describe('addUser()', () => {
-    test('it should not pass sanity check', done => {
+    test('it should not pass sanity check', (done) => {
       const callback = (a): void => {
         expect(a.message).toEqual('unauthorized access');
         done();
@@ -69,7 +76,7 @@ describe('HTPasswd', () => {
       wrapper.adduser('test', 'somerandompassword', callback);
     });
 
-    test('it should add the user', done => {
+    test('it should add the user', (done) => {
       let dataToWrite;
       // @ts-ignore
       fs.writeFile = jest.fn((name, data, callback) => {
@@ -87,7 +94,7 @@ describe('HTPasswd', () => {
     });
 
     describe('addUser() error handling', () => {
-      test('sanityCheck should return an Error', done => {
+      test('sanityCheck should return an Error', (done) => {
         jest.doMock('../src/utils.ts', () => {
           return {
             sanityCheck: (): Error => Error('some error'),
@@ -96,14 +103,14 @@ describe('HTPasswd', () => {
 
         const HTPasswd = require('../src/htpasswd.ts').default;
         const wrapper = new HTPasswd(config, stuff);
-        wrapper.adduser('sanityCheck', 'test', sanity => {
+        wrapper.adduser('sanityCheck', 'test', (sanity) => {
           expect(sanity.message).toBeDefined();
           expect(sanity.message).toMatch('some error');
           done();
         });
       });
 
-      test('lockAndRead should return an Error', done => {
+      test('lockAndRead should return an Error', (done) => {
         jest.doMock('../src/utils.ts', () => {
           return {
             sanityCheck: (): any => null,
@@ -113,14 +120,14 @@ describe('HTPasswd', () => {
 
         const HTPasswd = require('../src/htpasswd.ts').default;
         const wrapper = new HTPasswd(config, stuff);
-        wrapper.adduser('lockAndRead', 'test', sanity => {
+        wrapper.adduser('lockAndRead', 'test', (sanity) => {
           expect(sanity.message).toBeDefined();
           expect(sanity.message).toMatch('lock error');
           done();
         });
       });
 
-      test('addUserToHTPasswd should return an Error', done => {
+      test('addUserToHTPasswd should return an Error', (done) => {
         jest.doMock('../src/utils.ts', () => {
           return {
             sanityCheck: (): any => null,
@@ -137,18 +144,19 @@ describe('HTPasswd', () => {
         });
       });
 
-      test('writeFile should return an Error', done => {
+      test('writeFile should return an Error', (done) => {
         jest.doMock('../src/utils.ts', () => {
           return {
             sanityCheck: (): any => null,
             parseHTPasswd: (): void => {},
             lockAndRead: (_a, b): any => b(null, ''),
-            unlockFile: (_a, b): any => b(),
             addUserToHTPasswd: (): void => {},
           };
         });
         jest.doMock('fs', () => {
+          const original = jest.requireActual('fs');
           return {
+            ...original,
             writeFile: jest.fn((_name, _data, callback) => {
               callback(new Error('write error'));
             }),
@@ -157,7 +165,7 @@ describe('HTPasswd', () => {
 
         const HTPasswd = require('../src/htpasswd.ts').default;
         const wrapper = new HTPasswd(config, stuff);
-        wrapper.adduser('addUserToHTPasswd', 'test', err => {
+        wrapper.adduser('addUserToHTPasswd', 'test', (err) => {
           expect(err).not.toBeNull();
           expect(err.message).toMatch('write error');
           done();
@@ -166,7 +174,7 @@ describe('HTPasswd', () => {
     });
 
     describe('reload()', () => {
-      test('it should read the file and set the users', done => {
+      test('it should read the file and set the users', (done) => {
         const output = { test: '$6FrCaT/v0dwE', username: '$66to3JK5RgZM' };
         const callback = (): void => {
           expect(wrapper.users).toEqual(output);
@@ -175,7 +183,7 @@ describe('HTPasswd', () => {
         wrapper.reload(callback);
       });
 
-      test('reload should fails on check file', done => {
+      test('reload should fails on check file', (done) => {
         jest.doMock('fs', () => {
           return {
             stat: (_name, callback): void => {
@@ -194,7 +202,7 @@ describe('HTPasswd', () => {
         wrapper.reload(callback);
       });
 
-      test('reload times match', done => {
+      test('reload times match', (done) => {
         jest.doMock('fs', () => {
           return {
             stat: (_name, callback): void => {
@@ -214,7 +222,7 @@ describe('HTPasswd', () => {
         wrapper.reload(callback);
       });
 
-      test('reload should fails on read file', done => {
+      test('reload should fails on read file', (done) => {
         jest.doMock('fs', () => {
           return {
             stat: jest.requireActual('fs').stat,
@@ -236,7 +244,7 @@ describe('HTPasswd', () => {
     });
   });
 
-  test('changePassword - it should throw an error for user not found', done => {
+  test('changePassword - it should throw an error for user not found', (done) => {
     const callback = (error, isSuccess): void => {
       expect(error).not.toBeNull();
       expect(error.message).toBe('User not found');
@@ -246,7 +254,7 @@ describe('HTPasswd', () => {
     wrapper.changePassword('usernotpresent', 'oldPassword', 'newPassword', callback);
   });
 
-  test('changePassword - it should throw an error for wrong password', done => {
+  test('changePassword - it should throw an error for wrong password', (done) => {
     const callback = (error, isSuccess): void => {
       expect(error).not.toBeNull();
       expect(error.message).toBe('Invalid old Password');
@@ -256,7 +264,7 @@ describe('HTPasswd', () => {
     wrapper.changePassword('username', 'wrongPassword', 'newPassword', callback);
   });
 
-  test('changePassword - it should change password', done => {
+  test('changePassword - it should change password', (done) => {
     let dataToWrite;
     // @ts-ignore
     fs.writeFile = jest.fn((_name, data, callback) => {

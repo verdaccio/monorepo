@@ -9,32 +9,31 @@
     "tools/*"
   ],
   "devDependencies": {
-    "@commitlint/cli": "^8.2.0",
-    "@commitlint/config-lerna-scopes": "^8.2.0",
+    "@commitlint/cli": "^8.3.5",
+    "@commitlint/config-lerna-scopes": "^8.3.4",
     "@types/express": "^4.17.2",
-    "@types/http-errors": "^1.6.3",
-    "@types/jest": "^24.0.25",
-    "@types/lodash": "^4.14.149",
+    "@types/http-errors": "^1.8.0",
+    "@types/jest": "^26.0.4",
+    "@types/lodash": "^4.14.157",
     "@types/memory-fs": "^0.3.2",
     "@types/node": "^13.1.1",
     "@types/request": "^2.48.4",
-    "babel-eslint": "^10.0.3",
+    "babel-eslint": "^10.1.0",
     "codecov": "^3.6.1",
     "eslint": "^6.8.0",
     "husky": "^3.1.0",
-    "jest": "^24.9.0",
-    "lerna": "^3.20.1",
+    "jest": "^26.0.1",
+    "lerna": "^3.22.0",
     "lint-staged": "^9.5.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.20",
     "prettier": "^1.19.1",
-    "snyk": "^1.269.0",
-    "typescript": "^3.7.4"
+    "snyk": "^1.336.0",
+    "typescript": "^3.9.5"
   },
   "scripts": {
     "build": "lerna run build",
     "coverage:publish": "codecov && lerna run coverage:publish -- -f coverage/lcov.info",
     "lint": "lerna run lint",
-    "preversion": "snyk protect",
     "publish:canary": "lerna publish --canary",
     "release": "lerna version --conventional-commits",
     "release:from-prerelease": "lerna version --conventional-commits --conventional-graduate",
@@ -60,5 +59,6 @@
     "extends": [
       "@commitlint/config-lerna-scopes"
     ]
-  }
+  },
+  "version": "0.0.0"
 }

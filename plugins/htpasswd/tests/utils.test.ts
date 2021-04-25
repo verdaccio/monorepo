@@ -1,15 +1,22 @@
-import * as locker from '@verdaccio/file-locking';
+import crypto from 'crypto';
 
 import {
   verifyPassword,
   lockAndRead,
-  unlockFile,
   parseHTPasswd,
   addUserToHTPasswd,
   sanityCheck,
   changePasswordToHTPasswd,
   getCryptoPassword,
 } from '../src/utils';
+
+const mockReadFile = jest.fn();
+const mockUnlockFile = jest.fn();
+
+jest.mock('@verdaccio/file-locking', () => ({
+  readFile: () => mockReadFile(),
+  unlockFile: () => mockUnlockFile(),
+}));
 
 describe('parseHTPasswd', () => {
   it('should parse the password for a single line', () => {
@@ -84,6 +91,12 @@ describe('addUserToHTPasswd - crypt3', () => {
         toJSON: (): string => '2018-01-14T11:17:40.712Z',
       };
     });
+
+    crypto.randomBytes = jest.fn(() => {
+      return {
+        toString: (): string => '$6',
+      };
+    });
   });
 
   it('should add new htpasswd to the end', () => {
@@ -118,26 +131,12 @@ describe('addUserToHTPasswd - crypto', () => {
 });
 
 describe('lockAndRead', () => {
-  beforeAll(() => {
-    locker.readFile = jest.fn();
-  });
-
   it('should call the readFile method', () => {
+    // console.log(fileLocking);
+    // const spy = jest.spyOn(fileLocking, 'readFile');
     const cb = (): void => {};
     lockAndRead('.htpasswd', cb);
-    expect(locker.readFile).toHaveBeenCalled();
-  });
-});
-
-describe('unlockFile', () => {
-  beforeAll(() => {
-    locker.unlockFile = jest.fn();
-  });
-
-  it('should call the unlock method', () => {
-    const cb = (): void => {};
-    unlockFile('htpasswd', cb);
-    expect(locker.readFile).toHaveBeenCalled();
+    expect(mockReadFile).toHaveBeenCalled();
   });
 });
 
@@ -229,6 +228,20 @@ describe('changePasswordToHTPasswd', () => {
     const body = 'root:$6qLTHoPfGLy2:autocreated 2018-08-20T13:38:12.164Z';
 
     expect(changePasswordToHTPasswd(body, 'root', 'demo123', 'newPassword')).toMatchSnapshot();
+  });
+
+  test('should generate a different result on salt change', () => {
+    crypto.randomBytes = jest.fn(() => {
+      return {
+        toString: (): string => 'AB',
+      };
+    });
+
+    const body = 'root:$6qLTHoPfGLy2:autocreated 2018-08-20T13:38:12.164Z';
+
+    expect(changePasswordToHTPasswd(body, 'root', 'demo123', 'demo123')).toEqual(
+      'root:ABfaAAjDKIgfw:autocreated 2018-08-20T13:38:12.164Z'
+    );
   });
 
   test('should change the password when crypt3 is not available', () => {

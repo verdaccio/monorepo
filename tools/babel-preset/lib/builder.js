@@ -49,10 +49,8 @@ module.exports = (api, opts, env, isPro) => {
     };
   } else if (env === 'test') {
     return {
-      presets: defaultPresets(minNodeVersion)
-        .concat(reactPreset)
-        .concat(transpiler.presets),
-      plugins: defaultPlugins.concat(['babel-plugin-dynamic-import-node', 'emotion']),
+      presets: defaultPresets(minNodeVersion).concat(reactPreset).concat(transpiler.presets),
+      plugins: defaultPlugins.concat(transpiler.plugins).concat(['babel-plugin-dynamic-import-node', 'emotion']),
     };
   } else if (env === 'docker') {
     return {

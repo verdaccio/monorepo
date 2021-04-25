@@ -4,6 +4,7 @@
     "module": "commonjs",
     "declaration": true,
     "strict": true,
+    "importsNotUsedAsValues": "remove",
     "outDir": "lib",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true

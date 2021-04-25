@@ -3,6 +3,126 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [10.0.0](https://github.com/verdaccio/monorepo/compare/v9.7.5...v10.0.0) (2021-03-29)
+
+**Note:** Version bump only for package @verdaccio/readme
+
+
+
+
+
+## [9.7.5](https://github.com/verdaccio/monorepo/compare/v9.7.4...v9.7.5) (2021-03-05)
+
+
+### Bug Fixes
+
+* update dependencies ([#393](https://github.com/verdaccio/monorepo/issues/393)) ([51cb3d4](https://github.com/verdaccio/monorepo/commit/51cb3d4a533590054085dca1e5270cf9ebdeacfd))
+
+
+
+
+
+## [9.7.3](https://github.com/verdaccio/monorepo/compare/v9.7.2...v9.7.3) (2020-07-30)
+
+
+### Bug Fixes
+
+* update marked / request security vulnerability ([#378](https://github.com/verdaccio/monorepo/issues/378)) ([4188e08](https://github.com/verdaccio/monorepo/commit/4188e088f42d0f6e090c948b869312ba1f30cd79))
+
+
+
+
+
+## [9.7.2](https://github.com/verdaccio/monorepo/compare/v9.7.1...v9.7.2) (2020-07-20)
+
+**Note:** Version bump only for package @verdaccio/readme
+
+
+
+
+
+## [9.7.1](https://github.com/verdaccio/monorepo/compare/v9.7.0...v9.7.1) (2020-07-10)
+
+**Note:** Version bump only for package @verdaccio/readme
+
+
+
+
+
+# [9.7.0](https://github.com/verdaccio/monorepo/compare/v9.6.1...v9.7.0) (2020-06-24)
+
+**Note:** Version bump only for package @verdaccio/readme
+
+
+
+
+
+## [9.6.1](https://github.com/verdaccio/monorepo/compare/v9.6.0...v9.6.1) (2020-06-07)
+
+**Note:** Version bump only for package @verdaccio/readme
+
+
+
+
+
+## [9.5.1](https://github.com/verdaccio/monorepo/compare/v9.5.0...v9.5.1) (2020-06-03)
+
+
+### Bug Fixes
+
+* restore Node v8 support ([#361](https://github.com/verdaccio/monorepo/issues/361)) ([9be55a1](https://github.com/verdaccio/monorepo/commit/9be55a1deebe954e8eef9edc59af9fd16e29daed))
+
+
+
+
+
+# [9.5.0](https://github.com/verdaccio/monorepo/compare/v9.4.1...v9.5.0) (2020-05-02)
+
+**Note:** Version bump only for package @verdaccio/readme
+
+
+
+
+
+# [9.4.0](https://github.com/verdaccio/monorepo/compare/v9.3.4...v9.4.0) (2020-03-21)
+
+**Note:** Version bump only for package @verdaccio/readme
+
+
+
+
+
+## [9.3.3](https://github.com/verdaccio/monorepo/compare/v9.3.2...v9.3.3) (2020-03-11)
+
+
+### Bug Fixes
+
+* update jsdom@16.2.1 ([#340](https://github.com/verdaccio/monorepo/issues/340)) ([6060769](https://github.com/verdaccio/monorepo/commit/6060769d52f796337dda9f1a54f149c5fb22ca17))
+
+
+
+
+
+## [9.3.2](https://github.com/verdaccio/monorepo/compare/v9.3.1...v9.3.2) (2020-03-08)
+
+
+### Bug Fixes
+
+* security dependency jsdom@16.2.0 update ([#338](https://github.com/verdaccio/monorepo/issues/338)) ([0599f3e](https://github.com/verdaccio/monorepo/commit/0599f3e16fd1de993494943e2e7464d10b62d6be))
+* update dependencies ([#332](https://github.com/verdaccio/monorepo/issues/332)) ([b6165ae](https://github.com/verdaccio/monorepo/commit/b6165aea9b7e4012477081eae68bfa7159c58f56))
+
+
+
+
+
+## [9.3.1](https://github.com/verdaccio/monorepo/compare/v9.3.0...v9.3.1) (2020-02-23)
+
+**Note:** Version bump only for package @verdaccio/readme
+
+
+
+
+
 # [9.3.0](https://github.com/verdaccio/monorepo/compare/v9.2.0...v9.3.0) (2020-01-29)
 
 **Note:** Version bump only for package @verdaccio/readme

@@ -3,7 +3,7 @@ import crypto from 'crypto';
 import md5 from 'apache-md5';
 import bcrypt from 'bcryptjs';
 import createError, { HttpError } from 'http-errors';
-import * as locker from '@verdaccio/file-locking';
+import { readFile } from '@verdaccio/file-locking';
 import { Callback } from '@verdaccio/types';
 
 import crypt3 from './crypt3';
@@ -11,18 +11,13 @@ import crypt3 from './crypt3';
 // this function neither unlocks file nor closes it
 // it'll have to be done manually later
 export function lockAndRead(name: string, cb: Callback): void {
-  locker.readFile(name, { lock: true }, (err, res) => {
+  readFile(name, { lock: true }, (err, res) => {
     if (err) {
       return cb(err);
     }
 
     return cb(null, res);
   });
-}
-
-// close and unlock file
-export function unlockFile(name: string, cb: Callback): void {
-  locker.unlockFile(name, cb);
 }
 
 /**
@@ -82,12 +77,7 @@ export function addUserToHTPasswd(body: string, user: string, passwd: string): s
   if (crypt3) {
     passwd = crypt3(passwd);
   } else {
-    passwd =
-      '{SHA}' +
-      crypto
-        .createHash('sha1')
-        .update(passwd, 'utf8')
-        .digest('base64');
+    passwd = '{SHA}' + crypto.createHash('sha1').update(passwd, 'utf8').digest('base64');
   }
   const comment = 'autocreated ' + new Date().toJSON();
   let newline = `${user}:${passwd}:${comment}\n`;
@@ -149,10 +139,7 @@ export function sanityCheck(
 }
 
 export function getCryptoPassword(password: string): string {
-  return `{SHA}${crypto
-    .createHash('sha1')
-    .update(password, 'utf8')
-    .digest('base64')}`;
+  return `{SHA}${crypto.createHash('sha1').update(password, 'utf8').digest('base64')}`;
 }
 
 /**
@@ -164,21 +151,21 @@ export function getCryptoPassword(password: string): string {
  * @returns {string}
  */
 export function changePasswordToHTPasswd(body: string, user: string, passwd: string, newPasswd: string): string {
-  let _passwd;
-  let _newPasswd;
-  if (crypt3) {
-    _passwd = crypt3(passwd);
-    _newPasswd = crypt3(newPasswd);
-  } else {
-    _passwd = getCryptoPassword(passwd);
-    _newPasswd = getCryptoPassword(newPasswd);
-  }
-
   let lines = body.split('\n');
-  lines = lines.map(line => {
+  lines = lines.map((line) => {
     const [username, password] = line.split(':', 3);
 
     if (username === user) {
+      let _passwd;
+      let _newPasswd;
+      if (crypt3) {
+        _passwd = crypt3(passwd, password);
+        _newPasswd = crypt3(newPasswd);
+      } else {
+        _passwd = getCryptoPassword(passwd);
+        _newPasswd = getCryptoPassword(newPasswd);
+      }
+
       if (password == _passwd) {
         // replace old password hash with new password hash
         line = line.replace(_passwd, _newPasswd);

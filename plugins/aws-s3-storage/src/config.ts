@@ -9,4 +9,5 @@ export interface S3Config extends Config {
   tarballACL?: string;
   accessKeyId?: string;
   secretAccessKey?: string;
+  sessionToken?: string;
 }
