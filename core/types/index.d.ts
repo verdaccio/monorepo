@@ -350,7 +350,6 @@ declare module '@verdaccio/types' {
     publish?: PublishOptions;
     url_prefix?: string;
     tarball_url_redirect?: string;
-    scoped_tarball_url_redirect?: string;
     store?: any;
     listen?: ListenAddress;
     https?: HttpsConf;
