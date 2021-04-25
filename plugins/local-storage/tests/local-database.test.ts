@@ -8,6 +8,7 @@ import LocalDatabase from '../src/local-database';
 import { ILocalFSPackageManager } from '../src/local-fs';
 import * as pkgUtils from '../src/pkg-utils';
 
+// FIXME: remove this mocks imports
 import Config from './__mocks__/Config';
 import logger from './__mocks__/Logger';
 
@@ -198,86 +199,6 @@ describe('Local Database', () => {
 
       callSearch(db, 0, done);
       spyInstance.mockRestore();
-    });
-  });
-
-  describe('token', () => {
-    let token: Token;
-
-    beforeEach(() => {
-      (locaDatabase as LocalDatabase).tokenDb = {
-        put: jest.fn().mockImplementation((key, value, cb) => cb()),
-        del: jest.fn().mockImplementation((key, cb) => cb()),
-        createReadStream: jest.fn(),
-      };
-
-      token = {
-        user: 'someUser',
-        viewToken: 'viewToken',
-        key: 'someHash',
-        readonly: true,
-        createdTimestamp: new Date().getTime(),
-      };
-    });
-
-    test('should save token', async done => {
-      const db = (locaDatabase as LocalDatabase).tokenDb;
-
-      await locaDatabase.saveToken(token);
-
-      expect(db.put).toHaveBeenCalledWith('someUser:someHash', token, expect.anything());
-      done();
-    });
-
-    test('should delete token', async done => {
-      const db = (locaDatabase as LocalDatabase).tokenDb;
-
-      await locaDatabase.deleteToken('someUser', 'someHash');
-
-      expect(db.del).toHaveBeenCalledWith('someUser:someHash', expect.anything());
-      done();
-    });
-
-    test('should get tokens', async () => {
-      const db = (locaDatabase as LocalDatabase).tokenDb;
-      const events = { on: {}, once: {} };
-      const stream = {
-        on: (event, cb): void => {
-          events.on[event] = cb;
-        },
-        once: (event, cb): void => {
-          events.once[event] = cb;
-        },
-      };
-      db.createReadStream.mockImplementation(() => stream);
-      setTimeout(() => events.on['data']({ value: token }));
-      setTimeout(() => events.once['end']());
-
-      const tokens = await locaDatabase.readTokens({ user: 'someUser' });
-
-      expect(db.createReadStream).toHaveBeenCalledWith({
-        gte: 'someUser:',
-        lte: 't',
-      });
-      expect(tokens).toHaveLength(1);
-      expect(tokens[0]).toBe(token);
-    });
-
-    test('should fail getting tokens if something goes wrong', async () => {
-      const db = (locaDatabase as LocalDatabase).tokenDb;
-      const events = { on: {}, once: {} };
-      const stream = {
-        on: (event, cb): void => {
-          events.on[event] = cb;
-        },
-        once: (event, cb): void => {
-          events.once[event] = cb;
-        },
-      };
-      db.createReadStream.mockImplementation(() => stream);
-      setTimeout(() => events.once['error'](new Error('Unexpected error!')));
-
-      await expect(locaDatabase.readTokens({ user: 'someUser' })).rejects.toThrow('Unexpected error!');
     });
   });
 });

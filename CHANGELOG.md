@@ -3,6 +3,214 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [10.0.2](https://github.com/verdaccio/monorepo/compare/v10.0.1...v10.0.2) (2021-04-01)
+
+
+### Bug Fixes
+
+* add warning database name ([#402](https://github.com/verdaccio/monorepo/issues/402)) ([6c250c5](https://github.com/verdaccio/monorepo/commit/6c250c5c0ee041d48a0006c242bb15fe9768be5c))
+
+
+
+
+
+## [10.0.1](https://github.com/verdaccio/monorepo/compare/v10.0.0...v10.0.1) (2021-03-29)
+
+
+### Bug Fixes
+
+* restore self_path variable ([#396](https://github.com/verdaccio/monorepo/issues/396)) ([b369102](https://github.com/verdaccio/monorepo/commit/b369102ab7f54ec4218dcd49c9c7f8a34f3fe9a2))
+
+
+
+
+
+# [10.0.0](https://github.com/verdaccio/monorepo/compare/v9.7.5...v10.0.0) (2021-03-29)
+
+**Note:** Version bump only for package @verdaccio/monorepo
+
+
+
+
+
+## [9.7.5](https://github.com/verdaccio/monorepo/compare/v9.7.4...v9.7.5) (2021-03-05)
+
+
+### Bug Fixes
+
+* update dependencies ([#393](https://github.com/verdaccio/monorepo/issues/393)) ([51cb3d4](https://github.com/verdaccio/monorepo/commit/51cb3d4a533590054085dca1e5270cf9ebdeacfd))
+
+
+
+
+
+## [9.7.4](https://github.com/verdaccio/monorepo/compare/v9.7.3...v9.7.4) (2020-10-31)
+
+
+### Bug Fixes
+
+* update lodash ([c7fe587](https://github.com/verdaccio/monorepo/commit/c7fe587a6d8be337d7099cbd459320cbda4cfd91))
+
+
+
+
+
+## [9.7.3](https://github.com/verdaccio/monorepo/compare/v9.7.2...v9.7.3) (2020-07-30)
+
+
+### Bug Fixes
+
+* update marked / request security vulnerability ([#378](https://github.com/verdaccio/monorepo/issues/378)) ([4188e08](https://github.com/verdaccio/monorepo/commit/4188e088f42d0f6e090c948b869312ba1f30cd79))
+
+
+
+
+
+## [9.7.2](https://github.com/verdaccio/monorepo/compare/v9.7.1...v9.7.2) (2020-07-20)
+
+
+### Bug Fixes
+
+* incorrect AuthAccessCallback and AuthCallback ([#374](https://github.com/verdaccio/monorepo/issues/374)) ([97538f8](https://github.com/verdaccio/monorepo/commit/97538f886271ccdbea7862957f65c4a17c4cd831)), closes [/github.com/verdaccio/verdaccio/blob/master/src/lib/auth.ts#L264](https://github.com//github.com/verdaccio/verdaccio/blob/master/src/lib/auth.ts/issues/L264) [/github.com/verdaccio/verdaccio/blob/master/src/lib/auth.ts#L114](https://github.com//github.com/verdaccio/verdaccio/blob/master/src/lib/auth.ts/issues/L114)
+
+
+
+
+
+## [9.7.1](https://github.com/verdaccio/monorepo/compare/v9.7.0...v9.7.1) (2020-07-10)
+
+
+### Bug Fixes
+
+* update dependencies ([#375](https://github.com/verdaccio/monorepo/issues/375)) ([1e7aeec](https://github.com/verdaccio/monorepo/commit/1e7aeec31b056979285e272793a95b8c75d57c77))
+
+
+
+
+
+# [9.7.0](https://github.com/verdaccio/monorepo/compare/v9.6.1...v9.7.0) (2020-06-24)
+
+
+### Features
+
+* types for https config ([#368](https://github.com/verdaccio/monorepo/issues/368)) ([aa4aa83](https://github.com/verdaccio/monorepo/commit/aa4aa83e8a2f6a29ebe7c0b43ccc560a37fe2da9))
+
+
+
+
+
+## [9.6.1](https://github.com/verdaccio/monorepo/compare/v9.6.0...v9.6.1) (2020-06-07)
+
+
+### Bug Fixes
+
+* **verdaccio-memory:** race condition on save a package ([#365](https://github.com/verdaccio/monorepo/issues/365)) ([70c1fb1](https://github.com/verdaccio/monorepo/commit/70c1fb1271e9e6af8577a81f8bf94d21d80e8d6b))
+
+
+
+
+
+# [9.6.0](https://github.com/verdaccio/monorepo/compare/v9.5.1...v9.6.0) (2020-06-07)
+
+
+### Features
+
+* allow providing session token in config ([#362](https://github.com/verdaccio/monorepo/issues/362)) ([acef36f](https://github.com/verdaccio/monorepo/commit/acef36f99c9028742bf417ee9879ed80bfbb7a8d))
+
+
+
+
+
+## [9.5.1](https://github.com/verdaccio/monorepo/compare/v9.5.0...v9.5.1) (2020-06-03)
+
+
+### Bug Fixes
+
+* restore Node v8 support ([#361](https://github.com/verdaccio/monorepo/issues/361)) ([9be55a1](https://github.com/verdaccio/monorepo/commit/9be55a1deebe954e8eef9edc59af9fd16e29daed))
+
+
+
+
+
+# [9.5.0](https://github.com/verdaccio/monorepo/compare/v9.4.1...v9.5.0) (2020-05-02)
+
+
+### Features
+
+* **types:** custom favicon ([#356](https://github.com/verdaccio/monorepo/issues/356)) ([bd78861](https://github.com/verdaccio/monorepo/commit/bd78861f46cd5189808b6689d2018a7bac6755f7))
+
+
+
+
+
+## [9.4.1](https://github.com/verdaccio/monorepo/compare/v9.4.0...v9.4.1) (2020-04-30)
+
+
+### Bug Fixes
+
+* **verdaccio-htpasswd:** generate non-constant legacy 2 byte salt ([#357](https://github.com/verdaccio/monorepo/issues/357)) ([d522595](https://github.com/verdaccio/monorepo/commit/d522595122b7deaac8e3bc568f73658041811aaf))
+
+
+
+
+
+# [9.4.0](https://github.com/verdaccio/monorepo/compare/v9.3.4...v9.4.0) (2020-03-21)
+
+
+### Features
+
+* update babel@7.9.x ([#343](https://github.com/verdaccio/monorepo/issues/343)) ([91c6ba2](https://github.com/verdaccio/monorepo/commit/91c6ba26c7220a86becd7deb7d2814395e3421b9))
+
+
+
+
+
+## [9.3.4](https://github.com/verdaccio/monorepo/compare/v9.3.3...v9.3.4) (2020-03-11)
+
+
+### Bug Fixes
+
+* update mkdirp@1.0.3 ([#341](https://github.com/verdaccio/monorepo/issues/341)) ([96db337](https://github.com/verdaccio/monorepo/commit/96db3378a4f2334ec89cfb113af95e9a3a6eb050))
+
+
+
+
+
+## [9.3.3](https://github.com/verdaccio/monorepo/compare/v9.3.2...v9.3.3) (2020-03-11)
+
+
+### Bug Fixes
+
+* update jsdom@16.2.1 ([#340](https://github.com/verdaccio/monorepo/issues/340)) ([6060769](https://github.com/verdaccio/monorepo/commit/6060769d52f796337dda9f1a54f149c5fb22ca17))
+
+
+
+
+
+## [9.3.2](https://github.com/verdaccio/monorepo/compare/v9.3.1...v9.3.2) (2020-03-08)
+
+
+### Bug Fixes
+
+* security dependency jsdom@16.2.0 update ([#338](https://github.com/verdaccio/monorepo/issues/338)) ([0599f3e](https://github.com/verdaccio/monorepo/commit/0599f3e16fd1de993494943e2e7464d10b62d6be))
+* update dependencies ([#332](https://github.com/verdaccio/monorepo/issues/332)) ([b6165ae](https://github.com/verdaccio/monorepo/commit/b6165aea9b7e4012477081eae68bfa7159c58f56))
+* update typescript@3.8.2 ([#333](https://github.com/verdaccio/monorepo/issues/333)) ([356c09b](https://github.com/verdaccio/monorepo/commit/356c09b4a212321245f1c89629107dbfbd546b9b))
+
+
+
+
+
+## [9.3.1](https://github.com/verdaccio/monorepo/compare/v9.3.0...v9.3.1) (2020-02-23)
+
+
+### Bug Fixes
+
+* resolve missing missing 'babel/proposal-optional-chaining' in test env ([#330](https://github.com/verdaccio/monorepo/issues/330)) ([ab70f1e](https://github.com/verdaccio/monorepo/commit/ab70f1e5ef23199f0f91275b9eb7545d1d0a43b9))
+
+
+
+
+
 # [9.3.0](https://github.com/verdaccio/monorepo/compare/v9.2.0...v9.3.0) (2020-01-29)
 
 

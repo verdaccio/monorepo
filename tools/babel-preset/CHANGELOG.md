@@ -3,6 +3,67 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [10.0.0](https://github.com/verdaccio/monorepo/compare/v9.7.5...v10.0.0) (2021-03-29)
+
+**Note:** Version bump only for package @verdaccio/babel-preset
+
+
+
+
+
+## [9.7.1](https://github.com/verdaccio/monorepo/compare/v9.7.0...v9.7.1) (2020-07-10)
+
+
+### Bug Fixes
+
+* update dependencies ([#375](https://github.com/verdaccio/monorepo/issues/375)) ([1e7aeec](https://github.com/verdaccio/monorepo/commit/1e7aeec31b056979285e272793a95b8c75d57c77))
+
+
+
+
+
+## [9.6.1](https://github.com/verdaccio/monorepo/compare/v9.6.0...v9.6.1) (2020-06-07)
+
+**Note:** Version bump only for package @verdaccio/babel-preset
+
+
+
+
+
+# [9.4.0](https://github.com/verdaccio/monorepo/compare/v9.3.4...v9.4.0) (2020-03-21)
+
+
+### Features
+
+* update babel@7.9.x ([#343](https://github.com/verdaccio/monorepo/issues/343)) ([91c6ba2](https://github.com/verdaccio/monorepo/commit/91c6ba26c7220a86becd7deb7d2814395e3421b9))
+
+
+
+
+
+## [9.3.2](https://github.com/verdaccio/monorepo/compare/v9.3.1...v9.3.2) (2020-03-08)
+
+
+### Bug Fixes
+
+* update dependencies ([#332](https://github.com/verdaccio/monorepo/issues/332)) ([b6165ae](https://github.com/verdaccio/monorepo/commit/b6165aea9b7e4012477081eae68bfa7159c58f56))
+* update typescript@3.8.2 ([#333](https://github.com/verdaccio/monorepo/issues/333)) ([356c09b](https://github.com/verdaccio/monorepo/commit/356c09b4a212321245f1c89629107dbfbd546b9b))
+
+
+
+
+
+## [9.3.1](https://github.com/verdaccio/monorepo/compare/v9.3.0...v9.3.1) (2020-02-23)
+
+
+### Bug Fixes
+
+* resolve missing missing 'babel/proposal-optional-chaining' in test env ([#330](https://github.com/verdaccio/monorepo/issues/330)) ([ab70f1e](https://github.com/verdaccio/monorepo/commit/ab70f1e5ef23199f0f91275b9eb7545d1d0a43b9))
+
+
+
+
+
 # [9.0.0](https://github.com/verdaccio/monorepo/compare/v8.5.3...v9.0.0) (2020-01-07)
 
 

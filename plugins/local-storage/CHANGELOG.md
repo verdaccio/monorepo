@@ -3,6 +3,150 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [10.0.2](https://github.com/verdaccio/monorepo/compare/v10.0.1...v10.0.2) (2021-04-01)
+
+
+### Bug Fixes
+
+* add warning database name ([#402](https://github.com/verdaccio/monorepo/issues/402)) ([6c250c5](https://github.com/verdaccio/monorepo/commit/6c250c5c0ee041d48a0006c242bb15fe9768be5c))
+
+
+
+
+
+## [10.0.1](https://github.com/verdaccio/monorepo/compare/v10.0.0...v10.0.1) (2021-03-29)
+
+
+### Bug Fixes
+
+* restore self_path variable ([#396](https://github.com/verdaccio/monorepo/issues/396)) ([b369102](https://github.com/verdaccio/monorepo/commit/b369102ab7f54ec4218dcd49c9c7f8a34f3fe9a2))
+
+
+
+
+
+# [10.0.0](https://github.com/verdaccio/monorepo/compare/v9.7.5...v10.0.0) (2021-03-29)
+
+**Note:** Version bump only for package @verdaccio/local-storage
+
+
+
+
+
+## [9.7.5](https://github.com/verdaccio/monorepo/compare/v9.7.4...v9.7.5) (2021-03-05)
+
+
+### Bug Fixes
+
+* update dependencies ([#393](https://github.com/verdaccio/monorepo/issues/393)) ([51cb3d4](https://github.com/verdaccio/monorepo/commit/51cb3d4a533590054085dca1e5270cf9ebdeacfd))
+
+
+
+
+
+## [9.7.4](https://github.com/verdaccio/monorepo/compare/v9.7.3...v9.7.4) (2020-10-31)
+
+
+### Bug Fixes
+
+* update lodash ([c7fe587](https://github.com/verdaccio/monorepo/commit/c7fe587a6d8be337d7099cbd459320cbda4cfd91))
+
+
+
+
+
+## [9.7.2](https://github.com/verdaccio/monorepo/compare/v9.7.1...v9.7.2) (2020-07-20)
+
+**Note:** Version bump only for package @verdaccio/local-storage
+
+
+
+
+
+## [9.7.1](https://github.com/verdaccio/monorepo/compare/v9.7.0...v9.7.1) (2020-07-10)
+
+
+### Bug Fixes
+
+* update dependencies ([#375](https://github.com/verdaccio/monorepo/issues/375)) ([1e7aeec](https://github.com/verdaccio/monorepo/commit/1e7aeec31b056979285e272793a95b8c75d57c77))
+
+
+
+
+
+# [9.7.0](https://github.com/verdaccio/monorepo/compare/v9.6.1...v9.7.0) (2020-06-24)
+
+**Note:** Version bump only for package @verdaccio/local-storage
+
+
+
+
+
+## [9.6.1](https://github.com/verdaccio/monorepo/compare/v9.6.0...v9.6.1) (2020-06-07)
+
+**Note:** Version bump only for package @verdaccio/local-storage
+
+
+
+
+
+## [9.5.1](https://github.com/verdaccio/monorepo/compare/v9.5.0...v9.5.1) (2020-06-03)
+
+
+### Bug Fixes
+
+* restore Node v8 support ([#361](https://github.com/verdaccio/monorepo/issues/361)) ([9be55a1](https://github.com/verdaccio/monorepo/commit/9be55a1deebe954e8eef9edc59af9fd16e29daed))
+
+
+
+
+
+# [9.5.0](https://github.com/verdaccio/monorepo/compare/v9.4.1...v9.5.0) (2020-05-02)
+
+**Note:** Version bump only for package @verdaccio/local-storage
+
+
+
+
+
+# [9.4.0](https://github.com/verdaccio/monorepo/compare/v9.3.4...v9.4.0) (2020-03-21)
+
+**Note:** Version bump only for package @verdaccio/local-storage
+
+
+
+
+
+## [9.3.4](https://github.com/verdaccio/monorepo/compare/v9.3.3...v9.3.4) (2020-03-11)
+
+
+### Bug Fixes
+
+* update mkdirp@1.0.3 ([#341](https://github.com/verdaccio/monorepo/issues/341)) ([96db337](https://github.com/verdaccio/monorepo/commit/96db3378a4f2334ec89cfb113af95e9a3a6eb050))
+
+
+
+
+
+## [9.3.2](https://github.com/verdaccio/monorepo/compare/v9.3.1...v9.3.2) (2020-03-08)
+
+
+### Bug Fixes
+
+* update dependencies ([#332](https://github.com/verdaccio/monorepo/issues/332)) ([b6165ae](https://github.com/verdaccio/monorepo/commit/b6165aea9b7e4012477081eae68bfa7159c58f56))
+
+
+
+
+
+## [9.3.1](https://github.com/verdaccio/monorepo/compare/v9.3.0...v9.3.1) (2020-02-23)
+
+**Note:** Version bump only for package @verdaccio/local-storage
+
+
+
+
+
 # [9.3.0](https://github.com/verdaccio/monorepo/compare/v9.2.0...v9.3.0) (2020-01-29)
 
 **Note:** Version bump only for package @verdaccio/local-storage

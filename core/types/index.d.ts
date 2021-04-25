@@ -288,17 +288,23 @@ declare module '@verdaccio/types' {
     enable?: boolean;
     title?: string;
     logo?: string;
+    favicon?: string;
     gravatar?: boolean;
     sort_packages?: string;
   }
 
-  interface HttpsConf {
-    key?: string;
-    cert?: string;
+  interface HttpsConfKeyCert {
+    key: string;
+    cert: string;
     ca?: string;
-    pfx?: string;
+  }
+
+  interface HttpsConfPfx {
+    pfx: string;
     passphrase?: string;
   }
+
+  type HttpsConf = HttpsConfKeyCert | HttpsConfPfx;
 
   interface JWTOptions {
     sign: JWTSignOptions;
@@ -363,6 +369,10 @@ declare module '@verdaccio/types' {
     checkSecretKey(token: string): string;
     getMatchedPackagesSpec(storage: string): PackageAccess | void;
     [key: string]: any;
+  }
+
+  interface ConfigWithHttps extends Config {
+    https: HttpsConf;
   }
 
   interface ITokenActions {
@@ -487,8 +497,21 @@ declare module '@verdaccio/types' {
     tag?: string;
   }
 
-  type AuthAccessCallback = (error: string | null, access: boolean) => void;
-  type AuthCallback = (error: string | null, groups: string[] | false) => void;
+  // FIXME: error should be export type `VerdaccioError = HttpError & { code: number };` instead of AuthError
+  // but this type is on @verdaccio/commons-api and cannot be used here yet (I don't know why)
+  interface HttpError extends Error {
+    status: number;
+    statusCode: number;
+    expose: boolean;
+    headers?: {
+      [key: string]: string;
+    };
+    [key: string]: any;
+  }
+
+  type AuthError = HttpError & { code: number };
+  type AuthAccessCallback = (error: AuthError | null, access: boolean) => void;
+  type AuthCallback = (error: AuthError | null, groups: string[] | false) => void;
 
   interface IPluginAuth<T> extends IPlugin<T> {
     authenticate(user: string, password: string, cb: AuthCallback): void;
