@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [10.0.3](https://github.com/verdaccio/monorepo/compare/v10.0.2...v10.0.3) (2021-04-26)
+
+
+### Bug Fixes
+
+* force update package ([e56f4fd](https://github.com/verdaccio/monorepo/commit/e56f4fd39c273a5797126775086bdc93fd723afb))
+
+
+
+
+
 ## [10.0.2](https://github.com/verdaccio/monorepo/compare/v10.0.1...v10.0.2) (2021-04-01)
 
 
