@@ -303,7 +303,7 @@ class LocalDatabase extends TokenActions implements IPluginStorage<{}> {
     try {
       fs.accessSync(sinopiadbPath, fs.constants.F_OK);
       // @ts-ignore
-      process.emitWarning('Database name deprecated', {
+      process.emitWarning('Database name deprecated!', {
         code: 'VERCODE01',
         detail: `Please rename database name from ${DEPRECATED_DB_NAME} to ${DB_NAME}`,
       });
