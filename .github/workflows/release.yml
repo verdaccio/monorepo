@@ -1,0 +1,47 @@
+name: Release
+on:
+  push:
+    tags:
+      - v*.*.*
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    env:
+      NPM_TOKEN: ${{ secrets.REGISTRY_AUTH_TOKEN }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v2
+        with:
+         # https://github.com/actions/checkout#Fetch-all-history-for-all-tags-and-branches
+         # pulls all commits (needed for lerna / semantic release to correctly version)
+         fetch-depth: "0"
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14
+          registry-url: https://registry.npmjs.org/
+           # fyi https://github.com/lerna/lerna/issues/2542
+           # pulls all tags (needed for lerna / semantic release to correctly version)
+      - name: Fetch tags
+        run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
+      - name: Install
+        run: yarn install --frozen-lockfile
+      - name: Configure Git User
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+      - name: Authenticate with Registry
+        run: |
+          yarn logout
+          echo "@verdaccio:registry=http://registry.npmjs.org/" > .npmrc
+          echo "registry=http://registry.npmjs.org/" >> .npmrc
+          echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> .npmrc
+          npm whoami
+        env:
+          NPM_TOKEN: ${{ secrets.REGISTRY_AUTH_TOKEN }}
+      - name: Build
+        run: yarn build
+      - name: Publish
+        run: yarn release:publish --yes --registry=https://registry.npmjs.org
+        env:
+          NPM_TOKEN: ${{ secrets.REGISTRY_AUTH_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.REGISTRY_AUTH_TOKEN }}
