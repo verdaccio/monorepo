@@ -47,6 +47,7 @@ importers:
       babel-plugin-dynamic-import-node: 2.3.3
       babel-plugin-emotion: 10.0.33
       codecov: 3.6.1
+      cross-env: 7.0.3
       eslint: 7.19.0
       eslint-config-google: 0.14.0
       eslint-config-prettier: 7.2.0
@@ -62,7 +63,7 @@ importers:
       jest: 26.0.1
       lint-staged: 9.5.0
       lodash: 4.17.20
-      prettier: 1.19.1
+      prettier: 2.2.1
       rimraf: 3.0.2
       snyk: 1.336.0
       typescript: 3.9.5
@@ -111,6 +112,7 @@ importers:
       babel-plugin-dynamic-import-node: 2.3.3
       babel-plugin-emotion: 10.0.33
       codecov: 3.6.1
+      cross-env: 7.0.3
       eslint: 7.19.0
       eslint-config-google: 0.14.0_eslint@7.19.0
       eslint-config-prettier: 7.2.0_eslint@7.19.0
@@ -126,7 +128,7 @@ importers:
       jest: 26.0.1
       lint-staged: 9.5.0
       lodash: 4.17.20
-      prettier: 1.19.1
+      prettier: 2.2.1
       rimraf: 3.0.2
       snyk: 1.336.0
       typescript: 3.9.5
@@ -4473,6 +4475,14 @@ packages:
       parse-json: 5.2.0
       path-type: 4.0.0
       yaml: 1.10.2
+    dev: true
+
+  /cross-env/7.0.3:
+    resolution: {integrity: sha512-+/HKd6EgcQCJGh2PSjZuUitQBQynKor4wrFbRg4DtAgS1aWO+gU52xpH7M9ScGgXSYmAVS9bIJ8EzuaGw0oNAw==}
+    engines: {node: '>=10.14', npm: '>=6', yarn: '>=1'}
+    hasBin: true
+    dependencies:
+      cross-spawn: 7.0.3
     dev: true
 
   /cross-spawn/5.1.0:
@@ -9054,6 +9064,12 @@ packages:
   /prettier/1.19.1:
     resolution: {integrity: sha512-s7PoyDv/II1ObgQunCbB9PdLmUcBZcnWOcxDh7O0N/UwDEsHyqkW+Qh28jW+mVuCdx7gLB0BotYI1Y6uI9iyew==}
     engines: {node: '>=4'}
+    hasBin: true
+    dev: true
+
+  /prettier/2.2.1:
+    resolution: {integrity: sha512-PqyhM2yCjg/oKkFPtTGUojv7gnZAoG80ttl45O6x2Ug/rMJw4wcc9k6aaf2hibP7BGVCCM33gZoGjyvt9mm16Q==}
+    engines: {node: '>=10.13.0'}
     hasBin: true
     dev: true
 

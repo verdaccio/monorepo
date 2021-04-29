@@ -8,17 +8,13 @@
     "declaration": true,
     "jsx": "react",
     "strictNullChecks": true,
-    "types": [
-      "node",
-      "jest",
-      "express"
-    ],
+    "types": ["node", "jest", "express"],
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true
   },
   "exclude": [
-    "**/build",
+    "**/lib",
     "node_modules",
     "**/node_modules",
     "**/coverage",
@@ -26,46 +22,5 @@
     "**/test",
     "**/__tests__",
     "**/*.test.ts"
-  ],
-  "references": [
-    {
-      "path": "core/commons-api"
-    },
-    {
-      "path": "core/file-locking"
-    },
-    {
-      "path": "core/readme"
-    },
-    {
-      "path": "core/streams"
-    },
-    {
-      "path": "core/types"
-    },
-    {
-      "path": "plugins/active-directory"
-    },
-    {
-      "path": "plugins/audit"
-    },
-    {
-      "path": "plugins/auth-memory"
-    },
-    {
-      "path": "plugins/aws-s3-storage"
-    },
-    {
-      "path": "plugins/google-cloud"
-    },
-    {
-      "path": "plugins/htpasswd"
-    },
-    {
-      "path": "plugins/local-storage"
-    },
-    {
-      "path": "plugins/memory"
-    }
   ]
 }

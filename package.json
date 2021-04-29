@@ -35,7 +35,6 @@
     "@babel/runtime": "7.10.4",
     "@typescript-eslint/eslint-plugin": "4.13.0",
     "@typescript-eslint/parser": "4.13.0",
-
     "@verdaccio/types": "workspace:*",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "10.1.0",
@@ -53,6 +52,7 @@
     "@types/node": "13.1.1",
     "@types/request": "2.48.4",
     "codecov": "3.6.1",
+    "cross-env": "7.0.3",
     "rimraf": "3.0.2",
     "eslint": "7.19.0",
     "eslint-config-google": "0.14.0",
@@ -70,7 +70,7 @@
     "jest": "26.0.1",
     "lint-staged": "9.5.0",
     "lodash": "4.17.20",
-    "prettier": "1.19.1",
+    "prettier": "2.2.1",
     "snyk": "1.336.0",
     "typescript": "3.9.5"
   },
@@ -91,10 +91,8 @@
     }
   },
   "lint-staged": {
-    "**/*.{js,ts}": [
-      "eslint --fix",
-      "git add"
-    ]
+    "*.{js,jsx,ts,tsx,json,yml,yaml,md}": "prettier --write",
+    "*.{js,jsx,ts,tsx}": "eslint --cache --fix"
   },
   "version": "0.0.0"
 }
