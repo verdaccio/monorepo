@@ -28,7 +28,7 @@ const json: Package = {
       readme: '# test',
       readmeFilename: 'README.md',
       _id: '@scope/pk1-test@1.0.6',
-      //@ts-ignore
+      // @ts-ignore
       _npmVersion: '5.5.1',
       _nodeVersion: '8.7.0',
       _npmUser: {

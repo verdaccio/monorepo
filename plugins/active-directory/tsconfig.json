@@ -1,4 +1,5 @@
 {
+  "extends": "../../tsconfig.reference.json",
   "compilerOptions": {
     "target": "esnext",
     "module": "commonjs",
@@ -11,5 +12,13 @@
   },
   "include": [
     "src/*.ts"
+  ],
+  "references": [
+    {
+      "path": "../../core/commons-api"
+    },
+    {
+      "path": "../../core/types"
+    }
   ]
 }

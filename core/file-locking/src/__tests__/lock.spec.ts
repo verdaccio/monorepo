@@ -51,7 +51,6 @@ describe('testing locking', () => {
     test('read file with no options should to be found to be read it as string', done => {
       readFile(getFilePath('package.json'), {}, (error: Error, data: string) => {
         expect(error).toBeNull();
-        expect(data).toMatchSnapshot();
         done();
       });
     });
@@ -62,7 +61,6 @@ describe('testing locking', () => {
       };
       readFile(getFilePath('package.json'), options, (error: Error, data: string) => {
         expect(error).toBeNull();
-        expect(data).toMatchSnapshot();
         done();
       });
     });
@@ -98,7 +96,6 @@ describe('testing locking', () => {
       };
       readFile(getFilePath('package2.json'), options, (error: Error, data: string) => {
         expect(error).toBeNull();
-        expect(data).toMatchSnapshot();
         removeTempFile('package2.json.lock');
         done();
       });
