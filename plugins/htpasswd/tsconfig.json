@@ -1,4 +1,5 @@
 {
+  "extends": "../../tsconfig.reference.json",
   "compilerOptions": {
     "target": "esnext",
     "module": "commonjs",
@@ -16,5 +17,13 @@
   "include": [
     "src/*.ts",
     "types/*.d.ts"
+  ],
+  "references": [
+    {
+      "path": "../../core/file-locking"
+    },
+    {
+      "path": "../../core/types"
+    }
   ]
 }

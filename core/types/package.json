@@ -28,6 +28,9 @@
     "lint:stage": "lint-staged",
     "test": "tsc --noEmit"
   },
+  "devDependencies": {
+    "@types/node": "14.6.0"
+  },
   "funding": {
     "type": "opencollective",
     "url": "https://opencollective.com/verdaccio"

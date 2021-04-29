@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "preserveSymlinks": true,
+    "composite": true,
+    "incremental": true,
+    "declarationMap": true
+  }
+}
