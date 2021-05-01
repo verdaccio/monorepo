@@ -35,7 +35,7 @@ jobs:
       - name: build
         run: pnpm build
       - name: create versions
-        uses: verdaccio/changeset-action@master
+        uses: atlassian/changesets@master
         with:
           version: pnpm ci:version
           commit: 'chore: update versions'
