@@ -44,11 +44,6 @@ In our chat you can get help faster than filling issues.
 
 > Not allowed on this repository anymore, check `verdaccio/verdaccio` master branch.
 
-### Commiting Changes
-
-
-**Pull Requests that contains commits that do not follow these guidelines will not be merged.**
-
 ### Submitting a Pull Request
 
 The following are the steps you should follow when creating a pull request.
