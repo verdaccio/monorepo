@@ -10,14 +10,12 @@ on:
 
 env:
   CI: true
-  PNPM_CACHE_FOLDER: .pnpm-store
 
 jobs:
   # Update package versions from changesets.
   version:
     timeout-minutes: 14
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/9.x' && github.repository == 'verdaccio/monorepo'
     steps:
       - name: checkout code repository
         uses: actions/checkout@v2
@@ -28,26 +26,14 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 14
-          registry-url: 'https://registry.npmjs.org'
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPMJS_PUBLISH_TOKEN }}
-
       - name: install pnpm
         run: npm i pnpm@latest -g
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPMJS_PUBLISH_TOKEN }}
-
-      - name: setup pnpm config
-        run: pnpm config set store-dir $PNPM_CACHE_FOLDER
-
+      - name: Setup npmrc
+        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPMJS_PUBLISH_TOKEN }}" > .npmrc
       - name: install dependencies
         run: pnpm install
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPMJS_PUBLISH_TOKEN }}
-
       - name: build
         run: pnpm build
-
       - name: create versions
         uses: verdaccio/changeset-action@master
         with:
@@ -58,4 +44,3 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPMJS_PUBLISH_TOKEN }}
-          NODE_AUTH_TOKEN: ${{ secrets.NPMJS_PUBLISH_TOKEN }}
