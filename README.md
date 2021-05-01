@@ -1,7 +1,6 @@
 # Verdaccio Monorepo
 
 [![Github CI](https://github.com/verdaccio/monorepo/workflows/CI/badge.svg)](https://github.com/verdaccio/monorepo/actions)
-[![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=verdaccio/monorepo)](https://dependabot.com)
 [![License](https://img.shields.io/github/license/verdaccio/monorepo)](./LICENSE)
 [![Backers](https://opencollective.com/verdaccio/tiers/backer/badge.svg?label=Backer&color=brightgreen)](https://opencollective.com/verdaccio)
 [![Stackshare](https://img.shields.io/badge/Follow%20on-StackShare-blue.svg?logo=stackshare&style=flat)](https://stackshare.io/verdaccio)
