@@ -54,6 +54,7 @@ store:
     region: us-west-2 # optional, will use aws s3's default behavior if not specified
     endpoint: https://{service}.{region}.amazonaws.com # optional, will use aws s3's default behavior if not specified
     s3ForcePathStyle: false # optional, will use path style URLs for S3 objects
+    tarballACL: private # optional, use public-read to work with CDN like Amazon CloudFront
     accessKeyId: your-access-key-id # optional, aws accessKeyId for private S3 bucket
     secretAccessKey: your-secret-access-key # optional, aws secretAccessKey for private S3 bucket
     sessionToken: your-session-token # optional, aws sessionToken for private S3 bucket
@@ -93,16 +94,26 @@ packages:
     storage: 'public'
 ```
 
-# Developer Testing #
+### Specify ACL of Tarball Files
+
+You can specify ACL of tarball files in S3 by the *tarballACL* configuration, set to 'private' by default. To enable S3 integrated CDN service (Amazon CloudFront for example), set *tarballACL* to 'public-read' to grant tarball files anonymous read permission.
+
+```yaml
+store:
+  aws-s3-storage:
+    tarballACL: public-read
+```
+
+## Developer Testing
 
 In case of local testing, this project can be used self-efficiently. Four main ingredients are as follows:
 
 * `config.yaml`, see [verdaccio documentation](https://verdaccio.org/docs/en/configuration.html)
 * The provided docker file allows to test the plugin, with no need for main verdaccio application
 * The provided docker-compose also provides minio in orchestration as a local substitute for S3 backend
-* Create and set content of `registry.envs` as follows. This file does not exist on the repo and should be generated manually after cloning the project.  
+* Create and set content of `registry.envs` as follows. This file does not exist on the repo and should be generated manually after cloning the project.
 
-```    
+```
 AWS_ACCESS_KEY_ID=foobar
 AWS_SECRET_ACCESS_KEY=1234567e
 AWS_DEFAULT_REGION=eu-central-1
