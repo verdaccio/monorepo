@@ -1,3 +1,5 @@
+// <reference types="node" />
+
 import { PassThrough } from 'stream';
 
 declare module '@verdaccio/types' {

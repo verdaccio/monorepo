@@ -1,4 +1,5 @@
 {
+  "extends": "../../tsconfig.reference.json",
   "compilerOptions": {
     "target": "esnext",
     "module": "commonjs",
@@ -9,5 +10,13 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true
   },
-  "include": ["src/*.ts", "types/*.d.ts"]
+  "include": [
+    "src/*.ts",
+    "types/*.d.ts"
+  ],
+  "references": [
+    {
+      "path": "../types"
+    }
+  ]
 }

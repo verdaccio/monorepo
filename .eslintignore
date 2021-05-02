@@ -1,0 +1,10 @@
+**/fixtures/**
+**/mock/store/**
+**/partials/**
+**/types/custom.d.ts
+build/
+coverage/
+node_modules/
+static/
+dist/
+lib/
