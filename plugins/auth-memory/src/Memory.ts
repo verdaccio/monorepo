@@ -1,7 +1,20 @@
-import { PluginOptions, Callback, PackageAccess, IPluginAuth, RemoteUser, Logger } from '@verdaccio/types';
-import { getConflict, getForbidden, getNotFound, getUnauthorized } from '@verdaccio/commons-api/lib';
+import { Config, PluginOptions, Callback, PackageAccess, IPluginAuth, RemoteUser, Logger } from '@verdaccio/types';
+import { getConflict, getForbidden, getNotFound, getUnauthorized } from '@verdaccio/commons-api';
 
-import { VerdaccioMemoryConfig, Users, UserMemory } from '../types/index';
+export interface UserMemory {
+  name: string;
+  password: string;
+}
+
+export interface Users {
+  [key: string]: UserMemory;
+}
+
+export interface VerdaccioMemoryConfig extends Config {
+  max_users?: number;
+  users: Users;
+}
+
 
 export default class Memory implements IPluginAuth<VerdaccioMemoryConfig> {
   public _logger: Logger;

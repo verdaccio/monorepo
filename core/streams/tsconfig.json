@@ -1,15 +1,21 @@
 {
+  "extends": "../../tsconfig.reference.json",
   "compilerOptions": {
     "target": "esnext",
     "module": "commonjs",
     "declaration": true,
-		"strict": true,
-		"outDir": "lib",
+    "strict": true,
+    "outDir": "lib",
     "allowSyntheticDefaultImports": true,
-		"esModuleInterop": true
-	},
-	"include": [
-		"src/*.ts",
-		"types/*.d.ts"
-	]
+    "esModuleInterop": true
+  },
+  "include": [
+    "src/*.ts",
+    "types/*.d.ts"
+  ],
+  "references": [
+    {
+      "path": "../types"
+    }
+  ]
 }
