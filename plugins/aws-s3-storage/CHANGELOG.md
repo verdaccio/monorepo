@@ -1,5 +1,11 @@
 # Change Log
 
+## 10.1.1
+
+### Patch Changes
+
+- 5195ca1: Fix the prefix used to delete from s3 when unpublishing packages
+
 ## 10.1.0
 
 ### Minor Changes
