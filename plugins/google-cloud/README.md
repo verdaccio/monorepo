@@ -20,8 +20,9 @@ pnpm i -g verdaccio-google-cloud
 
 ### Requirements
 
-* Google Cloud Account
-* Service account with 'Cloud Datastore Owner' role and read/write access to the bucket
+* Google Cloud Platform Account
+* Google Cloud Platform project that is using [Google Firestore in Datastore mode](https://cloud.google.com/firestore/docs/firestore-or-datastore)
+* Service account with 'Cloud Datastore Owner' role and read/write access to the storage bucket
 * Verdaccio server (see below)
 
 ```
@@ -40,25 +41,26 @@ store:
    ## google project id
    projectId: project-01 || env (GOOGLE_CLOUD_VERDACCIO_PROJECT_ID)
 
-   ## namespace for metadata database
-   kind: someRandonMetadataDatabaseKey
+   ## The namespace for metadata database. Defaults to 'VerdaccioDataStore'.
+   # kind: someRandomMetadataDatabaseKey
 
-   ## this pluging do not create the bucket, it has to exist
+   ## This plugin does not create the bucket. It has to already exist.
    bucket: my-bucket-name
 
-   ## google cloud recommend this file only for development
-   ## this field is not mandatory
-   keyFilename: /path/project-01.json || env (GOOGLE_CLOUD_VERDACCIO_KEY)
+   ## Google Cloud Platform only recommends using this file for development.
+   ## This field is optional.
+   # keyFilename: /path/project-01.json || env (GOOGLE_CLOUD_VERDACCIO_KEY)
 
-   ## default validation is, it can be overrided by 
-   ## https://cloud.google.com/nodejs/docs/reference/storage/1.6.x/File.html#createWriteStream
+   ## The default validation is crc32c. It can be overridden using the
+   ## https://googleapis.dev/nodejs/storage/latest/global.html#CreateWriteStreamOptions
+   ## of https://googleapis.dev/nodejs/storage/latest/File.html#createWriteStream
    # validation: crc32c
 
    ## Enable/disable resumable uploads to GC Storage
-   ## By default it's enabled in `@google-cloud/storage`
-   ## May cause failures for small package uploads so it is recommended to set it to `false`
+   ## By default it's enabled in `@google-cloud/storage`.
+   ## This may cause failures for small package uploads so it is recommended to set it to `false`.
    ## @see https://stackoverflow.com/questions/53172050/google-cloud-storage-invalid-upload-request-error-bad-request
-   resumable: true
+   resumable: false
 ```
 
 Define `env` whether you want load the value from environment variables.
