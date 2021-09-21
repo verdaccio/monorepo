@@ -1,5 +1,11 @@
 # Change Log
 
+## 10.0.2
+
+### Patch Changes
+
+- 22c38d5: chore: update dependencies lodash node-fetch
+
 ## 10.0.1
 
 ### Patch Changes
