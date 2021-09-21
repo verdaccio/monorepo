@@ -26,8 +26,8 @@
     "lib"
   ],
   "engines": {
-    "node": ">=8",
-    "npm": ">=5"
+    "node": "16.9.1",
+    "npm": "7.24.0"
   },
   "devDependencies": {
     "@verdaccio/types": "workspace:10.0.0"
