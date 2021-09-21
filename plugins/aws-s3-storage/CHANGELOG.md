@@ -1,5 +1,12 @@
 # Change Log
 
+## 10.1.2
+
+### Patch Changes
+
+- Updated dependencies [22c38d5]
+  - @verdaccio/commons-api@10.0.1
+
 ## 10.1.1
 
 ### Patch Changes
