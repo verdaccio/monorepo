@@ -32,7 +32,7 @@ importers:
       '@changesets/cli': ^2.15.0
       '@changesets/get-dependents-graph': ^1.2.0
       '@types/express': 4.17.2
-      '@types/http-errors': 1.8.0
+      '@types/http-errors': 1.8.1
       '@types/jest': 26.0.4
       '@types/lodash': 4.14.157
       '@types/memory-fs': 0.3.2
@@ -98,7 +98,7 @@ importers:
       '@changesets/cli': 2.16.0
       '@changesets/get-dependents-graph': 1.2.1
       '@types/express': 4.17.2
-      '@types/http-errors': 1.8.0
+      '@types/http-errors': 1.8.1
       '@types/jest': 26.0.4
       '@types/lodash': 4.14.157
       '@types/memory-fs': 0.3.2
@@ -2767,8 +2767,8 @@ packages:
     resolution: {integrity: sha512-OW/D8GqCyQtH8F7xDdDxzPJTBgknZeZhlCakUcBCya2rYPRN53F+0YJVwSPyiyAhrknnjkl3P9qVk0oBI4S1qw==}
     dev: true
 
-  /@types/http-errors/1.8.0:
-    resolution: {integrity: sha512-2aoSC4UUbHDj2uCsCxcG/vRMXey/m17bC7UwitVm5hn22nI8O8Y9iDpA76Orc+DWkQ4zZrOKEshCqR/jSuXAHA==}
+  /@types/http-errors/1.8.1:
+    resolution: {integrity: sha512-e+2rjEwK6KDaNOm5Aa9wNGgyS9oSZU/4pfSMMPYNOfjvFI0WVXm29+ITRFr6aKDvvKo7uU1jV68MW4ScsfDi7Q==}
     dev: true
 
   /@types/istanbul-lib-coverage/2.0.3:
