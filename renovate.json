@@ -18,5 +18,5 @@
       "allowedVersions": "0.5.0"
     }
   ],
-  "pinVersions": true
+  "pinVersions": false
 }
