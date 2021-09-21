@@ -46,7 +46,7 @@ importers:
       babel-jest: 26.1.0
       babel-plugin-dynamic-import-node: 2.3.3
       babel-plugin-emotion: 10.0.33
-      codecov: 3.6.1
+      codecov: 3.7.1
       cross-env: 7.0.3
       eslint: 7.19.0
       eslint-config-google: 0.14.0
@@ -112,7 +112,7 @@ importers:
       babel-jest: 26.1.0_@babel+core@7.10.4
       babel-plugin-dynamic-import-node: 2.3.3
       babel-plugin-emotion: 10.0.33
-      codecov: 3.6.1
+      codecov: 3.7.1
       cross-env: 7.0.3
       eslint: 7.19.0
       eslint-config-google: 0.14.0_eslint@7.19.0
@@ -2661,7 +2661,6 @@ packages:
   /@tootallnate/once/1.1.2:
     resolution: {integrity: sha512-RbzJvlNzmRq5c3O09UipeuXno4tA1FE6ikOjxZK0tuxVv3412l64l5t1W5pj4+rJq9vpkm/kwiR07aZXnsKPxw==}
     engines: {node: '>= 6'}
-    dev: false
 
   /@types/activedirectory2/1.2.2:
     resolution: {integrity: sha512-YVvlqf7hemxSS7D+sG8FZO1ClrSScniOtwLoyA+sR8193U9PCBTlpo1JUZEcgHNA+rrIHMrsBHP3rbH3gtV0pg==}
@@ -3273,6 +3272,11 @@ packages:
       es6-promisify: 5.0.0
     dev: true
 
+  /agent-base/5.1.1:
+    resolution: {integrity: sha512-TMeqbNl2fMW0nMjTEPOwe3J/PRFP4vqeoNuQMG0HlMrtm5QxKqdvAkZ1pRBQ/ulIyDD5Yq0nJ7YbdD8ey0TO3g==}
+    engines: {node: '>= 6.0.0'}
+    dev: true
+
   /agent-base/6.0.2:
     resolution: {integrity: sha512-RZNwNclF7+MS/8bDg70amg32dyeZGZxiDuQmZxKLAlQjr3jGyLx+4Kkk58UO7D2QdgFIQCovuSuZESne6RG6XQ==}
     engines: {node: '>= 6.0.0'}
@@ -3280,7 +3284,6 @@ packages:
       debug: 4.3.1
     transitivePeerDependencies:
       - supports-color
-    dev: false
 
   /aggregate-error/3.1.0:
     resolution: {integrity: sha512-4I7Td01quW/RpocfNayFdFVk1qSuoh0E7JrbRJ16nH01HhKFQ88INq9Sd+nd72zqRySlr9BmDA8xlEJ6vJMrYA==}
@@ -4286,16 +4289,18 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /codecov/3.6.1:
-    resolution: {integrity: sha512-IUJB6WG47nWK7o50etF8jBadxdMw7DmoQg05yIljstXFBGB6clOZsIj6iD4P82T2YaIU3qq+FFu8K9pxgkCJDQ==}
+  /codecov/3.7.1:
+    resolution: {integrity: sha512-JHWxyPTkMLLJn9SmKJnwAnvY09kg2Os2+Ux+GG7LwZ9g8gzDDISpIN5wAsH1UBaafA/yGcd3KofMaorE8qd6Lw==}
     engines: {node: '>=4.0'}
     hasBin: true
     dependencies:
       argv: 0.0.2
       ignore-walk: 3.0.3
-      js-yaml: 3.14.1
-      teeny-request: 3.11.3
+      js-yaml: 3.13.1
+      teeny-request: 6.0.1
       urlgrey: 0.4.4
+    transitivePeerDependencies:
+      - supports-color
     dev: true
 
   /collect-v8-coverage/1.0.1:
@@ -6321,7 +6326,6 @@ packages:
       debug: 4.3.1
     transitivePeerDependencies:
       - supports-color
-    dev: false
 
   /http-signature/1.2.0:
     resolution: {integrity: sha1-muzZJRFHcvPZW2WmCruPfBj7rOE=}
@@ -6335,20 +6339,22 @@ packages:
     resolution: {integrity: sha512-JrT3ua+WgH8zBD3HEJYbeEgnuQaAnUeRRko/YojPAJjGmIfGD3KPU/asLdsLwKjfxOmQe5nXMQ0pt/7MyapVbQ==}
     dev: false
 
-  /https-proxy-agent/2.2.4:
-    resolution: {integrity: sha512-OmvfoQ53WLjtA9HeYP9RNrWMJzzAz1JGaSFr1nijg0PVR1JaD/xbJq1mdEIIlxGpXp9eSe/O2LgU9DJmTPd0Eg==}
-    engines: {node: '>= 4.5.0'}
-    dependencies:
-      agent-base: 4.3.0
-      debug: 3.2.7
-    dev: true
-
   /https-proxy-agent/3.0.1:
     resolution: {integrity: sha512-+ML2Rbh6DAuee7d07tYGEKOEi2voWPUGan+ExdPbPW6Z3svq+JCqr0v8WmKPOkz1vOVykPCBSuobe7G8GJUtVg==}
     engines: {node: '>= 4.5.0'}
     dependencies:
       agent-base: 4.3.0
       debug: 3.2.7
+    dev: true
+
+  /https-proxy-agent/4.0.0:
+    resolution: {integrity: sha512-zoDhWrkR3of1l9QAL8/scJZyLu8j/gBkcwcaQOZh7Gyh/+uJQzGVETdgT30akuwkpL8HTRfssqI3BZuV18teDg==}
+    engines: {node: '>= 6.0.0'}
+    dependencies:
+      agent-base: 5.1.1
+      debug: 4.3.1
+    transitivePeerDependencies:
+      - supports-color
     dev: true
 
   /https-proxy-agent/5.0.0:
@@ -7383,6 +7389,14 @@ packages:
 
   /js-tokens/4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
+    dev: true
+
+  /js-yaml/3.13.1:
+    resolution: {integrity: sha512-YfbcO7jXDdyj0DGxYVSlSeQNHbD7XPWvrVWeVUujrQEoZzWJIRrCPoyk6kL6IAjAG2IolMK4T0hNUe0HOUs5Jw==}
+    hasBin: true
+    dependencies:
+      argparse: 1.0.10
+      esprima: 4.0.1
     dev: true
 
   /js-yaml/3.14.1:
@@ -10470,7 +10484,6 @@ packages:
     resolution: {integrity: sha512-E1GUzBSgvct8Jsb3v2X15pjzN1tYebtbLaMg+eBOUOAxgbLoSbT2NS91ckc5lJD1KfLjId+jXJRgo0qnV5Nerg==}
     dependencies:
       stubs: 3.0.0
-    dev: false
 
   /stream-shift/1.0.1:
     resolution: {integrity: sha512-AiisoFqQ0vbGcZgQPY1cdP2I76glaVA/RauYR4G4thNFgkTqr90yXTo4LYX60Jl+sIlPNHHdGSwo01AvbKUSVQ==}
@@ -10663,7 +10676,6 @@ packages:
 
   /stubs/3.0.0:
     resolution: {integrity: sha1-6NK6H6nJBXAwPAMLaQD31fiavls=}
-    dev: false
 
   /supports-color/2.0.0:
     resolution: {integrity: sha1-U10EXOa2Nj+kARcIRimZXp3zJMc=}
@@ -10724,12 +10736,16 @@ packages:
       readable-stream: 3.6.0
     dev: true
 
-  /teeny-request/3.11.3:
-    resolution: {integrity: sha512-CKncqSF7sH6p4rzCgkb/z/Pcos5efl0DmolzvlqRQUNcpRIruOhY9+T1FsIlyEbfWd7MsFpodROOwHYh2BaXzw==}
+  /teeny-request/6.0.1:
+    resolution: {integrity: sha512-TAK0c9a00ELOqLrZ49cFxvPVogMUFaWY8dUsQc/0CuQPGF+BOxOQzXfE413BAk2kLomwNplvdtMpeaeGWmoc2g==}
     dependencies:
-      https-proxy-agent: 2.2.4
+      http-proxy-agent: 4.0.1
+      https-proxy-agent: 4.0.0
       node-fetch: 2.6.1
+      stream-events: 1.0.5
       uuid: 3.4.0
+    transitivePeerDependencies:
+      - supports-color
     dev: true
 
   /teeny-request/6.0.3:
