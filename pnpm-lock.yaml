@@ -53,7 +53,7 @@ importers:
       eslint-config-prettier: 7.2.0
       eslint-plugin-babel: 5.3.1
       eslint-plugin-import: 2.24.2
-      eslint-plugin-jest: 24.1.3
+      eslint-plugin-jest: 24.4.2
       eslint-plugin-jsx-a11y: 6.4.1
       eslint-plugin-react: 7.26.0
       eslint-plugin-react-hooks: 4.2.0
@@ -119,7 +119,7 @@ importers:
       eslint-config-prettier: 7.2.0_eslint@7.19.0
       eslint-plugin-babel: 5.3.1_eslint@7.19.0
       eslint-plugin-import: 2.24.2_eslint@7.19.0
-      eslint-plugin-jest: 24.1.3_eslint@7.19.0+typescript@3.9.5
+      eslint-plugin-jest: 24.4.2_88b8f43836bf06ba0b47be79ffe02796
       eslint-plugin-jsx-a11y: 6.4.1_eslint@7.19.0
       eslint-plugin-react: 7.26.0_eslint@7.19.0
       eslint-plugin-react-hooks: 4.2.0_eslint@7.19.0
@@ -5600,12 +5600,17 @@ packages:
       tsconfig-paths: 3.11.0
     dev: true
 
-  /eslint-plugin-jest/24.1.3_eslint@7.19.0+typescript@3.9.5:
-    resolution: {integrity: sha512-dNGGjzuEzCE3d5EPZQ/QGtmlMotqnYWD/QpCZ1UuZlrMAdhG5rldh0N0haCvhGnUkSeuORS5VNROwF9Hrgn3Lg==}
+  /eslint-plugin-jest/24.4.2_88b8f43836bf06ba0b47be79ffe02796:
+    resolution: {integrity: sha512-jNMnqwX75z0RXRMXkxwb/+9ylKJYJLJ8nT8nBT0XFM5qx4IQGxP4edMawa0qGkSbHae0BDPBmi8I2QF0/F04XQ==}
     engines: {node: '>=10'}
     peerDependencies:
+      '@typescript-eslint/eslint-plugin': '>= 4'
       eslint: '>=5'
+    peerDependenciesMeta:
+      '@typescript-eslint/eslint-plugin':
+        optional: true
     dependencies:
+      '@typescript-eslint/eslint-plugin': 4.13.0_784c107f5cc518519e53f9baa6853f8b
       '@typescript-eslint/experimental-utils': 4.22.0_eslint@7.19.0+typescript@3.9.5
       eslint: 7.19.0
     transitivePeerDependencies:
@@ -9052,16 +9057,6 @@ packages:
       isobject: 3.0.1
     dev: true
 
-  /object.values/1.1.3:
-    resolution: {integrity: sha512-nkF6PfDB9alkOUxpf1HNm/QlkeW3SReqL5WXeBLpEJJnlPSvRaDQpW3gQTksTN3fgJX4hL42RzKyOin6ff3tyw==}
-    engines: {node: '>= 0.4'}
-    dependencies:
-      call-bind: 1.0.2
-      define-properties: 1.1.3
-      es-abstract: 1.18.0
-      has: 1.0.3
-    dev: true
-
   /object.values/1.1.4:
     resolution: {integrity: sha512-TnGo7j4XSnKQoK3MfvkzqKCi0nVe/D9I9IjwTNYdb/fxYHpjrluHVOgw0AF6jrRFGMPHdfuidR09tIDiIvnaSg==}
     engines: {node: '>= 0.4'}
@@ -10101,7 +10096,7 @@ packages:
   /resolve/2.0.0-next.3:
     resolution: {integrity: sha512-W8LucSynKUIDu9ylraa7ueVZ7hc0uAgJBxVsQSKOXOyle8a93qXhcz+XAXZ8bIq2d6i4Ehddn6Evt+0/UwKk6Q==}
     dependencies:
-      is-core-module: 2.3.0
+      is-core-module: 2.6.0
       path-parse: 1.0.6
     dev: true
 
