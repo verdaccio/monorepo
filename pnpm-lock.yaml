@@ -34,7 +34,7 @@ importers:
       '@types/express': 4.17.2
       '@types/http-errors': 1.8.1
       '@types/jest': 26.0.4
-      '@types/lodash': 4.14.157
+      '@types/lodash': 4.14.173
       '@types/memory-fs': 0.3.2
       '@types/node': 13.1.1
       '@types/request': 2.48.4
@@ -100,7 +100,7 @@ importers:
       '@types/express': 4.17.2
       '@types/http-errors': 1.8.1
       '@types/jest': 26.0.4
-      '@types/lodash': 4.14.157
+      '@types/lodash': 4.14.173
       '@types/memory-fs': 0.3.2
       '@types/node': 13.1.1
       '@types/request': 2.48.4
@@ -3195,6 +3195,10 @@ packages:
 
   /@types/lodash/4.14.157:
     resolution: {integrity: sha512-Ft5BNFmv2pHDgxV5JDsndOWTRJ+56zte0ZpYLowp03tW+K+t8u8YMOzAnpuqPgzX6WO1XpDIUm7u04M8vdDiVQ==}
+    dev: true
+
+  /@types/lodash/4.14.173:
+    resolution: {integrity: sha512-vv0CAYoaEjCw/mLy96GBTnRoZrSxkGE0BKzKimdR8P3OzrNYNvBgtW7p055A+E8C31vXNUhWKoFCbhq7gbyhFg==}
     dev: true
 
   /@types/long/4.0.1:
