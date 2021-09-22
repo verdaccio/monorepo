@@ -256,13 +256,13 @@ importers:
       '@types/bcryptjs': ^2.4.2
       '@verdaccio/file-locking': workspace:10.0.0
       '@verdaccio/types': workspace:10.0.0
-      apache-md5: 1.1.2
+      apache-md5: 1.1.7
       bcryptjs: 2.4.3
       http-errors: 1.8.0
       unix-crypt-td-js: 1.1.4
     dependencies:
       '@verdaccio/file-locking': link:../../core/file-locking
-      apache-md5: 1.1.2
+      apache-md5: 1.1.7
       bcryptjs: 2.4.3
       http-errors: 1.8.0
       unix-crypt-td-js: 1.1.4
@@ -3776,9 +3776,9 @@ packages:
       picomatch: 2.2.3
     dev: true
 
-  /apache-md5/1.1.2:
-    resolution: {integrity: sha1-7klza2ObTxCLbp5ibG2pkwa0FpI=}
-    engines: {node: '>=4.6.1'}
+  /apache-md5/1.1.7:
+    resolution: {integrity: sha512-JtHjzZmJxtzfTSjsCyHgPR155HBe5WGyUyHTaEkfy46qhwCFKx1Epm6nAxgUG3WfUZP1dWhGqj9Z2NOBeZ+uBw==}
+    engines: {node: '>=8'}
     dev: false
 
   /archy/1.0.0:
