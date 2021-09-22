@@ -68,7 +68,7 @@ importers:
       rimraf: 3.0.2
       snyk: 1.336.0
       typescript: 3.9.5
-      update-ts-references: 2.3.0
+      update-ts-references: 2.4.1
     devDependencies:
       '@babel/cli': 7.15.7_@babel+core@7.15.5
       '@babel/core': 7.15.5
@@ -134,7 +134,7 @@ importers:
       rimraf: 3.0.2
       snyk: 1.336.0
       typescript: 3.9.5
-      update-ts-references: 2.3.0_typescript@3.9.5
+      update-ts-references: 2.4.1_typescript@3.9.5
 
   core/commons-api:
     specifiers:
@@ -3491,8 +3491,8 @@ packages:
   /@vue/compiler-core/3.0.11:
     resolution: {integrity: sha512-6sFj6TBac1y2cWCvYCA8YzHJEbsVkX7zdRs/3yK/n1ilvRqcn983XvpBbnN3v4mZ1UiQycTvOiajJmOgN9EVgw==}
     dependencies:
-      '@babel/parser': 7.13.16
-      '@babel/types': 7.13.17
+      '@babel/parser': 7.15.7
+      '@babel/types': 7.15.6
       '@vue/shared': 3.0.11
       estree-walker: 2.0.2
       source-map: 0.6.1
@@ -3510,8 +3510,8 @@ packages:
     peerDependencies:
       vue: 3.0.11
     dependencies:
-      '@babel/parser': 7.13.16
-      '@babel/types': 7.13.17
+      '@babel/parser': 7.15.7
+      '@babel/types': 7.15.6
       '@vue/compiler-core': 3.0.11
       '@vue/compiler-dom': 3.0.11
       '@vue/compiler-ssr': 3.0.11
@@ -11590,8 +11590,8 @@ packages:
       xdg-basedir: 4.0.0
     dev: true
 
-  /update-ts-references/2.3.0_typescript@3.9.5:
-    resolution: {integrity: sha512-r3FM7oaZaW31qr1Zr5div3u1zheSPP0/CQXozZc34SMQpiSEDjdtboUt/XunOnWVhzynDS1TbhKHA/6oHStAsw==}
+  /update-ts-references/2.4.1_typescript@3.9.5:
+    resolution: {integrity: sha512-t5o/ijSiFhm67hmVN0m+lOkUopV3MYYZE/lhd3bYaGTCkU+3TpnfRxP/OoxRdapzPOuZaxVBmMwjtW1lN8WoqA==}
     engines: {node: '>=10.0.0'}
     hasBin: true
     peerDependencies:
