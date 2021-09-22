@@ -36,7 +36,7 @@ importers:
       '@types/jest': 26.0.4
       '@types/lodash': 4.14.173
       '@types/memory-fs': 0.3.2
-      '@types/node': 13.1.1
+      '@types/node': 14.17.18
       '@types/request': 2.48.7
       '@typescript-eslint/eslint-plugin': 4.13.0
       '@typescript-eslint/parser': 4.13.0
@@ -102,7 +102,7 @@ importers:
       '@types/jest': 26.0.4
       '@types/lodash': 4.14.173
       '@types/memory-fs': 0.3.2
-      '@types/node': 13.1.1
+      '@types/node': 14.17.18
       '@types/request': 2.48.7
       '@typescript-eslint/eslint-plugin': 4.13.0_784c107f5cc518519e53f9baa6853f8b
       '@typescript-eslint/parser': 4.13.0_eslint@7.19.0+typescript@3.9.5
@@ -174,9 +174,9 @@ importers:
 
   core/types:
     specifiers:
-      '@types/node': 14.6.0
+      '@types/node': 14.17.18
     devDependencies:
-      '@types/node': 14.6.0
+      '@types/node': 14.17.18
 
   plugins/active-directory:
     specifiers:
@@ -274,7 +274,7 @@ importers:
   plugins/local-storage:
     specifiers:
       '@types/minimatch': ^3.0.3
-      '@types/node': ^13.1.1
+      '@types/node': ^14.0.0
       '@verdaccio/commons-api': workspace:10.0.1
       '@verdaccio/file-locking': workspace:10.0.0
       '@verdaccio/streams': workspace:10.0.0
@@ -297,7 +297,7 @@ importers:
       mkdirp: 1.0.4
     devDependencies:
       '@types/minimatch': 3.0.4
-      '@types/node': 13.13.51
+      '@types/node': 14.14.43
       '@verdaccio/types': link:../../core/types
       minimatch: 3.0.4
       rmdir-sync: 1.0.1
@@ -3238,16 +3238,12 @@ packages:
     resolution: {integrity: sha512-hx6zWtudh3Arsbl3cXay+JnkvVgCKzCWKv42C9J01N2T2np4h8w5X8u6Tpz5mj38kE3M9FM0Pazx8vKFFMnjLQ==}
     dev: true
 
-  /@types/node/13.13.51:
-    resolution: {integrity: sha512-66/xg5I5Te4oGi5Jws11PtNmKkZbOPZWyBZZ/l5AOrWj1Dyw+6Ge/JhYTq/2/Yvdqyhrue8RL+DGI298OJ0xcg==}
-    dev: true
-
   /@types/node/14.14.43:
     resolution: {integrity: sha512-3pwDJjp1PWacPTpH0LcfhgjvurQvrZFBrC6xxjaUEZ7ifUtT32jtjPxEMMblpqd2Mvx+k8haqQJLQxolyGN/cQ==}
     dev: true
 
-  /@types/node/14.6.0:
-    resolution: {integrity: sha512-mikldZQitV94akrc4sCcSjtJfsTKt4p+e/s0AGscVA6XArQ9kFclP+ZiYUMnq987rc6QlYxXv/EivqlfSLxpKA==}
+  /@types/node/14.17.18:
+    resolution: {integrity: sha512-haYyibw4pbteEhkSg0xdDLAI3679L75EJ799ymVrPxOA922bPx3ML59SoDsQ//rHlvqpu+e36kcbR3XRQtFblA==}
     dev: true
 
   /@types/node/15.0.1:
@@ -9052,16 +9048,6 @@ packages:
       isobject: 3.0.1
     dev: true
 
-  /object.values/1.1.3:
-    resolution: {integrity: sha512-nkF6PfDB9alkOUxpf1HNm/QlkeW3SReqL5WXeBLpEJJnlPSvRaDQpW3gQTksTN3fgJX4hL42RzKyOin6ff3tyw==}
-    engines: {node: '>= 0.4'}
-    dependencies:
-      call-bind: 1.0.2
-      define-properties: 1.1.3
-      es-abstract: 1.18.0
-      has: 1.0.3
-    dev: true
-
   /object.values/1.1.4:
     resolution: {integrity: sha512-TnGo7j4XSnKQoK3MfvkzqKCi0nVe/D9I9IjwTNYdb/fxYHpjrluHVOgw0AF6jrRFGMPHdfuidR09tIDiIvnaSg==}
     engines: {node: '>= 0.4'}
@@ -10101,7 +10087,7 @@ packages:
   /resolve/2.0.0-next.3:
     resolution: {integrity: sha512-W8LucSynKUIDu9ylraa7ueVZ7hc0uAgJBxVsQSKOXOyle8a93qXhcz+XAXZ8bIq2d6i4Ehddn6Evt+0/UwKk6Q==}
     dependencies:
-      is-core-module: 2.3.0
+      is-core-module: 2.6.0
       path-parse: 1.0.6
     dev: true
 
