@@ -58,7 +58,7 @@ importers:
       eslint-plugin-react: 7.26.0
       eslint-plugin-react-hooks: 4.2.0
       eslint-plugin-simple-import-sort: 7.0.0
-      eslint-plugin-verdaccio: 9.6.1
+      eslint-plugin-verdaccio: 10.0.0
       husky: 3.1.0
       jest: 26.0.1
       lint-staged: 9.5.0
@@ -124,7 +124,7 @@ importers:
       eslint-plugin-react: 7.26.0_eslint@7.19.0
       eslint-plugin-react-hooks: 4.2.0_eslint@7.19.0
       eslint-plugin-simple-import-sort: 7.0.0_eslint@7.19.0
-      eslint-plugin-verdaccio: 9.6.1
+      eslint-plugin-verdaccio: 10.0.0
       husky: 3.1.0
       jest: 26.0.1
       lint-staged: 9.5.0
@@ -5673,8 +5673,8 @@ packages:
       eslint: 7.19.0
     dev: true
 
-  /eslint-plugin-verdaccio/9.6.1:
-    resolution: {integrity: sha512-ZRfyQ6WeH4b/NjFuJkIqGGX/GTBXPpoHH4hkzbYNHbjlcYvbDcOSvtQat6KIGJtixQVyzuOx/VZkEIDdY4okxw==}
+  /eslint-plugin-verdaccio/10.0.0:
+    resolution: {integrity: sha512-Fj6zXiO76EsGLBDkSmihqDv06PutbyGLVpYHhhk6Oc/IN80CCjm+fddsixbf8j9678j5dsiC45/LTHdqP9WOCA==}
     engines: {node: '>=8'}
     dependencies:
       jsx-ast-utils: 2.2.3
@@ -9052,16 +9052,6 @@ packages:
       isobject: 3.0.1
     dev: true
 
-  /object.values/1.1.3:
-    resolution: {integrity: sha512-nkF6PfDB9alkOUxpf1HNm/QlkeW3SReqL5WXeBLpEJJnlPSvRaDQpW3gQTksTN3fgJX4hL42RzKyOin6ff3tyw==}
-    engines: {node: '>= 0.4'}
-    dependencies:
-      call-bind: 1.0.2
-      define-properties: 1.1.3
-      es-abstract: 1.18.0
-      has: 1.0.3
-    dev: true
-
   /object.values/1.1.4:
     resolution: {integrity: sha512-TnGo7j4XSnKQoK3MfvkzqKCi0nVe/D9I9IjwTNYdb/fxYHpjrluHVOgw0AF6jrRFGMPHdfuidR09tIDiIvnaSg==}
     engines: {node: '>= 0.4'}
@@ -10101,7 +10091,7 @@ packages:
   /resolve/2.0.0-next.3:
     resolution: {integrity: sha512-W8LucSynKUIDu9ylraa7ueVZ7hc0uAgJBxVsQSKOXOyle8a93qXhcz+XAXZ8bIq2d6i4Ehddn6Evt+0/UwKk6Q==}
     dependencies:
-      is-core-module: 2.3.0
+      is-core-module: 2.6.0
       path-parse: 1.0.6
     dev: true
 
