@@ -59,7 +59,7 @@ importers:
       eslint-plugin-react-hooks: 4.2.0
       eslint-plugin-simple-import-sort: 7.0.0
       eslint-plugin-verdaccio: 9.6.1
-      husky: 3.1.0
+      husky: 7.0.2
       jest: 26.0.1
       lint-staged: 9.5.0
       lodash: 4.17.21
@@ -125,7 +125,7 @@ importers:
       eslint-plugin-react-hooks: 4.2.0_eslint@7.32.0
       eslint-plugin-simple-import-sort: 7.0.0_eslint@7.32.0
       eslint-plugin-verdaccio: 9.6.1
-      husky: 3.1.0
+      husky: 7.0.2
       jest: 26.0.1
       lint-staged: 9.5.0
       lodash: 4.17.21
@@ -5959,11 +5959,6 @@ packages:
     engines: {node: '>=8.0.0'}
     dev: true
 
-  /get-stdin/7.0.0:
-    resolution: {integrity: sha512-zRKcywvrXlXsA0v0i9Io4KDRaAw7+a1ZpjRwl9Wox8PFlVCCHra7E9c4kqXCoCM9nR5tBkaTTZRBoCm60bFqTQ==}
-    engines: {node: '>=8'}
-    dev: true
-
   /get-stream/3.0.0:
     resolution: {integrity: sha1-jpQ9E1jcN1VQVOy+LtsFqhdO3hQ=}
     engines: {node: '>=4'}
@@ -6349,23 +6344,10 @@ packages:
     engines: {node: '>=8.12.0'}
     dev: true
 
-  /husky/3.1.0:
-    resolution: {integrity: sha512-FJkPoHHB+6s4a+jwPqBudBDvYZsoQW5/HBuMSehC8qDiCe50kpcxeqFoDSlow+9I6wg47YxBoT3WxaURlrDIIQ==}
-    engines: {node: '>=8.6.0'}
+  /husky/7.0.2:
+    resolution: {integrity: sha512-8yKEWNX4z2YsofXAMT7KvA1g8p+GxtB1ffV8XtpAEGuXNAbCV5wdNKH+qTpw8SM9fh4aMPDR+yQuKfgnreyZlg==}
+    engines: {node: '>=12'}
     hasBin: true
-    requiresBuild: true
-    dependencies:
-      chalk: 2.4.2
-      ci-info: 2.0.0
-      cosmiconfig: 5.2.1
-      execa: 1.0.0
-      get-stdin: 7.0.0
-      opencollective-postinstall: 2.0.3
-      pkg-dir: 4.2.0
-      please-upgrade-node: 3.2.0
-      read-pkg: 5.2.0
-      run-node: 1.0.0
-      slash: 3.0.0
     dev: true
 
   /iconv-lite/0.4.24:
@@ -8453,11 +8435,6 @@ packages:
     dependencies:
       mimic-fn: 2.1.0
 
-  /opencollective-postinstall/2.0.3:
-    resolution: {integrity: sha512-8AV/sCtuzUeTo8gQK5qDZzARrulB3egtLzFgteqB2tcT4Mw7B8Kt7JcDHmltjz6FOAHsvTevk70gZEbhM4ZS9Q==}
-    hasBin: true
-    dev: true
-
   /optionator/0.8.3:
     resolution: {integrity: sha512-+IW9pACdk3XWmmTXG8m3upGUJst5XRGzxMRjXzAuJ1XnIFNvfhjjIuYkDvysnPQ7qzqVzLt78BCruntqRhWQbA==}
     engines: {node: '>= 0.8.0'}
@@ -9341,12 +9318,6 @@ packages:
   /rsvp/4.8.5:
     resolution: {integrity: sha512-nfMOlASu9OnRJo1mbEk2cz0D56a1MBNrJ7orjRZQG10XDyuvwksKbuXNp6qa+kbn839HwjwhBzhFmdsaEAfauA==}
     engines: {node: 6.* || >= 7.*}
-    dev: true
-
-  /run-node/1.0.0:
-    resolution: {integrity: sha512-kc120TBlQ3mih1LSzdAJXo4xn/GWS2ec0l3S+syHDXP9uRr0JAT8Qd3mdMuyjqCzeZktgP3try92cEgf9Nks8A==}
-    engines: {node: '>=4'}
-    hasBin: true
     dev: true
 
   /run-parallel/1.2.0:
