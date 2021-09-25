@@ -37,7 +37,7 @@
     "async": "3.2.1",
     "debug": "4.3.2",
     "lodash": "4.17.21",
-    "lowdb": "1.0.0",
+    "lowdb": "3.0.0",
     "mkdirp": "1.0.4"
   },
   "devDependencies": {

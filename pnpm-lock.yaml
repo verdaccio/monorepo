@@ -280,7 +280,7 @@ importers:
       async: 3.2.1
       debug: 4.3.2
       lodash: 4.17.21
-      lowdb: 1.0.0
+      lowdb: 3.0.0
       minimatch: ^3.0.4
       mkdirp: 1.0.4
       rmdir-sync: ^1.0.1
@@ -291,7 +291,7 @@ importers:
       async: 3.2.1
       debug: 4.3.2
       lodash: 4.17.21
-      lowdb: 1.0.0
+      lowdb: 3.0.0
       mkdirp: 1.0.4
     devDependencies:
       '@types/minimatch': 3.0.4
@@ -6186,6 +6186,7 @@ packages:
 
   /is-promise/2.2.2:
     resolution: {integrity: sha512-+lP4/6lKUBfQjZ2pdxThZvLUAafmZb8OAxFb8XXtiQmS35INgr85hdOGoEs124ez1FCnZJt6jau/T+alh58QFQ==}
+    dev: true
 
   /is-regex/1.1.2:
     resolution: {integrity: sha512-axvdhb5pdhEVThqJzYXwMlVuZwC+FF2DpcOhTS+y/8jVq4trxyPgfcwIxIKiyeuLlSQYKkmUaPQJ8ZE4yNKXDg==}
@@ -7306,15 +7307,11 @@ packages:
       signal-exit: 3.0.3
     dev: true
 
-  /lowdb/1.0.0:
-    resolution: {integrity: sha512-2+x8esE/Wb9SQ1F9IHaYWfsC9FIecLOPrK4g17FGEayjUWH172H6nwicRovGvSE2CPZouc2MCIqCI7h9d+GftQ==}
-    engines: {node: '>=4'}
+  /lowdb/3.0.0:
+    resolution: {integrity: sha512-9KZRulmIcU8fZuWiaM0d5e2/nPnrFyXkeXVpqT+MJS+vgbgOf1EbtvgQmba8HwUFgDl1oeZR6XqEJnkJmQdKmg==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
     dependencies:
-      graceful-fs: 4.2.6
-      is-promise: 2.2.2
-      lodash: 4.17.21
-      pify: 3.0.0
-      steno: 0.4.4
+      steno: 2.1.0
     dev: false
 
   /lru-cache/4.1.5:
@@ -8124,6 +8121,7 @@ packages:
   /pify/3.0.0:
     resolution: {integrity: sha1-5aSs0sEB/fPZpNB/DbxNtJ3SgXY=}
     engines: {node: '>=4'}
+    dev: true
 
   /pify/4.0.1:
     resolution: {integrity: sha512-uB80kBFb/tfd68bVleG9T5GGsGPjJrLAUpR5PZIrhBnIaRTQRjqdJSsIKkOP6OAIFbj7GOrcudc5pNjZ+geV2g==}
@@ -9175,10 +9173,9 @@ packages:
     resolution: {integrity: sha1-NbCYdbT/SfJqd35QmzCQoyJr8ks=}
     engines: {node: '>=0.10.0'}
 
-  /steno/0.4.4:
-    resolution: {integrity: sha1-BxEFvfwobmYVwEA8J+nXtdy4Vcs=}
-    dependencies:
-      graceful-fs: 4.2.6
+  /steno/2.1.0:
+    resolution: {integrity: sha512-mauOsiaqTNGFkWqIfwcm3y/fq+qKKaIWf1vf3ocOuTdco9XoHCO2AGF1gFYXuZFSWuP38Q8LBHBGJv2KnJSXyA==}
+    engines: {node: ^14.13.1 || >=16.0.0}
     dev: false
 
   /stream-events/1.0.5:
