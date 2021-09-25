@@ -280,7 +280,7 @@ importers:
       '@verdaccio/streams': workspace:10.0.0
       '@verdaccio/types': workspace:10.0.0
       async: 3.2.1
-      debug: 4.3.1
+      debug: 4.3.2
       lodash: 4.17.21
       lowdb: 1.0.0
       minimatch: ^3.0.4
@@ -291,7 +291,7 @@ importers:
       '@verdaccio/file-locking': link:../../core/file-locking
       '@verdaccio/streams': link:../../core/streams
       async: 3.2.1
-      debug: 4.3.1
+      debug: 4.3.2
       lodash: 4.17.21
       lowdb: 1.0.0
       mkdirp: 1.0.4
@@ -4764,6 +4764,18 @@ packages:
         optional: true
     dependencies:
       ms: 2.1.2
+
+  /debug/4.3.2:
+    resolution: {integrity: sha512-mOp8wKcvj7XxC78zLgw/ZA+6TSgkoE2C/ienthhRD298T7UNwAg9diBpLRxC0mOezLl4B0xV7M0cCO6P/O0Xhw==}
+    engines: {node: '>=6.0'}
+    peerDependencies:
+      supports-color: '*'
+    peerDependenciesMeta:
+      supports-color:
+        optional: true
+    dependencies:
+      ms: 2.1.2
+    dev: false
 
   /decamelize-keys/1.1.0:
     resolution: {integrity: sha1-0XGoeTMlKAfrPLYdwcFEXQeN8tk=}
