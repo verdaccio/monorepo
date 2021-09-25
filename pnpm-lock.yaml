@@ -139,10 +139,10 @@ importers:
   core/commons-api:
     specifiers:
       http-errors: 1.8.0
-      http-status-codes: 1.4.0
+      http-status-codes: 2.1.4
     dependencies:
       http-errors: 1.8.0
-      http-status-codes: 1.4.0
+      http-status-codes: 2.1.4
 
   core/file-locking:
     specifiers:
@@ -5792,8 +5792,8 @@ packages:
       jsprim: 1.4.1
       sshpk: 1.16.1
 
-  /http-status-codes/1.4.0:
-    resolution: {integrity: sha512-JrT3ua+WgH8zBD3HEJYbeEgnuQaAnUeRRko/YojPAJjGmIfGD3KPU/asLdsLwKjfxOmQe5nXMQ0pt/7MyapVbQ==}
+  /http-status-codes/2.1.4:
+    resolution: {integrity: sha512-MZVIsLKGVOVE1KEnldppe6Ij+vmemMuApDfjhVSLzyYP+td0bREEYyAoIw9yFePoBXManCuBqmiNP5FqJS5Xkg==}
     dev: false
 
   /https-proxy-agent/4.0.0:
