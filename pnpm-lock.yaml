@@ -158,11 +158,11 @@ importers:
       '@verdaccio/types': workspace:10.0.0
       dompurify: ^2.2.6
       jsdom: 15.2.1
-      marked: ^2.0.1
+      marked: ^3.0.0
     dependencies:
       dompurify: 2.2.8
       jsdom: 15.2.1
-      marked: 2.0.3
+      marked: 3.0.4
     devDependencies:
       '@verdaccio/types': link:../types
 
@@ -7384,9 +7384,9 @@ packages:
       object-visit: 1.0.1
     dev: true
 
-  /marked/2.0.3:
-    resolution: {integrity: sha512-5otztIIcJfPc2qGTN8cVtOJEjNJZ0jwa46INMagrYfk0EvqtRuEHLsEe0LrFS0/q+ZRKT0+kXK7P2T1AN5lWRA==}
-    engines: {node: '>= 8.16.2'}
+  /marked/3.0.4:
+    resolution: {integrity: sha512-jBo8AOayNaEcvBhNobg6/BLhdsK3NvnKWJg33MAAPbvTWiG4QBn9gpW1+7RssrKu4K1dKlN+0goVQwV41xEfOA==}
+    engines: {node: '>= 12'}
     hasBin: true
     dev: false
 
