@@ -28,7 +28,7 @@ importers:
       '@babel/preset-typescript': 7.15.0
       '@babel/register': 7.15.3
       '@babel/runtime': 7.15.4
-      '@changesets/changelog-github': ^0.2.8
+      '@changesets/changelog-github': ^0.4.0
       '@changesets/cli': ^2.15.0
       '@changesets/get-dependents-graph': ^1.2.0
       '@types/express': 4.17.2
@@ -94,7 +94,7 @@ importers:
       '@babel/preset-typescript': 7.15.0_@babel+core@7.15.5
       '@babel/register': 7.15.3_@babel+core@7.15.5
       '@babel/runtime': 7.15.4
-      '@changesets/changelog-github': 0.2.8
+      '@changesets/changelog-github': 0.4.1
       '@changesets/cli': 2.16.0
       '@changesets/get-dependents-graph': 1.2.1
       '@types/express': 4.17.2
@@ -2076,11 +2076,11 @@ packages:
       semver: 5.7.1
     dev: true
 
-  /@changesets/changelog-github/0.2.8:
-    resolution: {integrity: sha512-XO/6J/EvndQ+SOhRLvWUun5DLnuTmukpjhtFbHbQSNzzGvRUIyQ2//v6R5sgcazDGLoJixP7MaATEhYeppf+Cg==}
+  /@changesets/changelog-github/0.4.1:
+    resolution: {integrity: sha512-WK9DzS3i0wa2doEnOr4sm/FMnNtxzCCAKP7dEcWvhYkgXYX5R6jmfHAcDstmjAhiuvbhoHYom4MOC1tIzgwnfA==}
     dependencies:
-      '@changesets/get-github-info': 0.4.5
-      '@changesets/types': 3.3.0
+      '@changesets/get-github-info': 0.5.0
+      '@changesets/types': 4.0.1
       dotenv: 8.2.0
     dev: true
 
@@ -2148,8 +2148,8 @@ packages:
       semver: 5.7.1
     dev: true
 
-  /@changesets/get-github-info/0.4.5:
-    resolution: {integrity: sha512-tknjYi9ti3AIbGrDHfeJ1bBbXJi/FdV6AWH0oA4JFrCRe2IoczAJo2MeU+3banQx5TlL1fOTeUOM1YAK+sJB2g==}
+  /@changesets/get-github-info/0.5.0:
+    resolution: {integrity: sha512-vm5VgHwrxkMkUjFyn3UVNKLbDp9YMHd3vMf1IyJoa/7B+6VpqmtAaXyDS0zBLfN5bhzVCHrRnj4GcZXXcqrFTw==}
     dependencies:
       dataloader: 1.4.0
       node-fetch: 2.6.1
@@ -2218,12 +2218,12 @@ packages:
       p-filter: 2.1.0
     dev: true
 
-  /@changesets/types/3.3.0:
-    resolution: {integrity: sha512-rJamRo+OD/MQekImfIk07JZwYSB18iU6fYL8xOg0gfAiTh1a1+OlR1fPIxm55I7RsWw812is2YcPPwXdIewrhA==}
-    dev: true
-
   /@changesets/types/4.0.0:
     resolution: {integrity: sha512-whLmPx2wgJRoOtxVZop+DJ71z1gTSkij7osiHgN+pe//FiE6bb4ffvBBb0rACs2cUPfAkWxgSPzqkECgKS1jvQ==}
+    dev: true
+
+  /@changesets/types/4.0.1:
+    resolution: {integrity: sha512-zVfv752D8K2tjyFmxU/vnntQ+dPu+9NupOSguA/2Zuym4tVxRh0ylArgKZ1bOAi2eXfGlZMxJU/kj7uCSI15RQ==}
     dev: true
 
   /@changesets/write/0.1.4:
