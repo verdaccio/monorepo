@@ -50,7 +50,7 @@ importers:
       cross-env: 7.0.3
       eslint: 7.32.0
       eslint-config-google: 0.14.0
-      eslint-config-prettier: 7.2.0
+      eslint-config-prettier: 8.3.0
       eslint-plugin-babel: 5.3.1
       eslint-plugin-import: 2.24.2
       eslint-plugin-jest: 24.1.3
@@ -116,7 +116,7 @@ importers:
       cross-env: 7.0.3
       eslint: 7.32.0
       eslint-config-google: 0.14.0_eslint@7.32.0
-      eslint-config-prettier: 7.2.0_eslint@7.32.0
+      eslint-config-prettier: 8.3.0_eslint@7.32.0
       eslint-plugin-babel: 5.3.1_eslint@7.32.0
       eslint-plugin-import: 2.24.2_eslint@7.32.0
       eslint-plugin-jest: 24.1.3_eslint@7.32.0+typescript@3.9.5
@@ -5168,8 +5168,8 @@ packages:
       eslint: 7.32.0
     dev: true
 
-  /eslint-config-prettier/7.2.0_eslint@7.32.0:
-    resolution: {integrity: sha512-rV4Qu0C3nfJKPOAhFujFxB7RMP+URFyQqqOZW9DMRD7ZDTFyjaIlETU3xzHELt++4ugC0+Jm084HQYkkJe+Ivg==}
+  /eslint-config-prettier/8.3.0_eslint@7.32.0:
+    resolution: {integrity: sha512-BgZuLUSeKzvlL/VUjx/Yb787VQ26RU3gGjA3iiFvdsp/2bMfVIWUVP7tjxtjS0e+HP409cPlPvNkQloz8C91ew==}
     hasBin: true
     peerDependencies:
       eslint: '>=7.0.0'
