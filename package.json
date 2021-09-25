@@ -73,7 +73,7 @@
     "lodash": "4.17.21",
     "prettier": "2.4.1",
     "snyk": "1.720.0",
-    "typescript": "3.9.5"
+    "typescript": "3.9.10"
   },
   "scripts": {
     "changeset": "changeset",
