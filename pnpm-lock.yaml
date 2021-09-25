@@ -237,7 +237,7 @@ importers:
       '@verdaccio/commons-api': workspace:10.0.1
       '@verdaccio/streams': workspace:10.0.0
       '@verdaccio/types': workspace:10.0.0
-      fast-crc32c: 1.0.7
+      fast-crc32c: 2.0.0
       memory-fs: 0.5.0
     dependencies:
       '@google-cloud/datastore': 4.5.0
@@ -245,7 +245,7 @@ importers:
       '@verdaccio/commons-api': link:../../core/commons-api
       '@verdaccio/streams': link:../../core/streams
     optionalDependencies:
-      fast-crc32c: 1.0.7
+      fast-crc32c: 2.0.0
     devDependencies:
       '@verdaccio/types': link:../../core/types
       memory-fs: 0.5.0
@@ -5629,9 +5629,8 @@ packages:
     resolution: {integrity: sha1-4mifjzVvrWLMplo6kcXfX5VRaS8=}
     engines: {'0': node >=0.6.0}
 
-  /fast-crc32c/1.0.7:
-    resolution: {integrity: sha512-yaAnvfGr8YWu6V2cqr2303/V1jXXVaOJCGtln7awIY/ocxWyUCdYbp8RoN7oSRq4lFA4ygMT/Lk/0sZTduJPPA==}
-    engines: {node: '>= 0.10.0'}
+  /fast-crc32c/2.0.0:
+    resolution: {integrity: sha512-LIREwygxtxzHF11oLJ4xIVKu/ZWNgrj/QaGvaSD8ZggIsgCyCtSYevlrpWVqNau57ZwezV8K1HFBSjQ7FcRbTQ==}
     requiresBuild: true
     optionalDependencies:
       sse4_crc32: 6.0.1
