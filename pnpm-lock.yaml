@@ -55,7 +55,7 @@ importers:
       eslint-plugin-import: 2.24.2
       eslint-plugin-jest: 24.4.2
       eslint-plugin-jsx-a11y: 6.4.1
-      eslint-plugin-react: 7.26.0
+      eslint-plugin-react: 7.26.1
       eslint-plugin-react-hooks: 4.2.0
       eslint-plugin-simple-import-sort: 7.0.0
       eslint-plugin-verdaccio: 9.6.1
@@ -121,7 +121,7 @@ importers:
       eslint-plugin-import: 2.24.2_eslint@7.32.0
       eslint-plugin-jest: 24.4.2_661df6356169ec0ca60a4f348aef422c
       eslint-plugin-jsx-a11y: 6.4.1_eslint@7.32.0
-      eslint-plugin-react: 7.26.0_eslint@7.32.0
+      eslint-plugin-react: 7.26.1_eslint@7.32.0
       eslint-plugin-react-hooks: 4.2.0_eslint@7.32.0
       eslint-plugin-simple-import-sort: 7.0.0_eslint@7.32.0
       eslint-plugin-verdaccio: 9.6.1
@@ -3240,9 +3240,9 @@ packages:
     dependencies:
       call-bind: 1.0.2
       define-properties: 1.1.3
-      es-abstract: 1.18.0
+      es-abstract: 1.18.6
       get-intrinsic: 1.1.1
-      is-string: 1.0.5
+      is-string: 1.0.7
     dev: true
 
   /array-union/2.1.0:
@@ -3270,7 +3270,7 @@ packages:
     dependencies:
       call-bind: 1.0.2
       define-properties: 1.1.3
-      es-abstract: 1.18.0
+      es-abstract: 1.18.6
       function-bind: 1.1.1
     dev: true
 
@@ -4748,8 +4748,8 @@ packages:
       eslint: 7.32.0
     dev: true
 
-  /eslint-plugin-react/7.26.0_eslint@7.32.0:
-    resolution: {integrity: sha512-dceliS5itjk4EZdQYtLMz6GulcsasguIs+VTXuiC7Q5IPIdGTkyfXVdmsQOqEhlD9MciofH4cMcT1bw1WWNxCQ==}
+  /eslint-plugin-react/7.26.1_eslint@7.32.0:
+    resolution: {integrity: sha512-Lug0+NOFXeOE+ORZ5pbsh6mSKjBKXDXItUD2sQoT+5Yl0eoT82DqnXeTMfUare4QVCn9QwXbfzO/dBLjLXwVjQ==}
     engines: {node: '>=4'}
     peerDependencies:
       eslint: ^3 || ^4 || ^5 || ^6 || ^7
@@ -7826,7 +7826,7 @@ packages:
     dependencies:
       call-bind: 1.0.2
       define-properties: 1.1.3
-      es-abstract: 1.18.0
+      es-abstract: 1.18.6
       has: 1.0.3
     dev: true
 
