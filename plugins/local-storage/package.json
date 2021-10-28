@@ -34,7 +34,7 @@
     "@verdaccio/commons-api": "workspace:10.0.1",
     "@verdaccio/file-locking": "workspace:10.0.0",
     "@verdaccio/streams": "workspace:10.0.0",
-    "async": "3.2.1",
+    "async": "3.2.2",
     "debug": "4.3.2",
     "lodash": "4.17.21",
     "lowdb": "1.0.0",
