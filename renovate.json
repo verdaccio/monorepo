@@ -27,5 +27,6 @@
       "allowedVersions": "1.0.7"
     }
   ],
+  "major": false,
   "pinVersions": false
 }
