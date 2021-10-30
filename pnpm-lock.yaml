@@ -36,7 +36,7 @@ importers:
       '@types/jest': 26.0.24
       '@types/lodash': 4.14.176
       '@types/memory-fs': 0.3.3
-      '@types/node': 14.17.20
+      '@types/node': 14.17.32
       '@types/request': 2.48.7
       '@typescript-eslint/eslint-plugin': 4.33.0
       '@typescript-eslint/parser': 4.33.0
@@ -102,7 +102,7 @@ importers:
       '@types/jest': 26.0.24
       '@types/lodash': 4.14.176
       '@types/memory-fs': 0.3.3
-      '@types/node': 14.17.20
+      '@types/node': 14.17.32
       '@types/request': 2.48.7
       '@typescript-eslint/eslint-plugin': 4.33.0_8ebb0c9e40d935b268b5a8956a416a47
       '@typescript-eslint/parser': 4.33.0_eslint@7.32.0+typescript@3.9.10
@@ -174,9 +174,9 @@ importers:
 
   core/types:
     specifiers:
-      '@types/node': 14.17.20
+      '@types/node': 14.17.32
     devDependencies:
-      '@types/node': 14.17.20
+      '@types/node': 14.17.32
 
   plugins/active-directory:
     specifiers:
@@ -2020,7 +2020,7 @@ packages:
       '@types/json-stable-stringify': 1.0.32
       '@types/lodash': 4.14.176
       '@types/loud-rejection': 2.0.0
-      '@types/node': 14.14.43
+      '@types/node': 14.17.32
       '@vue/compiler-core': 3.0.11
       '@vue/compiler-sfc': 3.0.11
       chalk: 4.1.1
@@ -2596,7 +2596,7 @@ packages:
     resolution: {integrity: sha512-SEYeGAIQIQX8NN6LDKprLjbrd5dARM5EXsd8GI/A5l0apYI1fGMWgPHSe4ZKL4eozlAyI+doUE9XbYS4xCkQ1w==}
     dependencies:
       '@types/minimatch': 3.0.4
-      '@types/node': 13.1.1
+      '@types/node': 15.0.1
     dev: true
 
   /@types/graceful-fs/4.1.5:
@@ -2687,16 +2687,12 @@ packages:
     resolution: {integrity: sha512-gema+apZ6qLQK7k7F0dGkGCWQYsL0qqKORWOQO6tq46q+x+1C0vbOiOqOwRVlh4RAdbQwV/j/ryr3u5NOG1fPQ==}
     dev: true
 
-  /@types/node/13.1.1:
-    resolution: {integrity: sha512-hx6zWtudh3Arsbl3cXay+JnkvVgCKzCWKv42C9J01N2T2np4h8w5X8u6Tpz5mj38kE3M9FM0Pazx8vKFFMnjLQ==}
-    dev: true
-
   /@types/node/14.14.43:
     resolution: {integrity: sha512-3pwDJjp1PWacPTpH0LcfhgjvurQvrZFBrC6xxjaUEZ7ifUtT32jtjPxEMMblpqd2Mvx+k8haqQJLQxolyGN/cQ==}
     dev: true
 
-  /@types/node/14.17.20:
-    resolution: {integrity: sha512-gI5Sl30tmhXsqkNvopFydP7ASc4c2cLfGNQrVKN3X90ADFWFsPEsotm/8JHSUJQKTHbwowAHtcJPeyVhtKv0TQ==}
+  /@types/node/14.17.32:
+    resolution: {integrity: sha512-JcII3D5/OapPGx+eJ+Ik1SQGyt6WvuqdRfh9jUwL6/iHGjmyOriBDciBUu7lEIBTL2ijxwrR70WUnw5AEDmFvQ==}
     dev: true
 
   /@types/node/15.0.1:
