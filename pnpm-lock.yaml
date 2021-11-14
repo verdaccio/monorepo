@@ -36,7 +36,7 @@ importers:
       '@types/jest': 26.0.24
       '@types/lodash': 4.14.176
       '@types/memory-fs': 0.3.3
-      '@types/node': 14.17.32
+      '@types/node': 14.17.33
       '@types/request': 2.48.7
       '@typescript-eslint/eslint-plugin': 4.33.0
       '@typescript-eslint/parser': 4.33.0
@@ -102,7 +102,7 @@ importers:
       '@types/jest': 26.0.24
       '@types/lodash': 4.14.176
       '@types/memory-fs': 0.3.3
-      '@types/node': 14.17.32
+      '@types/node': 14.17.33
       '@types/request': 2.48.7
       '@typescript-eslint/eslint-plugin': 4.33.0_8ebb0c9e40d935b268b5a8956a416a47
       '@typescript-eslint/parser': 4.33.0_eslint@7.32.0+typescript@3.9.10
@@ -174,9 +174,9 @@ importers:
 
   core/types:
     specifiers:
-      '@types/node': 14.17.32
+      '@types/node': 14.17.33
     devDependencies:
-      '@types/node': 14.17.32
+      '@types/node': 14.17.33
 
   plugins/active-directory:
     specifiers:
@@ -2027,7 +2027,7 @@ packages:
       '@types/json-stable-stringify': 1.0.32
       '@types/lodash': 4.14.176
       '@types/loud-rejection': 2.0.0
-      '@types/node': 14.17.32
+      '@types/node': 14.17.33
       '@vue/compiler-core': 3.0.11
       '@vue/compiler-sfc': 3.0.11
       chalk: 4.1.1
@@ -2698,8 +2698,8 @@ packages:
     resolution: {integrity: sha512-3pwDJjp1PWacPTpH0LcfhgjvurQvrZFBrC6xxjaUEZ7ifUtT32jtjPxEMMblpqd2Mvx+k8haqQJLQxolyGN/cQ==}
     dev: true
 
-  /@types/node/14.17.32:
-    resolution: {integrity: sha512-JcII3D5/OapPGx+eJ+Ik1SQGyt6WvuqdRfh9jUwL6/iHGjmyOriBDciBUu7lEIBTL2ijxwrR70WUnw5AEDmFvQ==}
+  /@types/node/14.17.33:
+    resolution: {integrity: sha512-noEeJ06zbn3lOh4gqe2v7NMGS33jrulfNqYFDjjEbhpDEHR5VTxgYNQSBqBlJIsBJW3uEYDgD6kvMnrrhGzq8g==}
     dev: true
 
   /@types/node/15.0.1:
