@@ -29,7 +29,7 @@
     "node": ">=8"
   },
   "dependencies": {
-    "http-errors": "1.8.0",
+    "http-errors": "1.8.1",
     "http-status-codes": "1.4.0"
   },
   "scripts": {
