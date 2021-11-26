@@ -55,7 +55,7 @@ importers:
       eslint-plugin-import: 2.25.2
       eslint-plugin-jest: 24.7.0
       eslint-plugin-jsx-a11y: 6.5.1
-      eslint-plugin-react: 7.26.1
+      eslint-plugin-react: 7.27.1
       eslint-plugin-react-hooks: 4.2.0
       eslint-plugin-simple-import-sort: 7.0.0
       eslint-plugin-verdaccio: 9.6.1
@@ -121,7 +121,7 @@ importers:
       eslint-plugin-import: 2.25.2_eslint@7.32.0
       eslint-plugin-jest: 24.7.0_fc05c0b75f95bac779e6fb95abc33eac
       eslint-plugin-jsx-a11y: 6.5.1_eslint@7.32.0
-      eslint-plugin-react: 7.26.1_eslint@7.32.0
+      eslint-plugin-react: 7.27.1_eslint@7.32.0
       eslint-plugin-react-hooks: 4.2.0_eslint@7.32.0
       eslint-plugin-simple-import-sort: 7.0.0_eslint@7.32.0
       eslint-plugin-verdaccio: 9.6.1
@@ -4532,11 +4532,11 @@ packages:
       eslint: 7.32.0
     dev: true
 
-  /eslint-plugin-react/7.26.1_eslint@7.32.0:
-    resolution: {integrity: sha512-Lug0+NOFXeOE+ORZ5pbsh6mSKjBKXDXItUD2sQoT+5Yl0eoT82DqnXeTMfUare4QVCn9QwXbfzO/dBLjLXwVjQ==}
+  /eslint-plugin-react/7.27.1_eslint@7.32.0:
+    resolution: {integrity: sha512-meyunDjMMYeWr/4EBLTV1op3iSG3mjT/pz5gti38UzfM4OPpNc2m0t2xvKCOMU5D6FSdd34BIMFOvQbW+i8GAA==}
     engines: {node: '>=4'}
     peerDependencies:
-      eslint: ^3 || ^4 || ^5 || ^6 || ^7
+      eslint: ^3 || ^4 || ^5 || ^6 || ^7 || ^8
     dependencies:
       array-includes: 3.1.4
       array.prototype.flatmap: 1.2.5
