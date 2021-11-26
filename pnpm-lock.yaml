@@ -138,10 +138,10 @@ importers:
 
   core/commons-api:
     specifiers:
-      http-errors: 1.8.0
+      http-errors: 1.8.1
       http-status-codes: 1.4.0
     dependencies:
-      http-errors: 1.8.0
+      http-errors: 1.8.1
       http-status-codes: 1.4.0
 
   core/file-locking:
@@ -257,13 +257,13 @@ importers:
       '@verdaccio/types': workspace:10.0.0
       apache-md5: 1.1.7
       bcryptjs: 2.4.3
-      http-errors: 1.8.0
+      http-errors: 1.8.1
       unix-crypt-td-js: 1.1.4
     dependencies:
       '@verdaccio/file-locking': link:../../core/file-locking
       apache-md5: 1.1.7
       bcryptjs: 2.4.3
-      http-errors: 1.8.0
+      http-errors: 1.8.1
       unix-crypt-td-js: 1.1.4
     devDependencies:
       '@types/bcryptjs': 2.4.2
@@ -5563,15 +5563,15 @@ packages:
       toidentifier: 1.0.0
     dev: false
 
-  /http-errors/1.8.0:
-    resolution: {integrity: sha512-4I8r0C5JDhT5VkvI47QktDW75rNlGVsUf/8hzjCC/wkWI/jdTRmBb9aI7erSG82r1bjKY3F6k28WnsVxB1C73A==}
+  /http-errors/1.8.1:
+    resolution: {integrity: sha512-Kpk9Sm7NmI+RHhnj6OIWDI1d6fIoFAtFt9RLaTMRlg/8w49juAStsrBgp0Dp4OdxdVbRIeKhtCUvoi/RuAhO4g==}
     engines: {node: '>= 0.6'}
     dependencies:
       depd: 1.1.2
       inherits: 2.0.4
       setprototypeof: 1.2.0
       statuses: 1.5.0
-      toidentifier: 1.0.0
+      toidentifier: 1.0.1
     dev: false
 
   /http-proxy-agent/4.0.1:
@@ -9217,6 +9217,11 @@ packages:
 
   /toidentifier/1.0.0:
     resolution: {integrity: sha512-yaOH/Pk/VEhBWWTlhI+qXxDFXlejDGcQipMlyxda9nthulaxLZUNcUqFxokp0vcYnvteJln5FNQDRrxj3YcbVw==}
+    engines: {node: '>=0.6'}
+    dev: false
+
+  /toidentifier/1.0.1:
+    resolution: {integrity: sha512-o5sSPKEkg/DIQNmH43V0/uerLrpzVedkUh8tGNvaeXpfpuwjKenlSox/2O/BTlZUtEe+JG7s5YhEz608PlAHRA==}
     engines: {node: '>=0.6'}
     dev: false
 
