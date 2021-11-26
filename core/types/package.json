@@ -28,7 +28,7 @@
     "build": "exit 0"
   },
   "devDependencies": {
-    "@types/node": "14.17.33"
+    "@types/node": "14.17.34"
   },
   "funding": {
     "type": "opencollective",
