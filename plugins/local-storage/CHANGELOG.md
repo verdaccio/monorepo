@@ -1,5 +1,15 @@
 # Change Log
 
+## 10.0.8
+
+### Patch Changes
+
+- 6134415: fix: update dependencies
+- Updated dependencies [6134415]
+  - @verdaccio/commons-api@10.0.2
+  - @verdaccio/file-locking@10.0.1
+  - @verdaccio/streams@10.0.1
+
 ## 10.0.7
 
 ### Patch Changes

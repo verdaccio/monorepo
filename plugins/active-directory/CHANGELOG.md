@@ -1,5 +1,13 @@
 # Change Log
 
+## 10.0.2
+
+### Patch Changes
+
+- 6134415: fix: update dependencies
+- Updated dependencies [6134415]
+  - @verdaccio/commons-api@10.0.2
+
 ## 10.0.1
 
 ### Patch Changes
