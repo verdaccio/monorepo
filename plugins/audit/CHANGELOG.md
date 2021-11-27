@@ -1,5 +1,11 @@
 # Change Log
 
+## 10.0.3
+
+### Patch Changes
+
+- 6134415: fix: update dependencies
+
 ## 10.0.2
 
 ### Patch Changes

@@ -1,5 +1,14 @@
 # Change Log
 
+## 10.1.3
+
+### Patch Changes
+
+- 6134415: fix: update dependencies
+- Updated dependencies [6134415]
+  - @verdaccio/commons-api@10.0.2
+  - @verdaccio/streams@10.0.1
+
 ## 10.1.2
 
 ### Patch Changes
