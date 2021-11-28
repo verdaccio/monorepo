@@ -37,6 +37,10 @@ describe('readme', () => {
       expect(parseReadme('# hi')).toEqual(`<h1 id=\"hi\">hi</h1>`);
     });
 
+    test('should parse anchor ref with pathname', () => {
+      expect(parseReadme("[Test](#test)", {pathname:'/-/web/detail/@reg/pack'})).toEqual('<p><a href="/-/web/detail/@reg/pack#test">Test</a></p>');
+    });
+
     test('should parse basic / js alert', () => {
       expect(parseReadme("[Basic](javascript:alert('Basic'))")).toEqual('<p><a>Basic</a></p>');
     });
