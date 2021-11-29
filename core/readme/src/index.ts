@@ -4,14 +4,21 @@ import { JSDOM } from 'jsdom';
 
 const DOMPurify = createDOMPurify(new JSDOM('').window);
 
-export default function parseReadme(readme: string): string | void {
+export default function parseReadme(readme: string,
+                                    options: { pathname?: string | void } = {}): string | void {
+  let result;
+
   if (readme) {
-    return DOMPurify.sanitize(
+    result = DOMPurify.sanitize(
       marked(readme, {
         sanitize: false,
       }).trim()
     );
+
+    if ('string' === typeof options.pathname) {
+      result = result.replace(/href="#/gi, `href="${options.pathname}#`);
+    }
   }
 
-  return;
+  return result;
 }
