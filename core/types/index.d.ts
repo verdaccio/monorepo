@@ -354,7 +354,7 @@ declare module '@verdaccio/types' {
   };
 
   interface Config {
-    user_agent: boolean;
+    user_agent?: string | boolean;
     server_id: any;
     _debug?: boolean;
     server?: Server;
