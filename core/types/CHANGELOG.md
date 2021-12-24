@@ -1,5 +1,11 @@
 # Change Log
 
+## 10.2.0
+
+### Minor Changes
+
+- 96b62c8: feat: add rate limit and convert user agent type to boolean
+
 ## 10.1.0
 
 ### Minor Changes
