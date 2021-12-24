@@ -345,7 +345,6 @@ declare module '@verdaccio/types' {
   interface Security {
     web: JWTOptions;
     api: APITokenOptions;
-    userRateLimit: RateLimit;
   }
 
   type Server = {
@@ -355,6 +354,7 @@ declare module '@verdaccio/types' {
 
   interface Config {
     user_agent?: string | boolean;
+    userRateLimit: RateLimit;
     server_id: any;
     _debug?: boolean;
     server?: Server;
