@@ -1,5 +1,11 @@
 # Change Log
 
+## 10.2.1
+
+### Patch Changes
+
+- 254a282: fix: user_agent can be also string
+
 ## 10.2.0
 
 ### Minor Changes
