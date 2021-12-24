@@ -1,5 +1,11 @@
 # Change Log
 
+## 10.2.2
+
+### Patch Changes
+
+- 9ca52a7: fix: move userRateLimit to config body
+
 ## 10.2.1
 
 ### Patch Changes
