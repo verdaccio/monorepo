@@ -30,7 +30,7 @@
   "dependencies": {
     "express": "4.17.2",
     "https-proxy-agent": "5.0.0",
-    "body-parser": "1.19.0",
+    "body-parser": "1.19.1",
     "node-fetch": "2.6.6"
   },
   "devDependencies": {
