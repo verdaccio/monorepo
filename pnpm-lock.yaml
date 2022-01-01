@@ -37,7 +37,7 @@ importers:
       '@types/lodash': 4.14.177
       '@types/memory-fs': 0.3.3
       '@types/node': 14.18.0
-      '@types/request': 2.48.7
+      '@types/request': 2.48.8
       '@typescript-eslint/eslint-plugin': 4.33.0
       '@typescript-eslint/parser': 4.33.0
       '@verdaccio/types': workspace:*
@@ -103,7 +103,7 @@ importers:
       '@types/lodash': 4.14.177
       '@types/memory-fs': 0.3.3
       '@types/node': 14.18.0
-      '@types/request': 2.48.7
+      '@types/request': 2.48.8
       '@typescript-eslint/eslint-plugin': 4.33.0_8ebb0c9e40d935b268b5a8956a416a47
       '@typescript-eslint/parser': 4.33.0_eslint@7.32.0+typescript@3.9.10
       '@verdaccio/types': link:core/types
@@ -2625,8 +2625,8 @@ packages:
     resolution: {integrity: sha512-EEhsLsD6UsDM1yFhAvy0Cjr6VwmpMWqFBCb9w07wVugF7w9nfajxLuVmngTIpgS6svCnm6Vaw+MZhoDCKnOfsw==}
     dev: true
 
-  /@types/request/2.48.7:
-    resolution: {integrity: sha512-GWP9AZW7foLd4YQxyFZDBepl0lPsWLMEXDZUjQ/c1gqVPDPECrRZyEzuhJdnPWioFCq3Tv0qoGpMD6U+ygd4ZA==}
+  /@types/request/2.48.8:
+    resolution: {integrity: sha512-whjk1EDJPcAR2kYHRbFl/lKeeKYTi05A15K9bnLInCVroNDCtXce57xKdI0/rQaA3K+6q0eFyUBPmqfSndUZdQ==}
     dependencies:
       '@types/caseless': 0.12.2
       '@types/node': 16.11.7
