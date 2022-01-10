@@ -277,7 +277,7 @@ importers:
       '@verdaccio/file-locking': workspace:10.1.0
       '@verdaccio/streams': workspace:10.1.0
       '@verdaccio/types': workspace:10.2.2
-      async: 3.2.2
+      async: 3.2.3
       debug: 4.3.3
       lodash: 4.17.21
       lowdb: 1.0.0
@@ -288,7 +288,7 @@ importers:
       '@verdaccio/commons-api': link:../../core/commons-api
       '@verdaccio/file-locking': link:../../core/file-locking
       '@verdaccio/streams': link:../../core/streams
-      async: 3.2.2
+      async: 3.2.3
       debug: 4.3.3
       lodash: 4.17.21
       lowdb: 1.0.0
@@ -3226,8 +3226,8 @@ packages:
       lodash: 4.17.21
     dev: false
 
-  /async/3.2.2:
-    resolution: {integrity: sha512-H0E+qZaDEfx/FY4t7iLRv1W2fFI6+pyCeTw1uN20AQPiwqwM6ojPxHxdLv4z8hi2DtnW9BOckSspLucW7pIE5g==}
+  /async/3.2.3:
+    resolution: {integrity: sha512-spZRyzKL5l5BZQrr/6m/SqFdBN0q3OCI0f9rjfBzCMBIP4p75P620rR3gTmaksNOhmzgdxcaxdNfMy6anrbM0g==}
     dev: false
 
   /asynckit/0.4.0:
