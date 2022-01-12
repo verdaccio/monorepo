@@ -66,7 +66,7 @@ importers:
       npm-run-all: 4.1.5
       prettier: 2.5.1
       rimraf: 3.0.2
-      snyk: 1.756.0
+      snyk: 1.826.0
       typescript: 3.9.10
       update-ts-references: 2.4.1
     devDependencies:
@@ -132,7 +132,7 @@ importers:
       npm-run-all: 4.1.5
       prettier: 2.5.1
       rimraf: 3.0.2
-      snyk: 1.756.0
+      snyk: 1.826.0
       typescript: 3.9.10
       update-ts-references: 2.4.1_typescript@3.9.10
 
@@ -8778,8 +8778,8 @@ packages:
       use: 3.1.1
     dev: true
 
-  /snyk/1.756.0:
-    resolution: {integrity: sha512-+AYaH5b6Orjn04bLveYjpRjMFaFdrNiOHjNFJQKVCPZuiJnNgsRJ0HR+PFiHkx74pPIz3vu5vMqq6QEbxATrSw==}
+  /snyk/1.826.0:
+    resolution: {integrity: sha512-ZqkDPgO37D7sgxY+Y8J+4UK9mq89By9lcp/KUP9PfqETxWclVZXlcaLIkaY4BkDCktPDNtS6WHgYR3ApL+9mMQ==}
     engines: {node: '>=10'}
     hasBin: true
     dev: true
