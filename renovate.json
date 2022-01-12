@@ -25,6 +25,13 @@
     {
       "packageNames": ["fast-crc32c"],
       "allowedVersions": "1.0.7"
+    },
+    {
+      "matchPackagePatterns": ["*"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "all non-major core dependencies",
+      "groupSlug": "all-minor-patch-core",
+      "extends": [":semanticCommitTypeAll(fix)"],
     }
   ],
   "major": false,
