@@ -34,10 +34,10 @@
       "matchPackagePatterns": ["*"],
       "matchUpdateTypes": ["minor", "patch", "major"],
       "groupName": "all core dependencies",
-      "groupSlug": "all-core-deps",
+      "groupSlug": "all-core",
       "extends": [":semanticCommitTypeAll(fix)"]
     }
   ],
-  "major": false,
-  "pinVersions": false
+  "major": true,
+  "pinVersions": true
 }
