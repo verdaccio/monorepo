@@ -28,7 +28,7 @@
     "lib/"
   ],
   "engines": {
-    "node": ">=8"
+    "node": "17.4.0"
   },
   "dependencies": {
     "@verdaccio/commons-api": "workspace:10.1.0",
@@ -41,11 +41,11 @@
     "mkdirp": "1.0.4"
   },
   "devDependencies": {
-    "@types/minimatch": "^3.0.3",
-    "@types/node": "^14.0.0",
+    "@types/minimatch": "3.0.5",
+    "@types/node": "14.18.7",
     "@verdaccio/types": "workspace:10.2.2",
-    "minimatch": "^3.0.4",
-    "rmdir-sync": "^1.0.1"
+    "minimatch": "3.0.4",
+    "rmdir-sync": "1.0.1"
   },
   "scripts": {
     "clean": "rimraf ./build",

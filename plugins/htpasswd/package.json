@@ -25,7 +25,7 @@
     "lib"
   ],
   "engines": {
-    "node": ">=8"
+    "node": "17.4.0"
   },
   "dependencies": {
     "@verdaccio/file-locking": "workspace:10.1.0",
@@ -35,7 +35,7 @@
     "unix-crypt-td-js": "1.1.4"
   },
   "devDependencies": {
-    "@types/bcryptjs": "^2.4.2",
+    "@types/bcryptjs": "2.4.2",
     "@verdaccio/types": "workspace:10.2.2"
   },
   "scripts": {
