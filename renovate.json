@@ -11,6 +11,10 @@
       "allowedVersions": "3.9.10"
     },
     {
+      "packageNames": ["@types/node"],
+      "allowedVersions": "14.18.0"
+    },    
+    {
       "packageNames": ["@google-cloud/datastore"],
       "allowedVersions": "4.5.0"
     },
@@ -28,9 +32,9 @@
     },
     {
       "matchPackagePatterns": ["*"],
-      "matchUpdateTypes": ["minor", "patch"],
-      "groupName": "all non-major core dependencies",
-      "groupSlug": "all-minor-patch-core",
+      "matchUpdateTypes": ["minor", "patch", "major"],
+      "groupName": "all core dependencies",
+      "groupSlug": "all-core-deps",
       "extends": [":semanticCommitTypeAll(fix)"]
     }
   ],
