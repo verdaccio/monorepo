@@ -1,5 +1,11 @@
 # Change Log
 
+## 10.1.1
+
+### Patch Changes
+
+- 0c9cb98: chore: update dependencies
+
 ## 10.1.0
 
 ### Minor Changes
