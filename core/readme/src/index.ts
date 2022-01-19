@@ -1,11 +1,13 @@
-import marked from 'marked';
 import createDOMPurify from 'dompurify';
 import { JSDOM } from 'jsdom';
 
 const DOMPurify = createDOMPurify(new JSDOM('').window);
+const { marked } = require('marked');
 
-export default function parseReadme(readme: string,
-                                    options: { pathname?: string | void } = {}): string | void {
+export default function parseReadme(
+  readme: string,
+  options: { pathname?: string | void } = {}
+): string | void {
   let result;
 
   if (readme) {
