@@ -16,9 +16,9 @@ describe.skip('Local Database', () => {
   const keyPrefix = `test/${Math.floor(Math.random() * Math.pow(10, 8))}`;
 
   const bucket = process.env.VERDACCIO_TEST_BUCKET;
-  if (!bucket) {
-    throw new Error('no bucket specified via VERDACCIO_TEST_BUCKET env var');
-  }
+  // if (!bucket) {
+  //   throw new Error('no bucket specified via VERDACCIO_TEST_BUCKET env var');
+  // }
 
   beforeEach(() => {
     config = Object.assign(new Config(), {
@@ -36,21 +36,24 @@ describe.skip('Local Database', () => {
     const s3 = new S3();
     // snapshot test the final state of s3
     await new Promise((resolve, reject): void => {
-      s3.listObjectsV2({ Bucket: bucket, Prefix: config.store['s3-storage'].keyPrefix }, (err, data) => {
-        if (err) {
-          reject(err);
-          return;
+      s3.listObjectsV2(
+        { Bucket: bucket, Prefix: config.store['s3-storage'].keyPrefix },
+        (err, data) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+          expect(data.IsTruncated).toBe(false); // none of the tests we do should create this much data
+          // remove the stuff that changes from the results
+          expect(
+            data.Contents.map(({ Key, Size }) => ({
+              Key: Key.split(keyPrefix)[1],
+              Size,
+            }))
+          ).toMatchSnapshot();
+          resolve();
         }
-        expect(data.IsTruncated).toBe(false); // none of the tests we do should create this much data
-        // remove the stuff that changes from the results
-        expect(
-          data.Contents.map(({ Key, Size }) => ({
-            Key: Key.split(keyPrefix)[1],
-            Size,
-          }))
-        ).toMatchSnapshot();
-        resolve();
-      });
+      );
     });
     // clean up s3
     try {
@@ -61,7 +64,7 @@ describe.skip('Local Database', () => {
             Bucket: bucket,
             Prefix: keyPrefix,
           },
-          err => {
+          (err) => {
             if (err) {
               reject(err);
             } else {
@@ -100,13 +103,13 @@ describe.skip('Local Database', () => {
   });
 
   describe('Database CRUD', () => {
-    test('should add an item to database', done => {
+    test('should add an item to database', (done) => {
       const pgkName = 'jquery';
       db.get((err, data) => {
         expect(err).toBeNull();
         expect(data).toHaveLength(0);
 
-        db.add(pgkName, err => {
+        db.add(pgkName, (err) => {
           expect(err).toBeNull();
           db.get((err, data) => {
             expect(err).toBeNull();
@@ -117,14 +120,14 @@ describe.skip('Local Database', () => {
       });
     });
 
-    test('should remove an item to database', done => {
+    test('should remove an item to database', (done) => {
       const pgkName = 'jquery';
       db.get((err, data) => {
         expect(err).toBeNull();
         expect(data).toHaveLength(0);
-        db.add(pgkName, err => {
+        db.add(pgkName, (err) => {
           expect(err).toBeNull();
-          db.remove(pgkName, err => {
+          db.remove(pgkName, (err) => {
             expect(err).toBeNull();
             db.get((err, data) => {
               expect(err).toBeNull();
