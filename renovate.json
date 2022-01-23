@@ -35,6 +35,10 @@
       "allowedVersions": "1.0.0"
     },
     {
+      "packageNames": ["node-fetch"],
+      "allowedVersions": "< 3.0.0"
+    },
+    {
       "matchPackagePatterns": ["*"],
       "matchUpdateTypes": ["minor", "patch", "major"],
       "groupName": "all core dependencies",
