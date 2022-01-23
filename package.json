@@ -86,7 +86,7 @@
     "ci:version": "run-s ci:version:changeset ci:version:install",
     "ci:version:install": "pnpm install --frozen-lockfile=false",
     "ci:publish": "changeset publish",
-    "test": "pnpm recursive test",
+    "test": "pnpm recursive test -- -u",
     "ts:ref": "update-ts-references --discardComments"
   },
   "husky": {
