@@ -13,7 +13,7 @@
     {
       "packageNames": ["@types/node"],
       "allowedVersions": "14.18.0"
-    },    
+    },
     {
       "packageNames": ["@google-cloud/datastore"],
       "allowedVersions": "4.5.0"
@@ -29,6 +29,10 @@
     {
       "packageNames": ["fast-crc32c"],
       "allowedVersions": "1.0.7"
+    },
+    {
+      "packageNames": ["lowdb"],
+      "allowedVersions": "1.0.0"
     },
     {
       "matchPackagePatterns": ["*"],
