@@ -1,6 +1,6 @@
 {
   "name": "verdaccio-audit",
-  "version": "10.1.1",
+  "version": "10.2.0",
   "description": "Verdaccio Middleware plugin to bypass npmjs audit",
   "keywords": [
     "verdaccio",
@@ -34,7 +34,7 @@
     "node-fetch": "2.6.7"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:10.2.2"
+    "@verdaccio/types": "workspace:10.3.0"
   },
   "scripts": {
     "clean": "rimraf ./build",
