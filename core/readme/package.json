@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/readme",
-  "version": "10.2.1",
+  "version": "10.3.0",
   "description": "Readme markdown parser",
   "keywords": [
     "verdaccio",
@@ -35,7 +35,7 @@
     "marked": "4.0.12"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:10.2.2"
+    "@verdaccio/types": "workspace:10.3.0"
   },
   "scripts": {
     "clean": "rimraf ./build",

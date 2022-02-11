@@ -1,5 +1,11 @@
 # Change Log
 
+## 10.2.0
+
+### Minor Changes
+
+- 803c518: chore: update core dependencies
+
 ## 10.1.0
 
 ### Minor Changes

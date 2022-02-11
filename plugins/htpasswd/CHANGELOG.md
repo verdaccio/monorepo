@@ -1,5 +1,16 @@
 # Change Log
 
+## 10.2.0
+
+### Minor Changes
+
+- 803c518: chore: update core dependencies
+
+### Patch Changes
+
+- Updated dependencies [803c518]
+  - @verdaccio/file-locking@10.2.0
+
 ## 10.1.0
 
 ### Minor Changes
