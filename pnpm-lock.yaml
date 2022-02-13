@@ -283,7 +283,7 @@ importers:
       debug: 4.3.3
       lodash: 4.17.21
       lowdb: 1.0.0
-      minimatch: ^3.0.4
+      minimatch: ^4.0.0
       mkdirp: 1.0.4
       rmdir-sync: ^1.0.1
     dependencies:
@@ -299,7 +299,7 @@ importers:
       '@types/minimatch': 3.0.5
       '@types/node': 14.17.33
       '@verdaccio/types': link:../../core/types
-      minimatch: 3.0.4
+      minimatch: 4.1.0
       rmdir-sync: 1.0.1
 
   plugins/memory:
@@ -7065,6 +7065,13 @@ packages:
 
   /minimatch/3.0.4:
     resolution: {integrity: sha512-yJHVQEhyqPLUTgt9B83PXu6W3rx4MvvHvSUvToogpwoGDOUQ+yDrR0HRot+yOCdCO7u4hX3pWft6kWBBcqh0UA==}
+    dependencies:
+      brace-expansion: 1.1.11
+    dev: true
+
+  /minimatch/4.1.0:
+    resolution: {integrity: sha512-CRDd39hmjy31EqKRNlvKSIblWVXjoB9v1+qwqsxVDlnXXEHrC/63ilDd/iZFnmDLUT/FZxHc4+4t9JbG1ZoeYg==}
+    engines: {node: '>=10'}
     dependencies:
       brace-expansion: 1.1.11
     dev: true
