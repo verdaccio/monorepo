@@ -1,5 +1,11 @@
 # Change Log
 
+## 10.3.2
+
+### Patch Changes
+
+- e8e533e: fix: downgrade jsdom to 15.2.1
+
 ## 10.3.1
 
 ### Patch Changes
