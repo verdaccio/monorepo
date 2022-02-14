@@ -30,9 +30,9 @@
     "lib"
   ],
   "dependencies": {
-    "dompurify": "^2.2.6",
+    "dompurify": "2.2.6",
     "jsdom": "19.0.0",
-    "marked": "4.0.12"
+    "marked": "4.0.10"
   },
   "devDependencies": {
     "@verdaccio/types": "workspace:10.3.0"
