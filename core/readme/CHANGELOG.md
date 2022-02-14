@@ -1,5 +1,11 @@
 # Change Log
 
+## 10.3.1
+
+### Patch Changes
+
+- 348580c: fix: restore dompurify dependency
+
 ## 10.3.0
 
 ### Minor Changes
