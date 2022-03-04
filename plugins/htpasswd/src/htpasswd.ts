@@ -1,7 +1,7 @@
 import fs from 'fs';
 import Path from 'path';
 
-import { Callback, AuthConf, Config, IPluginAuth } from '@verdaccio/types';
+import { Callback, AuthConf, Config, Logger, IPluginAuth } from '@verdaccio/types';
 import { unlockFile } from '@verdaccio/file-locking';
 
 import {
@@ -15,7 +15,10 @@ import {
 
 export interface VerdaccioConfigApp extends Config {
   file: string;
+  slow_verify_ms?: number;
 }
+
+export const DEFAULT_SLOW_VERIFY_MS = 200;
 
 /**
  * HTPasswd - Verdaccio auth class
@@ -32,7 +35,8 @@ export default class HTPasswd implements IPluginAuth<VerdaccioConfigApp> {
   private verdaccioConfig: Config;
   private maxUsers: number;
   private path: string;
-  private logger: {};
+  private slowVerifyMs: number;
+  private logger: Logger;
   private lastTime: any;
   // constructor
   public constructor(config: AuthConf, stuff: VerdaccioConfigApp) {
@@ -60,24 +64,40 @@ export default class HTPasswd implements IPluginAuth<VerdaccioConfigApp> {
     }
 
     this.path = Path.resolve(Path.dirname(this.verdaccioConfig.self_path), file);
+    this.slowVerifyMs = config.slow_verify_ms || DEFAULT_SLOW_VERIFY_MS;
   }
 
   /**
    * authenticate - Authenticate user.
    * @param {string} user
    * @param {string} password
-   * @param {function} cd
+   * @param {function} cb
    * @returns {function}
    */
   public authenticate(user: string, password: string, cb: Callback): void {
-    this.reload(err => {
+    this.reload(async (err) => {
       if (err) {
         return cb(err.code === 'ENOENT' ? null : err);
       }
       if (!this.users[user]) {
         return cb(null, false);
       }
-      if (!verifyPassword(password, this.users[user])) {
+
+      let passwordValid = false;
+      try {
+        const start = new Date();
+        passwordValid = await verifyPassword(password, this.users[user]);
+        const durationMs = new Date().getTime() - start.getTime();
+        if (durationMs > this.slowVerifyMs) {
+          this.logger.warn(
+            { user, durationMs },
+            'Password for user "@{user}" took @{durationMs}ms to verify'
+          );
+        }
+      } catch ({ message }) {
+        this.logger.error({ message }, 'Unable to verify user password: @{message}');
+      }
+      if (!passwordValid) {
         return cb(null, false);
       }
 
@@ -101,11 +121,11 @@ export default class HTPasswd implements IPluginAuth<VerdaccioConfigApp> {
    * @param {string} user
    * @param {string} password
    * @param {function} realCb
-   * @returns {function}
+   * @returns {Promise<any>}
    */
-  public adduser(user: string, password: string, realCb: Callback): any {
+  public async adduser(user: string, password: string, realCb: Callback): Promise<any> {
     const pathPass = this.path;
-    let sanity = sanityCheck(user, password, verifyPassword, this.users, this.maxUsers);
+    let sanity = await sanityCheck(user, password, verifyPassword, this.users, this.maxUsers);
 
     // preliminary checks, just to ensure that file won't be reloaded if it's
     // not needed
@@ -113,7 +133,7 @@ export default class HTPasswd implements IPluginAuth<VerdaccioConfigApp> {
       return realCb(sanity, false);
     }
 
-    lockAndRead(pathPass, (err, res): void => {
+    lockAndRead(pathPass, async (err, res): Promise<void> => {
       let locked = false;
 
       // callback that cleans up lock first
@@ -141,7 +161,7 @@ export default class HTPasswd implements IPluginAuth<VerdaccioConfigApp> {
 
       // real checks, to prevent race conditions
       // parsing users after reading file.
-      sanity = sanityCheck(user, password, verifyPassword, this.users, this.maxUsers);
+      sanity = await sanityCheck(user, password, verifyPassword, this.users, this.maxUsers);
 
       if (sanity) {
         return cb(sanity);
@@ -186,7 +206,7 @@ export default class HTPasswd implements IPluginAuth<VerdaccioConfigApp> {
   }
 
   private _writeFile(body: string, cb: Callback): void {
-    fs.writeFile(this.path, body, err => {
+    fs.writeFile(this.path, body, (err) => {
       if (err) {
         cb(err);
       } else {
@@ -201,10 +221,16 @@ export default class HTPasswd implements IPluginAuth<VerdaccioConfigApp> {
    * changePassword - change password for existing user.
    * @param {string} user
    * @param {string} password
-   * @param {function} cd
+   * @param {string} newPassword
+   * @param {function} realCb
    * @returns {function}
    */
-  public changePassword(user: string, password: string, newPassword: string, realCb: Callback): void {
+  public changePassword(
+    user: string,
+    password: string,
+    newPassword: string,
+    realCb: Callback
+  ): void {
     lockAndRead(this.path, (err, res) => {
       let locked = false;
       const pathPassFile = this.path;

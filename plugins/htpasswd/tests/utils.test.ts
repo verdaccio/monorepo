@@ -48,37 +48,40 @@ user4:$6FrCasdvppdwE:autocreated 2017-12-14T13:30:20.838Z`;
 });
 
 describe('verifyPassword', () => {
-  it('should verify the MD5/Crypt3 password with true', () => {
+  it('should verify the MD5/Crypt3 password with true', async () => {
     const input = ['test', '$apr1$sKXK9.lG$rZ4Iy63Vtn8jF9/USc4BV0'];
-    expect(verifyPassword(input[0], input[1])).toBeTruthy();
+    expect(await verifyPassword(input[0], input[1])).toBeTruthy();
   });
-  it('should verify the MD5/Crypt3 password with false', () => {
+  it('should verify the MD5/Crypt3 password with false', async () => {
     const input = ['testpasswordchanged', '$apr1$sKXK9.lG$rZ4Iy63Vtn8jF9/USc4BV0'];
-    expect(verifyPassword(input[0], input[1])).toBeFalsy();
+    expect(await verifyPassword(input[0], input[1])).toBeFalsy();
   });
-  it('should verify the plain password with true', () => {
+  it('should verify the plain password with true', async () => {
     const input = ['testpasswordchanged', '{PLAIN}testpasswordchanged'];
-    expect(verifyPassword(input[0], input[1])).toBeTruthy();
+    expect(await verifyPassword(input[0], input[1])).toBeTruthy();
   });
-  it('should verify the plain password with false', () => {
+  it('should verify the plain password with false', async () => {
     const input = ['testpassword', '{PLAIN}testpasswordchanged'];
-    expect(verifyPassword(input[0], input[1])).toBeFalsy();
+    expect(await verifyPassword(input[0], input[1])).toBeFalsy();
   });
-  it('should verify the crypto SHA password with true', () => {
+  it('should verify the crypto SHA password with true', async () => {
     const input = ['testpassword', '{SHA}i7YRj4/Wk1rQh2o740pxfTJwj/0='];
-    expect(verifyPassword(input[0], input[1])).toBeTruthy();
+    expect(await verifyPassword(input[0], input[1])).toBeTruthy();
   });
-  it('should verify the crypto SHA password with false', () => {
+  it('should verify the crypto SHA password with false', async () => {
     const input = ['testpasswordchanged', '{SHA}i7YRj4/Wk1rQh2o740pxfTJwj/0='];
-    expect(verifyPassword(input[0], input[1])).toBeFalsy();
+    expect(await verifyPassword(input[0], input[1])).toBeFalsy();
   });
-  it('should verify the bcrypt password with true', () => {
+  it('should verify the bcrypt password with true', async () => {
     const input = ['testpassword', '$2y$04$Wqed4yN0OktGbiUdxSTwtOva1xfESfkNIZfcS9/vmHLsn3.lkFxJO'];
-    expect(verifyPassword(input[0], input[1])).toBeTruthy();
+    expect(await verifyPassword(input[0], input[1])).toBeTruthy();
   });
-  it('should verify the bcrypt password with false', () => {
-    const input = ['testpasswordchanged', '$2y$04$Wqed4yN0OktGbiUdxSTwtOva1xfESfkNIZfcS9/vmHLsn3.lkFxJO'];
-    expect(verifyPassword(input[0], input[1])).toBeFalsy();
+  it('should verify the bcrypt password with false', async () => {
+    const input = [
+      'testpasswordchanged',
+      '$2y$04$Wqed4yN0OktGbiUdxSTwtOva1xfESfkNIZfcS9/vmHLsn3.lkFxJO',
+    ];
+    expect(await verifyPassword(input[0], input[1])).toBeFalsy();
   });
 });
 
@@ -147,66 +150,66 @@ describe('sanityCheck', () => {
     users = { test: '$6FrCaT/v0dwE' };
   });
 
-  test('should throw error for user already exists', () => {
+  test('should throw error for user already exists', async () => {
     const verifyFn = jest.fn();
-    const input = sanityCheck('test', users.test, verifyFn, users, Infinity);
+    const input = await sanityCheck('test', users.test, verifyFn, users, Infinity);
     expect(input.status).toEqual(401);
     expect(input.message).toEqual('unauthorized access');
     expect(verifyFn).toHaveBeenCalled();
   });
 
-  test('should throw error for registration disabled of users', () => {
+  test('should throw error for registration disabled of users', async () => {
     const verifyFn = (): void => {};
-    const input = sanityCheck('username', users.test, verifyFn, users, -1);
+    const input = await sanityCheck('username', users.test, verifyFn, users, -1);
     expect(input.status).toEqual(409);
     expect(input.message).toEqual('user registration disabled');
   });
 
-  test('should throw error max number of users', () => {
+  test('should throw error max number of users', async () => {
     const verifyFn = (): void => {};
-    const input = sanityCheck('username', users.test, verifyFn, users, 1);
+    const input = await sanityCheck('username', users.test, verifyFn, users, 1);
     expect(input.status).toEqual(403);
     expect(input.message).toEqual('maximum amount of users reached');
   });
 
-  test('should not throw anything and sanity check', () => {
+  test('should not throw anything and sanity check', async () => {
     const verifyFn = (): void => {};
-    const input = sanityCheck('username', users.test, verifyFn, users, 2);
+    const input = await sanityCheck('username', users.test, verifyFn, users, 2);
     expect(input).toBeNull();
   });
 
-  test('should throw error for required username field', () => {
+  test('should throw error for required username field', async () => {
     const verifyFn = (): void => {};
-    const input = sanityCheck(undefined, users.test, verifyFn, users, 2);
+    const input = await sanityCheck(undefined, users.test, verifyFn, users, 2);
     expect(input.message).toEqual('username and password is required');
     expect(input.status).toEqual(400);
   });
 
-  test('should throw error for required password field', () => {
+  test('should throw error for required password field', async () => {
     const verifyFn = (): void => {};
-    const input = sanityCheck('username', undefined, verifyFn, users, 2);
+    const input = await sanityCheck('username', undefined, verifyFn, users, 2);
     expect(input.message).toEqual('username and password is required');
     expect(input.status).toEqual(400);
   });
 
-  test('should throw error for required username & password fields', () => {
+  test('should throw error for required username & password fields', async () => {
     const verifyFn = (): void => {};
-    const input = sanityCheck(undefined, undefined, verifyFn, users, 2);
+    const input = await sanityCheck(undefined, undefined, verifyFn, users, 2);
     expect(input.message).toEqual('username and password is required');
     expect(input.status).toEqual(400);
   });
 
-  test('should throw error for existing username and password', () => {
+  test('should throw error for existing username and password', async () => {
     const verifyFn = jest.fn(() => true);
-    const input = sanityCheck('test', users.test, verifyFn, users, 2);
+    const input = await sanityCheck('test', users.test, verifyFn, users, 2);
     expect(input.status).toEqual(409);
     expect(input.message).toEqual('username is already registered');
     expect(verifyFn).toHaveBeenCalledTimes(1);
   });
 
-  test('should throw error for existing username and password with max number of users reached', () => {
+  test('should throw error for existing username and password with max number of users reached', async () => {
     const verifyFn = jest.fn(() => true);
-    const input = sanityCheck('test', users.test, verifyFn, users, 1);
+    const input = await sanityCheck('test', users.test, verifyFn, users, 1);
     expect(input.status).toEqual(409);
     expect(input.message).toEqual('username is already registered');
     expect(verifyFn).toHaveBeenCalledTimes(1);

@@ -26,8 +26,9 @@ export function lockAndRead(name: string, cb: Callback): void {
  * @returns {object}
  */
 export function parseHTPasswd(input: string): Record<string, any> {
-  return input.split('\n').reduce((result, line) => {
-    const args = line.split(':', 3);
+  // The input is split on line ending styles that are both windows and unix compatible
+  return input.split(/[\r]?[\n]/).reduce((result, line) => {
+    const args = line.split(':', 3).map((str) => str.trim());
     if (args.length > 1) {
       result[args[0]] = args[1];
     }
@@ -39,11 +40,13 @@ export function parseHTPasswd(input: string): Record<string, any> {
  * verifyPassword - matches password and it's hash.
  * @param {string} passwd
  * @param {string} hash
- * @returns {boolean}
+ * @returns {Promise<boolean>}
  */
-export function verifyPassword(passwd: string, hash: string): boolean {
-  if (hash.match(/^\$2(a|b|y)\$/)) {
-    return bcrypt.compareSync(passwd, hash);
+export async function verifyPassword(passwd: string, hash: string): Promise<boolean> {
+  if (hash.match(/^\$2([aby])\$/)) {
+    return new Promise((resolve, reject) =>
+      bcrypt.compare(passwd, hash, (error, result) => (error ? reject(error) : resolve(result)))
+    );
   } else if (hash.indexOf('{PLAIN}') === 0) {
     return passwd === hash.substr(7);
   } else if (hash.indexOf('{SHA}') === 0) {
@@ -77,12 +80,7 @@ export function addUserToHTPasswd(body: string, user: string, passwd: string): s
   if (crypt3) {
     passwd = crypt3(passwd);
   } else {
-    passwd =
-      '{SHA}' +
-      crypto
-        .createHash('sha1')
-        .update(passwd, 'utf8')
-        .digest('base64');
+    passwd = '{SHA}' + crypto.createHash('sha1').update(passwd, 'utf8').digest('base64');
   }
   const comment = 'autocreated ' + new Date().toJSON();
   let newline = `${user}:${passwd}:${comment}\n`;
@@ -97,16 +95,18 @@ export function addUserToHTPasswd(body: string, user: string, passwd: string): s
  * Sanity check for a user
  * @param {string} user
  * @param {object} users
+ * @param {string} password
+ * @param {Callback} verifyFn
  * @param {number} maxUsers
  * @returns {object}
  */
-export function sanityCheck(
+export async function sanityCheck(
   user: string,
   password: string,
   verifyFn: Callback,
   users: {},
   maxUsers: number
-): HttpError | null {
+): Promise<HttpError | null> {
   let err;
 
   // check for user or password
@@ -125,7 +125,7 @@ export function sanityCheck(
   }
 
   if (hash) {
-    const auth = verifyFn(password, users[user]);
+    const auth = await verifyFn(password, users[user]);
     if (auth) {
       err = Error('username is already registered');
       err.status = 409;
@@ -144,10 +144,7 @@ export function sanityCheck(
 }
 
 export function getCryptoPassword(password: string): string {
-  return `{SHA}${crypto
-    .createHash('sha1')
-    .update(password, 'utf8')
-    .digest('base64')}`;
+  return `{SHA}${crypto.createHash('sha1').update(password, 'utf8').digest('base64')}`;
 }
 
 /**
@@ -158,9 +155,14 @@ export function getCryptoPassword(password: string): string {
  * @param {string} newPasswd
  * @returns {string}
  */
-export function changePasswordToHTPasswd(body: string, user: string, passwd: string, newPasswd: string): string {
+export function changePasswordToHTPasswd(
+  body: string,
+  user: string,
+  passwd: string,
+  newPasswd: string
+): string {
   let lines = body.split('\n');
-  lines = lines.map(line => {
+  lines = lines.map((line) => {
     const [username, password] = line.split(':', 3);
 
     if (username === user) {
