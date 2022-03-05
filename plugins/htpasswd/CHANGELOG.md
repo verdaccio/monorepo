@@ -1,5 +1,11 @@
 # Change Log
 
+## 10.3.0
+
+### Minor Changes
+
+- 56c65d9: Refactor htpasswd plugin to use the bcryptjs 'compare' api call instead of 'comparSync'. Add a new configuration value named 'slow_verify_ms' to the htpasswd plugin that when exceeded during password verification will log a warning message.
+
 ## 10.2.0
 
 ### Minor Changes
