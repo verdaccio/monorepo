@@ -28,9 +28,9 @@
     "node": ">=8"
   },
   "dependencies": {
-    "express": "4.17.2",
+    "express": "4.17.3",
     "https-proxy-agent": "5.0.0",
-    "body-parser": "1.19.1",
+    "body-parser": "1.20.0",
     "node-fetch": "2.6.7"
   },
   "devDependencies": {
