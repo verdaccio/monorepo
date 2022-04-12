@@ -35,7 +35,7 @@
     "@verdaccio/file-locking": "workspace:10.2.0",
     "@verdaccio/streams": "workspace:10.2.0",
     "async": "3.2.3",
-    "debug": "4.3.3",
+    "debug": "4.3.4",
     "lodash": "4.17.21",
     "lowdb": "1.0.0",
     "mkdirp": "1.0.4"
