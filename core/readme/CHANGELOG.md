@@ -1,5 +1,11 @@
 # Change Log
 
+## 10.3.3
+
+### Patch Changes
+
+- 892000d: chore: update core dependencies
+
 ## 10.3.2
 
 ### Patch Changes
