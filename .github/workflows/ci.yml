@@ -103,7 +103,7 @@ jobs:
       # - name: untar packages
       #   run: tar -xzvf pkg.tar.gz -C ${{ github.workspace }}/packages
       - name: Install pnpm
-        run: npm i pnpm@latest -g
+        run: npm i pnpm@latest-6 -g
       - uses: actions/cache@v2
         with:
           path: ~/.pnpm-store
