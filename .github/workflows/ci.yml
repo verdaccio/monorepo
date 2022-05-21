@@ -25,10 +25,10 @@ jobs:
           - 4873:4873
     steps:
     - uses: actions/checkout@v2.4.2
-    - name: Use Node 14
+    - name: Use Node 12
       uses: actions/setup-node@v2
       with:
-        node-version: 14
+        node-version: 12
     - name: Install pnpm
       run: npm i pnpm@latest-6 -g
     - name: set store
@@ -53,7 +53,7 @@ jobs:
       - name: Use Node 16
         uses: actions/setup-node@v2
         with:
-          node-version: 16
+          node-version: 12
       - name: Install pnpm
         run: npm i pnpm@latest-6 -g
       - uses: actions/cache@v2
