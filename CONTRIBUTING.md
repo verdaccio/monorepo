@@ -66,6 +66,12 @@ information on [rebasing](https://git-scm.com/book/en/v2/Git-Branching-Rebasing)
 
 ### Make Changes and Commit
 
+Install `pnpm@6.x`
+
+```bash
+npm i -g pnpm@latest-6
+```
+
 #### Caveats
 
 Feel free to commit as much times you want in your branch, but keep on mind on this repository we `git squash` on merge by default, any other way is forbidden since we intent to have a clean git history.
@@ -89,37 +95,7 @@ pnpm test
 All good? perfect, then you should create the pull request.
 
 #### Commit Guidelines
-
-For example:
-
-- `feat: A new feature`
-- `fix: A bug fix`
-
-A commit of the type feat introduces a new feature to the codebase
-(this correlates with MINOR in semantic versioning).
-
-e.g.:
-
-```
-feat: xxxxxxxxxx
-```
-
-A commit of the type fix patches a bug in your codebase (this correlates with PATCH in semantic versioning).
-
-e.g.:
-
-```
-fix: xxxxxxxxxxx
-```
-
-Commits types such as as `docs:`,`style:`,`refactor:`,`perf:`,`test:`
-and `chore:` are valid but have no effect on versioning. **It would be great if you use them.**
-
-All commits message are going to be validated when they are created using husky hooks.
-
-> Please, try to provide one single commit to help a clean and easy merge process.
-
-### Adding a changeset
+#### Adding a changeset
 
 We use [changesets](https://github.com/atlassian/changesets) in order to generate a detailed Changelog as possible.
 
