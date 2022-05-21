@@ -90,7 +90,7 @@
     "ts:ref": "update-ts-references --discardComments"
   },
   "engines": {
-    "node": ">=16.5",
+    "node": ">=12",
     "pnpm": ">=6.32.3 <7.0.0"
   },
   "husky": {
