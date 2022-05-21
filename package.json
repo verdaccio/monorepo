@@ -89,6 +89,10 @@
     "test": "pnpm recursive test -- -u",
     "ts:ref": "update-ts-references --discardComments"
   },
+  "engines": {
+    "node": ">=16.5",
+    "pnpm": ">=6.32.3 <7.0.0"
+  },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
