@@ -1,5 +1,11 @@
 # Change Log
 
+## 10.2.2
+
+### Patch Changes
+
+- 87573c8: chore: update dependencies readme and audit plugin
+
 ## 10.2.1
 
 ### Patch Changes
