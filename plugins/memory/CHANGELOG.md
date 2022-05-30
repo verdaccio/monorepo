@@ -1,5 +1,11 @@
 # Change Log
 
+## 10.2.1
+
+### Patch Changes
+
+- 45fdb93: Fix storing tarballs with identical names from different packages in memory plugin
+
 ## 10.2.0
 
 ### Minor Changes
