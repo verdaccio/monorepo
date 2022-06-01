@@ -1,5 +1,11 @@
 # Change Log
 
+## 10.4.0
+
+### Minor Changes
+
+- 00e4afd: feat: update configuration types
+
 ## 10.3.0
 
 ### Minor Changes
