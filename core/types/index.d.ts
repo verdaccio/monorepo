@@ -386,7 +386,7 @@ declare module '@verdaccio/types' {
   }
 
   interface Config extends ConfigYaml, ConfigRuntime {
-    user_agent: string;
+    user_agent?: string | boolean;
     server_id: string;
     secret: string;
     // deprecated
