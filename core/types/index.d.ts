@@ -381,7 +381,8 @@ declare module '@verdaccio/types' {
   }
 
   interface ConfigRuntime extends ConfigYaml {
-    config_path: string;
+    // @deprecated on v6 this is config_path
+    self_path: string;
   }
 
   interface Config extends ConfigYaml, ConfigRuntime {
