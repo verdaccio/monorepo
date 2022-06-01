@@ -1,5 +1,11 @@
 # Change Log
 
+## 10.4.2
+
+### Patch Changes
+
+- 2d428b3: fix: user_agent property as boolean
+
 ## 10.4.1
 
 ### Patch Changes
