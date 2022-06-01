@@ -33,7 +33,7 @@
     "aws-sdk": "^2.607.0"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:10.4.0",
+    "@verdaccio/types": "workspace:10.4.1",
     "recursive-readdir": "2.2.2"
   },
   "scripts": {

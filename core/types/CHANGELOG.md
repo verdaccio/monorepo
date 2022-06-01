@@ -1,5 +1,11 @@
 # Change Log
 
+## 10.4.1
+
+### Patch Changes
+
+- aaf0da4: fix: self_path correct property
+
 ## 10.4.0
 
 ### Minor Changes
