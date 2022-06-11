@@ -15,7 +15,7 @@ The current implementation of the `htpasswd` module supports multiple hash forma
 
 ### New hashing algorithms
 
-The new possible hash algorithms to use are `bcrypt`, `md5`, `sha1`. `bcrypt` is chosen as a default, because of its customizable complexity and overall reliability. You can read more about them [here](https://httpd.apache.org/docs/2.4/misc/password_encryptions.html).
+The new possible hash algorithms to use are `bcrypt`, `md5`, `sha1`. You can read more about them [here](https://httpd.apache.org/docs/2.4/misc/password_encryptions.html).
 
 Two new properties are added to `auth` section in the configuration file:
 
