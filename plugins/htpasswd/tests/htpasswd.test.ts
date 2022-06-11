@@ -105,7 +105,7 @@ describe('HTPasswd', () => {
         done();
       };
       wrapper.authenticate('bcrypt', 'password', callback);
-    }, 15000);
+    }, 18000);
   });
 
   describe('addUser()', () => {
@@ -141,7 +141,10 @@ describe('HTPasswd', () => {
       test('sanityCheck should return an Error', (done) => {
         jest.doMock('../src/utils.ts', () => {
           return {
-            sanityCheck: (): Error => Error('some error'),
+            sanityCheck: () =>
+              new Promise(() => {
+                throw Error('some error');
+              }),
             HtpasswdHashAlgorithm,
           };
         });
@@ -158,7 +161,7 @@ describe('HTPasswd', () => {
       test('lockAndRead should return an Error', (done) => {
         jest.doMock('../src/utils.ts', () => {
           return {
-            sanityCheck: (): any => null,
+            sanityCheck: () => Promise.resolve(null),
             lockAndRead: (_a, b): any => b(new Error('lock error')),
             HtpasswdHashAlgorithm,
           };
@@ -176,7 +179,7 @@ describe('HTPasswd', () => {
       test('addUserToHTPasswd should return an Error', (done) => {
         jest.doMock('../src/utils.ts', () => {
           return {
-            sanityCheck: (): any => null,
+            sanityCheck: () => Promise.resolve(null),
             parseHTPasswd: (): void => {},
             lockAndRead: (_a, b): any => b(null, ''),
             unlockFile: (_a, b): any => b(),
@@ -194,7 +197,7 @@ describe('HTPasswd', () => {
       test('writeFile should return an Error', (done) => {
         jest.doMock('../src/utils.ts', () => {
           return {
-            sanityCheck: (): any => null,
+            sanityCheck: () => Promise.resolve(null),
             parseHTPasswd: (): void => {},
             lockAndRead: (_a, b): any => b(null, ''),
             addUserToHTPasswd: (): void => {},

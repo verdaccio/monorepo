@@ -145,56 +145,58 @@ export default class HTPasswd implements IPluginAuth<HTPasswdConfig> {
    * @param {function} realCb
    * @returns {Promise<any>}
    */
-  public async adduser(user: string, password: string, realCb: Callback): Promise<any> {
+  public adduser(user: string, password: string, realCb: Callback): void {
     const pathPass = this.path;
-    let sanity = await sanityCheck(user, password, verifyPassword, this.users, this.maxUsers);
-
-    // preliminary checks, just to ensure that file won't be reloaded if it's
-    // not needed
-    if (sanity) {
-      return realCb(sanity, false);
-    }
-
-    lockAndRead(pathPass, async (err, res): Promise<void> => {
-      let locked = false;
-
-      // callback that cleans up lock first
-      const cb = (err): void => {
-        if (locked) {
-          unlockFile(pathPass, () => {
-            // ignore any error from the unlock
-            realCb(err, !err);
-          });
-        } else {
-          realCb(err, !err);
+    sanityCheck(user, password, verifyPassword, this.users, this.maxUsers)
+      .then((sanity) => {
+        // preliminary checks, just to ensure that file won't be reloaded if it's
+        // not needed
+        if (sanity) {
+          return realCb(sanity, false);
         }
-      };
 
-      if (!err) {
-        locked = true;
-      }
+        lockAndRead(pathPass, async (err, res): Promise<void> => {
+          let locked = false;
 
-      // ignore ENOENT errors, we'll just create .htpasswd in that case
-      if (err && err.code !== 'ENOENT') {
-        return cb(err);
-      }
-      const body = (res || '').toString('utf8');
-      this.users = parseHTPasswd(body);
+          // callback that cleans up lock first
+          const cb = (err): void => {
+            if (locked) {
+              unlockFile(pathPass, () => {
+                // ignore any error from the unlock
+                realCb(err, !err);
+              });
+            } else {
+              realCb(err, !err);
+            }
+          };
 
-      // real checks, to prevent race conditions
-      // parsing users after reading file.
-      sanity = await sanityCheck(user, password, verifyPassword, this.users, this.maxUsers);
+          if (!err) {
+            locked = true;
+          }
 
-      if (sanity) {
-        return cb(sanity);
-      }
+          // ignore ENOENT errors, we'll just create .htpasswd in that case
+          if (err && err.code !== 'ENOENT') {
+            return cb(err);
+          }
+          const body = (res || '').toString('utf8');
+          this.users = parseHTPasswd(body);
 
-      try {
-        this._writeFile(addUserToHTPasswd(body, user, password, this.hashConfig), cb);
-      } catch (err) {
-        return cb(err);
-      }
-    });
+          // real checks, to prevent race conditions
+          // parsing users after reading file.
+          sanity = await sanityCheck(user, password, verifyPassword, this.users, this.maxUsers);
+
+          if (sanity) {
+            return cb(sanity);
+          }
+
+          try {
+            this._writeFile(addUserToHTPasswd(body, user, password, this.hashConfig), cb);
+          } catch (err) {
+            return cb(err);
+          }
+        });
+      })
+      .catch((err) => realCb(err));
   }
 
   /**
