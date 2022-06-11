@@ -1,10 +1,12 @@
 import fs from 'fs';
 import Path from 'path';
 
-import { Callback, AuthConf, Config, Logger, IPluginAuth } from '@verdaccio/types';
+import { Callback, AuthConf, Config, Logger, IPluginAuth, PluginOptions } from '@verdaccio/types';
 import { unlockFile } from '@verdaccio/file-locking';
 
 import {
+  HtpasswdHashAlgorithm,
+  HtpasswdHashConfig,
   verifyPassword,
   lockAndRead,
   parseHTPasswd,
@@ -13,47 +15,67 @@ import {
   sanityCheck,
 } from './utils';
 
-export interface VerdaccioConfigApp extends Config {
+export type HTPasswdConfig = {
   file: string;
+  algorithm?: HtpasswdHashAlgorithm;
+  rounds?: number;
+  max_users?: number;
   slow_verify_ms?: number;
-}
+} & Config;
 
+export const DEFAULT_BCRYPT_ROUNDS = 10;
 export const DEFAULT_SLOW_VERIFY_MS = 200;
 
 /**
  * HTPasswd - Verdaccio auth class
  */
-export default class HTPasswd implements IPluginAuth<VerdaccioConfigApp> {
+export default class HTPasswd implements IPluginAuth<HTPasswdConfig> {
   /**
    *
    * @param {*} config htpasswd file
    * @param {object} stuff config.yaml in object from
    */
   private users: {};
-  private stuff: {};
-  private config: {};
-  private verdaccioConfig: Config;
   private maxUsers: number;
   private path: string;
+  private hashConfig: HtpasswdHashConfig;
   private slowVerifyMs: number;
   private logger: Logger;
   private lastTime: any;
   // constructor
-  public constructor(config: AuthConf, stuff: VerdaccioConfigApp) {
+  public constructor(config: AuthConf, options: PluginOptions<HTPasswdConfig>) {
     this.users = {};
 
-    // config for this module
-    this.config = config;
-    this.stuff = stuff;
-
     // verdaccio logger
-    this.logger = stuff.logger;
-
-    // verdaccio main config object
-    this.verdaccioConfig = stuff.config;
+    this.logger = options.logger;
 
     // all this "verdaccio_config" stuff is for b/w compatibility only
     this.maxUsers = config.max_users ? config.max_users : Infinity;
+
+    let algorithm: HtpasswdHashAlgorithm;
+    let rounds: number | undefined;
+
+    if (config.algorithm === undefined) {
+      // to avoid breaking changes we uses crypt, future version
+      // of this plugin uses bcrypt by default
+      // https://github.com/verdaccio/verdaccio/pull/2072#issuecomment-770235502
+      algorithm = HtpasswdHashAlgorithm.crypt;
+    } else if (HtpasswdHashAlgorithm[config.algorithm] !== undefined) {
+      algorithm = HtpasswdHashAlgorithm[config.algorithm];
+    } else {
+      throw new Error(`Invalid algorithm "${config.algorithm}"`);
+    }
+
+    if (algorithm === HtpasswdHashAlgorithm.bcrypt) {
+      rounds = config.rounds || DEFAULT_BCRYPT_ROUNDS;
+    } else if (config.rounds !== undefined) {
+      this.logger.warn({ algo: algorithm }, 'Option "rounds" is not valid for "@{algo}" algorithm');
+    }
+
+    this.hashConfig = {
+      algorithm,
+      rounds,
+    };
 
     this.lastTime = null;
 
@@ -63,7 +85,7 @@ export default class HTPasswd implements IPluginAuth<VerdaccioConfigApp> {
       throw new Error('should specify "file" in config');
     }
 
-    this.path = Path.resolve(Path.dirname(this.verdaccioConfig.self_path), file);
+    this.path = Path.resolve(Path.dirname(options.config.self_path), file);
     this.slowVerifyMs = config.slow_verify_ms || DEFAULT_SLOW_VERIFY_MS;
   }
 
@@ -168,7 +190,7 @@ export default class HTPasswd implements IPluginAuth<VerdaccioConfigApp> {
       }
 
       try {
-        this._writeFile(addUserToHTPasswd(body, user, password), cb);
+        this._writeFile(addUserToHTPasswd(body, user, password, this.hashConfig), cb);
       } catch (err) {
         return cb(err);
       }
@@ -258,12 +280,14 @@ export default class HTPasswd implements IPluginAuth<VerdaccioConfigApp> {
       const body = this._stringToUt8(res);
       this.users = parseHTPasswd(body);
 
-      if (!this.users[user]) {
-        return cb(new Error('User not found'));
-      }
-
       try {
-        this._writeFile(changePasswordToHTPasswd(body, user, password, newPassword), cb);
+        changePasswordToHTPasswd(body, user, password, newPassword, this.hashConfig)
+          .then((content) => {
+            this._writeFile(content, cb);
+          })
+          .catch((err) => {
+            cb(err);
+          });
       } catch (err) {
         return cb(err);
       }

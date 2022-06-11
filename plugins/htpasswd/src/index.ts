@@ -1,4 +1,4 @@
-import HTPasswd from './htpasswd';
+import HTPasswd, { HTPasswdConfig } from './htpasswd';
 
 /**
  * A new instance of HTPasswd class.
@@ -6,6 +6,8 @@ import HTPasswd from './htpasswd';
  * @param {object} stuff
  * @returns {object}
  */
-export default function(config, stuff): HTPasswd {
+export default function (config, stuff): HTPasswd {
   return new HTPasswd(config, stuff);
 }
+
+export { HTPasswd, HTPasswdConfig };
