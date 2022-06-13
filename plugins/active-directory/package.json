@@ -36,7 +36,7 @@
   },
   "devDependencies": {
     "@types/activedirectory2": "^1.2.1",
-    "@verdaccio/types": "workspace:10.5.0"
+    "@verdaccio/types": "workspace:10.5.1"
   },
   "scripts": {
     "clean": "rimraf ./build",
