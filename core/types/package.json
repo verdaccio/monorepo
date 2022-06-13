@@ -21,14 +21,18 @@
   "publishConfig": {
     "access": "public"
   },
-  "main": "index.d.ts",
-  "types": "index.d.ts",
+  "main": "lib/types.d.ts",
+  "types": "lib/types.d.ts",
   "scripts": {
     "test": "exit 0",
-    "build": "exit 0"
+    "build": "tsc --emitDeclarationOnly -p tsconfig.json",
+    "docs": "typedoc --options ./typedoc.json --excludeExternals"
   },
   "devDependencies": {
-    "@types/node": "14.18.0"
+    "@types/node": "12.12.6",
+    "typedoc": "^0.22.17",
+    "typedoc-plugin-missing-exports": "^0.22.6",
+    "typedoc-umlclass": "^0.6.1"
   },
   "funding": {
     "type": "opencollective",

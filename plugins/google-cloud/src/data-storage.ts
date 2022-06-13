@@ -1,7 +1,14 @@
 import { Storage } from '@google-cloud/storage';
 import { Datastore, DatastoreOptions } from '@google-cloud/datastore';
 import { getServiceUnavailable, getInternalError, VerdaccioError } from '@verdaccio/commons-api';
-import { Logger, Callback, IPluginStorage, Token, TokenFilter, IPackageStorageManager } from '@verdaccio/types';
+import {
+  Logger,
+  Callback,
+  IPluginStorage,
+  Token,
+  TokenFilter,
+  IPackageStorageManager,
+} from '@verdaccio/types';
 import { CommitResponse } from '@google-cloud/datastore/build/src/request';
 import { RunQueryResponse } from '@google-cloud/datastore/build/src/query';
 import { entity } from '@google-cloud/datastore/build/src/entity';
@@ -11,7 +18,8 @@ import StorageHelper, { IStorageHelper } from './storage-helper';
 import GoogleCloudStorageHandler from './storage';
 type Key = entity.Key;
 
-export const ERROR_MISSING_CONFIG = 'google cloud storage missing config. Add `store.google-cloud` to your config file';
+export const ERROR_MISSING_CONFIG =
+  'google cloud storage missing config. Add `store.google-cloud` to your config file';
 
 class GoogleCloudDatabase implements IPluginStorage<VerdaccioConfigGoogleStorage> {
   private helper: IStorageHelper;
@@ -47,17 +55,23 @@ class GoogleCloudDatabase implements IPluginStorage<VerdaccioConfigGoogleStorage
     if (!config.projectId || typeof config.projectId !== 'string') {
       throw new Error('Google Cloud Storage requires a ProjectId.');
     }
-
+    // @ts-ignore
     GOOGLE_OPTIONS.projectId = config.projectId || process.env.GOOGLE_CLOUD_VERDACCIO_PROJECT_ID;
 
     const keyFileName = config.keyFilename || process.env.GOOGLE_CLOUD_VERDACCIO_KEY;
 
     if (keyFileName) {
+      // @ts-ignore
       GOOGLE_OPTIONS.keyFilename = keyFileName;
-      this.logger.warn('Using credentials in a file might be un-secure and is only recommended for local development');
+      this.logger.warn(
+        'Using credentials in a file might be un-secure and is only recommended for local development'
+      );
     }
 
-    this.logger.warn({ content: JSON.stringify(GOOGLE_OPTIONS) }, 'Google storage settings: @{content}');
+    this.logger.warn(
+      { content: JSON.stringify(GOOGLE_OPTIONS) },
+      'Google storage settings: @{content}'
+    );
     return GOOGLE_OPTIONS;
   }
 
@@ -101,14 +115,12 @@ class GoogleCloudDatabase implements IPluginStorage<VerdaccioConfigGoogleStorage
         // "{\"secret\":\"181bc38698078f880564be1e4d7ec107ac8a3b344a924c6d86cea4a84a885ae0\"}"
         return entities.secret;
       })
-      .catch(
-        (err: Error): Promise<string> => {
-          const error: VerdaccioError = getInternalError(err.message);
+      .catch((err: Error): Promise<string> => {
+        const error: VerdaccioError = getInternalError(err.message);
 
-          this.logger.warn({ error }, 'gcloud: [datastore getSecret] init error @{error}');
-          return Promise.reject(getServiceUnavailable('[getSecret] permissions error'));
-        }
-      );
+        this.logger.warn({ error }, 'gcloud: [datastore getSecret] init error @{error}');
+        return Promise.reject(getServiceUnavailable('[getSecret] permissions error'));
+      });
   }
 
   public setSecret(secret: string): Promise<CommitResponse> {
@@ -156,7 +168,7 @@ class GoogleCloudDatabase implements IPluginStorage<VerdaccioConfigGoogleStorage
       const datastore = this.helper.datastore;
       const key = datastore.key([this.kind, datastore.int(item.id)]);
       await datastore.delete(key);
-    } catch (err) {
+    } catch (err: any) {
       return getInternalError(err.message);
     }
   }
@@ -176,17 +188,15 @@ class GoogleCloudDatabase implements IPluginStorage<VerdaccioConfigGoogleStorage
     // };
     this.helper
       .getEntities(this.kind)
-      .then(
-        async (entities: any): Promise<void> => {
-          for (const item of entities) {
-            if (item.name === name) {
-              await this._deleteItem(name, item);
-              // deletedItems.push(deletedItem);
-            }
+      .then(async (entities: any): Promise<void> => {
+        for (const item of entities) {
+          if (item.name === name) {
+            await this._deleteItem(name, item);
+            // deletedItems.push(deletedItem);
           }
-          cb(null);
         }
-      )
+        cb(null);
+      })
       .catch((err: Error): void => {
         cb(getInternalError(err.message));
       });

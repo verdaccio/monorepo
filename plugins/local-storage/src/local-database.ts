@@ -5,7 +5,15 @@ import buildDebug from 'debug';
 import _ from 'lodash';
 import async from 'async';
 import mkdirp from 'mkdirp';
-import { Callback, Config, IPackageStorage, IPluginStorage, LocalStorage, Logger, StorageList } from '@verdaccio/types';
+import {
+  Callback,
+  Config,
+  IPackageStorage,
+  IPluginStorage,
+  LocalStorage,
+  Logger,
+  StorageList,
+} from '@verdaccio/types';
 import { getInternalError } from '@verdaccio/commons-api';
 
 import LocalDriver, { noSuchFile } from './local-fs';
@@ -58,7 +66,11 @@ class LocalDatabase extends TokenActions implements IPluginStorage<{}> {
     }
   }
 
-  public search(onPackage: Callback, onEnd: Callback, validateName: (name: string) => boolean): void {
+  public search(
+    onPackage: Callback,
+    onEnd: Callback,
+    validateName: (name: string) => boolean
+  ): void {
     const storages = this._getCustomPackageLocalStorages();
     debug(`search custom local packages: %o`, JSON.stringify(storages));
     const base = Path.dirname(this.config.self_path);
@@ -68,7 +80,7 @@ class LocalDatabase extends TokenActions implements IPluginStorage<{}> {
 
     async.eachSeries(
       storageKeys,
-      function(storage, cb) {
+      function (storage, cb) {
         const position = storageKeys.indexOf(storage);
         const base2 = Path.join(position !== 0 ? storageKeys[0] : '');
         const storagePath: string = Path.resolve(base, base2, storage);
@@ -80,7 +92,7 @@ class LocalDatabase extends TokenActions implements IPluginStorage<{}> {
 
           async.eachSeries(
             files,
-            function(file, cb) {
+            function (file, cb) {
               debug('local-storage: [search] search file path: %o', file);
               if (storageKeys.includes(file)) {
                 return cb();
@@ -90,7 +102,7 @@ class LocalDatabase extends TokenActions implements IPluginStorage<{}> {
                 // scoped
                 const fileLocation = Path.resolve(base, storage, file);
                 debug('search scoped file location: %o', fileLocation);
-                fs.readdir(fileLocation, function(err, files) {
+                fs.readdir(fileLocation, function (err, files) {
                   if (err) {
                     return cb(err);
                   }
@@ -153,7 +165,10 @@ class LocalDatabase extends TokenActions implements IPluginStorage<{}> {
     this.get((err, data) => {
       if (err) {
         cb(getInternalError('error remove private package'));
-        this.logger.error({ err }, '[local-storage/remove]: remove the private package has failed @{err}');
+        this.logger.error(
+          { err },
+          '[local-storage/remove]: remove the private package has failed @{err}'
+        );
         debug('error on remove package %o', name);
       }
 
@@ -184,7 +199,9 @@ class LocalDatabase extends TokenActions implements IPluginStorage<{}> {
   public getPackageStorage(packageName: string): IPackageStorage {
     const packageAccess = this.config.getMatchedPackagesSpec(packageName);
 
-    const packagePath: string = this._getLocalStoragePath(packageAccess ? packageAccess.storage : undefined);
+    const packagePath: string = this._getLocalStoragePath(
+      packageAccess ? packageAccess.storage : undefined
+    );
     debug('storage path selected: ', packagePath);
 
     if (_.isString(packagePath) === false) {
@@ -223,7 +240,7 @@ class LocalDatabase extends TokenActions implements IPluginStorage<{}> {
     if (packages) {
       const listPackagesConf = Object.keys(packages || {});
 
-      listPackagesConf.map(pkg => {
+      listPackagesConf.map((pkg) => {
         const storage = packages[pkg].storage;
         if (storage) {
           storages[storage] = false;
@@ -243,7 +260,8 @@ class LocalDatabase extends TokenActions implements IPluginStorage<{}> {
 
     if (this.locked) {
       this.logger.error(
-        'Database is locked, please check error message printed during startup to ' + 'prevent data loss.'
+        'Database is locked, please check error message printed during startup to ' +
+          'prevent data loss.'
       );
       return new Error(
         'Verdaccio database is locked, please contact your administrator to checkout ' +
@@ -266,7 +284,7 @@ class LocalDatabase extends TokenActions implements IPluginStorage<{}> {
       debug('sync write succeed');
 
       return null;
-    } catch (err) {
+    } catch (err: any) {
       debug('sync failed %o', err);
 
       return err;
@@ -308,7 +326,7 @@ class LocalDatabase extends TokenActions implements IPluginStorage<{}> {
         detail: `Please rename database name from ${DEPRECATED_DB_NAME} to ${DB_NAME}`,
       });
       return sinopiadbPath;
-    } catch (err) {
+    } catch (err: any) {
       if (err.code === noSuchFile) {
         return this._dbGenPath(DB_NAME, config);
       }
@@ -328,7 +346,7 @@ class LocalDatabase extends TokenActions implements IPluginStorage<{}> {
 
     try {
       return loadPrivatePackages(this.path, this.logger);
-    } catch (err) {
+    } catch (err: any) {
       // readFileSync is platform specific, macOS, Linux and Windows thrown an error
       // Only recreate if file not found to prevent data loss
       if (err.code !== noSuchFile) {

@@ -47,7 +47,10 @@ export default class S3Database implements IPluginStorage<S3Config> {
     this._localData = null;
     this.config.keyPrefix = addTrailingSlash(configKeyPrefix);
 
-    this.logger.debug({ config: JSON.stringify(this.config, null, 4) }, 's3: configuration: @{config}');
+    this.logger.debug(
+      { config: JSON.stringify(this.config, null, 4) },
+      's3: configuration: @{config}'
+    );
 
     this.s3 = new S3({
       endpoint: this.config.endpoint,
@@ -70,7 +73,7 @@ export default class S3Database implements IPluginStorage<S3Config> {
 
   public add(name: string, callback: Callback): void {
     this.logger.debug({ name }, 's3: [add] private package @{name}');
-    this._getData().then(async data => {
+    this._getData().then(async (data) => {
       if (data.list.indexOf(name) === -1) {
         data.list.push(name);
         this.logger.trace({ name }, 's3: [add] @{name} has been added');
@@ -98,7 +101,10 @@ export default class S3Database implements IPluginStorage<S3Config> {
   private async _fetchPackageInfo(onPackage: Function, packageName: string): Promise<void> {
     const { bucket, keyPrefix } = this.config;
     this.logger.debug({ packageName }, 's3: [_fetchPackageInfo] @{packageName}');
-    this.logger.trace({ keyPrefix, bucket }, 's3: [_fetchPackageInfo] bucket: @{bucket} prefix: @{keyPrefix}');
+    this.logger.trace(
+      { keyPrefix, bucket },
+      's3: [_fetchPackageInfo] bucket: @{bucket} prefix: @{keyPrefix}'
+    );
     return new Promise((resolve): void => {
       this.s3.headObject(
         {
@@ -112,7 +118,10 @@ export default class S3Database implements IPluginStorage<S3Config> {
           }
           if (response.LastModified) {
             const { LastModified } = response;
-            this.logger.trace({ LastModified }, 's3: [_fetchPackageInfo] LastModified: @{LastModified}');
+            this.logger.trace(
+              { LastModified },
+              's3: [_fetchPackageInfo] LastModified: @{LastModified}'
+            );
             return onPackage(
               {
                 name: packageName,
@@ -157,28 +166,31 @@ export default class S3Database implements IPluginStorage<S3Config> {
 
   public get(callback: Callback): void {
     this.logger.debug('s3: [get]');
-    this._getData().then(data => callback(null, data.list));
+    this._getData().then((data) => callback(null, data.list));
   }
 
   // Create/write database file to s3
   private async _sync(): Promise<void> {
     await new Promise((resolve, reject): void => {
       const { bucket, keyPrefix } = this.config;
-      this.logger.debug({ keyPrefix, bucket }, 's3: [_sync] bucket: @{bucket} prefix: @{keyPrefix}');
+      this.logger.debug(
+        { keyPrefix, bucket },
+        's3: [_sync] bucket: @{bucket} prefix: @{keyPrefix}'
+      );
       this.s3.putObject(
         {
           Bucket: this.config.bucket,
           Key: `${this.config.keyPrefix}verdaccio-s3-db.json`,
           Body: JSON.stringify(this._localData),
         },
-        err => {
+        (err) => {
           if (err) {
             this.logger.error({ err }, 's3: [_sync] error: @{err}');
             reject(err);
             return;
           }
           this.logger.debug('s3: [_sync] sucess');
-          resolve();
+          resolve(undefined);
         }
       );
     });
@@ -195,7 +207,10 @@ export default class S3Database implements IPluginStorage<S3Config> {
     if (!this._localData) {
       this._localData = await new Promise((resolve, reject): void => {
         const { bucket, keyPrefix } = this.config;
-        this.logger.debug({ keyPrefix, bucket }, 's3: [_getData] bucket: @{bucket} prefix: @{keyPrefix}');
+        this.logger.debug(
+          { keyPrefix, bucket },
+          's3: [_getData] bucket: @{bucket} prefix: @{keyPrefix}'
+        );
         this.logger.trace('s3: [_getData] get database object');
         this.s3.getObject(
           {
