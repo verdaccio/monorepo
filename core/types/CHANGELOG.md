@@ -1,5 +1,11 @@
 # Change Log
 
+## 10.5.0
+
+### Minor Changes
+
+- b5cfaf6: feat: refactor types and typescript 4
+
 ## 10.4.2
 
 ### Patch Changes

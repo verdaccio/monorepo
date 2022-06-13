@@ -1,5 +1,15 @@
 # Change Log
 
+## 10.2.0
+
+### Minor Changes
+
+- b5cfaf6: feat: refactor types and typescript 4
+
+### Patch Changes
+
+- @verdaccio/streams@10.2.0
+
 ## 10.1.1
 
 ### Patch Changes

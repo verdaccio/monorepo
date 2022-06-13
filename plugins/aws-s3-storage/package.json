@@ -1,6 +1,6 @@
 {
   "name": "verdaccio-aws-s3-storage",
-  "version": "10.2.1",
+  "version": "10.3.0",
   "description": "AWS S3 storage implementation for Verdaccio",
   "keywords": [
     "verdaccio",
@@ -33,7 +33,7 @@
     "aws-sdk": "^2.607.0"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:10.4.2",
+    "@verdaccio/types": "workspace:10.5.0",
     "recursive-readdir": "2.2.2"
   },
   "scripts": {

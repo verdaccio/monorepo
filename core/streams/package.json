@@ -30,7 +30,7 @@
     "npm": ">=5"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:10.4.2"
+    "@verdaccio/types": "workspace:10.5.0"
   },
   "scripts": {
     "clean": "rimraf ./build",
