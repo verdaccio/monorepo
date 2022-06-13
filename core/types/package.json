@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/types",
-  "version": "10.4.2",
+  "version": "10.5.0",
   "description": "verdaccio types definitions",
   "keywords": [
     "verdaccio",
@@ -10,7 +10,9 @@
   "author": "Juan Picado <juanpicado19@gmail.com>",
   "license": "MIT",
   "homepage": "https://verdaccio.org",
-  "files": ["./build"],
+  "files": [
+    "./build"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/verdaccio/monorepo",

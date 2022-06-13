@@ -1,6 +1,6 @@
 {
   "name": "verdaccio-google-cloud",
-  "version": "10.1.1",
+  "version": "10.2.0",
   "description": "Google Cloud storage implementation for Verdaccio",
   "keywords": [
     "verdaccio",
@@ -35,7 +35,7 @@
     "@verdaccio/streams": "workspace:10.2.0"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:10.4.2",
+    "@verdaccio/types": "workspace:10.5.0",
     "memory-fs": "0.5.0"
   },
   "optionalDependencies": {

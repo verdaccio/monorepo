@@ -1,5 +1,12 @@
 # Change Log
 
+## 10.3.1
+
+### Patch Changes
+
+- Updated dependencies [b5cfaf6]
+  - @verdaccio/file-locking@10.3.0
+
 ## 10.3.0
 
 ### Minor Changes
