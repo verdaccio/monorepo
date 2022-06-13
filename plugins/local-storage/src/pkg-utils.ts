@@ -16,10 +16,13 @@ export function loadPrivatePackages(path: string, logger: Logger): LocalStorage 
   let db;
   try {
     db = JSON.parse(data);
-  } catch (err) {
+  } catch (err: any) {
     logger.error(
-      `Package database file corrupted (invalid JSON), please check the error` + ` printed below.\nFile Path: ${path}`,
-      err
+      {
+        err: err.mesage,
+        path,
+      }, // eslint-disable-next-line max-len
+      `Package database file corrupted (invalid JSON), please check the error @{err}.\nFile Path: @{path}`
     );
     throw Error('Package database file corrupted (invalid JSON)');
   }

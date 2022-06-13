@@ -91,7 +91,7 @@ class MemoryHandler implements IPackageStorageManager {
 
       this.data[name] = json;
       return cb(null);
-    } catch (err) {
+    } catch (err: any) {
       return cb(getInternalError(err.message));
     }
   }
@@ -111,12 +111,12 @@ class MemoryHandler implements IPackageStorageManager {
     const uploadStream: IUploadTarball = new UploadTarball({});
     const temporalName = `${this.path}/${name}`;
 
-    process.nextTick(function() {
-      fs.mkdirp(path.dirname(temporalName), function(mkdirpError) {
+    process.nextTick(function () {
+      fs.mkdirp(path.dirname(temporalName), function (mkdirpError) {
         if (mkdirpError) {
           return uploadStream.emit('error', mkdirpError);
         }
-        fs.stat(temporalName, function(fileError, stats) {
+        fs.stat(temporalName, function (fileError, stats) {
           if (!fileError && stats) {
             return uploadStream.emit('error', getConflict());
           }
@@ -126,15 +126,15 @@ class MemoryHandler implements IPackageStorageManager {
 
             uploadStream.pipe(file);
 
-            uploadStream.done = function(): void {
-              const onEnd = function(): void {
+            uploadStream.done = function (): void {
+              const onEnd = function (): void {
                 uploadStream.emit('success');
               };
 
               uploadStream.on('end', onEnd);
             };
 
-            uploadStream.abort = function(): void {
+            uploadStream.abort = function (): void {
               uploadStream.emit('error', getBadRequest('transmision aborted'));
               file.end();
             };
@@ -157,8 +157,8 @@ class MemoryHandler implements IPackageStorageManager {
 
     const readTarballStream: IReadTarball = new ReadTarball({});
 
-    process.nextTick(function() {
-      fs.stat(pathName, function(fileError, stats) {
+    process.nextTick(function () {
+      fs.stat(pathName, function (fileError, stats) {
         if (fileError && !stats) {
           return readTarballStream.emit('error', getNotFound());
         }
@@ -175,7 +175,7 @@ class MemoryHandler implements IPackageStorageManager {
             readTarballStream.emit('error', error);
           });
 
-          readTarballStream.abort = function(): void {
+          readTarballStream.abort = function (): void {
             readStream.destroy(getBadRequest('read has been aborted'));
           };
           return;

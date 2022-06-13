@@ -1,8 +1,9 @@
-# Typescript types for Verdaccio
+# Typescript types
 
 Typescript definitions for verdaccio plugins and internal code
 
-# Typescript
+## Usage
+
 For usage with the library, the `tsconfig.json` should looks like this.
 
 ```
@@ -29,9 +30,9 @@ For usage with the library, the `tsconfig.json` should looks like this.
 }
 ```
 
-### Imports
+### Example
 
-```
+```typescript
 import type {ILocalData, LocalStorage, Logger, Config} from '@verdaccio/types';
 
  class LocalData implements ILocalData {
@@ -45,4 +46,4 @@ import type {ILocalData, LocalStorage, Logger, Config} from '@verdaccio/types';
 }
 ```
 
-
+#### Plugins
