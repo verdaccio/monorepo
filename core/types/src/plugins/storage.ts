@@ -86,11 +86,11 @@ export interface ITokenActions {
  *  - it might return object (truly)
  *  - it might reutrn null
  */
-type onSearchPackage = (item: Package, cb: CallbackAction) => void;
+export type onSearchPackage = (item: Package, cb: CallbackAction) => void;
 // FIXME: error should be export type `VerdaccioError = HttpError & { code: number };`
 // but this type is on @verdaccio/commons-api and cannot be used here yet
-type onEndSearchPackage = (error?: any) => void;
-type onValidatePackage = (name: string) => boolean;
+export type onEndSearchPackage = (error?: any) => void;
+export type onValidatePackage = (name: string) => boolean;
 
 export type StorageUpdateCallback = (data: Package, cb: CallbackAction) => void;
 

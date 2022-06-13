@@ -11,6 +11,6 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "rootDir": "./src",
-    "outDir": "./lib"
+    "outDir": "./build"
   }
 }

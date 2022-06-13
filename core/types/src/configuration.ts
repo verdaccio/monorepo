@@ -16,6 +16,10 @@ export type LoggerType = 'stdout' | 'stderr' | 'file';
 export type LoggerFormat = 'pretty' | 'pretty-timestamped' | 'file';
 export type LoggerLevel = 'http' | 'fatal' | 'warn' | 'info' | 'debug' | 'trace';
 
+export interface ConfigWithHttps extends Config {
+  https: HttpsConf;
+}
+
 export interface LoggerConfItem {
   type: LoggerType;
   format: LoggerFormat;
