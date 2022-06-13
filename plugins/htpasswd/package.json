@@ -36,7 +36,7 @@
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
-    "@verdaccio/types": "workspace:10.5.0"
+    "@verdaccio/types": "workspace:10.5.1"
   },
   "scripts": {
     "clean": "rimraf ./build",
