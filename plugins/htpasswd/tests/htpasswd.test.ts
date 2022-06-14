@@ -3,28 +3,32 @@ import crypto from 'crypto';
 import fs from 'fs';
 import bcrypt from 'bcryptjs';
 
-import HTPasswd, { DEFAULT_SLOW_VERIFY_MS, VerdaccioConfigApp } from '../src/htpasswd';
+import { PluginOptions } from '@verdaccio/types';
+import MockDate from 'mockdate';
+import HTPasswd, { DEFAULT_SLOW_VERIFY_MS, HTPasswdConfig } from '../src/htpasswd';
+import { HtpasswdHashAlgorithm } from '../src/utils';
 
 import Config from './__mocks__/Config';
 
-const stuff = {
+const options = {
   logger: { warn: jest.fn() },
   config: new Config(),
-};
+} as any as PluginOptions<HTPasswdConfig>;
 
 const config = {
   file: './htpasswd',
   max_users: 1000,
-};
+} as HTPasswdConfig;
 
 describe('HTPasswd', () => {
   let wrapper;
 
   beforeEach(() => {
-    wrapper = new HTPasswd(config, stuff as unknown as VerdaccioConfigApp);
+    wrapper = new HTPasswd(config, options);
     jest.resetModules();
     jest.clearAllMocks();
 
+    // @ts-ignore
     crypto.randomBytes = jest.fn(() => {
       return {
         toString: (): string => '$6',
@@ -33,12 +37,22 @@ describe('HTPasswd', () => {
   });
 
   describe('constructor()', () => {
-    test('should files whether file path does not exist', () => {
+    const emptyPluginOptions = {
+      config: {},
+      logger: { warn: jest.fn() },
+    } as any as PluginOptions<HTPasswdConfig>;
+
+    test('should ensure file path configuration exists', () => {
       expect(function () {
-        new HTPasswd({}, {
-          config: {},
-        } as unknown as VerdaccioConfigApp);
+        new HTPasswd({} as HTPasswdConfig, emptyPluginOptions);
       }).toThrow(/should specify "file" in config/);
+    });
+
+    test('should throw error about incorrect algorithm', () => {
+      expect(function () {
+        let invalidConfig = { algorithm: 'invalid', ...config } as HTPasswdConfig;
+        new HTPasswd(invalidConfig, emptyPluginOptions);
+      }).toThrow(/Invalid algorithm "invalid"/);
     });
   });
 
@@ -76,13 +90,15 @@ describe('HTPasswd', () => {
     });
 
     test('it should warn on slow password verification', (done) => {
+      // @ts-ignore
       bcrypt.compare = jest.fn((passwd, hash, callback) => {
+        // @ts-ignore
         setTimeout(() => callback(null, true), DEFAULT_SLOW_VERIFY_MS + 1);
       });
       const callback = (a, b): void => {
         expect(a).toBeNull();
         expect(b).toContain('bcrypt');
-        const mockWarn = stuff.logger.warn as jest.MockedFn<jest.MockableFunction>;
+        const mockWarn = options.logger.warn as jest.MockedFn<jest.MockableFunction>;
         expect(mockWarn.mock.calls.length).toBe(1);
         const [{ user, durationMs }, message] = mockWarn.mock.calls[0];
         expect(user).toEqual('bcrypt');
@@ -91,7 +107,7 @@ describe('HTPasswd', () => {
         done();
       };
       wrapper.authenticate('bcrypt', 'password', callback);
-    });
+    }, 18000);
   });
 
   describe('addUser()', () => {
@@ -110,6 +126,9 @@ describe('HTPasswd', () => {
         dataToWrite = data;
         callback();
       });
+
+      MockDate.set('2018-01-14T11:17:40.712Z');
+
       const callback = (a, b): void => {
         expect(a).toBeNull();
         expect(b).toBeTruthy();
@@ -124,12 +143,16 @@ describe('HTPasswd', () => {
       test('sanityCheck should return an Error', (done) => {
         jest.doMock('../src/utils.ts', () => {
           return {
-            sanityCheck: (): Error => Error('some error'),
+            sanityCheck: () =>
+              new Promise(() => {
+                throw Error('some error');
+              }),
+            HtpasswdHashAlgorithm,
           };
         });
 
         const HTPasswd = require('../src/htpasswd.ts').default;
-        const wrapper = new HTPasswd(config, stuff);
+        const wrapper = new HTPasswd(config, options);
         wrapper.adduser('sanityCheck', 'test', (sanity) => {
           expect(sanity.message).toBeDefined();
           expect(sanity.message).toMatch('some error');
@@ -140,13 +163,14 @@ describe('HTPasswd', () => {
       test('lockAndRead should return an Error', (done) => {
         jest.doMock('../src/utils.ts', () => {
           return {
-            sanityCheck: (): any => null,
+            sanityCheck: () => Promise.resolve(null),
             lockAndRead: (_a, b): any => b(new Error('lock error')),
+            HtpasswdHashAlgorithm,
           };
         });
 
         const HTPasswd = require('../src/htpasswd.ts').default;
-        const wrapper = new HTPasswd(config, stuff);
+        const wrapper = new HTPasswd(config, options);
         wrapper.adduser('lockAndRead', 'test', (sanity) => {
           expect(sanity.message).toBeDefined();
           expect(sanity.message).toMatch('lock error');
@@ -157,15 +181,16 @@ describe('HTPasswd', () => {
       test('addUserToHTPasswd should return an Error', (done) => {
         jest.doMock('../src/utils.ts', () => {
           return {
-            sanityCheck: (): any => null,
+            sanityCheck: () => Promise.resolve(null),
             parseHTPasswd: (): void => {},
             lockAndRead: (_a, b): any => b(null, ''),
             unlockFile: (_a, b): any => b(),
+            HtpasswdHashAlgorithm,
           };
         });
 
         const HTPasswd = require('../src/htpasswd.ts').default;
-        const wrapper = new HTPasswd(config, stuff);
+        const wrapper = new HTPasswd(config, options);
         wrapper.adduser('addUserToHTPasswd', 'test', () => {
           done();
         });
@@ -174,10 +199,11 @@ describe('HTPasswd', () => {
       test('writeFile should return an Error', (done) => {
         jest.doMock('../src/utils.ts', () => {
           return {
-            sanityCheck: (): any => null,
+            sanityCheck: () => Promise.resolve(null),
             parseHTPasswd: (): void => {},
             lockAndRead: (_a, b): any => b(null, ''),
             addUserToHTPasswd: (): void => {},
+            HtpasswdHashAlgorithm,
           };
         });
         jest.doMock('fs', () => {
@@ -191,7 +217,7 @@ describe('HTPasswd', () => {
         });
 
         const HTPasswd = require('../src/htpasswd.ts').default;
-        const wrapper = new HTPasswd(config, stuff);
+        const wrapper = new HTPasswd(config, options);
         wrapper.adduser('addUserToHTPasswd', 'test', (err) => {
           expect(err).not.toBeNull();
           expect(err.message).toMatch('write error');
@@ -229,7 +255,7 @@ describe('HTPasswd', () => {
         };
 
         const HTPasswd = require('../src/htpasswd.ts').default;
-        const wrapper = new HTPasswd(config, stuff);
+        const wrapper = new HTPasswd(config, options);
         wrapper.reload(callback);
       });
 
@@ -249,7 +275,7 @@ describe('HTPasswd', () => {
         };
 
         const HTPasswd = require('../src/htpasswd.ts').default;
-        const wrapper = new HTPasswd(config, stuff);
+        const wrapper = new HTPasswd(config, options);
         wrapper.reload(callback);
       });
 
@@ -269,7 +295,7 @@ describe('HTPasswd', () => {
         };
 
         const HTPasswd = require('../src/htpasswd.ts').default;
-        const wrapper = new HTPasswd(config, stuff);
+        const wrapper = new HTPasswd(config, options);
         wrapper.reload(callback);
       });
     });
@@ -278,7 +304,9 @@ describe('HTPasswd', () => {
   test('changePassword - it should throw an error for user not found', (done) => {
     const callback = (error, isSuccess): void => {
       expect(error).not.toBeNull();
-      expect(error.message).toBe('User not found');
+      expect(error.message).toBe(
+        `Unable to change password for user 'usernotpresent': user does not currently exist`
+      );
       expect(isSuccess).toBeFalsy();
       done();
     };
@@ -288,7 +316,9 @@ describe('HTPasswd', () => {
   test('changePassword - it should throw an error for wrong password', (done) => {
     const callback = (error, isSuccess): void => {
       expect(error).not.toBeNull();
-      expect(error.message).toBe('Invalid old Password');
+      expect(error.message).toBe(
+        `Unable to change password for user 'username': invalid old password`
+      );
       expect(isSuccess).toBeFalsy();
       done();
     };

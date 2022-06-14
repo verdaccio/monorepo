@@ -260,12 +260,13 @@ importers:
 
   plugins/htpasswd:
     specifiers:
-      '@types/bcryptjs': ^2.4.2
+      '@types/bcryptjs': 2.4.2
       '@verdaccio/file-locking': workspace:10.3.0
       '@verdaccio/types': workspace:10.5.1
       apache-md5: 1.1.7
       bcryptjs: 2.4.3
       http-errors: 2.0.0
+      mockdate: 3.0.2
       unix-crypt-td-js: 1.1.4
     dependencies:
       '@verdaccio/file-locking': link:../../core/file-locking
@@ -276,6 +277,7 @@ importers:
     devDependencies:
       '@types/bcryptjs': 2.4.2
       '@verdaccio/types': link:../../core/types
+      mockdate: 3.0.2
 
   plugins/local-storage:
     specifiers:
@@ -7386,6 +7388,10 @@ packages:
     resolution: {integrity: sha512-vVqVZQyf3WLx2Shd0qJ9xuvqgAyKPLAiqITEtqW0oIUjzo3PePDd6fW9iFz30ef7Ysp/oiWqbhszeGWW2T6Gzw==}
     engines: {node: '>=10'}
     hasBin: true
+
+  /mockdate/3.0.2:
+    resolution: {integrity: sha512-ldfYSUW1ocqSHGTK6rrODUiqAFPGAg0xaHqYJ5tvj1hQyFsjuHpuWgWFTZWwDVlzougN/s2/mhDr8r5nY5xDpA==}
+    dev: true
 
   /ms/2.0.0:
     resolution: {integrity: sha1-VgiurfwAvmwpAd9fmGF4jeDVl8g=}
