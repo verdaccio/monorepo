@@ -37,7 +37,10 @@ describe('HTPasswd', () => {
   });
 
   describe('constructor()', () => {
-    const emptyPluginOptions = { config: {} } as any as PluginOptions<HTPasswdConfig>;
+    const emptyPluginOptions = {
+      config: {},
+      logger: { warn: jest.fn() },
+    } as any as PluginOptions<HTPasswdConfig>;
 
     test('should ensure file path configuration exists', () => {
       expect(function () {
@@ -47,7 +50,6 @@ describe('HTPasswd', () => {
 
     test('should throw error about incorrect algorithm', () => {
       expect(function () {
-        // @ts-expect-error
         let invalidConfig = { algorithm: 'invalid', ...config } as HTPasswdConfig;
         new HTPasswd(invalidConfig, emptyPluginOptions);
       }).toThrow(/Invalid algorithm "invalid"/);

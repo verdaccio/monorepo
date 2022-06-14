@@ -45,7 +45,6 @@ export default class HTPasswd implements IPluginAuth<HTPasswdConfig> {
   // constructor
   public constructor(config: AuthConf, options: PluginOptions<HTPasswdConfig>) {
     this.users = {};
-
     // verdaccio logger
     this.logger = options.logger;
 
@@ -70,6 +69,13 @@ export default class HTPasswd implements IPluginAuth<HTPasswdConfig> {
       throw new Error(`Invalid algorithm "${config.algorithm}"`);
     }
 
+    this.lastTime = null;
+
+    const { file } = config;
+    if (!file) {
+      throw new Error('should specify "file" in config');
+    }
+
     if (algorithm === HtpasswdHashAlgorithm.bcrypt) {
       rounds = config.rounds || DEFAULT_BCRYPT_ROUNDS;
     } else if (config.rounds !== undefined) {
@@ -80,14 +86,6 @@ export default class HTPasswd implements IPluginAuth<HTPasswdConfig> {
       algorithm,
       rounds,
     };
-
-    this.lastTime = null;
-
-    const { file } = config;
-
-    if (!file) {
-      throw new Error('should specify "file" in config');
-    }
 
     this.path = Path.resolve(Path.dirname(options.config.self_path), file);
     this.slowVerifyMs = config.slow_verify_ms || DEFAULT_SLOW_VERIFY_MS;
