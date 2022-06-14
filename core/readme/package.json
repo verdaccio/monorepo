@@ -32,7 +32,7 @@
   "dependencies": {
     "dompurify": "2.3.8",
     "jsdom": "15.2.1",
-    "marked": "4.0.16"
+    "marked": "4.0.17"
   },
   "devDependencies": {
     "@verdaccio/types": "workspace:10.5.1"
