@@ -266,7 +266,7 @@ importers:
       apache-md5: 1.1.7
       bcryptjs: 2.4.3
       http-errors: 2.0.0
-      mockdate: 3.0.2
+      mockdate: 3.0.5
       unix-crypt-td-js: 1.1.4
     dependencies:
       '@verdaccio/file-locking': link:../../core/file-locking
@@ -277,7 +277,7 @@ importers:
     devDependencies:
       '@types/bcryptjs': 2.4.2
       '@verdaccio/types': link:../../core/types
-      mockdate: 3.0.2
+      mockdate: 3.0.5
 
   plugins/local-storage:
     specifiers:
@@ -7487,8 +7487,8 @@ packages:
     engines: {node: '>=10'}
     hasBin: true
 
-  /mockdate/3.0.2:
-    resolution: {integrity: sha512-ldfYSUW1ocqSHGTK6rrODUiqAFPGAg0xaHqYJ5tvj1hQyFsjuHpuWgWFTZWwDVlzougN/s2/mhDr8r5nY5xDpA==}
+  /mockdate/3.0.5:
+    resolution: {integrity: sha512-iniQP4rj1FhBdBYS/+eQv7j1tadJ9lJtdzgOpvsOHng/GbcDh2Fhdeq+ZRldrPYdXvCyfFUmFeEwEGXZB5I/AQ==}
     dev: true
 
   /ms/2.0.0:
