@@ -57,7 +57,7 @@ importers:
       eslint-plugin-jest: 26.5.3
       eslint-plugin-jsx-a11y: 6.5.1
       eslint-plugin-react: 7.30.0
-      eslint-plugin-react-hooks: 4.5.0
+      eslint-plugin-react-hooks: 4.6.0
       eslint-plugin-simple-import-sort: 7.0.0
       eslint-plugin-verdaccio: 9.6.1
       husky: 3.1.0
@@ -65,9 +65,9 @@ importers:
       lint-staged: 9.5.0
       lodash: 4.17.21
       npm-run-all: 4.1.5
-      prettier: 2.7.0
+      prettier: 2.7.1
       rimraf: 3.0.2
-      snyk: 1.950.0
+      snyk: 1.953.0
       typescript: 4.7.3
       update-ts-references: 2.4.1
     devDependencies:
@@ -124,7 +124,7 @@ importers:
       eslint-plugin-jest: 26.5.3_98fd81d6228de5edbf463085f12e3456
       eslint-plugin-jsx-a11y: 6.5.1_eslint@8.17.0
       eslint-plugin-react: 7.30.0_eslint@8.17.0
-      eslint-plugin-react-hooks: 4.5.0_eslint@8.17.0
+      eslint-plugin-react-hooks: 4.6.0_eslint@8.17.0
       eslint-plugin-simple-import-sort: 7.0.0_eslint@8.17.0
       eslint-plugin-verdaccio: 9.6.1
       husky: 3.1.0
@@ -132,9 +132,9 @@ importers:
       lint-staged: 9.5.0
       lodash: 4.17.21
       npm-run-all: 4.1.5
-      prettier: 2.7.0
+      prettier: 2.7.1
       rimraf: 3.0.2
-      snyk: 1.950.0
+      snyk: 1.953.0
       typescript: 4.7.3
       update-ts-references: 2.4.1_typescript@4.7.3
 
@@ -4821,8 +4821,8 @@ packages:
       minimatch: 3.0.4
     dev: true
 
-  /eslint-plugin-react-hooks/4.5.0_eslint@8.17.0:
-    resolution: {integrity: sha512-8k1gRt7D7h03kd+SAAlzXkQwWK22BnK6GKZG+FJA6BAGy22CFvl8kCIXKpVux0cCxMWDQUPqSok0LKaZ0aOcCw==}
+  /eslint-plugin-react-hooks/4.6.0_eslint@8.17.0:
+    resolution: {integrity: sha512-oFc7Itz9Qxh2x4gNHStv3BqJq54ExXmfC+a1NjAta66IAN87Wu0R/QArgIS9qKzX3dXKPI9H5crl9QchNMY9+g==}
     engines: {node: '>=10'}
     peerDependencies:
       eslint: ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0-0
@@ -8038,8 +8038,8 @@ packages:
     hasBin: true
     dev: true
 
-  /prettier/2.7.0:
-    resolution: {integrity: sha512-nwoX4GMFgxoPC6diHvSwmK/4yU8FFH3V8XWtLQrbj4IBsK2pkYhG4kf/ljF/haaZ/aii+wNJqISrCDPgxGWDVQ==}
+  /prettier/2.7.1:
+    resolution: {integrity: sha512-ujppO+MkdPqoVINuDFDRLClm7D78qbDt0/NR+wp5FqEZOoTNAjPHWj17QRhu7geIHJfcNhRk1XVQmF8Bp3ye+g==}
     engines: {node: '>=10.13.0'}
     hasBin: true
     dev: true
@@ -8680,8 +8680,8 @@ packages:
     resolution: {integrity: sha1-EMCI2LWOsHazIpu1oE4jLOEmQi0=}
     dev: false
 
-  /snyk/1.950.0:
-    resolution: {integrity: sha512-279JtY6fyhxujX4yfdACDMJOOeytTqKjkpr9F3KX2iqeADFWjx/hghhmeAdS2SEYwE2bOlRWavF8CZsWiQK6EQ==}
+  /snyk/1.953.0:
+    resolution: {integrity: sha512-H0nx9cdFPY16CvCrbBTtSq9Za0Hyw5+w3pYlV2MR61FlgcO8izvD4p8mzYZdqyxGTZKiLUR3pOKpYk3ewohMBQ==}
     engines: {node: '>=12'}
     hasBin: true
     dev: true
