@@ -13,6 +13,7 @@ import {
   addUserToHTPasswd,
   changePasswordToHTPasswd,
   sanityCheck,
+  DEFAULT_BCRYPT_ROUNDS,
 } from './utils';
 
 export type HTPasswdConfig = {
@@ -23,7 +24,6 @@ export type HTPasswdConfig = {
   slow_verify_ms?: number;
 } & Config;
 
-export const DEFAULT_BCRYPT_ROUNDS = 10;
 export const DEFAULT_SLOW_VERIFY_MS = 200;
 
 /**
@@ -192,7 +192,7 @@ export default class HTPasswd implements IPluginAuth<HTPasswdConfig> {
           }
 
           try {
-            this._writeFile(addUserToHTPasswd(body, user, password, this.hashConfig), cb);
+            this._writeFile(await addUserToHTPasswd(body, user, password, this.hashConfig), cb);
           } catch (err) {
             return cb(err);
           }
