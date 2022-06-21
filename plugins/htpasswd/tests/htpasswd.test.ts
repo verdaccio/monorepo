@@ -91,9 +91,10 @@ describe('HTPasswd', () => {
 
     test('it should warn on slow password verification', (done) => {
       // @ts-ignore
-      bcrypt.compare = jest.fn((passwd, hash, callback) => {
-        // @ts-ignore
-        setTimeout(() => callback(null, true), DEFAULT_SLOW_VERIFY_MS + 1);
+      bcrypt.compare = jest.fn((passwd, hash) => {
+        return new Promise((resolve) => setTimeout(resolve, DEFAULT_SLOW_VERIFY_MS + 1)).then(
+          () => true
+        );
       });
       const callback = (a, b): void => {
         expect(a).toBeNull();

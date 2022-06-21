@@ -8,6 +8,8 @@ import { Callback } from '@verdaccio/types';
 
 import crypt3 from './crypt3';
 
+export const DEFAULT_BCRYPT_ROUNDS = 10;
+
 export enum HtpasswdHashAlgorithm {
   md5 = 'md5',
   sha1 = 'sha1',
@@ -56,9 +58,7 @@ export function parseHTPasswd(input: string): Record<string, any> {
  */
 export async function verifyPassword(passwd: string, hash: string): Promise<boolean> {
   if (hash.match(/^\$2([aby])\$/)) {
-    return new Promise((resolve, reject) =>
-      bcrypt.compare(passwd, hash, (error, result) => (error ? reject(error) : resolve(result)))
-    );
+    return await bcrypt.compare(passwd, hash);
   } else if (hash.indexOf('{PLAIN}') === 0) {
     return passwd === hash.slice(7);
   } else if (hash.indexOf('{SHA}') === 0) {
@@ -79,18 +79,18 @@ export async function verifyPassword(passwd: string, hash: string): Promise<bool
  * @param {string} user
  * @param {string} passwd
  * @param {HtpasswdHashConfig} hashConfig
- * @returns {string}
+ * @returns {Promise<string>}
  */
-export function generateHtpasswdLine(
+export async function generateHtpasswdLine(
   user: string,
   passwd: string,
   hashConfig: HtpasswdHashConfig
-): string {
+): Promise<string> {
   let hash: string;
 
   switch (hashConfig.algorithm) {
     case HtpasswdHashAlgorithm.bcrypt:
-      hash = bcrypt.hashSync(passwd, hashConfig.rounds);
+      hash = await bcrypt.hash(passwd, hashConfig.rounds || DEFAULT_BCRYPT_ROUNDS);
       break;
     case HtpasswdHashAlgorithm.crypt:
       hash = crypt3(passwd);
@@ -114,14 +114,14 @@ export function generateHtpasswdLine(
  * @param {string} body
  * @param {string} user
  * @param {string} passwd
- * @returns {string}
+ * @returns {Promise<string>}
  */
-export function addUserToHTPasswd(
+export async function addUserToHTPasswd(
   body: string,
   user: string,
   passwd: string,
   hashConfig: HtpasswdHashConfig
-): string {
+): Promise<string> {
   if (user !== encodeURIComponent(user)) {
     const err = createError('username should not contain non-uri-safe characters');
 
@@ -129,7 +129,7 @@ export function addUserToHTPasswd(
     throw err;
   }
 
-  let newline = generateHtpasswdLine(user, passwd, hashConfig);
+  let newline = await generateHtpasswdLine(user, passwd, hashConfig);
 
   if (body.length && body[body.length - 1] !== '\n') {
     newline = '\n' + newline;
@@ -196,7 +196,7 @@ export async function sanityCheck(
  * @param {string} passwd
  * @param {string} newPasswd
  * @param {HtpasswdHashConfig} hashConfig
- * @returns {string}
+ * @returns {Promise<string>}
  */
 export async function changePasswordToHTPasswd(
   body: string,
@@ -215,7 +215,7 @@ export async function changePasswordToHTPasswd(
   if (!passwordValid) {
     throw new Error(`Unable to change password for user '${user}': invalid old password`);
   }
-  const updatedUserLine = generateHtpasswdLine(username, newPasswd, hashConfig);
+  const updatedUserLine = await generateHtpasswdLine(username, newPasswd, hashConfig);
   lines.splice(userLineIndex, 1, updatedUserLine);
   return lines.join('\n');
 }
