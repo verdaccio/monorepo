@@ -1,5 +1,13 @@
 # Change Log
 
+## 10.5.0
+
+### Minor Changes
+
+- 287f452: Eliminating all synchronous calls to bcrypt library.
+
+  Change and update password routines are now fully asynchronous when using bcrypt (which is important, since bcrypt is slow).
+
 ## 10.4.0
 
 ### Minor Changes
