@@ -1,5 +1,11 @@
 # Change Log
 
+## 10.3.1
+
+### Patch Changes
+
+- e30035b: fix: regresion wrong new storage path reference
+
 ## 10.3.0
 
 ### Minor Changes
