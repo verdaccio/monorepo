@@ -21,7 +21,9 @@ export default class TokenActions implements ITokenActions {
   }
 
   public _dbGenPath(dbName: string, config: Config): string {
-    return Path.join(Path.resolve(Path.dirname(config.config_path || ''), config.storage as string, dbName));
+    return Path.join(
+      Path.resolve(Path.dirname(config.self_path || ''), config.storage as string, dbName)
+    );
   }
 
   private async getTokenDb(): Promise<low.LowdbAsync<any>> {
