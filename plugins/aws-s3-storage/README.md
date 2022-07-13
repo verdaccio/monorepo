@@ -111,7 +111,7 @@ In case of local testing, this project can be used self-efficiently. Four main i
 * `config.yaml`, see [verdaccio documentation](https://verdaccio.org/docs/en/configuration.html)
 * The provided docker file allows to test the plugin, with no need for main verdaccio application
 * The provided docker-compose also provides minio in orchestration as a local substitute for S3 backend
-* Create and set content of `registry.envs` as follows. This file does not exist on the repo and should be generated manually after cloning the project.
+* Create and set content of `registry.env` as follows. This file does not exist on the repo and should be generated manually after cloning the project.
 
 ```
 AWS_ACCESS_KEY_ID=foobar
