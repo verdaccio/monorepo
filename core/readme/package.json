@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/readme",
-  "version": "10.3.4",
+  "version": "10.4.0",
   "description": "Readme markdown parser",
   "keywords": [
     "verdaccio",
