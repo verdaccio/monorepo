@@ -1,5 +1,11 @@
 # Change Log
 
+## 10.4.0
+
+### Minor Changes
+
+- b4f1925: fix: update dependency jsdom to v16 security update
+
 ## 10.3.4
 
 ### Patch Changes
