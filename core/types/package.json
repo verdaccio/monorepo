@@ -31,8 +31,8 @@
   },
   "devDependencies": {
     "@types/node": "12.12.6",
-    "typedoc": "^0.22.17",
-    "typedoc-plugin-missing-exports": "^0.22.6",
+    "typedoc": "^0.23.0",
+    "typedoc-plugin-missing-exports": "^0.23.0",
     "typedoc-umlclass": "^0.6.1"
   },
   "funding": {
