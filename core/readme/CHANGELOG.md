@@ -1,5 +1,11 @@
 # Change Log
 
+## 10.4.1
+
+### Patch Changes
+
+- 551195f: fix(deps): update all core dependencies
+
 ## 10.4.0
 
 ### Minor Changes
