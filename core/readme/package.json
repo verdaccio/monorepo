@@ -30,7 +30,7 @@
     "lib"
   ],
   "dependencies": {
-    "dompurify": "2.3.9",
+    "dompurify": "2.3.10",
     "jsdom": "16.7.0",
     "marked": "4.0.18"
   },
