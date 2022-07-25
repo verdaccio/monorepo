@@ -1,5 +1,11 @@
 # Change Log
 
+## 10.5.2
+
+### Patch Changes
+
+- 5c127e6: feat: add server.trustProxy configuration type
+
 ## 10.5.1
 
 ### Patch Changes
