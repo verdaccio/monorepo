@@ -140,6 +140,8 @@ export interface Notifications {
 }
 
 export type ServerSettingsConf = {
+  // docs on `trustProxy` can be found at: https://expressjs.com/en/guide/behind-proxies.html
+  trustProxy?: string;
   // express-rate-limit settings
   rateLimit: RateLimit;
   keepAliveTimeout?: number;
