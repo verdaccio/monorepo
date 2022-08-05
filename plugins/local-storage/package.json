@@ -44,7 +44,7 @@
     "@types/minimatch": "^3.0.3",
     "@types/node": "^14.0.0",
     "@verdaccio/types": "workspace:10.5.2",
-    "minimatch": "^4.0.0",
+    "minimatch": "^5.0.0",
     "rmdir-sync": "^1.0.1"
   },
   "scripts": {
