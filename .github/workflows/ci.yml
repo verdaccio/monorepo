@@ -24,9 +24,9 @@ jobs:
         ports:
           - 4873:4873
     steps:
-    - uses: actions/checkout@v2.4.2
+    - uses: actions/checkout@v3.0.2
     - name: Use Node 12
-      uses: actions/setup-node@v2
+      uses: actions/setup-node@v3
       with:
         node-version: 12
     - name: Install pnpm
@@ -38,7 +38,7 @@ jobs:
     - name: Install
       run: pnpm recursive install --frozen-lockfile --registry http://localhost:4873
     - name: Cache .pnpm-store
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
         path: ~/.pnpm-store
         key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
@@ -49,14 +49,14 @@ jobs:
     name: Lint
     needs: prepare
     steps:
-      - uses: actions/checkout@v2.4.2
+      - uses: actions/checkout@v3.0.2
       - name: Use Node 16
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: 12
       - name: Install pnpm
         run: npm i pnpm@latest-6 -g
-      - uses: actions/cache@v2
+      - uses: actions/cache@v3
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
@@ -95,16 +95,16 @@ jobs:
     name: ${{ matrix.os }} / Node ${{ matrix.node_version }}
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v2.4.2
+      - uses: actions/checkout@v3.0.2
       - name: Use Node ${{ matrix.node_version }}
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node_version }}
       # - name: untar packages
       #   run: tar -xzvf pkg.tar.gz -C ${{ github.workspace }}/packages
       - name: Install pnpm
         run: npm i pnpm@latest-6 -g
-      - uses: actions/cache@v2
+      - uses: actions/cache@v3
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}

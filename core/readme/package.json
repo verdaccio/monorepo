@@ -31,7 +31,7 @@
   ],
   "dependencies": {
     "dompurify": "2.3.10",
-    "jsdom": "16.7.0",
+    "jsdom": "20.0.0",
     "marked": "4.0.18"
   },
   "devDependencies": {
