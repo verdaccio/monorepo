@@ -35,7 +35,7 @@ importers:
       '@types/http-errors': 1.8.2
       '@types/jest': 27.5.2
       '@types/lodash': 4.14.183
-      '@types/marked': 4.0.3
+      '@types/marked': 4.0.5
       '@types/memory-fs': 0.3.3
       '@types/node': 14.18.0
       '@types/request': 2.48.8
@@ -102,7 +102,7 @@ importers:
       '@types/http-errors': 1.8.2
       '@types/jest': 27.5.2
       '@types/lodash': 4.14.183
-      '@types/marked': 4.0.3
+      '@types/marked': 4.0.5
       '@types/memory-fs': 0.3.3
       '@types/node': 14.18.0
       '@types/request': 2.48.8
@@ -2843,8 +2843,8 @@ packages:
       loud-rejection: 2.2.0
     dev: true
 
-  /@types/marked/4.0.3:
-    resolution: {integrity: sha512-HnMWQkLJEf/PnxZIfbm0yGJRRZYYMhb++O9M36UCTA9z53uPvVoSlAwJr3XOpDEryb7Hwl1qAx/MV6YIW1RXxg==}
+  /@types/marked/4.0.5:
+    resolution: {integrity: sha512-jMN2moJ+lSf1VZXQo3VXeMCjoXuciVONig8+U0YNBop5aBvQw4qkolx1Nzn1i0T8L2l9IZ3jju6bS1pPwlaY1w==}
     dev: true
 
   /@types/memory-fs/0.3.3:
