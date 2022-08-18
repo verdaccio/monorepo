@@ -46,6 +46,6 @@
       "extends": [":semanticCommitTypeAll(fix)"]
     }
   ],
-  "major": true,
+  "major": false,
   "pinVersions": false
 }
