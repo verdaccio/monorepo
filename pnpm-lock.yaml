@@ -35,7 +35,7 @@ importers:
       '@types/http-errors': 1.8.2
       '@types/jest': 27.5.2
       '@types/lodash': 4.14.184
-      '@types/marked': 4.0.5
+      '@types/marked': 4.0.6
       '@types/memory-fs': 0.3.3
       '@types/node': 14.18.0
       '@types/request': 2.48.8
@@ -54,7 +54,7 @@ importers:
       eslint-config-prettier: 8.5.0
       eslint-plugin-babel: 5.3.1
       eslint-plugin-import: 2.26.0
-      eslint-plugin-jest: 26.8.4
+      eslint-plugin-jest: 26.8.5
       eslint-plugin-jsx-a11y: 6.6.1
       eslint-plugin-react: 7.30.1
       eslint-plugin-react-hooks: 4.6.0
@@ -102,7 +102,7 @@ importers:
       '@types/http-errors': 1.8.2
       '@types/jest': 27.5.2
       '@types/lodash': 4.14.184
-      '@types/marked': 4.0.5
+      '@types/marked': 4.0.6
       '@types/memory-fs': 0.3.3
       '@types/node': 14.18.0
       '@types/request': 2.48.8
@@ -121,7 +121,7 @@ importers:
       eslint-config-prettier: 8.5.0_eslint@8.22.0
       eslint-plugin-babel: 5.3.1_eslint@8.22.0
       eslint-plugin-import: 2.26.0_d84fd6a95fa4dbf27f958da75f46ec9f
-      eslint-plugin-jest: 26.8.4_82d9c9cbf3203e2133fffc88f9f4599f
+      eslint-plugin-jest: 26.8.5_82d9c9cbf3203e2133fffc88f9f4599f
       eslint-plugin-jsx-a11y: 6.6.1_eslint@8.22.0
       eslint-plugin-react: 7.30.1_eslint@8.22.0
       eslint-plugin-react-hooks: 4.6.0_eslint@8.22.0
@@ -160,11 +160,11 @@ importers:
       '@verdaccio/types': workspace:10.5.2
       dompurify: 2.3.10
       jsdom: 16.7.0
-      marked: 4.0.18
+      marked: 4.0.19
     dependencies:
       dompurify: 2.3.10
       jsdom: 16.7.0
-      marked: 4.0.18
+      marked: 4.0.19
     devDependencies:
       '@verdaccio/types': link:../types
 
@@ -2843,8 +2843,8 @@ packages:
       loud-rejection: 2.2.0
     dev: true
 
-  /@types/marked/4.0.5:
-    resolution: {integrity: sha512-jMN2moJ+lSf1VZXQo3VXeMCjoXuciVONig8+U0YNBop5aBvQw4qkolx1Nzn1i0T8L2l9IZ3jju6bS1pPwlaY1w==}
+  /@types/marked/4.0.6:
+    resolution: {integrity: sha512-ITAVUzsnVbhy5afxhs4PPPbrv2hKVEDH5BhhaQNQlVG0UNu+9A18XSdYr53nBdHZ0ADEQLl+ciOjXbs7eHdiQQ==}
     dev: true
 
   /@types/memory-fs/0.3.3:
@@ -4644,8 +4644,8 @@ packages:
       - supports-color
     dev: true
 
-  /eslint-plugin-jest/26.8.4_82d9c9cbf3203e2133fffc88f9f4599f:
-    resolution: {integrity: sha512-+waIVSv2742wq7Y06jXikzRL5/wG+dDccmMnsLHjjwPDeccwbVQ7xpFoPCbd0k8qed/N2LSajjmBsw3D1C/xAQ==}
+  /eslint-plugin-jest/26.8.5_82d9c9cbf3203e2133fffc88f9f4599f:
+    resolution: {integrity: sha512-DEaimuVhah/fx6jDkaP4oEPhH6VLr9skpZxYqbbmfeYvXzjos3AX61NpyMvq4aB4x6XJ3rsu/zcJfg0z0nytfw==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     peerDependencies:
       '@typescript-eslint/eslint-plugin': ^5.0.0
@@ -7023,6 +7023,13 @@ packages:
     resolution: {integrity: sha512-wbLDJ7Zh0sqA0Vdg6aqlbT+yPxqLblpAZh1mK2+AO2twQkPywvvqQNfEPVwSSRjZ7dZcdeVBIAgiO7MMp3Dszw==}
     engines: {node: '>= 12'}
     hasBin: true
+    dev: true
+
+  /marked/4.0.19:
+    resolution: {integrity: sha512-rgQF/OxOiLcvgUAj1Q1tAf4Bgxn5h5JZTp04Fx4XUkVhs7B+7YA9JEWJhJpoO8eJt8MkZMwqLCNeNqj1bCREZQ==}
+    engines: {node: '>= 12'}
+    hasBin: true
+    dev: false
 
   /media-typer/0.3.0:
     resolution: {integrity: sha1-hxDXrwqmJvj/+hzgAWhUUmMlV0g=}
