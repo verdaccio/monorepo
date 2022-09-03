@@ -1,5 +1,11 @@
 # Change Log
 
+## 10.6.0
+
+### Minor Changes
+
+- f8d763c: feat: add abbreviated versions support
+
 ## 10.5.2
 
 ### Patch Changes
