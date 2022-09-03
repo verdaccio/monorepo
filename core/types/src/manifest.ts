@@ -100,6 +100,7 @@ export interface Version {
   etag?: string;
   dependencies?: Dependencies;
   peerDependencies?: Dependencies;
+  peerDependenciesMeta?: PeerDependenciesMeta;
   devDependencies?: Dependencies;
   optionalDependencies?: Dependencies;
   bundleDependencies?: Dependencies;
@@ -112,7 +113,15 @@ export interface Version {
   deprecated?: string;
   funding?: { type: string; url: string };
   engines?: Engines;
+  cpu?: string[];
+  os?: string[];
   hasInstallScript?: boolean;
+}
+
+export interface PeerDependenciesMeta {
+  [dependencyName: string]: {
+    optional?: boolean
+  }
 }
 
 export interface Dependencies {
