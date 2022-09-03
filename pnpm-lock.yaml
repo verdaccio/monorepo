@@ -56,7 +56,7 @@ importers:
       eslint-plugin-import: 2.26.0
       eslint-plugin-jest: 26.9.0
       eslint-plugin-jsx-a11y: 6.6.1
-      eslint-plugin-react: 7.31.1
+      eslint-plugin-react: 7.31.4
       eslint-plugin-react-hooks: 4.6.0
       eslint-plugin-simple-import-sort: 7.0.0
       eslint-plugin-verdaccio: 9.6.1
@@ -67,7 +67,7 @@ importers:
       npm-run-all: 4.1.5
       prettier: 2.7.1
       rimraf: 3.0.2
-      snyk: 1.993.0
+      snyk: 1.997.0
       typescript: 4.7.3
       update-ts-references: 2.4.1
     devDependencies:
@@ -123,7 +123,7 @@ importers:
       eslint-plugin-import: 2.26.0_b62f4c66ab291fb5cb0e4045c2ba4587
       eslint-plugin-jest: 26.9.0_77a1db3c6c9b51f70f67ab570e5087c6
       eslint-plugin-jsx-a11y: 6.6.1_eslint@8.23.0
-      eslint-plugin-react: 7.31.1_eslint@8.23.0
+      eslint-plugin-react: 7.31.4_eslint@8.23.0
       eslint-plugin-react-hooks: 4.6.0_eslint@8.23.0
       eslint-plugin-simple-import-sort: 7.0.0_eslint@8.23.0
       eslint-plugin-verdaccio: 9.6.1
@@ -134,7 +134,7 @@ importers:
       npm-run-all: 4.1.5
       prettier: 2.7.1
       rimraf: 3.0.2
-      snyk: 1.993.0
+      snyk: 1.997.0
       typescript: 4.7.3
       update-ts-references: 2.4.1_typescript@4.7.3
 
@@ -4798,8 +4798,8 @@ packages:
       eslint: 8.23.0
     dev: true
 
-  /eslint-plugin-react/7.31.1_eslint@8.23.0:
-    resolution: {integrity: sha512-j4/2xWqt/R7AZzG8CakGHA6Xa/u7iR8Q3xCxY+AUghdT92bnIDOBEefV456OeH0QvBcroVc0eyvrrLSyQGYIfg==}
+  /eslint-plugin-react/7.31.4_eslint@8.23.0:
+    resolution: {integrity: sha512-2ry4HTT+c+hSgpnV2DXj3d5oAmH11KH8HHQwtcfRdq6/+R3nEimvMbwAqK79eb4ZW1/hp8yC5elBusZM6li/Gg==}
     engines: {node: '>=4'}
     peerDependencies:
       eslint: ^3 || ^4 || ^5 || ^6 || ^7 || ^8
@@ -8393,8 +8393,8 @@ packages:
     resolution: {integrity: sha1-EMCI2LWOsHazIpu1oE4jLOEmQi0=}
     dev: false
 
-  /snyk/1.993.0:
-    resolution: {integrity: sha512-+uzow9NlGjDCADDhFyftXKJuUZ6agKg+9jP0IYe/wPiBel3dqF9baoKj93wxZSlKEjHLDDAeSgZESwZbvdq1kw==}
+  /snyk/1.997.0:
+    resolution: {integrity: sha512-3Sd7XTOytpud06DMtFGXglxWkpqR1W6QBJIB+T6LcU8f9+cTWmKW8MMgJ6ivsMPF89m49NCSqXjNFDcZbTt/gQ==}
     engines: {node: '>=12'}
     hasBin: true
     dev: true
