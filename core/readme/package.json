@@ -35,7 +35,7 @@
     "marked": "4.1.0"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:10.5.2"
+    "@verdaccio/types": "workspace:10.6.0"
   },
   "scripts": {
     "clean": "rimraf ./build",
