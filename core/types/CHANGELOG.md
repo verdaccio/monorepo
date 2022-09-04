@@ -1,5 +1,11 @@
 # Change Log
 
+## 10.7.0
+
+### Minor Changes
+
+- e60fd0a: feat(types): add missing fields to the Version object
+
 ## 10.6.0
 
 ### Minor Changes
