@@ -1,5 +1,11 @@
 # Change Log
 
+## 10.2.3
+
+### Patch Changes
+
+- ba40e72: chore: update core packages
+
 ## 10.2.2
 
 ### Patch Changes
