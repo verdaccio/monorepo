@@ -1,5 +1,11 @@
 # Change Log
 
+## 10.2.4
+
+### Patch Changes
+
+- 2a6d862: chore: update dependencies
+
 ## 10.2.3
 
 ### Patch Changes
