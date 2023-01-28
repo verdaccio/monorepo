@@ -1,5 +1,11 @@
 # Change Log
 
+## 10.5.2
+
+### Patch Changes
+
+- 6d812b1: fix: reduce warning noise for htpaswd logging message
+
 ## 10.5.1
 
 ### Patch Changes
