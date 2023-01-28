@@ -59,7 +59,7 @@ export default class HTPasswd implements IPluginAuth<HTPasswdConfig> {
       // of this plugin uses bcrypt by default
       // https://github.com/verdaccio/verdaccio/pull/2072#issuecomment-770235502
       algorithm = HtpasswdHashAlgorithm.crypt;
-      this.logger.warn(
+      this.logger.info(
         // eslint-disable-next-line max-len
         '"crypt" algorithm is deprecated consider switch to "bcrypt". Read more: https://github.com/verdaccio/monorepo/pull/580'
       );
