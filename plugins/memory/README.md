@@ -18,7 +18,7 @@ A memory based **storage plugin**.
 
 ### Requirements
 
->`verdaccio@3.0.0` or `verdaccio@4.x`
+>`verdaccio@3.0.0`, `verdaccio@4.x`, `verdaccio@5.x`
 
 ```
 npm install -g verdaccio
