@@ -1,5 +1,11 @@
 # Change Log
 
+## 10.7.1
+
+### Patch Changes
+
+- ce921a8: fix: config plugin types
+
 ## 10.7.0
 
 ### Minor Changes
