@@ -28,7 +28,7 @@
     "node": ">=8"
   },
   "dependencies": {
-    "@verdaccio/commons-api": "workspace:10.2.0",
+    "@verdaccio/commons-api": "10.2.0",
     "@verdaccio/streams": "workspace:10.2.0",
     "memory-fs": "0.5.0"
   },

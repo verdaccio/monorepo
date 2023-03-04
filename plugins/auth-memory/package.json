@@ -28,7 +28,7 @@
     "node": ">=8"
   },
   "dependencies": {
-    "@verdaccio/commons-api": "workspace:10.2.0"
+    "@verdaccio/commons-api": "10.2.0"
   },
   "devDependencies": {
     "@verdaccio/types": "workspace:10.7.2"

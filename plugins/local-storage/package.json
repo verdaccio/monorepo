@@ -31,7 +31,7 @@
     "node": ">=8"
   },
   "dependencies": {
-    "@verdaccio/commons-api": "workspace:10.2.0",
+    "@verdaccio/commons-api": "10.2.0",
     "@verdaccio/file-locking": "workspace:10.3.0",
     "@verdaccio/streams": "workspace:10.2.0",
     "async": "3.2.4",

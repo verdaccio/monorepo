@@ -128,14 +128,6 @@ importers:
       typescript: 4.7.3
       update-ts-references: 2.4.1_typescript@4.7.3
 
-  core/commons-api:
-    specifiers:
-      http-errors: 2.0.0
-      http-status-codes: 2.2.0
-    dependencies:
-      http-errors: 2.0.0
-      http-status-codes: 2.2.0
-
   core/file-locking:
     specifiers:
       '@verdaccio/types': workspace:10.7.2
@@ -166,11 +158,11 @@ importers:
   plugins/active-directory:
     specifiers:
       '@types/activedirectory2': ^1.2.1
-      '@verdaccio/commons-api': workspace:10.2.0
+      '@verdaccio/commons-api': 10.2.0
       '@verdaccio/types': workspace:10.7.2
       activedirectory2: 2.1.0
     dependencies:
-      '@verdaccio/commons-api': link:../../core/commons-api
+      '@verdaccio/commons-api': 10.2.0
       activedirectory2: 2.1.0
     devDependencies:
       '@types/activedirectory2': 1.2.3
@@ -178,22 +170,22 @@ importers:
 
   plugins/auth-memory:
     specifiers:
-      '@verdaccio/commons-api': workspace:10.2.0
+      '@verdaccio/commons-api': 10.2.0
       '@verdaccio/types': workspace:10.7.2
     dependencies:
-      '@verdaccio/commons-api': link:../../core/commons-api
+      '@verdaccio/commons-api': 10.2.0
     devDependencies:
       '@verdaccio/types': link:../../core/types
 
   plugins/aws-s3-storage:
     specifiers:
-      '@verdaccio/commons-api': workspace:10.2.0
+      '@verdaccio/commons-api': 10.2.0
       '@verdaccio/streams': workspace:10.2.0
       '@verdaccio/types': workspace:10.7.2
       aws-sdk: ^2.607.0
       recursive-readdir: 2.2.3
     dependencies:
-      '@verdaccio/commons-api': link:../../core/commons-api
+      '@verdaccio/commons-api': 10.2.0
       '@verdaccio/streams': link:../../core/streams
       aws-sdk: 2.1030.0
     devDependencies:
@@ -204,7 +196,7 @@ importers:
     specifiers:
       '@google-cloud/datastore': 4.5.0
       '@google-cloud/storage': 3.5.0
-      '@verdaccio/commons-api': workspace:10.2.0
+      '@verdaccio/commons-api': 10.2.0
       '@verdaccio/streams': workspace:10.2.0
       '@verdaccio/types': workspace:10.7.2
       fast-crc32c: 1.0.7
@@ -212,7 +204,7 @@ importers:
     dependencies:
       '@google-cloud/datastore': 4.5.0
       '@google-cloud/storage': 3.5.0
-      '@verdaccio/commons-api': link:../../core/commons-api
+      '@verdaccio/commons-api': 10.2.0
       '@verdaccio/streams': link:../../core/streams
     optionalDependencies:
       fast-crc32c: 1.0.7
@@ -245,7 +237,7 @@ importers:
     specifiers:
       '@types/minimatch': ^3.0.3
       '@types/node': ^14.0.0
-      '@verdaccio/commons-api': workspace:10.2.0
+      '@verdaccio/commons-api': 10.2.0
       '@verdaccio/file-locking': workspace:10.3.0
       '@verdaccio/streams': workspace:10.2.0
       '@verdaccio/types': workspace:10.7.2
@@ -257,7 +249,7 @@ importers:
       mkdirp: 1.0.4
       rmdir-sync: ^1.0.1
     dependencies:
-      '@verdaccio/commons-api': link:../../core/commons-api
+      '@verdaccio/commons-api': 10.2.0
       '@verdaccio/file-locking': link:../../core/file-locking
       '@verdaccio/streams': link:../../core/streams
       async: 3.2.4
@@ -274,12 +266,12 @@ importers:
 
   plugins/memory:
     specifiers:
-      '@verdaccio/commons-api': workspace:10.2.0
+      '@verdaccio/commons-api': 10.2.0
       '@verdaccio/streams': workspace:10.2.0
       '@verdaccio/types': workspace:10.7.2
       memory-fs: 0.5.0
     dependencies:
-      '@verdaccio/commons-api': link:../../core/commons-api
+      '@verdaccio/commons-api': 10.2.0
       '@verdaccio/streams': link:../../core/streams
       memory-fs: 0.5.0
     devDependencies:
@@ -2980,6 +2972,14 @@ packages:
       '@typescript-eslint/types': 5.48.2
       eslint-visitor-keys: 3.3.0
     dev: true
+
+  /@verdaccio/commons-api/10.2.0:
+    resolution: {integrity: sha512-F/YZANu4DmpcEV0jronzI7v2fGVWkQ5Mwi+bVmV+ACJ+EzR0c9Jbhtbe5QyLUuzR97t8R5E/Xe53O0cc2LukdQ==}
+    engines: {node: '>=8'}
+    dependencies:
+      http-errors: 2.0.0
+      http-status-codes: 2.2.0
+    dev: false
 
   /@vue/compiler-core/3.2.22:
     resolution: {integrity: sha512-uAkovrVeTcjzpiM4ECmVaMrv/bjdgAaLzvjcGqQPBEyUrcqsCgccT9fHJ/+hWVGhyMahmBwLqcn4guULNx7sdw==}
