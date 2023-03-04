@@ -128,21 +128,6 @@ importers:
       typescript: 4.7.3
       update-ts-references: 2.4.1_typescript@4.7.3
 
-  core/file-locking:
-    specifiers:
-      '@verdaccio/types': workspace:10.7.2
-      lockfile: 1.0.4
-    dependencies:
-      lockfile: 1.0.4
-    devDependencies:
-      '@verdaccio/types': link:../types
-
-  core/streams:
-    specifiers:
-      '@verdaccio/types': workspace:10.7.2
-    devDependencies:
-      '@verdaccio/types': link:../types
-
   core/types:
     specifiers:
       '@types/node': 12.12.6
@@ -180,13 +165,13 @@ importers:
   plugins/aws-s3-storage:
     specifiers:
       '@verdaccio/commons-api': 10.2.0
-      '@verdaccio/streams': workspace:10.2.0
+      '@verdaccio/streams': 10.2.0
       '@verdaccio/types': workspace:10.7.2
       aws-sdk: ^2.607.0
       recursive-readdir: 2.2.3
     dependencies:
       '@verdaccio/commons-api': 10.2.0
-      '@verdaccio/streams': link:../../core/streams
+      '@verdaccio/streams': 10.2.0
       aws-sdk: 2.1030.0
     devDependencies:
       '@verdaccio/types': link:../../core/types
@@ -197,7 +182,7 @@ importers:
       '@google-cloud/datastore': 4.5.0
       '@google-cloud/storage': 3.5.0
       '@verdaccio/commons-api': 10.2.0
-      '@verdaccio/streams': workspace:10.2.0
+      '@verdaccio/streams': 10.2.0
       '@verdaccio/types': workspace:10.7.2
       fast-crc32c: 1.0.7
       memory-fs: 0.5.0
@@ -205,7 +190,7 @@ importers:
       '@google-cloud/datastore': 4.5.0
       '@google-cloud/storage': 3.5.0
       '@verdaccio/commons-api': 10.2.0
-      '@verdaccio/streams': link:../../core/streams
+      '@verdaccio/streams': 10.2.0
     optionalDependencies:
       fast-crc32c: 1.0.7
     devDependencies:
@@ -215,7 +200,7 @@ importers:
   plugins/htpasswd:
     specifiers:
       '@types/bcryptjs': 2.4.2
-      '@verdaccio/file-locking': workspace:10.3.0
+      '@verdaccio/file-locking': 10.3.0
       '@verdaccio/types': workspace:10.7.2
       apache-md5: 1.1.8
       bcryptjs: 2.4.3
@@ -223,7 +208,7 @@ importers:
       mockdate: 3.0.5
       unix-crypt-td-js: 1.1.4
     dependencies:
-      '@verdaccio/file-locking': link:../../core/file-locking
+      '@verdaccio/file-locking': 10.3.0
       apache-md5: 1.1.8
       bcryptjs: 2.4.3
       http-errors: 2.0.0
@@ -238,8 +223,8 @@ importers:
       '@types/minimatch': ^3.0.3
       '@types/node': ^14.0.0
       '@verdaccio/commons-api': 10.2.0
-      '@verdaccio/file-locking': workspace:10.3.0
-      '@verdaccio/streams': workspace:10.2.0
+      '@verdaccio/file-locking': 10.3.0
+      '@verdaccio/streams': 10.2.0
       '@verdaccio/types': workspace:10.7.2
       async: 3.2.4
       debug: 4.3.4
@@ -250,8 +235,8 @@ importers:
       rmdir-sync: ^1.0.1
     dependencies:
       '@verdaccio/commons-api': 10.2.0
-      '@verdaccio/file-locking': link:../../core/file-locking
-      '@verdaccio/streams': link:../../core/streams
+      '@verdaccio/file-locking': 10.3.0
+      '@verdaccio/streams': 10.2.0
       async: 3.2.4
       debug: 4.3.4
       lodash: 4.17.21
@@ -267,12 +252,12 @@ importers:
   plugins/memory:
     specifiers:
       '@verdaccio/commons-api': 10.2.0
-      '@verdaccio/streams': workspace:10.2.0
+      '@verdaccio/streams': 10.2.0
       '@verdaccio/types': workspace:10.7.2
       memory-fs: 0.5.0
     dependencies:
       '@verdaccio/commons-api': 10.2.0
-      '@verdaccio/streams': link:../../core/streams
+      '@verdaccio/streams': 10.2.0
       memory-fs: 0.5.0
     devDependencies:
       '@verdaccio/types': link:../../core/types
@@ -2979,6 +2964,18 @@ packages:
     dependencies:
       http-errors: 2.0.0
       http-status-codes: 2.2.0
+    dev: false
+
+  /@verdaccio/file-locking/10.3.0:
+    resolution: {integrity: sha512-FE5D5H4wy/nhgR/d2J5e1Na9kScj2wMjlLPBHz7XF4XZAVSRdm45+kL3ZmrfA6b2HTADP/uH7H05/cnAYW8bhw==}
+    engines: {node: '>=8'}
+    dependencies:
+      lockfile: 1.0.4
+    dev: false
+
+  /@verdaccio/streams/10.2.0:
+    resolution: {integrity: sha512-FaIzCnDg0x0Js5kSQn1Le3YzDHl7XxrJ0QdIw5LrDUmLsH3VXNi4/NMlSHnw5RiTTMs4UbEf98V3RJRB8exqJA==}
+    engines: {node: '>=8', npm: '>=5'}
     dev: false
 
   /@vue/compiler-core/3.2.22:
