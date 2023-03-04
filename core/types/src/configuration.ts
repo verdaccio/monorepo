@@ -105,6 +105,7 @@ export interface APITokenOptions {
 }
 
 export interface Security {
+  enhancedLegacySignature?: boolean;
   web: JWTOptions;
   api: APITokenOptions;
 }
