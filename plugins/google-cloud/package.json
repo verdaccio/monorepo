@@ -32,7 +32,7 @@
     "@google-cloud/datastore": "4.5.0",
     "@google-cloud/storage": "3.5.0",
     "@verdaccio/commons-api": "10.2.0",
-    "@verdaccio/streams": "workspace:10.2.0"
+    "@verdaccio/streams": "10.2.0"
   },
   "devDependencies": {
     "@verdaccio/types": "workspace:10.7.2",
