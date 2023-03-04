@@ -138,7 +138,7 @@ importers:
 
   core/file-locking:
     specifiers:
-      '@verdaccio/types': workspace:10.7.1
+      '@verdaccio/types': workspace:10.7.2
       lockfile: 1.0.4
     dependencies:
       lockfile: 1.0.4
@@ -147,7 +147,7 @@ importers:
 
   core/streams:
     specifiers:
-      '@verdaccio/types': workspace:10.7.1
+      '@verdaccio/types': workspace:10.7.2
     devDependencies:
       '@verdaccio/types': link:../types
 
@@ -167,7 +167,7 @@ importers:
     specifiers:
       '@types/activedirectory2': ^1.2.1
       '@verdaccio/commons-api': workspace:10.2.0
-      '@verdaccio/types': workspace:10.7.1
+      '@verdaccio/types': workspace:10.7.2
       activedirectory2: 2.1.0
     dependencies:
       '@verdaccio/commons-api': link:../../core/commons-api
@@ -179,7 +179,7 @@ importers:
   plugins/auth-memory:
     specifiers:
       '@verdaccio/commons-api': workspace:10.2.0
-      '@verdaccio/types': workspace:10.7.1
+      '@verdaccio/types': workspace:10.7.2
     dependencies:
       '@verdaccio/commons-api': link:../../core/commons-api
     devDependencies:
@@ -189,7 +189,7 @@ importers:
     specifiers:
       '@verdaccio/commons-api': workspace:10.2.0
       '@verdaccio/streams': workspace:10.2.0
-      '@verdaccio/types': workspace:10.7.1
+      '@verdaccio/types': workspace:10.7.2
       aws-sdk: ^2.607.0
       recursive-readdir: 2.2.3
     dependencies:
@@ -206,7 +206,7 @@ importers:
       '@google-cloud/storage': 3.5.0
       '@verdaccio/commons-api': workspace:10.2.0
       '@verdaccio/streams': workspace:10.2.0
-      '@verdaccio/types': workspace:10.7.1
+      '@verdaccio/types': workspace:10.7.2
       fast-crc32c: 1.0.7
       memory-fs: 0.5.0
     dependencies:
@@ -224,7 +224,7 @@ importers:
     specifiers:
       '@types/bcryptjs': 2.4.2
       '@verdaccio/file-locking': workspace:10.3.0
-      '@verdaccio/types': workspace:10.7.1
+      '@verdaccio/types': workspace:10.7.2
       apache-md5: 1.1.8
       bcryptjs: 2.4.3
       http-errors: 2.0.0
@@ -248,7 +248,7 @@ importers:
       '@verdaccio/commons-api': workspace:10.2.0
       '@verdaccio/file-locking': workspace:10.3.0
       '@verdaccio/streams': workspace:10.2.0
-      '@verdaccio/types': workspace:10.7.1
+      '@verdaccio/types': workspace:10.7.2
       async: 3.2.4
       debug: 4.3.4
       lodash: 4.17.21
@@ -276,7 +276,7 @@ importers:
     specifiers:
       '@verdaccio/commons-api': workspace:10.2.0
       '@verdaccio/streams': workspace:10.2.0
-      '@verdaccio/types': workspace:10.7.1
+      '@verdaccio/types': workspace:10.7.2
       memory-fs: 0.5.0
     dependencies:
       '@verdaccio/commons-api': link:../../core/commons-api
