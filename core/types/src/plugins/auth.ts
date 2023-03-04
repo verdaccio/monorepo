@@ -13,7 +13,7 @@ export type AuthCallback = (error: AuthError | null, groups: string[] | false) =
 
 export interface IBasicAuth<T> {
   config: T & Config;
-  aesEncrypt(buf: Buffer): Buffer;
+  aesEncrypt(username: string, password: string): string;
   authenticate(user: string, password: string, cb: Callback): void;
   changePassword(user: string, password: string, newPassword: string, cb: Callback): void;
   allow_access(pkg: AuthPluginPackage, user: RemoteUser, callback: Callback): void;
