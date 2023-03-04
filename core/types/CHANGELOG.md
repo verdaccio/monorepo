@@ -1,5 +1,11 @@
 # Change Log
 
+## 10.8.0
+
+### Minor Changes
+
+- 51a0d28: feat: aesEncrypt string instead buffer
+
 ## 10.7.2
 
 ### Patch Changes
