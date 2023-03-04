@@ -1,5 +1,11 @@
 # Change Log
 
+## 10.7.2
+
+### Patch Changes
+
+- 5bdde6c: fix: add enhancedLegacySignature property to security
+
 ## 10.7.1
 
 ### Patch Changes
