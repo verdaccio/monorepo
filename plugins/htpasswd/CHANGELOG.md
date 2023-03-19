@@ -1,5 +1,11 @@
 # Change Log
 
+## 10.5.3
+
+### Patch Changes
+
+- 5769097: fix: update legacy types development
+
 ## 10.5.2
 
 ### Patch Changes
