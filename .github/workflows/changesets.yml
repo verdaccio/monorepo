@@ -6,7 +6,7 @@ on:
 
   push:
     branches:
-      - 9.x
+      - main
 
 env:
   CI: true
