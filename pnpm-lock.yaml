@@ -152,7 +152,7 @@ importers:
   plugins/auth-memory:
     specifiers:
       '@verdaccio/commons-api': 10.2.0
-      '@verdaccio/legacy-types': workspace:1.0.0
+      '@verdaccio/legacy-types': workspace:1.0.1
     dependencies:
       '@verdaccio/commons-api': 10.2.0
     devDependencies:
@@ -161,7 +161,7 @@ importers:
   plugins/aws-s3-storage:
     specifiers:
       '@verdaccio/commons-api': 10.2.0
-      '@verdaccio/legacy-types': workspace:1.0.0
+      '@verdaccio/legacy-types': workspace:1.0.1
       '@verdaccio/streams': 10.2.0
       aws-sdk: ^2.607.0
       recursive-readdir: 2.2.3
@@ -178,7 +178,7 @@ importers:
       '@google-cloud/datastore': 4.5.0
       '@google-cloud/storage': 3.5.0
       '@verdaccio/commons-api': 10.2.0
-      '@verdaccio/legacy-types': workspace:1.0.0
+      '@verdaccio/legacy-types': workspace:1.0.1
       '@verdaccio/streams': 10.2.0
       fast-crc32c: 1.0.7
       memory-fs: 0.5.0
@@ -197,7 +197,7 @@ importers:
     specifiers:
       '@types/bcryptjs': 2.4.2
       '@verdaccio/file-locking': 10.3.0
-      '@verdaccio/legacy-types': workspace:1.0.0
+      '@verdaccio/legacy-types': workspace:1.0.1
       apache-md5: 1.1.8
       bcryptjs: 2.4.3
       http-errors: 2.0.0
@@ -220,7 +220,7 @@ importers:
       '@types/node': ^14.0.0
       '@verdaccio/commons-api': 10.2.0
       '@verdaccio/file-locking': 10.3.0
-      '@verdaccio/legacy-types': workspace:1.0.0
+      '@verdaccio/legacy-types': workspace:1.0.1
       '@verdaccio/streams': 10.2.0
       async: 3.2.4
       debug: 4.3.4
@@ -248,7 +248,7 @@ importers:
   plugins/memory:
     specifiers:
       '@verdaccio/commons-api': 10.2.0
-      '@verdaccio/legacy-types': workspace:1.0.0
+      '@verdaccio/legacy-types': workspace:1.0.1
       '@verdaccio/streams': 10.2.0
       memory-fs: 0.5.0
     dependencies:
