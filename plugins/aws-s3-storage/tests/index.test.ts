@@ -1,5 +1,5 @@
 import { S3 } from 'aws-sdk';
-import { IPluginStorage } from '@verdaccio/types';
+import { IPluginStorage } from '@verdaccio/legacy-types';
 
 import S3Database from '../src/index';
 import { deleteKeyPrefix } from '../src/deleteKeyPrefix';

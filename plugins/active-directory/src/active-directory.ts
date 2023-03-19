@@ -1,5 +1,5 @@
 import { getForbidden, getInternalError, getUnauthorized } from '@verdaccio/commons-api';
-import { Callback, IPluginAuth, Logger } from '@verdaccio/types';
+import { Callback, IPluginAuth, Logger } from '@verdaccio/legacy-types';
 import ActiveDirectory from 'activedirectory2';
 
 export const NotAuthMessage = 'AD - Active Directory authentication failed';

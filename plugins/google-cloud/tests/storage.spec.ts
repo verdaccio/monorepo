@@ -3,8 +3,8 @@ import path from 'path';
 import { Writable } from 'stream';
 
 import { DownloadResponse } from '@google-cloud/storage';
-import { IPackageStorageManager } from '@verdaccio/types';
-import { Logger, ILocalData, Callback, Package, IPackageStorage } from '@verdaccio/types';
+import { IPackageStorageManager } from '@verdaccio/legacy-types';
+import { Logger, ILocalData, Callback, Package, IPackageStorage } from '@verdaccio/legacy-types';
 import { HTTP_STATUS, API_ERROR, VerdaccioError } from '@verdaccio/commons-api';
 
 import { pkgFileName } from '../src/storage';

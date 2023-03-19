@@ -7,7 +7,7 @@ import {
   PluginOptions,
   Token,
   TokenFilter,
-} from '@verdaccio/types';
+} from '@verdaccio/legacy-types';
 import { getInternalError, VerdaccioError, getServiceUnavailable } from '@verdaccio/commons-api';
 import { S3 } from 'aws-sdk';
 

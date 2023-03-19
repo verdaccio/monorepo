@@ -1,4 +1,4 @@
-import { Callback } from '@verdaccio/types';
+import { Callback } from '@verdaccio/legacy-types';
 
 import { VerdaccioMemoryConfig } from '../types';
 import Memory from '../src/index';

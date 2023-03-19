@@ -11,7 +11,7 @@ import {
   PackageTransformer,
   CallbackAction,
   ReadPackageCallback,
-} from '@verdaccio/types';
+} from '@verdaccio/legacy-types';
 import { File, DownloadResponse } from '@google-cloud/storage';
 import {
   VerdaccioError,

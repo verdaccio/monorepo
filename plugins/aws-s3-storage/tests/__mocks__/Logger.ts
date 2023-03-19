@@ -1,4 +1,4 @@
-import { Logger } from '@verdaccio/types';
+import { Logger } from '@verdaccio/legacy-types';
 
 const logger: Logger = {
   error: e => console.warn(e),

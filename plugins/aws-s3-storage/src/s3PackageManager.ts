@@ -8,7 +8,7 @@ import {
   ILocalPackageManager,
   CallbackAction,
   ReadPackageCallback,
-} from '@verdaccio/types';
+} from '@verdaccio/legacy-types';
 import { HttpError } from 'http-errors';
 
 import { is404Error, convertS3Error, create409Error } from './s3Errors';

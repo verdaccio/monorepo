@@ -1,7 +1,7 @@
 import fs from 'fs';
 import Path from 'path';
 
-import { Callback, AuthConf, Config, Logger, IPluginAuth, PluginOptions } from '@verdaccio/types';
+import { Callback, AuthConf, Config, Logger, IPluginAuth, PluginOptions } from '@verdaccio/legacy-types';
 import { unlockFile } from '@verdaccio/file-locking';
 
 import {

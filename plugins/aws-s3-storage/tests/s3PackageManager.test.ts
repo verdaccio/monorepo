@@ -3,7 +3,7 @@ import fs from 'fs';
 
 import { S3 } from 'aws-sdk';
 import rReadDir from 'recursive-readdir';
-import { Package } from '@verdaccio/types';
+import { Package } from '@verdaccio/legacy-types';
 
 import S3PackageManager from '../src/s3PackageManager';
 import { deleteKeyPrefix } from '../src/deleteKeyPrefix';

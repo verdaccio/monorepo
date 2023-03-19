@@ -3,7 +3,7 @@ import crypto from 'crypto';
 import fs from 'fs';
 import bcrypt from 'bcryptjs';
 
-import { PluginOptions } from '@verdaccio/types';
+import { PluginOptions } from '@verdaccio/legacy-types';
 import MockDate from 'mockdate';
 import HTPasswd, { DEFAULT_SLOW_VERIFY_MS, HTPasswdConfig } from '../src/htpasswd';
 import { HtpasswdHashAlgorithm } from '../src/utils';
@@ -11,7 +11,7 @@ import { HtpasswdHashAlgorithm } from '../src/utils';
 import Config from './__mocks__/Config';
 
 const options = {
-  logger: { warn: jest.fn() },
+  logger: { warn: jest.fn(), info: jest.fn() },
   config: new Config(),
 } as any as PluginOptions<HTPasswdConfig>;
 
@@ -39,7 +39,7 @@ describe('HTPasswd', () => {
   describe('constructor()', () => {
     const emptyPluginOptions = {
       config: {},
-      logger: { warn: jest.fn() },
+      logger: { warn: jest.fn(), info: jest.fn() },
     } as any as PluginOptions<HTPasswdConfig>;
 
     test('should ensure file path configuration exists', () => {

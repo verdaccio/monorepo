@@ -1,7 +1,8 @@
 {
-  "name": "@verdaccio/types",
-  "version": "10.8.0",
-  "description": "verdaccio types definitions",
+  "name": "@verdaccio/legacy-types",
+  "version": "1.0.0",
+  "description": "verdaccio legacy types definitions",
+  "deprecated": "this is a legacy package for types should be not longer used",
   "keywords": [
     "verdaccio",
     "typescript",

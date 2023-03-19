@@ -10,8 +10,9 @@
     "types": ["node", "jest"],
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
   },
+  "include": ["plugins/**/*.ts","tools/**/*.ts","core/**/*.ts", "types/*.d.ts"],
   "exclude": [
     "**/lib",
     "node_modules",

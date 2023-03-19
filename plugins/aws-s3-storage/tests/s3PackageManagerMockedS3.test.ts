@@ -1,4 +1,4 @@
-import { PackageAccess } from '@verdaccio/types';
+import { PackageAccess } from '@verdaccio/legacy-types';
 
 import S3PackageManager from '../src/s3PackageManager';
 import { S3Config } from '../src/config';
