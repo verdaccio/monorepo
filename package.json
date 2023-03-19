@@ -79,7 +79,7 @@
     "ci:version": "run-s ci:version:changeset ci:version:install",
     "ci:version:install": "pnpm install --frozen-lockfile=false",
     "ci:publish": "changeset publish",
-    "test": "pnpm recursive test -- -u",
+    "test": "pnpm recursive test",
     "ts:ref": "update-ts-references --discardComments"
   },
   "version": "0.0.0"
