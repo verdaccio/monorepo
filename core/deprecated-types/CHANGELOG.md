@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.0.1
+
+### Patch Changes
+
+- 64c5070: feat: rename types to legacy types
+
 ## 10.8.0
 
 ### Minor Changes
