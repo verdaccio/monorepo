@@ -30,7 +30,7 @@ jobs:
       with:
         node-version: 12
     - name: Install pnpm
-      run: npm i pnpm@latest-6 -g
+      run: npm i pnpm@latest -g
     - name: set store
       run: |
         mkdir ~/.pnpm-store
@@ -55,7 +55,7 @@ jobs:
         with:
           node-version: 12
       - name: Install pnpm
-        run: npm i pnpm@latest-6 -g
+        run: npm i pnpm@latest -g
       - uses: actions/cache@v2
         with:
           path: ~/.pnpm-store
@@ -103,7 +103,7 @@ jobs:
       # - name: untar packages
       #   run: tar -xzvf pkg.tar.gz -C ${{ github.workspace }}/packages
       - name: Install pnpm
-        run: npm i pnpm@latest-6 -g
+        run: npm i pnpm@latest -g
       - uses: actions/cache@v2
         with:
           path: ~/.pnpm-store

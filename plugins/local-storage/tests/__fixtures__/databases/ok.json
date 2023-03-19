@@ -7,7 +7,7 @@
     "verdaccio",
     "tslint",
     "@test/pkg1",
-    "@verdaccio/types",
+    "@verdaccio/legacy-types",
     "@test/view",
     "@my-co/my-package",
     "verdaccio-authentication-plugin-sample",

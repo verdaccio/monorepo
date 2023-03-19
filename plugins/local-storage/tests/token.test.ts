@@ -1,6 +1,6 @@
 import fs from 'fs';
 
-import { ILocalData, PluginOptions, Token } from '@verdaccio/types';
+import { ILocalData, PluginOptions, Token } from '@verdaccio/legacy-types';
 
 import LocalDatabase from '../src/local-database';
 import { ILocalFSPackageManager } from '../src/local-fs';

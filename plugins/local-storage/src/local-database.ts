@@ -13,7 +13,7 @@ import {
   LocalStorage,
   Logger,
   StorageList,
-} from '@verdaccio/types';
+} from '@verdaccio/legacy-types';
 import { getInternalError } from '@verdaccio/commons-api';
 
 import LocalDriver, { noSuchFile } from './local-fs';

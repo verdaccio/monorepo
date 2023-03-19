@@ -1,4 +1,4 @@
-import { Package } from '@verdaccio/types';
+import { Package } from '@verdaccio/legacy-types';
 
 export function stringifyPackage(pkg: Package) {
   return JSON.stringify(pkg, null, '\t');

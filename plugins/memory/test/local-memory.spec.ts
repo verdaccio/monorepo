@@ -1,4 +1,4 @@
-import { Logger, IPluginStorage, IPackageStorage } from '@verdaccio/types';
+import { Logger, IPluginStorage, IPackageStorage } from '@verdaccio/legacy-types';
 import { VerdaccioError } from '@verdaccio/commons-api';
 
 import { ConfigMemory } from '../src/local-memory';

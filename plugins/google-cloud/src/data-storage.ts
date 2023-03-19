@@ -8,7 +8,7 @@ import {
   Token,
   TokenFilter,
   IPackageStorageManager,
-} from '@verdaccio/types';
+} from '@verdaccio/legacy-types';
 import { CommitResponse } from '@google-cloud/datastore/build/src/request';
 import { RunQueryResponse } from '@google-cloud/datastore/build/src/query';
 import { entity } from '@google-cloud/datastore/build/src/entity';

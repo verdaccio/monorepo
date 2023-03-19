@@ -36,7 +36,7 @@
   },
   "devDependencies": {
     "@types/bcryptjs": "2.4.2",
-    "@verdaccio/types": "workspace:10.8.0",
+    "@verdaccio/legacy-types": "workspace:1.0.0",
     "mockdate": "3.0.5"
   },
   "scripts": {

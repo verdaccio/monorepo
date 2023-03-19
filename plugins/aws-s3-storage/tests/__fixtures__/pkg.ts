@@ -1,4 +1,4 @@
-import { Package } from "@verdaccio/types";
+import { Package } from "@verdaccio/legacy-types";
 
 const json: Package = {
   _id: '@scope/pk1-test',

@@ -1,4 +1,4 @@
-import { Package } from '@verdaccio/types';
+import { Package } from '@verdaccio/legacy-types';
 
 const pkg: Package = {
   name: '@scope/test_npm',

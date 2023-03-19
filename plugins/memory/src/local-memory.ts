@@ -1,5 +1,5 @@
 import { getServiceUnavailable } from '@verdaccio/commons-api';
-import { Logger, Callback, Config, IPluginStorage, Token, TokenFilter, PluginOptions } from '@verdaccio/types';
+import { Logger, Callback, Config, IPluginStorage, Token, TokenFilter, PluginOptions } from '@verdaccio/legacy-types';
 
 import MemoryHandler, { DataHandler } from './memory-handler';
 

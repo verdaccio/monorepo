@@ -20,7 +20,7 @@ import {
   PackageTransformer,
   Package,
   ReadPackageCallback,
-} from '@verdaccio/types';
+} from '@verdaccio/legacy-types';
 
 import { parsePackage, stringifyPackage } from './utils';
 

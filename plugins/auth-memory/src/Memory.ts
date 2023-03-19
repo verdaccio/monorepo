@@ -1,4 +1,4 @@
-import { Config, PluginOptions, Callback, PackageAccess, IPluginAuth, RemoteUser, Logger } from '@verdaccio/types';
+import { Config, PluginOptions, Callback, PackageAccess, IPluginAuth, RemoteUser, Logger } from '@verdaccio/legacy-types';
 import { getConflict, getForbidden, getNotFound, getUnauthorized } from '@verdaccio/commons-api';
 
 export interface UserMemory {

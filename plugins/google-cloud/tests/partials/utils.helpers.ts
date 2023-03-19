@@ -1,4 +1,4 @@
-import { Package } from '@verdaccio/types';
+import { Package } from '@verdaccio/legacy-types';
 
 export function generatePackage(name: any): Package {
   return {

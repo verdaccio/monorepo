@@ -3,7 +3,7 @@ import fs from 'fs';
 
 import mkdirp from 'mkdirp';
 import rm from 'rmdir-sync';
-import { Logger, ILocalPackageManager, Package } from '@verdaccio/types';
+import { Logger, ILocalPackageManager, Package } from '@verdaccio/legacy-types';
 
 import LocalDriver, { fileExist, fSError, noSuchFile, resourceNotAvailable } from '../src/local-fs';
 

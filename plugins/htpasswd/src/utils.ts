@@ -4,7 +4,7 @@ import md5 from 'apache-md5';
 import bcrypt from 'bcryptjs';
 import createError, { HttpError } from 'http-errors';
 import { readFile } from '@verdaccio/file-locking';
-import { Callback } from '@verdaccio/types';
+import { Callback } from '@verdaccio/legacy-types';
 
 import crypt3 from './crypt3';
 

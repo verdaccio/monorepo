@@ -3,7 +3,7 @@ import crypto from 'crypto';
 import fs from 'fs';
 import bcrypt from 'bcryptjs';
 
-import { PluginOptions } from '@verdaccio/types';
+import { PluginOptions } from '@verdaccio/legacy-types';
 import MockDate from 'mockdate';
 import HTPasswd, { DEFAULT_SLOW_VERIFY_MS, HTPasswdConfig } from '../src/htpasswd';
 import { HtpasswdHashAlgorithm } from '../src/utils';

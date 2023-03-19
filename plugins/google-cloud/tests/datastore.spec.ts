@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { Logger, ILocalPackageManager } from '@verdaccio/types';
+import { Logger, ILocalPackageManager } from '@verdaccio/legacy-types';
 import { VerdaccioError } from '@verdaccio/commons-api';
 import { HTTP_STATUS } from '@verdaccio/commons-api/lib';
 
