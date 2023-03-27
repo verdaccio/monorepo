@@ -24,7 +24,7 @@ jobs:
         ports:
           - 4873:4873
     steps:
-    - uses: actions/checkout@v2.6.0
+    - uses: actions/checkout@v2.7.0
     - name: Use Node
       uses: actions/setup-node@v2
       with:
@@ -38,7 +38,7 @@ jobs:
     name: Lint
     needs: prepare
     steps:
-      - uses: actions/checkout@v2.6.0
+      - uses: actions/checkout@v2.7.0
       - name: Use Node
         uses: actions/setup-node@v2
         with:
@@ -59,7 +59,7 @@ jobs:
     name: ${{ matrix.os }} / Node ${{ matrix.node_version }}
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v2.6.0
+      - uses: actions/checkout@v2.7.0
       - name: Use Node ${{ matrix.node_version }}
         uses: actions/setup-node@v2
         with:
