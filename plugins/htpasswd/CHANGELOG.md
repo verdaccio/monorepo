@@ -1,5 +1,13 @@
 # Change Log
 
+## 10.5.4
+
+### Patch Changes
+
+- 16972d2: fix: add missing types no functionality changes
+- Updated dependencies [16972d2]
+  - @verdaccio/file-locking@10.3.1
+
 ## 10.5.3
 
 ### Patch Changes

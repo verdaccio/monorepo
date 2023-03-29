@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/file-locking",
-  "version": "10.3.0",
+  "version": "10.3.1",
   "description": "library that handle file locking",
   "keywords": [
     "verdaccio",

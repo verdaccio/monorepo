@@ -1,5 +1,11 @@
 # Change Log
 
+## 10.2.2
+
+### Patch Changes
+
+- 16972d2: fix: add missing types no functionality changes
+
 ## 10.2.1
 
 ### Patch Changes
