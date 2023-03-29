@@ -1,12 +1,10 @@
 {
-  "name": "@verdaccio/local-storage",
-  "version": "10.3.2",
-  "description": "Local storage implementation",
+  "name": "@verdaccio/streams",
+  "version": "10.2.0",
+  "description": "Stream extension for Verdaccio",
   "keywords": [
-    "plugin",
     "verdaccio",
-    "storage",
-    "local-storage"
+    "streams"
   ],
   "author": "Juan Picado <juanpicado19@gmail.com>",
   "license": "MIT",
@@ -14,7 +12,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/verdaccio/monorepo",
-    "directory": "plugins/local-storage"
+    "directory": "core/streams"
   },
   "bugs": {
     "url": "https://github.com/verdaccio/monorepo/issues"
@@ -25,27 +23,14 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "files": [
-    "lib/"
+    "lib"
   ],
   "engines": {
-    "node": ">=8"
-  },
-  "dependencies": {
-    "@verdaccio/commons-api": "10.2.0",
-    "@verdaccio/file-locking": "workspace:10.3.0",
-    "@verdaccio/streams": "workspace:10.2.0",
-    "async": "3.2.4",
-    "debug": "4.3.4",
-    "lodash": "4.17.21",
-    "lowdb": "1.0.0",
-    "mkdirp": "1.0.4"
+    "node": ">=12",
+    "npm": ">=5"
   },
   "devDependencies": {
-    "@types/minimatch": "^3.0.3",
-    "@types/node": "^14.0.0",
-    "@verdaccio/legacy-types": "workspace:1.0.1",
-    "minimatch": "^4.0.0",
-    "rmdir-sync": "^1.0.1"
+    "@verdaccio/legacy-types": "workspace:1.0.1"
   },
   "scripts": {
     "clean": "rimraf ./build",
@@ -53,6 +38,7 @@
     "type-check": "tsc --noEmit -p tsconfig.build.json",
     "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
     "build:js": "babel src/ --out-dir lib/ --copy-files --extensions \".ts,.tsx\" --source-maps",
+    "watch": "pnpm build:js -- --watch",
     "build": "pnpm run build:js && pnpm run build:types"
   },
   "funding": {
