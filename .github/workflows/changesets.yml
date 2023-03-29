@@ -26,7 +26,7 @@ jobs:
         with:
           node-version-file: '.nvmrc'
       - name: install pnpm
-        run: npm i pnpm@latest -g
+        run: npm i pnpm@latest-7 -g
       - name: Setup npmrc
         run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPMJS_PUBLISH_TOKEN }}" > .npmrc
       - name: install dependencies
