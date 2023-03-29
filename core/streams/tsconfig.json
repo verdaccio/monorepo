@@ -4,15 +4,10 @@
     "target": "esnext",
     "module": "commonjs",
     "declaration": true,
-    "noImplicitAny": false,
     "strict": true,
     "outDir": "lib",
     "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "typeRoots": [
-      "../../node_modules/@verdaccio/legacy-types/lib/verdaccio",
-      "../../node_modules/@types"
-    ]
+    "esModuleInterop": true
   },
   "include": [
     "src/*.ts",
@@ -20,13 +15,7 @@
   ],
   "references": [
     {
-      "path": "../../core/commons-api"
-    },
-    {
-      "path": "../../core/streams"
-    },
-    {
-      "path": "../../core/types"
+      "path": "../types"
     }
   ]
 }

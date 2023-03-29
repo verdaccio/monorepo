@@ -1,13 +1,10 @@
 {
-  "name": "verdaccio-google-cloud",
+  "name": "@verdaccio/streams",
   "version": "10.2.0",
-  "description": "Google Cloud storage implementation for Verdaccio",
+  "description": "Stream extension for Verdaccio",
   "keywords": [
     "verdaccio",
-    "plugin",
-    "storage",
-    "google-cloud",
-    "datastore"
+    "streams"
   ],
   "author": "Juan Picado <juanpicado19@gmail.com>",
   "license": "MIT",
@@ -15,31 +12,25 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/verdaccio/monorepo",
-    "directory": "plugins/google-cloud"
+    "directory": "core/streams"
   },
   "bugs": {
     "url": "https://github.com/verdaccio/monorepo/issues"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "files": [
-    "lib/"
+    "lib"
   ],
   "engines": {
-    "node": ">=8"
-  },
-  "dependencies": {
-    "@google-cloud/datastore": "4.5.0",
-    "@google-cloud/storage": "3.5.0",
-    "@verdaccio/commons-api": "10.2.0",
-    "@verdaccio/streams": "workspace:10.2.0"
+    "node": ">=12",
+    "npm": ">=5"
   },
   "devDependencies": {
-    "@verdaccio/legacy-types": "workspace:1.0.1",
-    "memory-fs": "0.5.0"
-  },
-  "optionalDependencies": {
-    "fast-crc32c": "1.0.7"
+    "@verdaccio/legacy-types": "workspace:1.0.1"
   },
   "scripts": {
     "clean": "rimraf ./build",
@@ -50,7 +41,6 @@
     "watch": "pnpm build:js -- --watch",
     "build": "pnpm run build:js && pnpm run build:types"
   },
-  "snyk": true,
   "funding": {
     "type": "opencollective",
     "url": "https://opencollective.com/verdaccio"

@@ -1,13 +1,11 @@
 {
-  "name": "verdaccio-google-cloud",
-  "version": "10.2.0",
-  "description": "Google Cloud storage implementation for Verdaccio",
+  "name": "@verdaccio/file-locking",
+  "version": "10.3.0",
+  "description": "library that handle file locking",
   "keywords": [
     "verdaccio",
-    "plugin",
-    "storage",
-    "google-cloud",
-    "datastore"
+    "lock",
+    "fs"
   ],
   "author": "Juan Picado <juanpicado19@gmail.com>",
   "license": "MIT",
@@ -15,31 +13,27 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/verdaccio/monorepo",
-    "directory": "plugins/google-cloud"
+    "directory": "core/file-locking"
   },
   "bugs": {
     "url": "https://github.com/verdaccio/monorepo/issues"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "files": [
-    "lib/"
+    "lib"
   ],
   "engines": {
-    "node": ">=8"
+    "node": ">=12"
   },
   "dependencies": {
-    "@google-cloud/datastore": "4.5.0",
-    "@google-cloud/storage": "3.5.0",
-    "@verdaccio/commons-api": "10.2.0",
-    "@verdaccio/streams": "workspace:10.2.0"
+    "lockfile": "1.0.4"
   },
   "devDependencies": {
-    "@verdaccio/legacy-types": "workspace:1.0.1",
-    "memory-fs": "0.5.0"
-  },
-  "optionalDependencies": {
-    "fast-crc32c": "1.0.7"
+    "@verdaccio/legacy-types": "workspace:1.0.1"
   },
   "scripts": {
     "clean": "rimraf ./build",
@@ -50,7 +44,6 @@
     "watch": "pnpm build:js -- --watch",
     "build": "pnpm run build:js && pnpm run build:types"
   },
-  "snyk": true,
   "funding": {
     "type": "opencollective",
     "url": "https://opencollective.com/verdaccio"

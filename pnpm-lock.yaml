@@ -1,4 +1,4 @@
-lockfileVersion: 5.4
+lockfileVersion: 5.3
 
 importers:
 
@@ -97,8 +97,8 @@ importers:
       '@types/memory-fs': 0.3.3
       '@types/node': 14.18.0
       '@types/request': 2.48.8
-      '@typescript-eslint/eslint-plugin': 5.56.0_adug5dz7x5oujjxavvixso25gi
-      '@typescript-eslint/parser': 5.56.0_ztwzezm3yy5hyeruip3m6elbj4
+      '@typescript-eslint/eslint-plugin': 5.56.0_00e86e8f3fbf5d44a6e0ad51793b5d32
+      '@typescript-eslint/parser': 5.56.0_eslint@8.36.0+typescript@4.7.3
       '@verdaccio/legacy-types': link:core/deprecated-types
       babel-core: 7.0.0-bridge.0_@babel+core@7.21.3
       babel-eslint: 10.1.0_eslint@8.36.0
@@ -110,8 +110,8 @@ importers:
       eslint-config-google: 0.14.0_eslint@8.36.0
       eslint-config-prettier: 8.8.0_eslint@8.36.0
       eslint-plugin-babel: 5.3.1_eslint@8.36.0
-      eslint-plugin-import: 2.27.5_cnkxirszkzb4o6ts7gbclno24e
-      eslint-plugin-jest: 26.9.0_ajbf7d6jqz455qntzdwconvgk4
+      eslint-plugin-import: 2.27.5_13557446595643c77a72f98225b5dae1
+      eslint-plugin-jest: 26.9.0_02425f8fc98679dec1b3c8ec2736a657
       eslint-plugin-simple-import-sort: 7.0.0_eslint@8.36.0
       eslint-plugin-verdaccio: 9.6.1
       husky: 3.1.0
@@ -132,9 +132,24 @@ importers:
       typedoc-umlclass: ^0.7.0
     devDependencies:
       '@types/node': 12.12.6
-      typedoc: 0.23.7
+      typedoc: 0.23.7_typescript@4.7.3
       typedoc-plugin-missing-exports: 0.23.0_typedoc@0.23.7
       typedoc-umlclass: 0.7.0_typedoc@0.23.7
+
+  core/file-locking:
+    specifiers:
+      '@verdaccio/legacy-types': workspace:1.0.1
+      lockfile: 1.0.4
+    dependencies:
+      lockfile: 1.0.4
+    devDependencies:
+      '@verdaccio/legacy-types': link:../deprecated-types
+
+  core/streams:
+    specifiers:
+      '@verdaccio/legacy-types': workspace:1.0.1
+    devDependencies:
+      '@verdaccio/legacy-types': link:../deprecated-types
 
   plugins/active-directory:
     specifiers:
@@ -162,12 +177,12 @@ importers:
     specifiers:
       '@verdaccio/commons-api': 10.2.0
       '@verdaccio/legacy-types': workspace:1.0.1
-      '@verdaccio/streams': 10.2.0
+      '@verdaccio/streams': workspace:10.2.0
       aws-sdk: ^2.607.0
       recursive-readdir: 2.2.3
     dependencies:
       '@verdaccio/commons-api': 10.2.0
-      '@verdaccio/streams': 10.2.0
+      '@verdaccio/streams': link:../../core/streams
       aws-sdk: 2.1030.0
     devDependencies:
       '@verdaccio/legacy-types': link:../../core/deprecated-types
@@ -179,14 +194,14 @@ importers:
       '@google-cloud/storage': 3.5.0
       '@verdaccio/commons-api': 10.2.0
       '@verdaccio/legacy-types': workspace:1.0.1
-      '@verdaccio/streams': 10.2.0
+      '@verdaccio/streams': workspace:10.2.0
       fast-crc32c: 1.0.7
       memory-fs: 0.5.0
     dependencies:
       '@google-cloud/datastore': 4.5.0
       '@google-cloud/storage': 3.5.0
       '@verdaccio/commons-api': 10.2.0
-      '@verdaccio/streams': 10.2.0
+      '@verdaccio/streams': link:../../core/streams
     optionalDependencies:
       fast-crc32c: 1.0.7
     devDependencies:
@@ -196,7 +211,7 @@ importers:
   plugins/htpasswd:
     specifiers:
       '@types/bcryptjs': 2.4.2
-      '@verdaccio/file-locking': 10.3.0
+      '@verdaccio/file-locking': workspace:10.3.0
       '@verdaccio/legacy-types': workspace:1.0.1
       apache-md5: 1.1.8
       bcryptjs: 2.4.3
@@ -204,7 +219,7 @@ importers:
       mockdate: 3.0.5
       unix-crypt-td-js: 1.1.4
     dependencies:
-      '@verdaccio/file-locking': 10.3.0
+      '@verdaccio/file-locking': link:../../core/file-locking
       apache-md5: 1.1.8
       bcryptjs: 2.4.3
       http-errors: 2.0.0
@@ -219,9 +234,9 @@ importers:
       '@types/minimatch': ^3.0.3
       '@types/node': ^14.0.0
       '@verdaccio/commons-api': 10.2.0
-      '@verdaccio/file-locking': 10.3.0
+      '@verdaccio/file-locking': workspace:10.3.0
       '@verdaccio/legacy-types': workspace:1.0.1
-      '@verdaccio/streams': 10.2.0
+      '@verdaccio/streams': workspace:10.2.0
       async: 3.2.4
       debug: 4.3.4
       lodash: 4.17.21
@@ -231,8 +246,8 @@ importers:
       rmdir-sync: ^1.0.1
     dependencies:
       '@verdaccio/commons-api': 10.2.0
-      '@verdaccio/file-locking': 10.3.0
-      '@verdaccio/streams': 10.2.0
+      '@verdaccio/file-locking': link:../../core/file-locking
+      '@verdaccio/streams': link:../../core/streams
       async: 3.2.4
       debug: 4.3.4
       lodash: 4.17.21
@@ -249,11 +264,11 @@ importers:
     specifiers:
       '@verdaccio/commons-api': 10.2.0
       '@verdaccio/legacy-types': workspace:1.0.1
-      '@verdaccio/streams': 10.2.0
+      '@verdaccio/streams': workspace:10.2.0
       memory-fs: 0.5.0
     dependencies:
       '@verdaccio/commons-api': 10.2.0
-      '@verdaccio/streams': 10.2.0
+      '@verdaccio/streams': link:../../core/streams
       memory-fs: 0.5.0
     devDependencies:
       '@verdaccio/legacy-types': link:../../core/deprecated-types
@@ -2784,7 +2799,7 @@ packages:
       '@types/yargs-parser': 20.2.1
     dev: true
 
-  /@typescript-eslint/eslint-plugin/5.56.0_adug5dz7x5oujjxavvixso25gi:
+  /@typescript-eslint/eslint-plugin/5.56.0_00e86e8f3fbf5d44a6e0ad51793b5d32:
     resolution: {integrity: sha512-ZNW37Ccl3oMZkzxrYDUX4o7cnuPgU+YrcaYXzsRtLB16I1FR5SHMqga3zGsaSliZADCWo2v8qHWqAYIj8nWCCg==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     peerDependencies:
@@ -2796,10 +2811,10 @@ packages:
         optional: true
     dependencies:
       '@eslint-community/regexpp': 4.4.0
-      '@typescript-eslint/parser': 5.56.0_ztwzezm3yy5hyeruip3m6elbj4
+      '@typescript-eslint/parser': 5.56.0_eslint@8.36.0+typescript@4.7.3
       '@typescript-eslint/scope-manager': 5.56.0
-      '@typescript-eslint/type-utils': 5.56.0_ztwzezm3yy5hyeruip3m6elbj4
-      '@typescript-eslint/utils': 5.56.0_ztwzezm3yy5hyeruip3m6elbj4
+      '@typescript-eslint/type-utils': 5.56.0_eslint@8.36.0+typescript@4.7.3
+      '@typescript-eslint/utils': 5.56.0_eslint@8.36.0+typescript@4.7.3
       debug: 4.3.4
       eslint: 8.36.0
       grapheme-splitter: 1.0.4
@@ -2812,7 +2827,7 @@ packages:
       - supports-color
     dev: true
 
-  /@typescript-eslint/parser/5.56.0_ztwzezm3yy5hyeruip3m6elbj4:
+  /@typescript-eslint/parser/5.56.0_eslint@8.36.0+typescript@4.7.3:
     resolution: {integrity: sha512-sn1OZmBxUsgxMmR8a8U5QM/Wl+tyqlH//jTqCg8daTAmhAk26L2PFhcqPLlYBhYUJMZJK276qLXlHN3a83o2cg==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     peerDependencies:
@@ -2848,7 +2863,7 @@ packages:
       '@typescript-eslint/visitor-keys': 5.56.0
     dev: true
 
-  /@typescript-eslint/type-utils/5.56.0_ztwzezm3yy5hyeruip3m6elbj4:
+  /@typescript-eslint/type-utils/5.56.0_eslint@8.36.0+typescript@4.7.3:
     resolution: {integrity: sha512-8WxgOgJjWRy6m4xg9KoSHPzBNZeQbGlQOH7l2QEhQID/+YseaFxg5J/DLwWSsi9Axj4e/cCiKx7PVzOq38tY4A==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     peerDependencies:
@@ -2859,7 +2874,7 @@ packages:
         optional: true
     dependencies:
       '@typescript-eslint/typescript-estree': 5.56.0_typescript@4.7.3
-      '@typescript-eslint/utils': 5.56.0_ztwzezm3yy5hyeruip3m6elbj4
+      '@typescript-eslint/utils': 5.56.0_eslint@8.36.0+typescript@4.7.3
       debug: 4.3.4
       eslint: 8.36.0
       tsutils: 3.21.0_typescript@4.7.3
@@ -2920,7 +2935,7 @@ packages:
       - supports-color
     dev: true
 
-  /@typescript-eslint/utils/5.34.0_ztwzezm3yy5hyeruip3m6elbj4:
+  /@typescript-eslint/utils/5.34.0_eslint@8.36.0+typescript@4.7.3:
     resolution: {integrity: sha512-kWRYybU4Rn++7lm9yu8pbuydRyQsHRoBDIo11k7eqBWTldN4xUdVUMCsHBiE7aoEkFzrUEaZy3iH477vr4xHAQ==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     peerDependencies:
@@ -2938,7 +2953,7 @@ packages:
       - typescript
     dev: true
 
-  /@typescript-eslint/utils/5.56.0_ztwzezm3yy5hyeruip3m6elbj4:
+  /@typescript-eslint/utils/5.56.0_eslint@8.36.0+typescript@4.7.3:
     resolution: {integrity: sha512-XhZDVdLnUJNtbzaJeDSCIYaM+Tgr59gZGbFuELgF7m0IY03PlciidS7UQNKLE0+WpUTn1GlycEr6Ivb/afjbhA==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     peerDependencies:
@@ -2980,18 +2995,6 @@ packages:
     dependencies:
       http-errors: 2.0.0
       http-status-codes: 2.2.0
-    dev: false
-
-  /@verdaccio/file-locking/10.3.0:
-    resolution: {integrity: sha512-FE5D5H4wy/nhgR/d2J5e1Na9kScj2wMjlLPBHz7XF4XZAVSRdm45+kL3ZmrfA6b2HTADP/uH7H05/cnAYW8bhw==}
-    engines: {node: '>=8'}
-    dependencies:
-      lockfile: 1.0.4
-    dev: false
-
-  /@verdaccio/streams/10.2.0:
-    resolution: {integrity: sha512-FaIzCnDg0x0Js5kSQn1Le3YzDHl7XxrJ0QdIw5LrDUmLsH3VXNi4/NMlSHnw5RiTTMs4UbEf98V3RJRB8exqJA==}
-    engines: {node: '>=8', npm: '>=5'}
     dev: false
 
   /@vue/compiler-core/3.2.22:
@@ -4337,7 +4340,7 @@ packages:
       - supports-color
     dev: true
 
-  /eslint-module-utils/2.7.4_tf7h2azriypc3gaglz256o6pea:
+  /eslint-module-utils/2.7.4_997e7d0331461e2d98065e75df3bcf20:
     resolution: {integrity: sha512-j4GT+rqzCoRKHwURX7pddtIPGySnX9Si/cgMI5ztrcqOPtk5dDEeZ34CQVPphnqkJytlc97Vuk05Um2mJ3gEQA==}
     engines: {node: '>=4'}
     peerDependencies:
@@ -4358,7 +4361,7 @@ packages:
       eslint-import-resolver-webpack:
         optional: true
     dependencies:
-      '@typescript-eslint/parser': 5.56.0_ztwzezm3yy5hyeruip3m6elbj4
+      '@typescript-eslint/parser': 5.56.0_eslint@8.36.0+typescript@4.7.3
       debug: 3.2.7
       eslint: 8.36.0
       eslint-import-resolver-node: 0.3.7
@@ -4376,7 +4379,7 @@ packages:
       eslint-rule-composer: 0.3.0
     dev: true
 
-  /eslint-plugin-import/2.27.5_cnkxirszkzb4o6ts7gbclno24e:
+  /eslint-plugin-import/2.27.5_13557446595643c77a72f98225b5dae1:
     resolution: {integrity: sha512-LmEt3GVofgiGuiE+ORpnvP+kAm3h6MLZJ4Q5HCyHADofsb4VzXFsRiWj3c0OFiV+3DWFh0qg3v9gcPlfc3zRow==}
     engines: {node: '>=4'}
     peerDependencies:
@@ -4386,7 +4389,7 @@ packages:
       '@typescript-eslint/parser':
         optional: true
     dependencies:
-      '@typescript-eslint/parser': 5.56.0_ztwzezm3yy5hyeruip3m6elbj4
+      '@typescript-eslint/parser': 5.56.0_eslint@8.36.0+typescript@4.7.3
       array-includes: 3.1.6
       array.prototype.flat: 1.3.1
       array.prototype.flatmap: 1.3.1
@@ -4394,7 +4397,7 @@ packages:
       doctrine: 2.1.0
       eslint: 8.36.0
       eslint-import-resolver-node: 0.3.7
-      eslint-module-utils: 2.7.4_tf7h2azriypc3gaglz256o6pea
+      eslint-module-utils: 2.7.4_997e7d0331461e2d98065e75df3bcf20
       has: 1.0.3
       is-core-module: 2.11.0
       is-glob: 4.0.3
@@ -4409,7 +4412,7 @@ packages:
       - supports-color
     dev: true
 
-  /eslint-plugin-jest/26.9.0_ajbf7d6jqz455qntzdwconvgk4:
+  /eslint-plugin-jest/26.9.0_02425f8fc98679dec1b3c8ec2736a657:
     resolution: {integrity: sha512-TWJxWGp1J628gxh2KhaH1H1paEdgE2J61BBF1I59c6xWeL5+D1BzMxGDN/nXAfX+aSkR5u80K+XhskK6Gwq9ng==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     peerDependencies:
@@ -4422,8 +4425,8 @@ packages:
       jest:
         optional: true
     dependencies:
-      '@typescript-eslint/eslint-plugin': 5.56.0_adug5dz7x5oujjxavvixso25gi
-      '@typescript-eslint/utils': 5.34.0_ztwzezm3yy5hyeruip3m6elbj4
+      '@typescript-eslint/eslint-plugin': 5.56.0_00e86e8f3fbf5d44a6e0ad51793b5d32
+      '@typescript-eslint/utils': 5.34.0_eslint@8.36.0+typescript@4.7.3
       eslint: 8.36.0
       jest: 27.5.1
     transitivePeerDependencies:
@@ -8109,7 +8112,7 @@ packages:
     peerDependencies:
       typedoc: 0.22.x || 0.23.x
     dependencies:
-      typedoc: 0.23.7
+      typedoc: 0.23.7_typescript@4.7.3
     dev: true
 
   /typedoc-umlclass/0.7.0_typedoc@0.23.7:
@@ -8121,10 +8124,10 @@ packages:
       plantuml-pipe: 1.4.0
       progress: 2.0.3
       queue-fifo: 0.2.6
-      typedoc: 0.23.7
+      typedoc: 0.23.7_typescript@4.7.3
     dev: true
 
-  /typedoc/0.23.7:
+  /typedoc/0.23.7_typescript@4.7.3:
     resolution: {integrity: sha512-Vl/Yh4KYBaxQQOYImBgLQDX61hfaA7XaP/DZVd/w7rQvaqLEsdQH6gEMK8CMjyHo0bSzVnNYwxtD1KPSENoWug==}
     engines: {node: '>= 14.14'}
     hasBin: true
@@ -8135,6 +8138,7 @@ packages:
       marked: 4.0.18
       minimatch: 5.1.0
       shiki: 0.10.1
+      typescript: 4.7.3
     dev: true
 
   /typescript/4.7.3:

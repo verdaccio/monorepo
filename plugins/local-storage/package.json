@@ -32,8 +32,8 @@
   },
   "dependencies": {
     "@verdaccio/commons-api": "10.2.0",
-    "@verdaccio/file-locking": "10.3.0",
-    "@verdaccio/streams": "10.2.0",
+    "@verdaccio/file-locking": "workspace:10.3.0",
+    "@verdaccio/streams": "workspace:10.2.0",
     "async": "3.2.4",
     "debug": "4.3.4",
     "lodash": "4.17.21",
