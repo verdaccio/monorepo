@@ -1,5 +1,6 @@
 import fs from 'fs';
 import Path from 'path';
+import buildDebug from 'debug';
 
 import { Callback, AuthConf, Config, Logger, IPluginAuth, PluginOptions } from '@verdaccio/legacy-types';
 import { unlockFile } from '@verdaccio/file-locking';
@@ -15,6 +16,9 @@ import {
   sanityCheck,
   DEFAULT_BCRYPT_ROUNDS,
 } from './utils';
+
+const debug = buildDebug('verdaccio:plugin:htpasswd');
+
 
 export type HTPasswdConfig = {
   file: string;
@@ -72,10 +76,12 @@ export default class HTPasswd implements IPluginAuth<HTPasswdConfig> {
     this.lastTime = null;
 
     const { file } = config;
+    debug('file: %s', file);
     if (!file) {
       throw new Error('should specify "file" in config');
     }
 
+    debug(`password hash algorithm: ${algorithm}`);
     if (algorithm === HtpasswdHashAlgorithm.bcrypt) {
       rounds = config.rounds || DEFAULT_BCRYPT_ROUNDS;
     } else if (config.rounds !== undefined) {
@@ -86,8 +92,11 @@ export default class HTPasswd implements IPluginAuth<HTPasswdConfig> {
       algorithm,
       rounds,
     };
-
+    debug('config self_path: %s', options?.config?.self_path);
+    debug('config configPath: %s', options?.config?.configPath);
     this.path = Path.resolve(Path.dirname(options.config.self_path), file);
+    this.logger.info({ file: this.path }, 'using htpasswd file: @{file}');
+    debug('htpasswd path:', this.path);
     this.slowVerifyMs = config.slow_verify_ms || DEFAULT_SLOW_VERIFY_MS;
   }
 
