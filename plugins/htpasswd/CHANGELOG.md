@@ -1,5 +1,11 @@
 # Change Log
 
+## 10.5.5
+
+### Patch Changes
+
+- 0caa344: add extra loggign on startup
+
 ## 10.5.4
 
 ### Patch Changes
