@@ -284,37 +284,6 @@ importers:
         specifier: 0.5.0
         version: 0.5.0
 
-  plugins/htpasswd:
-    dependencies:
-      '@verdaccio/file-locking':
-        specifier: workspace:10.3.1
-        version: link:../../core/file-locking
-      apache-md5:
-        specifier: 1.1.8
-        version: 1.1.8
-      bcryptjs:
-        specifier: 2.4.3
-        version: 2.4.3
-      debug:
-        specifier: 4.3.4
-        version: 4.3.4
-      http-errors:
-        specifier: 2.0.0
-        version: 2.0.0
-      unix-crypt-td-js:
-        specifier: 1.1.4
-        version: 1.1.4
-    devDependencies:
-      '@types/bcryptjs':
-        specifier: 2.4.2
-        version: 2.4.2
-      '@verdaccio/legacy-types':
-        specifier: workspace:1.0.1
-        version: link:../../core/deprecated-types
-      mockdate:
-        specifier: 3.0.5
-        version: 3.0.5
-
   plugins/local-storage:
     dependencies:
       '@verdaccio/commons-api':
@@ -2816,10 +2785,6 @@ packages:
       '@babel/types': 7.20.7
     dev: true
 
-  /@types/bcryptjs@2.4.2:
-    resolution: {integrity: sha512-LiMQ6EOPob/4yUL66SZzu6Yh77cbzJFYll+ZfaPiPPFswtIlA/Fs1MzdKYA7JApHU49zQTbJGX3PDmCpIdDBRQ==}
-    dev: true
-
   /@types/caseless@0.12.2:
     resolution: {integrity: sha512-6ckxMjBBD8URvjB6J3NcnuAn5Pkl7t3TizAg+xdlzzQGSPSmBcXf8KoIH0ua/i+tio+ZRUHEXp0HEmvaR4kt0w==}
     dev: true
@@ -3357,11 +3322,6 @@ packages:
       picomatch: 2.3.0
     dev: true
 
-  /apache-md5@1.1.8:
-    resolution: {integrity: sha512-FCAJojipPn0bXjuEpjOOOMN8FZDkxfWWp4JGN9mifU2IhxvKyXZYqpzPHdnTSUpmPDy+tsslB6Z1g+Vg6nVbYA==}
-    engines: {node: '>=8'}
-    dev: false
-
   /argparse@1.0.10:
     resolution: {integrity: sha512-o5Roy6tNG4SL/FOkCAN6RzjiakZS25RLYFrcMttJqbdd8BWrnA+fGz57iN5Pb06pvBGvl5gQ0B48dJlslXvoTg==}
     dependencies:
@@ -3643,10 +3603,6 @@ packages:
 
   /base64-js@1.5.1:
     resolution: {integrity: sha512-AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA==}
-    dev: false
-
-  /bcryptjs@2.4.3:
-    resolution: {integrity: sha1-mrVie5PmBiH/fNrF2pczAn3x0Ms=}
     dev: false
 
   /better-path-resolve@1.0.0:
@@ -6823,10 +6779,6 @@ packages:
     engines: {node: '>=10'}
     hasBin: true
 
-  /mockdate@3.0.5:
-    resolution: {integrity: sha512-iniQP4rj1FhBdBYS/+eQv7j1tadJ9lJtdzgOpvsOHng/GbcDh2Fhdeq+ZRldrPYdXvCyfFUmFeEwEGXZB5I/AQ==}
-    dev: true
-
   /ms@2.1.2:
     resolution: {integrity: sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==}
 
@@ -8397,10 +8349,6 @@ packages:
     resolution: {integrity: sha512-hAZsKq7Yy11Zu1DE0OzWjw7nnLZmJZYTDZZyEFHZdUhV8FkH5MCfoU1XMaxXovpyW5nq5scPqq0ZDP9Zyl04oQ==}
     engines: {node: '>= 10.0.0'}
     dev: true
-
-  /unix-crypt-td-js@1.1.4:
-    resolution: {integrity: sha512-8rMeVYWSIyccIJscb9NdCfZKSRBKYTeVnwmiRYT2ulE3qd1RaDQ0xQDP+rI3ccIWbhu/zuo5cgN8z73belNZgw==}
-    dev: false
 
   /update-browserslist-db@1.0.9(browserslist@4.21.4):
     resolution: {integrity: sha512-/xsqn21EGVdXI3EXSum1Yckj3ZVZugqyOZQ/CxYPBD/R+ko9NSUScf8tFF4dOKY+2pvSSJA/S+5B8s4Zr4kyvg==}
