@@ -30,7 +30,7 @@ jobs:
       with:
         node-version-file: '.nvmrc'
     - name: Install pnpm
-      run: npm i pnpm@latest-7 -g
+      run: npm i pnpm@latest-8 -g
     - name: Install
       run: pnpm install --registry http://localhost:4873
   lint:
@@ -44,7 +44,7 @@ jobs:
         with:
           node-version-file: '.nvmrc'
       - name: Install pnpm
-        run: npm i pnpm@latest-7 -g
+        run: npm i pnpm@latest-8 -g
       - name: Install
         run: pnpm install --ignore-scripts
       - name: Lint
@@ -55,7 +55,7 @@ jobs:
       fail-fast: true
       matrix:
         os: [ubuntu-latest]
-        node_version: [14, 16, 18]
+        node_version: [16, 18]
     name: ${{ matrix.os }} / Node ${{ matrix.node_version }}
     runs-on: ${{ matrix.os }}
     steps:
@@ -67,7 +67,7 @@ jobs:
       # - name: untar packages
       #   run: tar -xzvf pkg.tar.gz -C ${{ github.workspace }}/packages
       - name: Install pnpm
-        run: npm i pnpm@latest-7 -g
+        run: npm i pnpm@latest-8 -g
       - uses: actions/cache@v2
         with:
           path: ~/.pnpm-store
