@@ -82,5 +82,8 @@
     "test": "pnpm recursive test",
     "ts:ref": "update-ts-references --discardComments"
   },
+  "engines": {
+    "node": ">=12"
+  },
   "version": "0.0.0"
 }
