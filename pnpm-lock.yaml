@@ -252,7 +252,7 @@ importers:
         specifier: workspace:10.2.1
         version: link:../../core/streams
       aws-sdk:
-        specifier: ^2.607.0
+        specifier: ^2.1030.0
         version: 2.1030.0
     devDependencies:
       '@verdaccio/legacy-types':
