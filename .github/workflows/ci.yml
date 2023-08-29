@@ -30,7 +30,9 @@ jobs:
       with:
         node-version-file: '.nvmrc'
     - name: Install pnpm
-      run: npm i pnpm@latest-8 -g
+      run: |
+        corepack enable
+        corepack prepare --activate pnpm@latest-8
     - name: Install
       run: pnpm install --registry http://localhost:4873
   lint:
@@ -44,7 +46,9 @@ jobs:
         with:
           node-version-file: '.nvmrc'
       - name: Install pnpm
-        run: npm i pnpm@latest-8 -g
+        run: |
+          corepack enable
+          corepack prepare --activate pnpm@latest-8
       - name: Install
         run: pnpm install --ignore-scripts
       - name: Lint
@@ -67,7 +71,9 @@ jobs:
       # - name: untar packages
       #   run: tar -xzvf pkg.tar.gz -C ${{ github.workspace }}/packages
       - name: Install pnpm
-        run: npm i pnpm@latest-8 -g
+        run: |
+          corepack enable
+          corepack prepare --activate pnpm@latest-8
       - uses: actions/cache@v2
         with:
           path: ~/.pnpm-store
