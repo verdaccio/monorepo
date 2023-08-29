@@ -30,7 +30,7 @@
   "dependencies": {
     "@verdaccio/commons-api": "10.2.0",
     "@verdaccio/streams": "workspace:10.2.1",
-    "aws-sdk": "^2.607.0"
+    "aws-sdk": "^2.1030.0"
   },
   "devDependencies": {
     "@verdaccio/legacy-types": "workspace:1.0.1",
