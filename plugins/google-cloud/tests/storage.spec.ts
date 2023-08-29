@@ -74,10 +74,18 @@ describe('Google Cloud Storage', () => {
   // storage test
 
   describe('Google Cloud Storage', () => {
-    const createPackage = (_cloudDatabase: ITestLocalData, _name: string, done: jest.DoneCallback): void => {
+    const createPackage = (
+      _cloudDatabase: ITestLocalData,
+      _name: string,
+      done: jest.DoneCallback
+    ): void => {
       done();
     };
-    const deletePackage = (_cloudDatabase: ITestLocalData, _name: string, done: jest.DoneCallback): void => {
+    const deletePackage = (
+      _cloudDatabase: ITestLocalData,
+      _name: string,
+      done: jest.DoneCallback
+    ): void => {
       done();
     };
 
@@ -107,7 +115,9 @@ describe('Google Cloud Storage', () => {
 
         const pkg = generatePackage(pkgName);
         const cloudDatabase: ITestLocalData = getCloudDatabase(storageConfig);
-        const store: IPackageStorage = cloudDatabase.getPackageStorage(pkgName) as IPackageStorageManager;
+        const store: IPackageStorage = cloudDatabase.getPackageStorage(
+          pkgName
+        ) as IPackageStorageManager;
         expect(store).not.toBeNull();
 
         store.createPackage(pkgName, pkg, (err: VerdaccioError) => {
@@ -117,7 +127,7 @@ describe('Google Cloud Storage', () => {
         });
       });
 
-      test('should fails on package already exist', done => {
+      test('should fails on package already exist', (done) => {
         jest.doMock('../src/storage-helper', () => {
           const originalModule = jest.requireActual('../src/storage-helper').default;
           return {
@@ -131,7 +141,7 @@ describe('Google Cloud Storage', () => {
                   bucket: 'foo',
                 };
                 this.storage = {
-                  bucket: name => new Bucket(name, true),
+                  bucket: (name) => new Bucket(name, true),
                 };
               }
             },
@@ -156,7 +166,7 @@ describe('Google Cloud Storage', () => {
         }
       });
 
-      test('should fails on package unexpected error', done => {
+      test('should fails on package unexpected error', (done) => {
         const FileMockedFailure = class {
           public exists(): Promise<never> {
             return Promise.reject(new Error(API_ERROR.UNKNOWN_ERROR));
@@ -176,7 +186,7 @@ describe('Google Cloud Storage', () => {
                   bucket: 'foo',
                 };
                 this.storage = {
-                  bucket: name => new Bucket(name, true, FileMockedFailure),
+                  bucket: (name) => new Bucket(name, true, FileMockedFailure),
                 };
               }
             },
@@ -186,7 +196,9 @@ describe('Google Cloud Storage', () => {
         const pkg = generatePackage(pkgName);
 
         const cloudDatabase: ITestLocalData = getCloudDatabase(storageConfig);
-        const store: IPackageStorage = cloudDatabase.getPackageStorage(pkgName) as IPackageStorageManager;
+        const store: IPackageStorage = cloudDatabase.getPackageStorage(
+          pkgName
+        ) as IPackageStorageManager;
         store.createPackage(pkgName, pkg, (err: VerdaccioError) => {
           expect(err).not.toBeNull();
           store.createPackage(pkgName, pkg, (err: VerdaccioError) => {
@@ -200,7 +212,7 @@ describe('Google Cloud Storage', () => {
 
       describe('GoogleCloudStorageHandler:save', () => {
         const pkgName = 'savePkg1';
-        test('should save a package', done => {
+        test('should save a package', (done) => {
           const pkg = generatePackage(pkgName);
 
           const cloudDatabase: ITestLocalData = getCloudDatabase(storageConfig);
@@ -221,7 +233,7 @@ describe('Google Cloud Storage', () => {
       const pkgName = 'deletePkg1';
       const cloudDatabase: ITestLocalData = getCloudDatabase(storageConfig);
 
-      test('should delete an instance', done => {
+      test('should delete an instance', (done) => {
         const store = cloudDatabase.getPackageStorage(pkgName);
         expect(store).not.toBeNull();
         if (store) {
@@ -232,7 +244,7 @@ describe('Google Cloud Storage', () => {
         }
       });
 
-      test('should fail on delete an instance', done => {
+      test('should fail on delete an instance', (done) => {
         const store = cloudDatabase.getPackageStorage('404Fake');
         expect(store).not.toBeNull();
         if (store) {
@@ -245,7 +257,7 @@ describe('Google Cloud Storage', () => {
         }
       });
 
-      test('should remove an entire package', done => {
+      test('should remove an entire package', (done) => {
         // FIXME: relocate this test
         const cloudDatabase = getCloudDatabase(storageConfig);
         const store = cloudDatabase.getPackageStorage(pkgExample.name);
@@ -265,15 +277,15 @@ describe('Google Cloud Storage', () => {
       const pkg = generatePackage(packageName);
       const cloudDatabase: ITestLocalData = getCloudDatabase(storageConfig);
 
-      beforeAll(done => {
+      beforeAll((done) => {
         createPackage(cloudDatabase, packageName, done);
       });
 
-      afterAll(done => {
+      afterAll((done) => {
         return deletePackage(cloudDatabase, packageName, done);
       });
 
-      test('should read a package', done => {
+      test('should read a package', (done) => {
         const store = cloudDatabase.getPackageStorage(packageName);
         expect(store).not.toBeNull();
         if (store) {
@@ -285,7 +297,7 @@ describe('Google Cloud Storage', () => {
         }
       });
 
-      test('should fails read a missing package', done => {
+      test('should fails read a missing package', (done) => {
         const cloudDatabase: ITestLocalData = getCloudDatabase(storageConfig);
         const store = cloudDatabase.getPackageStorage('');
         expect(store).not.toBeNull();
@@ -303,11 +315,11 @@ describe('Google Cloud Storage', () => {
     describe.skip('GoogleCloudStorageHandler:update', () => {
       const cloudDatabase: ITestLocalData = getCloudDatabase(storageConfig);
       const packageName = 'updateTransPkg';
-      beforeAll(done => {
+      beforeAll((done) => {
         createPackage(cloudDatabase, packageName, done);
       });
 
-      afterAll(done => {
+      afterAll((done) => {
         return deletePackage(cloudDatabase, packageName, done);
       });
 
@@ -324,7 +336,7 @@ describe('Google Cloud Storage', () => {
       //   }
       // });
 
-      test('should update and transform an instance', done => {
+      test('should update and transform an instance', (done) => {
         const pkg = generatePackage(packageName);
         const store = cloudDatabase.getPackageStorage(packageName);
 
@@ -355,7 +367,7 @@ describe('Google Cloud Storage', () => {
         }
       });
 
-      test('should fails on update due unknown package', done => {
+      test('should fails on update due unknown package', (done) => {
         const store = cloudDatabase.getPackageStorage('');
         expect(store).not.toBeNull();
         if (store) {
@@ -374,7 +386,7 @@ describe('Google Cloud Storage', () => {
         }
       });
 
-      test('should fails on update on fails updateHandler', done => {
+      test('should fails on update on fails updateHandler', (done) => {
         const store = cloudDatabase.getPackageStorage('');
         expect(store).not.toBeNull();
         if (store) {
@@ -418,11 +430,11 @@ describe('Google Cloud Storage', () => {
           stream.on('end', () => {
             stream.emit('response');
           });
-          stream.on('data', d => {
+          stream.on('data', (d) => {
             // eslint-disable-next-line no-console
             console.log('data-->', d);
           });
-          stream.on('response', d => {
+          stream.on('response', (d) => {
             // eslint-disable-next-line no-console
             console.log('response-->', d);
           });
@@ -435,7 +447,7 @@ describe('Google Cloud Storage', () => {
         }
       };
 
-      test('should write a tarball successfully push data', done => {
+      test('should write a tarball successfully push data', (done) => {
         jest.doMock('../src/storage-helper', () => {
           const originalModule = jest.requireActual('../src/storage-helper').default;
           return {
@@ -449,7 +461,7 @@ describe('Google Cloud Storage', () => {
                   bucket: 'foo',
                 };
                 this.storage = {
-                  bucket: name => new Bucket(name, false, FileWriteMocked),
+                  bucket: (name) => new Bucket(name, false, FileWriteMocked),
                 };
               }
             },
@@ -458,7 +470,9 @@ describe('Google Cloud Storage', () => {
 
         const bufferFile = fs.readFileSync(tarballFile);
         const cloudDatabase: ITestLocalData = getCloudDatabase(storageConfig);
-        const store: IPackageStorage = cloudDatabase.getPackageStorage(pkgExample.name) as IPackageStorageManager;
+        const store: IPackageStorage = cloudDatabase.getPackageStorage(
+          pkgExample.name
+        ) as IPackageStorageManager;
         const writeTarballStream = store.writeTarball('test-pkg-1.0.0.tgz');
 
         writeTarballStream.on('error', (err: VerdaccioError) => {
@@ -477,7 +491,7 @@ describe('Google Cloud Storage', () => {
         writeTarballStream.done();
       });
 
-      test.skip('should write a abort successfully push data', done => {
+      test.skip('should write a abort successfully push data', (done) => {
         const bufferFile = fs.readFileSync(tarballFile);
         const cloudDatabase: ITestLocalData = getCloudDatabase(storageConfig);
         const store = cloudDatabase.getPackageStorage(pkgExample.name);
@@ -491,7 +505,7 @@ describe('Google Cloud Storage', () => {
             done();
           });
 
-          writeTarballStream.on('data', data => {
+          writeTarballStream.on('data', (data) => {
             expect(data).toBeDefined();
             writeTarballStream.abort();
           });
@@ -507,7 +521,7 @@ describe('Google Cloud Storage', () => {
     });
 
     describe.skip('GoogleCloudStorageHandler:: readFile', () => {
-      test('should read a tarball successfully', done => {
+      test('should read a tarball successfully', (done) => {
         const cloudDatabase: ITestLocalData = getCloudDatabase(storageConfig);
         const store = cloudDatabase.getPackageStorage(pkgExample.name);
         expect(store).not.toBeNull();
@@ -515,7 +529,7 @@ describe('Google Cloud Storage', () => {
           const readTarballStream = store.readTarball('test-pkg-1.0.0.tgz');
           let isOpen = false;
 
-          readTarballStream.on('data', data => {
+          readTarballStream.on('data', (data) => {
             expect(data).toBeDefined();
           });
 
@@ -523,7 +537,7 @@ describe('Google Cloud Storage', () => {
             isOpen = true;
           });
 
-          readTarballStream.on('content-length', contentLength => {
+          readTarballStream.on('content-length', (contentLength) => {
             expect(contentLength).toBeDefined();
           });
 
@@ -538,7 +552,7 @@ describe('Google Cloud Storage', () => {
         }
       });
 
-      test('should fails with 404 on get a tarball', done => {
+      test('should fails with 404 on get a tarball', (done) => {
         const cloudDatabase: ITestLocalData = getCloudDatabase(storageConfig);
         const store = cloudDatabase.getPackageStorage(pkgExample.name);
         let isOpen = false;
@@ -565,7 +579,7 @@ describe('Google Cloud Storage', () => {
         }
       });
 
-      test('should abort successfully get a tarball', done => {
+      test('should abort successfully get a tarball', (done) => {
         let isOpen = false;
         const cloudDatabase: ITestLocalData = getCloudDatabase(storageConfig);
         const store = cloudDatabase.getPackageStorage(pkgExample.name);
@@ -593,7 +607,7 @@ describe('Google Cloud Storage', () => {
     });
 
     describe('GoogleCloudStorageHandler:: deleteTarball', () => {
-      test('should delete successfully get a tarball', done => {
+      test('should delete successfully get a tarball', (done) => {
         jest.doMock('../src/storage-helper', () => {
           return {
             __esModule: true,
@@ -626,7 +640,7 @@ describe('Google Cloud Storage', () => {
         }
       });
 
-      test('should fails on delete a tarball', done => {
+      test('should fails on delete a tarball', (done) => {
         jest.doMock('../src/storage-helper', () => {
           return {
             __esModule: true,

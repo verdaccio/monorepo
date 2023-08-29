@@ -9,7 +9,6 @@
 ![MIT](https://img.shields.io/github/license/mashape/apistatus.svg)
 [![node](https://img.shields.io/node/v/verdaccio-memory/latest.svg)](https://www.npmjs.com/package/verdaccio-memory)
 
-
 A memory based **storage plugin**.
 
 ```
@@ -18,7 +17,7 @@ A memory based **storage plugin**.
 
 ### Requirements
 
->`verdaccio@3.0.0`, `verdaccio@4.x`, `verdaccio@5.x`
+> `verdaccio@3.0.0`, `verdaccio@4.x`, `verdaccio@5.x`
 
 ```
 npm install -g verdaccio

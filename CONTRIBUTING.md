@@ -95,6 +95,7 @@ pnpm test
 All good? perfect, then you should create the pull request.
 
 #### Commit Guidelines
+
 #### Adding a changeset
 
 We use [changesets](https://github.com/atlassian/changesets) in order to generate a detailed Changelog as possible.

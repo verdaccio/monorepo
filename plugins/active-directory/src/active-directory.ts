@@ -51,7 +51,7 @@ class ActiveDirectoryPlugin implements IPluginAuth<ActiveDirectoryConfig> {
         connection.getGroupMembershipForUser(username, (err, groups: object[]): void => {
           if (err) {
             this.logger.warn(`AD - Active Directory group check failed with error: ${err}`);
-            return cb(getInternalError((err as unknown) as string));
+            return cb(getInternalError(err as unknown as string));
           }
 
           const requestedGroups = Array.isArray(groupName) ? groupName : [groupName];
@@ -63,13 +63,17 @@ class ActiveDirectoryPlugin implements IPluginAuth<ActiveDirectoryConfig> {
           );
 
           if (matchingGroups.length <= 0) {
-            const notMemberMessage = `AD - User ${user} is not member of group(s): ${requestedGroups.join(', ')}`;
+            const notMemberMessage = `AD - User ${user} is not member of group(s): ${requestedGroups.join(
+              ', '
+            )}`;
 
             this.logger.warn(notMemberMessage);
             cb(getForbidden(notMemberMessage));
           } else {
             this.logger.info(
-              `AD - Active Directory authentication succeeded in group(s): ${matchingGroups.join(', ')}`
+              `AD - Active Directory authentication succeeded in group(s): ${matchingGroups.join(
+                ', '
+              )}`
             );
             cb(null, [...matchingGroups, user]);
           }

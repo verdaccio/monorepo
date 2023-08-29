@@ -36,7 +36,7 @@ describe('Active Directory Plugin', () => {
     jest.resetModules();
   });
 
-  test('get error when connection fails', done => {
+  test('get error when connection fails', (done) => {
     const errorMessage = 'Unknown error';
     ActiveDirectory.prototype.authenticate = jest.fn((_1, _2, cb) => cb(errorMessage, undefined));
 
@@ -50,7 +50,7 @@ describe('Active Directory Plugin', () => {
     });
   });
 
-  test('get error when not authenticated satisfactory', done => {
+  test('get error when not authenticated satisfactory', (done) => {
     ActiveDirectory.prototype.authenticate = jest.fn((_1, _2, cb) => cb(null, false));
 
     adPlugin.authenticate('', '', (error, authUser) => {
@@ -63,7 +63,7 @@ describe('Active Directory Plugin', () => {
     });
   });
 
-  test('connect satisfactory without groups', done => {
+  test('connect satisfactory without groups', (done) => {
     const user = 'user';
     const password = 'password';
 
@@ -78,11 +78,11 @@ describe('Active Directory Plugin', () => {
     });
   });
 
-  test('get error when getting groups for user', done => {
+  test('get error when getting groups for user', (done) => {
     const errorMessage = 'Unknown error retrieving groups';
     ActiveDirectory.prototype.authenticate = jest.fn((_1, _2, cb) => cb(null, true));
     ActiveDirectory.prototype.getGroupMembershipForUser = jest.fn((_, cb) =>
-      cb((errorMessage as unknown) as object, null)
+      cb(errorMessage as unknown as object, null)
     ) as jest.Mock;
 
     adPluginSingleGroup.authenticate('', '', (error, authUser) => {
@@ -96,7 +96,7 @@ describe('Active Directory Plugin', () => {
     });
   });
 
-  test('get error when user groups do not match', done => {
+  test('get error when user groups do not match', (done) => {
     const user = 'user';
     const password = 'password';
 
@@ -110,13 +110,15 @@ describe('Active Directory Plugin', () => {
       expect(ActiveDirectory.prototype.getGroupMembershipForUser).toHaveBeenCalled();
       expect(logger.warn).toHaveBeenCalled();
       expect(error.code).toBe(HTTP_STATUS.FORBIDDEN);
-      expect(error.message).toBe(`AD - User ${user} is not member of group(s): ${configSingleGroup.groupName}`);
+      expect(error.message).toBe(
+        `AD - User ${user} is not member of group(s): ${configSingleGroup.groupName}`
+      );
       expect(authUser).toBeUndefined();
       done();
     });
   });
 
-  test('connect satisfactory when connection has only one group defined', done => {
+  test('connect satisfactory when connection has only one group defined', (done) => {
     const { groupName } = configSingleGroup;
     const user = 'user';
     const password = 'password';
@@ -136,7 +138,7 @@ describe('Active Directory Plugin', () => {
     });
   });
 
-  test('connect satisfactory when connection has multiple groups defined', done => {
+  test('connect satisfactory when connection has multiple groups defined', (done) => {
     const [, group2, group3] = configMultiGroups.groupName;
     const user = 'user';
     const password = 'password';

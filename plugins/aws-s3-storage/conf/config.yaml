@@ -30,7 +30,7 @@ packages:
     proxy: npmjs
     storage: 'public'
 logs:
-  - {type: stdout, format: pretty, level: http}
+  - { type: stdout, format: pretty, level: http }
 
 listen:
   - 0.0.0.0:4873
