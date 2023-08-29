@@ -6,7 +6,7 @@ import LocalDatabase from '../src/local-database';
 import * as pkgUtils from '../src/pkg-utils';
 
 import config from './config';
-import {setup, logger} from '@verdaccio/logger';
+import { setup, logger } from '@verdaccio/logger';
 
 setup({});
 

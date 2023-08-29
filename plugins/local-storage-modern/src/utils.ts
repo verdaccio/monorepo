@@ -83,6 +83,4 @@ export function _dbGenPath(dbName: string, config: Pick<Config, 'configPath' | '
   );
 }
 
-
-
 /* eslint-enable no-async-promise-executor */

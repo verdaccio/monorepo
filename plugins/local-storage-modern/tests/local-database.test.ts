@@ -1,8 +1,6 @@
 import fs from 'fs';
 import path from 'path';
 
-
-
 import LocalDatabase from '../src/local-database';
 import { ILocalFSPackageManager } from '../src/local-fs';
 import * as pkgUtils from '../src/pkg-utils';

@@ -1,4 +1,4 @@
-import {Config} from '@verdaccio/config';
+import { Config } from '@verdaccio/config';
 
 const configInstance = new Config({
   storage: './test-storage',
@@ -34,13 +34,12 @@ const configInstance = new Config({
       proxy: [],
     },
   },
-  logs:  {
+  logs: {
     type: 'stdout',
     format: 'pretty',
     level: 35,
   },
-  self_path: './tests/__fixtures__/config.yaml'
-})
-
+  self_path: './tests/__fixtures__/config.yaml',
+});
 
 export default configInstance;

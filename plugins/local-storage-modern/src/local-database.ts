@@ -5,12 +5,7 @@ import buildDebug from 'debug';
 import _ from 'lodash';
 import { errorUtils, fileUtils, pluginUtils, searchUtils } from '@verdaccio/core';
 import mkdirp from 'mkdirp';
-import {
-  Callback,
-  Config,
-  Logger,
-  StorageList,
-} from '@verdaccio/types';
+import { Callback, Config, Logger, StorageList } from '@verdaccio/types';
 
 import LocalDriver, { noSuchFile } from './local-fs';
 import { loadPrivatePackages, LocalStorage } from './pkg-utils';
