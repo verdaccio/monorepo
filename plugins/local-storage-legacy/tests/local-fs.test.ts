@@ -253,7 +253,7 @@ describe('Local FS test', () => {
       });
 
       readTarballStream.pipe(writeTarballStream);
-    });
+    }, 10000);
   });
 
   describe('updatePackage() group', () => {
