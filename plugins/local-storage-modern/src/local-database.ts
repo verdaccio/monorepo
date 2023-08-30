@@ -141,7 +141,7 @@ class LocalDatabase extends TokenActions {
     debug('get full list of packages (%o) has been fetched', totalItems);
   }
 
-  public getPackageStorage(packageName: string): IPackageStorage {
+  public getPackageStorage(packageName: string) {
     const packageAccess = this.config.getMatchedPackagesSpec(packageName);
 
     const packagePath: string = this._getLocalStoragePath(
