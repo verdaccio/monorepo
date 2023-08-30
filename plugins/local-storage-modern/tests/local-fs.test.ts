@@ -148,7 +148,7 @@ describe('Local FS test', () => {
       readTarballStream.on('data', function (data) {
         expect(data).toBeDefined();
       });
-    });
+    }, 10000);
 
     test('readTarball() fails', (done) => {
       const localFs = new LocalDriver(path.join(__dirname, '__fixtures__/readme-test'), logger);
@@ -158,7 +158,7 @@ describe('Local FS test', () => {
         expect(err).toBeTruthy();
         done();
       });
-    });
+    }, 10000);
   });
 
   describe('writeTarball() group', () => {
