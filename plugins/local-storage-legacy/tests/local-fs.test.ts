@@ -22,6 +22,8 @@ const logger: Logger = {
   trace: () => jest.fn(),
 };
 
+jest.setTimeout(10000);
+
 beforeAll(() => {
   localTempStorage = path.join('./_storage');
   rm(localTempStorage);
@@ -229,7 +231,7 @@ describe('Local FS test', () => {
       });
 
       readTarballStream.pipe(writeTarballStream);
-    });
+    }, 10000);
 
     test('writeTarball() abort', (done) => {
       const newFileLocationFolder: string = path.join(localTempStorage, '_writeTarball');

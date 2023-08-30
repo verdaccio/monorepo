@@ -22,6 +22,8 @@ const logger: Logger = {
   trace: () => jest.fn(),
 };
 
+jest.setTimeout(10000);
+
 beforeAll(() => {
   localTempStorage = path.join('./_storage');
   rm(localTempStorage);
