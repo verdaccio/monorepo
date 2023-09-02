@@ -3,29 +3,24 @@ import Path from 'path';
 
 import buildDebug from 'debug';
 import _ from 'lodash';
-import async from 'async';
 import mkdirp from 'mkdirp';
 import {
   Callback,
   Config,
-  IPackageStorage,
-  IPluginStorage,
-  LocalStorage,
   Logger,
   StorageList,
-} from '@verdaccio/legacy-types';
-import { getInternalError } from '@verdaccio/commons-api';
-
+} from '@verdaccio/types';
+import { searchOnStorage } from './dir-utils';
+import { errorUtils, searchUtils, fileUtils } from '@verdaccio/core';
+import {LocalStorage} from './utils';
 import LocalDriver, { noSuchFile } from './local-fs';
 import { loadPrivatePackages } from './pkg-utils';
 import TokenActions from './token';
 
-const DEPRECATED_DB_NAME = '.sinopia-db.json';
-const DB_NAME = '.verdaccio-db.json';
+const debug = buildDebug('verdaccio:plugin:local-storage:database');
 
-const debug = buildDebug('verdaccio:plugin:local-storage');
 
-class LocalDatabase extends TokenActions implements IPluginStorage<{}> {
+class LocalDatabase extends TokenActions {
   public path: string;
   public logger: Logger;
   public data: LocalStorage;
@@ -35,7 +30,7 @@ class LocalDatabase extends TokenActions implements IPluginStorage<{}> {
   public constructor(config: Config, logger: Logger) {
     super(config);
     this.config = config;
-    this.path = this._buildStoragePath(config);
+    this.path = this._dbGenPath(fileUtils.Files.DatabaseName, config);
     this.logger = logger;
     this.locked = false;
     this.data = this._fetchLocalPackages();
@@ -66,108 +61,78 @@ class LocalDatabase extends TokenActions implements IPluginStorage<{}> {
     }
   }
 
-  public search(
-    onPackage: Callback,
-    onEnd: Callback,
-    validateName: (name: string) => boolean
-  ): void {
-    const storages = this._getCustomPackageLocalStorages();
-    debug(`search custom local packages: %o`, JSON.stringify(storages));
-    const base = Path.dirname(this.config.self_path);
-    const self = this;
-    const storageKeys = Object.keys(storages);
-    debug(`search base: %o keys: %o`, base, storageKeys);
+  /**
+ * Filter and only match those values that the query define.
+ **/
+  public async filterByQuery(results: searchUtils.SearchItemPkg[], query: searchUtils.SearchQuery) {
+    // FUTURE: apply new filters, keyword, version, ...
+    return results.filter((item: searchUtils.SearchItemPkg) => {
+      return item?.name?.match(query.text) !== null;
+    }) as searchUtils.SearchItemPkg[];
+  }
 
-    async.eachSeries(
-      storageKeys,
-      function (storage, cb) {
-        const position = storageKeys.indexOf(storage);
-        const base2 = Path.join(position !== 0 ? storageKeys[0] : '');
-        const storagePath: string = Path.resolve(base, base2, storage);
-        debug('search path: %o : %o', storagePath, storage);
-        fs.readdir(storagePath, (err, files) => {
-          if (err) {
-            return cb(err);
-          }
-
-          async.eachSeries(
-            files,
-            function (file, cb) {
-              debug('local-storage: [search] search file path: %o', file);
-              if (storageKeys.includes(file)) {
-                return cb();
-              }
-
-              if (file.match(/^@/)) {
-                // scoped
-                const fileLocation = Path.resolve(base, storage, file);
-                debug('search scoped file location: %o', fileLocation);
-                fs.readdir(fileLocation, function (err, files) {
-                  if (err) {
-                    return cb(err);
-                  }
-
-                  async.eachSeries(
-                    files,
-                    (file2, cb) => {
-                      if (validateName(file2)) {
-                        const packagePath = Path.resolve(base, storage, file, file2);
-
-                        fs.stat(packagePath, (err, stats) => {
-                          if (_.isNil(err) === false) {
-                            return cb(err);
-                          }
-                          const item = {
-                            name: `${file}/${file2}`,
-                            path: packagePath,
-                            time: stats.mtime.getTime(),
-                          };
-                          onPackage(item, cb);
-                        });
-                      } else {
-                        cb();
-                      }
-                    },
-                    cb
-                  );
-                });
-              } else if (validateName(file)) {
-                const base2 = Path.join(position !== 0 ? storageKeys[0] : '');
-                const packagePath = Path.resolve(base, base2, storage, file);
-                debug('search file location: %o', packagePath);
-                fs.stat(packagePath, (err, stats) => {
-                  if (_.isNil(err) === false) {
-                    return cb(err);
-                  }
-                  onPackage(
-                    {
-                      name: file,
-                      path: packagePath,
-                      time: self.getTime(stats.mtime.getTime(), stats.mtime),
-                    },
-                    cb
-                  );
-                });
-              } else {
-                cb();
-              }
-            },
-            cb
-          );
-        });
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  public async getScore(_pkg: searchUtils.SearchItemPkg): Promise<searchUtils.Score> {
+    // TODO: there is no particular reason to predefined scores
+    // could be improved by using
+    return Promise.resolve({
+      final: 1,
+      detail: {
+        maintenance: 0,
+        popularity: 1,
+        quality: 1,
       },
-      // @ts-ignore
-      onEnd
+    });
+  }
+
+  private _getCustomPackageLocalStorages(): Map<string, string> {
+    const storages = new Map<string, string>();
+    const { packages } = this.config;
+
+    if (packages) {
+      Object.keys(packages || {}).map((pkg) => {
+        const { storage } = packages[pkg];
+        if (typeof storage === 'string') {
+          const storagePath = Path.join(this.getStoragePath(), storage);
+          debug('add custom storage for %s on %s', storage, storagePath);
+          storages.set(storage, storagePath);
+        }
+      });
+    }
+
+    return storages;
+  }
+
+  public async search(query: searchUtils.SearchQuery): Promise<searchUtils.SearchItem[]> {
+    const results: searchUtils.SearchItem[] = [];
+    const storagePath = this.getStoragePath();
+    const storages = this._getCustomPackageLocalStorages();
+    const packagesOnStorage = await this.filterByQuery(
+      await searchOnStorage(storagePath, storages),
+      query
     );
+    debug('packages found %o', packagesOnStorage.length);
+    for (let storage of packagesOnStorage) {
+      // check if package is listed on the cache private database
+      const isPrivate = (this.data as LocalStorage).list.includes(storage.name);
+      const score = await this.getScore(storage);
+      results.push({
+        package: storage,
+        verdaccioPrivate: isPrivate,
+        verdaccioPkgCached: !isPrivate,
+        score,
+      });
+    }
+    return results;
   }
 
   public remove(name: string, cb: Callback): void {
     this.get((err, data) => {
       if (err) {
-        cb(getInternalError('error remove private package'));
+        cb(errorUtils.getInternalError('error remove private package'));
         this.logger.error(
           { err },
-          '[local-storage/remove]: remove the private package has failed @{err}'
+          'remove the private package has failed @{err}'
         );
         debug('error on remove package %o', name);
       }
@@ -196,7 +161,7 @@ class LocalDatabase extends TokenActions implements IPluginStorage<{}> {
     debug('get full list of packages (%o) has been fetched', totalItems);
   }
 
-  public getPackageStorage(packageName: string): IPackageStorage {
+  public getPackageStorage(packageName: string) {
     const packageAccess = this.config.getMatchedPackagesSpec(packageName);
 
     const packagePath: string = this._getLocalStoragePath(
@@ -227,29 +192,6 @@ class LocalDatabase extends TokenActions implements IPluginStorage<{}> {
     return time ? time : mtime;
   }
 
-  private _getCustomPackageLocalStorages(): object {
-    const storages = {};
-
-    // add custom storage if exist
-    if (this.config.storage) {
-      storages[this.config.storage] = true;
-    }
-
-    const { packages } = this.config;
-
-    if (packages) {
-      const listPackagesConf = Object.keys(packages || {});
-
-      listPackagesConf.map((pkg) => {
-        const storage = packages[pkg].storage;
-        if (storage) {
-          storages[storage] = false;
-        }
-      });
-    }
-
-    return storages;
-  }
 
   /**
    * Syncronize {create} database whether does not exist.
@@ -291,6 +233,28 @@ class LocalDatabase extends TokenActions implements IPluginStorage<{}> {
     }
   }
 
+  private getBaseConfigPath(): string {
+    return Path.dirname(this.config.configPath);
+  }
+
+    /**
+   * The field storage could be absolute or relative.
+   * If relative, it will be resolved against the config path.
+   * If absolute, it will be returned as is.
+   **/
+    private getStoragePath() {
+      const { storage } = this.config;
+      if (typeof storage !== 'string') {
+        throw new TypeError('storage field is mandatory');
+      }
+
+      const storagePath = Path.isAbsolute(storage)
+        ? storage
+        : Path.normalize(Path.join(this.getBaseConfigPath(), storage));
+      debug('storage path %o', storagePath);
+      return storagePath;
+    }
+
   /**
    * Verify the right local storage location.
    * @param {String} path
@@ -307,31 +271,6 @@ class LocalDatabase extends TokenActions implements IPluginStorage<{}> {
       }
 
       return globalConfigStorage as string;
-    }
-  }
-
-  /**
-   * Build the local database path.
-   * @param {Object} config
-   * @return {string|String|*}
-   * @private
-   */
-  private _buildStoragePath(config: Config): string {
-    const sinopiadbPath: string = this._dbGenPath(DEPRECATED_DB_NAME, config);
-    try {
-      fs.accessSync(sinopiadbPath, fs.constants.F_OK);
-      // @ts-ignore
-      process.emitWarning('Database name deprecated!', {
-        code: 'VERCODE01',
-        detail: `Please rename database name from ${DEPRECATED_DB_NAME} to ${DB_NAME}`,
-      });
-      return sinopiadbPath;
-    } catch (err: any) {
-      if (err.code === noSuchFile) {
-        return this._dbGenPath(DB_NAME, config);
-      }
-
-      throw err;
     }
   }
 
