@@ -7,7 +7,7 @@ import { noSuchFile } from '../src/local-fs';
 
 import logger from './__mocks__/Logger';
 
-describe('Utitlies', () => {
+describe('Utilities', () => {
   const loadDb = (name): string => path.join(__dirname, '__fixtures__/databases', `${name}.json`);
 
   beforeEach(() => {

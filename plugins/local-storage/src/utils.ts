@@ -3,6 +3,12 @@ import path from 'path';
 
 import _ from 'lodash';
 
+export type LocalStorage = {
+  list: any;
+  secret: string;
+};
+
+
 export function getFileStats(packagePath: string): Promise<fs.Stats> {
   return new Promise((resolve, reject): void => {
     fs.stat(packagePath, (err, stats) => {
