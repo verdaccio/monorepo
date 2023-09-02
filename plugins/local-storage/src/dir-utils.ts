@@ -4,7 +4,7 @@ import { join } from 'path';
 
 import { searchUtils, validatioUtils } from '@verdaccio/core';
 
-const debug = buildDebug('verdaccio:plugin:local-storage:utils');
+const debug = buildDebug('verdaccio:plugin:local-storage:dir-utils');
 
 /**
  * Retrieve a list of absolute paths to all folders in the given storage path
@@ -64,12 +64,6 @@ export async function searchOnStorage(
 ): Promise<searchUtils.SearchItemPkg[]> {
   const matchedStorages = Array.from(storages);
   const storageFolders = Array.from(storages.keys());
-  // const getScopedFolders = async (pkgName) => {
-  //   const scopedPackages = await getFolders(join(storagePath, pkgName), '*');
-  //   const listScoped = scopedPackages.map((scoped) => ({
-  //     name: `${pkgName}/${scoped}`,
-  //   }));
-  // };
   debug('search on %o', storagePath);
   debug('storage folders %o', matchedStorages.length);
   let results: searchUtils.SearchItemPkg[] = [];

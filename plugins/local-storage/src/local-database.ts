@@ -17,7 +17,7 @@ import LocalDriver, { noSuchFile } from './local-fs';
 import { loadPrivatePackages } from './pkg-utils';
 import TokenActions from './token';
 
-const debug = buildDebug('verdaccio:plugin:local-storage');
+const debug = buildDebug('verdaccio:plugin:local-storage:database');
 
 
 class LocalDatabase extends TokenActions {
