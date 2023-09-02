@@ -21,8 +21,11 @@ export default class TokenActions implements ITokenActions {
   }
 
   public _dbGenPath(dbName: string, config: Config): string {
+    // TODO: self_path is a legacy property and is deprecated
+    // TODO: display deprecation warning for self_path
+    const selfPath = config.configPath ?? config.self_path;
     return Path.join(
-      Path.resolve(Path.dirname(config.self_path || ''), config.storage as string, dbName)
+      Path.resolve(Path.dirname(selfPath || ''), config.storage as string, dbName)
     );
   }
 
