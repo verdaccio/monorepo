@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "@verdaccio/commons-api": "10.2.0",
-    "activedirectory2": "2.1.0"
+    "activedirectory2": "2.2.0"
   },
   "devDependencies": {
     "@types/activedirectory2": "^1.2.1",
