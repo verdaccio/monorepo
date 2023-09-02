@@ -8,7 +8,7 @@ import _ from 'lodash';
 import mkdirp from 'mkdirp';
 import { UploadTarball, ReadTarball } from '@verdaccio/streams';
 import { unlockFile, readFile } from '@verdaccio/file-locking';
-import { Callback, Logger, Package, ILocalPackageManager, IUploadTarball } from '@verdaccio/legacy-types';
+import { Callback, Logger, Package } from '@verdaccio/types';
 import { errorUtils, VerdaccioError } from '@verdaccio/core';
 
 export const fileExist = 'EEXISTS';
@@ -54,9 +54,7 @@ const renameTmp = function(src, dst, _cb): void {
   });
 };
 
-export type ILocalFSPackageManager = ILocalPackageManager & { path: string };
-
-export default class LocalFS implements ILocalFSPackageManager {
+export default class LocalFS  {
   public path: string;
   public logger: Logger;
 
@@ -182,7 +180,7 @@ export default class LocalFS implements ILocalFSPackageManager {
     );
   }
 
-  public writeTarball(name: string): IUploadTarball {
+  public writeTarball(name: string) {
     const uploadStream = new UploadTarball({});
     debug('write a tarball for a package %o', name);
 

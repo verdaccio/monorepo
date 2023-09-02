@@ -7,18 +7,18 @@ import mkdirp from 'mkdirp';
 import {
   Callback,
   Config,
-  LocalStorage,
   Logger,
   StorageList,
-} from '@verdaccio/legacy-types';
+} from '@verdaccio/types';
 import { searchOnStorage } from './dir-utils';
 import { errorUtils, searchUtils, fileUtils } from '@verdaccio/core';
-
+import {LocalStorage} from './utils';
 import LocalDriver, { noSuchFile } from './local-fs';
 import { loadPrivatePackages } from './pkg-utils';
 import TokenActions from './token';
 
 const debug = buildDebug('verdaccio:plugin:local-storage');
+
 
 class LocalDatabase extends TokenActions {
   public path: string;

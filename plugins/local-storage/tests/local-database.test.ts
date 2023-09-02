@@ -1,7 +1,6 @@
 import fs from 'fs';
 import path from 'path';
 
-import { assign } from 'lodash';
 import { PluginOptions } from '@verdaccio/legacy-types';
 
 import LocalDatabase from '../src/local-database';

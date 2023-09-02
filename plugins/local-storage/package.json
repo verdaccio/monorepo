@@ -43,8 +43,8 @@
   "devDependencies": {
     "@types/express": "^4.17.17",
     "@types/minimatch": "^3.0.3",
-    "@types/node": "^14.0.0",
-    "@verdaccio/config": "6.0.0-6-next.76",
+    "@types/node": "^20.5.8",
+    "@verdaccio/config": "7.0.0-next.1",
     "@verdaccio/types": "12.0.0-next.0",
     "minimatch": "^4.0.0",
     "rmdir-sync": "^1.0.1"
