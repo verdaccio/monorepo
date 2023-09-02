@@ -1,5 +1,11 @@
 # Change Log
 
+## 10.3.2
+
+### Patch Changes
+
+- 201ed82: fix: update aws-sdk
+
 ## 10.3.1
 
 ### Patch Changes
