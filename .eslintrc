@@ -49,7 +49,7 @@
     "padded-blocks": "off",
     "require-jsdoc": "off",
     "valid-jsdoc": "off",
-    "import/order": ["error"],
+    "import/order": "off",
     "eol-last": "error",
     "no-irregular-whitespace": "error",
     "no-mixed-spaces-and-tabs": ["error", "smart-tabs"],
