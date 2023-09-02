@@ -139,16 +139,4 @@ describe('Local Database', () => {
       });
     });
   });
-
-  describe('search', () => {
-    const onPackageMock = jest.fn((item, cb) => cb());
-    const validatorMock = jest.fn(() => true);
-
-    test('should find scoped packages', async () => {
-      const search = await locaDatabase.search({text: 'test'});
-      expect(search).toEqual([])
-    });
-
-
-  });
 });

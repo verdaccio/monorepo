@@ -10,7 +10,6 @@ export function getMatchedPackagesSpec(pkgName: string, packages: object): objec
   return;
 }
 
-
 export default class Config {
   public constructor() {
     this.storage = './test-storage';
@@ -63,7 +62,6 @@ export default class Config {
     ];
 
     this.self_path = './tests/__fixtures__/config.yaml';
-    this.configPath = './tests/__fixtures__/config.yaml';
 
     this.https = {
       enable: false,
