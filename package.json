@@ -63,7 +63,7 @@
     "husky": "3.1.0",
     "update-ts-references": "2.8.0",
     "jest": "27.5.1",
-    "npm-run-all2": "5.0.0",
+    "npm-run-all2": "5.0.2",
     "lodash": "4.17.21",
     "prettier": "2.8.8",
     "snyk": "1.1279.0",
