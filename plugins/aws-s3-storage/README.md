@@ -32,13 +32,13 @@ is under control of Verdaccio community and constantly upated.
 * AWS Account (in case you are using the cloud)
 * Verdaccio server (4.0) (for 3.x use `verdaccio-s3-storage` instead)
 
-```
+```bash
 npm install -g verdaccio
 ```
 
 ## Usage
 
-```
+```bash
 npm install verdaccio-aws-s3-storage
 ```
 
@@ -66,22 +66,27 @@ The configured values can either be the actual value or the name of an environme
 - `keyPrefix`
 - `region`
 - `endpoint`
-- `accessKeyID`
+- `accessKeyId`
 - `secretAccessKey`
 - `sessionToken`
 
-``` yaml
+> If an environment variable is not set then it is assumed the value is the literal value given. For example, if `S3_BUCKET` is not set, then this will use a bucket named exactly "S3_BUCKET".
+
+```yaml
 store:
   aws-s3-storage:
-    bucket: S3_BUCKET # If an environment variable named S3_BUCKET is set, it will use that value. Otherwise assumes the bucket is named 'S3_BUCKET'
-    keyPrefix: S3_KEY_PREFIX # If an environment variable named S3_KEY_PREFIX is set, it will use that value. Otherwise assumes the bucket is named 'S3_KEY_PREFIX'
-    endpoint: S3_ENDPOINT # If an environment variable named S3_ENDPOINT is set, it will use that value. Otherwise assumes the bucket is named 'S3_ENDPOINT'
-    ...
+    bucket: S3_BUCKET
+    keyPrefix: S3_KEY_PREFIX
+    region: S3_REGION
+    endpoint: S3_ENDPOINT
+    accessKeyId: S3_ACCESS_KEY_ID
+    secretAccessKey: S3_SECRET_ACCESS_KEY
+    sessionToken: S3_SESSION_TOKEN
 ```
 
-store properties can be defined for packages. The storage location corresponds to the folder in s3 bucket.
+Additional properties can be defined for packages. The `storage` location corresponds to the folder in the S3 bucket.
 
-```
+```yaml
 packages:
   '@scope/*':
     access: all
