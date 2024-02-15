@@ -44,6 +44,6 @@ export function convertS3Error(err: AWSError): VerdaccioError {
       return getInternalError('request aborted');
     default:
       // @ts-ignore
-      return getCode(err.statusCode, err.message);
+      return getCode(err.statusCode || HTTP_STATUS.INTERNAL_ERROR, err.message);
   }
 }
