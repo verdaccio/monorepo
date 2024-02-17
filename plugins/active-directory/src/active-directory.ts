@@ -28,6 +28,7 @@ class ActiveDirectoryPlugin implements IPluginAuth<ActiveDirectoryConfig> {
       domainSuffix: undefined,
       username,
       password,
+      logging: this.logger
     };
 
     const connection = new ActiveDirectory(connectionConfig);
