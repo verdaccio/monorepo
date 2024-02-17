@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/active-directory",
-  "version": "10.2.1",
+  "version": "10.2.2",
   "description": "Active Directory authentication plugin for Verdaccio",
   "keywords": [
     "verdaccio",

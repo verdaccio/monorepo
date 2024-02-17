@@ -1,5 +1,11 @@
 # Change Log
 
+## 10.2.2
+
+### Patch Changes
+
+- 72c7eab: fix: active directory missing logging option
+
 ## 10.2.1
 
 ### Patch Changes
