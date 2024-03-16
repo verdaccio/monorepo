@@ -1,5 +1,7 @@
 # @verdaccio/local-storage
 
+> Used by 6.x versions
+
 📦 File system storage plugin for verdaccio 
 
 [![verdaccio (latest)](https://img.shields.io/npm/v/@verdaccio/local-storage/latest.svg)](https://www.npmjs.com/package/@verdaccio/local-storage)
