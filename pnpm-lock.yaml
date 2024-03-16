@@ -337,6 +337,49 @@ importers:
         specifier: ^1.0.1
         version: 1.0.1
 
+  plugins/local-storage-legacy:
+    dependencies:
+      '@verdaccio/commons-api':
+        specifier: 10.2.0
+        version: 10.2.0
+      '@verdaccio/file-locking':
+        specifier: workspace:10.3.1
+        version: link:../../core/file-locking
+      '@verdaccio/streams':
+        specifier: workspace:10.2.1
+        version: link:../../core/streams
+      async:
+        specifier: 3.2.4
+        version: 3.2.4
+      debug:
+        specifier: 4.3.4
+        version: 4.3.4
+      lodash:
+        specifier: 4.17.21
+        version: 4.17.21
+      lowdb:
+        specifier: 1.0.0
+        version: 1.0.0
+      mkdirp:
+        specifier: 1.0.4
+        version: 1.0.4
+    devDependencies:
+      '@types/minimatch':
+        specifier: ^3.0.3
+        version: 3.0.5
+      '@types/node':
+        specifier: ^20.5.8
+        version: 20.5.8
+      '@verdaccio/legacy-types':
+        specifier: workspace:1.0.1
+        version: link:../../core/deprecated-types
+      minimatch:
+        specifier: ^4.0.0
+        version: 4.1.0
+      rmdir-sync:
+        specifier: ^1.0.1
+        version: 1.0.1
+
   plugins/memory:
     dependencies:
       '@verdaccio/commons-api':
@@ -3780,6 +3823,10 @@ packages:
     resolution: {integrity: sha512-spZRyzKL5l5BZQrr/6m/SqFdBN0q3OCI0f9rjfBzCMBIP4p75P620rR3gTmaksNOhmzgdxcaxdNfMy6anrbM0g==}
     dev: false
 
+  /async@3.2.4:
+    resolution: {integrity: sha512-iAB+JbDEGXhyIUavoDl9WP/Jj106Kz9DEn1DPgYw5ruDn0e3Wgi3sKFm55sASdGBNOQB8F59d9qQ7deqrHA8wQ==}
+    dev: false
+
   /asynckit@0.4.0:
     resolution: {integrity: sha512-Oei9OH4tRh0YqU3GxhX79dM/mwVgvbZJaSNaRk+bshkj0S5cfHcgYakreBjrHwatXKbz+IoIdYLxrKim2MjW0Q==}
     dev: true
@@ -4305,7 +4352,7 @@ packages:
     dev: false
 
   /concat-map@0.0.1:
-    resolution: {integrity: sha1-2Klr13/Wjfd5OnMDajug1UBdR3s=}
+    resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
     dev: true
 
   /concat-stream@2.0.0:
@@ -5349,7 +5396,7 @@ packages:
     resolution: {integrity: sha512-YJDaCJZEnBmcbw13fvdAM9AwNOJwOzrE4pqMqBq5nFiEqXUqHwlK4B+3pUw6JNvfSPtX05xFHtYy/1ni01eGCw==}
     engines: {node: '>=6 <7 || >=8'}
     dependencies:
-      graceful-fs: 4.2.8
+      graceful-fs: 4.2.9
       jsonfile: 4.0.0
       universalify: 0.1.2
     dev: true
@@ -5634,6 +5681,7 @@ packages:
 
   /graceful-fs@4.2.8:
     resolution: {integrity: sha512-qkIilPUYcNhJpd33n0GBXTB1MMPp14TxEsEs0pTrsSVucApsYzW5V+Q8Qxhik6KU3evy+qkAAowTByymK0avdg==}
+    dev: false
 
   /graceful-fs@4.2.9:
     resolution: {integrity: sha512-NtNxqUcXgpW2iMrfqSfR73Glt39K+BLwWsPs94yR63v45T0Wbej7eRmL5cWfwEgqXnmjQp3zaJTshdRW/qC2ZQ==}
