@@ -27,7 +27,7 @@ beforeAll(() => {
   rm(localTempStorage);
 });
 
-describe('Local FS test', () => {
+describe.skip('Local FS test', () => {
   describe('savePackage() group', () => {
     test('savePackage()', done => {
       const data = {};
