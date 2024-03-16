@@ -1,4 +1,6 @@
-# @verdaccio/local-storage
+# @verdaccio/local-storage-legacy
+
+> Only used by 5.x versions
 
 📦 File system storage plugin for verdaccio 
 
