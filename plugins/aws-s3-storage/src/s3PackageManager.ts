@@ -38,6 +38,7 @@ export default class S3PackageManager implements ILocalPackageManager {
       secretAccessKey,
       sessionToken,
       tarballACL,
+      proxy,
     } = config;
     this.tarballACL = tarballACL || 'private';
 
@@ -48,6 +49,9 @@ export default class S3PackageManager implements ILocalPackageManager {
       accessKeyId,
       secretAccessKey,
       sessionToken,
+      httpOptions: {
+        proxy,
+      },
     });
     this.logger.trace(
       { packageName },
@@ -74,6 +78,10 @@ export default class S3PackageManager implements ILocalPackageManager {
     this.logger.trace(
       { sessionToken },
       's3: [S3PackageManager constructor] sessionToken @{sessionToken}'
+    );
+    this.logger.trace(
+      { proxy },
+      's3: [S3PackageManager constructor] proxy @{proxy}'
     );
 
     const packageAccess = this.config.getMatchedPackagesSpec(packageName);

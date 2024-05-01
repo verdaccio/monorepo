@@ -10,4 +10,5 @@ export interface S3Config extends Config {
   accessKeyId?: string;
   secretAccessKey?: string;
   sessionToken?: string;
+  proxy?: string;
 }

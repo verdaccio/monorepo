@@ -9,6 +9,7 @@ store:
     accessKeyId: foobar
     secretAccessKey: 1234567e
     s3ForcePathStyle: true
+    proxy: http://localhost:8080
 
 uplinks:
   npmjs:
