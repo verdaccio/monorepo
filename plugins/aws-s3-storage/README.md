@@ -58,6 +58,7 @@ store:
     accessKeyId: your-access-key-id # optional, aws accessKeyId for private S3 bucket
     secretAccessKey: your-secret-access-key # optional, aws secretAccessKey for private S3 bucket
     sessionToken: your-session-token # optional, aws sessionToken for private S3 bucket
+    proxy: your-proxy # optional, HTTP or HTTPS proxies if you can't connect to internet directly
 ```
 
 The configured values can either be the actual value or the name of an environment variable that contains the value for the following options:
@@ -69,6 +70,7 @@ The configured values can either be the actual value or the name of an environme
 - `accessKeyId`
 - `secretAccessKey`
 - `sessionToken`
+- `proxy`
 
 > If an environment variable is not set then it is assumed the value is the literal value given. For example, if `S3_BUCKET` is not set, then this will use a bucket named exactly "S3_BUCKET".
 
@@ -82,6 +84,7 @@ store:
     accessKeyId: S3_ACCESS_KEY_ID
     secretAccessKey: S3_SECRET_ACCESS_KEY
     sessionToken: S3_SESSION_TOKEN
+    proxy: HTTPS_PROXY
 ```
 
 Additional properties can be defined for packages. The `storage` location corresponds to the folder in the S3 bucket.
