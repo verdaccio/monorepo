@@ -1,5 +1,11 @@
 # Change Log
 
+## 10.4.0
+
+### Minor Changes
+
+- cf14be6: feat: add proxy support for s3 storage
+
 ## 10.3.3
 
 ### Patch Changes
