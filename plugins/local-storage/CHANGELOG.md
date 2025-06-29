@@ -1,5 +1,11 @@
 # Change Log
 
+## 10.4.0
+
+### Minor Changes
+
+- 74655e3: feat: replace dependencies and add debug code
+
 ## 11.0.1
 
 ### Patch Changes

@@ -1,5 +1,12 @@
 # Change Log
 
+## 10.3.0
+
+### Minor Changes
+
+- 74655e3: feat: replace dependencies and add debug code
+- 74655e3: feat: replace dependencies and add debug code
+
 ## 10.2.2
 
 ### Patch Changes
