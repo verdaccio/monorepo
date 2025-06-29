@@ -34,7 +34,7 @@
     "@verdaccio/core": "7.0.0-next-8.21",
     "@verdaccio/file-locking": "workspace:10.3.1",
     "@verdaccio/streams": "workspace:10.2.1",
-    "debug": "4.4.0",
+    "debug": "4.4.1",
     "globby": "11.1.0",
     "lodash": "4.17.21",
     "lowdb": "1.0.0",
