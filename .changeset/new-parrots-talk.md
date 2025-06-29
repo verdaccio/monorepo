@@ -1,5 +1,6 @@
 ---
 '@verdaccio/active-directory': minor
+'@verdaccio/local-storage': minor
 '@verdaccio/local-storage-legacy': minor
 'verdaccio-memory': minor
 ---
