@@ -1,5 +1,11 @@
 # Change Log
 
+## 10.5.0
+
+### Minor Changes
+
+- 00b225b: feat: replace dependencies and add debug code
+
 ## 10.4.0
 
 ### Minor Changes
