@@ -7,9 +7,9 @@
 [![Discord](https://img.shields.io/discord/388674437219745793?logo=discord)](http://chat.verdaccio.org/)
 [![Twitter followers](https://img.shields.io/twitter/follow/verdaccio_npm.svg?style=social&label=Follow)](https://twitter.com/verdaccio_npm)
 
-This monorepo contains all the packages that composes the Verdaccio 5.x architecture, except [Verdaccio](https://github.com/verdaccio/verdaccio) itself and [UI](https://github.com/verdaccio/ui).
+⚠️ **DEPRECATED** All packages are being moved to `verdaccio/verdaccio/` master branch, only security vulnerabilities will be commited on this repo until verdaccio@6.x.x is being is replaced by major release.
 
-⚠️ **DEPRECATED** All packages were moved to `verdaccio/verdaccio/` master branch, only security vulnerabilities will be commited on this repo until verdaccio@5.x.x is being is replaced by major release. Features please refer to [the main repository](https://github.com/verdaccio/verdaccio). **Only bugs and security updates are allowed on this repository**.
+Features please refer to [the main repository](https://github.com/verdaccio/verdaccio). **Only bugs, mandatory maintenance and security updates are allowed on this repository**.
 
 ## Contributing
 
