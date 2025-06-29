@@ -29,7 +29,7 @@
     "@types/jest": "27.5.2",
     "@types/lodash": "4.17.19",
     "@types/memory-fs": "0.3.7",
-    "@types/node": "24.0.7",
+    "@types/node": "14.18.0",
     "cross-env": "7.0.3",
     "rimraf": "3.0.2",
     "eslint": "8.57.1",
