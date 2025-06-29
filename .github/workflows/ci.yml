@@ -59,13 +59,13 @@ jobs:
       fail-fast: true
       matrix:
         os: [ubuntu-latest]
-        node_version: [16, 18, 20, 21]
+        node_version: [18, 20, 22, 24]
     name: ${{ matrix.os }} / Node ${{ matrix.node_version }}
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2.7.0
       - name: Use Node ${{ matrix.node_version }}
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
           node-version: ${{ matrix.node_version }}
       # - name: untar packages
@@ -74,7 +74,7 @@ jobs:
         run: |
           corepack enable
           corepack prepare --activate pnpm@latest-8
-      - uses: actions/cache@v2
+      - uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
