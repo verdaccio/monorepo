@@ -1,6 +1,10 @@
 {
-  "extends": ["config:base"],
+  "extends": ["config:base", "helpers:pinGitHubActionDigests"],
+  "prConcurrentLimit": 8,
   "ignoreDeps": ["eslint-plugin-verdaccio", "husky", "lint-staged"],
+  "baseBranches": ["main"],
+  "major": true,
+  "labels": ["bot: dependencies"],
   "packageRules": [
     {
       "packageNames": ["aws-sdk"],
@@ -46,6 +50,5 @@
       "extends": [":semanticCommitTypeAll(fix)"]
     }
   ],
-  "major": false,
   "pinVersions": false
 }
