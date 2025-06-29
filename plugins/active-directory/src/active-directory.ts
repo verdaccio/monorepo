@@ -1,4 +1,4 @@
-import { getForbidden, getInternalError, getUnauthorized } from '@verdaccio/commons-api';
+import { errorUtils } from '@verdaccio/core';
 import { Callback, IPluginAuth, Logger } from '@verdaccio/legacy-types';
 import ActiveDirectory from 'activedirectory2';
 
@@ -10,6 +10,8 @@ export interface ActiveDirectoryConfig {
   domainSuffix: string;
   groupName?: string | string[];
 }
+
+const {getForbidden, getInternalError, getUnauthorized} = errorUtils;
 
 class ActiveDirectoryPlugin implements IPluginAuth<ActiveDirectoryConfig> {
   private config: ActiveDirectoryConfig;

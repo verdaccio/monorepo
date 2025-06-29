@@ -28,10 +28,10 @@
     "lib"
   ],
   "engines": {
-    "node": ">=8"
+    "node": ">=18"
   },
   "dependencies": {
-    "@verdaccio/commons-api": "10.2.0",
+    "@verdaccio/core": "8.0.0-next-8.19",
     "activedirectory2": "2.2.0"
   },
   "devDependencies": {

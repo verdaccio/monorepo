@@ -14,7 +14,7 @@ import {
   Logger,
   StorageList,
 } from '@verdaccio/legacy-types';
-import { getInternalError } from '@verdaccio/commons-api';
+import { errorUtils } from '@verdaccio/core';
 
 import LocalDriver, { noSuchFile } from './local-fs';
 import { loadPrivatePackages } from './pkg-utils';
@@ -23,7 +23,7 @@ import TokenActions from './token';
 const DEPRECATED_DB_NAME = '.sinopia-db.json';
 const DB_NAME = '.verdaccio-db.json';
 
-const debug = buildDebug('verdaccio:plugin:local-storage');
+const debug = buildDebug('verdaccio:plugin:local-storage-legacy');
 
 class LocalDatabase extends TokenActions implements IPluginStorage<{}> {
   public path: string;
@@ -164,10 +164,10 @@ class LocalDatabase extends TokenActions implements IPluginStorage<{}> {
   public remove(name: string, cb: Callback): void {
     this.get((err, data) => {
       if (err) {
-        cb(getInternalError('error remove private package'));
+        cb(errorUtils.getInternalError('error remove private package'));
         this.logger.error(
           { err },
-          '[local-storage/remove]: remove the private package has failed @{err}'
+          'remove the private package has failed @{err}'
         );
         debug('error on remove package %o', name);
       }

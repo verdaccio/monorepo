@@ -219,9 +219,9 @@ importers:
 
   plugins/active-directory:
     dependencies:
-      '@verdaccio/commons-api':
-        specifier: 10.2.0
-        version: 10.2.0
+      '@verdaccio/core':
+        specifier: 8.0.0-next-8.19
+        version: 8.0.0-next-8.19
       activedirectory2:
         specifier: 2.2.0
         version: 2.2.0
@@ -345,9 +345,9 @@ importers:
 
   plugins/local-storage-legacy:
     dependencies:
-      '@verdaccio/commons-api':
-        specifier: 10.2.0
-        version: 10.2.0
+      '@verdaccio/core':
+        specifier: 8.0.0-next-8.19
+        version: 8.0.0-next-8.19
       '@verdaccio/file-locking':
         specifier: workspace:10.3.1
         version: link:../../core/file-locking
@@ -388,9 +388,9 @@ importers:
 
   plugins/memory:
     dependencies:
-      '@verdaccio/commons-api':
-        specifier: 10.2.0
-        version: 10.2.0
+      '@verdaccio/core':
+        specifier: 8.0.0-next-8.19
+        version: 8.0.0-next-8.19
       '@verdaccio/streams':
         specifier: workspace:10.2.1
         version: link:../../core/streams
