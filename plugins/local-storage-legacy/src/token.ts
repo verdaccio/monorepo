@@ -1,4 +1,4 @@
-import Path from 'path';
+import Path from 'node:path';
 
 import _ from 'lodash';
 import low from 'lowdb';
@@ -7,7 +7,7 @@ import FileMemory from 'lowdb/adapters/Memory';
 import buildDebug from 'debug';
 import { ITokenActions, Config, Token, TokenFilter } from '@verdaccio/legacy-types';
 
-const debug = buildDebug('verdaccio:plugin:local-storage:token');
+const debug = buildDebug('verdaccio:plugin:local-storage-legacy:token');
 
 const TOKEN_DB_NAME = '.token-db.json';
 

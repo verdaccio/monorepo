@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/local-storage-legacy",
-  "version": "11.0.2",
+  "version": "11.1.0",
   "description": "Local storage implementation",
   "keywords": [
     "plugin",
@@ -28,10 +28,10 @@
     "lib/"
   ],
   "engines": {
-    "node": ">=12"
+    "node": ">=18"
   },
   "dependencies": {
-    "@verdaccio/commons-api": "10.2.0",
+    "@verdaccio/core": "8.0.0-next-8.19",
     "@verdaccio/file-locking": "workspace:10.3.1",
     "@verdaccio/streams": "workspace:10.2.1",
     "debug": "4.4.1",
