@@ -1,4 +1,4 @@
-import fs from 'fs';
+import fs from 'node:fs';
 
 import _ from 'lodash';
 import { LocalStorage, StorageList, Logger } from '@verdaccio/legacy-types';

@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 
-import fs from 'fs';
-import path from 'path';
+import fs from 'node:fs';
+import path from 'node:path';
 
 import buildDebug from 'debug';
 import _ from 'lodash';
@@ -9,14 +9,16 @@ import mkdirp from 'mkdirp';
 import { UploadTarball, ReadTarball } from '@verdaccio/streams';
 import { unlockFile, readFile } from '@verdaccio/file-locking';
 import { Callback, Logger, Package, ILocalPackageManager, IUploadTarball } from '@verdaccio/legacy-types';
-import { getCode, getInternalError, getNotFound, VerdaccioError } from '@verdaccio/commons-api';
+import {errorUtils, VerdaccioError} from '@verdaccio/core';
 
 export const fileExist = 'EEXISTS';
 export const noSuchFile = 'ENOENT';
 export const resourceNotAvailable = 'EAGAIN';
 export const pkgFileName = 'package.json';
 
-const debug = buildDebug('verdaccio:plugin:local-storage:fs');
+const debug = buildDebug('verdaccio:plugin:local-storage-legacy:fs');
+
+const { getCode, getInternalError, getNotFound } = errorUtils;
 
 export const fSError = function(message: string, code = 409): VerdaccioError {
   const err: VerdaccioError = getCode(code, message);
