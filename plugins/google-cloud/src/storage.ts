@@ -21,7 +21,7 @@ import {
   getConflict,
   HTTP_STATUS,
 } from '@verdaccio/commons-api';
-import { Response } from 'request';
+
 
 import { IStorageHelper } from './storage-helper';
 import { VerdaccioConfigGoogleStorage } from './types';
