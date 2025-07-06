@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/local-storage-legacy",
-  "version": "11.1.0",
+  "version": "11.1.1",
   "description": "Local storage implementation",
   "keywords": [
     "plugin",
@@ -43,7 +43,7 @@
   "devDependencies": {
     "@types/minimatch": "^3.0.3",
     "@types/node": "^20.5.8",
-    "@verdaccio/legacy-types": "workspace:1.0.1",
+    "@verdaccio/legacy-types": "workspace:1.0.2",
     "minimatch": "^4.0.0",
     "rmdir-sync": "^1.0.1"
   },

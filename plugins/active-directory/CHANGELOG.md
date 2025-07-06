@@ -1,5 +1,11 @@
 # Change Log
 
+## 10.3.1
+
+### Patch Changes
+
+- b933033: fix: verdaccio core dependency
+
 ## 10.3.0
 
 ### Minor Changes
