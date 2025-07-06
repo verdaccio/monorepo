@@ -55,7 +55,7 @@
     "build": "pnpm recursive run build",
     "lint": "eslint \"**/*.{js,jsx,ts,tsx}\"",
     "ci:version:changeset": "changeset version",
-    "ci:version": "run-s ci:version:changeset ci:version:install",
+    "ci:version": "npm run ci:version:changeset && npm run ci:version:install",
     "ci:version:install": "pnpm install --frozen-lockfile=false",
     "ci:publish": "changeset publish",
     "test": "pnpm recursive test",
