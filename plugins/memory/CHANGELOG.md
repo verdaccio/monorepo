@@ -1,5 +1,12 @@
 # Change Log
 
+## 10.4.1
+
+### Patch Changes
+
+- b933033: fix: verdaccio core dependency
+  - @verdaccio/streams@10.2.1
+
 ## 10.4.0
 
 ### Minor Changes

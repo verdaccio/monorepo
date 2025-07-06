@@ -1,5 +1,13 @@
 # Change Log
 
+## 11.1.1
+
+### Patch Changes
+
+- b933033: fix: verdaccio core dependency
+  - @verdaccio/file-locking@10.3.1
+  - @verdaccio/streams@10.2.1
+
 ## 11.1.0
 
 ### Minor Changes

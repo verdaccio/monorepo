@@ -139,13 +139,13 @@ importers:
         version: 1.0.4
     devDependencies:
       '@verdaccio/legacy-types':
-        specifier: workspace:1.0.1
+        specifier: workspace:1.0.2
         version: link:../deprecated-types
 
   core/streams:
     devDependencies:
       '@verdaccio/legacy-types':
-        specifier: workspace:1.0.1
+        specifier: workspace:1.0.2
         version: link:../deprecated-types
 
   plugins/active-directory:
@@ -177,7 +177,7 @@ importers:
         specifier: 4.1.7
         version: 4.1.7
       '@verdaccio/legacy-types':
-        specifier: workspace:1.0.1
+        specifier: workspace:1.0.2
         version: link:../../core/deprecated-types
 
   plugins/aws-s3-storage:
@@ -193,7 +193,7 @@ importers:
         version: 2.1030.0
     devDependencies:
       '@verdaccio/legacy-types':
-        specifier: workspace:1.0.1
+        specifier: workspace:1.0.2
         version: link:../../core/deprecated-types
       recursive-readdir:
         specifier: 2.2.3
@@ -219,7 +219,7 @@ importers:
         version: 1.0.7
     devDependencies:
       '@verdaccio/legacy-types':
-        specifier: workspace:1.0.1
+        specifier: workspace:1.0.2
         version: link:../../core/deprecated-types
       memory-fs:
         specifier: 0.5.0
@@ -308,7 +308,7 @@ importers:
         specifier: ^20.5.8
         version: 20.5.8
       '@verdaccio/legacy-types':
-        specifier: workspace:1.0.1
+        specifier: workspace:1.0.2
         version: link:../../core/deprecated-types
       minimatch:
         specifier: ^4.0.0
@@ -330,7 +330,7 @@ importers:
         version: 0.5.0
     devDependencies:
       '@verdaccio/legacy-types':
-        specifier: workspace:1.0.1
+        specifier: workspace:1.0.2
         version: link:../../core/deprecated-types
 
 packages:
