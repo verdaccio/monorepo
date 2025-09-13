@@ -9,14 +9,14 @@
     "tools/*"
   ],
   "devDependencies": {
-    "@babel/cli": "7.27.2",
-    "@babel/core": "7.27.7",
-    "@babel/node": "7.27.1",
-    "@babel/preset-env": "7.27.2",
+    "@babel/cli": "7.28.3",
+    "@babel/core": "7.28.4",
+    "@babel/node": "7.28.0",
+    "@babel/preset-env": "7.28.3",
     "@babel/preset-typescript": "7.27.1",
     "@babel/plugin-proposal-class-properties": "7.18.6",
-    "@babel/register": "7.27.1",
-    "@babel/runtime": "7.27.6",
+    "@babel/register": "7.28.3",
+    "@babel/runtime": "7.28.4",
     "@typescript-eslint/eslint-plugin": "5.62.0",
     "@typescript-eslint/parser": "5.62.0",
     "@verdaccio/legacy-types": "workspace:*",
@@ -28,14 +28,14 @@
     "@changesets/get-dependents-graph": "^1.2.0",
     "@types/http-errors": "1.8.2",
     "@types/jest": "27.5.2",
-    "@types/lodash": "4.17.19",
+    "@types/lodash": "4.17.20",
     "@types/memory-fs": "0.3.7",
     "@types/node": "14.18.0",
     "cross-env": "7.0.3",
     "rimraf": "3.0.2",
     "eslint": "8.57.1",
     "eslint-config-google": "0.14.0",
-    "eslint-config-prettier": "8.10.0",
+    "eslint-config-prettier": "8.10.2",
     "eslint-plugin-babel": "5.3.1",
     "eslint-plugin-import": "2.32.0",
     "eslint-plugin-jest": "26.9.0",
@@ -65,5 +65,5 @@
     "node": ">=18"
   },
   "version": "0.0.0",
-  "packageManager": "pnpm@8.15.8+sha512.d1a029e1a447ad90bc96cd58b0fad486d2993d531856396f7babf2d83eb1823bb83c5a3d0fc18f675b2d10321d49eb161fece36fe8134aa5823ecd215feed392"
+  "packageManager": "pnpm@8.15.9+sha512.499434c9d8fdd1a2794ebf4552b3b25c0a633abcee5bb15e7b5de90f32f47b513aca98cd5cfd001c31f0db454bc3804edccd578501e4ca293a6816166bbd9f81"
 }
