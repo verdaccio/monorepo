@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: checkout code repository
-        uses: actions/checkout@09d2acae674a48949e3602304ab46fd20ae0c42f
+        uses: actions/checkout@71cf2267d89c5cb81562390fa70a37fa40b1305e
         with:
           fetch-depth: 0
       - name: setup node.js
