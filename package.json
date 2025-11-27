@@ -28,7 +28,7 @@
     "@changesets/get-dependents-graph": "^1.2.0",
     "@types/http-errors": "1.8.2",
     "@types/jest": "27.5.2",
-    "@types/lodash": "4.17.20",
+    "@types/lodash": "4.17.21",
     "@types/memory-fs": "0.3.7",
     "@types/node": "14.18.0",
     "cross-env": "7.0.3",
