@@ -1,6 +1,6 @@
 {
   "extends": ["config:base", "helpers:pinGitHubActionDigests"],
-  "prConcurrentLimit": 8,
+  "prConcurrentLimit": 2,
   "ignoreDeps": ["eslint-plugin-verdaccio", "husky", "lint-staged"],
   "baseBranches": ["main"],
   "major": true,
