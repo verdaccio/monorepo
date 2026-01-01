@@ -1,10 +1,11 @@
+import async from 'async';
+import buildDebug from 'debug';
 import fs from 'fs';
+import _ from 'lodash';
+import mkdirp from 'mkdirp';
 import Path from 'path';
 
-import buildDebug from 'debug';
-import _ from 'lodash';
-import async from 'async';
-import mkdirp from 'mkdirp';
+import { errorUtils } from '@verdaccio/core';
 import {
   Callback,
   Config,
@@ -14,7 +15,6 @@ import {
   Logger,
   StorageList,
 } from '@verdaccio/legacy-types';
-import { errorUtils } from '@verdaccio/core';
 
 import LocalDriver, { noSuchFile } from './local-fs';
 import { loadPrivatePackages } from './pkg-utils';
@@ -165,10 +165,7 @@ class LocalDatabase extends TokenActions implements IPluginStorage<{}> {
     this.get((err, data) => {
       if (err) {
         cb(errorUtils.getInternalError('error remove private package'));
-        this.logger.error(
-          { err },
-          'remove the private package has failed @{err}'
-        );
+        this.logger.error({ err }, 'remove the private package has failed @{err}');
         debug('error on remove package %o', name);
       }
 

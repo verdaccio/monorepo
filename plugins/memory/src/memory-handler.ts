@@ -1,31 +1,26 @@
-import path from 'path';
-import {
-  VerdaccioError,
-errorUtils,
-} from '@verdaccio/core';
 import MemoryFileSystem from 'memory-fs';
-import { UploadTarball, ReadTarball } from '@verdaccio/streams';
+import path from 'path';
+
+import { VerdaccioError, errorUtils } from '@verdaccio/core';
 import {
   Callback,
-  Logger,
-  IPackageStorageManager,
-  IUploadTarball,
-  IReadTarball,
   CallbackAction,
+  IPackageStorageManager,
+  IReadTarball,
+  IUploadTarball,
+  Logger,
+  Package,
+  PackageTransformer,
+  ReadPackageCallback,
   StorageUpdateCallback,
   StorageWriteCallback,
-  PackageTransformer,
-  Package,
-  ReadPackageCallback,
 } from '@verdaccio/legacy-types';
+import { ReadTarball, UploadTarball } from '@verdaccio/streams';
 
 import { parsePackage, stringifyPackage } from './utils';
 
 const fs = new MemoryFileSystem();
-const {  getBadRequest,
-  getInternalError,
-  getConflict,
-  getNotFound} = errorUtils
+const { getBadRequest, getInternalError, getConflict, getNotFound } = errorUtils;
 
 export type DataHandler = {
   [key: string]: string;

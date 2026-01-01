@@ -1,12 +1,11 @@
-import path from 'path';
 import fs from 'fs';
-
 import mkdirp from 'mkdirp';
+import path from 'path';
 import rm from 'rmdir-sync';
-import { Logger, ILocalPackageManager, Package } from '@verdaccio/legacy-types';
 
-import LocalDriver, { fileExist, fSError, noSuchFile, resourceNotAvailable } from '../src/local-fs';
+import { ILocalPackageManager, Logger, Package } from '@verdaccio/legacy-types';
 
+import LocalDriver, { fSError, fileExist, noSuchFile, resourceNotAvailable } from '../src/local-fs';
 import pkg from './__fixtures__/pkg';
 
 let localTempStorage: string;
@@ -29,11 +28,11 @@ beforeAll(() => {
 
 describe('Local FS test', () => {
   describe('savePackage() group', () => {
-    test('savePackage()', done => {
+    test('savePackage()', (done) => {
       const data = {};
       const localFs = new LocalDriver(path.join(localTempStorage, 'first-package'), logger);
 
-      localFs.savePackage('pkg.1.0.0.tar.gz', data as Package, err => {
+      localFs.savePackage('pkg.1.0.0.tar.gz', data as Package, (err) => {
         expect(err).toBeNull();
         done();
       });
@@ -41,31 +40,37 @@ describe('Local FS test', () => {
   });
 
   describe('readPackage() group', () => {
-    test('readPackage() success', done => {
-      const localFs: ILocalPackageManager = new LocalDriver(path.join(__dirname, '__fixtures__/readme-test'), logger);
+    test('readPackage() success', (done) => {
+      const localFs: ILocalPackageManager = new LocalDriver(
+        path.join(__dirname, '__fixtures__/readme-test'),
+        logger
+      );
 
-      localFs.readPackage(pkgFileName, err => {
+      localFs.readPackage(pkgFileName, (err) => {
         expect(err).toBeNull();
         done();
       });
     });
 
-    test('readPackage() fails', done => {
-      const localFs: ILocalPackageManager = new LocalDriver(path.join(__dirname, '__fixtures__/readme-testt'), logger);
+    test('readPackage() fails', (done) => {
+      const localFs: ILocalPackageManager = new LocalDriver(
+        path.join(__dirname, '__fixtures__/readme-testt'),
+        logger
+      );
 
-      localFs.readPackage(pkgFileName, err => {
+      localFs.readPackage(pkgFileName, (err) => {
         expect(err).toBeTruthy();
         done();
       });
     });
 
-    test('readPackage() fails corrupt', done => {
+    test('readPackage() fails corrupt', (done) => {
       const localFs: ILocalPackageManager = new LocalDriver(
         path.join(__dirname, '__fixtures__/readme-test-corrupt'),
         logger
       );
 
-      localFs.readPackage('corrupt.js', err => {
+      localFs.readPackage('corrupt.js', (err) => {
         expect(err).toBeTruthy();
         done();
       });
@@ -73,19 +78,19 @@ describe('Local FS test', () => {
   });
 
   describe('createPackage() group', () => {
-    test('createPackage()', done => {
+    test('createPackage()', (done) => {
       const localFs = new LocalDriver(path.join(localTempStorage, 'createPackage'), logger);
 
-      localFs.createPackage(path.join(localTempStorage, 'package5'), pkg, err => {
+      localFs.createPackage(path.join(localTempStorage, 'package5'), pkg, (err) => {
         expect(err).toBeNull();
         done();
       });
     });
 
-    test('createPackage() fails by fileExist', done => {
+    test('createPackage() fails by fileExist', (done) => {
       const localFs = new LocalDriver(path.join(localTempStorage, 'createPackage'), logger);
 
-      localFs.createPackage(path.join(localTempStorage, 'package5'), pkg, err => {
+      localFs.createPackage(path.join(localTempStorage, 'package5'), pkg, (err) => {
         expect(err).not.toBeNull();
         expect(err.code).toBe(fileExist);
         done();
@@ -93,11 +98,11 @@ describe('Local FS test', () => {
     });
 
     describe('deletePackage() group', () => {
-      test('deletePackage()', done => {
+      test('deletePackage()', (done) => {
         const localFs = new LocalDriver(path.join(localTempStorage, 'createPackage'), logger);
 
         // verdaccio removes the package.json instead the package name
-        localFs.deletePackage('package.json', err => {
+        localFs.deletePackage('package.json', (err) => {
           expect(err).toBeNull();
           done();
         });
@@ -110,17 +115,23 @@ describe('Local FS test', () => {
       mkdirp.sync(path.join(localTempStorage, '_toDelete'));
     });
 
-    test('removePackage() success', done => {
-      const localFs: ILocalPackageManager = new LocalDriver(path.join(localTempStorage, '_toDelete'), logger);
-      localFs.removePackage(error => {
+    test('removePackage() success', (done) => {
+      const localFs: ILocalPackageManager = new LocalDriver(
+        path.join(localTempStorage, '_toDelete'),
+        logger
+      );
+      localFs.removePackage((error) => {
         expect(error).toBeNull();
         done();
       });
     });
 
-    test('removePackage() fails', done => {
-      const localFs: ILocalPackageManager = new LocalDriver(path.join(localTempStorage, '_toDelete_fake'), logger);
-      localFs.removePackage(error => {
+    test('removePackage() fails', (done) => {
+      const localFs: ILocalPackageManager = new LocalDriver(
+        path.join(localTempStorage, '_toDelete_fake'),
+        logger
+      );
+      localFs.removePackage((error) => {
         expect(error).toBeTruthy();
         expect(error.code).toBe('ENOENT');
         done();
@@ -129,32 +140,38 @@ describe('Local FS test', () => {
   });
 
   describe('readTarball() group', () => {
-    test('readTarball() success', done => {
-      const localFs: ILocalPackageManager = new LocalDriver(path.join(__dirname, '__fixtures__/readme-test'), logger);
+    test('readTarball() success', (done) => {
+      const localFs: ILocalPackageManager = new LocalDriver(
+        path.join(__dirname, '__fixtures__/readme-test'),
+        logger
+      );
       const readTarballStream = localFs.readTarball('test-readme-0.0.0.tgz');
 
-      readTarballStream.on('error', function(err) {
+      readTarballStream.on('error', function (err) {
         expect(err).toBeNull();
       });
 
-      readTarballStream.on('content-length', function(content) {
+      readTarballStream.on('content-length', function (content) {
         expect(content).toBe(352);
       });
 
-      readTarballStream.on('end', function() {
+      readTarballStream.on('end', function () {
         done();
       });
 
-      readTarballStream.on('data', function(data) {
+      readTarballStream.on('data', function (data) {
         expect(data).toBeDefined();
       });
     });
 
-    test('readTarball() fails', done => {
-      const localFs: ILocalPackageManager = new LocalDriver(path.join(__dirname, '__fixtures__/readme-test'), logger);
+    test('readTarball() fails', (done) => {
+      const localFs: ILocalPackageManager = new LocalDriver(
+        path.join(__dirname, '__fixtures__/readme-test'),
+        logger
+      );
       const readTarballStream = localFs.readTarball('file-does-not-exist-0.0.0.tgz');
 
-      readTarballStream.on('error', function(err) {
+      readTarballStream.on('error', function (err) {
         expect(err).toBeTruthy();
         done();
       });
@@ -168,41 +185,44 @@ describe('Local FS test', () => {
       mkdirp.sync(writeTarballFolder);
     });
 
-    test('writeTarball() success', done => {
+    test('writeTarball() success', (done) => {
       const newFileName = 'new-readme-0.0.0.tgz';
       const readmeStorage: ILocalPackageManager = new LocalDriver(
         path.join(__dirname, '__fixtures__/readme-test'),
         logger
       );
-      const writeStorage: ILocalPackageManager = new LocalDriver(path.join(__dirname, '../_storage'), logger);
+      const writeStorage: ILocalPackageManager = new LocalDriver(
+        path.join(__dirname, '../_storage'),
+        logger
+      );
       const readTarballStream = readmeStorage.readTarball('test-readme-0.0.0.tgz');
       const writeTarballStream = writeStorage.writeTarball(newFileName);
 
-      writeTarballStream.on('error', function(err) {
+      writeTarballStream.on('error', function (err) {
         expect(err).toBeNull();
         done();
       });
 
-      writeTarballStream.on('success', function() {
+      writeTarballStream.on('success', function () {
         const fileLocation: string = path.join(__dirname, '../_storage', newFileName);
 
         expect(fs.existsSync(fileLocation)).toBe(true);
         done();
       });
 
-      readTarballStream.on('end', function() {
+      readTarballStream.on('end', function () {
         writeTarballStream.done();
       });
 
-      writeTarballStream.on('end', function() {
+      writeTarballStream.on('end', function () {
         done();
       });
 
-      writeTarballStream.on('data', function(data) {
+      writeTarballStream.on('data', function (data) {
         expect(data).toBeDefined();
       });
 
-      readTarballStream.on('error', function(err) {
+      readTarballStream.on('error', function (err) {
         expect(err).toBeNull();
         done();
       });
@@ -210,7 +230,7 @@ describe('Local FS test', () => {
       readTarballStream.pipe(writeTarballStream);
     });
 
-    test('writeTarball() abort', done => {
+    test('writeTarball() abort', (done) => {
       const newFileLocationFolder: string = path.join(localTempStorage, '_writeTarball');
       const newFileName = 'new-readme-abort-0.0.0.tgz';
       const readmeStorage: ILocalPackageManager = new LocalDriver(
@@ -221,12 +241,12 @@ describe('Local FS test', () => {
       const readTarballStream = readmeStorage.readTarball('test-readme-0.0.0.tgz');
       const writeTarballStream = writeStorage.writeTarball(newFileName);
 
-      writeTarballStream.on('error', function(err) {
+      writeTarballStream.on('error', function (err) {
         expect(err).toBeTruthy();
         done();
       });
 
-      writeTarballStream.on('data', function(data) {
+      writeTarballStream.on('data', function (data) {
         expect(data).toBeDefined();
         writeTarballStream.abort();
       });
@@ -249,7 +269,7 @@ describe('Local FS test', () => {
       jest.resetModules();
     });
 
-    test('updatePackage() success', done => {
+    test('updatePackage() success', (done) => {
       jest.doMock('@verdaccio/file-locking', () => {
         return {
           readFile: (name, _options, cb): any => cb(null, { name }),
@@ -272,7 +292,7 @@ describe('Local FS test', () => {
     });
 
     describe('updatePackage() failures handler', () => {
-      test('updatePackage() whether locking fails', done => {
+      test('updatePackage() whether locking fails', (done) => {
         jest.doMock('@verdaccio/file-locking', () => {
           return {
             readFile: (name, _options, cb): any => cb(Error('whateverError'), { name }),
@@ -285,7 +305,7 @@ describe('Local FS test', () => {
           logger
         );
 
-        localFs.updatePackage('updatePackage', updateHandler, onWrite, transform, err => {
+        localFs.updatePackage('updatePackage', updateHandler, onWrite, transform, (err) => {
           expect(err).not.toBeNull();
           expect(transform).toHaveBeenCalledTimes(0);
           expect(updateHandler).toHaveBeenCalledTimes(0);
@@ -294,7 +314,7 @@ describe('Local FS test', () => {
         });
       });
 
-      test('updatePackage() unlock a missing package', done => {
+      test('updatePackage() unlock a missing package', (done) => {
         jest.doMock('@verdaccio/file-locking', () => {
           return {
             readFile: (name, _options, cb): any => cb(fSError(noSuchFile, 404), { name }),
@@ -307,7 +327,7 @@ describe('Local FS test', () => {
           logger
         );
 
-        localFs.updatePackage('updatePackage', updateHandler, onWrite, transform, err => {
+        localFs.updatePackage('updatePackage', updateHandler, onWrite, transform, (err) => {
           expect(err).not.toBeNull();
           expect(transform).toHaveBeenCalledTimes(0);
           expect(updateHandler).toHaveBeenCalledTimes(0);
@@ -316,7 +336,7 @@ describe('Local FS test', () => {
         });
       });
 
-      test('updatePackage() unlock a resource non available', done => {
+      test('updatePackage() unlock a resource non available', (done) => {
         jest.doMock('@verdaccio/file-locking', () => {
           return {
             readFile: (name, _options, cb): any => cb(fSError(resourceNotAvailable, 503), { name }),
@@ -329,7 +349,7 @@ describe('Local FS test', () => {
           logger
         );
 
-        localFs.updatePackage('updatePackage', updateHandler, onWrite, transform, err => {
+        localFs.updatePackage('updatePackage', updateHandler, onWrite, transform, (err) => {
           expect(err).not.toBeNull();
           expect(transform).toHaveBeenCalledTimes(0);
           expect(updateHandler).toHaveBeenCalledTimes(0);
@@ -338,7 +358,7 @@ describe('Local FS test', () => {
         });
       });
 
-      test('updatePackage() if updateHandler fails', done => {
+      test('updatePackage() if updateHandler fails', (done) => {
         jest.doMock('@verdaccio/file-locking', () => {
           return {
             readFile: (name, _options, cb): any => cb(null, { name }),
@@ -355,7 +375,7 @@ describe('Local FS test', () => {
           cb(fSError('something wrong', 500));
         });
 
-        localFs.updatePackage('updatePackage', updateHandler, onWrite, transform, err => {
+        localFs.updatePackage('updatePackage', updateHandler, onWrite, transform, (err) => {
           expect(err).not.toBeNull();
           expect(transform).toHaveBeenCalledTimes(0);
           expect(updateHandler).toHaveBeenCalledTimes(1);

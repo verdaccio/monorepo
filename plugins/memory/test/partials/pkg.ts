@@ -35,7 +35,8 @@ const pkg: Package = {
         },
       ],
       dist: {
-        integrity: 'sha512-0ThGF2zZiOGmLoHl/n5cMwAS6swbAz7rdzDjgkyDh+C2rADzNfPIfo7KBTRHbY6uJ9akBCvWDFBuR0fgaxYnjQ==',
+        integrity:
+          'sha512-0ThGF2zZiOGmLoHl/n5cMwAS6swbAz7rdzDjgkyDh+C2rADzNfPIfo7KBTRHbY6uJ9akBCvWDFBuR0fgaxYnjQ==',
         shasum: '1df0c3dfd289b2ac6ef00b0129cab9737eeaa62d',
         tarball: 'http://localhost:4873/@scope/test_npm/-/@scope/test_npm-1.0.1.tgz',
       },

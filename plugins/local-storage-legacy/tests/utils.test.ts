@@ -1,10 +1,9 @@
-import path from 'path';
 import fs from 'fs';
+import path from 'path';
 
-import { findPackages } from '../src/utils';
-import { loadPrivatePackages } from '../src/pkg-utils';
 import { noSuchFile } from '../src/local-fs';
-
+import { loadPrivatePackages } from '../src/pkg-utils';
+import { findPackages } from '../src/utils';
 import logger from './__mocks__/Logger';
 
 describe('Utitlies', () => {
@@ -62,7 +61,7 @@ describe('Utitlies', () => {
 
     test('should fetch all packages from valid storage', async () => {
       const storage = path.join(__dirname, '__fixtures__/findPackages');
-      const validator = jest.fn(file => file.indexOf('.') === -1);
+      const validator = jest.fn((file) => file.indexOf('.') === -1);
       const pkgs = await findPackages(storage, validator);
       // the result is 7 due number of packages on "findPackages" directory
       expect(pkgs).toHaveLength(5);

@@ -15,9 +15,9 @@ This settings can be set in `config.yaml`. All fields are mandatory except `grou
 ```yaml
 auth:
   activedirectory:
-    url: "ldap://localhost"
-    baseDN: "dc=local,dc=host"
-    domainSuffix: "local.host"
+    url: 'ldap://localhost'
+    baseDN: 'dc=local,dc=host'
+    domainSuffix: 'local.host'
     # groupName: 'singleGroup' # optional, single group syntax
     # groupName:               # optional, multiple groups syntax
     #   - 'group1'

@@ -6,7 +6,6 @@ import { PluginOptions } from '@verdaccio/legacy-types';
 import LocalDatabase from '../src/local-database';
 import { ILocalFSPackageManager } from '../src/local-fs';
 import * as pkgUtils from '../src/pkg-utils';
-
 // FIXME: remove this mocks imports
 import Config from './__mocks__/Config';
 import logger from './__mocks__/Logger';
@@ -22,7 +21,9 @@ let loadPrivatePackages;
 describe('Local Database', () => {
   beforeEach(() => {
     const writeMock = jest.spyOn(fs, 'writeFileSync').mockImplementation();
-    loadPrivatePackages = jest.spyOn(pkgUtils, 'loadPrivatePackages').mockReturnValue({ list: [], secret: '' });
+    loadPrivatePackages = jest
+      .spyOn(pkgUtils, 'loadPrivatePackages')
+      .mockReturnValue({ list: [], secret: '' });
     locaDatabase = new LocalDatabase(optionsPlugin.config, optionsPlugin.logger);
     (locaDatabase as LocalDatabase).clean();
     writeMock.mockClear();
@@ -77,7 +78,9 @@ describe('Local Database', () => {
         const storagePath = path.normalize((storage as ILocalFSPackageManager).path).toLowerCase();
         expect(storagePath).toBe(
           path
-            .normalize(path.join(__dirname, '__fixtures__', optionsPlugin.config.storage || '', pkgName))
+            .normalize(
+              path.join(__dirname, '__fixtures__', optionsPlugin.config.storage || '', pkgName)
+            )
             .toLowerCase()
         );
       }
@@ -94,7 +97,13 @@ describe('Local Database', () => {
         expect(storagePath).toBe(
           path
             .normalize(
-              path.join(__dirname, '__fixtures__', optionsPlugin.config.storage || '', 'private_folder', pkgName)
+              path.join(
+                __dirname,
+                '__fixtures__',
+                optionsPlugin.config.storage || '',
+                'private_folder',
+                pkgName
+              )
             )
             .toLowerCase()
         );
@@ -103,13 +112,13 @@ describe('Local Database', () => {
   });
 
   describe('Database CRUD', () => {
-    test('should add an item to database', done => {
+    test('should add an item to database', (done) => {
       const pgkName = 'jquery';
       locaDatabase.get((err, data) => {
         expect(err).toBeNull();
         expect(data).toHaveLength(0);
 
-        locaDatabase.add(pgkName, err => {
+        locaDatabase.add(pgkName, (err) => {
           expect(err).toBeNull();
           locaDatabase.get((err, data) => {
             expect(err).toBeNull();
@@ -120,14 +129,14 @@ describe('Local Database', () => {
       });
     });
 
-    test('should remove an item to database', done => {
+    test('should remove an item to database', (done) => {
       const pgkName = 'jquery';
       locaDatabase.get((err, data) => {
         expect(err).toBeNull();
         expect(data).toHaveLength(0);
-        locaDatabase.add(pgkName, err => {
+        locaDatabase.add(pgkName, (err) => {
           expect(err).toBeNull();
-          locaDatabase.remove(pgkName, err => {
+          locaDatabase.remove(pgkName, (err) => {
             expect(err).toBeNull();
             locaDatabase.get((err, data) => {
               expect(err).toBeNull();

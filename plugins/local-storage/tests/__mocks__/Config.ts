@@ -73,9 +73,9 @@ export default class Config {
 
     this.server_id = 'severMockId';
 
-    this.getMatchedPackagesSpec = pkgName => getMatchedPackagesSpec(pkgName, this.packages);
+    this.getMatchedPackagesSpec = (pkgName) => getMatchedPackagesSpec(pkgName, this.packages);
 
-    this.checkSecretKey = secret => {
+    this.checkSecretKey = (secret) => {
       if (!secret) {
         const newSecret = 'superNewSecret';
 

@@ -1,8 +1,9 @@
 import fs from 'fs';
-
 import _ from 'lodash';
-import { StorageList, Logger } from '@verdaccio/types';
-import {LocalStorage} from './utils';
+
+import { Logger, StorageList } from '@verdaccio/types';
+
+import { LocalStorage } from './utils';
 
 export function loadPrivatePackages(path: string, logger: Logger): LocalStorage {
   const list: StorageList = [];

@@ -5,7 +5,6 @@ import { ILocalData, PluginOptions, Token } from '@verdaccio/legacy-types';
 import LocalDatabase from '../src/local-database';
 import { ILocalFSPackageManager } from '../src/local-fs';
 import * as pkgUtils from '../src/pkg-utils';
-
 // FIXME: remove this mocks imports
 import Config from './__mocks__/Config';
 import logger from './__mocks__/Logger';
@@ -21,7 +20,9 @@ let loadPrivatePackages;
 describe('Local Database', () => {
   beforeEach(() => {
     const writeMock = jest.spyOn(fs, 'writeFileSync').mockImplementation();
-    loadPrivatePackages = jest.spyOn(pkgUtils, 'loadPrivatePackages').mockReturnValue({ list: [], secret: '' });
+    loadPrivatePackages = jest
+      .spyOn(pkgUtils, 'loadPrivatePackages')
+      .mockReturnValue({ list: [], secret: '' });
     locaDatabase = new LocalDatabase(optionsPlugin.config, optionsPlugin.logger);
     (locaDatabase as LocalDatabase).clean();
     writeMock.mockClear();
@@ -58,7 +59,9 @@ describe('Local Database', () => {
     });
 
     test('should fail on revoke', async () => {
-      await expect(locaDatabase.deleteToken({ user: 'foo', key: 'bar' })).rejects.toThrow('user not found');
+      await expect(locaDatabase.deleteToken({ user: 'foo', key: 'bar' })).rejects.toThrow(
+        'user not found'
+      );
     });
 
     test('should verify save more than one token', async () => {

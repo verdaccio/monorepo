@@ -16,21 +16,20 @@
 [![backers](https://opencollective.com/verdaccio/tiers/backer/badge.svg?label=Backer&color=brightgreen)](https://opencollective.com/verdaccio)
 [![stackshare](https://img.shields.io/badge/Follow%20on-StackShare-blue.svg?logo=stackshare&style=flat)](https://stackshare.io/verdaccio)
 
-
-> This plugin was forked based on [`verdaccio-s3-storage`](https://github.com/Remitly/verdaccio-s3-storage) built in Typescript + other features added along 
-the time. Both plugins might have vary in behaviour since then, we recommend use the AWS plugin on this repo due
-is under control of Verdaccio community and constantly upated. 
+> This plugin was forked based on [`verdaccio-s3-storage`](https://github.com/Remitly/verdaccio-s3-storage) built in Typescript + other features added along
+> the time. Both plugins might have vary in behaviour since then, we recommend use the AWS plugin on this repo due
+> is under control of Verdaccio community and constantly upated.
 
 ## See it in action
 
-* Test on [Docker + LocalStack + Verdaccio 4 + S3 Plugin example](https://github.com/verdaccio/docker-examples/tree/master/amazon-s3-docker-example).
-* Using `docker-compose` on this repo based on [**verdaccio-minio**](https://github.com/barolab/verdaccio-minio) developed by [barolab](https://github.com/barolab).
-* Feel free to propose new ways to run this plugin. 
+- Test on [Docker + LocalStack + Verdaccio 4 + S3 Plugin example](https://github.com/verdaccio/docker-examples/tree/master/amazon-s3-docker-example).
+- Using `docker-compose` on this repo based on [**verdaccio-minio**](https://github.com/barolab/verdaccio-minio) developed by [barolab](https://github.com/barolab).
+- Feel free to propose new ways to run this plugin.
 
 ### Basic Requirements
 
-* AWS Account (in case you are using the cloud)
-* Verdaccio server (4.0) (for 3.x use `verdaccio-s3-storage` instead)
+- AWS Account (in case you are using the cloud)
+- Verdaccio server (4.0) (for 3.x use `verdaccio-s3-storage` instead)
 
 ```bash
 npm install -g verdaccio
@@ -104,7 +103,7 @@ packages:
 
 ### Specify ACL of Tarball Files
 
-You can specify ACL of tarball files in S3 by the *tarballACL* configuration, set to 'private' by default. To enable S3 integrated CDN service (Amazon CloudFront for example), set *tarballACL* to 'public-read' to grant tarball files anonymous read permission.
+You can specify ACL of tarball files in S3 by the _tarballACL_ configuration, set to 'private' by default. To enable S3 integrated CDN service (Amazon CloudFront for example), set _tarballACL_ to 'public-read' to grant tarball files anonymous read permission.
 
 ```yaml
 store:
@@ -116,10 +115,10 @@ store:
 
 In case of local testing, this project can be used self-efficiently. Four main ingredients are as follows:
 
-* `config.yaml`, see [verdaccio documentation](https://verdaccio.org/docs/en/configuration.html)
-* The provided docker file allows to test the plugin, with no need for main verdaccio application
-* The provided docker-compose also provides minio in orchestration as a local substitute for S3 backend
-* Create and set content of `registry.env` as follows. This file does not exist on the repo and should be generated manually after cloning the project.
+- `config.yaml`, see [verdaccio documentation](https://verdaccio.org/docs/en/configuration.html)
+- The provided docker file allows to test the plugin, with no need for main verdaccio application
+- The provided docker-compose also provides minio in orchestration as a local substitute for S3 backend
+- Create and set content of `registry.env` as follows. This file does not exist on the repo and should be generated manually after cloning the project.
 
 ```
 AWS_ACCESS_KEY_ID=foobar
@@ -138,7 +137,7 @@ docker-compose up
 ```
 
 > By default there is no bucket created, **you might need to browse `http://127.0.0.1:9000/minio/` and create
-the example bucket manually named `rise`** and then restart `docker-compose up`.
+> the example bucket manually named `rise`** and then restart `docker-compose up`.
 
 The default values should work out of the box. If you change anything, make sure the corresponding variables are set in
 other parts of the ingredient as well.

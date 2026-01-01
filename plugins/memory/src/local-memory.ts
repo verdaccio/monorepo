@@ -1,5 +1,13 @@
 import { errorUtils } from '@verdaccio/core';
-import { Logger, Callback, Config, IPluginStorage, Token, TokenFilter, PluginOptions } from '@verdaccio/legacy-types';
+import {
+  Callback,
+  Config,
+  IPluginStorage,
+  Logger,
+  PluginOptions,
+  Token,
+  TokenFilter,
+} from '@verdaccio/legacy-types';
 
 import MemoryHandler, { DataHandler } from './memory-handler';
 
@@ -46,7 +54,10 @@ class LocalMemory implements IPluginStorage<ConfigMemory> {
       }
       cb(null);
     } else {
-      this.logger.info({ limit: this.limit }, 'Storage memory has reached limit of @{limit} packages');
+      this.logger.info(
+        { limit: this.limit },
+        'Storage memory has reached limit of @{limit} packages'
+      );
       cb(new Error('Storage memory has reached limit of limit packages'));
     }
   }

@@ -1,13 +1,15 @@
 // FIXME: remove this mocks imports
-import Config from './__mocks__/Config';
-import logger from './__mocks__/Logger';
-import LocalStorage from '../src/index';
-import path from 'path';
 // @ts-expect-error
 import { access, constants } from 'fs/promises';
-import { Config as ConfigType } from '@verdaccio/types';
+import path from 'path';
+
 import { fileUtils } from '@verdaccio/core';
-import { getDefaultConfig, getConfig } from './__mocks__/utils';
+import { Config as ConfigType } from '@verdaccio/types';
+
+import LocalStorage from '../src/index';
+import Config from './__mocks__/Config';
+import logger from './__mocks__/Logger';
+import { getConfig, getDefaultConfig } from './__mocks__/utils';
 
 describe('Basic Tests', () => {
   test('basic instance', () => {
@@ -120,9 +122,8 @@ describe('Basic Tests', () => {
     test('search a scoped package in a storage folder', async () => {
       const storageTemp = await fileUtils.createTempStorageFolder('test-1');
       const configuration = getDefaultConfig(storageTemp);
-      configuration.configPath = storageTemp
+      configuration.configPath = storageTemp;
       const config = getConfig(configuration);
-
 
       config.storage = storageTemp;
 
@@ -159,9 +160,8 @@ describe('Basic Tests', () => {
     test('search a non scoped package in a storage folder', async () => {
       const storageTemp = await fileUtils.createTempStorageFolder('test-1');
       const configuration = getDefaultConfig(storageTemp);
-      configuration.configPath = storageTemp
+      configuration.configPath = storageTemp;
       const config = getConfig(configuration);
-
 
       config.storage = storageTemp;
 
@@ -176,7 +176,7 @@ describe('Basic Tests', () => {
             instance.search({ text: 'pk1' }).then((items) => {
               expect(items).toEqual([
                 {
-                  package: { name: 'pk1'},
+                  package: { name: 'pk1' },
                   verdaccioPrivate: false,
                   verdaccioPkgCached: true,
                   score: {

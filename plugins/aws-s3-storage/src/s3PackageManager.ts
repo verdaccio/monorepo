@@ -1,20 +1,21 @@
-import { S3, AWSError } from 'aws-sdk';
-import { UploadTarball, ReadTarball } from '@verdaccio/streams';
+import { AWSError, S3 } from 'aws-sdk';
+import { HttpError } from 'http-errors';
+
 import { HEADERS, HTTP_STATUS, VerdaccioError } from '@verdaccio/commons-api';
 import {
   Callback,
+  CallbackAction,
+  ILocalPackageManager,
   Logger,
   Package,
-  ILocalPackageManager,
-  CallbackAction,
   ReadPackageCallback,
 } from '@verdaccio/legacy-types';
-import { HttpError } from 'http-errors';
+import { ReadTarball, UploadTarball } from '@verdaccio/streams';
 
-import { is404Error, convertS3Error, create409Error } from './s3Errors';
-import { deleteKeyPrefix } from './deleteKeyPrefix';
-import { S3Config } from './config';
 import addTrailingSlash from './addTrailingSlash';
+import { S3Config } from './config';
+import { deleteKeyPrefix } from './deleteKeyPrefix';
+import { convertS3Error, create409Error, is404Error } from './s3Errors';
 
 const pkgFileName = 'package.json';
 
@@ -79,10 +80,7 @@ export default class S3PackageManager implements ILocalPackageManager {
       { sessionToken },
       's3: [S3PackageManager constructor] sessionToken @{sessionToken}'
     );
-    this.logger.trace(
-      { proxy },
-      's3: [S3PackageManager constructor] proxy @{proxy}'
-    );
+    this.logger.trace({ proxy }, 's3: [S3PackageManager constructor] proxy @{proxy}');
 
     const packageAccess = this.config.getMatchedPackagesSpec(packageName);
     if (packageAccess) {

@@ -1,24 +1,19 @@
-import fs from 'fs';
-import Path from 'path';
-
 import buildDebug from 'debug';
+import fs from 'fs';
 import _ from 'lodash';
 import mkdirp from 'mkdirp';
-import {
-  Callback,
-  Config,
-  Logger,
-  StorageList,
-} from '@verdaccio/types';
+import Path from 'path';
+
+import { errorUtils, fileUtils, searchUtils } from '@verdaccio/core';
+import { Callback, Config, Logger, StorageList } from '@verdaccio/types';
+
 import { searchOnStorage } from './dir-utils';
-import { errorUtils, searchUtils, fileUtils } from '@verdaccio/core';
-import {LocalStorage} from './utils';
 import LocalDriver, { noSuchFile } from './local-fs';
 import { loadPrivatePackages } from './pkg-utils';
 import TokenActions from './token';
+import { LocalStorage } from './utils';
 
 const debug = buildDebug('verdaccio:plugin:local-storage:database');
-
 
 class LocalDatabase extends TokenActions {
   public path: string;
@@ -62,8 +57,8 @@ class LocalDatabase extends TokenActions {
   }
 
   /**
- * Filter and only match those values that the query define.
- **/
+   * Filter and only match those values that the query define.
+   **/
   public async filterByQuery(results: searchUtils.SearchItemPkg[], query: searchUtils.SearchQuery) {
     // FUTURE: apply new filters, keyword, version, ...
     return results.filter((item: searchUtils.SearchItemPkg) => {
@@ -130,10 +125,7 @@ class LocalDatabase extends TokenActions {
     this.get((err, data) => {
       if (err) {
         cb(errorUtils.getInternalError('error remove private package'));
-        this.logger.error(
-          { err },
-          'remove the private package has failed @{err}'
-        );
+        this.logger.error({ err }, 'remove the private package has failed @{err}');
         debug('error on remove package %o', name);
       }
 
@@ -192,7 +184,6 @@ class LocalDatabase extends TokenActions {
     return time ? time : mtime;
   }
 
-
   /**
    * Syncronize {create} database whether does not exist.
    * @return {Error|*}
@@ -237,23 +228,23 @@ class LocalDatabase extends TokenActions {
     return Path.dirname(this.config.configPath);
   }
 
-    /**
+  /**
    * The field storage could be absolute or relative.
    * If relative, it will be resolved against the config path.
    * If absolute, it will be returned as is.
    **/
-    private getStoragePath() {
-      const { storage } = this.config;
-      if (typeof storage !== 'string') {
-        throw new TypeError('storage field is mandatory');
-      }
-
-      const storagePath = Path.isAbsolute(storage)
-        ? storage
-        : Path.normalize(Path.join(this.getBaseConfigPath(), storage));
-      debug('storage path %o', storagePath);
-      return storagePath;
+  private getStoragePath() {
+    const { storage } = this.config;
+    if (typeof storage !== 'string') {
+      throw new TypeError('storage field is mandatory');
     }
+
+    const storagePath = Path.isAbsolute(storage)
+      ? storage
+      : Path.normalize(Path.join(this.getBaseConfigPath(), storage));
+    debug('storage path %o', storagePath);
+    return storagePath;
+  }
 
   /**
    * Verify the right local storage location.

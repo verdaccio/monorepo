@@ -1,12 +1,13 @@
 import { AWSError } from 'aws-sdk';
+
 import {
-  getNotFound,
-  getCode,
-  getInternalError,
-  getConflict,
   API_ERROR,
   HTTP_STATUS,
   VerdaccioError,
+  getCode,
+  getConflict,
+  getInternalError,
+  getNotFound,
 } from '@verdaccio/commons-api';
 
 export function is404Error(err: VerdaccioError): boolean {

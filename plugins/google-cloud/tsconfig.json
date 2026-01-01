@@ -15,10 +15,7 @@
       "../../node_modules/@google-cloud"
     ]
   },
-  "include": [
-    "src/*.ts",
-    "types/*.d.ts"
-  ],
+  "include": ["src/*.ts", "types/*.d.ts"],
   "references": [
     {
       "path": "../../core/commons-api"

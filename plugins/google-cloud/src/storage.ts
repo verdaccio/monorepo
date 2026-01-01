@@ -1,27 +1,26 @@
+import { DownloadResponse, File } from '@google-cloud/storage';
 import { Readable } from 'stream';
 
-import { UploadTarball, ReadTarball } from '@verdaccio/streams';
 import {
-  Package,
+  HTTP_STATUS,
+  VerdaccioError,
+  getBadRequest,
+  getConflict,
+  getInternalError,
+  getNotFound,
+} from '@verdaccio/commons-api';
+import {
   Callback,
-  Logger,
+  CallbackAction,
   IPackageStorageManager,
+  Logger,
+  Package,
+  PackageTransformer,
+  ReadPackageCallback,
   StorageUpdateCallback,
   StorageWriteCallback,
-  PackageTransformer,
-  CallbackAction,
-  ReadPackageCallback,
 } from '@verdaccio/legacy-types';
-import { File, DownloadResponse } from '@google-cloud/storage';
-import {
-  VerdaccioError,
-  getInternalError,
-  getBadRequest,
-  getNotFound,
-  getConflict,
-  HTTP_STATUS,
-} from '@verdaccio/commons-api';
-
+import { ReadTarball, UploadTarball } from '@verdaccio/streams';
 
 import { IStorageHelper } from './storage-helper';
 import { VerdaccioConfigGoogleStorage } from './types';
