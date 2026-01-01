@@ -10,31 +10,30 @@ on:
 
 env:
   CI: true
+  PNPM_CACHE_FOLDER: .pnpm-store
 
 jobs:
   # Update package versions from changesets.
   version:
     timeout-minutes: 14
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.repository == 'verdaccio/monorepo'
     steps:
       - name: checkout code repository
-        uses: actions/checkout@09d2acae674a48949e3602304ab46fd20ae0c42f
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
+
       - name: setup node.js
-        uses: actions/setup-node@08f58d1471bff7f3a07d167b4ad7df25d5fcfcb6
+        uses: actions/setup-node@v3
         with:
           node-version-file: '.nvmrc'
-      - name: Install pnpm
-        run: |
-          corepack enable
-          corepack prepare --activate pnpm@latest-8
-      - name: Setup npmrc
-        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPMJS_PUBLISH_TOKEN }}" > .npmrc
+      - name: install pnpm
+        run: npm i -g corepack@latest || corepack enable && corepack prepare pnpm@latest-9 --activate
       - name: install dependencies
         run: pnpm install
-      - name: build
-        run: pnpm build
+      - name: test
+        run: pnpm test
       - name: create versions
         uses: changesets/action@master
         with:
@@ -42,6 +41,10 @@ jobs:
           commit: 'build: release packages'
           title: 'build: release packages'
           publish: pnpm ci:publish
+          createGithubReleases: true
+          setupGitUser: false
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPMJS_PUBLISH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.CHANGESET_RELEASE_TOKEN }}
+          NPM_TOKEN: ${{ secrets.REGISTRY_AUTH_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.REGISTRY_AUTH_TOKEN }}
+          NPM_CONFIG_REGISTRY: https://registry.npmjs.org
