@@ -38,13 +38,13 @@
     "async": "3.2.6",
     "lodash": "4.17.21",
     "lowdb": "1.0.0",
-    "mkdirp": "1.0.4"
+    "mkdirp": "3.0.1"
   },
   "devDependencies": {
-    "@types/minimatch": "^3.0.3",
+    "@types/minimatch": "^6.0.0",
     "@types/node": "^20.5.8",
     "@verdaccio/legacy-types": "workspace:1.0.2",
-    "minimatch": "^4.0.0",
+    "minimatch": "^10.0.0",
     "rmdir-sync": "^1.0.1"
   },
   "scripts": {

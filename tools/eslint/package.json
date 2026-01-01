@@ -11,13 +11,13 @@
     "email": "juanpicado19@gmail.com"
   },
   "dependencies": {
-    "@typescript-eslint/eslint-plugin": "6.21.0",
-    "@typescript-eslint/parser": "6.21.0",
+    "@typescript-eslint/eslint-plugin": "8.51.0",
+    "@typescript-eslint/parser": "8.51.0",
     "@vitest/eslint-plugin": "1.4.2",
     "eslint-config-google": "0.14.0",
     "eslint-config-prettier": "10.1.8",
     "eslint-plugin-babel": "5.3.1",
-    "eslint-plugin-cypress": "3.6.0",
+    "eslint-plugin-cypress": "5.2.0",
     "eslint-plugin-import": "2.32.0",
     "eslint-plugin-jsx-a11y": "6.10.2",
     "eslint-plugin-prettier": "5.5.4",
