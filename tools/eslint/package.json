@@ -13,7 +13,7 @@
   "dependencies": {
     "@typescript-eslint/eslint-plugin": "6.21.0",
     "@typescript-eslint/parser": "6.21.0",
-    "@vitest/eslint-plugin": "1.4.2",
+    "@vitest/eslint-plugin": "1.6.4",
     "eslint-config-google": "0.14.0",
     "eslint-config-prettier": "10.1.8",
     "eslint-plugin-babel": "5.3.1",
