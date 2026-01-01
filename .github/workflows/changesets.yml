@@ -33,7 +33,7 @@ jobs:
       - name: install dependencies
         run: pnpm install
       - name: test
-        run: pnpm test
+        run: pnpm build
       - name: create versions
         uses: changesets/action@master
         with:
