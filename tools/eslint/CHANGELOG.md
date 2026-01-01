@@ -1,5 +1,11 @@
 # @verdaccio/eslint-config
 
+## 11.0.1
+
+### Patch Changes
+
+- 6e2b482: fix: add missing ts dependencies
+
 ## 11.0.0
 
 ### Major Changes
