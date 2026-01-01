@@ -24,7 +24,7 @@ jobs:
         ports:
           - 4873:4873
     steps:
-    - uses: actions/checkout@09d2acae674a48949e3602304ab46fd20ae0c42f
+    - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
     - name: Use Node
       uses: actions/setup-node@65d868f8d4d85d7d4abb7de0875cde3fcc8798f5
       with:
@@ -40,7 +40,7 @@ jobs:
     name: Lint
     needs: prepare
     steps:
-      - uses: actions/checkout@09d2acae674a48949e3602304ab46fd20ae0c42f
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
       - name: Use Node
         uses: actions/setup-node@65d868f8d4d85d7d4abb7de0875cde3fcc8798f5
         with:
@@ -65,7 +65,7 @@ jobs:
     name: ${{ matrix.os }} / Node ${{ matrix.node_version }}
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@09d2acae674a48949e3602304ab46fd20ae0c42f
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
       - name: Use Node ${{ matrix.node_version }}
         uses: actions/setup-node@65d868f8d4d85d7d4abb7de0875cde3fcc8798f5
         with:
