@@ -20,7 +20,7 @@ jobs:
     if: github.ref == 'refs/heads/main' && github.repository == 'verdaccio/monorepo'
     steps:
       - name: checkout code repository
-        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
         with:
           fetch-depth: 0
 
