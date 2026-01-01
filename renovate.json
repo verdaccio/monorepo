@@ -44,7 +44,7 @@
     },
     {
       "matchPackagePatterns": ["*"],
-      "matchUpdateTypes": ["minor", "patch", "major"],
+      "matchUpdateTypes": ["minor", "patch"],
       "groupName": "all core dependencies",
       "groupSlug": "all-core",
       "extends": [":semanticCommitTypeAll(fix)"]
