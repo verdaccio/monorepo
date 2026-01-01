@@ -32,7 +32,7 @@ jobs:
         run: npm i -g corepack@latest || corepack enable && corepack prepare pnpm@latest-9 --activate
       - name: install dependencies
         run: pnpm install
-      - name: test
+      - name: build
         run: pnpm build
       - name: create versions
         uses: changesets/action@master
