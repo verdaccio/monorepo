@@ -1,5 +1,11 @@
 # @verdaccio/eslint-config
 
+## 11.0.0
+
+### Major Changes
+
+- 0cdc7e9: feat: bump up
+
 ## 4.0.0
 
 ### Major Changes
