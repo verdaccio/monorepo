@@ -4,6 +4,12 @@
 
 ### Major Changes
 
+- 55bf445: feat: bump up
+
+## 11.0.0
+
+### Major Changes
+
 - 0cdc7e9: feat: bump up
 
 ## 4.0.0
