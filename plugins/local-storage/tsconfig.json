@@ -9,14 +9,9 @@
     "outDir": "lib",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "typeRoots": [
-      "./node_modules/@types"
-    ]
+    "typeRoots": ["./node_modules/@types"]
   },
-  "include": [
-    "src/*.ts",
-    "types/*.d.ts"
-  ],
+  "include": ["src/*.ts", "types/*.d.ts"],
   "references": [
     {
       "path": "../../core/file-locking"

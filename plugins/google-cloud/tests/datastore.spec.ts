@@ -1,11 +1,11 @@
 import _ from 'lodash';
-import { Logger, ILocalPackageManager } from '@verdaccio/legacy-types';
+
 import { VerdaccioError } from '@verdaccio/commons-api';
 import { HTTP_STATUS } from '@verdaccio/commons-api/lib';
+import { ILocalPackageManager, Logger } from '@verdaccio/legacy-types';
 
 import { ERROR_MISSING_CONFIG } from '../src/data-storage';
 import { VerdaccioConfigGoogleStorage } from '../src/types';
-
 import storageConfig from './partials/config';
 
 const loggerDefault: Logger = {
@@ -69,7 +69,7 @@ describe('Google Cloud Storage', () => {
     describe('DataStore basic calls', () => {
       const pkgName = 'dataBasicItem1';
 
-      test('should add an Entity', done => {
+      test('should add an Entity', (done) => {
         // ** add, remove, get, getPackageStorage
         jest.doMock('../src/storage-helper', () => {
           const originalModule = jest.requireActual('../src/storage-helper').default;
@@ -113,7 +113,7 @@ describe('Google Cloud Storage', () => {
         });
       });
 
-      test('should fails add an Entity', done => {
+      test('should fails add an Entity', (done) => {
         // ** add, remove, get, getPackageStorage
         jest.doMock('../src/storage-helper', () => {
           const originalModule = jest.requireActual('../src/storage-helper').default;
@@ -151,7 +151,7 @@ describe('Google Cloud Storage', () => {
         });
       });
 
-      test('should delete an entity', done => {
+      test('should delete an entity', (done) => {
         const deleteDataStore = jest.fn();
 
         jest.doMock('../src/storage-helper', () => {
@@ -215,7 +215,7 @@ describe('Google Cloud Storage', () => {
     });
 
     describe('should test non implemented methods', () => {
-      test('should test saveToken', done => {
+      test('should test saveToken', (done) => {
         const warn = jest.fn();
         const cloudDatabase = getCloudDatabase(storageConfig, { ...loggerDefault, warn });
         cloudDatabase.saveToken({}).catch(() => {
@@ -224,7 +224,7 @@ describe('Google Cloud Storage', () => {
         });
       });
 
-      test('should test deleteToken', done => {
+      test('should test deleteToken', (done) => {
         const warn = jest.fn();
         const cloudDatabase = getCloudDatabase(storageConfig, { ...loggerDefault, warn });
         cloudDatabase.deleteToken({}).catch(() => {
@@ -233,7 +233,7 @@ describe('Google Cloud Storage', () => {
         });
       });
 
-      test('should test readTokens', done => {
+      test('should test readTokens', (done) => {
         const warn = jest.fn();
         const cloudDatabase = getCloudDatabase(storageConfig, { ...loggerDefault, warn });
         cloudDatabase.readTokens({}).catch(() => {
@@ -242,7 +242,7 @@ describe('Google Cloud Storage', () => {
         });
       });
 
-      test('should test search', done => {
+      test('should test search', (done) => {
         const warn = jest.fn();
         const cloudDatabase = getCloudDatabase(storageConfig, { ...loggerDefault, warn });
         cloudDatabase.search(null, () => {
@@ -251,7 +251,7 @@ describe('Google Cloud Storage', () => {
         });
       });
 
-      test('should test sync', done => {
+      test('should test sync', (done) => {
         const warn = jest.fn();
         const cloudDatabase = getCloudDatabase(storageConfig, { ...loggerDefault, warn });
         cloudDatabase.sync();

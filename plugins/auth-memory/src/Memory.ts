@@ -1,6 +1,16 @@
-import { Config, PluginOptions, Callback, PackageAccess, IPluginAuth, RemoteUser, Logger } from '@verdaccio/legacy-types';
-import {cryptoUtils, errorUtils } from '@verdaccio/core';
 import createDebug from 'debug';
+
+import { cryptoUtils, errorUtils } from '@verdaccio/core';
+import {
+  Callback,
+  Config,
+  IPluginAuth,
+  Logger,
+  PackageAccess,
+  PluginOptions,
+  RemoteUser,
+} from '@verdaccio/legacy-types';
+
 const { getConflict, getForbidden, getNotFound, getUnauthorized } = errorUtils;
 
 const debug = createDebug('verdaccio:plugin:memory');
@@ -19,14 +29,16 @@ export interface VerdaccioMemoryConfig extends Config {
   users: Users;
 }
 
-
 export default class Memory implements IPluginAuth<VerdaccioMemoryConfig> {
   public _logger: Logger;
   public _users: Users;
   public _config: {};
   public _app_config: VerdaccioMemoryConfig;
 
-  public constructor(config: VerdaccioMemoryConfig, appOptions: PluginOptions<VerdaccioMemoryConfig>) {
+  public constructor(
+    config: VerdaccioMemoryConfig,
+    appOptions: PluginOptions<VerdaccioMemoryConfig>
+  ) {
     debug('init memory auth plugin with config: %o', config);
     this._users = config.users || {};
     this._config = config;
@@ -81,7 +93,12 @@ export default class Memory implements IPluginAuth<VerdaccioMemoryConfig> {
     done(null, user);
   }
 
-  public changePassword(username: string, password: string, newPassword: string, cb: Callback): void {
+  public changePassword(
+    username: string,
+    password: string,
+    newPassword: string,
+    cb: Callback
+  ): void {
     debug('change password for user: %s', username);
     const user: UserMemory = this._users[username];
     this._logger.debug({ user: username }, 'user: @{user} init change password');
@@ -101,7 +118,10 @@ export default class Memory implements IPluginAuth<VerdaccioMemoryConfig> {
   }
 
   public allow_access(user: RemoteUser, pkg: PackageAccess, cb: Callback): void {
-    if ((pkg.access && pkg.access.includes('$all')) || (pkg.access && pkg.access.includes('$anonymous'))) {
+    if (
+      (pkg.access && pkg.access.includes('$all')) ||
+      (pkg.access && pkg.access.includes('$anonymous'))
+    ) {
       this._logger.debug({ user: user.name }, 'user: @{user} has been granted access');
 
       return cb(null, true);
@@ -114,7 +134,10 @@ export default class Memory implements IPluginAuth<VerdaccioMemoryConfig> {
       return cb(err);
     }
 
-    if ((pkg.access && pkg.access.includes(user.name)) || (pkg.access && pkg.access.includes('$authenticated'))) {
+    if (
+      (pkg.access && pkg.access.includes(user.name)) ||
+      (pkg.access && pkg.access.includes('$authenticated'))
+    ) {
       debug('user %s has been granted access to package', user.name);
       this._logger.debug({ user: user.name }, 'user: @{user} has been granted access');
       return cb(null, true);
@@ -129,7 +152,10 @@ export default class Memory implements IPluginAuth<VerdaccioMemoryConfig> {
 
   public allow_publish(user: RemoteUser, pkg: PackageAccess, cb: Callback): void {
     debug('allow publish for user: %s', user.name);
-    if ((pkg.publish && pkg.publish.includes('$all')) || (pkg.publish && pkg.publish.includes('$anonymous'))) {
+    if (
+      (pkg.publish && pkg.publish.includes('$all')) ||
+      (pkg.publish && pkg.publish.includes('$anonymous'))
+    ) {
       this._logger.debug({ user: user.name }, 'user: @{user} has been granted to publish');
       return cb(null, true);
     }
@@ -142,7 +168,10 @@ export default class Memory implements IPluginAuth<VerdaccioMemoryConfig> {
       return cb(err);
     }
 
-    if ((pkg.publish && pkg.publish.includes(user.name)) || (pkg.publish && pkg.publish.includes('$authenticated'))) {
+    if (
+      (pkg.publish && pkg.publish.includes(user.name)) ||
+      (pkg.publish && pkg.publish.includes('$authenticated'))
+    ) {
       debug('user %s has been granted to publish package', user.name);
       return cb(null, true);
     }

@@ -1,6 +1,7 @@
+import ActiveDirectory from 'activedirectory2';
+
 import { errorUtils } from '@verdaccio/core';
 import { Callback, IPluginAuth, Logger } from '@verdaccio/legacy-types';
-import ActiveDirectory from 'activedirectory2';
 
 export const NotAuthMessage = 'AD - Active Directory authentication failed';
 
@@ -11,7 +12,7 @@ export interface ActiveDirectoryConfig {
   groupName?: string | string[];
 }
 
-const {getForbidden, getInternalError, getUnauthorized} = errorUtils;
+const { getForbidden, getInternalError, getUnauthorized } = errorUtils;
 
 class ActiveDirectoryPlugin implements IPluginAuth<ActiveDirectoryConfig> {
   private config: ActiveDirectoryConfig;
@@ -30,7 +31,7 @@ class ActiveDirectoryPlugin implements IPluginAuth<ActiveDirectoryConfig> {
       domainSuffix: undefined,
       username,
       password,
-      logging: this.logger
+      logging: this.logger,
     };
 
     const connection = new ActiveDirectory(connectionConfig);
@@ -54,7 +55,7 @@ class ActiveDirectoryPlugin implements IPluginAuth<ActiveDirectoryConfig> {
         connection.getGroupMembershipForUser(username, (err, groups: object[]): void => {
           if (err) {
             this.logger.warn(`AD - Active Directory group check failed with error: ${err}`);
-            return cb(getInternalError((err as unknown) as string));
+            return cb(getInternalError(err as unknown as string));
           }
 
           const requestedGroups = Array.isArray(groupName) ? groupName : [groupName];

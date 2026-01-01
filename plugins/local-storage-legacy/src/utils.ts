@@ -1,7 +1,6 @@
+import _ from 'lodash';
 import fs from 'node:fs';
 import path from 'node:path';
-
-import _ from 'lodash';
 
 export function getFileStats(packagePath: string): Promise<fs.Stats> {
   return new Promise((resolve, reject): void => {

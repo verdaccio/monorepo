@@ -1,10 +1,9 @@
 import { PackageAccess } from '@verdaccio/legacy-types';
 
-import S3PackageManager from '../src/s3PackageManager';
 import { S3Config } from '../src/config';
-
-import logger from './__mocks__/Logger';
+import S3PackageManager from '../src/s3PackageManager';
 import pkg from './__fixtures__/pkg';
+import logger from './__mocks__/Logger';
 
 const mockHeadObject = jest.fn();
 const mockPutObject = jest.fn();
@@ -24,7 +23,7 @@ jest.mock('aws-sdk', () => ({
   })),
 }));
 
-describe('S3PackageManager with mocked s3', function() {
+describe('S3PackageManager with mocked s3', function () {
   beforeEach(() => {
     mockHeadObject.mockClear();
     mockPutObject.mockClear();
@@ -33,7 +32,7 @@ describe('S3PackageManager with mocked s3', function() {
     mockListObject.mockClear();
     mockGetObject.mockClear();
   });
-  test('existing packages on s3 are not recreated', done => {
+  test('existing packages on s3 are not recreated', (done) => {
     expect.assertions(1);
     const config: S3Config = {
       bucket: 'test-bucket',
@@ -47,13 +46,13 @@ describe('S3PackageManager with mocked s3', function() {
 
     const testPackageManager = new S3PackageManager(config, 'test-package', logger);
 
-    testPackageManager.createPackage('test-0.0.0.tgz', pkg, err => {
+    testPackageManager.createPackage('test-0.0.0.tgz', pkg, (err) => {
       expect(err.message).toEqual('file already exists');
       done();
     });
   });
 
-  test('new package is created on s3', done => {
+  test('new package is created on s3', (done) => {
     expect.assertions(2);
 
     const config: S3Config = {
@@ -72,14 +71,14 @@ describe('S3PackageManager with mocked s3', function() {
 
     const testPackageManager = new S3PackageManager(config, 'test-package', logger);
 
-    testPackageManager.createPackage('test-0.0.0.tgz', pkg, err => {
+    testPackageManager.createPackage('test-0.0.0.tgz', pkg, (err) => {
       expect(err).toBeUndefined();
       expect(mockPutObject).toHaveBeenCalled();
       done();
     });
   });
 
-  test('new package is uploaded to keyprefix if custom storage is not specified', done => {
+  test('new package is uploaded to keyprefix if custom storage is not specified', (done) => {
     expect.assertions(1);
     const config: S3Config = {
       bucket: 'test-bucket',
@@ -109,7 +108,7 @@ describe('S3PackageManager with mocked s3', function() {
     });
   });
 
-  test('new package is uploaded to custom storage prefix as specified on package section in config', done => {
+  test('new package is uploaded to custom storage prefix as specified on package section in config', (done) => {
     expect.assertions(2);
     const config: S3Config = {
       bucket: 'test-bucket',
@@ -148,7 +147,7 @@ describe('S3PackageManager with mocked s3', function() {
     });
   });
 
-  test('delete package with custom folder from s3 bucket', done => {
+  test('delete package with custom folder from s3 bucket', (done) => {
     expect.assertions(1);
     const config: S3Config = {
       bucket: 'test-bucket',
@@ -176,7 +175,7 @@ describe('S3PackageManager with mocked s3', function() {
     });
   });
 
-  test('delete package from s3 bucket', done => {
+  test('delete package from s3 bucket', (done) => {
     expect.assertions(1);
     const config: S3Config = {
       bucket: 'test-bucket',
@@ -202,7 +201,7 @@ describe('S3PackageManager with mocked s3', function() {
     });
   });
 
-  test('remove packages from s3 bucket', done => {
+  test('remove packages from s3 bucket', (done) => {
     expect.assertions(2);
     const config: S3Config = {
       bucket: 'test-bucket',
@@ -239,7 +238,7 @@ describe('S3PackageManager with mocked s3', function() {
     });
   });
 
-  test('remove packages with custom storage from s3 bucket', done => {
+  test('remove packages with custom storage from s3 bucket', (done) => {
     expect.assertions(2);
     const config: S3Config = {
       bucket: 'test-bucket',
@@ -278,7 +277,7 @@ describe('S3PackageManager with mocked s3', function() {
     });
   });
 
-  test('read packages with custom storage from s3 bucket', done => {
+  test('read packages with custom storage from s3 bucket', (done) => {
     expect.assertions(1);
     const config: S3Config = {
       bucket: 'test-bucket',
@@ -306,7 +305,7 @@ describe('S3PackageManager with mocked s3', function() {
     });
   });
 
-  test('read packages from s3 bucket', done => {
+  test('read packages from s3 bucket', (done) => {
     expect.assertions(1);
     const config: S3Config = {
       bucket: 'test-bucket',
@@ -340,7 +339,7 @@ describe('S3PackageManager with mocked s3', function() {
       getMatchedPackagesSpec: jest.fn(() => null) as PackageAccess,
     } as S3Config;
 
-    mockGetObject.mockImplementation(params => {
+    mockGetObject.mockImplementation((params) => {
       return {
         on: jest.fn(() => ({
           createReadStream: jest.fn(() => ({
@@ -371,7 +370,7 @@ describe('S3PackageManager with mocked s3', function() {
       })) as PackageAccess,
     } as S3Config;
 
-    mockGetObject.mockImplementation(params => {
+    mockGetObject.mockImplementation((params) => {
       return {
         on: jest.fn(() => ({
           createReadStream: jest.fn(() => ({

@@ -2,7 +2,7 @@
 
 > Only used by 5.x versions
 
-📦 File system storage plugin for verdaccio 
+📦 File system storage plugin for verdaccio
 
 [![verdaccio (latest)](https://img.shields.io/npm/v/@verdaccio/local-storage/latest.svg)](https://www.npmjs.com/package/@verdaccio/local-storage)
 [![CircleCI](https://circleci.com/gh/verdaccio/local-storage/tree/master.svg?style=svg)](https://circleci.com/gh/verdaccio/local-storage/tree/master)
@@ -31,8 +31,8 @@ The main object that handle a JSON database the private packages.
 new LocalDatabase(config, logger);
 ```
 
-* **config**: A verdaccio configuration instance.
-* **logger**: A logger instance
+- **config**: A verdaccio configuration instance.
+- **logger**: A logger instance
 
 ### LocalFS
 
@@ -42,10 +42,8 @@ A class that handle an package instance in the File System
 new LocalFS(packageStoragePath, logger);
 ```
 
-
-
 ## License
-Verdaccio is [MIT licensed](https://github.com/verdaccio/local-storage/blob/master/LICENSE).
 
+Verdaccio is [MIT licensed](https://github.com/verdaccio/local-storage/blob/master/LICENSE).
 
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fverdaccio%2Flocal-storage.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fverdaccio%2Flocal-storage?ref=badge_large)

@@ -1,15 +1,20 @@
 /* eslint-disable no-undef */
-
-import fs from 'node:fs';
-import path from 'node:path';
-
 import buildDebug from 'debug';
 import _ from 'lodash';
 import mkdirp from 'mkdirp';
-import { UploadTarball, ReadTarball } from '@verdaccio/streams';
-import { unlockFile, readFile } from '@verdaccio/file-locking';
-import { Callback, Logger, Package, ILocalPackageManager, IUploadTarball } from '@verdaccio/legacy-types';
-import {errorUtils, VerdaccioError} from '@verdaccio/core';
+import fs from 'node:fs';
+import path from 'node:path';
+
+import { VerdaccioError, errorUtils } from '@verdaccio/core';
+import { readFile, unlockFile } from '@verdaccio/file-locking';
+import {
+  Callback,
+  ILocalPackageManager,
+  IUploadTarball,
+  Logger,
+  Package,
+} from '@verdaccio/legacy-types';
+import { ReadTarball, UploadTarball } from '@verdaccio/streams';
 
 export const fileExist = 'EEXISTS';
 export const noSuchFile = 'ENOENT';
@@ -20,7 +25,7 @@ const debug = buildDebug('verdaccio:plugin:local-storage-legacy:fs');
 
 const { getCode, getInternalError, getNotFound } = errorUtils;
 
-export const fSError = function(message: string, code = 409): VerdaccioError {
+export const fSError = function (message: string, code = 409): VerdaccioError {
   const err: VerdaccioError = getCode(code, message);
   // FIXME: we should return http-status codes here instead, future improvement
   // @ts-ignore
@@ -29,11 +34,11 @@ export const fSError = function(message: string, code = 409): VerdaccioError {
   return err;
 };
 
-const tempFile = function(str): string {
+const tempFile = function (str): string {
   return `${str}.tmp${String(Math.random()).substr(2)}`;
 };
 
-const renameTmp = function(src, dst, _cb): void {
+const renameTmp = function (src, dst, _cb): void {
   const cb = (err): void => {
     if (err) {
       fs.unlink(src, () => {});
@@ -48,7 +53,7 @@ const renameTmp = function(src, dst, _cb): void {
   // windows can't remove opened file,
   // but it seem to be able to rename it
   const tmp = tempFile(dst);
-  fs.rename(dst, tmp, function(err) {
+  fs.rename(dst, tmp, function (err) {
     fs.rename(src, dst, cb);
     if (!err) {
       fs.unlink(tmp, () => {});
@@ -93,7 +98,7 @@ export default class LocalFS implements ILocalFSPackageManager {
       let locked = false;
       const self = this;
       // callback that cleans up lock first
-      const unLockCallback = function(lockError: Error): void {
+      const unLockCallback = function (lockError: Error): void {
         // eslint-disable-next-line prefer-rest-params
         const _args = arguments;
 
@@ -127,7 +132,7 @@ export default class LocalFS implements ILocalFSPackageManager {
         }
       }
 
-      updateHandler(json, err => {
+      updateHandler(json, (err) => {
         if (err) {
           return unLockCallback(err);
         }
@@ -137,7 +142,10 @@ export default class LocalFS implements ILocalFSPackageManager {
     });
   }
 
-  public deletePackage(packageName: string, callback: (err: NodeJS.ErrnoException | null) => void): void {
+  public deletePackage(
+    packageName: string,
+    callback: (err: NodeJS.ErrnoException | null) => void
+  ): void {
     debug('delete a package %o', packageName);
 
     return fs.unlink(this._getStorage(packageName), callback);
@@ -165,7 +173,7 @@ export default class LocalFS implements ILocalFSPackageManager {
     debug('read a package %o', name);
 
     this._readStorageFile(this._getStorage(pkgFileName)).then(
-      res => {
+      (res) => {
         try {
           const data: any = JSON.parse(res.toString('utf8'));
 
@@ -176,7 +184,7 @@ export default class LocalFS implements ILocalFSPackageManager {
           cb(err);
         }
       },
-      err => {
+      (err) => {
         debug('read storage file %o has failed with error %o', name, err);
 
         return cb(err);
@@ -189,28 +197,31 @@ export default class LocalFS implements ILocalFSPackageManager {
     debug('write a tarball for a package %o', name);
 
     let _ended = 0;
-    uploadStream.on('end', function() {
+    uploadStream.on('end', function () {
       _ended = 1;
     });
 
     const pathName: string = this._getStorage(name);
 
-    fs.access(pathName, fileNotFound => {
+    fs.access(pathName, (fileNotFound) => {
       const exists = !fileNotFound;
       if (exists) {
         uploadStream.emit('error', fSError(fileExist));
       } else {
-        const temporalName = path.join(this.path, `${name}.tmp-${String(Math.random()).replace(/^0\./, '')}`);
+        const temporalName = path.join(
+          this.path,
+          `${name}.tmp-${String(Math.random()).replace(/^0\./, '')}`
+        );
         debug('write a temporal name %o', temporalName);
         const file = fs.createWriteStream(temporalName);
         const removeTempFile = (): void => fs.unlink(temporalName, () => {});
         let opened = false;
         uploadStream.pipe(file);
 
-        uploadStream.done = function(): void {
-          const onend = function(): void {
-            file.on('close', function() {
-              renameTmp(temporalName, pathName, function(err) {
+        uploadStream.done = function (): void {
+          const onend = function (): void {
+            file.on('close', function () {
+              renameTmp(temporalName, pathName, function (err) {
                 if (err) {
                   uploadStream.emit('error', err);
                 } else {
@@ -227,10 +238,10 @@ export default class LocalFS implements ILocalFSPackageManager {
           }
         };
 
-        uploadStream.abort = function(): void {
+        uploadStream.abort = function (): void {
           if (opened) {
             opened = false;
-            file.on('close', function() {
+            file.on('close', function () {
               removeTempFile();
             });
           } else {
@@ -240,13 +251,13 @@ export default class LocalFS implements ILocalFSPackageManager {
           file.end();
         };
 
-        file.on('open', function() {
+        file.on('open', function () {
           opened = true;
           // re-emitting open because it's handled in storage.js
           uploadStream.emit('open');
         });
 
-        file.on('error', function(err) {
+        file.on('error', function (err) {
           uploadStream.emit('error', err);
         });
       }
@@ -263,13 +274,13 @@ export default class LocalFS implements ILocalFSPackageManager {
 
     const readStream = fs.createReadStream(pathName);
 
-    readStream.on('error', function(err) {
+    readStream.on('error', function (err) {
       debug('error on read a tarball %o with error %o', name, err);
       readTarballStream.emit('error', err);
     });
 
-    readStream.on('open', function(fd) {
-      fs.fstat(fd, function(err, stats) {
+    readStream.on('open', function (fd) {
+      fs.fstat(fd, function (err, stats) {
         if (_.isNil(err) === false) {
           debug('error on read a tarball %o with error %o', name, err);
           return readTarballStream.emit('error', err);
@@ -281,7 +292,7 @@ export default class LocalFS implements ILocalFSPackageManager {
       });
     });
 
-    readTarballStream.abort = function(): void {
+    readTarballStream.abort = function (): void {
       debug('abort on read a tarball %o', name);
       readStream.close();
     };
@@ -292,7 +303,7 @@ export default class LocalFS implements ILocalFSPackageManager {
   private _createFile(name: string, contents: any, callback: Function): void {
     debug(' create a new file: %o', name);
 
-    fs.open(name, 'wx', err => {
+    fs.open(name, 'wx', (err) => {
       if (err) {
         // native EEXIST used here to check exception on fs.open
         if (err.code === 'EEXIST') {
@@ -336,7 +347,7 @@ export default class LocalFS implements ILocalFSPackageManager {
     const createTempFile = (cb): void => {
       const tempFilePath = tempFile(dest);
 
-      fs.writeFile(tempFilePath, data, err => {
+      fs.writeFile(tempFilePath, data, (err) => {
         if (err) {
           debug('error on write the file: %o', dest);
           return cb(err);
@@ -347,13 +358,13 @@ export default class LocalFS implements ILocalFSPackageManager {
       });
     };
 
-    createTempFile(err => {
+    createTempFile((err) => {
       if (err && err.code === noSuchFile) {
         mkdirp(path.dirname(dest))
           .then(() => {
             createTempFile(cb);
           })
-          .catch(err => {
+          .catch((err) => {
             return cb(err);
           });
       } else {

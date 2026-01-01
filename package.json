@@ -13,7 +13,9 @@
     "@babel/core": "7.28.5",
     "@babel/node": "7.28.0",
     "@babel/preset-env": "7.28.5",
+    "@trivago/prettier-plugin-sort-imports": "4.3.0",
     "@babel/preset-typescript": "7.28.5",
+    "eslint-plugin-jest": "26.9.0",
     "@babel/plugin-proposal-class-properties": "7.18.6",
     "@babel/register": "7.28.3",
     "@babel/runtime": "7.28.4",
@@ -34,18 +36,11 @@
     "cross-env": "7.0.3",
     "rimraf": "3.0.2",
     "eslint": "8.57.1",
-    "eslint-config-google": "0.14.0",
-    "eslint-config-prettier": "8.10.2",
-    "eslint-plugin-babel": "5.3.1",
-    "eslint-plugin-import": "2.32.0",
-    "eslint-plugin-jest": "26.9.0",
-    "eslint-plugin-simple-import-sort": "7.0.0",
-    "eslint-plugin-verdaccio": "9.6.1",
     "husky": "3.1.0",
     "update-ts-references": "2.8.0",
     "jest": "27.5.1",
     "lodash": "4.17.21",
-    "prettier": "2.8.8",
+    "prettier": "3.4.2",
     "typescript": "4.7.3"
   },
   "scripts": {
@@ -53,6 +48,8 @@
     "changeset:check": "changeset status --since-master",
     "clean": "pnpm recursive run clean",
     "build": "pnpm recursive run build",
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,yml,yaml,md}\"",
+    "format:check": "prettier --check \"**/*.{js,jsx,ts,tsx,json,yml,yaml,md}\"",
     "lint": "eslint \"**/*.{js,jsx,ts,tsx}\"",
     "ci:version:changeset": "changeset version",
     "ci:version": "npm run ci:version:changeset && npm run ci:version:install",
@@ -65,5 +62,5 @@
     "node": ">=18"
   },
   "version": "0.0.0",
-  "packageManager": "pnpm@8.15.9+sha512.499434c9d8fdd1a2794ebf4552b3b25c0a633abcee5bb15e7b5de90f32f47b513aca98cd5cfd001c31f0db454bc3804edccd578501e4ca293a6816166bbd9f81"
+  "packageManager": "pnpm@9.15.9+sha512.68046141893c66fad01c079231128e9afb89ef87e2691d69e4d40eee228988295fd4682181bae55b58418c3a253bde65a505ec7c5f9403ece5cc3cd37dcf2531"
 }

@@ -53,6 +53,8 @@ jobs:
         run: pnpm install --ignore-scripts
       - name: Lint
         run: pnpm lint
+      - name: Format
+        run: pnpm format:check
   test:
     needs: lint
     strategy:

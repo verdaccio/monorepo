@@ -22,8 +22,8 @@ class Config implements VerdaccioConfigGoogleStorage {
     this.secret = '12345';
     this.uplinks = {
       npmjs: {
-        url: 'http://never_use:0000/'
-      }
+        url: 'http://never_use:0000/',
+      },
     };
     this.server_id = '';
     this.user_agent = '';

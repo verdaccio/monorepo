@@ -1,11 +1,11 @@
-import Path from 'path';
-
+import buildDebug from 'debug';
 import _ from 'lodash';
 import low from 'lowdb';
 import FileAsync from 'lowdb/adapters/FileAsync';
 import FileMemory from 'lowdb/adapters/Memory';
-import buildDebug from 'debug';
-import { ITokenActions, Config, Token, TokenFilter } from '@verdaccio/types';
+import Path from 'path';
+
+import { Config, ITokenActions, Token, TokenFilter } from '@verdaccio/types';
 
 const debug = buildDebug('verdaccio:plugin:local-storage:token');
 
@@ -24,9 +24,7 @@ export default class TokenActions implements ITokenActions {
     // TODO: self_path is a legacy property and is deprecated
     // TODO: display deprecation warning for self_path
     const selfPath = config.configPath ?? config.self_path;
-    return Path.join(
-      Path.resolve(Path.dirname(selfPath || ''), config.storage as string, dbName)
-    );
+    return Path.join(Path.resolve(Path.dirname(selfPath || ''), config.storage as string, dbName));
   }
 
   private async getTokenDb(): Promise<low.LowdbAsync<any>> {

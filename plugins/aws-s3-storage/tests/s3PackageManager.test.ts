@@ -1,17 +1,16 @@
-import path from 'path';
-import fs from 'fs';
-
 import { S3 } from 'aws-sdk';
+import fs from 'fs';
+import path from 'path';
 import rReadDir from 'recursive-readdir';
+
 import { Package } from '@verdaccio/legacy-types';
 
-import S3PackageManager from '../src/s3PackageManager';
+import { S3Config } from '../src/config';
 import { deleteKeyPrefix } from '../src/deleteKeyPrefix';
 import { create404Error, create409Error, is404Error } from '../src/s3Errors';
-import { S3Config } from '../src/config';
-
-import logger from './__mocks__/Logger';
+import S3PackageManager from '../src/s3PackageManager';
 import pkg from './__fixtures__/pkg';
+import logger from './__mocks__/Logger';
 
 const pkgFileName = 'package.json';
 
@@ -58,7 +57,7 @@ describe.skip('S3 package manager', () => {
             Bucket: bucket,
             Prefix: keyPrefix,
           },
-          err => {
+          (err) => {
             if (err) {
               reject(err);
             } else {
@@ -77,11 +76,11 @@ describe.skip('S3 package manager', () => {
   });
 
   describe('savePackage() group', () => {
-    test('savePackage()', done => {
-      const data = ('{data:5}' as unknown) as Package;
+    test('savePackage()', (done) => {
+      const data = '{data:5}' as unknown as Package;
       const packageManager = new S3PackageManager(config, 'first-package', logger);
 
-      packageManager.savePackage('pkg.1.0.0.tar.gz', data, err => {
+      packageManager.savePackage('pkg.1.0.0.tar.gz', data, (err) => {
         expect(err).toBeNull();
         done();
       });
@@ -104,7 +103,7 @@ describe.skip('S3 package manager', () => {
 
     await Promise.all(
       filenames.map(
-        filename =>
+        (filename) =>
           new Promise((resolve, reject): void => {
             const key = `${config.keyPrefix}${path.relative(dir, filename)}`;
             fs.readFile(filename, (err, data) => {
@@ -112,7 +111,7 @@ describe.skip('S3 package manager', () => {
                 reject(err);
                 return;
               }
-              s3.upload({ Bucket: bucket, Key: key, Body: data }).send(err => {
+              s3.upload({ Bucket: bucket, Key: key, Body: data }).send((err) => {
                 if (err) {
                   reject(err);
                   return;
@@ -126,34 +125,34 @@ describe.skip('S3 package manager', () => {
   }
 
   describe('readPackage() group', () => {
-    test('readPackage() success', async done => {
+    test('readPackage() success', async (done) => {
       await syncFixtureDir('readme-test');
 
       const packageManager = new S3PackageManager(config, 'readme-test', logger);
 
-      packageManager.readPackage(pkgFileName, err => {
+      packageManager.readPackage(pkgFileName, (err) => {
         expect(err).toBeNull();
         done();
       });
     });
 
-    test('readPackage() fails', async done => {
+    test('readPackage() fails', async (done) => {
       await syncFixtureDir('readme-test');
 
       const packageManager = new S3PackageManager(config, 'readme-test', logger);
 
-      packageManager.readPackage(pkgFileName, err => {
+      packageManager.readPackage(pkgFileName, (err) => {
         expect(err).toBeTruthy();
         done();
       });
     });
 
-    test('readPackage() fails corrupt', async done => {
+    test('readPackage() fails corrupt', async (done) => {
       await syncFixtureDir('readme-test-corrupt');
 
       const packageManager = new S3PackageManager(config, 'readme-test-corrupt', logger);
 
-      packageManager.readPackage('corrupt.js', err => {
+      packageManager.readPackage('corrupt.js', (err) => {
         expect(err).toBeTruthy();
         done();
       });
@@ -161,21 +160,21 @@ describe.skip('S3 package manager', () => {
   });
 
   describe('createPackage() group', () => {
-    test('createPackage()', done => {
+    test('createPackage()', (done) => {
       const packageManager = new S3PackageManager(config, 'createPackage', logger);
 
-      packageManager.createPackage('package5', pkg, err => {
+      packageManager.createPackage('package5', pkg, (err) => {
         expect(err).toBeNull();
         done();
       });
     });
 
-    test('createPackage() fails by fileExist', done => {
+    test('createPackage() fails by fileExist', (done) => {
       const packageManager = new S3PackageManager(config, 'createPackage', logger);
 
-      packageManager.createPackage('package5', pkg, err => {
+      packageManager.createPackage('package5', pkg, (err) => {
         expect(err).toBeNull();
-        packageManager.createPackage('package5', pkg, err => {
+        packageManager.createPackage('package5', pkg, (err) => {
           expect(err).not.toBeNull();
           expect(err.code).toBe(create409Error().code); // file exists
           done();
@@ -184,11 +183,11 @@ describe.skip('S3 package manager', () => {
     });
 
     describe('deletePackage() group', () => {
-      test('deletePackage()', done => {
+      test('deletePackage()', (done) => {
         const packageManager = new S3PackageManager(config, 'createPackage', logger);
 
         // verdaccio removes the package.json instead the package name
-        packageManager.deletePackage('package.json', err => {
+        packageManager.deletePackage('package.json', (err) => {
           expect(err).toBeNull();
           done();
         });
@@ -197,20 +196,20 @@ describe.skip('S3 package manager', () => {
   });
 
   describe('removePackage() group', () => {
-    test('removePackage() success', done => {
+    test('removePackage() success', (done) => {
       const packageManager = new S3PackageManager(config, '_toDelete', logger);
-      packageManager.createPackage('package5', pkg, err => {
+      packageManager.createPackage('package5', pkg, (err) => {
         expect(err).toBeNull();
-        packageManager.removePackage(error => {
+        packageManager.removePackage((error) => {
           expect(error).toBeNull();
           done();
         });
       });
     });
 
-    test('removePackage() fails', done => {
+    test('removePackage() fails', (done) => {
       const packageManager = new S3PackageManager(config, '_toDelete_fake', logger);
-      packageManager.removePackage(error => {
+      packageManager.removePackage((error) => {
         expect(error).toBeTruthy();
         expect(error.code).toBe(create404Error().code); // file exists
         done();
@@ -219,17 +218,17 @@ describe.skip('S3 package manager', () => {
   });
 
   describe('readTarball() group', () => {
-    test('readTarball() success', async done => {
+    test('readTarball() success', async (done) => {
       await syncFixtureDir('readme-test');
 
       const packageManager = new S3PackageManager(config, 'readme-test', logger);
       const readTarballStream = packageManager.readTarball('test-readme-0.0.0.tgz');
 
-      readTarballStream.on('error', err => {
+      readTarballStream.on('error', (err) => {
         expect(err).toBeNull();
       });
 
-      readTarballStream.on('content-length', content => {
+      readTarballStream.on('content-length', (content) => {
         expect(content).toBe(352);
       });
 
@@ -237,18 +236,18 @@ describe.skip('S3 package manager', () => {
         done();
       });
 
-      readTarballStream.on('data', data => {
+      readTarballStream.on('data', (data) => {
         expect(data).toBeDefined();
       });
     });
 
-    test('readTarball() fails', async done => {
+    test('readTarball() fails', async (done) => {
       await syncFixtureDir('readme-test');
 
       const packageManager = new S3PackageManager(config, 'readme-test', logger);
       const readTarballStream = packageManager.readTarball('file-does-not-exist-0.0.0.tgz');
 
-      readTarballStream.on('error', function(err) {
+      readTarballStream.on('error', function (err) {
         expect(err).toBeTruthy();
         done();
       });
@@ -256,7 +255,7 @@ describe.skip('S3 package manager', () => {
   });
 
   describe('writeTarball() group', () => {
-    test('writeTarball() success', async done => {
+    test('writeTarball() success', async (done) => {
       await syncFixtureDir('readme-test');
 
       const newFileName = 'new-readme-0.0.0.tgz';
@@ -265,7 +264,7 @@ describe.skip('S3 package manager', () => {
       const readTarballStream = readmeStorage.readTarball('test-readme-0.0.0.tgz');
       const writeTarballStream = writeStorage.writeTarball(newFileName);
 
-      writeTarballStream.on('error', function(err) {
+      writeTarballStream.on('error', function (err) {
         expect(err).toBeNull();
         done.fail(new Error("shouldn't have errored"));
       });
@@ -278,11 +277,11 @@ describe.skip('S3 package manager', () => {
         writeTarballStream.done();
       });
 
-      writeTarballStream.on('data', data => {
+      writeTarballStream.on('data', (data) => {
         expect(data).toBeDefined();
       });
 
-      readTarballStream.on('error', err => {
+      readTarballStream.on('error', (err) => {
         expect(err).toBeNull();
         done.fail(new Error("shouldn't have errored"));
       });
@@ -290,7 +289,7 @@ describe.skip('S3 package manager', () => {
       readTarballStream.pipe(writeTarballStream);
     });
 
-    test('writeTarball() fails on existing file', async done => {
+    test('writeTarball() fails on existing file', async (done) => {
       await syncFixtureDir('readme-test');
 
       const newFileName = 'test-readme-0.0.0.tgz';
@@ -298,7 +297,7 @@ describe.skip('S3 package manager', () => {
       const readTarballStream = storage.readTarball('test-readme-0.0.0.tgz');
       const writeTarballStream = storage.writeTarball(newFileName);
 
-      writeTarballStream.on('error', err => {
+      writeTarballStream.on('error', (err) => {
         expect(err).toBeTruthy();
         expect(err.code).toBe('EEXISTS');
         done();
@@ -307,7 +306,7 @@ describe.skip('S3 package manager', () => {
       readTarballStream.pipe(writeTarballStream);
     });
 
-    test('writeTarball() abort', async done => {
+    test('writeTarball() abort', async (done) => {
       await syncFixtureDir('readme-test');
 
       const newFileName = 'new-readme-abort-0.0.0.tgz';
@@ -316,12 +315,12 @@ describe.skip('S3 package manager', () => {
       const readTarballStream = readmeStorage.readTarball('test-readme-0.0.0.tgz');
       const writeTarballStream = writeStorage.writeTarball(newFileName);
 
-      writeTarballStream.on('error', err => {
+      writeTarballStream.on('error', (err) => {
         expect(err).toBeTruthy();
         done();
       });
 
-      writeTarballStream.on('data', data => {
+      writeTarballStream.on('data', (data) => {
         expect(data).toBeDefined();
         writeTarballStream.abort();
       });

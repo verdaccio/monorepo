@@ -61,13 +61,13 @@ class UploadTarball extends PassThrough implements IUploadTarball {
 function addAbstractMethods(self: any, name: any): void {
   self._called_methods = self._called_methods || {};
 
-  self.__defineGetter__(name, function() {
-    return function(): void {
+  self.__defineGetter__(name, function () {
+    return function (): void {
       self._called_methods[name] = true;
     };
   });
 
-  self.__defineSetter__(name, function(fn: any) {
+  self.__defineSetter__(name, function (fn: any) {
     delete self[name];
 
     self[name] = fn;

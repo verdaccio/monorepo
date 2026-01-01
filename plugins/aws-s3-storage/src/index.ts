@@ -1,20 +1,21 @@
+import { S3 } from 'aws-sdk';
+
+import { VerdaccioError, getInternalError, getServiceUnavailable } from '@verdaccio/commons-api';
 import {
+  Callback,
+  Config,
+  IPluginStorage,
   LocalStorage,
   Logger,
-  Config,
-  Callback,
-  IPluginStorage,
   PluginOptions,
   Token,
   TokenFilter,
 } from '@verdaccio/legacy-types';
-import { getInternalError, VerdaccioError, getServiceUnavailable } from '@verdaccio/commons-api';
-import { S3 } from 'aws-sdk';
 
-import { S3Config } from './config';
-import S3PackageManager from './s3PackageManager';
-import { convertS3Error, is404Error } from './s3Errors';
 import addTrailingSlash from './addTrailingSlash';
+import { S3Config } from './config';
+import { convertS3Error, is404Error } from './s3Errors';
+import S3PackageManager from './s3PackageManager';
 import setConfigValue from './setConfigValue';
 
 export default class S3Database implements IPluginStorage<S3Config> {

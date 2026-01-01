@@ -120,8 +120,8 @@ export interface Version {
 
 export interface PeerDependenciesMeta {
   [dependencyName: string]: {
-    optional?: boolean
-  }
+    optional?: boolean;
+  };
 }
 
 export interface Dependencies {
