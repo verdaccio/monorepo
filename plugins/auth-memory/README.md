@@ -54,7 +54,6 @@ This should export four functions:
 - `adduser(user, password, cb)` Add new users
 
   It should respond with:
-
   - `cb(err)` in case of an error (error will be returned to user)
   - `cb(null, false)` in case registration is disabled (next auth plugin will be executed)
   - `cb(null, true)` in case user registered successfully
@@ -64,7 +63,6 @@ This should export four functions:
 - `authenticate(user, password, cb)` Authenticate the user
 
   It should respond with:
-
   - `cb(err)` in case of a fatal error (error will be returned to user, keep those rare)
   - `cb(null, false)` in case user not authenticated (next auth plugin will be executed)
   - `cb(null, [groups])` in case user is authenticated
@@ -74,7 +72,6 @@ This should export four functions:
 - `allow_access(user, pkg, cb)` Check whether the user has permissions to access a resource (package)
 
   It should respond with:
-
   - `cb(err)` in case of a fatal error (error will be returned to user, keep those rare)
   - `cb(null, false)` in case user not allowed to access (next auth plugin will be executed)
   - `cb(null, true)` in case user is allowed to access
@@ -82,7 +79,6 @@ This should export four functions:
 - `allow_publish(user, pkg, cb)` Check whether the user has permissions to publish a resource (package)
 
   It should respond with:
-
   - `cb(err)` in case of a fatal error (error will be returned to user, keep those rare)
   - `cb(null, false)` in case user not allowed to publish (next auth plugin will be executed)
   - `cb(null, true)` in case user is allowed to publish

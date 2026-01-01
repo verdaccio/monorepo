@@ -38,7 +38,7 @@
     "update-ts-references": "2.8.0",
     "jest": "27.5.1",
     "lodash": "4.17.21",
-    "prettier": "3.4.2",
+    "prettier": "3.7.4",
     "typescript": "4.7.3"
   },
   "scripts": {
