@@ -11,6 +11,8 @@
     "email": "juanpicado19@gmail.com"
   },
   "dependencies": {
+    "@typescript-eslint/eslint-plugin": "6.21.0",
+    "@typescript-eslint/parser": "6.21.0",
     "@vitest/eslint-plugin": "1.4.2",
     "eslint-config-google": "0.14.0",
     "eslint-config-prettier": "10.1.8",
