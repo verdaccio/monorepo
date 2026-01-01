@@ -15,6 +15,7 @@ module.exports = {
     'jest/no-mocks-import': 'warn',
     'jest/no-standalone-expect': 'warn',
     'jest/no-disabled-tests': ['warn'],
+    '@vitest/no-conditional-expect': 'warn',
     'jest/no-commented-out-tests': ['warn'],
     '@typescript-eslint/no-unused-vars': ['warn'],
     '@typescript-eslint/adjacent-overload-signatures': ['warn'],
