@@ -43,6 +43,20 @@
       "allowedVersions": "< 3.0.0"
     },
     {
+      "matchPackagePatterns": [
+        "@trivago/*",
+        "prettier",
+        "eslint-*",
+        "eslint",
+        "stylelint",
+        "@typescript-eslint/*"
+      ],
+      "matchUpdateTypes": ["minor", "patch", "major"],
+      "groupName": "all linting dependencies",
+      "groupSlug": "all-linting",
+      "baseBranchList": ["main"]
+    },
+    {
       "matchPackagePatterns": ["*"],
       "matchUpdateTypes": ["minor", "patch"],
       "groupName": "all core dependencies",
