@@ -1,5 +1,11 @@
 # @verdaccio/eslint-config
 
+## 4.0.0
+
+### Major Changes
+
+- 28fcd9e: feat: move eslint package
+
 ## 4.0.0-next-8.2
 
 ### Patch Changes
@@ -55,17 +61,17 @@
 
   ```ts
   export interface IPluginStorage<T> extends IPlugin {
-    add(name: string): Promise<void>;
-    remove(name: string): Promise<void>;
-    get(): Promise<any>;
-    init(): Promise<void>;
-    getSecret(): Promise<string>;
-    setSecret(secret: string): Promise<any>;
+    add(name: string): Promise;
+    remove(name: string): Promise;
+    get(): Promise;
+    init(): Promise;
+    getSecret(): Promise;
+    setSecret(secret: string): Promise;
     getPackageStorage(packageInfo: string): IPackageStorage;
-    search(query: searchUtils.SearchQuery): Promise<searchUtils.SearchItem[]>;
-    saveToken(token: Token): Promise<any>;
-    deleteToken(user: string, tokenKey: string): Promise<any>;
-    readTokens(filter: TokenFilter): Promise<Token[]>;
+    search(query: searchUtils.SearchQuery): Promise;
+    saveToken(token: Token): Promise;
+    deleteToken(user: string, tokenKey: string): Promise;
+    readTokens(filter: TokenFilter): Promise;
   }
   ```
 
@@ -98,16 +104,16 @@
 
   ```ts
   export interface IPluginStorage<T> extends IPlugin {
-    add(name: string): Promise<void>;
-    remove(name: string): Promise<void>;
-    get(): Promise<any>;
-    init(): Promise<void>;
-    getSecret(): Promise<string>;
-    setSecret(secret: string): Promise<any>;
+    add(name: string): Promise;
+    remove(name: string): Promise;
+    get(): Promise;
+    init(): Promise;
+    getSecret(): Promise;
+    setSecret(secret: string): Promise;
     getPackageStorage(packageInfo: string): IPackageStorage;
-    search(query: searchUtils.SearchQuery): Promise<searchUtils.SearchItem[]>;
-    saveToken(token: Token): Promise<any>;
-    deleteToken(user: string, tokenKey: string): Promise<any>;
-    readTokens(filter: TokenFilter): Promise<Token[]>;
+    search(query: searchUtils.SearchQuery): Promise;
+    saveToken(token: Token): Promise;
+    deleteToken(user: string, tokenKey: string): Promise;
+    readTokens(filter: TokenFilter): Promise;
   }
   ```
