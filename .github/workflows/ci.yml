@@ -76,7 +76,7 @@ jobs:
         run: |
           corepack enable
           corepack prepare --activate pnpm@latest-8
-      - uses: actions/cache@640a1c2554105b57832a23eea0b4672fc7a790d5
+      - uses: actions/cache@9255dc7a253b0ccc959486e2bca901246202afeb
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
