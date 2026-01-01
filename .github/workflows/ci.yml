@@ -26,7 +26,7 @@ jobs:
     steps:
     - uses: actions/checkout@09d2acae674a48949e3602304ab46fd20ae0c42f
     - name: Use Node
-      uses: actions/setup-node@08f58d1471bff7f3a07d167b4ad7df25d5fcfcb6
+      uses: actions/setup-node@65d868f8d4d85d7d4abb7de0875cde3fcc8798f5
       with:
         node-version-file: '.nvmrc'
     - name: Install pnpm
@@ -42,7 +42,7 @@ jobs:
     steps:
       - uses: actions/checkout@09d2acae674a48949e3602304ab46fd20ae0c42f
       - name: Use Node
-        uses: actions/setup-node@08f58d1471bff7f3a07d167b4ad7df25d5fcfcb6
+        uses: actions/setup-node@65d868f8d4d85d7d4abb7de0875cde3fcc8798f5
         with:
           node-version-file: '.nvmrc'
       - name: Install pnpm
@@ -67,7 +67,7 @@ jobs:
     steps:
       - uses: actions/checkout@09d2acae674a48949e3602304ab46fd20ae0c42f
       - name: Use Node ${{ matrix.node_version }}
-        uses: actions/setup-node@08f58d1471bff7f3a07d167b4ad7df25d5fcfcb6
+        uses: actions/setup-node@65d868f8d4d85d7d4abb7de0875cde3fcc8798f5
         with:
           node-version: ${{ matrix.node_version }}
       # - name: untar packages
