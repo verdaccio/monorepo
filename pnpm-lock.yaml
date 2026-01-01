@@ -323,6 +323,9 @@ importers:
       '@vitest/eslint-plugin':
         specifier: 1.6.4
         version: 1.6.4(eslint@8.57.1)(typescript@5.9.3)
+      eslint:
+        specifier: '>=8'
+        version: 8.57.1
       eslint-config-google:
         specifier: 0.14.0
         version: 0.14.0(eslint@8.57.1)
@@ -2863,10 +2866,6 @@ packages:
   globals@11.12.0:
     resolution: {integrity: sha512-WOBp/EEGUiIsJSp7wcv/y6MO+lV9UoncWqxuFfm8eBwzWNgyfBd6Gz+IeKQ9jCmyhoH99g15M3T+QaVHFjizVA==}
     engines: {node: '>=4'}
-
-  globals@13.19.0:
-    resolution: {integrity: sha512-dkQ957uSRWHw7CFXLUtUHQI3g3aWApYhfNR2O6jn/907riyTYKVBmxYVROkBcY614FSSeSJh7Xm7SrUWCxvJMQ==}
-    engines: {node: '>=8'}
 
   globals@13.24.0:
     resolution: {integrity: sha512-AhO5QUcj8llrbG09iWhPU2B204J1xnPeL8kQmVorSsy+Sjj1sk8gIyh6cUocGmH4L0UuhAJy+hJMRA4mgA4mFQ==}
@@ -5950,10 +5949,10 @@ snapshots:
       ajv: 6.12.6
       debug: 4.4.3
       espree: 9.6.1
-      globals: 13.19.0
-      ignore: 5.2.0
+      globals: 13.24.0
+      ignore: 5.3.2
       import-fresh: 3.3.0
-      js-yaml: 4.1.0
+      js-yaml: 4.1.1
       minimatch: 3.1.2
       strip-json-comments: 3.1.1
     transitivePeerDependencies:
@@ -7879,7 +7878,7 @@ snapshots:
 
   eslint@8.57.1:
     dependencies:
-      '@eslint-community/eslint-utils': 4.4.0(eslint@8.57.1)
+      '@eslint-community/eslint-utils': 4.9.0(eslint@8.57.1)
       '@eslint-community/regexpp': 4.8.0
       '@eslint/eslintrc': 2.1.4
       '@eslint/js': 8.57.1
@@ -7889,7 +7888,7 @@ snapshots:
       '@ungap/structured-clone': 1.2.0
       ajv: 6.12.6
       chalk: 4.1.2
-      cross-spawn: 7.0.3
+      cross-spawn: 7.0.6
       debug: 4.4.3
       doctrine: 3.0.0
       escape-string-regexp: 4.0.0
@@ -7902,13 +7901,13 @@ snapshots:
       file-entry-cache: 6.0.1
       find-up: 5.0.0
       glob-parent: 6.0.2
-      globals: 13.19.0
+      globals: 13.24.0
       graphemer: 1.4.0
-      ignore: 5.2.0
+      ignore: 5.3.2
       imurmurhash: 0.1.4
       is-glob: 4.0.3
       is-path-inside: 3.0.3
-      js-yaml: 4.1.0
+      js-yaml: 4.1.1
       json-stable-stringify-without-jsonify: 1.0.1
       levn: 0.4.1
       lodash.merge: 4.6.2
@@ -8197,10 +8196,6 @@ snapshots:
       path-is-absolute: 1.0.1
 
   globals@11.12.0: {}
-
-  globals@13.19.0:
-    dependencies:
-      type-fest: 0.20.2
 
   globals@13.24.0:
     dependencies:
