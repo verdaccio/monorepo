@@ -26,7 +26,7 @@
     "@changesets/changelog-github": "^0.5.2",
     "@changesets/cli": "^2.29.8",
     "@changesets/get-dependents-graph": "^2.1.3",
-    "@types/http-errors": "1.8.2",
+    "@types/http-errors": "2.0.5",
     "@types/jest": "27.5.2",
     "@types/lodash": "4.17.21",
     "@types/memory-fs": "0.3.7",
