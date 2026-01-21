@@ -37,7 +37,7 @@
     "husky": "3.1.0",
     "update-ts-references": "2.8.0",
     "jest": "27.5.1",
-    "lodash": "4.17.21",
+    "lodash": "4.17.23",
     "prettier": "3.7.4",
     "typescript": "4.7.3"
   },
