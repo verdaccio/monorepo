@@ -45,8 +45,8 @@ importers:
         specifier: 4.3.0
         version: 4.3.0(@vue/compiler-sfc@3.2.22)(prettier@3.7.4)
       '@types/http-errors':
-        specifier: 1.8.2
-        version: 1.8.2
+        specifier: 2.0.5
+        version: 2.0.5
       '@types/jest':
         specifier: 27.5.2
         version: 27.5.2
@@ -1502,8 +1502,8 @@ packages:
   '@types/graceful-fs@4.1.5':
     resolution: {integrity: sha512-anKkLmZZ+xm4p8JWBf4hElkM4XR+EZeA2M9BAkkTldmcyDY4mbdIJnRghDJH3Ov5ooY7/UAoENtmdMSkaAd7Cw==}
 
-  '@types/http-errors@1.8.2':
-    resolution: {integrity: sha512-EqX+YQxINb+MeXaIqYDASb6U6FCHbWjkj4a1CKDBks3d/QiB2+PqBLyO72vLDgAO1wUI4O+9gweRcQK11bTL/w==}
+  '@types/http-errors@2.0.5':
+    resolution: {integrity: sha512-r8Tayk8HJnX0FztbZN7oVqGccWgw98T/0neJphO91KkmOzug1KkofZURD4UaD5uH8AqcFLfdPErnBod0u71/qg==}
 
   '@types/istanbul-lib-coverage@2.0.3':
     resolution: {integrity: sha512-sz7iLqvVUg1gIedBOvlkxPlc8/uVzyS5OwGz1cKjXzkl3FpL3al0crU8YGU1WoHkxn0Wxbw5tyi6hvzJKNzFsw==}
@@ -6446,7 +6446,7 @@ snapshots:
     dependencies:
       '@types/node': 20.5.8
 
-  '@types/http-errors@1.8.2': {}
+  '@types/http-errors@2.0.5': {}
 
   '@types/istanbul-lib-coverage@2.0.3': {}
 
@@ -6520,7 +6520,7 @@ snapshots:
 
   '@types/serve-static@1.15.2':
     dependencies:
-      '@types/http-errors': 1.8.2
+      '@types/http-errors': 2.0.5
       '@types/mime': 3.0.1
       '@types/node': 20.5.8
 
