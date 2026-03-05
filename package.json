@@ -33,7 +33,7 @@
     "@types/node": "14.18.0",
     "cross-env": "7.0.3",
     "rimraf": "3.0.2",
-    "eslint": "9.39.2",
+    "eslint": "10.0.2",
     "husky": "3.1.0",
     "update-ts-references": "2.8.0",
     "jest": "27.5.1",
