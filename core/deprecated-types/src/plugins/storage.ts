@@ -3,7 +3,6 @@ import { PassThrough } from 'stream';
 import type { Callback, CallbackAction, StringValue } from '../commons';
 import type { Config, Logger } from '../configuration';
 import type { MergeTags, Package, Token, Version } from '../manifest';
-
 import type { IPlugin } from './commons';
 
 export class IUploadTarball extends PassThrough {

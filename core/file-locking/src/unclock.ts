@@ -1,6 +1,6 @@
-import type { Callback } from '@verdaccio/legacy-types';
 import locker from 'lockfile';
 
+import type { Callback } from '@verdaccio/legacy-types';
 
 // unlocks file by removing existing lock file
 export function unlockFile(name: string, next: Callback): void {

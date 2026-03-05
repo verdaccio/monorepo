@@ -1,8 +1,7 @@
 import fs from 'fs';
-
-import type { Callback } from '@verdaccio/legacy-types';
 import locker from 'lockfile';
 
+import type { Callback } from '@verdaccio/legacy-types';
 
 import { lockfile, statDir, statfile } from './utils';
 

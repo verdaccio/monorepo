@@ -1,6 +1,5 @@
 import type { RemoteUser } from '../commons';
 import type { PackageAccess } from '../manifest';
-
 import type { AuthAccessCallback, AuthCallback } from './auth';
 import type { IPlugin } from './commons';
 

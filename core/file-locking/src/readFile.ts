@@ -18,7 +18,7 @@ export type ReadFileOptions = {
  * @param {*} options
  * @param {*} callback
  */
- 
+
 function readFile(
   name: string,
   options: ReadFileOptions = {},
