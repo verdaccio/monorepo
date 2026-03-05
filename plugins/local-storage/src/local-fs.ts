@@ -1,15 +1,14 @@
- 
+import buildDebug from 'debug';
 import fs from 'fs';
+import _ from 'lodash';
+import mkdirp from 'mkdirp';
 import path from 'path';
 
-import type { VerdaccioError} from '@verdaccio/core';
+import type { VerdaccioError } from '@verdaccio/core';
 import { errorUtils } from '@verdaccio/core';
 import { readFile, unlockFile } from '@verdaccio/file-locking';
 import { ReadTarball, UploadTarball } from '@verdaccio/streams';
 import type { Callback, Logger, Package } from '@verdaccio/types';
-import buildDebug from 'debug';
-import _ from 'lodash';
-import mkdirp from 'mkdirp';
 
 export const fileExist = 'EEXISTS';
 export const noSuchFile = 'ENOENT';

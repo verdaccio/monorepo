@@ -1,3 +1,6 @@
+import { S3 } from 'aws-sdk';
+import type { AWSError } from 'aws-sdk';
+import type { HttpError } from 'http-errors';
 
 import type { VerdaccioError } from '@verdaccio/commons-api';
 import { HEADERS, HTTP_STATUS } from '@verdaccio/commons-api';
@@ -10,9 +13,6 @@ import type {
   ReadPackageCallback,
 } from '@verdaccio/legacy-types';
 import { ReadTarball, UploadTarball } from '@verdaccio/streams';
-import { S3 } from 'aws-sdk';
-import type { AWSError} from 'aws-sdk';
-import type { HttpError } from 'http-errors';
 
 import addTrailingSlash from './addTrailingSlash';
 import type { S3Config } from './config';

@@ -1,5 +1,6 @@
+import { S3 } from 'aws-sdk';
 
-import type { VerdaccioError} from '@verdaccio/commons-api';
+import type { VerdaccioError } from '@verdaccio/commons-api';
 import { getInternalError, getServiceUnavailable } from '@verdaccio/commons-api';
 import type {
   Callback,
@@ -11,7 +12,6 @@ import type {
   Token,
   TokenFilter,
 } from '@verdaccio/legacy-types';
-import { S3 } from 'aws-sdk';
 
 import addTrailingSlash from './addTrailingSlash';
 import type { S3Config } from './config';

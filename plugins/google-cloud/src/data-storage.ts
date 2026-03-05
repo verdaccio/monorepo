@@ -4,7 +4,8 @@ import type { entity } from '@google-cloud/datastore/build/src/entity';
 import type { RunQueryResponse } from '@google-cloud/datastore/build/src/query';
 import type { CommitResponse } from '@google-cloud/datastore/build/src/request';
 import { Storage } from '@google-cloud/storage';
-import type { VerdaccioError} from '@verdaccio/commons-api';
+
+import type { VerdaccioError } from '@verdaccio/commons-api';
 import { getInternalError, getServiceUnavailable } from '@verdaccio/commons-api';
 import type {
   Callback,

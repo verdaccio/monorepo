@@ -1,6 +1,7 @@
+import MemoryFileSystem from 'memory-fs';
 import path from 'path';
 
-import type { VerdaccioError} from '@verdaccio/core';
+import type { VerdaccioError } from '@verdaccio/core';
 import { errorUtils } from '@verdaccio/core';
 import type {
   Callback,
@@ -16,7 +17,6 @@ import type {
   StorageWriteCallback,
 } from '@verdaccio/legacy-types';
 import { ReadTarball, UploadTarball } from '@verdaccio/streams';
-import MemoryFileSystem from 'memory-fs';
 
 import { parsePackage, stringifyPackage } from './utils';
 

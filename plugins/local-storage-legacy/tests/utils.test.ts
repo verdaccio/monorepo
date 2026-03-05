@@ -4,7 +4,6 @@ import path from 'path';
 import { noSuchFile } from '../src/local-fs';
 import { loadPrivatePackages } from '../src/pkg-utils';
 import { findPackages } from '../src/utils';
-
 import logger from './__mocks__/Logger';
 
 describe('Utitlies', () => {

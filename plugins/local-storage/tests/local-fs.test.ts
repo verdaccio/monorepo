@@ -1,12 +1,11 @@
 import fs from 'fs';
-import path from 'path';
-
-import type { ILocalPackageManager, Logger, Package } from '@verdaccio/legacy-types';
 import mkdirp from 'mkdirp';
+import path from 'path';
 import rm from 'rmdir-sync';
 
-import LocalDriver, { fSError, fileExist, noSuchFile, resourceNotAvailable } from '../src/local-fs';
+import type { ILocalPackageManager, Logger, Package } from '@verdaccio/legacy-types';
 
+import LocalDriver, { fSError, fileExist, noSuchFile, resourceNotAvailable } from '../src/local-fs';
 import pkg from './__fixtures__/pkg';
 
 let localTempStorage: string;

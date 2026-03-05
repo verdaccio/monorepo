@@ -6,23 +6,23 @@ Shared ESLint configuration for Verdaccio projects, using ESLint 10 flat config.
 
 The default export provides a complete flat config with:
 
-| Layer | Plugin / Config | Description |
-|-------|----------------|-------------|
-| Base JS | `@eslint/js` recommended | Core JavaScript rules |
-| TypeScript | `typescript-eslint` recommended | Type-aware linting for `.ts` / `.tsx` files |
-| Imports | `eslint-plugin-import-x` | Import ordering, deduplication, and resolution |
-| Prettier | `eslint-config-prettier` | Disables rules that conflict with Prettier (applied last) |
+| Layer      | Plugin / Config                 | Description                                               |
+| ---------- | ------------------------------- | --------------------------------------------------------- |
+| Base JS    | `@eslint/js` recommended        | Core JavaScript rules                                     |
+| TypeScript | `typescript-eslint` recommended | Type-aware linting for `.ts` / `.tsx` files               |
+| Imports    | `eslint-plugin-import-x`        | Import ordering, deduplication, and resolution            |
+| Prettier   | `eslint-config-prettier`        | Disables rules that conflict with Prettier (applied last) |
 
 ### Optional exports
 
 The following configs are available as named exports and are **not** enabled by default:
 
-| Export | Plugin | Description |
-|--------|--------|-------------|
-| `vitestConfig` | `@vitest/eslint-plugin` | Vitest recommended rules for `*.test.*` / `*.spec.*` |
-| `jestConfig` | `eslint-plugin-jest` | Jest recommended rules for `*.test.*` / `*.spec.*` |
-| `reactConfig` | `eslint-plugin-react`, `eslint-plugin-react-hooks` | React and React Hooks rules for `**/*.{jsx,tsx}` |
-| `cypressConfig` | `eslint-plugin-cypress` | Cypress recommended rules for `cypress/**` |
+| Export          | Plugin                                             | Description                                          |
+| --------------- | -------------------------------------------------- | ---------------------------------------------------- |
+| `vitestConfig`  | `@vitest/eslint-plugin`                            | Vitest recommended rules for `*.test.*` / `*.spec.*` |
+| `jestConfig`    | `eslint-plugin-jest`                               | Jest recommended rules for `*.test.*` / `*.spec.*`   |
+| `reactConfig`   | `eslint-plugin-react`, `eslint-plugin-react-hooks` | React and React Hooks rules for `**/*.{jsx,tsx}`     |
+| `cypressConfig` | `eslint-plugin-cypress`                            | Cypress recommended rules for `cypress/**`           |
 
 ## Installation
 
@@ -50,7 +50,12 @@ export default [
 ### With optional configs
 
 ```js
-import verdaccio, { vitestConfig, jestConfig, reactConfig, cypressConfig } from '@verdaccio/eslint-config';
+import verdaccio, {
+  cypressConfig,
+  jestConfig,
+  reactConfig,
+  vitestConfig,
+} from '@verdaccio/eslint-config';
 
 export default [
   ...verdaccio,
@@ -66,15 +71,18 @@ export default [
 ## Key rules
 
 ### Code style
+
 - `curly: error` (always require braces)
 - `no-console: error` (allow `warn` and `error`)
 - `prefer-const`, `no-var`, `prefer-spread`, `prefer-rest-params`
 
 ### Import ordering
+
 - Groups: builtin > external > internal > parent > sibling > index
 - Newlines between groups, alphabetical within groups
 
 ### TypeScript
+
 - `no-unused-vars` (ignores `_` prefixed args)
 - `no-floating-promises`, `no-misused-promises`
 - `consistent-type-imports`

@@ -1,12 +1,12 @@
+import buildDebug from 'debug';
 import fs from 'fs';
+import _ from 'lodash';
+import mkdirp from 'mkdirp';
 import Path from 'path';
 
 import type { searchUtils } from '@verdaccio/core';
 import { errorUtils, fileUtils } from '@verdaccio/core';
 import type { Callback, Config, Logger, StorageList } from '@verdaccio/types';
-import buildDebug from 'debug';
-import _ from 'lodash';
-import mkdirp from 'mkdirp';
 
 import { searchOnStorage } from './dir-utils';
 import LocalDriver, { noSuchFile } from './local-fs';
@@ -67,7 +67,6 @@ class LocalDatabase extends TokenActions {
     }) as searchUtils.SearchItemPkg[];
   }
 
-   
   public async getScore(_pkg: searchUtils.SearchItemPkg): Promise<searchUtils.Score> {
     // TODO: there is no particular reason to predefined scores
     // could be improved by using

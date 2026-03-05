@@ -1,8 +1,7 @@
+import type { DownloadResponse, File } from '@google-cloud/storage';
 import type { Readable } from 'stream';
 
-import type { DownloadResponse, File } from '@google-cloud/storage';
-import type {
-  VerdaccioError} from '@verdaccio/commons-api';
+import type { VerdaccioError } from '@verdaccio/commons-api';
 import {
   HTTP_STATUS,
   getBadRequest,
@@ -109,7 +108,7 @@ class GoogleCloudStorageHandler implements IPackageStorageManager {
         // @ts-ignore
         .delete()
         // @ts-ignore
-         
+
         .then((_data: [Response]): void => {
           this.logger.debug(
             { name: file.name },
@@ -277,7 +276,6 @@ class GoogleCloudStorageHandler implements IPackageStorageManager {
       }
     });
   }
-   
 
   public writeTarball(name: string): UploadTarball {
     const uploadStream: UploadTarball = new UploadTarball({});

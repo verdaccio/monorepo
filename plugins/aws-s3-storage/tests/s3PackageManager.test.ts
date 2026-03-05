@@ -1,16 +1,14 @@
+import { S3 } from 'aws-sdk';
 import fs from 'fs';
 import path from 'path';
-
+import rReadDir from 'recursive-readdir';
 
 import type { Package } from '@verdaccio/legacy-types';
-import { S3 } from 'aws-sdk';
-import rReadDir from 'recursive-readdir';
 
 import type { S3Config } from '../src/config';
 import { deleteKeyPrefix } from '../src/deleteKeyPrefix';
 import { create404Error, create409Error, is404Error } from '../src/s3Errors';
 import S3PackageManager from '../src/s3PackageManager';
-
 import pkg from './__fixtures__/pkg';
 import logger from './__mocks__/Logger';
 

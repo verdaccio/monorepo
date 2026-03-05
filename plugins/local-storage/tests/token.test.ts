@@ -5,7 +5,6 @@ import type { ILocalData, PluginOptions, Token } from '@verdaccio/legacy-types';
 import LocalDatabase from '../src/local-database';
 import { ILocalFSPackageManager } from '../src/local-fs';
 import * as pkgUtils from '../src/pkg-utils';
-
 // FIXME: remove this mocks imports
 import Config from './__mocks__/Config';
 import logger from './__mocks__/Logger';

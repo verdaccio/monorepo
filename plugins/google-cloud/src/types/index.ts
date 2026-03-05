@@ -1,4 +1,5 @@
 import type { Datastore } from '@google-cloud/datastore';
+
 import type { Config } from '@verdaccio/legacy-types';
 
 export interface VerdaccioConfigGoogleStorage extends Config {

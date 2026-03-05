@@ -9,7 +9,6 @@ import type {
 import LocalMemory from '../src/index';
 import type { ConfigMemory } from '../src/local-memory';
 import MemoryHandler from '../src/memory-handler';
-
 import config from './partials/config';
 import pkgExample from './partials/pkg';
 

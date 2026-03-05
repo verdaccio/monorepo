@@ -1,17 +1,15 @@
 /* eslint-disable no-undef */
 import js from '@eslint/js';
-import globals from 'globals';
-import tseslint from 'typescript-eslint';
-import importX from 'eslint-plugin-import-x';
-import cypress from 'eslint-plugin-cypress';
-import prettier from 'eslint-config-prettier';
 import vitest from '@vitest/eslint-plugin';
+import prettier from 'eslint-config-prettier';
+import cypress from 'eslint-plugin-cypress';
+import importX from 'eslint-plugin-import-x';
 import jest from 'eslint-plugin-jest';
-
 import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
-
 import { defineConfig, globalIgnores } from 'eslint/config';
+import globals from 'globals';
+import tseslint from 'typescript-eslint';
 
 export const reactConfig = defineConfig([
   {
@@ -172,7 +170,12 @@ export default defineConfig([
   // (test files are often excluded from tsconfig)
   // ---------------------------------------------
   {
-    files: ['**/*.{test,spec}.{ts,tsx}', '**/tests/**/*.{ts,tsx}', '**/test/**/*.{ts,tsx}', '**/__tests__/**/*.{ts,tsx}'],
+    files: [
+      '**/*.{test,spec}.{ts,tsx}',
+      '**/tests/**/*.{ts,tsx}',
+      '**/test/**/*.{ts,tsx}',
+      '**/__tests__/**/*.{ts,tsx}',
+    ],
     languageOptions: {
       parserOptions: {
         project: null,

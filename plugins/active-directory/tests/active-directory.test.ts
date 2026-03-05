@@ -1,9 +1,8 @@
-import { HTTP_STATUS } from '@verdaccio/core';
 import ActiveDirectory from 'activedirectory2';
 
+import { HTTP_STATUS } from '@verdaccio/core';
 
 import ActiveDirectoryPlugin, { NotAuthMessage } from '../src/active-directory';
-
 import logger from './__mocks__/Logger';
 
 describe('Active Directory Plugin', () => {

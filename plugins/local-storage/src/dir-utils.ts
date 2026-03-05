@@ -1,10 +1,9 @@
-import { join } from 'path';
-
-import type { searchUtils} from '@verdaccio/core';
-import { validatioUtils } from '@verdaccio/core';
 import buildDebug from 'debug';
 import globby from 'globby';
+import { join } from 'path';
 
+import type { searchUtils } from '@verdaccio/core';
+import { validatioUtils } from '@verdaccio/core';
 
 const debug = buildDebug('verdaccio:plugin:local-storage:dir-utils');
 

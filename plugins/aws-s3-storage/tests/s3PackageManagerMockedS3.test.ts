@@ -2,7 +2,6 @@ import type { PackageAccess } from '@verdaccio/legacy-types';
 
 import type { S3Config } from '../src/config';
 import S3PackageManager from '../src/s3PackageManager';
-
 import pkg from './__fixtures__/pkg';
 import logger from './__mocks__/Logger';
 

@@ -5,7 +5,6 @@ import { IPackageStorage } from '@verdaccio/legacy-types';
 import LocalMemory from '../src/index';
 import type { ConfigMemory } from '../src/local-memory';
 import type { DataHandler } from '../src/memory-handler';
-
 import config from './partials/config';
 
 const logger: Logger = {
