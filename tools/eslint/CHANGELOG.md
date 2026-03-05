@@ -1,5 +1,11 @@
 # @verdaccio/eslint-config
 
+## 12.0.0
+
+### Major Changes
+
+- 6c04a71: feat: upgrade to eslint 10 flat config
+
 ## 11.0.1
 
 ### Patch Changes
@@ -61,7 +67,6 @@
 
 - a3a209b5e: feat: migrate to pino.js 8
 - 459b6fa72: refactor: search v1 endpoint and local-database
-
   - refactor search `api v1` endpoint, improve performance
   - remove usage of `async` dependency https://github.com/verdaccio/verdaccio/issues/1225
   - refactor method storage class
@@ -70,7 +75,6 @@
   - use `fastify` instead `express` for functional test
 
   ### Breaking changes
-
   - plugin storage API changes
   - remove old search endpoint (return 404)
   - filter local private packages at plugin level
@@ -104,7 +108,6 @@
 ### Major Changes
 
 - 459b6fa7: refactor: search v1 endpoint and local-database
-
   - refactor search `api v1` endpoint, improve performance
   - remove usage of `async` dependency https://github.com/verdaccio/verdaccio/issues/1225
   - refactor method storage class
@@ -113,7 +116,6 @@
   - use `fastify` instead `express` for functional test
 
   ### Breaking changes
-
   - plugin storage API changes
   - remove old search endpoint (return 404)
   - filter local private packages at plugin level
