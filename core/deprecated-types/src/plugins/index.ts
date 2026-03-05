@@ -1,7 +1,8 @@
-import { RemoteUser } from '../commons';
-import { PackageAccess } from '../manifest';
-import { AuthAccessCallback, AuthCallback } from './auth';
-import { IPlugin } from './commons';
+import type { RemoteUser } from '../commons';
+import type { PackageAccess } from '../manifest';
+
+import type { AuthAccessCallback, AuthCallback } from './auth';
+import type { IPlugin } from './commons';
 
 export interface AllowAccess {
   name: string;

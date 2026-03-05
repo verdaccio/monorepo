@@ -4,6 +4,6 @@
     "rootDir": "./src",
     "outDir": "./lib"
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/*.ts", "tests/**/*.ts", "types/*.d.ts"],
   "exclude": ["src/**/*.spec.ts"]
 }

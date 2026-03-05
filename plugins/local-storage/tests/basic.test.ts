@@ -4,9 +4,10 @@ import { access, constants } from 'fs/promises';
 import path from 'path';
 
 import { fileUtils } from '@verdaccio/core';
-import { Config as ConfigType } from '@verdaccio/types';
+import type { Config as ConfigType } from '@verdaccio/types';
 
 import LocalStorage from '../src/index';
+
 import Config from './__mocks__/Config';
 import logger from './__mocks__/Logger';
 import { getConfig, getDefaultConfig } from './__mocks__/utils';

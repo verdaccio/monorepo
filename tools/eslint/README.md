@@ -1,79 +1,92 @@
-# @verdaccio/eslint-config - Verdaccio ESLint Configuration
+# @verdaccio/eslint-config
 
-[![Verdaccio Home](https://img.shields.io/badge/Homepage-Verdaccio-405236?style=flat)](https://verdaccio.org)
-[![MIT License](https://img.shields.io/github/license/verdaccio/verdaccio?label=License&color=405236)](https://github.com/verdaccio/verdaccio/blob/master/LICENSE)
-[![Verdaccio Latest](https://img.shields.io/npm/v/verdaccio?label=Latest%20Version&color=405236)](https://github.com/verdaccio/verdaccio)
+Shared ESLint configuration for Verdaccio projects, using ESLint 10 flat config.
 
-[![Documentation](https://img.shields.io/badge/Help-Verdaccio?style=flat&logo=Verdaccio&label=Verdaccio&color=cd4000)](https://verdaccio.org/docs)
-[![Discord](https://img.shields.io/badge/Chat-Discord?style=flat&logo=Discord&label=Discord&color=cd4000)](https://discord.com/channels/388674437219745793)
-[![Bluesky](https://img.shields.io/badge/Follow-Bluesky?style=flat&logo=Bluesky&label=Bluesky&color=cd4000)](https://bsky.app/profile/verdaccio.org)
-[![Backers](https://img.shields.io/opencollective/backers/verdaccio?style=flat&logo=opencollective&label=Join%20Backers&color=cd4000)](https://opencollective.com/verdaccio/contribute)
-[![Sponsors](https://img.shields.io/opencollective/sponsors/verdaccio?style=flat&logo=opencollective&label=Sponsor%20Us&color=cd4000)](https://opencollective.com/verdaccio/contribute)
+## What's included
 
-[![Verdaccio Downloads](https://img.shields.io/npm/dm/verdaccio?style=flat&logo=npm&label=Npm%20Downloads&color=lightgrey)](https://www.npmjs.com/package/verdaccio)
-[![Docker Pulls](https://img.shields.io/docker/pulls/verdaccio/verdaccio?style=flat&logo=docker&label=Docker%20Pulls&color=lightgrey)](https://hub.docker.com/r/verdaccio/verdaccio)
-[![GitHub Stars](https://img.shields.io/github/stars/verdaccio?style=flat&logo=github&label=GitHub%20Stars%20%E2%AD%90&color=lightgrey)](https://github.com/verdaccio/verdaccio/stargazers)
+The default export provides a complete flat config with:
 
-## Donations
+| Layer | Plugin / Config | Description |
+|-------|----------------|-------------|
+| Base JS | `@eslint/js` recommended | Core JavaScript rules |
+| TypeScript | `typescript-eslint` recommended | Type-aware linting for `.ts` / `.tsx` files |
+| Imports | `eslint-plugin-import-x` | Import ordering, deduplication, and resolution |
+| Vitest | `@vitest/eslint-plugin` | Recommended rules for `*.test.*` / `*.spec.*` files |
+| Prettier | `eslint-config-prettier` | Disables rules that conflict with Prettier (applied last) |
 
-Verdaccio is run by **volunteers**; nobody is working full-time on it. If you find this project to be useful and would like to support its development, consider making a donation - **your logo might end up in this readme.** 😉
+### Optional exports
 
-**[Donate](https://opencollective.com/verdaccio)** 💵👍🏻 starting from _\$1/month_ or just one single contribution.
+The following configs are available as named exports and are **not** enabled by default:
 
-## Report a vulnerability
+| Export | Plugin | Description |
+|--------|--------|-------------|
+| `reactConfig` | `eslint-plugin-react`, `eslint-plugin-react-hooks` | React and React Hooks rules for `**/*.{jsx,tsx}` |
+| `cypressConfig` | `eslint-plugin-cypress` | Cypress recommended rules for `cypress/**` |
 
-If you want to report a security vulnerability, please follow the steps which we have defined for you in our [security policy](https://github.com/verdaccio/verdaccio/security/policy).
+## Installation
 
-## Open Collective Sponsors
+```bash
+pnpm add -D @verdaccio/eslint-config eslint
+```
 
-Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/verdaccio/contribute)]
+## Usage
 
-[![sponsor](https://opencollective.com/verdaccio/sponsor/0/avatar.svg)](https://opencollective.com/verdaccio/sponsor/0/website)
-[![sponsor](https://opencollective.com/verdaccio/sponsor/1/avatar.svg)](https://opencollective.com/verdaccio/sponsor/1/website)
-[![sponsor](https://opencollective.com/verdaccio/sponsor/2/avatar.svg)](https://opencollective.com/verdaccio/sponsor/2/website)
-[![sponsor](https://opencollective.com/verdaccio/sponsor/3/avatar.svg)](https://opencollective.com/verdaccio/sponsor/3/website)
-[![sponsor](https://opencollective.com/verdaccio/sponsor/4/avatar.svg)](https://opencollective.com/verdaccio/sponsor/4/website)
-[![sponsor](https://opencollective.com/verdaccio/sponsor/5/avatar.svg)](https://opencollective.com/verdaccio/sponsor/5/website)
-[![sponsor](https://opencollective.com/verdaccio/sponsor/6/avatar.svg)](https://opencollective.com/verdaccio/sponsor/6/website)
-[![sponsor](https://opencollective.com/verdaccio/sponsor/7/avatar.svg)](https://opencollective.com/verdaccio/sponsor/7/website)
-[![sponsor](https://opencollective.com/verdaccio/sponsor/8/avatar.svg)](https://opencollective.com/verdaccio/sponsor/8/website)
-[![sponsor](https://opencollective.com/verdaccio/sponsor/9/avatar.svg)](https://opencollective.com/verdaccio/sponsor/9/website)
+### Basic
 
-## Open Collective Backers
+Create an `eslint.config.mjs` at your project root:
 
-Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/verdaccio/contribute)]
+```js
+import verdaccio from '@verdaccio/eslint-config';
 
-[![backers](https://opencollective.com/verdaccio/backers.svg?width=890)](https://opencollective.com/verdaccio/contributes)
+export default [
+  ...verdaccio,
+  {
+    ignores: ['**/dist/**', '**/node_modules/**'],
+  },
+];
+```
 
-## Special Thanks
+### With optional configs
 
-Thanks to the following companies to help us to achieve our goals providing free open source licenses.
+```js
+import verdaccio, { reactConfig, cypressConfig } from '@verdaccio/eslint-config';
 
-[![jetbrains](https://github.com/verdaccio/verdaccio/blob/master/assets/thanks/jetbrains/logo.jpg?raw=true)](https://www.jetbrains.com/)
-[![crowdin](https://github.com/verdaccio/verdaccio/blob/master/assets/thanks/crowdin/logo.png?raw=true)](https://crowdin.com/)
+export default [
+  ...verdaccio,
+  ...reactConfig,
+  ...cypressConfig,
+  {
+    ignores: ['**/dist/**', '**/node_modules/**'],
+  },
+];
+```
 
-## Contributors
+## Key rules
 
-This project exists thanks to all the people who contribute. [[Contribute](https://github.com/verdaccio/verdaccio/blob/master/CONTRIBUTING.md)].
+### Code style
+- `curly: error` (always require braces)
+- `no-console: error` (allow `warn` and `error`)
+- `prefer-const`, `no-var`, `prefer-spread`, `prefer-rest-params`
 
-[![contributors](https://opencollective.com/verdaccio/contributors.svg?width=890&button=true)](https://github.com/verdaccio/verdaccio/graphs/contributors)
+### Import ordering
+- Groups: builtin > external > internal > parent > sibling > index
+- Newlines between groups, alphabetical within groups
 
-## FAQ / Contact / Troubleshoot
+### TypeScript
+- `no-unused-vars` (ignores `_` prefixed args)
+- `no-floating-promises`, `no-misused-promises`
+- `consistent-type-imports`
+- `no-explicit-any: warn`
 
-If you have any issue you can try the following options. Do not hesitate to ask or check our issues database. Perhaps someone has asked already what you are looking for.
+### Test files
+- Vitest recommended rules applied to `*.test.*` and `*.spec.*`
 
-- [Blog](https://verdaccio.org/blog/)
-- [Donations](https://opencollective.com/verdaccio)
-- [Reporting an issue](https://github.com/verdaccio/verdaccio/blob/master/CONTRIBUTING.md#reporting-a-bug)
-- [Running discussions](https://github.com/orgs/verdaccio/discussions)
-- [Chat](https://discord.com/channels/388674437219745793)
-- [Logos](https://verdaccio.org/docs/logo)
-- [Docker Examples](https://github.com/verdaccio/verdaccio/tree/master/docker-examples)
-- [FAQ](https://github.com/verdaccio/verdaccio/issues?utf8=%E2%9C%93&q=is%3Aissue%20label%3Aquestion%20)
+## Global ignores
+
+The shared config ignores these directories by default:
+
+- `__fixtures__`, `partials`, `dist`, `lib`, `build`, `node_modules`
 
 ## License
 
-Verdaccio is [MIT licensed](https://github.com/verdaccio/verdaccio/blob/master/LICENSE)
-
-The Verdaccio documentation and logos (excluding /thanks, e.g., .md, .png, .sketch files within the /assets folder) are
-[Creative Commons licensed](https://creativecommons.org/licenses/by/4.0/).
+[MIT](https://github.com/verdaccio/verdaccio/blob/master/LICENSE)

@@ -1,12 +1,8 @@
-import async from 'async';
-import buildDebug from 'debug';
 import fs from 'fs';
-import _ from 'lodash';
-import mkdirp from 'mkdirp';
 import Path from 'path';
 
 import { errorUtils } from '@verdaccio/core';
-import {
+import type {
   Callback,
   Config,
   IPackageStorage,
@@ -15,6 +11,12 @@ import {
   Logger,
   StorageList,
 } from '@verdaccio/legacy-types';
+import async from 'async';
+import buildDebug from 'debug';
+import _ from 'lodash';
+import mkdirp from 'mkdirp';
+
+
 
 import LocalDriver, { noSuchFile } from './local-fs';
 import { loadPrivatePackages } from './pkg-utils';

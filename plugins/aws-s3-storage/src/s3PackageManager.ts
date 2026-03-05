@@ -1,8 +1,7 @@
-import { AWSError, S3 } from 'aws-sdk';
-import { HttpError } from 'http-errors';
 
-import { HEADERS, HTTP_STATUS, VerdaccioError } from '@verdaccio/commons-api';
-import {
+import type { VerdaccioError } from '@verdaccio/commons-api';
+import { HEADERS, HTTP_STATUS } from '@verdaccio/commons-api';
+import type {
   Callback,
   CallbackAction,
   ILocalPackageManager,
@@ -11,9 +10,12 @@ import {
   ReadPackageCallback,
 } from '@verdaccio/legacy-types';
 import { ReadTarball, UploadTarball } from '@verdaccio/streams';
+import { S3 } from 'aws-sdk';
+import type { AWSError} from 'aws-sdk';
+import type { HttpError } from 'http-errors';
 
 import addTrailingSlash from './addTrailingSlash';
-import { S3Config } from './config';
+import type { S3Config } from './config';
 import { deleteKeyPrefix } from './deleteKeyPrefix';
 import { convertS3Error, create409Error, is404Error } from './s3Errors';
 

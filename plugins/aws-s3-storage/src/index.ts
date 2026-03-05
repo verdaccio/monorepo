@@ -1,7 +1,7 @@
-import { S3 } from 'aws-sdk';
 
-import { VerdaccioError, getInternalError, getServiceUnavailable } from '@verdaccio/commons-api';
-import {
+import type { VerdaccioError} from '@verdaccio/commons-api';
+import { getInternalError, getServiceUnavailable } from '@verdaccio/commons-api';
+import type {
   Callback,
   Config,
   IPluginStorage,
@@ -11,9 +11,10 @@ import {
   Token,
   TokenFilter,
 } from '@verdaccio/legacy-types';
+import { S3 } from 'aws-sdk';
 
 import addTrailingSlash from './addTrailingSlash';
-import { S3Config } from './config';
+import type { S3Config } from './config';
 import { convertS3Error, is404Error } from './s3Errors';
 import S3PackageManager from './s3PackageManager';
 import setConfigValue from './setConfigValue';

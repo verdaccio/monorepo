@@ -1,8 +1,8 @@
-import { Datastore, Query } from '@google-cloud/datastore';
-import { RunQueryResponse } from '@google-cloud/datastore/build/src/query';
-import { Bucket, File, Storage } from '@google-cloud/storage';
+import type { Datastore, Query } from '@google-cloud/datastore';
+import type { RunQueryResponse } from '@google-cloud/datastore/build/src/query';
+import type { Bucket, File, Storage } from '@google-cloud/storage';
 
-import { VerdaccioConfigGoogleStorage } from './types';
+import type { VerdaccioConfigGoogleStorage } from './types';
 
 export interface IStorageHelper {
   datastore: Datastore;

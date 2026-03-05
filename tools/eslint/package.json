@@ -3,6 +3,10 @@
   "version": "11.0.1",
   "description": "Verdaccio ESLint Configuration",
   "main": "src/index.js",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.js"
+  },
   "scripts": {
     "lint": "eslint . --ext .js"
   },
@@ -11,24 +15,20 @@
     "email": "juanpicado19@gmail.com"
   },
   "dependencies": {
-    "@typescript-eslint/eslint-plugin": "6.21.0",
-    "@typescript-eslint/parser": "6.21.0",
-    "@vitest/eslint-plugin": "1.6.6",
-    "eslint-config-google": "0.14.0",
-    "eslint-config-prettier": "10.1.8",
-    "eslint-plugin-babel": "5.3.1",
-    "eslint-plugin-cypress": "3.6.0",
-    "eslint-plugin-import": "2.32.0",
-    "eslint-plugin-jsx-a11y": "6.10.2",
-    "eslint-plugin-prettier": "5.5.5",
-    "eslint-plugin-react": "7.37.5",
-    "eslint-plugin-react-hooks": "7.0.1",
-    "eslint-plugin-simple-import-sort": "12.1.1",
-    "eslint-plugin-verdaccio": "10.0.0",
-    "eslint-plugin-vitest-globals": "1.5.0"
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.0.2",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-cypress": "^6.1.0",
+    "eslint-import-resolver-typescript": "^4.4.4",
+    "eslint-plugin-import-x": "^4.16.1",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "@vitest/eslint-plugin": "^1.6.9",
+    "globals": "^17.4.0",
+    "typescript-eslint": "^8.56.1"
   },
   "peerDependencies": {
-    "eslint": ">=8"
+    "eslint": ">=9"
   },
   "repository": {
     "type": "https",

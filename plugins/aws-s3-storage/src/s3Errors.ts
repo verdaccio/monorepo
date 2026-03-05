@@ -1,14 +1,15 @@
-import { AWSError } from 'aws-sdk';
-
+import type {
+  VerdaccioError} from '@verdaccio/commons-api';
 import {
   API_ERROR,
   HTTP_STATUS,
-  VerdaccioError,
   getCode,
   getConflict,
   getInternalError,
   getNotFound,
 } from '@verdaccio/commons-api';
+import type { AWSError } from 'aws-sdk';
+
 
 export function is404Error(err: VerdaccioError): boolean {
   return err.code === HTTP_STATUS.NOT_FOUND;

@@ -1,9 +1,10 @@
 import { PassThrough } from 'stream';
 
-import { Callback, CallbackAction, StringValue } from '../commons';
-import { Config, Logger } from '../configuration';
-import { MergeTags, Package, Token, Version } from '../manifest';
-import { IPlugin } from './commons';
+import type { Callback, CallbackAction, StringValue } from '../commons';
+import type { Config, Logger } from '../configuration';
+import type { MergeTags, Package, Token, Version } from '../manifest';
+
+import type { IPlugin } from './commons';
 
 export class IUploadTarball extends PassThrough {
   public abort(): void {}

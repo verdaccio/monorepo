@@ -1,11 +1,12 @@
+import Path from 'path';
+
+import type { Config, ITokenActions, Token, TokenFilter } from '@verdaccio/types';
 import buildDebug from 'debug';
 import _ from 'lodash';
 import low from 'lowdb';
 import FileAsync from 'lowdb/adapters/FileAsync';
 import FileMemory from 'lowdb/adapters/Memory';
-import Path from 'path';
 
-import { Config, ITokenActions, Token, TokenFilter } from '@verdaccio/types';
 
 const debug = buildDebug('verdaccio:plugin:local-storage:token');
 

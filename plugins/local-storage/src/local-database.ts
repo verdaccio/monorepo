@@ -1,17 +1,18 @@
-import buildDebug from 'debug';
 import fs from 'fs';
-import _ from 'lodash';
-import mkdirp from 'mkdirp';
 import Path from 'path';
 
-import { errorUtils, fileUtils, searchUtils } from '@verdaccio/core';
-import { Callback, Config, Logger, StorageList } from '@verdaccio/types';
+import type { searchUtils } from '@verdaccio/core';
+import { errorUtils, fileUtils } from '@verdaccio/core';
+import type { Callback, Config, Logger, StorageList } from '@verdaccio/types';
+import buildDebug from 'debug';
+import _ from 'lodash';
+import mkdirp from 'mkdirp';
 
 import { searchOnStorage } from './dir-utils';
 import LocalDriver, { noSuchFile } from './local-fs';
 import { loadPrivatePackages } from './pkg-utils';
 import TokenActions from './token';
-import { LocalStorage } from './utils';
+import type { LocalStorage } from './utils';
 
 const debug = buildDebug('verdaccio:plugin:local-storage:database');
 
@@ -66,7 +67,7 @@ class LocalDatabase extends TokenActions {
     }) as searchUtils.SearchItemPkg[];
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+   
   public async getScore(_pkg: searchUtils.SearchItemPkg): Promise<searchUtils.Score> {
     // TODO: there is no particular reason to predefined scores
     // could be improved by using
@@ -107,7 +108,7 @@ class LocalDatabase extends TokenActions {
       query
     );
     debug('packages found %o', packagesOnStorage.length);
-    for (let storage of packagesOnStorage) {
+    for (const storage of packagesOnStorage) {
       // check if package is listed on the cache private database
       const isPrivate = (this.data as LocalStorage).list.includes(storage.name);
       const score = await this.getScore(storage);

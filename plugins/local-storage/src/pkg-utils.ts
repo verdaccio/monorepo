@@ -1,9 +1,10 @@
 import fs from 'fs';
+
+import type { Logger, StorageList } from '@verdaccio/types';
 import _ from 'lodash';
 
-import { Logger, StorageList } from '@verdaccio/types';
 
-import { LocalStorage } from './utils';
+import type { LocalStorage } from './utils';
 
 export function loadPrivatePackages(path: string, logger: Logger): LocalStorage {
   const list: StorageList = [];
@@ -23,7 +24,7 @@ export function loadPrivatePackages(path: string, logger: Logger): LocalStorage 
       {
         err: err.mesage,
         path,
-      }, // eslint-disable-next-line max-len
+      },  
       `Package database file corrupted (invalid JSON), please check the error @{err}.\nFile Path: @{path}`
     );
     throw Error('Package database file corrupted (invalid JSON)');

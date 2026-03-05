@@ -17,10 +17,6 @@
     "**/lib",
     "node_modules",
     "**/node_modules",
-    "**/coverage",
-    "**/*.spec.ts",
-    "**/test",
-    "**/__tests__",
-    "**/*.test.ts"
+    "**/coverage"
   ]
 }
