@@ -1,11 +1,13 @@
-import { Datastore, DatastoreOptions } from '@google-cloud/datastore';
-import { entity } from '@google-cloud/datastore/build/src/entity';
-import { RunQueryResponse } from '@google-cloud/datastore/build/src/query';
-import { CommitResponse } from '@google-cloud/datastore/build/src/request';
+import type { DatastoreOptions } from '@google-cloud/datastore';
+import { Datastore } from '@google-cloud/datastore';
+import type { entity } from '@google-cloud/datastore/build/src/entity';
+import type { RunQueryResponse } from '@google-cloud/datastore/build/src/query';
+import type { CommitResponse } from '@google-cloud/datastore/build/src/request';
 import { Storage } from '@google-cloud/storage';
 
-import { VerdaccioError, getInternalError, getServiceUnavailable } from '@verdaccio/commons-api';
-import {
+import type { VerdaccioError } from '@verdaccio/commons-api';
+import { getInternalError, getServiceUnavailable } from '@verdaccio/commons-api';
+import type {
   Callback,
   IPackageStorageManager,
   IPluginStorage,
@@ -15,8 +17,9 @@ import {
 } from '@verdaccio/legacy-types';
 
 import GoogleCloudStorageHandler from './storage';
-import StorageHelper, { IStorageHelper } from './storage-helper';
-import { GoogleDataStorage, VerdaccioConfigGoogleStorage } from './types';
+import type { IStorageHelper } from './storage-helper';
+import StorageHelper from './storage-helper';
+import type { GoogleDataStorage, VerdaccioConfigGoogleStorage } from './types';
 
 type Key = entity.Key;
 

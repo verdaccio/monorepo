@@ -3,9 +3,9 @@ import fs from 'fs';
 import path from 'path';
 import rReadDir from 'recursive-readdir';
 
-import { Package } from '@verdaccio/legacy-types';
+import type { Package } from '@verdaccio/legacy-types';
 
-import { S3Config } from '../src/config';
+import type { S3Config } from '../src/config';
 import { deleteKeyPrefix } from '../src/deleteKeyPrefix';
 import { create404Error, create409Error, is404Error } from '../src/s3Errors';
 import S3PackageManager from '../src/s3PackageManager';

@@ -1,5 +1,5 @@
 import { errorUtils } from '@verdaccio/core';
-import {
+import type {
   Callback,
   Config,
   IPluginStorage,
@@ -9,7 +9,8 @@ import {
   TokenFilter,
 } from '@verdaccio/legacy-types';
 
-import MemoryHandler, { DataHandler } from './memory-handler';
+import type { DataHandler } from './memory-handler';
+import MemoryHandler from './memory-handler';
 
 export type ConfigMemory = Config & { limit?: number };
 export interface MemoryLocalStorage {

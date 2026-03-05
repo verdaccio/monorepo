@@ -11,7 +11,7 @@
     "esModuleInterop": true,
     "typeRoots": ["./node_modules/@types"]
   },
-  "include": ["src/*.ts", "types/*.d.ts"],
+  "include": ["src/*.ts", "tests/**/*.ts", "types/*.d.ts"],
   "references": [
     {
       "path": "../../core/file-locking"

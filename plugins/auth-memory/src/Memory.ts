@@ -1,7 +1,7 @@
 import createDebug from 'debug';
 
 import { cryptoUtils, errorUtils } from '@verdaccio/core';
-import {
+import type {
   Callback,
   Config,
   IPluginAuth,

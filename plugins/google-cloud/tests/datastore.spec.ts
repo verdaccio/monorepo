@@ -1,11 +1,10 @@
 import _ from 'lodash';
 
-import { VerdaccioError } from '@verdaccio/commons-api';
-import { HTTP_STATUS } from '@verdaccio/commons-api/lib';
-import { ILocalPackageManager, Logger } from '@verdaccio/legacy-types';
+import type { HTTP_STATUS, VerdaccioError } from '@verdaccio/commons-api';
+import type { ILocalPackageManager, Logger } from '@verdaccio/legacy-types';
 
 import { ERROR_MISSING_CONFIG } from '../src/data-storage';
-import { VerdaccioConfigGoogleStorage } from '../src/types';
+import type { VerdaccioConfigGoogleStorage } from '../src/types';
 import storageConfig from './partials/config';
 
 const loggerDefault: Logger = {

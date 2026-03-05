@@ -1,9 +1,10 @@
-import { VerdaccioError } from '@verdaccio/commons-api';
-import { IPackageStorage, IPluginStorage, Logger } from '@verdaccio/legacy-types';
+import type { VerdaccioError } from '@verdaccio/commons-api';
+import type { IPluginStorage, Logger } from '@verdaccio/legacy-types';
+import { IPackageStorage } from '@verdaccio/legacy-types';
 
 import LocalMemory from '../src/index';
-import { ConfigMemory } from '../src/local-memory';
-import { DataHandler } from '../src/memory-handler';
+import type { ConfigMemory } from '../src/local-memory';
+import type { DataHandler } from '../src/memory-handler';
 import config from './partials/config';
 
 const logger: Logger = {

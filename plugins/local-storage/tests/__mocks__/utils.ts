@@ -1,5 +1,5 @@
 import { ConfigBuilder, Config as ConfigFile } from '@verdaccio/config';
-import { Config } from '@verdaccio/types';
+import type { Config } from '@verdaccio/types';
 
 export function getDefaultConfig(storage = './test-storage') {
   const builder = ConfigBuilder.build();

@@ -1,4 +1,4 @@
-import { Logger } from '@verdaccio/legacy-types';
+import type { Logger } from '@verdaccio/legacy-types';
 
 const logger: Logger = {
   warn: jest.fn(),

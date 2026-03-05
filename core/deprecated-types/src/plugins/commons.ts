@@ -1,4 +1,4 @@
-import { Config, Logger } from '../configuration';
+import type { Config, Logger } from '../configuration';
 
 export class Plugin<T> {
   public constructor(config: T, options: PluginOptions<T>) {}

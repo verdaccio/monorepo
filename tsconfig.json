@@ -13,14 +13,5 @@
     "esModuleInterop": true
   },
   "include": ["plugins/**/*.ts", "tools/**/*.ts", "core/**/*.ts", "types/*.d.ts"],
-  "exclude": [
-    "**/lib",
-    "node_modules",
-    "**/node_modules",
-    "**/coverage",
-    "**/*.spec.ts",
-    "**/test",
-    "**/__tests__",
-    "**/*.test.ts"
-  ]
+  "exclude": ["**/lib", "node_modules", "**/node_modules", "**/coverage"]
 }

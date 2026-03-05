@@ -1,10 +1,10 @@
 import fs from 'fs';
 import path from 'path';
 
-import { PluginOptions } from '@verdaccio/legacy-types';
+import type { PluginOptions } from '@verdaccio/legacy-types';
 
 import LocalDatabase from '../src/local-database';
-import { ILocalFSPackageManager } from '../src/local-fs';
+import type { ILocalFSPackageManager } from '../src/local-fs';
 import * as pkgUtils from '../src/pkg-utils';
 // FIXME: remove this mocks imports
 import Config from './__mocks__/Config';

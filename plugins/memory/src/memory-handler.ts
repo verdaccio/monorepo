@@ -1,8 +1,9 @@
 import MemoryFileSystem from 'memory-fs';
 import path from 'path';
 
-import { VerdaccioError, errorUtils } from '@verdaccio/core';
-import {
+import type { VerdaccioError } from '@verdaccio/core';
+import { errorUtils } from '@verdaccio/core';
+import type {
   Callback,
   CallbackAction,
   IPackageStorageManager,

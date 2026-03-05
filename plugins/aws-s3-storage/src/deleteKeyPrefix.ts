@@ -1,4 +1,4 @@
-import { S3 } from 'aws-sdk';
+import type { S3 } from 'aws-sdk';
 
 import { convertS3Error, create404Error } from './s3Errors';
 

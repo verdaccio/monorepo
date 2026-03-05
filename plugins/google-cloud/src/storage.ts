@@ -1,15 +1,15 @@
-import { DownloadResponse, File } from '@google-cloud/storage';
-import { Readable } from 'stream';
+import type { DownloadResponse, File } from '@google-cloud/storage';
+import type { Readable } from 'stream';
 
+import type { VerdaccioError } from '@verdaccio/commons-api';
 import {
   HTTP_STATUS,
-  VerdaccioError,
   getBadRequest,
   getConflict,
   getInternalError,
   getNotFound,
 } from '@verdaccio/commons-api';
-import {
+import type {
   Callback,
   CallbackAction,
   IPackageStorageManager,
@@ -22,8 +22,8 @@ import {
 } from '@verdaccio/legacy-types';
 import { ReadTarball, UploadTarball } from '@verdaccio/streams';
 
-import { IStorageHelper } from './storage-helper';
-import { VerdaccioConfigGoogleStorage } from './types';
+import type { IStorageHelper } from './storage-helper';
+import type { VerdaccioConfigGoogleStorage } from './types';
 
 export const pkgFileName = 'package.json';
 export const defaultValidation = 'crc32c';
@@ -108,7 +108,7 @@ class GoogleCloudStorageHandler implements IPackageStorageManager {
         // @ts-ignore
         .delete()
         // @ts-ignore
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
         .then((_data: [Response]): void => {
           this.logger.debug(
             { name: file.name },
@@ -276,7 +276,6 @@ class GoogleCloudStorageHandler implements IPackageStorageManager {
       }
     });
   }
-  /* eslint-disable no-async-promise-executor */
 
   public writeTarball(name: string): UploadTarball {
     const uploadStream: UploadTarball = new UploadTarball({});

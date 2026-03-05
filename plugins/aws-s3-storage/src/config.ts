@@ -1,4 +1,4 @@
-import { Config } from '@verdaccio/legacy-types';
+import type { Config } from '@verdaccio/legacy-types';
 
 export interface S3Config extends Config {
   bucket: string;

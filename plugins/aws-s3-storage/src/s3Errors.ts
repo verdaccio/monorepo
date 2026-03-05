@@ -1,9 +1,9 @@
-import { AWSError } from 'aws-sdk';
+import type { AWSError } from 'aws-sdk';
 
+import type { VerdaccioError } from '@verdaccio/commons-api';
 import {
   API_ERROR,
   HTTP_STATUS,
-  VerdaccioError,
   getCode,
   getConflict,
   getInternalError,

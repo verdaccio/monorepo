@@ -1,5 +1,5 @@
-import { Callback, HttpError, RemoteUser } from '../commons';
-import { Config } from '../configuration';
+import type { Callback, HttpError, RemoteUser } from '../commons';
+import type { Config } from '../configuration';
 
 export interface AuthPluginPackage {
   packageName: string;

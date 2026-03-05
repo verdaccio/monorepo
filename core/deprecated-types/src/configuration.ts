@@ -1,4 +1,4 @@
-import { PackageAccess, PackageList } from './manifest';
+import type { PackageAccess, PackageList } from './manifest';
 
 export type TypeToken = 'Bearer' | 'Basic';
 

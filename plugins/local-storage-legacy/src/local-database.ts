@@ -6,7 +6,7 @@ import mkdirp from 'mkdirp';
 import Path from 'path';
 
 import { errorUtils } from '@verdaccio/core';
-import {
+import type {
   Callback,
   Config,
   IPackageStorage,

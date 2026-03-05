@@ -2,10 +2,11 @@ import fs from 'fs';
 import { assign } from 'lodash';
 import path from 'path';
 
-import { ILocalData, PluginOptions, Token } from '@verdaccio/legacy-types';
+import type { ILocalData, PluginOptions } from '@verdaccio/legacy-types';
+import { Token } from '@verdaccio/legacy-types';
 
 import LocalDatabase from '../src/local-database';
-import { ILocalFSPackageManager } from '../src/local-fs';
+import type { ILocalFSPackageManager } from '../src/local-fs';
 import * as pkgUtils from '../src/pkg-utils';
 // FIXME: remove this mocks imports
 import Config from './__mocks__/Config';

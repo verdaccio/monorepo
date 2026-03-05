@@ -1,6 +1,6 @@
-import { Datastore } from '@google-cloud/datastore';
+import type { Datastore } from '@google-cloud/datastore';
 
-import { Config } from '@verdaccio/legacy-types';
+import type { Config } from '@verdaccio/legacy-types';
 
 export interface VerdaccioConfigGoogleStorage extends Config {
   // https://cloud.google.com/nodejs/docs/reference/storage/1.6.x/Bucket
