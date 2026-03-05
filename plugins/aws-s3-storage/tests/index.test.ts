@@ -1,11 +1,12 @@
+import type { IPluginStorage } from '@verdaccio/legacy-types';
 import { S3 } from 'aws-sdk';
 
-import { IPluginStorage } from '@verdaccio/legacy-types';
 
-import { S3Config } from '../src/config';
+import type { S3Config } from '../src/config';
 import { deleteKeyPrefix } from '../src/deleteKeyPrefix';
 import S3Database from '../src/index';
 import { is404Error } from '../src/s3Errors';
+
 import Config from './__mocks__/Config';
 import logger from './__mocks__/Logger';
 

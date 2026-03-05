@@ -1,5 +1,5 @@
 import { getInternalError } from '@verdaccio/commons-api';
-import {
+import type {
   ILocalPackageManager,
   IPackageStorage,
   IPluginStorage,
@@ -7,8 +7,9 @@ import {
 } from '@verdaccio/legacy-types';
 
 import LocalMemory from '../src/index';
-import { ConfigMemory } from '../src/local-memory';
+import type { ConfigMemory } from '../src/local-memory';
 import MemoryHandler from '../src/memory-handler';
+
 import config from './partials/config';
 import pkgExample from './partials/pkg';
 

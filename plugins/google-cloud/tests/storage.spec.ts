@@ -1,14 +1,15 @@
-import { DownloadResponse } from '@google-cloud/storage';
 import fs from 'fs';
 import path from 'path';
-import { Writable } from 'stream';
+import type { Writable } from 'stream';
 
-import { API_ERROR, HTTP_STATUS, VerdaccioError } from '@verdaccio/commons-api';
-import { IPackageStorageManager } from '@verdaccio/legacy-types';
-import { Callback, ILocalData, IPackageStorage, Logger, Package } from '@verdaccio/legacy-types';
+import type { DownloadResponse } from '@google-cloud/storage';
+import type { VerdaccioError } from '@verdaccio/commons-api';
+import { API_ERROR, HTTP_STATUS } from '@verdaccio/commons-api';
+import type { IPackageStorageManager, Callback, ILocalData, IPackageStorage, Logger, Package  } from '@verdaccio/legacy-types';
 
 import { pkgFileName } from '../src/storage';
-import { VerdaccioConfigGoogleStorage } from '../src/types';
+import type { VerdaccioConfigGoogleStorage } from '../src/types';
+
 import storageConfig from './partials/config';
 import pkgExample from './partials/pkg';
 import { generatePackage } from './partials/utils.helpers';
@@ -406,7 +407,7 @@ describe('Google Cloud Storage', () => {
     });
 
     describe('GoogleCloudStorageHandler:: writeFile', () => {
-      // eslint-disable-next-line @typescript-eslint/no-var-requires
+       
       const MemoryFileSystem = require('memory-fs');
       const memfs = new MemoryFileSystem();
       const tarballFile = path.join(__dirname, '/partials/test-pkg/', 'test-pkg-1.0.0.tgz');

@@ -3,9 +3,10 @@ import js from '@eslint/js';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
 import importX from 'eslint-plugin-import-x';
-import vitest from '@vitest/eslint-plugin';
 import cypress from 'eslint-plugin-cypress';
 import prettier from 'eslint-config-prettier';
+import vitest from '@vitest/eslint-plugin';
+import jest from 'eslint-plugin-jest';
 
 import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
@@ -26,6 +27,36 @@ export const reactConfig = defineConfig([
       ...react.configs.recommended.rules,
       ...reactHooks.configs.recommended.rules,
       'react/react-in-jsx-scope': 'off',
+    },
+  },
+]);
+
+export const vitestConfig = defineConfig([
+  {
+    files: ['**/*.{test,spec}.{js,ts,jsx,tsx}'],
+    plugins: { vitest },
+    rules: {
+      ...vitest.configs.recommended.rules,
+    },
+  },
+]);
+
+export const jestConfig = defineConfig([
+  {
+    files: [
+      '**/*.{test,spec}.{js,ts,jsx,tsx}',
+      '**/tests/**/*.{js,ts,jsx,tsx}',
+      '**/test/**/*.{js,ts,jsx,tsx}',
+      '**/__tests__/**/*.{js,ts,jsx,tsx}',
+      '**/__mocks__/**/*.{js,ts,jsx,tsx}',
+      '**/jest*.*',
+    ],
+    plugins: { jest },
+    languageOptions: {
+      globals: globals.jest,
+    },
+    rules: {
+      ...jest.configs.recommended.rules,
     },
   },
 ]);
@@ -56,6 +87,13 @@ export default defineConfig([
   // ---------------------------------------------
   // Base JS rules
   // ---------------------------------------------
+  {
+    languageOptions: {
+      globals: {
+        ...globals.node,
+      },
+    },
+  },
   js.configs.recommended,
 
   // ---------------------------------------------
@@ -130,13 +168,20 @@ export default defineConfig([
   },
 
   // ---------------------------------------------
-  // Test files — Vitest
+  // Disable type-checked rules for test files
+  // (test files are often excluded from tsconfig)
   // ---------------------------------------------
   {
-    files: ['**/*.{test,spec}.{js,ts,jsx,tsx}'],
-    plugins: { vitest },
+    files: ['**/*.{test,spec}.{ts,tsx}', '**/tests/**/*.{ts,tsx}', '**/test/**/*.{ts,tsx}', '**/__tests__/**/*.{ts,tsx}'],
+    languageOptions: {
+      parserOptions: {
+        project: null,
+        program: null,
+      },
+    },
     rules: {
-      ...vitest.configs.recommended.rules,
+      '@typescript-eslint/no-floating-promises': 'off',
+      '@typescript-eslint/no-misused-promises': 'off',
     },
   },
 
