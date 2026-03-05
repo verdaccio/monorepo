@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/eslint-config",
-  "version": "11.0.1",
+  "version": "12.0.0",
   "description": "Verdaccio ESLint Configuration",
   "main": "src/index.js",
   "type": "module",
