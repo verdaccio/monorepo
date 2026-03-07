@@ -1,5 +1,11 @@
 # @verdaccio/eslint-config
 
+## 12.1.0
+
+### Minor Changes
+
+- 836925c: fix: move dep as peerdependencies
+
 ## 12.0.0
 
 ### Major Changes
