@@ -1,5 +1,16 @@
 # @verdaccio/eslint-config
 
+## 13.0.0
+
+### Minor Changes
+
+- 2dab467: feat: restore eslint-plugin-verdaccio
+
+### Patch Changes
+
+- Updated dependencies [2dab467]
+  - eslint-plugin-verdaccio@10.1.0
+
 ## 12.1.0
 
 ### Minor Changes
