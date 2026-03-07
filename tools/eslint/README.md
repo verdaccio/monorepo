@@ -17,12 +17,13 @@ The default export provides a complete flat config with:
 
 The following configs are available as named exports and are **not** enabled by default. Their plugins are declared as **optional `peerDependencies`** — you must install them yourself when using the corresponding config:
 
-| Export          | Plugin (peer dependency)                           | Description                                          |
-| --------------- | -------------------------------------------------- | ---------------------------------------------------- |
-| `vitestConfig`  | `@vitest/eslint-plugin`                            | Vitest recommended rules for `*.test.*` / `*.spec.*` |
-| `jestConfig`    | `eslint-plugin-jest`                               | Jest recommended rules for `*.test.*` / `*.spec.*`   |
-| `reactConfig`   | `eslint-plugin-react`, `eslint-plugin-react-hooks` | React and React Hooks rules for `**/*.{jsx,tsx}`     |
-| `cypressConfig` | `eslint-plugin-cypress`                            | Cypress recommended rules for `cypress/**`           |
+| Export            | Plugin (peer dependency)                           | Description                                                    |
+| ----------------- | -------------------------------------------------- | -------------------------------------------------------------- |
+| `vitestConfig`    | `@vitest/eslint-plugin`                            | Vitest recommended rules for `*.test.*` / `*.spec.*`           |
+| `jestConfig`      | `eslint-plugin-jest`                               | Jest recommended rules for `*.test.*` / `*.spec.*`             |
+| `reactConfig`     | `eslint-plugin-react`, `eslint-plugin-react-hooks` | React and React Hooks rules for `**/*.{jsx,tsx}`               |
+| `cypressConfig`   | `eslint-plugin-cypress`                            | Cypress recommended rules for `cypress/**`                     |
+| `verdaccioConfig` | `eslint-plugin-verdaccio`                          | Verdaccio JSX rules (no spread, no style, no className object) |
 
 For example, to use `vitestConfig`:
 
@@ -60,6 +61,7 @@ import verdaccio, {
   cypressConfig,
   jestConfig,
   reactConfig,
+  verdaccioConfig,
   vitestConfig,
 } from '@verdaccio/eslint-config';
 
@@ -68,6 +70,7 @@ export default [
   ...vitestConfig, // or ...jestConfig
   ...reactConfig,
   ...cypressConfig,
+  ...verdaccioConfig,
   {
     ignores: ['**/dist/**', '**/node_modules/**'],
   },

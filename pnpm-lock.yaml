@@ -350,6 +350,19 @@ importers:
       typescript-eslint:
         specifier: ^8.56.1
         version: 8.56.1(eslint@10.0.2)(typescript@5.9.3)
+    devDependencies:
+      eslint-plugin-verdaccio:
+        specifier: workspace:^
+        version: link:../eslint-plugin-verdaccio
+
+  tools/eslint-plugin-verdaccio:
+    devDependencies:
+      '@verdaccio/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint
+      eslint:
+        specifier: ^10.0.2
+        version: 10.0.2
 
 packages:
 

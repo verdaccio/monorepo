@@ -7,6 +7,7 @@ import importX from 'eslint-plugin-import-x';
 import jest from 'eslint-plugin-jest';
 import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
+import verdaccioPlugin from 'eslint-plugin-verdaccio';
 import { defineConfig, globalIgnores } from 'eslint/config';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
@@ -68,6 +69,8 @@ export const cypressConfig = defineConfig([
     },
   },
 ]);
+
+export const verdaccioConfig = defineConfig([...verdaccioPlugin.configs.recommended]);
 
 export default defineConfig([
   // ---------------------------------------------

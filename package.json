@@ -53,7 +53,7 @@
     "ci:version": "npm run ci:version:changeset && npm run ci:version:install",
     "ci:version:install": "pnpm install --frozen-lockfile=false",
     "ci:publish": "changeset publish",
-    "test": "pnpm --filter './core/**' --filter './plugins/**' --filter '!./plugins/google-cloud' --filter '!./plugins/aws-s3-storage' --filter '!./plugins/active-directory' test",
+    "test": "pnpm --filter './core/**' --filter './plugins/**' --filter './tools/**' --filter '!./plugins/google-cloud' --filter '!./plugins/aws-s3-storage' --filter '!./plugins/active-directory' test",
     "ts:ref": "update-ts-references --discardComments"
   },
   "engines": {

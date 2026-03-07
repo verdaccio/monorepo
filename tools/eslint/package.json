@@ -24,12 +24,13 @@
     "typescript-eslint": "^8.56.1"
   },
   "peerDependencies": {
-    "eslint": ">=9",
     "@vitest/eslint-plugin": "^1.6.9",
-    "eslint-plugin-react-hooks": "^7.0.1",
-    "eslint-plugin-react": "^7.37.5",
+    "eslint": ">=9",
     "eslint-plugin-cypress": "^6.1.0",
-    "eslint-plugin-jest": "^29.15.0"
+    "eslint-plugin-jest": "^29.15.0",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-verdaccio": "^10.0.0"
   },
   "peerDependenciesMeta": {
     "@vitest/eslint-plugin": {
@@ -46,6 +47,9 @@
     },
     "eslint-plugin-jest": {
       "optional": true
+    },
+    "eslint-plugin-verdaccio": {
+      "optional": true
     }
   },
   "repository": {
@@ -61,5 +65,8 @@
   "funding": {
     "type": "opencollective",
     "url": "https://opencollective.com/verdaccio"
+  },
+  "devDependencies": {
+    "eslint-plugin-verdaccio": "workspace:^"
   }
 }
