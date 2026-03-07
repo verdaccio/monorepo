@@ -15,14 +15,20 @@ The default export provides a complete flat config with:
 
 ### Optional exports
 
-The following configs are available as named exports and are **not** enabled by default:
+The following configs are available as named exports and are **not** enabled by default. Their plugins are declared as **optional `peerDependencies`** — you must install them yourself when using the corresponding config:
 
-| Export          | Plugin                                             | Description                                          |
+| Export          | Plugin (peer dependency)                           | Description                                          |
 | --------------- | -------------------------------------------------- | ---------------------------------------------------- |
 | `vitestConfig`  | `@vitest/eslint-plugin`                            | Vitest recommended rules for `*.test.*` / `*.spec.*` |
 | `jestConfig`    | `eslint-plugin-jest`                               | Jest recommended rules for `*.test.*` / `*.spec.*`   |
 | `reactConfig`   | `eslint-plugin-react`, `eslint-plugin-react-hooks` | React and React Hooks rules for `**/*.{jsx,tsx}`     |
 | `cypressConfig` | `eslint-plugin-cypress`                            | Cypress recommended rules for `cypress/**`           |
+
+For example, to use `vitestConfig`:
+
+```bash
+pnpm add -D @vitest/eslint-plugin
+```
 
 ## Installation
 

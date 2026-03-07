@@ -18,18 +18,35 @@
     "@eslint/js": "^10.0.1",
     "eslint": "^10.0.2",
     "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-cypress": "^6.1.0",
-    "eslint-plugin-jest": "^29.15.0",
     "eslint-import-resolver-typescript": "^4.4.4",
     "eslint-plugin-import-x": "^4.16.1",
-    "eslint-plugin-react": "^7.37.5",
-    "eslint-plugin-react-hooks": "^7.0.1",
-    "@vitest/eslint-plugin": "^1.6.9",
     "globals": "^17.4.0",
     "typescript-eslint": "^8.56.1"
   },
   "peerDependencies": {
-    "eslint": ">=9"
+    "eslint": ">=9",
+    "@vitest/eslint-plugin": "^1.6.9",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-cypress": "^6.1.0",
+    "eslint-plugin-jest": "^29.15.0"
+  },
+  "peerDependenciesMeta": {
+    "@vitest/eslint-plugin": {
+      "optional": true
+    },
+    "eslint-plugin-react-hooks": {
+      "optional": true
+    },
+    "eslint-plugin-react": {
+      "optional": true
+    },
+    "eslint-plugin-cypress": {
+      "optional": true
+    },
+    "eslint-plugin-jest": {
+      "optional": true
+    }
   },
   "repository": {
     "type": "https",
