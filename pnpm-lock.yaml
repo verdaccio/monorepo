@@ -344,21 +344,19 @@ importers:
       eslint-plugin-react-hooks:
         specifier: ^7.0.1
         version: 7.0.1(eslint@10.0.2)
-      eslint-plugin-verdaccio:
-        specifier: ^10.0.0
-        version: 10.0.0
       globals:
         specifier: ^17.4.0
         version: 17.4.0
       typescript-eslint:
         specifier: ^8.56.1
         version: 8.56.1(eslint@10.0.2)(typescript@5.9.3)
+    devDependencies:
+      eslint-plugin-verdaccio:
+        specifier: workspace:*
+        version: link:../eslint-plugin-verdaccio
 
   tools/eslint-plugin-verdaccio:
     devDependencies:
-      '@verdaccio/eslint-config':
-        specifier: workspace:*
-        version: link:../eslint
       eslint:
         specifier: ^10.0.2
         version: 10.0.2
@@ -2529,10 +2527,6 @@ packages:
     peerDependencies:
       eslint: ^3 || ^4 || ^5 || ^6 || ^7 || ^8 || ^9.7
 
-  eslint-plugin-verdaccio@10.0.0:
-    resolution: {integrity: sha512-Fj6zXiO76EsGLBDkSmihqDv06PutbyGLVpYHhhk6Oc/IN80CCjm+fddsixbf8j9678j5dsiC45/LTHdqP9WOCA==}
-    engines: {node: '>=8'}
-
   eslint-scope@9.1.1:
     resolution: {integrity: sha512-GaUN0sWim5qc8KVErfPBWmc31LEsOkrUJbvJZV+xuL3u2phMUK4HIvXlWAakfC8W4nzlK+chPEAkYOYb5ZScIw==}
     engines: {node: ^20.19.0 || ^22.13.0 || >=24}
@@ -3410,10 +3404,6 @@ packages:
 
   jsonify@0.0.0:
     resolution: {integrity: sha512-trvBk1ki43VZptdBI5rIlG4YOzyeH/WefQt5rj1grasPn4iiZWKet8nkgc4GlsAylaztn0qZfUYOiTsASJFdNA==}
-
-  jsx-ast-utils@2.2.3:
-    resolution: {integrity: sha512-EdIHFMm+1BPynpKOpdPqiOsvnIrInRGJD7bzPZdPkjitQEqpdpUuFpq4T0npZFKTiB3RhWFdGN+oqOJIdhDhQA==}
-    engines: {node: '>=4.0'}
 
   jsx-ast-utils@3.3.5:
     resolution: {integrity: sha512-ZZow9HBI5O6EPgSJLUb8n2NKgmVWTwCvHGwFuJlMjvLFqlGG6pjirPhtdsseaLZjSibD8eegzmYpUZwoIlj2cQ==}
@@ -7651,10 +7641,6 @@ snapshots:
       string.prototype.matchall: 4.0.12
       string.prototype.repeat: 1.0.0
 
-  eslint-plugin-verdaccio@10.0.0:
-    dependencies:
-      jsx-ast-utils: 2.2.3
-
   eslint-scope@9.1.1:
     dependencies:
       '@types/esrecurse': 4.3.1
@@ -8829,11 +8815,6 @@ snapshots:
       graceful-fs: 4.2.9
 
   jsonify@0.0.0: {}
-
-  jsx-ast-utils@2.2.3:
-    dependencies:
-      array-includes: 3.1.9
-      object.assign: 4.1.7
 
   jsx-ast-utils@3.3.5:
     dependencies:
