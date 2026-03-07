@@ -70,7 +70,10 @@ export const cypressConfig = defineConfig([
   },
 ]);
 
-export const verdaccioConfig = defineConfig([...verdaccioPlugin.configs.recommended]);
+const verdaccioRecommended = verdaccioPlugin.configs.recommended;
+export const verdaccioConfig = defineConfig(
+  Array.isArray(verdaccioRecommended) ? verdaccioRecommended : [verdaccioRecommended]
+);
 
 export default defineConfig([
   // ---------------------------------------------

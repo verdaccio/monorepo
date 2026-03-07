@@ -65,8 +65,5 @@
   "funding": {
     "type": "opencollective",
     "url": "https://opencollective.com/verdaccio"
-  },
-  "devDependencies": {
-    "eslint-plugin-verdaccio": "workspace:^"
   }
 }
