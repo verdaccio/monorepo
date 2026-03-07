@@ -62,6 +62,9 @@
   },
   "homepage": "https://verdaccio.org",
   "license": "MIT",
+  "devDependencies": {
+    "eslint-plugin-verdaccio": "workspace:*"
+  },
   "funding": {
     "type": "opencollective",
     "url": "https://opencollective.com/verdaccio"
