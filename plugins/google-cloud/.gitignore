@@ -1,5 +1,0 @@
-_storage/
-lib/
-node_modules/
-!src/**/__tests__/**/*.tgz
-!tests/**/*.tgz
