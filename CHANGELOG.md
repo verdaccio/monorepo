@@ -535,11 +535,6 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 * **eslint-config:** do not provide eslint-plugin-verdaccio anymore ([dba50f7](https://github.com/verdaccio/monorepo/commit/dba50f7))
 
 
-### Features
-
-* **active-directory:** create @verdaccio/active-directory plugin ([b04ef0d](https://github.com/verdaccio/monorepo/commit/b04ef0d))
-
-
 ### BREAKING CHANGES
 
 * **eslint-config:** @verdaccio/eslint-config doesn't use eslint-plugin-verdaccio but it provide as dependency for users. We prefer to allow users to import it separately if they need
