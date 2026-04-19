@@ -11,6 +11,8 @@
 /website/src/dictionaries/
 CHANGELOG.md
 CONTRIBUTORS.md
+**/__fixtures__/**
+**/fixtures/**
 node_modules/
 **/coverage/**
 **/static/*.js

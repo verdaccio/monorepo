@@ -12,6 +12,7 @@ on:
       - 'core/**'
       - 'plugins/**'
       - 'tools/**'
+      - 'e2e/**'
       - 'package.json'
       - 'pnpm-workspace.yaml'
 
@@ -22,40 +23,18 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  prepare:
-    runs-on: ubuntu-latest
-    name: setup verdaccio
-    services:
-      verdaccio:
-        image: verdaccio/verdaccio:6
-        ports:
-          - 4873:4873
-    steps:
-    - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
-    - name: Use Node
-      uses: actions/setup-node@65d868f8d4d85d7d4abb7de0875cde3fcc8798f5
-      with:
-        node-version-file: '.nvmrc'
-    - name: Install pnpm
-      run: |
-        corepack enable
-        corepack prepare --activate pnpm@latest-8
-    - name: Install
-      run: pnpm install --registry http://localhost:4873
   lint:
     runs-on: ubuntu-latest
     name: Lint
-    needs: prepare
     steps:
       - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
+      - name: Install pnpm
+        run: corepack enable
       - name: Use Node
         uses: actions/setup-node@65d868f8d4d85d7d4abb7de0875cde3fcc8798f5
         with:
           node-version-file: '.nvmrc'
-      - name: Install pnpm
-        run: |
-          corepack enable
-          corepack prepare --activate pnpm@latest-8
+          cache: 'pnpm'
       - name: Install
         run: pnpm install --ignore-scripts
       - name: Lint
@@ -73,25 +52,35 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
+      - name: Install pnpm
+        run: corepack enable
       - name: Use Node ${{ matrix.node_version }}
         uses: actions/setup-node@65d868f8d4d85d7d4abb7de0875cde3fcc8798f5
         with:
           node-version: ${{ matrix.node_version }}
-      # - name: untar packages
-      #   run: tar -xzvf pkg.tar.gz -C ${{ github.workspace }}/packages
-      - name: Install pnpm
-        run: |
-          corepack enable
-          corepack prepare --activate pnpm@latest-8
-      - uses: actions/cache@9255dc7a253b0ccc959486e2bca901246202afeb
-        with:
-          path: ~/.pnpm-store
-          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+          cache: 'pnpm'
       - name: Install
         run: pnpm install --frozen-lockfile --ignore-scripts
-      - name: build
+      - name: Build
         run: pnpm build
       - name: Test
         run: pnpm test
-
-
+  e2e:
+    needs: test
+    runs-on: ubuntu-latest
+    name: E2E Tests
+    steps:
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
+      - name: Install pnpm
+        run: corepack enable
+      - name: Use Node
+        uses: actions/setup-node@65d868f8d4d85d7d4abb7de0875cde3fcc8798f5
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'pnpm'
+      - name: Install
+        run: pnpm install --frozen-lockfile --ignore-scripts
+      - name: Build
+        run: pnpm build
+      - name: E2E Tests
+        run: pnpm test:e2e

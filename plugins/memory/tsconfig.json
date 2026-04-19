@@ -17,13 +17,7 @@
   "include": ["src/*.ts", "test/**/*.ts", "types/*.d.ts"],
   "references": [
     {
-      "path": "../../core/commons-api"
-    },
-    {
       "path": "../../core/streams"
-    },
-    {
-      "path": "../../core/types"
     }
   ]
 }

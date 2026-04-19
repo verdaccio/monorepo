@@ -2,6 +2,7 @@
 // @ts-expect-error
 import { access, constants } from 'fs/promises';
 import path from 'path';
+import { describe, expect, test } from 'vitest';
 
 import { fileUtils } from '@verdaccio/core';
 import type { Config as ConfigType } from '@verdaccio/types';

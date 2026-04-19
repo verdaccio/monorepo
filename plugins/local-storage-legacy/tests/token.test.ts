@@ -1,4 +1,5 @@
 import fs from 'fs';
+import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 
 import type { ILocalData, PluginOptions, Token } from '@verdaccio/legacy-types';
 
@@ -19,8 +20,8 @@ let loadPrivatePackages;
 
 describe('Local Database', () => {
   beforeEach(() => {
-    const writeMock = jest.spyOn(fs, 'writeFileSync').mockImplementation();
-    loadPrivatePackages = jest
+    const writeMock = vi.spyOn(fs, 'writeFileSync').mockImplementation();
+    loadPrivatePackages = vi
       .spyOn(pkgUtils, 'loadPrivatePackages')
       .mockReturnValue({ list: [], secret: '' });
     locaDatabase = new LocalDatabase(optionsPlugin.config, optionsPlugin.logger);
@@ -29,7 +30,7 @@ describe('Local Database', () => {
   });
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   describe('token', () => {
