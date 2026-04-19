@@ -1,11 +1,11 @@
 import { spawn } from 'child_process';
 import fs from 'fs';
+import getPort from 'get-port';
 import path from 'path';
 
 import { ConfigBuilder } from '@verdaccio/config';
 import { fileUtils } from '@verdaccio/core';
 import { ping } from '@verdaccio/registry-cli';
-import getPort from 'get-port';
 
 export interface RegistryInstance {
   url: string;

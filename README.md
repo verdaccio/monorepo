@@ -6,27 +6,27 @@ This monorepo contains all the packages that compose the Verdaccio 6.x architect
 
 ### Core
 
-| Package | Description |
-|---------|-------------|
-| `@verdaccio/file-locking` | File locking utilities |
-| `@verdaccio/streams` | Stream extensions |
+| Package                   | Description                          |
+| ------------------------- | ------------------------------------ |
+| `@verdaccio/file-locking` | File locking utilities               |
+| `@verdaccio/streams`      | Stream extensions                    |
 | `@verdaccio/legacy-types` | Legacy type definitions (deprecated) |
 
 ### Plugins
 
-| Package | Description |
-|---------|-------------|
+| Package                           | Description              |
+| --------------------------------- | ------------------------ |
 | `@verdaccio/local-storage-legacy` | Local filesystem storage |
-| `@verdaccio/local-storage` | Local storage (modern) |
-| `verdaccio-auth-memory` | In-memory authentication |
-| `verdaccio-memory` | In-memory storage |
+| `@verdaccio/local-storage`        | Local storage (modern)   |
+| `verdaccio-auth-memory`           | In-memory authentication |
+| `verdaccio-memory`                | In-memory storage        |
 
 ### Tools
 
-| Package | Description |
-|---------|-------------|
+| Package                    | Description                 |
+| -------------------------- | --------------------------- |
 | `@verdaccio/eslint-config` | Shared ESLint configuration |
-| `eslint-plugin-verdaccio` | Custom ESLint rules |
+| `eslint-plugin-verdaccio`  | Custom ESLint rules         |
 
 ## Development
 

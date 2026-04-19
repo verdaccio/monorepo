@@ -3,9 +3,9 @@ import { afterAll, beforeAll, describe, expect, test } from 'vitest';
 import { allTests, createNpmAdapter, runAll } from '@verdaccio/e2e-cli';
 import {
   ConfigBuilder,
+  type RegistryInstance,
   startRegistry,
   stopRegistry,
-  type RegistryInstance,
 } from '@verdaccio/e2e-shared';
 
 let registry: RegistryInstance;
@@ -45,16 +45,11 @@ describe('auth-memory E2E', () => {
 
   test('e2e-cli: ping, publish, and info with auth-memory', async () => {
     const adapter = createNpmAdapter();
-    const tests = allTests.filter((t) =>
-      ['ping', 'publish', 'info'].includes(t.name)
-    );
-    const { results, exitCode } = await runAll(
-      [adapter],
-      tests,
-      registry.url,
-      registry.token,
-      { timeout: 50_000, concurrency: 1 }
-    );
+    const tests = allTests.filter((t) => ['ping', 'publish', 'info'].includes(t.name));
+    const { results, exitCode } = await runAll([adapter], tests, registry.url, registry.token, {
+      timeout: 50_000,
+      concurrency: 1,
+    });
 
     expect(exitCode).toBe(0);
     expect(results[0].failed).toBe(0);
