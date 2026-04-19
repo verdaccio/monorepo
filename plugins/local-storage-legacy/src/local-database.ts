@@ -1,40 +1,30 @@
-import async from 'async';
 import buildDebug from 'debug';
 import fs from 'fs';
+import globby from 'globby';
 import _ from 'lodash';
 import mkdirp from 'mkdirp';
 import Path from 'path';
+import sanitize from 'sanitize-filename';
 
 import { errorUtils } from '@verdaccio/core';
-import type { searchUtils } from '@verdaccio/core';
-import type {
-  Callback,
-  Config,
-  IPackageStorage,
-  IPluginStorage,
-  LocalStorage,
-  Logger,
-  StorageList,
-} from '@verdaccio/legacy-types';
+import type { Callback, Config, Logger, StorageList } from '@verdaccio/types';
 
 import LocalDriver, { noSuchFile } from './local-fs';
 import { loadPrivatePackages } from './pkg-utils';
-import { searchUplinks } from './remote-search';
 import TokenActions from './token';
-import { findPackages, getFileStats } from './utils';
+import type { LocalStorage } from './types';
 
 const DEPRECATED_DB_NAME = '.sinopia-db.json';
 const DB_NAME = '.verdaccio-db.json';
 
 const debug = buildDebug('verdaccio:plugin:local-storage-legacy');
 
-class LocalDatabase extends TokenActions implements IPluginStorage<{}> {
+class LocalDatabase extends TokenActions {
   public path: string;
   public logger: Logger;
   public data: LocalStorage;
   public config: Config;
   public locked: boolean;
-  private remoteSearch: boolean;
 
   public constructor(config: Config, logger: Logger) {
     super(config);
@@ -42,7 +32,6 @@ class LocalDatabase extends TokenActions implements IPluginStorage<{}> {
     this.path = this._buildStoragePath(config);
     this.logger = logger;
     this.locked = false;
-    this.remoteSearch = (config as any).remoteSearch === true;
     this.data = this._fetchLocalPackages();
     this._sync();
   }
@@ -83,194 +72,78 @@ class LocalDatabase extends TokenActions implements IPluginStorage<{}> {
     const storageKeys = Object.keys(storages);
     debug(`search base: %o keys: %o`, base, storageKeys);
 
-    async.eachSeries(
-      storageKeys,
-      function (storage, cb) {
+    const emitPackage = (item: any): Promise<void> =>
+      new Promise((resolve, reject) => {
+        onPackage(item, (err: any) => (err ? reject(err) : resolve()));
+      });
+
+    const statAsync = (filePath: string): Promise<fs.Stats> =>
+      new Promise((resolve, reject) => {
+        fs.stat(filePath, (err, stats) => (err ? reject(err) : resolve(stats)));
+      });
+
+    const processSearch = async (): Promise<void> => {
+      for (const storage of storageKeys) {
         const position = storageKeys.indexOf(storage);
         const base2 = Path.join(position !== 0 ? storageKeys[0] : '');
         const storagePath: string = Path.resolve(base, base2, storage);
         debug('search path: %o : %o', storagePath, storage);
-        fs.readdir(storagePath, (err, files) => {
-          if (err) {
-            return cb(err);
-          }
 
-          async.eachSeries(
-            files,
-            function (file, cb) {
-              debug('local-storage: [search] search file path: %o', file);
-              if (storageKeys.includes(file)) {
-                return cb();
-              }
-
-              if (file.match(/^@/)) {
-                // scoped
-                const fileLocation = Path.resolve(base, storage, file);
-                debug('search scoped file location: %o', fileLocation);
-                fs.readdir(fileLocation, function (err, files) {
-                  if (err) {
-                    return cb(err);
-                  }
-
-                  async.eachSeries(
-                    files,
-                    (file2, cb) => {
-                      if (validateName(file2)) {
-                        const packagePath = Path.resolve(base, storage, file, file2);
-
-                        fs.stat(packagePath, (err, stats) => {
-                          if (_.isNil(err) === false) {
-                            return cb(err);
-                          }
-                          const item = {
-                            name: `${file}/${file2}`,
-                            path: packagePath,
-                            time: stats.mtime.getTime(),
-                          };
-                          onPackage(item, cb);
-                        });
-                      } else {
-                        cb();
-                      }
-                    },
-                    cb
-                  );
-                });
-              } else if (validateName(file)) {
-                const base2 = Path.join(position !== 0 ? storageKeys[0] : '');
-                const packagePath = Path.resolve(base, base2, storage, file);
-                debug('search file location: %o', packagePath);
-                fs.stat(packagePath, (err, stats) => {
-                  if (_.isNil(err) === false) {
-                    return cb(err);
-                  }
-                  onPackage(
-                    {
-                      name: file,
-                      path: packagePath,
-                      time: self.getTime(stats.mtime.getTime(), stats.mtime),
-                    },
-                    cb
-                  );
-                });
-              } else {
-                cb();
-              }
-            },
-            cb
-          );
+        // @ts-ignore
+        const folders = await globby('*', {
+          cwd: storagePath,
+          onlyDirectories: true,
+          onlyFiles: false,
+          deep: 1,
+          dot: false,
+          followSymbolicLinks: true,
         });
-      },
-      // @ts-ignore
-      onEnd
-    );
-  }
 
-  public async searchAsync(query: searchUtils.SearchQuery): Promise<searchUtils.SearchItem[]> {
-    const results: searchUtils.SearchItem[] = [];
-    const storages = this._getCustomPackageLocalStorages();
-    const base = Path.dirname(this.config.self_path);
-    const storageKeys = Object.keys(storages);
-
-    for (const storage of storageKeys) {
-      const position = storageKeys.indexOf(storage);
-      const base2 = Path.join(position !== 0 ? storageKeys[0] : '');
-      const storagePath = Path.resolve(base, base2, storage);
-
-      try {
-        const packages = await findPackages(storagePath, () => true);
-
-        for (const pkg of packages) {
-          if (query.text && !pkg.name.match(query.text)) {
+        for (const folder of folders) {
+          if (storageKeys.includes(folder)) {
             continue;
           }
 
-          let time: number | undefined;
-          try {
-            const stats = await getFileStats(pkg.path);
-            time = stats.mtime.getTime();
-          } catch {
-            // package dir may have been removed
-          }
+          if (folder.match(/^@/)) {
+            // scoped packages: read one level deeper
+            const scopePath = Path.resolve(storagePath, folder);
+            // @ts-ignore
+            const scopedFolders = await globby('*', {
+              cwd: scopePath,
+              onlyDirectories: true,
+              onlyFiles: false,
+              deep: 1,
+              dot: false,
+            });
 
-          const isPrivate = this.data.list.includes(pkg.name);
-          results.push({
-            package: {
-              name: pkg.name,
-              path: pkg.path,
-              time,
-            },
-            verdaccioPrivate: isPrivate,
-            verdaccioPkgCached: !isPrivate,
-            score: {
-              final: 1,
-              detail: { quality: 1, popularity: 1, maintenance: 0 },
-            },
-          });
-        }
-      } catch (err) {
-        debug('searchAsync: error scanning %o: %o', storagePath, err);
-      }
-    }
-
-    const from = query.from ?? 0;
-    const size = query.size ?? 20;
-    return results.slice(from, from + size);
-  }
-
-  public async searchWithUplinks(
-    query: searchUtils.SearchQuery
-  ): Promise<searchUtils.SearchItem[]> {
-    const localResults = await this.searchAsync(query);
-
-    if (!this.remoteSearch || !this.config.uplinks) {
-      return localResults;
-    }
-
-    const uplinkNames = this._getRelevantUplinks();
-    if (uplinkNames.length === 0) {
-      return localResults;
-    }
-
-    const remoteResults = await searchUplinks(
-      this.config.uplinks as any,
-      uplinkNames,
-      query,
-      this.logger
-    );
-
-    return this._mergeResults(localResults, remoteResults);
-  }
-
-  private _getRelevantUplinks(): string[] {
-    const uplinkSet = new Set<string>();
-    const { packages, uplinks } = this.config;
-
-    if (!packages || !uplinks) {
-      return [];
-    }
-
-    for (const pattern of Object.keys(packages)) {
-      const pkgConfig = packages[pattern];
-      if (pkgConfig.proxy) {
-        for (const proxyName of pkgConfig.proxy) {
-          if (uplinks[proxyName]) {
-            uplinkSet.add(proxyName);
+            for (const scopedPkg of scopedFolders) {
+              if (validateName(scopedPkg)) {
+                const packagePath = Path.resolve(scopePath, scopedPkg);
+                const stats = await statAsync(packagePath);
+                await emitPackage({
+                  name: `${folder}/${scopedPkg}`,
+                  path: packagePath,
+                  time: stats.mtime.getTime(),
+                });
+              }
+            }
+          } else if (validateName(folder)) {
+            const packagePath = Path.resolve(storagePath, folder);
+            debug('search file location: %o', packagePath);
+            const stats = await statAsync(packagePath);
+            await emitPackage({
+              name: folder,
+              path: packagePath,
+              time: self.getTime(stats.mtime.getTime(), stats.mtime),
+            });
           }
         }
       }
-    }
+    };
 
-    return Array.from(uplinkSet);
-  }
-
-  private _mergeResults(
-    local: searchUtils.SearchItem[],
-    remote: searchUtils.SearchItem[]
-  ): searchUtils.SearchItem[] {
-    const localNames = new Set(local.map((r) => r.package.name));
-    const uniqueRemote = remote.filter((r) => !localNames.has(r.package.name));
-    return [...local, ...uniqueRemote];
+    processSearch()
+      .then(() => onEnd(null))
+      .catch((err) => onEnd(err));
   }
 
   public remove(name: string, cb: Callback): void {
@@ -305,7 +178,7 @@ class LocalDatabase extends TokenActions implements IPluginStorage<{}> {
     debug('get full list of packages (%o) has been fetched', totalItems);
   }
 
-  public getPackageStorage(packageName: string): IPackageStorage {
+  public getPackageStorage(packageName: string): LocalDriver | void {
     const packageAccess = this.config.getMatchedPackagesSpec(packageName);
 
     const packagePath: string = this._getLocalStoragePath(
@@ -318,9 +191,14 @@ class LocalDatabase extends TokenActions implements IPluginStorage<{}> {
       return;
     }
 
+    const sanitizedName = packageName
+      .split('/')
+      .map((segment) => sanitize(segment))
+      .join('/');
+
     const packageStoragePath: string = Path.join(
       Path.resolve(Path.dirname(this.config.self_path || ''), packagePath),
-      packageName
+      sanitizedName
     );
 
     debug('storage absolute path: ', packageStoragePath);

@@ -5,7 +5,7 @@ import FileAsync from 'lowdb/adapters/FileAsync';
 import FileMemory from 'lowdb/adapters/Memory';
 import Path from 'node:path';
 
-import type { Config, ITokenActions, Token, TokenFilter } from '@verdaccio/legacy-types';
+import type { Config, ITokenActions, Token, TokenFilter } from '@verdaccio/types';
 
 const debug = buildDebug('verdaccio:plugin:local-storage-legacy:token');
 

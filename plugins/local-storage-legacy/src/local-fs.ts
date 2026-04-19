@@ -3,18 +3,14 @@ import _ from 'lodash';
 import mkdirp from 'mkdirp';
 import fs from 'node:fs';
 import path from 'node:path';
+import sanitize from 'sanitize-filename';
 
 import type { VerdaccioError } from '@verdaccio/core';
 import { errorUtils } from '@verdaccio/core';
 import { readFile, unlockFile } from '@verdaccio/file-locking';
-import type {
-  Callback,
-  ILocalPackageManager,
-  IUploadTarball,
-  Logger,
-  Package,
-} from '@verdaccio/legacy-types';
+import type { IUploadTarball } from '@verdaccio/streams';
 import { ReadTarball, UploadTarball } from '@verdaccio/streams';
+import type { Callback, Logger, Package } from '@verdaccio/types';
 
 export const fileExist = 'EEXISTS';
 export const noSuchFile = 'ENOENT';
@@ -61,9 +57,7 @@ const renameTmp = function (src, dst, _cb): void {
   });
 };
 
-export type ILocalFSPackageManager = ILocalPackageManager & { path: string };
-
-export default class LocalFS implements ILocalFSPackageManager {
+export default class LocalFS {
   public path: string;
   public logger: Logger;
 
@@ -210,7 +204,7 @@ export default class LocalFS implements ILocalFSPackageManager {
       } else {
         const temporalName = path.join(
           this.path,
-          `${name}.tmp-${String(Math.random()).replace(/^0\./, '')}`
+          sanitize(`${name}.tmp-${String(Math.random()).replace(/^0\./, '')}`)
         );
         debug('write a temporal name %o', temporalName);
         const file = fs.createWriteStream(temporalName);
@@ -338,7 +332,7 @@ export default class LocalFS implements ILocalFSPackageManager {
   }
 
   private _getStorage(fileName = ''): string {
-    const storagePath: string = path.join(this.path, fileName);
+    const storagePath: string = path.join(this.path, sanitize(fileName));
 
     return storagePath;
   }

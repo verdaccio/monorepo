@@ -17,7 +17,6 @@ This monorepo contains all the packages that compose the Verdaccio 6.x architect
 | Package                           | Description              |
 | --------------------------------- | ------------------------ |
 | `@verdaccio/local-storage-legacy` | Local filesystem storage |
-| `@verdaccio/local-storage`        | Local storage (modern)   |
 | `verdaccio-auth-memory`           | In-memory authentication |
 | `verdaccio-memory`                | In-memory storage        |
 

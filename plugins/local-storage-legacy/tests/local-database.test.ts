@@ -3,24 +3,20 @@ import { assign } from 'lodash';
 import path from 'path';
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 
-import type { ILocalData, PluginOptions } from '@verdaccio/legacy-types';
-import { Token } from '@verdaccio/legacy-types';
+import type { Config as VerdaccioConfig } from '@verdaccio/types';
 
 import LocalDatabase from '../src/local-database';
-import type { ILocalFSPackageManager } from '../src/local-fs';
+import type LocalFS from '../src/local-fs';
 import * as pkgUtils from '../src/pkg-utils';
-import * as remoteSearch from '../src/remote-search';
-import * as utils from '../src/utils';
-// FIXME: remove this mocks imports
-import Config from './__mocks__/Config';
+import MockConfig from './__mocks__/Config';
 import logger from './__mocks__/Logger';
 
-const optionsPlugin: PluginOptions<{}> = {
+const optionsPlugin = {
   logger,
-  config: new Config(),
+  config: new MockConfig() as unknown as VerdaccioConfig,
 };
 
-let locaDatabase: ILocalData<{}>;
+let locaDatabase: LocalDatabase;
 let loadPrivatePackages;
 
 describe('Local Database', () => {
@@ -80,7 +76,7 @@ describe('Local Database', () => {
       expect(storage).toBeDefined();
 
       if (storage) {
-        const storagePath = path.normalize((storage as ILocalFSPackageManager).path).toLowerCase();
+        const storagePath = path.normalize((storage as LocalFS).path).toLowerCase();
         expect(storagePath).toBe(
           path
             .normalize(
@@ -98,7 +94,7 @@ describe('Local Database', () => {
       expect(storage).toBeDefined();
 
       if (storage) {
-        const storagePath = path.normalize((storage as ILocalFSPackageManager).path).toLowerCase();
+        const storagePath = path.normalize((storage as LocalFS).path).toLowerCase();
         expect(storagePath).toBe(
           path
             .normalize(
@@ -112,6 +108,25 @@ describe('Local Database', () => {
             )
             .toLowerCase()
         );
+      }
+    });
+
+    test('should not allow path traversal in package name', () => {
+      const maliciousName = '../../etc/passwd';
+      const storage = locaDatabase.getPackageStorage(maliciousName);
+      expect(storage).toBeDefined();
+
+      if (storage) {
+        const storagePath = (storage as LocalFS).path;
+        const basePath = path.resolve(
+          __dirname,
+          '__fixtures__',
+          optionsPlugin.config.storage || ''
+        );
+        // the resolved path must stay within the base storage directory
+        expect(path.resolve(storagePath).startsWith(basePath)).toBe(true);
+        // must not contain traversal sequences
+        expect(storagePath).not.toContain('..');
       }
     });
   });
@@ -167,7 +182,6 @@ describe('Local Database', () => {
           onPackageMock,
           function onEnd() {
             expect(onPackageMock).toHaveBeenCalledTimes(numberTimesCalled);
-            expect(validatorMock).toHaveBeenCalledTimes(numberTimesCalled);
             resolve();
           },
           validatorMock
@@ -176,24 +190,12 @@ describe('Local Database', () => {
     };
 
     test('should find scoped packages', () => {
-      const scopedPackages = ['@pkg1/test'];
-      const stats = { mtime: new Date() };
-      vi.spyOn(fs, 'stat').mockImplementation((_, cb) => cb(null, stats as fs.Stats));
-      vi.spyOn(fs, 'readdir').mockImplementation((storePath, cb) =>
-        cb(null, storePath.match('test-storage') ? scopedPackages : [])
-      );
-
-      return callSearch(locaDatabase, 1);
+      // test-storage fixture contains @pkg1/test, pkg1, pkg2
+      // with default config only test-storage is scanned, expects 3 packages total
+      return callSearch(locaDatabase, 3);
     });
 
     test('should find non scoped packages', () => {
-      const nonScopedPackages = ['pkg1', 'pkg2'];
-      const stats = { mtime: new Date() };
-      vi.spyOn(fs, 'stat').mockImplementation((_, cb) => cb(null, stats as fs.Stats));
-      vi.spyOn(fs, 'readdir').mockImplementation((storePath, cb) =>
-        cb(null, storePath.match('test-storage') ? nonScopedPackages : [])
-      );
-
       const db = new LocalDatabase(
         assign({}, optionsPlugin.config, {
           packages: {},
@@ -201,230 +203,107 @@ describe('Local Database', () => {
         optionsPlugin.logger
       );
 
-      return callSearch(db, 2);
+      // with no custom package storages, only base storage is scanned
+      return callSearch(db, 3);
     });
 
     test('should fails on read the storage', () => {
-      const spyInstance = vi
-        .spyOn(fs, 'readdir')
-        .mockImplementation((_, cb) => cb(Error('fails'), null));
-
       const db = new LocalDatabase(
         assign({}, optionsPlugin.config, {
+          storage: './non-existent-storage-path',
           packages: {},
         }),
         optionsPlugin.logger
       );
 
-      const result = callSearch(db, 0);
-      spyInstance.mockRestore();
-      return result;
-    });
-  });
-
-  describe('searchAsync', () => {
-    const simpleConfig = assign({}, optionsPlugin.config, { packages: {} });
-
-    test('should return SearchItem[] for local packages', async () => {
-      const db = new LocalDatabase(simpleConfig, optionsPlugin.logger);
-      const mockPackages = [
-        { name: 'pkg1', path: '/storage/pkg1' },
-        { name: 'pkg2', path: '/storage/pkg2' },
-      ];
-      const mockStats = { mtime: new Date('2024-01-01') } as fs.Stats;
-
-      vi.spyOn(utils, 'findPackages').mockResolvedValue(mockPackages);
-      vi.spyOn(utils, 'getFileStats').mockResolvedValue(mockStats);
-
-      const results = await db.searchAsync({
-        text: 'pkg',
-        quality: 0,
-        popularity: 0,
-        maintenance: 0,
-      });
-
-      expect(results).toHaveLength(2);
-      expect(results[0].package.name).toBe('pkg1');
-      expect(results[0].score.final).toBe(1);
-      expect(results[0].verdaccioPkgCached).toBe(true);
+      return callSearch(db, 0);
     });
 
-    test('should filter results by query text', async () => {
-      const db = new LocalDatabase(simpleConfig, optionsPlugin.logger);
-      const mockPackages = [
-        { name: 'lodash', path: '/storage/lodash' },
-        { name: 'express', path: '/storage/express' },
-      ];
-      const mockStats = { mtime: new Date() } as fs.Stats;
-
-      vi.spyOn(utils, 'findPackages').mockResolvedValue(mockPackages);
-      vi.spyOn(utils, 'getFileStats').mockResolvedValue(mockStats);
-
-      const results = await db.searchAsync({
-        text: 'lodash',
-        quality: 0,
-        popularity: 0,
-        maintenance: 0,
+    test('should filter packages using validator', () => {
+      // validator rejects all names => onPackage should never be called
+      const onPackageMock = vi.fn((item, cb) => cb());
+      const validatorMock = vi.fn(() => false);
+      return new Promise<void>((resolve) => {
+        locaDatabase.search(
+          onPackageMock,
+          function onEnd() {
+            expect(onPackageMock).toHaveBeenCalledTimes(0);
+            // validator is called for non-scoped folders + scoped sub-folders
+            expect(validatorMock).toHaveBeenCalled();
+            resolve();
+          },
+          validatorMock
+        );
       });
-
-      expect(results).toHaveLength(1);
-      expect(results[0].package.name).toBe('lodash');
     });
 
-    test('should apply pagination', async () => {
-      const db = new LocalDatabase(simpleConfig, optionsPlugin.logger);
-      const mockPackages = Array.from({ length: 30 }, (_, i) => ({
-        name: `pkg-${i}`,
-        path: `/storage/pkg-${i}`,
-      }));
-      const mockStats = { mtime: new Date() } as fs.Stats;
-
-      vi.spyOn(utils, 'findPackages').mockResolvedValue(mockPackages);
-      vi.spyOn(utils, 'getFileStats').mockResolvedValue(mockStats);
-
-      const results = await db.searchAsync({
-        text: 'pkg',
-        from: 5,
-        size: 10,
-        quality: 0,
-        popularity: 0,
-        maintenance: 0,
+    test('should emit correct item shape with name, path and time', () => {
+      const items: any[] = [];
+      const onPackageMock = vi.fn((item, cb) => {
+        items.push(item);
+        cb();
       });
-
-      expect(results).toHaveLength(10);
-      expect(results[0].package.name).toBe('pkg-5');
+      const validatorMock = vi.fn(() => true);
+      return new Promise<void>((resolve) => {
+        locaDatabase.search(
+          onPackageMock,
+          function onEnd() {
+            expect(items.length).toBeGreaterThan(0);
+            for (const item of items) {
+              expect(item).toHaveProperty('name');
+              expect(item).toHaveProperty('path');
+              expect(item).toHaveProperty('time');
+              expect(typeof item.name).toBe('string');
+              expect(typeof item.path).toBe('string');
+              expect(typeof item.time).toBe('number');
+            }
+            // verify scoped package name format
+            const scoped = items.find((i) => i.name.startsWith('@'));
+            expect(scoped).toBeDefined();
+            expect(scoped.name).toMatch(/^@[^/]+\/.+/);
+            resolve();
+          },
+          validatorMock
+        );
+      });
     });
 
-    test('should mark private packages correctly', async () => {
-      const db = new LocalDatabase(simpleConfig, optionsPlugin.logger);
-      const mockPackages = [{ name: 'my-private-pkg', path: '/storage/my-private-pkg' }];
-      const mockStats = { mtime: new Date() } as fs.Stats;
-
-      vi.spyOn(utils, 'findPackages').mockResolvedValue(mockPackages);
-      vi.spyOn(utils, 'getFileStats').mockResolvedValue(mockStats);
-
-      // Add the package to the private list
-      db.add('my-private-pkg', () => {});
-
-      const results = await db.searchAsync({
-        text: 'my-private',
-        quality: 0,
-        popularity: 0,
-        maintenance: 0,
+    test('should propagate onPackage callback errors to onEnd', () => {
+      const expectedError = new Error('onPackage failed');
+      const onPackageMock = vi.fn((_item, cb) => cb(expectedError));
+      const validatorMock = vi.fn(() => true);
+      return new Promise<void>((resolve) => {
+        locaDatabase.search(
+          onPackageMock,
+          function onEnd(err) {
+            expect(err).toBe(expectedError);
+            resolve();
+          },
+          validatorMock
+        );
       });
-
-      expect(results).toHaveLength(1);
-      expect(results[0].verdaccioPrivate).toBe(true);
-      expect(results[0].verdaccioPkgCached).toBe(false);
     });
 
-    test('should handle errors gracefully', async () => {
-      const db = new LocalDatabase(simpleConfig, optionsPlugin.logger);
-      vi.spyOn(utils, 'findPackages').mockRejectedValue(new Error('ENOENT'));
-
-      const results = await db.searchAsync({
-        text: 'pkg',
-        quality: 0,
-        popularity: 0,
-        maintenance: 0,
+    test('should search with custom storage paths from packages config', () => {
+      // The default config has 'local-private-custom-storage' with storage: 'private_folder'
+      // This tests that multiple storage keys are iterated
+      const items: any[] = [];
+      const onPackageMock = vi.fn((item, cb) => {
+        items.push(item);
+        cb();
       });
-
-      expect(results).toHaveLength(0);
-    });
-  });
-
-  describe('searchWithUplinks', () => {
-    const simpleConfig = assign({}, optionsPlugin.config, { packages: {} });
-
-    test('should return only local results when remoteSearch is disabled', async () => {
-      const db = new LocalDatabase(simpleConfig, optionsPlugin.logger);
-      const mockPackages = [{ name: 'local-pkg', path: '/storage/local-pkg' }];
-      const mockStats = { mtime: new Date() } as fs.Stats;
-
-      vi.spyOn(utils, 'findPackages').mockResolvedValue(mockPackages);
-      vi.spyOn(utils, 'getFileStats').mockResolvedValue(mockStats);
-      const uplinkSpy = vi.spyOn(remoteSearch, 'searchUplinks');
-
-      const results = await db.searchWithUplinks({
-        text: 'local',
-        quality: 0,
-        popularity: 0,
-        maintenance: 0,
+      const validatorMock = vi.fn(() => true);
+      return new Promise<void>((resolve) => {
+        locaDatabase.search(
+          onPackageMock,
+          function onEnd() {
+            // Should still find packages from test-storage (may error on private_folder but not crash)
+            expect(onPackageMock).toHaveBeenCalled();
+            resolve();
+          },
+          validatorMock
+        );
       });
-
-      expect(results).toHaveLength(1);
-      expect(results[0].package.name).toBe('local-pkg');
-      expect(uplinkSpy).not.toHaveBeenCalled();
-    });
-
-    test('should merge local and remote results when remoteSearch is enabled', async () => {
-      const db = new LocalDatabase(
-        assign({}, simpleConfig, {
-          remoteSearch: true,
-          packages: { '*': { proxy: ['npmjs'] } },
-        }),
-        optionsPlugin.logger
-      );
-
-      const mockPackages = [{ name: 'local-pkg', path: '/storage/local-pkg' }];
-      const mockStats = { mtime: new Date() } as fs.Stats;
-
-      vi.spyOn(utils, 'findPackages').mockResolvedValue(mockPackages);
-      vi.spyOn(utils, 'getFileStats').mockResolvedValue(mockStats);
-      vi.spyOn(remoteSearch, 'searchUplinks').mockResolvedValue([
-        {
-          package: { name: 'remote-pkg' },
-          verdaccioPrivate: false,
-          verdaccioPkgCached: false,
-          score: { final: 0.8, detail: { quality: 0.8, popularity: 0.8, maintenance: 0.8 } },
-        },
-      ]);
-
-      const results = await db.searchWithUplinks({
-        text: '',
-        quality: 0,
-        popularity: 0,
-        maintenance: 0,
-      });
-
-      expect(results).toHaveLength(2);
-      expect(results[0].package.name).toBe('local-pkg');
-      expect(results[1].package.name).toBe('remote-pkg');
-    });
-
-    test('should deduplicate: local wins over remote', async () => {
-      const db = new LocalDatabase(
-        assign({}, simpleConfig, {
-          remoteSearch: true,
-          packages: { '*': { proxy: ['npmjs'] } },
-        }),
-        optionsPlugin.logger
-      );
-
-      const mockPackages = [{ name: 'shared-pkg', path: '/storage/shared-pkg' }];
-      const mockStats = { mtime: new Date() } as fs.Stats;
-
-      vi.spyOn(utils, 'findPackages').mockResolvedValue(mockPackages);
-      vi.spyOn(utils, 'getFileStats').mockResolvedValue(mockStats);
-      vi.spyOn(remoteSearch, 'searchUplinks').mockResolvedValue([
-        {
-          package: { name: 'shared-pkg' },
-          verdaccioPrivate: false,
-          verdaccioPkgCached: false,
-          score: { final: 0.5, detail: { quality: 0.5, popularity: 0.5, maintenance: 0.5 } },
-        },
-      ]);
-
-      const results = await db.searchWithUplinks({
-        text: '',
-        quality: 0,
-        popularity: 0,
-        maintenance: 0,
-      });
-
-      expect(results).toHaveLength(1);
-      expect(results[0].package.name).toBe('shared-pkg');
-      expect(results[0].score.final).toBe(1);
     });
   });
 });

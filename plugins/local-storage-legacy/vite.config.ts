@@ -28,15 +28,16 @@ export default defineConfig({
       external: [
         /^node:/,
         /^@verdaccio\//,
-        'async',
         'debug',
         'fs',
+        'globby',
         'path',
         'lodash',
         'lowdb',
         'lowdb/adapters/FileAsync',
         'lowdb/adapters/Memory',
         'mkdirp',
+        'sanitize-filename',
         'stream',
       ],
       output: {
