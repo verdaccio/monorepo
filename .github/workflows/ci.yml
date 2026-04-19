@@ -28,15 +28,13 @@ jobs:
     name: Lint
     steps:
       - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
+      - name: Install pnpm
+        run: corepack enable
       - name: Use Node
         uses: actions/setup-node@65d868f8d4d85d7d4abb7de0875cde3fcc8798f5
         with:
           node-version-file: '.nvmrc'
           cache: 'pnpm'
-      - name: Install pnpm
-        run: |
-          corepack enable
-          corepack prepare --activate pnpm@latest-8
       - name: Install
         run: pnpm install --ignore-scripts
       - name: Lint
@@ -54,15 +52,13 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
+      - name: Install pnpm
+        run: corepack enable
       - name: Use Node ${{ matrix.node_version }}
         uses: actions/setup-node@65d868f8d4d85d7d4abb7de0875cde3fcc8798f5
         with:
           node-version: ${{ matrix.node_version }}
           cache: 'pnpm'
-      - name: Install pnpm
-        run: |
-          corepack enable
-          corepack prepare --activate pnpm@latest-8
       - name: Install
         run: pnpm install --frozen-lockfile --ignore-scripts
       - name: Build
@@ -75,15 +71,13 @@ jobs:
     name: E2E Tests
     steps:
       - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
-      - name: Use Node 22
+      - name: Install pnpm
+        run: corepack enable
+      - name: Use Node
         uses: actions/setup-node@65d868f8d4d85d7d4abb7de0875cde3fcc8798f5
         with:
           node-version-file: '.nvmrc'
           cache: 'pnpm'
-      - name: Install pnpm
-        run: |
-          corepack enable
-          corepack prepare --activate pnpm@latest-8
       - name: Install
         run: pnpm install --frozen-lockfile --ignore-scripts
       - name: Build
