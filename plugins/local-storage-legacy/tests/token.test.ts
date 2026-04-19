@@ -1,5 +1,5 @@
-import { vi, describe, test, expect, beforeEach, afterEach } from 'vitest';
 import fs from 'fs';
+import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 
 import type { ILocalData, PluginOptions, Token } from '@verdaccio/legacy-types';
 

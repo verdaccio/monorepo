@@ -38,7 +38,6 @@ export const vitestConfig = defineConfig([
   },
 ]);
 
-
 export const cypressConfig = defineConfig([
   {
     files: ['cypress/**/*.{js,ts,jsx,tsx}'],

@@ -1,6 +1,6 @@
-import { vi, describe, test, expect, beforeEach } from 'vitest';
+import { beforeEach, describe, expect, test, vi } from 'vitest';
+
 import { errorUtils } from '@verdaccio/core';
-const { getInternalError } = errorUtils;
 import type {
   ILocalPackageManager,
   IPackageStorage,
@@ -13,6 +13,8 @@ import type { ConfigMemory } from '../src/local-memory';
 import MemoryHandler from '../src/memory-handler';
 import config from './partials/config';
 import pkgExample from './partials/pkg';
+
+const { getInternalError } = errorUtils;
 
 const logger: Logger = {
   error: (e) => console.warn(e),

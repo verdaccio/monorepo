@@ -1,6 +1,6 @@
-import { vi, describe, test, expect, beforeEach, afterEach } from 'vitest';
 import fs from 'fs';
 import path from 'path';
+import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 
 import type { PluginOptions } from '@verdaccio/legacy-types';
 
@@ -80,7 +80,12 @@ describe('Local Database', () => {
         expect(storagePath).toBe(
           path
             .normalize(
-              path.join(import.meta.dirname, '__fixtures__', optionsPlugin.config.storage || '', pkgName)
+              path.join(
+                import.meta.dirname,
+                '__fixtures__',
+                optionsPlugin.config.storage || '',
+                pkgName
+              )
             )
             .toLowerCase()
         );

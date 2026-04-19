@@ -1,6 +1,6 @@
-import { vi, describe, test, expect, beforeEach } from 'vitest';
 import fs from 'fs';
 import path from 'path';
+import { beforeEach, describe, expect, test, vi } from 'vitest';
 
 import { noSuchFile } from '../src/local-fs';
 import { loadPrivatePackages } from '../src/pkg-utils';

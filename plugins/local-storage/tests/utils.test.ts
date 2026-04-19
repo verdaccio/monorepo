@@ -1,6 +1,6 @@
-import { vi, describe, test, expect, beforeEach } from 'vitest';
 import fs from 'fs';
 import path from 'path';
+import { beforeEach, describe, expect, test, vi } from 'vitest';
 
 import { noSuchFile } from '../src/local-fs';
 import { loadPrivatePackages } from '../src/pkg-utils';
@@ -8,7 +8,8 @@ import { findPackages } from '../src/utils';
 import logger from './__mocks__/Logger';
 
 describe('Utilities', () => {
-  const loadDb = (name): string => path.join(import.meta.dirname, '__fixtures__/databases', `${name}.json`);
+  const loadDb = (name): string =>
+    path.join(import.meta.dirname, '__fixtures__/databases', `${name}.json`);
 
   beforeEach(() => {
     vi.resetModules();

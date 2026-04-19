@@ -1,7 +1,7 @@
-import { vi, describe, test, expect, beforeEach, afterEach } from 'vitest';
 import fs from 'fs';
 import { assign } from 'lodash';
 import path from 'path';
+import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 
 import type { ILocalData, PluginOptions } from '@verdaccio/legacy-types';
 import { Token } from '@verdaccio/legacy-types';

@@ -1,4 +1,4 @@
-import { vi, describe, test, expect, beforeEach, beforeAll } from 'vitest';
+import { beforeAll, beforeEach, describe, expect, test, vi } from 'vitest';
 
 import type { Callback } from '@verdaccio/legacy-types';
 
@@ -214,11 +214,15 @@ describe('Memory', function () {
 
     test('should not to be allowed to access the anyOtherUser package', function () {
       return new Promise<void>((resolve) => {
-        auth.allow_publish({}, { publish: ['anyOtherUser'], proxy: [], access: [] }, function (err) {
-          expect(err).not.toBeNull();
-          expect(err.message).toMatch(/not allowed to publish package/);
-          resolve();
-        });
+        auth.allow_publish(
+          {},
+          { publish: ['anyOtherUser'], proxy: [], access: [] },
+          function (err) {
+            expect(err).not.toBeNull();
+            expect(err.message).toMatch(/not allowed to publish package/);
+            resolve();
+          }
+        );
       });
     });
   });

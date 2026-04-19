@@ -1,8 +1,8 @@
-import { vi, describe, test, expect, beforeEach, afterEach, beforeAll } from 'vitest';
 import fs from 'fs';
 import mkdirp from 'mkdirp';
 import path from 'path';
 import rm from 'rmdir-sync';
+import { afterEach, beforeAll, beforeEach, describe, expect, test, vi } from 'vitest';
 
 import type { ILocalPackageManager, Logger, Package } from '@verdaccio/legacy-types';
 

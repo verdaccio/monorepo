@@ -1,4 +1,4 @@
-import { vi, describe, test, expect, beforeEach } from 'vitest';
+import { beforeEach, describe, expect, test, vi } from 'vitest';
 
 import { searchUplinks } from '../src/remote-search';
 import logger from './__mocks__/Logger';
