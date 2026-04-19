@@ -1,4 +1,5 @@
-import type { VerdaccioError } from '@verdaccio/commons-api';
+import { describe, test, expect } from 'vitest';
+import type { VerdaccioError } from '@verdaccio/core';
 import type { IPluginStorage, Logger } from '@verdaccio/legacy-types';
 import { IPackageStorage } from '@verdaccio/legacy-types';
 
@@ -27,46 +28,52 @@ describe('memory unit test .', () => {
       expect(localMemory).toBeDefined();
     });
 
-    test('should create add a package', (done) => {
-      const localMemory: IPluginStorage<ConfigMemory> = new LocalMemory(config, defaultConfig);
-      localMemory.add('test', (err: VerdaccioError) => {
-        expect(err).toBeNull();
-        localMemory.get((err: VerdaccioError, data: DataHandler) => {
+    test('should create add a package', () => {
+      return new Promise<void>((resolve) => {
+        const localMemory: IPluginStorage<ConfigMemory> = new LocalMemory(config, defaultConfig);
+        localMemory.add('test', (err: VerdaccioError) => {
           expect(err).toBeNull();
-          expect(data).toHaveLength(1);
-          done();
-        });
-      });
-    });
-
-    test('should reach max limit', (done) => {
-      config.limit = 2;
-      const localMemory: IPluginStorage<ConfigMemory> = new LocalMemory(config, defaultConfig);
-
-      localMemory.add('test1', (err) => {
-        expect(err).toBeNull();
-        localMemory.add('test2', (err) => {
-          expect(err).toBeNull();
-          localMemory.add('test3', (err) => {
-            expect(err).not.toBeNull();
-            expect(err.message).toMatch(/Storage memory has reached limit of limit packages/);
-            done();
+          localMemory.get((err: VerdaccioError, data: DataHandler) => {
+            expect(err).toBeNull();
+            expect(data).toHaveLength(1);
+            resolve();
           });
         });
       });
     });
 
-    test('should remove a package', (done) => {
-      const pkgName = 'test';
-      const localMemory: IPluginStorage<ConfigMemory> = new LocalMemory(config, defaultConfig);
-      localMemory.add(pkgName, (err) => {
-        expect(err).toBeNull();
-        localMemory.remove(pkgName, (err) => {
+    test('should reach max limit', () => {
+      return new Promise<void>((resolve) => {
+        config.limit = 2;
+        const localMemory: IPluginStorage<ConfigMemory> = new LocalMemory(config, defaultConfig);
+
+        localMemory.add('test1', (err) => {
           expect(err).toBeNull();
-          localMemory.get((err, data) => {
+          localMemory.add('test2', (err) => {
             expect(err).toBeNull();
-            expect(data).toHaveLength(0);
-            done();
+            localMemory.add('test3', (err) => {
+              expect(err).not.toBeNull();
+              expect(err.message).toMatch(/Storage memory has reached limit of limit packages/);
+              resolve();
+            });
+          });
+        });
+      });
+    });
+
+    test('should remove a package', () => {
+      return new Promise<void>((resolve) => {
+        const pkgName = 'test';
+        const localMemory: IPluginStorage<ConfigMemory> = new LocalMemory(config, defaultConfig);
+        localMemory.add(pkgName, (err) => {
+          expect(err).toBeNull();
+          localMemory.remove(pkgName, (err) => {
+            expect(err).toBeNull();
+            localMemory.get((err, data) => {
+              expect(err).toBeNull();
+              expect(data).toHaveLength(0);
+              resolve();
+            });
           });
         });
       });

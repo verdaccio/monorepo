@@ -1,10 +1,8 @@
-/* eslint-disable no-undef */
 import js from '@eslint/js';
 import vitest from '@vitest/eslint-plugin';
 import prettier from 'eslint-config-prettier';
 import cypress from 'eslint-plugin-cypress';
 import importX from 'eslint-plugin-import-x';
-import jest from 'eslint-plugin-jest';
 import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 import verdaccioPlugin from 'eslint-plugin-verdaccio';
@@ -40,25 +38,6 @@ export const vitestConfig = defineConfig([
   },
 ]);
 
-export const jestConfig = defineConfig([
-  {
-    files: [
-      '**/*.{test,spec}.{js,ts,jsx,tsx}',
-      '**/tests/**/*.{js,ts,jsx,tsx}',
-      '**/test/**/*.{js,ts,jsx,tsx}',
-      '**/__tests__/**/*.{js,ts,jsx,tsx}',
-      '**/__mocks__/**/*.{js,ts,jsx,tsx}',
-      '**/jest*.*',
-    ],
-    plugins: { jest },
-    languageOptions: {
-      globals: globals.jest,
-    },
-    rules: {
-      ...jest.configs.recommended.rules,
-    },
-  },
-]);
 
 export const cypressConfig = defineConfig([
   {
@@ -174,6 +153,7 @@ export default defineConfig([
       '**/tests/**/*.{ts,tsx}',
       '**/test/**/*.{ts,tsx}',
       '**/__tests__/**/*.{ts,tsx}',
+      '**/vite.config.ts',
     ],
     languageOptions: {
       parserOptions: {

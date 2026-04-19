@@ -1,8 +1,9 @@
+import { vi, describe, test, expect, beforeEach } from 'vitest';
+
 import { searchUplinks } from '../src/remote-search';
 import logger from './__mocks__/Logger';
 
-// Polyfill fetch for test environment (jest runs with older Node APIs)
-const mockFetch = jest.fn();
+const mockFetch = vi.fn();
 (global as any).fetch = mockFetch;
 
 const mockUplinks = {
@@ -64,7 +65,7 @@ const npmSearchResponse = {
 
 describe('remote-search', () => {
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   test('should return results from a single uplink', async () => {

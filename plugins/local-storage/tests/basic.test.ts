@@ -1,3 +1,4 @@
+import { describe, test, expect } from 'vitest';
 // FIXME: remove this mocks imports
 // @ts-expect-error
 import { access, constants } from 'fs/promises';

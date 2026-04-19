@@ -14,13 +14,5 @@
       "../../node_modules/@types"
     ]
   },
-  "include": ["src/*.ts", "test/**/*.ts", "types/*.d.ts"],
-  "references": [
-    {
-      "path": "../../core/commons-api"
-    },
-    {
-      "path": "../../core/types"
-    }
-  ]
+  "include": ["src/*.ts", "test/**/*.ts", "types/*.d.ts"]
 }

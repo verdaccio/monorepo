@@ -1,4 +1,4 @@
-import verdaccio, { jestConfig } from '@verdaccio/eslint-config';
+import verdaccio, { vitestConfig } from '@verdaccio/eslint-config';
 
 const ignores = [
   {
@@ -23,11 +23,12 @@ const testFilePatterns = [
   '**/test/**/*.{ts,tsx}',
   '**/__tests__/**/*.{ts,tsx}',
   '**/__mocks__/**/*.{ts,tsx}',
+  '**/vite.config.ts',
 ];
 
 export default [
   ...verdaccio,
-  ...jestConfig,
+  ...vitestConfig,
   {
     files: ['**/*.{ts,tsx}'],
     rules: {
@@ -53,15 +54,9 @@ export default [
       '@typescript-eslint/no-unused-vars': 'warn',
       '@typescript-eslint/no-floating-promises': 'off',
       '@typescript-eslint/no-misused-promises': 'off',
-    },
-  },
-  {
-    files: ['**/*.{test,spec}.{js,ts,jsx,tsx}'],
-    rules: {
-      'jest/no-done-callback': 'off',
-      'jest/no-conditional-expect': 'off',
-      'jest/no-mocks-import': 'off',
-      'jest/no-standalone-expect': 'warn',
+      'vitest/no-conditional-expect': 'off',
+      'vitest/no-mocks-import': 'off',
+      'vitest/expect-expect': 'off',
     },
   },
   ...ignores,

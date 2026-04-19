@@ -1,3 +1,4 @@
+import { vi, describe, test, expect, beforeEach, afterEach } from 'vitest';
 import fs from 'fs';
 import { assign } from 'lodash';
 import path from 'path';
@@ -24,8 +25,8 @@ let loadPrivatePackages;
 
 describe('Local Database', () => {
   beforeEach(() => {
-    const writeMock = jest.spyOn(fs, 'writeFileSync').mockImplementation();
-    loadPrivatePackages = jest
+    const writeMock = vi.spyOn(fs, 'writeFileSync').mockImplementation();
+    loadPrivatePackages = vi
       .spyOn(pkgUtils, 'loadPrivatePackages')
       .mockReturnValue({ list: [], secret: '' });
     locaDatabase = new LocalDatabase(optionsPlugin.config, optionsPlugin.logger);
@@ -34,7 +35,7 @@ describe('Local Database', () => {
   });
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   test('should create an instance', () => {
@@ -116,36 +117,40 @@ describe('Local Database', () => {
   });
 
   describe('Database CRUD', () => {
-    test('should add an item to database', (done) => {
-      const pgkName = 'jquery';
-      locaDatabase.get((err, data) => {
-        expect(err).toBeNull();
-        expect(data).toHaveLength(0);
-
-        locaDatabase.add(pgkName, (err) => {
+    test('should add an item to database', () => {
+      return new Promise<void>((resolve) => {
+        const pgkName = 'jquery';
+        locaDatabase.get((err, data) => {
           expect(err).toBeNull();
-          locaDatabase.get((err, data) => {
+          expect(data).toHaveLength(0);
+
+          locaDatabase.add(pgkName, (err) => {
             expect(err).toBeNull();
-            expect(data).toHaveLength(1);
-            done();
+            locaDatabase.get((err, data) => {
+              expect(err).toBeNull();
+              expect(data).toHaveLength(1);
+              resolve();
+            });
           });
         });
       });
     });
 
-    test('should remove an item to database', (done) => {
-      const pgkName = 'jquery';
-      locaDatabase.get((err, data) => {
-        expect(err).toBeNull();
-        expect(data).toHaveLength(0);
-        locaDatabase.add(pgkName, (err) => {
+    test('should remove an item to database', () => {
+      return new Promise<void>((resolve) => {
+        const pgkName = 'jquery';
+        locaDatabase.get((err, data) => {
           expect(err).toBeNull();
-          locaDatabase.remove(pgkName, (err) => {
+          expect(data).toHaveLength(0);
+          locaDatabase.add(pgkName, (err) => {
             expect(err).toBeNull();
-            locaDatabase.get((err, data) => {
+            locaDatabase.remove(pgkName, (err) => {
               expect(err).toBeNull();
-              expect(data).toHaveLength(0);
-              done();
+              locaDatabase.get((err, data) => {
+                expect(err).toBeNull();
+                expect(data).toHaveLength(0);
+                resolve();
+              });
             });
           });
         });
@@ -154,69 +159,66 @@ describe('Local Database', () => {
   });
 
   describe('search', () => {
-    const onPackageMock = jest.fn((item, cb) => cb());
-    const validatorMock = jest.fn(() => true);
-    const callSearch = (db, numberTimesCalled, cb): void => {
-      db.search(
-        onPackageMock,
-        function onEnd() {
-          expect(onPackageMock).toHaveBeenCalledTimes(numberTimesCalled);
-          expect(validatorMock).toHaveBeenCalledTimes(numberTimesCalled);
-          cb();
-        },
-        validatorMock
-      );
+    const callSearch = (db, numberTimesCalled): Promise<void> => {
+      const onPackageMock = vi.fn((item, cb) => cb());
+      const validatorMock = vi.fn(() => true);
+      return new Promise<void>((resolve) => {
+        db.search(
+          onPackageMock,
+          function onEnd() {
+            expect(onPackageMock).toHaveBeenCalledTimes(numberTimesCalled);
+            expect(validatorMock).toHaveBeenCalledTimes(numberTimesCalled);
+            resolve();
+          },
+          validatorMock
+        );
+      });
     };
 
-    test('should find scoped packages', (done) => {
+    test('should find scoped packages', () => {
       const scopedPackages = ['@pkg1/test'];
       const stats = { mtime: new Date() };
-      jest.spyOn(fs, 'stat').mockImplementation((_, cb) => cb(null, stats as fs.Stats));
-      jest
-        .spyOn(fs, 'readdir')
-        .mockImplementation((storePath, cb) =>
-          cb(null, storePath.match('test-storage') ? scopedPackages : [])
-        );
+      vi.spyOn(fs, 'stat').mockImplementation((_, cb) => cb(null, stats as fs.Stats));
+      vi.spyOn(fs, 'readdir').mockImplementation((storePath, cb) =>
+        cb(null, storePath.match('test-storage') ? scopedPackages : [])
+      );
 
-      callSearch(locaDatabase, 1, done);
+      return callSearch(locaDatabase, 1);
     });
 
-    test('should find non scoped packages', (done) => {
+    test('should find non scoped packages', () => {
       const nonScopedPackages = ['pkg1', 'pkg2'];
       const stats = { mtime: new Date() };
-      jest.spyOn(fs, 'stat').mockImplementation((_, cb) => cb(null, stats as fs.Stats));
-      jest
-        .spyOn(fs, 'readdir')
-        .mockImplementation((storePath, cb) =>
-          cb(null, storePath.match('test-storage') ? nonScopedPackages : [])
-        );
+      vi.spyOn(fs, 'stat').mockImplementation((_, cb) => cb(null, stats as fs.Stats));
+      vi.spyOn(fs, 'readdir').mockImplementation((storePath, cb) =>
+        cb(null, storePath.match('test-storage') ? nonScopedPackages : [])
+      );
 
       const db = new LocalDatabase(
         assign({}, optionsPlugin.config, {
-          // clean up this, it creates noise
           packages: {},
         }),
         optionsPlugin.logger
       );
 
-      callSearch(db, 2, done);
+      return callSearch(db, 2);
     });
 
-    test('should fails on read the storage', (done) => {
-      const spyInstance = jest
+    test('should fails on read the storage', () => {
+      const spyInstance = vi
         .spyOn(fs, 'readdir')
         .mockImplementation((_, cb) => cb(Error('fails'), null));
 
       const db = new LocalDatabase(
         assign({}, optionsPlugin.config, {
-          // clean up this, it creates noise
           packages: {},
         }),
         optionsPlugin.logger
       );
 
-      callSearch(db, 0, done);
+      const result = callSearch(db, 0);
       spyInstance.mockRestore();
+      return result;
     });
   });
 
@@ -231,8 +233,8 @@ describe('Local Database', () => {
       ];
       const mockStats = { mtime: new Date('2024-01-01') } as fs.Stats;
 
-      jest.spyOn(utils, 'findPackages').mockResolvedValue(mockPackages);
-      jest.spyOn(utils, 'getFileStats').mockResolvedValue(mockStats);
+      vi.spyOn(utils, 'findPackages').mockResolvedValue(mockPackages);
+      vi.spyOn(utils, 'getFileStats').mockResolvedValue(mockStats);
 
       const results = await db.searchAsync({
         text: 'pkg',
@@ -255,8 +257,8 @@ describe('Local Database', () => {
       ];
       const mockStats = { mtime: new Date() } as fs.Stats;
 
-      jest.spyOn(utils, 'findPackages').mockResolvedValue(mockPackages);
-      jest.spyOn(utils, 'getFileStats').mockResolvedValue(mockStats);
+      vi.spyOn(utils, 'findPackages').mockResolvedValue(mockPackages);
+      vi.spyOn(utils, 'getFileStats').mockResolvedValue(mockStats);
 
       const results = await db.searchAsync({
         text: 'lodash',
@@ -277,8 +279,8 @@ describe('Local Database', () => {
       }));
       const mockStats = { mtime: new Date() } as fs.Stats;
 
-      jest.spyOn(utils, 'findPackages').mockResolvedValue(mockPackages);
-      jest.spyOn(utils, 'getFileStats').mockResolvedValue(mockStats);
+      vi.spyOn(utils, 'findPackages').mockResolvedValue(mockPackages);
+      vi.spyOn(utils, 'getFileStats').mockResolvedValue(mockStats);
 
       const results = await db.searchAsync({
         text: 'pkg',
@@ -298,8 +300,8 @@ describe('Local Database', () => {
       const mockPackages = [{ name: 'my-private-pkg', path: '/storage/my-private-pkg' }];
       const mockStats = { mtime: new Date() } as fs.Stats;
 
-      jest.spyOn(utils, 'findPackages').mockResolvedValue(mockPackages);
-      jest.spyOn(utils, 'getFileStats').mockResolvedValue(mockStats);
+      vi.spyOn(utils, 'findPackages').mockResolvedValue(mockPackages);
+      vi.spyOn(utils, 'getFileStats').mockResolvedValue(mockStats);
 
       // Add the package to the private list
       db.add('my-private-pkg', () => {});
@@ -318,7 +320,7 @@ describe('Local Database', () => {
 
     test('should handle errors gracefully', async () => {
       const db = new LocalDatabase(simpleConfig, optionsPlugin.logger);
-      jest.spyOn(utils, 'findPackages').mockRejectedValue(new Error('ENOENT'));
+      vi.spyOn(utils, 'findPackages').mockRejectedValue(new Error('ENOENT'));
 
       const results = await db.searchAsync({
         text: 'pkg',
@@ -339,9 +341,9 @@ describe('Local Database', () => {
       const mockPackages = [{ name: 'local-pkg', path: '/storage/local-pkg' }];
       const mockStats = { mtime: new Date() } as fs.Stats;
 
-      jest.spyOn(utils, 'findPackages').mockResolvedValue(mockPackages);
-      jest.spyOn(utils, 'getFileStats').mockResolvedValue(mockStats);
-      const uplinkSpy = jest.spyOn(remoteSearch, 'searchUplinks');
+      vi.spyOn(utils, 'findPackages').mockResolvedValue(mockPackages);
+      vi.spyOn(utils, 'getFileStats').mockResolvedValue(mockStats);
+      const uplinkSpy = vi.spyOn(remoteSearch, 'searchUplinks');
 
       const results = await db.searchWithUplinks({
         text: 'local',
@@ -367,9 +369,9 @@ describe('Local Database', () => {
       const mockPackages = [{ name: 'local-pkg', path: '/storage/local-pkg' }];
       const mockStats = { mtime: new Date() } as fs.Stats;
 
-      jest.spyOn(utils, 'findPackages').mockResolvedValue(mockPackages);
-      jest.spyOn(utils, 'getFileStats').mockResolvedValue(mockStats);
-      jest.spyOn(remoteSearch, 'searchUplinks').mockResolvedValue([
+      vi.spyOn(utils, 'findPackages').mockResolvedValue(mockPackages);
+      vi.spyOn(utils, 'getFileStats').mockResolvedValue(mockStats);
+      vi.spyOn(remoteSearch, 'searchUplinks').mockResolvedValue([
         {
           package: { name: 'remote-pkg' },
           verdaccioPrivate: false,
@@ -402,9 +404,9 @@ describe('Local Database', () => {
       const mockPackages = [{ name: 'shared-pkg', path: '/storage/shared-pkg' }];
       const mockStats = { mtime: new Date() } as fs.Stats;
 
-      jest.spyOn(utils, 'findPackages').mockResolvedValue(mockPackages);
-      jest.spyOn(utils, 'getFileStats').mockResolvedValue(mockStats);
-      jest.spyOn(remoteSearch, 'searchUplinks').mockResolvedValue([
+      vi.spyOn(utils, 'findPackages').mockResolvedValue(mockPackages);
+      vi.spyOn(utils, 'getFileStats').mockResolvedValue(mockStats);
+      vi.spyOn(remoteSearch, 'searchUplinks').mockResolvedValue([
         {
           package: { name: 'shared-pkg' },
           verdaccioPrivate: false,

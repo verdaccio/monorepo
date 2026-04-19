@@ -14,26 +14,28 @@ interface UpLinkConf {
   headers?: Record<string, string>;
 }
 
+interface NpmSearchObject {
+  package: {
+    name: string;
+    scope?: string;
+    version?: string;
+    description?: string;
+    keywords?: string[];
+    date?: string;
+    author?: { name?: string; email?: string };
+  };
+  score?: {
+    final?: number;
+    detail?: {
+      quality?: number;
+      popularity?: number;
+      maintenance?: number;
+    };
+  };
+}
+
 interface NpmSearchResponse {
-  objects?: Array<{
-    package: {
-      name: string;
-      scope?: string;
-      version?: string;
-      description?: string;
-      keywords?: string[];
-      date?: string;
-      author?: { name?: string; email?: string };
-    };
-    score?: {
-      final?: number;
-      detail?: {
-        quality?: number;
-        popularity?: number;
-        maintenance?: number;
-      };
-    };
-  }>;
+  objects?: NpmSearchObject[];
 }
 
 function buildSearchUrl(baseUrl: string, query: searchUtils.SearchQuery): string {
@@ -59,7 +61,7 @@ function parseTimeout(timeout?: string | number): number {
   return DEFAULT_TIMEOUT_MS;
 }
 
-function mapToSearchItem(obj: NpmSearchResponse['objects'][number]): searchUtils.SearchItem {
+function mapToSearchItem(obj: NpmSearchObject): searchUtils.SearchItem {
   const pkg = obj.package;
   const score = obj.score;
   return {
