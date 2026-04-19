@@ -1,5 +1,21 @@
 # Change Log
 
+## 10.5.1
+
+### Patch Changes
+
+- 74de3b2: feat: add promise-based search API with optional remote uplink search
+  - Added `searchAsync(query)` method returning `Promise<SearchItem[]>` for modern search consumers
+  - Added `searchWithUplinks(query)` that merges local and remote registry results via `/-/v1/search`
+  - Remote search is opt-in via `remoteSearch: true` plugin configuration
+  - Legacy callback-based `search()` method remains unchanged for Verdaccio 6.x compatibility
+  - Migrated all packages from Babel + Jest to Vite 8 + Vitest (CJS output)
+  - Removed babel entirely from the monorepo
+
+- Updated dependencies [74de3b2]
+  - @verdaccio/file-locking@10.3.2
+  - @verdaccio/streams@10.2.2
+
 ## 10.5.0
 
 ### Minor Changes
@@ -89,7 +105,6 @@
 - 4e9a3d0: feat: remove core-js from bundle
 
   By using babel.js core-js injects some requires that are not necessarily dependencies and fails on pnpm and yarn 2 due are strict. No need to add this feature so is removed.
-
   - https://babeljs.io/docs/en/babel-preset-env#usebuiltins
 
 ### Patch Changes

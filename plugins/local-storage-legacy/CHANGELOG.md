@@ -1,5 +1,23 @@
 # Change Log
 
+## 11.2.0
+
+### Minor Changes
+
+- 74de3b2: feat: add promise-based search API with optional remote uplink search
+  - Added `searchAsync(query)` method returning `Promise<SearchItem[]>` for modern search consumers
+  - Added `searchWithUplinks(query)` that merges local and remote registry results via `/-/v1/search`
+  - Remote search is opt-in via `remoteSearch: true` plugin configuration
+  - Legacy callback-based `search()` method remains unchanged for Verdaccio 6.x compatibility
+  - Migrated all packages from Babel + Jest to Vite 8 + Vitest (CJS output)
+  - Removed babel entirely from the monorepo
+
+### Patch Changes
+
+- Updated dependencies [74de3b2]
+  - @verdaccio/file-locking@10.3.2
+  - @verdaccio/streams@10.2.2
+
 ## 11.1.1
 
 ### Patch Changes
