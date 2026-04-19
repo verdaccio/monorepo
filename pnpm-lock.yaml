@@ -200,10 +200,10 @@ importers:
         specifier: 7.0.0-next-8.21
         version: 7.0.0-next-8.21
       '@verdaccio/file-locking':
-        specifier: workspace:10.3.1
+        specifier: workspace:10.3.2
         version: link:../../core/file-locking
       '@verdaccio/streams':
-        specifier: workspace:10.2.1
+        specifier: workspace:10.2.2
         version: link:../../core/streams
       debug:
         specifier: 4.4.3
@@ -258,10 +258,10 @@ importers:
         specifier: 8.0.0-next-8.29
         version: 8.0.0-next-8.29
       '@verdaccio/file-locking':
-        specifier: workspace:10.3.1
+        specifier: workspace:10.3.2
         version: link:../../core/file-locking
       '@verdaccio/streams':
-        specifier: workspace:10.2.1
+        specifier: workspace:10.2.2
         version: link:../../core/streams
       async:
         specifier: 3.2.6
@@ -310,7 +310,7 @@ importers:
         specifier: 8.0.0-next-8.29
         version: 8.0.0-next-8.29
       '@verdaccio/streams':
-        specifier: workspace:10.2.1
+        specifier: workspace:10.2.2
         version: link:../../core/streams
       memory-fs:
         specifier: 0.5.0
