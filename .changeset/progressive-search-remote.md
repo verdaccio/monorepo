@@ -1,10 +1,10 @@
 ---
-"@verdaccio/local-storage-legacy": minor
-"@verdaccio/local-storage": patch
-"@verdaccio/file-locking": patch
-"@verdaccio/streams": patch
-"verdaccio-auth-memory": patch
-"verdaccio-memory": patch
+'@verdaccio/local-storage-legacy': minor
+'@verdaccio/local-storage': patch
+'@verdaccio/file-locking': patch
+'@verdaccio/streams': patch
+'verdaccio-auth-memory': patch
+'verdaccio-memory': patch
 ---
 
 feat: add promise-based search API with optional remote uplink search
