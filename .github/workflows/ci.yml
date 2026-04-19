@@ -12,6 +12,7 @@ on:
       - 'core/**'
       - 'plugins/**'
       - 'tools/**'
+      - 'e2e/**'
       - 'package.json'
       - 'pnpm-workspace.yaml'
 
@@ -72,5 +73,27 @@ jobs:
         run: pnpm build
       - name: Test
         run: pnpm test
-
-
+  e2e:
+    needs: test
+    runs-on: ubuntu-latest
+    name: E2E Tests
+    steps:
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
+      - name: Use Node 22
+        uses: actions/setup-node@65d868f8d4d85d7d4abb7de0875cde3fcc8798f5
+        with:
+          node-version: 22
+      - name: Install pnpm
+        run: |
+          corepack enable
+          corepack prepare --activate pnpm@latest-8
+      - uses: actions/cache@9255dc7a253b0ccc959486e2bca901246202afeb
+        with:
+          path: ~/.pnpm-store
+          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+      - name: Install
+        run: pnpm install --frozen-lockfile --ignore-scripts
+      - name: Build
+        run: pnpm build
+      - name: E2E Tests
+        run: pnpm test:e2e

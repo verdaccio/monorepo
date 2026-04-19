@@ -40,11 +40,13 @@
     "ci:version:install": "pnpm install --frozen-lockfile=false",
     "ci:publish": "changeset publish",
     "test": "pnpm --filter './core/**' --filter './plugins/**' --filter './tools/**' test",
+    "test:e2e": "pnpm --filter './e2e/**' test",
     "ts:ref": "update-ts-references --discardComments"
   },
   "pnpm": {
     "overrides": {
-      "@verdaccio/local-storage-legacy": "workspace:*"
+      "@verdaccio/local-storage-legacy": "workspace:*",
+      "verdaccio-auth-memory": "workspace:*"
     }
   },
   "engines": {

@@ -6,6 +6,7 @@ settings:
 
 overrides:
   '@verdaccio/local-storage-legacy': workspace:*
+  verdaccio-auth-memory: workspace:*
 
 importers:
 
@@ -106,17 +107,36 @@ importers:
         specifier: ^4.1.4
         version: 4.1.4(@types/node@14.18.0)(jsdom@16.7.0)(vite@8.0.8(@types/node@14.18.0))
 
-  e2e/local-storage-legacy:
+  e2e/auth-memory:
     dependencies:
-      '@verdaccio/core':
-        specifier: 8.0.0-next-8.29
-        version: 8.0.0-next-8.29
       '@verdaccio/e2e-cli':
         specifier: ^2.6.0
         version: 2.6.0
-      '@verdaccio/registry-cli':
-        specifier: ^1.1.0
-        version: 1.1.0
+      '@verdaccio/e2e-shared':
+        specifier: workspace:*
+        version: link:../shared
+      verdaccio:
+        specifier: 6.5.2
+        version: 6.5.2(typanion@3.14.0)
+      verdaccio-auth-memory:
+        specifier: workspace:*
+        version: link:../../plugins/auth-memory
+    devDependencies:
+      '@types/node':
+        specifier: ^20.5.8
+        version: 20.5.8
+      vitest:
+        specifier: ^4.1.4
+        version: 4.1.4(@types/node@20.5.8)(jsdom@16.7.0)(vite@8.0.8(@types/node@20.5.8))
+
+  e2e/local-storage-legacy:
+    dependencies:
+      '@verdaccio/e2e-cli':
+        specifier: ^2.6.0
+        version: 2.6.0
+      '@verdaccio/e2e-shared':
+        specifier: workspace:*
+        version: link:../shared
       verdaccio:
         specifier: 6.5.2
         version: 6.5.2(typanion@3.14.0)
@@ -124,12 +144,27 @@ importers:
       '@types/node':
         specifier: ^20.5.8
         version: 20.5.8
-      get-port:
-        specifier: 5.1.1
-        version: 5.1.1
       vitest:
         specifier: ^4.1.4
         version: 4.1.4(@types/node@20.5.8)(jsdom@16.7.0)(vite@8.0.8(@types/node@20.5.8))
+
+  e2e/shared:
+    dependencies:
+      '@verdaccio/config':
+        specifier: 8.0.0-next-8.29
+        version: 8.0.0-next-8.29
+      '@verdaccio/core':
+        specifier: 8.0.0-next-8.29
+        version: 8.0.0-next-8.29
+      '@verdaccio/registry-cli':
+        specifier: ^1.1.0
+        version: 1.1.0
+      get-port:
+        specifier: 5.1.1
+        version: 5.1.1
+      verdaccio:
+        specifier: 6.5.2
+        version: 6.5.2(typanion@3.14.0)
 
   plugins/auth-memory:
     dependencies:
@@ -4508,7 +4543,7 @@ snapshots:
       mime-types: 2.1.34
       performance-now: 2.1.0
       qs: 6.14.2
-      safe-buffer: 5.1.2
+      safe-buffer: 5.2.1
       tough-cookie: 5.1.2
       tunnel-agent: 0.6.0
       uuid: 8.3.2
@@ -6065,7 +6100,7 @@ snapshots:
 
   ecdsa-sig-formatter@1.0.11:
     dependencies:
-      safe-buffer: 5.1.2
+      safe-buffer: 5.2.1
 
   ee-first@1.1.1: {}
 
@@ -6433,7 +6468,7 @@ snapshots:
       send: 0.19.2
       serve-static: 1.16.3
       setprototypeof: 1.2.0
-      statuses: 2.0.1
+      statuses: 2.0.2
       type-is: 1.6.18
       utils-merge: 1.0.1
       vary: 1.1.2
@@ -7127,12 +7162,12 @@ snapshots:
     dependencies:
       buffer-equal-constant-time: 1.0.1
       ecdsa-sig-formatter: 1.0.11
-      safe-buffer: 5.1.2
+      safe-buffer: 5.2.1
 
   jws@4.0.1:
     dependencies:
       jwa: 2.0.1
-      safe-buffer: 5.1.2
+      safe-buffer: 5.2.1
 
   keyv@4.5.4:
     dependencies:
@@ -8221,7 +8256,7 @@ snapshots:
 
   tunnel-agent@0.6.0:
     dependencies:
-      safe-buffer: 5.1.2
+      safe-buffer: 5.2.1
 
   tweetnacl@0.14.5: {}
 
