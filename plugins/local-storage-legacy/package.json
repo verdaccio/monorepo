@@ -53,7 +53,7 @@
   },
   "scripts": {
     "clean": "rimraf ./lib",
-    "test": "vitest run",
+    "test": "vitest run --reporter=verbose",
     "type-check": "tsc --noEmit -p tsconfig.build.json",
     "build": "vite build"
   },

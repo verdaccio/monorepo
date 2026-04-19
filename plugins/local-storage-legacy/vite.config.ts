@@ -28,7 +28,6 @@ export default defineConfig({
       external: [
         /^node:/,
         /^@verdaccio\//,
-        'async',
         'debug',
         'fs',
         'path',
