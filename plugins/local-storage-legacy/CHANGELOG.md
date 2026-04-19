@@ -1,5 +1,11 @@
 # Change Log
 
+## 11.3.0
+
+### Minor Changes
+
+- 46091db: Replace async library with native async/await, use globby for directory search, migrate types from legacy-types to @verdaccio/types, and add sanitize-filename for path traversal prevention
+
 ## 11.2.0
 
 ### Minor Changes
