@@ -42,6 +42,11 @@
     "test": "pnpm --filter './core/**' --filter './plugins/**' --filter './tools/**' test",
     "ts:ref": "update-ts-references --discardComments"
   },
+  "pnpm": {
+    "overrides": {
+      "@verdaccio/local-storage-legacy": "workspace:*"
+    }
+  },
   "engines": {
     "node": ">=18"
   },

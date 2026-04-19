@@ -1,0 +1,24 @@
+{
+  "name": "@verdaccio/e2e-local-storage-legacy",
+  "version": "1.0.0",
+  "private": true,
+  "description": "E2E tests for @verdaccio/local-storage-legacy plugin",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "test:e2e": "vitest run"
+  },
+  "dependencies": {
+    "@verdaccio/core": "8.0.0-next-8.29",
+    "verdaccio": "6.5.2",
+    "@verdaccio/e2e-cli": "^2.6.0",
+    "@verdaccio/registry-cli": "^1.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.5.8",
+    "vitest": "^4.1.4",
+    "get-port": "5.1.1"
+  }
+}
