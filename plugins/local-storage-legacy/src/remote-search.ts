@@ -59,9 +59,7 @@ function parseTimeout(timeout?: string | number): number {
   return DEFAULT_TIMEOUT_MS;
 }
 
-function mapToSearchItem(
-  obj: NpmSearchResponse['objects'][number]
-): searchUtils.SearchItem {
+function mapToSearchItem(obj: NpmSearchResponse['objects'][number]): searchUtils.SearchItem {
   const pkg = obj.package;
   const score = obj.score;
   return {
@@ -129,10 +127,7 @@ async function searchSingleUplink(
     if (err.name === 'AbortError') {
       logger.warn({ uplink: name }, 'uplink @{uplink} search timed out');
     } else {
-      logger.warn(
-        { uplink: name, err: err.message },
-        'uplink @{uplink} search failed: @{err}'
-      );
+      logger.warn({ uplink: name, err: err.message }, 'uplink @{uplink} search failed: @{err}');
     }
     return [];
   } finally {

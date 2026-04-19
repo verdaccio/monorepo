@@ -166,9 +166,7 @@ class LocalDatabase extends TokenActions implements IPluginStorage<{}> {
     );
   }
 
-  public async searchAsync(
-    query: searchUtils.SearchQuery
-  ): Promise<searchUtils.SearchItem[]> {
+  public async searchAsync(query: searchUtils.SearchQuery): Promise<searchUtils.SearchItem[]> {
     const results: searchUtils.SearchItem[] = [];
     const storages = this._getCustomPackageLocalStorages();
     const base = Path.dirname(this.config.self_path);

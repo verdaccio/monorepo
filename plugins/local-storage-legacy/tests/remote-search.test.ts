@@ -91,12 +91,7 @@ describe('remote-search', () => {
       }),
     });
 
-    const results = await searchUplinks(
-      mockUplinks,
-      ['npmjs', 'private'],
-      baseQuery,
-      logger
-    );
+    const results = await searchUplinks(mockUplinks, ['npmjs', 'private'], baseQuery, logger);
 
     expect(mockFetch).toHaveBeenCalledTimes(2);
     expect(results).toHaveLength(2);
