@@ -1,21 +1,19 @@
 import fs from 'fs';
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 
-import type { ILocalData, PluginOptions, Token } from '@verdaccio/legacy-types';
+import type { Config, Token } from '@verdaccio/types';
 
 import LocalDatabase from '../src/local-database';
-import { ILocalFSPackageManager } from '../src/local-fs';
 import * as pkgUtils from '../src/pkg-utils';
-// FIXME: remove this mocks imports
-import Config from './__mocks__/Config';
+import MockConfig from './__mocks__/Config';
 import logger from './__mocks__/Logger';
 
-const optionsPlugin: PluginOptions<{}> = {
+const optionsPlugin = {
   logger,
-  config: new Config(),
+  config: new MockConfig() as unknown as Config,
 };
 
-let locaDatabase: ILocalData<{}>;
+let locaDatabase: LocalDatabase;
 let loadPrivatePackages;
 
 describe('Local Database', () => {

@@ -1,7 +1,7 @@
 import buildDebug from 'debug';
 
 import type { searchUtils } from '@verdaccio/core';
-import type { Logger } from '@verdaccio/legacy-types';
+import type { Logger } from '@verdaccio/types';
 
 const debug = buildDebug('verdaccio:plugin:local-storage-legacy:remote-search');
 

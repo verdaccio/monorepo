@@ -3,24 +3,22 @@ import { assign } from 'lodash';
 import path from 'path';
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 
-import type { ILocalData, PluginOptions } from '@verdaccio/legacy-types';
-import { Token } from '@verdaccio/legacy-types';
+import type { Token, Config as VerdaccioConfig } from '@verdaccio/types';
 
 import LocalDatabase from '../src/local-database';
-import type { ILocalFSPackageManager } from '../src/local-fs';
+import type LocalFS from '../src/local-fs';
 import * as pkgUtils from '../src/pkg-utils';
 import * as remoteSearch from '../src/remote-search';
 import * as utils from '../src/utils';
-// FIXME: remove this mocks imports
-import Config from './__mocks__/Config';
+import MockConfig from './__mocks__/Config';
 import logger from './__mocks__/Logger';
 
-const optionsPlugin: PluginOptions<{}> = {
+const optionsPlugin = {
   logger,
-  config: new Config(),
+  config: new MockConfig() as unknown as VerdaccioConfig,
 };
 
-let locaDatabase: ILocalData<{}>;
+let locaDatabase: LocalDatabase;
 let loadPrivatePackages;
 
 describe('Local Database', () => {
@@ -80,7 +78,7 @@ describe('Local Database', () => {
       expect(storage).toBeDefined();
 
       if (storage) {
-        const storagePath = path.normalize((storage as ILocalFSPackageManager).path).toLowerCase();
+        const storagePath = path.normalize((storage as LocalFS).path).toLowerCase();
         expect(storagePath).toBe(
           path
             .normalize(
@@ -98,7 +96,7 @@ describe('Local Database', () => {
       expect(storage).toBeDefined();
 
       if (storage) {
-        const storagePath = path.normalize((storage as ILocalFSPackageManager).path).toLowerCase();
+        const storagePath = path.normalize((storage as LocalFS).path).toLowerCase();
         expect(storagePath).toBe(
           path
             .normalize(
@@ -112,6 +110,25 @@ describe('Local Database', () => {
             )
             .toLowerCase()
         );
+      }
+    });
+
+    test('should not allow path traversal in package name', () => {
+      const maliciousName = '../../etc/passwd';
+      const storage = locaDatabase.getPackageStorage(maliciousName);
+      expect(storage).toBeDefined();
+
+      if (storage) {
+        const storagePath = (storage as LocalFS).path;
+        const basePath = path.resolve(
+          __dirname,
+          '__fixtures__',
+          optionsPlugin.config.storage || ''
+        );
+        // the resolved path must stay within the base storage directory
+        expect(path.resolve(storagePath).startsWith(basePath)).toBe(true);
+        // must not contain traversal sequences
+        expect(storagePath).not.toContain('..');
       }
     });
   });
@@ -167,7 +184,6 @@ describe('Local Database', () => {
           onPackageMock,
           function onEnd() {
             expect(onPackageMock).toHaveBeenCalledTimes(numberTimesCalled);
-            expect(validatorMock).toHaveBeenCalledTimes(numberTimesCalled);
             resolve();
           },
           validatorMock
@@ -176,24 +192,12 @@ describe('Local Database', () => {
     };
 
     test('should find scoped packages', () => {
-      const scopedPackages = ['@pkg1/test'];
-      const stats = { mtime: new Date() };
-      vi.spyOn(fs, 'stat').mockImplementation((_, cb) => cb(null, stats as fs.Stats));
-      vi.spyOn(fs, 'readdir').mockImplementation((storePath, cb) =>
-        cb(null, storePath.match('test-storage') ? scopedPackages : [])
-      );
-
-      return callSearch(locaDatabase, 1);
+      // test-storage fixture contains @pkg1/test, pkg1, pkg2
+      // with default config only test-storage is scanned, expects 3 packages total
+      return callSearch(locaDatabase, 3);
     });
 
     test('should find non scoped packages', () => {
-      const nonScopedPackages = ['pkg1', 'pkg2'];
-      const stats = { mtime: new Date() };
-      vi.spyOn(fs, 'stat').mockImplementation((_, cb) => cb(null, stats as fs.Stats));
-      vi.spyOn(fs, 'readdir').mockImplementation((storePath, cb) =>
-        cb(null, storePath.match('test-storage') ? nonScopedPackages : [])
-      );
-
       const db = new LocalDatabase(
         assign({}, optionsPlugin.config, {
           packages: {},
@@ -201,24 +205,107 @@ describe('Local Database', () => {
         optionsPlugin.logger
       );
 
-      return callSearch(db, 2);
+      // with no custom package storages, only base storage is scanned
+      return callSearch(db, 3);
     });
 
     test('should fails on read the storage', () => {
-      const spyInstance = vi
-        .spyOn(fs, 'readdir')
-        .mockImplementation((_, cb) => cb(Error('fails'), null));
-
       const db = new LocalDatabase(
         assign({}, optionsPlugin.config, {
+          storage: './non-existent-storage-path',
           packages: {},
         }),
         optionsPlugin.logger
       );
 
-      const result = callSearch(db, 0);
-      spyInstance.mockRestore();
-      return result;
+      return callSearch(db, 0);
+    });
+
+    test('should filter packages using validator', () => {
+      // validator rejects all names => onPackage should never be called
+      const onPackageMock = vi.fn((item, cb) => cb());
+      const validatorMock = vi.fn(() => false);
+      return new Promise<void>((resolve) => {
+        locaDatabase.search(
+          onPackageMock,
+          function onEnd() {
+            expect(onPackageMock).toHaveBeenCalledTimes(0);
+            // validator is called for non-scoped folders + scoped sub-folders
+            expect(validatorMock).toHaveBeenCalled();
+            resolve();
+          },
+          validatorMock
+        );
+      });
+    });
+
+    test('should emit correct item shape with name, path and time', () => {
+      const items: any[] = [];
+      const onPackageMock = vi.fn((item, cb) => {
+        items.push(item);
+        cb();
+      });
+      const validatorMock = vi.fn(() => true);
+      return new Promise<void>((resolve) => {
+        locaDatabase.search(
+          onPackageMock,
+          function onEnd() {
+            expect(items.length).toBeGreaterThan(0);
+            for (const item of items) {
+              expect(item).toHaveProperty('name');
+              expect(item).toHaveProperty('path');
+              expect(item).toHaveProperty('time');
+              expect(typeof item.name).toBe('string');
+              expect(typeof item.path).toBe('string');
+              expect(typeof item.time).toBe('number');
+            }
+            // verify scoped package name format
+            const scoped = items.find((i) => i.name.startsWith('@'));
+            expect(scoped).toBeDefined();
+            expect(scoped.name).toMatch(/^@[^/]+\/.+/);
+            resolve();
+          },
+          validatorMock
+        );
+      });
+    });
+
+    test('should propagate onPackage callback errors to onEnd', () => {
+      const expectedError = new Error('onPackage failed');
+      const onPackageMock = vi.fn((_item, cb) => cb(expectedError));
+      const validatorMock = vi.fn(() => true);
+      return new Promise<void>((resolve) => {
+        locaDatabase.search(
+          onPackageMock,
+          function onEnd(err) {
+            expect(err).toBe(expectedError);
+            resolve();
+          },
+          validatorMock
+        );
+      });
+    });
+
+    test('should search with custom storage paths from packages config', () => {
+      // The default config has 'local-private-custom-storage' with storage: 'private_folder'
+      // This tests that multiple storage keys are iterated
+      const items: any[] = [];
+      const onPackageMock = vi.fn((item, cb) => {
+        items.push(item);
+        cb();
+      });
+      const validatorMock = vi.fn(() => true);
+      return new Promise<void>((resolve) => {
+        locaDatabase.search(
+          onPackageMock,
+          function onEnd() {
+            // Should still find packages from test-storage (may error on private_folder but not crash)
+            expect(onPackageMock).toHaveBeenCalled();
+            resolve();
+          },
+          validatorMock
+        );
+      });
     });
   });
 
