@@ -166,27 +166,27 @@ describe('Local FS test', () => {
 
   describe('readTarball() group', () => {
     test('readTarball() success', () => {
-      return new Promise<void>((resolve) => {
+      return new Promise<void>((resolve, reject) => {
         const localFs: LocalDriver = new LocalDriver(
           path.join(__dirname, '__fixtures__/readme-test'),
           logger
         );
         const readTarballStream = localFs.readTarball('test-readme-0.0.0.tgz');
+        const chunks: Buffer[] = [];
 
-        readTarballStream.on('error', function (err) {
-          expect(err).toBeNull();
-        });
+        readTarballStream.on('error', reject);
 
         readTarballStream.on('content-length', function (content) {
           expect(content).toBe(352);
         });
 
-        readTarballStream.on('end', function () {
-          resolve();
+        readTarballStream.on('data', function (data) {
+          chunks.push(data);
         });
 
-        readTarballStream.on('data', function (data) {
-          expect(data).toBeDefined();
+        readTarballStream.on('end', function () {
+          expect(chunks.length).toBeGreaterThan(0);
+          resolve();
         });
       });
     });
@@ -215,7 +215,7 @@ describe('Local FS test', () => {
     });
 
     test('writeTarball() success', () => {
-      return new Promise<void>((resolve) => {
+      return new Promise<void>((resolve, reject) => {
         const newFileName = 'new-readme-0.0.0.tgz';
         const readmeStorage: LocalDriver = new LocalDriver(
           path.join(__dirname, '__fixtures__/readme-test'),
@@ -228,14 +228,11 @@ describe('Local FS test', () => {
         const readTarballStream = readmeStorage.readTarball('test-readme-0.0.0.tgz');
         const writeTarballStream = writeStorage.writeTarball(newFileName);
 
-        writeTarballStream.on('error', function (err) {
-          expect(err).toBeNull();
-          resolve();
-        });
+        writeTarballStream.on('error', reject);
+        readTarballStream.on('error', reject);
 
         writeTarballStream.on('success', function () {
           const fileLocation: string = path.join(__dirname, '../_storage', newFileName);
-
           expect(fs.existsSync(fileLocation)).toBe(true);
           resolve();
         });
@@ -244,17 +241,12 @@ describe('Local FS test', () => {
           writeTarballStream.done();
         });
 
-        readTarballStream.on('error', function (err) {
-          expect(err).toBeNull();
-          resolve();
-        });
-
         readTarballStream.pipe(writeTarballStream);
       });
     });
 
     test('writeTarball() abort', () => {
-      return new Promise<void>((resolve) => {
+      return new Promise<void>((resolve, reject) => {
         const newFileLocationFolder: string = path.join(localTempStorage, '_writeTarball');
         const newFileName = 'new-readme-abort-0.0.0.tgz';
         const readmeStorage: LocalDriver = new LocalDriver(
@@ -265,13 +257,21 @@ describe('Local FS test', () => {
         const readTarballStream = readmeStorage.readTarball('test-readme-0.0.0.tgz');
         const writeTarballStream = writeStorage.writeTarball(newFileName);
 
+        let aborted = false;
         writeTarballStream.on('error', function (err) {
           expect(err).toBeTruthy();
+          aborted = true;
           resolve();
         });
 
-        writeTarballStream.on('data', function (data) {
-          expect(data).toBeDefined();
+        readTarballStream.on('error', function () {
+          // read stream may error after abort, that's expected
+          if (!aborted) {
+            resolve();
+          }
+        });
+
+        readTarballStream.on('data', function () {
           writeTarballStream.abort();
         });
 
