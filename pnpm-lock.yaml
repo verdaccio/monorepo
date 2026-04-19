@@ -83,13 +83,13 @@ importers:
         specifier: workspace:1.0.2
         version: link:../deprecated-types
       vite:
-        specifier: ^8.0.8
+        specifier: 8.0.8
         version: 8.0.8(@types/node@14.18.0)
       vite-plugin-dts:
-        specifier: ^4.5.4
+        specifier: 4.5.4
         version: 4.5.4(@types/node@14.18.0)(typescript@5.9.3)(vite@8.0.8(@types/node@14.18.0))
       vitest:
-        specifier: ^4.1.4
+        specifier: 4.1.4
         version: 4.1.4(@types/node@14.18.0)(jsdom@16.7.0)(vite@8.0.8(@types/node@14.18.0))
 
   core/streams:
@@ -98,13 +98,13 @@ importers:
         specifier: workspace:1.0.2
         version: link:../deprecated-types
       vite:
-        specifier: ^8.0.8
+        specifier: 8.0.8
         version: 8.0.8(@types/node@14.18.0)
       vite-plugin-dts:
-        specifier: ^4.5.4
+        specifier: 4.5.4
         version: 4.5.4(@types/node@14.18.0)(typescript@5.9.3)(vite@8.0.8(@types/node@14.18.0))
       vitest:
-        specifier: ^4.1.4
+        specifier: 4.1.4
         version: 4.1.4(@types/node@14.18.0)(jsdom@16.7.0)(vite@8.0.8(@types/node@14.18.0))
 
   e2e/auth-memory:
@@ -185,13 +185,13 @@ importers:
         specifier: workspace:1.0.2
         version: link:../../core/deprecated-types
       vite:
-        specifier: ^8.0.8
+        specifier: 8.0.8
         version: 8.0.8(@types/node@14.18.0)
       vite-plugin-dts:
-        specifier: ^4.5.4
+        specifier: 4.5.4
         version: 4.5.4(@types/node@14.18.0)(typescript@5.9.3)(vite@8.0.8(@types/node@14.18.0))
       vitest:
-        specifier: ^4.1.4
+        specifier: 4.1.4
         version: 4.1.4(@types/node@14.18.0)(jsdom@16.7.0)(vite@8.0.8(@types/node@14.18.0))
 
   plugins/local-storage:
@@ -222,13 +222,13 @@ importers:
         version: 1.0.4
     devDependencies:
       '@types/express':
-        specifier: ^4.17.17
+        specifier: 4.17.17
         version: 4.17.17
       '@types/minimatch':
-        specifier: ^3.0.3
+        specifier: 3.0.5
         version: 3.0.5
       '@types/node':
-        specifier: ^20.5.8
+        specifier: 20.5.8
         version: 20.5.8
       '@verdaccio/config':
         specifier: 8.0.0-next-8.29
@@ -237,19 +237,19 @@ importers:
         specifier: 12.0.0-next-7.5
         version: 12.0.0-next-7.5
       minimatch:
-        specifier: ^4.2.5
+        specifier: 4.2.5
         version: 4.2.5
       rmdir-sync:
-        specifier: ^1.0.1
+        specifier: 1.0.1
         version: 1.0.1
       vite:
-        specifier: ^8.0.8
+        specifier: 8.0.8
         version: 8.0.8(@types/node@20.5.8)
       vite-plugin-dts:
-        specifier: ^4.5.4
+        specifier: 4.5.4
         version: 4.5.4(@types/node@20.5.8)(typescript@5.9.3)(vite@8.0.8(@types/node@20.5.8))
       vitest:
-        specifier: ^4.1.4
+        specifier: 4.1.4
         version: 4.1.4(@types/node@20.5.8)(jsdom@16.7.0)(vite@8.0.8(@types/node@20.5.8))
 
   plugins/local-storage-legacy:
@@ -280,28 +280,28 @@ importers:
         version: 1.0.4
     devDependencies:
       '@types/minimatch':
-        specifier: ^3.0.3
+        specifier: 3.0.5
         version: 3.0.5
       '@types/node':
-        specifier: ^20.5.8
+        specifier: 20.5.8
         version: 20.5.8
       '@verdaccio/legacy-types':
         specifier: workspace:1.0.2
         version: link:../../core/deprecated-types
       minimatch:
-        specifier: ^4.2.5
+        specifier: 4.2.5
         version: 4.2.5
       rmdir-sync:
-        specifier: ^1.0.1
+        specifier: 1.0.1
         version: 1.0.1
       vite:
-        specifier: ^8.0.8
+        specifier: 8.0.8
         version: 8.0.8(@types/node@20.5.8)
       vite-plugin-dts:
-        specifier: ^4.5.4
+        specifier: 4.5.4
         version: 4.5.4(@types/node@20.5.8)(typescript@5.9.3)(vite@8.0.8(@types/node@20.5.8))
       vitest:
-        specifier: ^4.1.4
+        specifier: 4.1.4
         version: 4.1.4(@types/node@20.5.8)(jsdom@16.7.0)(vite@8.0.8(@types/node@20.5.8))
 
   plugins/memory:
@@ -320,13 +320,13 @@ importers:
         specifier: workspace:1.0.2
         version: link:../../core/deprecated-types
       vite:
-        specifier: ^8.0.8
+        specifier: 8.0.8
         version: 8.0.8(@types/node@14.18.0)
       vite-plugin-dts:
-        specifier: ^4.5.4
+        specifier: 4.5.4
         version: 4.5.4(@types/node@14.18.0)(typescript@5.9.3)(vite@8.0.8(@types/node@14.18.0))
       vitest:
-        specifier: ^4.1.4
+        specifier: 4.1.4
         version: 4.1.4(@types/node@14.18.0)(jsdom@16.7.0)(vite@8.0.8(@types/node@14.18.0))
 
   tools/eslint:
@@ -3032,11 +3032,6 @@ packages:
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
 
-  nanoid@3.3.6:
-    resolution: {integrity: sha512-BGcqMMJuToF7i1rt+2PWSNVnWIkGCU78jBG3RxO/bZlnZPK2Cmi2QaffxGO/2RvWi9sL+FAiRiXMgsyxQ1DIDA==}
-    engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
-    hasBin: true
-
   napi-postinstall@0.3.4:
     resolution: {integrity: sha512-PHI5f1O0EP5xJ9gQmFGMS6IZcrVvTjpXjz7Na41gTE7eE2hK11lg04CECCYEEjdc17EV4DO+fkGEtt7TpTaTiQ==}
     engines: {node: ^12.20.0 || ^14.18.0 || >=16.0.0}
@@ -3305,10 +3300,6 @@ packages:
   possible-typed-array-names@1.0.0:
     resolution: {integrity: sha512-d7Uw+eZoloe0EHDIYoe+bQ5WXnGMOpmiZFTuMWCwpjzzkL2nTjcKiAk4hh8TjnGye2TwWOk3UXucZ+3rbmBa8Q==}
     engines: {node: '>= 0.4'}
-
-  postcss@8.4.31:
-    resolution: {integrity: sha512-PS08Iboia9mts/2ygV3eLpY5ghnUcfLV/EXTOW1E2qYxJKGGBUtNjN76FYHnMs36RmARn41bC0AZmn+rR0OVpQ==}
-    engines: {node: ^10 || ^12 || >=14}
 
   postcss@8.5.10:
     resolution: {integrity: sha512-pMMHxBOZKFU6HgAZ4eyGnwXF/EvPGGqUr0MnZ5+99485wwW41kW91A4LOGxSHhgugZmSChL5AlElNdwlNgcnLQ==}
@@ -3625,10 +3616,6 @@ packages:
 
   sonic-boom@4.2.1:
     resolution: {integrity: sha512-w6AxtubXa2wTXAUsZMMWERrsIRAdrK0Sc+FUytWvYAhBJLyuI4llrMIC1DtlNSdI99EI86KZum2MMq3EAZlF9Q==}
-
-  source-map-js@1.0.2:
-    resolution: {integrity: sha512-R0XvVJ9WusLiqTCEiGCmICCMplcCkIwwR11mOSD9CR5u+IXYdiseeEuXCVAjS54zqwkLcPNnmU4OeJ6tUrWhDw==}
-    engines: {node: '>=0.10.0'}
 
   source-map-js@1.2.1:
     resolution: {integrity: sha512-UXWMKhLOwVKb728IUtQPXxfYU+usdybtUrK/8uGE8CQMvrhOpwvzDBwj0QhSL7MQc7vIsISBG8VQ8+IDQxpfQA==}
@@ -4848,7 +4835,7 @@ snapshots:
     dependencies:
       '@types/estree': 1.0.8
       estree-walker: 2.0.2
-      picomatch: 4.0.3
+      picomatch: 4.0.4
 
   '@rushstack/node-core-library@5.23.1(@types/node@14.18.0)':
     dependencies:
@@ -5486,7 +5473,7 @@ snapshots:
       '@vue/shared': 3.2.22
       estree-walker: 2.0.2
       magic-string: 0.25.7
-      postcss: 8.4.31
+      postcss: 8.5.10
       source-map: 0.6.1
 
   '@vue/compiler-ssr@3.2.22':
@@ -7399,8 +7386,6 @@ snapshots:
 
   nanoid@3.3.11: {}
 
-  nanoid@3.3.6: {}
-
   napi-postinstall@0.3.4: {}
 
   natural-compare@1.4.0: {}
@@ -7655,12 +7640,6 @@ snapshots:
       semver-compare: 1.0.0
 
   possible-typed-array-names@1.0.0: {}
-
-  postcss@8.4.31:
-    dependencies:
-      nanoid: 3.3.6
-      picocolors: 1.1.1
-      source-map-js: 1.0.2
 
   postcss@8.5.10:
     dependencies:
@@ -8021,8 +8000,6 @@ snapshots:
   sonic-boom@4.2.1:
     dependencies:
       atomic-sleep: 1.0.0
-
-  source-map-js@1.0.2: {}
 
   source-map-js@1.2.1: {}
 
@@ -8562,7 +8539,7 @@ snapshots:
       magic-string: 0.30.21
       obug: 2.1.1
       pathe: 2.0.3
-      picomatch: 4.0.3
+      picomatch: 4.0.4
       std-env: 4.1.0
       tinybench: 2.9.0
       tinyexec: 1.1.1
@@ -8590,7 +8567,7 @@ snapshots:
       magic-string: 0.30.21
       obug: 2.1.1
       pathe: 2.0.3
-      picomatch: 4.0.3
+      picomatch: 4.0.4
       std-env: 4.1.0
       tinybench: 2.9.0
       tinyexec: 1.1.1
