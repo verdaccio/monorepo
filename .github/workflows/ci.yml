@@ -22,30 +22,9 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  prepare:
-    runs-on: ubuntu-latest
-    name: setup verdaccio
-    services:
-      verdaccio:
-        image: verdaccio/verdaccio:6
-        ports:
-          - 4873:4873
-    steps:
-    - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
-    - name: Use Node
-      uses: actions/setup-node@65d868f8d4d85d7d4abb7de0875cde3fcc8798f5
-      with:
-        node-version-file: '.nvmrc'
-    - name: Install pnpm
-      run: |
-        corepack enable
-        corepack prepare --activate pnpm@latest-8
-    - name: Install
-      run: pnpm install --registry http://localhost:4873
   lint:
     runs-on: ubuntu-latest
     name: Lint
-    needs: prepare
     steps:
       - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
       - name: Use Node
