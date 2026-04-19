@@ -1,5 +1,6 @@
 import { afterAll, beforeAll, describe, expect, test } from 'vitest';
 
+import { constants } from '@verdaccio/core';
 import { allTests, createNpmAdapter, runAll } from '@verdaccio/e2e-cli';
 import {
   ConfigBuilder,
@@ -7,6 +8,8 @@ import {
   startRegistry,
   stopRegistry,
 } from '@verdaccio/e2e-shared';
+
+const { ROLES } = constants;
 
 let registry: RegistryInstance;
 
@@ -17,13 +20,13 @@ describe('auth-memory E2E', () => {
         .addStorage('./storage')
         .addUplink('npmjs', { url: 'https://registry.npmjs.org/' })
         .addPackageAccess('@*/*', {
-          access: ['$all'],
-          publish: ['$authenticated'],
+          access: [ROLES.$ALL],
+          publish: [ROLES.$AUTH],
           proxy: ['npmjs'],
         })
         .addPackageAccess('**', {
-          access: ['$all'],
-          publish: ['$authenticated'],
+          access: [ROLES.$ALL],
+          publish: [ROLES.$AUTH],
           proxy: ['npmjs'],
         })
         .addAuth({

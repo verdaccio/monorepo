@@ -4,8 +4,10 @@ import getPort from 'get-port';
 import path from 'path';
 
 import { ConfigBuilder } from '@verdaccio/config';
-import { fileUtils } from '@verdaccio/core';
+import { constants, fileUtils } from '@verdaccio/core';
 import { ping } from '@verdaccio/registry-cli';
+
+const { ROLES } = constants;
 
 export interface RegistryInstance {
   url: string;
@@ -58,13 +60,13 @@ function buildDefaultConfig(storagePath: string, htpasswdPath: string): ConfigBu
     .addStorage(storagePath)
     .addUplink('npmjs', { url: 'https://registry.npmjs.org/' })
     .addPackageAccess('@*/*', {
-      access: ['$all'],
-      publish: ['$authenticated'],
+      access: [ROLES.$ALL],
+      publish: [ROLES.$AUTH],
       proxy: ['npmjs'],
     })
     .addPackageAccess('**', {
-      access: ['$all'],
-      publish: ['$authenticated'],
+      access: [ROLES.$ALL],
+      publish: [ROLES.$AUTH],
       proxy: ['npmjs'],
     })
     .addAuth({ htpasswd: { file: htpasswdPath, max_users: 100 } })

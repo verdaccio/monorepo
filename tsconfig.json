@@ -12,6 +12,6 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true
   },
-  "include": ["plugins/**/*.ts", "tools/**/*.ts", "core/**/*.ts", "types/*.d.ts"],
+  "include": ["plugins/**/*.ts", "tools/**/*.ts", "core/**/*.ts", "e2e/**/*.ts", "types/*.d.ts"],
   "exclude": ["**/lib", "node_modules", "**/node_modules", "**/coverage"]
 }
