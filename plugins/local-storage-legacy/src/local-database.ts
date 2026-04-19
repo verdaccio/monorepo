@@ -7,15 +7,12 @@ import Path from 'path';
 import sanitize from 'sanitize-filename';
 
 import { errorUtils } from '@verdaccio/core';
-import type { searchUtils } from '@verdaccio/core';
 import type { Callback, Config, Logger, StorageList } from '@verdaccio/types';
 
 import LocalDriver, { noSuchFile } from './local-fs';
 import { loadPrivatePackages } from './pkg-utils';
-import { searchUplinks } from './remote-search';
 import TokenActions from './token';
 import type { LocalStorage } from './types';
-import { findPackages, getFileStats } from './utils';
 
 const DEPRECATED_DB_NAME = '.sinopia-db.json';
 const DB_NAME = '.verdaccio-db.json';
@@ -28,7 +25,6 @@ class LocalDatabase extends TokenActions {
   public data: LocalStorage;
   public config: Config;
   public locked: boolean;
-  private remoteSearch: boolean;
 
   public constructor(config: Config, logger: Logger) {
     super(config);
@@ -36,7 +32,6 @@ class LocalDatabase extends TokenActions {
     this.path = this._buildStoragePath(config);
     this.logger = logger;
     this.locked = false;
-    this.remoteSearch = (config as any).remoteSearch === true;
     this.data = this._fetchLocalPackages();
     this._sync();
   }
@@ -149,113 +144,6 @@ class LocalDatabase extends TokenActions {
     processSearch()
       .then(() => onEnd(null))
       .catch((err) => onEnd(err));
-  }
-
-  public async searchAsync(query: searchUtils.SearchQuery): Promise<searchUtils.SearchItem[]> {
-    const results: searchUtils.SearchItem[] = [];
-    const storages = this._getCustomPackageLocalStorages();
-    const base = Path.dirname(this.config.self_path);
-    const storageKeys = Object.keys(storages);
-
-    for (const storage of storageKeys) {
-      const position = storageKeys.indexOf(storage);
-      const base2 = Path.join(position !== 0 ? storageKeys[0] : '');
-      const storagePath = Path.resolve(base, base2, storage);
-
-      try {
-        const packages = await findPackages(storagePath, () => true);
-
-        for (const pkg of packages) {
-          if (query.text && !pkg.name.match(query.text)) {
-            continue;
-          }
-
-          let time: number | undefined;
-          try {
-            const stats = await getFileStats(pkg.path);
-            time = stats.mtime.getTime();
-          } catch {
-            // package dir may have been removed
-          }
-
-          const isPrivate = this.data.list.includes(pkg.name);
-          results.push({
-            package: {
-              name: pkg.name,
-              path: pkg.path,
-              time,
-            },
-            verdaccioPrivate: isPrivate,
-            verdaccioPkgCached: !isPrivate,
-            score: {
-              final: 1,
-              detail: { quality: 1, popularity: 1, maintenance: 0 },
-            },
-          });
-        }
-      } catch (err) {
-        debug('searchAsync: error scanning %o: %o', storagePath, err);
-      }
-    }
-
-    const from = query.from ?? 0;
-    const size = query.size ?? 20;
-    return results.slice(from, from + size);
-  }
-
-  public async searchWithUplinks(
-    query: searchUtils.SearchQuery
-  ): Promise<searchUtils.SearchItem[]> {
-    const localResults = await this.searchAsync(query);
-
-    if (!this.remoteSearch || !this.config.uplinks) {
-      return localResults;
-    }
-
-    const uplinkNames = this._getRelevantUplinks();
-    if (uplinkNames.length === 0) {
-      return localResults;
-    }
-
-    const remoteResults = await searchUplinks(
-      this.config.uplinks as any,
-      uplinkNames,
-      query,
-      this.logger
-    );
-
-    return this._mergeResults(localResults, remoteResults);
-  }
-
-  private _getRelevantUplinks(): string[] {
-    const uplinkSet = new Set<string>();
-    const { packages, uplinks } = this.config;
-
-    if (!packages || !uplinks) {
-      return [];
-    }
-
-    for (const pattern of Object.keys(packages)) {
-      const pkgConfig = packages[pattern];
-      if (pkgConfig.proxy) {
-        for (const proxyName of pkgConfig.proxy) {
-          if (uplinks[proxyName]) {
-            uplinkSet.add(proxyName);
-          }
-        }
-      }
-    }
-
-    return Array.from(uplinkSet);
-  }
-
-  private _mergeResults(
-    local: searchUtils.SearchItem[],
-    remote: searchUtils.SearchItem[]
-  ): searchUtils.SearchItem[] {
-    const localNames = new Set(local.map((r) => r.package.name));
-    const uniqueRemote = remote.filter((r) => !localNames.has(r.package.name));
-    return [...local, ...uniqueRemote];
   }
 
   public remove(name: string, cb: Callback): void {
