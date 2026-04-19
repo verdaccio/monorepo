@@ -40,7 +40,7 @@
     "ci:version": "npm run ci:version:changeset && npm run ci:version:install",
     "ci:version:install": "pnpm install --frozen-lockfile=false",
     "ci:publish": "changeset publish",
-    "test": "pnpm --filter './core/**' --filter './plugins/**' --filter './tools/**' test",
+    "test": "pnpm -r --filter './core/**' --filter './plugins/**' --filter './tools/**' --workspace-concurrency=1 run test",
     "test:e2e": "pnpm --filter './e2e/**' test",
     "ts:ref": "update-ts-references --discardComments"
   },
