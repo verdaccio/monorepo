@@ -1,5 +1,14 @@
 # Change Log
 
+## 11.3.1
+
+### Patch Changes
+
+- 5693d29: fix: typeError cjs vite
+- Updated dependencies [5693d29]
+  - @verdaccio/file-locking@10.3.3
+  - @verdaccio/streams@10.2.3
+
 ## 11.3.0
 
 ### Minor Changes

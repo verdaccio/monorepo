@@ -1,5 +1,13 @@
 # Change Log
 
+## 10.4.3
+
+### Patch Changes
+
+- 5693d29: fix: typeError cjs vite
+- Updated dependencies [5693d29]
+  - @verdaccio/streams@10.2.3
+
 ## 10.4.2
 
 ### Patch Changes
