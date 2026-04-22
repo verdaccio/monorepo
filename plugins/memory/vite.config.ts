@@ -1,4 +1,5 @@
-import { resolve } from 'path';
+import { builtinModules } from 'node:module';
+import { resolve } from 'node:path';
 import dts from 'vite-plugin-dts';
 import { defineConfig } from 'vitest/config';
 
@@ -20,7 +21,7 @@ export default defineConfig({
     },
     outDir: 'lib',
     rollupOptions: {
-      external: [/^node:/, /^@verdaccio\//, 'memory-fs', 'stream'],
+      external: [/^node:/, ...builtinModules, /^@verdaccio\//, 'memory-fs'],
       output: {
         exports: 'named',
         preserveModules: true,

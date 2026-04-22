@@ -1,4 +1,4 @@
-import fs from 'fs';
+import fs from 'node:fs';
 import locker from 'lockfile';
 
 import type { Callback } from '@verdaccio/legacy-types';

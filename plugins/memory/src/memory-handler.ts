@@ -1,5 +1,5 @@
 import MemoryFileSystem from 'memory-fs';
-import path from 'path';
+import path from 'node:path';
 
 import type { VerdaccioError } from '@verdaccio/core';
 import { errorUtils } from '@verdaccio/core';

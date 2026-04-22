@@ -1,5 +1,5 @@
-import type { TransformOptions } from 'stream';
-import { PassThrough } from 'stream';
+import type { TransformOptions } from 'node:stream';
+import { PassThrough } from 'node:stream';
 
 export interface IReadTarball {
   abort?: () => void;

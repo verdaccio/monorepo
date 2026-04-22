@@ -1,4 +1,5 @@
-import { resolve } from 'path';
+import { builtinModules } from 'node:module';
+import { resolve } from 'node:path';
 import dts from 'vite-plugin-dts';
 import { defineConfig } from 'vitest/config';
 
@@ -27,18 +28,16 @@ export default defineConfig({
     rollupOptions: {
       external: [
         /^node:/,
+        ...builtinModules,
         /^@verdaccio\//,
         'debug',
-        'fs',
         'globby',
-        'path',
         'lodash',
         'lowdb',
         'lowdb/adapters/FileAsync',
         'lowdb/adapters/Memory',
         'mkdirp',
         'sanitize-filename',
-        'stream',
       ],
       output: {
         exports: 'named',
