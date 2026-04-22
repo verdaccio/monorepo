@@ -1,4 +1,4 @@
-import { PassThrough } from 'stream';
+import { PassThrough } from 'node:stream';
 
 import type { Callback, CallbackAction, StringValue } from '../commons';
 import type { Config, Logger } from '../configuration';

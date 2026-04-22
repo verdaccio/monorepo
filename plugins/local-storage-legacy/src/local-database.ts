@@ -1,9 +1,9 @@
 import buildDebug from 'debug';
-import fs from 'fs';
 import globby from 'globby';
 import _ from 'lodash';
 import mkdirp from 'mkdirp';
-import Path from 'path';
+import fs from 'node:fs';
+import Path from 'node:path';
 import sanitize from 'sanitize-filename';
 
 import { errorUtils } from '@verdaccio/core';
