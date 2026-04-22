@@ -1,5 +1,5 @@
-import fs from 'node:fs';
 import locker from 'lockfile';
+import fs from 'node:fs';
 import path from 'node:path';
 
 export const statDir = (name: string): Promise<Error | null> => {
