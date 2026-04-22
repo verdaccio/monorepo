@@ -1,5 +1,11 @@
 # Change Log
 
+## 10.3.3
+
+### Patch Changes
+
+- 5693d29: fix: typeError cjs vite
+
 ## 10.3.2
 
 ### Patch Changes

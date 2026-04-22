@@ -1,6 +1,6 @@
 {
   "name": "verdaccio-auth-memory",
-  "version": "10.3.2",
+  "version": "10.3.3",
   "description": "Auth plugin for Verdaccio that keeps users in memory",
   "keywords": [
     "verdaccio",
@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "@types/debug": "4.1.12",
-    "@verdaccio/legacy-types": "workspace:1.0.2",
+    "@verdaccio/legacy-types": "workspace:1.0.3",
     "vite": "8.0.8",
     "vite-plugin-dts": "4.5.4",
     "vitest": "4.1.4"

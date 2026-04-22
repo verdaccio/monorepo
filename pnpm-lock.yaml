@@ -83,7 +83,7 @@ importers:
         version: 1.0.4
     devDependencies:
       '@verdaccio/legacy-types':
-        specifier: workspace:1.0.2
+        specifier: workspace:1.0.3
         version: link:../deprecated-types
       vite:
         specifier: 8.0.8
@@ -98,7 +98,7 @@ importers:
   core/streams:
     devDependencies:
       '@verdaccio/legacy-types':
-        specifier: workspace:1.0.2
+        specifier: workspace:1.0.3
         version: link:../deprecated-types
       vite:
         specifier: 8.0.8
@@ -185,7 +185,7 @@ importers:
         specifier: 4.1.12
         version: 4.1.12
       '@verdaccio/legacy-types':
-        specifier: workspace:1.0.2
+        specifier: workspace:1.0.3
         version: link:../../core/deprecated-types
       vite:
         specifier: 8.0.8
@@ -203,10 +203,10 @@ importers:
         specifier: 8.0.0-next-8.29
         version: 8.0.0-next-8.29
       '@verdaccio/file-locking':
-        specifier: workspace:10.3.2
+        specifier: workspace:10.3.3
         version: link:../../core/file-locking
       '@verdaccio/streams':
-        specifier: workspace:10.2.2
+        specifier: workspace:10.2.3
         version: link:../../core/streams
       debug:
         specifier: 4.4.3
@@ -258,14 +258,14 @@ importers:
         specifier: 8.0.0-next-8.29
         version: 8.0.0-next-8.29
       '@verdaccio/streams':
-        specifier: workspace:10.2.2
+        specifier: workspace:10.2.3
         version: link:../../core/streams
       memory-fs:
         specifier: 0.5.0
         version: 0.5.0
     devDependencies:
       '@verdaccio/legacy-types':
-        specifier: workspace:1.0.2
+        specifier: workspace:1.0.3
         version: link:../../core/deprecated-types
       vite:
         specifier: 8.0.8
