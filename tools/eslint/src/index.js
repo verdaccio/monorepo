@@ -1,57 +1,77 @@
 import js from '@eslint/js';
-import vitest from '@vitest/eslint-plugin';
 import prettier from 'eslint-config-prettier';
-import cypress from 'eslint-plugin-cypress';
 import importX from 'eslint-plugin-import-x';
-import react from 'eslint-plugin-react';
-import reactHooks from 'eslint-plugin-react-hooks';
-import verdaccioPlugin from 'eslint-plugin-verdaccio';
 import { defineConfig, globalIgnores } from 'eslint/config';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
-export const reactConfig = defineConfig([
-  {
-    files: ['**/*.{jsx,tsx}'],
-    plugins: {
-      react,
-      'react-hooks': reactHooks,
-    },
-    settings: {
-      react: { version: 'detect' },
-    },
-    rules: {
-      ...react.configs.recommended.rules,
-      ...reactHooks.configs.recommended.rules,
-      'react/react-in-jsx-scope': 'off',
-    },
-  },
-]);
+async function tryImport(name) {
+  try {
+    return (await import(name)).default;
+  } catch {
+    return null;
+  }
+}
 
-export const vitestConfig = defineConfig([
-  {
-    files: ['**/*.{test,spec}.{js,ts,jsx,tsx}'],
-    plugins: { vitest },
-    rules: {
-      ...vitest.configs.recommended.rules,
-    },
-  },
-]);
+const vitest = await tryImport('@vitest/eslint-plugin');
+const cypress = await tryImport('eslint-plugin-cypress');
+const react = await tryImport('eslint-plugin-react');
+const reactHooks = await tryImport('eslint-plugin-react-hooks');
+const verdaccioPlugin = await tryImport('eslint-plugin-verdaccio');
 
-export const cypressConfig = defineConfig([
-  {
-    files: ['cypress/**/*.{js,ts,jsx,tsx}'],
-    plugins: { cypress },
-    rules: {
-      ...cypress.configs.recommended.rules,
-    },
-  },
-]);
+export const reactConfig =
+  react && reactHooks
+    ? defineConfig([
+        {
+          files: ['**/*.{jsx,tsx}'],
+          plugins: {
+            react,
+            'react-hooks': reactHooks,
+          },
+          settings: {
+            react: { version: 'detect' },
+          },
+          rules: {
+            ...react.configs.recommended.rules,
+            ...reactHooks.configs.recommended.rules,
+            'react/react-in-jsx-scope': 'off',
+          },
+        },
+      ])
+    : [];
 
-const verdaccioRecommended = verdaccioPlugin.configs.recommended;
-export const verdaccioConfig = defineConfig(
-  Array.isArray(verdaccioRecommended) ? verdaccioRecommended : [verdaccioRecommended]
-);
+export const vitestConfig = vitest
+  ? defineConfig([
+      {
+        files: ['**/*.{test,spec}.{js,ts,jsx,tsx}'],
+        plugins: { vitest },
+        rules: {
+          ...vitest.configs.recommended.rules,
+        },
+      },
+    ])
+  : [];
+
+export const cypressConfig = cypress
+  ? defineConfig([
+      {
+        files: ['cypress/**/*.{js,ts,jsx,tsx}'],
+        plugins: { cypress },
+        rules: {
+          ...cypress.configs.recommended.rules,
+        },
+      },
+    ])
+  : [];
+
+export const verdaccioConfig = verdaccioPlugin
+  ? (() => {
+      const verdaccioRecommended = verdaccioPlugin.configs.recommended;
+      return defineConfig(
+        Array.isArray(verdaccioRecommended) ? verdaccioRecommended : [verdaccioRecommended]
+      );
+    })()
+  : [];
 
 export default defineConfig([
   // ---------------------------------------------
