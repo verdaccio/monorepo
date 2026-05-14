@@ -1,6 +1,6 @@
 {
   "extends": ["config:base", "helpers:pinGitHubActionDigests"],
-  "prConcurrentLimit": 2,
+  "prConcurrentLimit": 5,
   "ignoreDeps": ["eslint-plugin-verdaccio", "husky", "lint-staged"],
   "baseBranches": ["main"],
   "major": true,
@@ -44,5 +44,5 @@
       "extends": [":semanticCommitTypeAll(fix)"]
     }
   ],
-  "pinVersions": false
+  "pinVersions": true
 }
